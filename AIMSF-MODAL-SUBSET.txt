@@ -1,0 +1,32 @@
+# the 30 provisional (modal-fidelity-only) AIMS-F items, re-gated 2026-09-29
+# gate fix: a list item's own `can` no longer preempts the lead-in `shall`
+04816f41
+20ad8d94
+25b70532
+3dc72015
+40820cfe
+4e995733
+5b0c446a
+612ee9f8
+65ee65c8
+6e8d4de1
+726ba04f
+8ead2551
+8ed82895
+965e4d08
+98c385f7
+98fced09
+aa74ddac
+aad10225
+aaf67ba6
+ab6263f0
+ad956ac4
+b30e8ad2
+cc3d3b2a
+d286957e
+d3217d0b
+dd09940d
+dfe1cb56
+e412ffd4
+edb840b2
+f073235b

@@ -162,7 +162,11 @@ export function anchorForce(text) {
  */
 export function anchorForceInPassage(anchor, passage) {
   const direct = anchorForce(anchor);
-  if (direct !== "none") return direct;
+  /* NO EARLY RETURN ON `direct`. A lettered list item carrying its own `can` -- 42001 clause 6.1.2
+   * b) "is designed such that repeated AI risk assessments can produce..." -- returned "permission"
+   * here and the lead-in `shall:` two lines above was never consulted. The `can` describes the
+   * property the shall REQUIRES, so reading it as the item's force inverts the clause. Both are
+   * computed now and the STRONGER wins. */
   const hay = normForVerbatim((passage && passage.text) || "");
   const needle = normForVerbatim(anchor);
   const at = needle ? hay.indexOf(needle) : -1;
@@ -212,9 +216,13 @@ export function anchorForceInPassage(anchor, passage) {
   const startsWithMarker = LIST_MARKER_AT_START.test(needle);
   const opensListItem = startsWithMarker || LIST_MARKER_BEFORE.test(before.slice(-40));
   if (!opensListItem) return direct;
-  if (/\b(?:shall|must)\b[^:]{0,300}:/.test(before)) return "requirement";
-  if (/\bshould\b[^:]{0,300}:/.test(before)) return "recommendation";
-  return direct;
+  /* STRONGER WINS. Ranked so the comparison is explicit rather than implied by return order, and so
+   * a future force can be added without re-deriving the ordering at each call site. */
+  const RANK = { none: 0, permission: 1, recommendation: 2, requirement: 3 };
+  let inherited = "none";
+  if (/\b(?:shall|must)\b[^:]{0,300}:/.test(before)) inherited = "requirement";
+  else if (/\bshould\b[^:]{0,300}:/.test(before)) inherited = "recommendation";
+  return RANK[inherited] > RANK[direct] ? inherited : direct;
 }
 
 /** What a passage of this normative class can license, strongest first. */
@@ -1057,6 +1065,69 @@ export function groundedGateControls() {
         key_support: "where applicable, take actions to acquire the necessary competence, and evaluate the effectiveness of the actions taken",
       }, new Map([["7.2", p72]])).pass;
     }, true],
+
+    /* ============ 965e4d08: A LIST ITEM'S OWN `can` MUST NOT PREEMPT THE LEAD-IN `shall` ============
+     *
+     * The director's regression case, ruled 2026-09-29. 42001 clause 6.1.2 item b) reads "is designed
+     * such that repeated AI risk assessments CAN produce consistent, valid and comparable results".
+     * `anchorForce` saw that `can`, returned "permission", and anchorForceInPassage RETURNED THERE --
+     * so the lead-in "The organization shall define and establish an AI risk assessment process that:"
+     * was never consulted and a correct requirement item was refused.
+     *
+     * The `can` is not the item's force: it describes the property the shall requires the process to
+     * HAVE. Reading it as a permission inverts the clause. Note the fixture keeps the NOTE sentence
+     * with its own `can` and its own full stop between the lead-in and item b), because that is what
+     * the real clause contains and it is what defeated the earlier sentence-boundary test. */
+    ["a list item's own `can` does not preempt the lead-in shall (965e4d08)", () => {
+      const p612 = {
+        clause: "6.1.2", title: "AI risk assessment", normative: "shall",
+        text: "The organization shall define and establish an AI risk assessment process that: " +
+          "a) is informed by and aligned with the AI policy (see 5.2) and AI objectives (see 6.2); " +
+          "NOTE When assessing the consequences as part of 6.1.2 d) 1), the organization can utilize " +
+          "an AI system impact assessment as indicated in 6.1.4. " +
+          "b) is designed such that repeated AI risk assessments can produce consistent, valid and " +
+          "comparable results;",
+      };
+      return gateModalFidelity({
+        question_text: "What does ISO/IEC 42001 require of the AI risk assessment process?",
+        options: [{ text: "It must be designed so that repeated assessments give consistent, valid and comparable results.", is_correct: true }, { text: "Something else" }],
+        key_support_clause: "6.1.2",
+        key_support: "b) is designed such that repeated AI risk assessments can produce consistent, valid and comparable results;",
+      }, new Map([["6.1.2", p612]])).pass;
+    }, true],
+
+    /* AND THE NEGATIVE HALF: the loosening must not let a permission license a requirement wherever
+     * the anchor is NOT a list item. A finished shall sentence followed by ordinary prose leaves the
+     * anchor preceded by prose rather than by a marker, so condition 2 fails and the gate still
+     * refuses. Without this the fix is indistinguishable from switching the gate off on any passage
+     * whose class is shall. */
+    ["prose after a finished shall sentence does NOT inherit it", () => {
+      const p = {
+        clause: "9.9", title: "Fixture", normative: "shall",
+        text: "The organization shall retain documented information as evidence. " +
+          "The organization can additionally publish a summary of that evidence externally.",
+      };
+      return gateModalFidelity({
+        question_text: "What does the standard require?",
+        options: [{ text: "The organization must publish a summary of the evidence externally.", is_correct: true }, { text: "Other" }],
+        key_support_clause: "9.9",
+        key_support: "The organization can additionally publish a summary of that evidence externally.",
+      }, new Map([["9.9", p]])).pass;
+    }, false],
+
+    /* a list item with no lead-in modal at all keeps its own force -- the inheritance needs a lead-in */
+    ["a list item under a colon with NO modal keeps its own permission", () => {
+      const p = {
+        clause: "9.8", title: "Fixture", normative: "shall",
+        text: "The organization considers the following: a) it can extend the guidance as needed;",
+      };
+      return gateModalFidelity({
+        question_text: "What does the standard require?",
+        options: [{ text: "The organization must extend the guidance.", is_correct: true }, { text: "Other" }],
+        key_support_clause: "9.8",
+        key_support: "a) it can extend the guidance as needed;",
+      }, new Map([["9.8", p]])).pass;
+    }, false],
     ["a passage with no upstream shall still cannot license a must", () => {
       const soft2 = { clause: "B.1", title: "General", normative: "can",
         text: "The organization can extend or modify the implementation guidance or define their own " +

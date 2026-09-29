@@ -1,0 +1,409 @@
+{
+ "min_primary": 4,
+ "total_to_generate": 119,
+ "pick": {
+  "task": "1.3",
+  "shortfall": 7,
+  "primary": 6,
+  "supporting": 18,
+  "statement": "Describe the AI system life cycle and why it anchors AIMS obligations"
+ },
+ "tied_at_that_shortfall": [
+  {
+   "task": "1.3",
+   "primary": 6
+  },
+  {
+   "task": "4.7",
+   "primary": 6
+  }
+ ],
+ "excluded_for_too_few_primaries": [],
+ "per_task": [
+  {
+   "code": "1.1",
+   "keep": 3,
+   "drop": 5,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 5,
+   "primary": 5,
+   "supporting": 8
+  },
+  {
+   "code": "1.2",
+   "keep": 2,
+   "drop": 5,
+   "provisional": 1,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 6,
+   "primary": 1,
+   "supporting": 6
+  },
+  {
+   "code": "1.3",
+   "keep": 1,
+   "drop": 7,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 7,
+   "primary": 6,
+   "supporting": 18
+  },
+  {
+   "code": "1.4",
+   "keep": 2,
+   "drop": 4,
+   "provisional": 1,
+   "unexamined": 0,
+   "total": 7,
+   "generate": 6,
+   "primary": 11,
+   "supporting": 10
+  },
+  {
+   "code": "1.5",
+   "keep": 2,
+   "drop": 5,
+   "provisional": 1,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 6,
+   "primary": 13,
+   "supporting": 9
+  },
+  {
+   "code": "1.6",
+   "keep": 3,
+   "drop": 4,
+   "provisional": 1,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 5,
+   "primary": 12,
+   "supporting": 4
+  },
+  {
+   "code": "2.1",
+   "keep": 3,
+   "drop": 5,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 5,
+   "primary": 2,
+   "supporting": 2
+  },
+  {
+   "code": "2.2",
+   "keep": 4,
+   "drop": 4,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 4,
+   "primary": 2,
+   "supporting": 5
+  },
+  {
+   "code": "2.3",
+   "keep": 8,
+   "drop": 0,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 0,
+   "primary": 8,
+   "supporting": 7
+  },
+  {
+   "code": "2.4",
+   "keep": 7,
+   "drop": 1,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 1,
+   "primary": 3,
+   "supporting": 4
+  },
+  {
+   "code": "2.5",
+   "keep": 6,
+   "drop": 1,
+   "provisional": 1,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 2,
+   "primary": 21,
+   "supporting": 4
+  },
+  {
+   "code": "2.6",
+   "keep": 6,
+   "drop": 2,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 2,
+   "primary": 7,
+   "supporting": 6
+  },
+  {
+   "code": "2.7",
+   "keep": 8,
+   "drop": 0,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 0,
+   "primary": 3,
+   "supporting": 3
+  },
+  {
+   "code": "2.8",
+   "keep": 2,
+   "drop": 5,
+   "provisional": 1,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 6,
+   "primary": 2,
+   "supporting": 4
+  },
+  {
+   "code": "3.1",
+   "keep": 5,
+   "drop": 2,
+   "provisional": 1,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 3,
+   "primary": 3,
+   "supporting": 10
+  },
+  {
+   "code": "3.2",
+   "keep": 7,
+   "drop": 1,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 1,
+   "primary": 3,
+   "supporting": 2
+  },
+  {
+   "code": "3.3",
+   "keep": 7,
+   "drop": 1,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 1,
+   "primary": 17,
+   "supporting": 1
+  },
+  {
+   "code": "3.4",
+   "keep": 6,
+   "drop": 2,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 2,
+   "primary": 3,
+   "supporting": 3
+  },
+  {
+   "code": "3.5",
+   "keep": 5,
+   "drop": 3,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 3,
+   "primary": 9,
+   "supporting": 2
+  },
+  {
+   "code": "3.6",
+   "keep": 2,
+   "drop": 1,
+   "provisional": 5,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 6,
+   "primary": 12,
+   "supporting": 4
+  },
+  {
+   "code": "3.7",
+   "keep": 2,
+   "drop": 6,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 6,
+   "primary": 10,
+   "supporting": 10
+  },
+  {
+   "code": "3.8",
+   "keep": 7,
+   "drop": 1,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 1,
+   "primary": 4,
+   "supporting": 3
+  },
+  {
+   "code": "4.1",
+   "keep": 5,
+   "drop": 3,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 3,
+   "primary": 6,
+   "supporting": 8
+  },
+  {
+   "code": "4.2",
+   "keep": 7,
+   "drop": 1,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 1,
+   "primary": 2,
+   "supporting": 3
+  },
+  {
+   "code": "4.3",
+   "keep": 5,
+   "drop": 3,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 3,
+   "primary": 10,
+   "supporting": 13
+  },
+  {
+   "code": "4.4",
+   "keep": 3,
+   "drop": 4,
+   "provisional": 1,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 5,
+   "primary": 13,
+   "supporting": 20
+  },
+  {
+   "code": "4.5",
+   "keep": 6,
+   "drop": 2,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 2,
+   "primary": 9,
+   "supporting": 11
+  },
+  {
+   "code": "4.6",
+   "keep": 5,
+   "drop": 2,
+   "provisional": 1,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 3,
+   "primary": 10,
+   "supporting": 11
+  },
+  {
+   "code": "4.7",
+   "keep": 1,
+   "drop": 6,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 7,
+   "generate": 7,
+   "primary": 6,
+   "supporting": 10
+  },
+  {
+   "code": "5.1",
+   "keep": 6,
+   "drop": 1,
+   "provisional": 1,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 2,
+   "primary": 5,
+   "supporting": 3
+  },
+  {
+   "code": "5.2",
+   "keep": 5,
+   "drop": 3,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 3,
+   "primary": 2,
+   "supporting": 1
+  },
+  {
+   "code": "5.3",
+   "keep": 7,
+   "drop": 1,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 1,
+   "primary": 3,
+   "supporting": 1
+  },
+  {
+   "code": "5.4",
+   "keep": 7,
+   "drop": 1,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 1,
+   "primary": 1,
+   "supporting": 10
+  },
+  {
+   "code": "5.5",
+   "keep": 3,
+   "drop": 5,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 5,
+   "primary": 36,
+   "supporting": 16
+  },
+  {
+   "code": "5.6",
+   "keep": 3,
+   "drop": 5,
+   "provisional": 0,
+   "unexamined": 0,
+   "total": 8,
+   "generate": 5,
+   "primary": 10,
+   "supporting": 31
+  }
+ ]
+}

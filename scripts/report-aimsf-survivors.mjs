@@ -53,6 +53,8 @@ const FLOOR = 8;
 
 const BASE = join(ROOT, "ANCHOR-OR-FLAG-AIMS-F-all-secure.json");
 const RERUN = join(ROOT, "ANCHOR-OR-FLAG-AIMS-F-all-secure-rerun.json");
+const MODAL = join(ROOT, "ANCHOR-OR-FLAG-AIMS-F-all-secure-modal.json");
+const RULINGS = join(ROOT, "DIRECTOR-RULINGS-AIMSF.json");
 if (!existsSync(BASE)) {
   console.error("missing " + BASE);
   console.error("Run: node scripts/anchor-existing-items.mjs --cert=AIMS-F --all-secure");
@@ -79,6 +81,21 @@ if (orphans.length) {
   console.error("ABORT: " + orphans.length + " re-run item(s) are not in the baseline, so the merge " +
     "would ADD items rather than update them: " + orphans.slice(0, 6).join(", "));
   process.exit(2);
+}
+/* ---- layer 3: the modal re-gate, highest precedence. Same orphan check: a re-gate may UPDATE a
+ * verdict and must never ADD an item, or the merge would quietly change the denominator. ---- */
+let modalItems = [];
+if (existsSync(MODAL)) {
+  const mj = JSON.parse(readFileSync(MODAL, "utf8"));
+  modalItems = mj.items || [];
+  for (const it of modalItems) {
+    if (!merged.has(it.prefix)) { orphans.push(it.prefix); continue; }
+    merged.set(it.prefix, { ...it, decided_by: "modal re-gate" });
+  }
+  if (orphans.length) {
+    console.error("ABORT: " + orphans.length + " modal re-gate item(s) are not in the baseline.");
+    process.exit(2);
+  }
 }
 const items = [...merged.values()];
 if (items.length !== baseItems.length) {
@@ -146,7 +163,54 @@ const verdict = (it) => {
   }
 }
 
-const rows = items.map((it) => { const r = verdict(it); return { ...it, verdict: r.v, verdict_why: r.why }; });
+/* ============ THE MECHANICAL VERDICT FIRST, THEN THE DIRECTOR'S OVERLAY ============
+ *
+ * Both are kept on every row. A ruled verdict that replaced the measured one in place would make the
+ * report unable to say which items a human decided and which the instruments did -- and those are
+ * different kinds of fact. `ruled_by` is set only where the overlay actually CHANGED something.
+ *
+ * An override whose mechanical verdict already agrees is recorded as agreeing rather than dropped:
+ * an override nobody needed is worth seeing, because it means either the instruments caught up or the
+ * ruling was about something else. */
+const rulings = existsSync(RULINGS) ? JSON.parse(readFileSync(RULINGS, "utf8")) : { overrides: [] };
+const overrideOf = new Map((rulings.overrides || []).map((o) => [o.prefix, o]));
+const UNHELD_DROP = Boolean(rulings.unexamined_unheld_sources);
+const rows = items.map((it) => {
+  const r = verdict(it);
+  const row = { ...it, mech_verdict: r.v, mech_why: r.why, verdict: r.v, verdict_why: r.why,
+    ruled_by: null };
+  /* the unheld-source ruling: drop, and replace from held sources */
+  if (UNHELD_DROP && r.v === "unexamined" &&
+      /source the library does not hold/.test(r.why)) {
+    row.verdict = "drop";
+    row.verdict_why = "RULED drop: the key rests on a source the library does not hold; replace from " +
+      "held sources";
+    row.ruled_by = "director ruling 2026-09-29 (unheld sources)";
+  }
+  const o = overrideOf.get(it.prefix);
+  if (o) {
+    if (o.verdict === row.verdict) {
+      row.ruled_by = "director ruling 2026-09-29 (agrees with the instruments)";
+      row.ruled_why = o.why;
+    } else {
+      row.verdict = o.verdict;
+      row.verdict_why = "RULED " + o.verdict + ": " + o.why;
+      row.ruled_by = "director ruling 2026-09-29";
+      row.ruled_why = o.why;
+    }
+  }
+  return row;
+});
+/* every override must have matched an item: a prefix that matches nothing is a typo that silently
+ * changes no verdict, and the report would look as though the ruling had been applied. */
+{
+  const unmatched = [...overrideOf.keys()].filter((p) => !rows.some((r) => r.prefix === p));
+  if (unmatched.length) {
+    console.error("ABORT: " + unmatched.length + " override prefix(es) matched no item: " +
+      unmatched.join(", "));
+    process.exit(2);
+  }
+}
 const byTask = new Map();
 for (const r of rows) {
   if (!byTask.has(r.task)) byTask.set(r.task, { keep: 0, drop: 0, provisional: 0, unexamined: 0, total: 0 });

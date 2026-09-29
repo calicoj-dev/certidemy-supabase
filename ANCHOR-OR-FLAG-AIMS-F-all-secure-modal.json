@@ -1,0 +1,1250 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "method": "anchor or flag, ALL linked passages supplied (primary + supporting) with roles labelled, code gates decide",
+ "sampled": 30,
+ "anchored": 7,
+ "flagged": 23,
+ "cannot_be_checked": 0,
+ "director_tier_ab": 2,
+ "caught_by_anchor": 2,
+ "caught_by_solver": 0,
+ "anchorable": 2,
+ "contested": 0,
+ "caught_of_anchorable": 2,
+ "solver_caught_of_contested": 0,
+ "extra_flags": 21,
+ "extra_lesser_tier": 0,
+ "items": [
+  {
+   "n": 1,
+   "prefix": "04816f41",
+   "director_tier": null,
+   "task": "3.5",
+   "attribution": null,
+   "key_claim": "The deploying organization should require/ensure the supplier delivers appropriate and adequate documentation related to the AI system.",
+   "anchor": {
+    "clause": "B.10.3",
+    "support": "The organization should ensure that the supplier of an AI system delivers appropriate and adequate documentation related to the AI system (see B.6.2.7 and B.8.2)."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.10.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+  },
+  {
+   "n": 2,
+   "prefix": "20ad8d94",
+   "director_tier": null,
+   "task": "3.5",
+   "attribution": null,
+   "key_claim": "A supplier-provided model card can be treated as potentially sufficient documentation if it is appropriate and adequate to support the organization's own risk assessment and responsible-AI approach, since no fixed document list (training data, weights) is mandated.",
+   "anchor": {
+    "clause": "B.10.3",
+    "support": "The organization should ensure that the supplier of an AI system delivers appropriate and adequate documentation related to the AI system (see B.6.2.7 and B.8.2)."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.10.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+  },
+  {
+   "n": 3,
+   "prefix": "25b70532",
+   "director_tier": null,
+   "task": "1.4",
+   "attribution": null,
+   "key_claim": "Integrated implementation of ISO/IEC 42001 alongside ISO 9001 and ISO/IEC 27001 is facilitated by the shared (harmonised/high-level) structure, but joint certification is not mandatory — maintaining separate certifications remains compliant.",
+   "anchor": {
+    "clause": "D.2",
+    "support": "Given that both ISO/IEC 27001 and the AI management systems use the high-level structure, their integrated use is facilitated and of great benefit for the organization."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the passage class (can), clause D.2 is classed can"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in D.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the passage class (can), clause D.2 is classed can"
+  },
+  {
+   "n": 4,
+   "prefix": "3dc72015",
+   "director_tier": null,
+   "task": "3.5",
+   "attribution": null,
+   "key_claim": "Beyond generic quality/security controls, the organization must apply AI-specific supplier requirements that are scaled to the type of supplier and the risk posed, covering matters such as bias, transparency, and intended-use documentation.",
+   "anchor": {
+    "clause": "B.10.3",
+    "support": "Organizations should consider different types of suppliers, what they supply, and the varying level of risk this can pose to the system and organization as a whole in determining the selection of suppliers, the requirements placed on those suppliers, and the levels of ongoing monitoring and evaluation needed for the suppliers."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.10.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "rejected",
+    "reason": "the solver picked the key but calls D defensible: A candidate could cite B.10.3's requirement that suppliers deliver 'appropriate and adequate documentation related to the AI system', though the passages never demand full model internals, training data or weights for every component."
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+  },
+  {
+   "n": 5,
+   "prefix": "40820cfe",
+   "director_tier": null,
+   "task": "4.6",
+   "attribution": null,
+   "key_claim": "The B.9.3 list (fairness, transparency, human oversight, etc.) is illustrative 'should' guidance, from which the implementer selects and applies considerations relevant to its own context and risk.",
+   "anchor": {
+    "clause": "B.9.3",
+    "support": "Depending on its context, the organization should identify its objectives related to responsible use."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.9.3 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.9.3, the implementation guidance for A.9.3, which IS primary for this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.9.3 is classed should"
+  },
+  {
+   "n": 6,
+   "prefix": "4e995733",
+   "director_tier": null,
+   "task": "3.5",
+   "attribution": null,
+   "key_claim": "When a supplier-provided AI component behaves in a way that conflicts with the organization's responsible AI approach, the organization should require the supplier to take corrective action and obtain adequate documentation about the component, rather than demanding supplier certification or an on-site audit.",
+   "anchor": {
+    "clause": "B.10.3",
+    "support": "Where the organization considers that the AI system or AI system components from a supplier do not perform as intended or can result in impacts to individuals or groups of individuals, or both, and societies that are not aligned with the responsible approach to AI systems taken by the organization, the organization should require the supplier to take corrective actions."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.10.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+  },
+  {
+   "n": 7,
+   "prefix": "5b0c446a",
+   "director_tier": null,
+   "task": "3.6",
+   "attribution": null,
+   "key_claim": "Using licensed/open external data is permitted under ISO/IEC 42001, provided the organization documents acquisition details such as data source characteristics, data rights, and known or potential biases.",
+   "anchor": {
+    "clause": "B.7.3",
+    "support": "Details for data acquisition can include: — categories of data needed for the AI system; — quantity of data needed; — data sources (e.g. internal, purchased, shared, open data, synthetic); — characteristics of the data source (e.g. static, streamed, gathered, machine generated); — data subject demographics and characteristics (e.g. known or potential biases or other systematic errors); — prior handling of the data (e.g. previous uses, conformity with privacy and security requirements); — data rights (e.g. PII, copyright); — associated meta data (e.g. details of data labelling and enhancing); — provenance of the data."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause B.7.3 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.7.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause B.7.3 is classed should"
+  },
+  {
+   "n": 8,
+   "prefix": "612ee9f8",
+   "director_tier": null,
+   "task": "1.6",
+   "attribution": null,
+   "key_claim": "Publishing AI principles alone is an ethics framework, not an AI management system, because ISO/IEC 42001 requires a management system comprising objectives and processes (e.g. risk management), not merely a principles statement.",
+   "anchor": {
+    "clause": "3.4",
+    "support": "management system set of interrelated or interacting elements of an organization (3.1) to establish policies (3.5) and objectives (3.6), as well as processes (3.8) to achieve those objectives"
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the passage class (none), clause 3.4 is classed informative"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 3.4, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "could-not-run",
+    "reason": "BLIND SOLVER PAYLOAD IS NOT BLIND: this item's explanation text is in the payload"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the passage class (none), clause 3.4 is classed informative"
+  },
+  {
+   "n": 9,
+   "prefix": "65ee65c8",
+   "director_tier": null,
+   "task": "3.5",
+   "attribution": null,
+   "key_claim": "An organization that procures a complete AI system from a third-party vendor must still apply AI-specific supplier due diligence, document how the system is integrated, and retain accountability for the system's impacts under its AIMS.",
+   "anchor": {
+    "clause": "B.10.3",
+    "support": "Organizations should document how the AI system and AI system components are integrated into AI systems developed or used by the organization."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.10.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+  },
+  {
+   "n": 10,
+   "prefix": "6e8d4de1",
+   "director_tier": null,
+   "task": "4.4",
+   "attribution": null,
+   "key_claim": "The AI system event log control is the control that would most directly have prevented the loss of operational traceability (e.g. which model version was active), because it requires capture and retention of AI-relevant operational event information.",
+   "anchor": {
+    "clause": "B.6.2.8",
+    "support": "The organization should ensure logging for AI systems it deploys to automatically collect and record event logs related to certain events that occur during operation."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.6.2.8 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.6.2.8, the implementation guidance for A.6.2.8, which IS primary for this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.6.2.8 is classed should"
+  },
+  {
+   "n": 11,
+   "prefix": "726ba04f",
+   "director_tier": null,
+   "task": "5.4",
+   "attribution": null,
+   "key_claim": "After correcting the immediate effect, the organisation must determine the cause of the nonconformity (including in the supplier's data pipeline) and implement action to prevent recurrence.",
+   "anchor": {
+    "clause": "10.2",
+    "support": "b) evaluate the need for action to eliminate the cause(s) of the nonconformity, so that it does not recur or occur elsewhere, by: 1) reviewing the nonconformity; 2) determining the causes of the nonconformity; 3) determining if similar nonconformities exist or can potentially occur; c) implement any action needed;"
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 10.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 10.2, verbatim, modal consistent"
+  },
+  {
+   "n": 12,
+   "prefix": "8ead2551",
+   "director_tier": null,
+   "task": "5.1",
+   "attribution": null,
+   "key_claim": "The monitoring/measurement requirement covers both results achieved by using AI systems and results related to the AI management system, treated as two distinct objects of measurement.",
+   "anchor": {
+    "clause": "3.11",
+    "support": "Note 3 to entry: In the context of this document, performance refers both to results achieved by using AI systems and results related to the AI management system (3.4)."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the passage class (none), clause 3.11 is classed informative"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 3.11, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the passage class (none), clause 3.11 is classed informative"
+  },
+  {
+   "n": 13,
+   "prefix": "8ed82895",
+   "director_tier": null,
+   "task": "1.5",
+   "attribution": null,
+   "key_claim": "ISO/IEC 42001 is a voluntary management system standard for AI that organizations may adopt and be certified against by a third party, rather than a binding law or a product/model certification standard.",
+   "anchor": {
+    "clause": "1",
+    "support": "This document specifies the requirements and provides guidance for establishing, implementing, maintaining and continually improving an AI (artificial intelligence) management system within the context of an organization."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the passage class (none), clause 1 is classed informative (scope anchor, but the claim is not purely descriptive)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 1, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the passage class (none), clause 1 is classed informative (scope anchor, but the claim is not purely descriptive)"
+  },
+  {
+   "n": 14,
+   "prefix": "965e4d08",
+   "director_tier": null,
+   "task": "2.5",
+   "attribution": null,
+   "key_claim": "The organization's AI risk assessment must be designed and documented so that repeated assessments produce consistent, valid and comparable results, which recording only final risk levels (no methodology, assumptions or evidence) fails to support.",
+   "anchor": {
+    "clause": "6.1.2",
+    "support": "b) is designed such that repeated AI risk assessments can produce consistent, valid and comparable results;"
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 6.1.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 6.1.2, verbatim, modal consistent"
+  },
+  {
+   "n": 15,
+   "prefix": "98c385f7",
+   "director_tier": null,
+   "task": "3.6",
+   "attribution": null,
+   "key_claim": "Under ISO/IEC 42001 the organization must identify, document and mitigate bias to a level acceptable for the use case through ongoing risk management, rather than eliminate it entirely.",
+   "anchor": {
+    "clause": "B.7.4",
+    "support": "The organization should consider the impact of bias on system performance and system fairness and make such adjustments as necessary to the model and data used to improve performance and fairness so they are acceptable for the use case."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.7.4 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.7.4, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.7.4 is classed should"
+  },
+  {
+   "n": 16,
+   "prefix": "98fced09",
+   "director_tier": null,
+   "task": "3.5",
+   "attribution": null,
+   "key_claim": "When a supplied AI component produces outputs misaligned with the organization's responsible AI approach, ISO/IEC 42001 expects the organization to require corrective action from the supplier and to document how the component is integrated into its AI system.",
+   "anchor": {
+    "clause": "B.10.3",
+    "support": "Where the organization considers that the AI system or AI system components from a supplier do not perform as intended or can result in impacts to individuals or groups of individuals, or both, and societies that are not aligned with the responsible approach to AI systems taken by the organization, the organization should require the supplier to take corrective actions."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.10.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+  },
+  {
+   "n": 17,
+   "prefix": "aa74ddac",
+   "director_tier": null,
+   "task": "5.5",
+   "attribution": null,
+   "key_claim": "ISO/IEC 42006 is the document that sets requirements specifically for bodies auditing and certifying organizations against ISO/IEC 42001, covering competence, impartiality and audit requirements for AI management system certification bodies.",
+   "anchor": {
+    "clause": "1",
+    "support": "The requirements contained in this document, when implemented, support the demonstration of competence, consistency and reliability by the bodies performing auditing and certification of an artificial intelligence management system (AIMS) according to ISO/IEC 42001 for organizations that provide, develop or use AI systems."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the passage class (can), clause 1 is classed can (scope anchor, but the claim is not purely descriptive)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 1, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "rejected",
+    "reason": "the solver picked the key but calls B defensible: B also correctly identifies ISO/IEC 42006 and accurately describes it as an extension of ISO/IEC 17021-1 with AI-specific audit provisions (e.g. 9.3.2.1, 9.6.2.2), though it omits the competence/impartiality dimension emphasised in its scope."
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the passage class (can), clause 1 is classed can (scope anchor, but the claim is not purely descriptive)"
+  },
+  {
+   "n": 18,
+   "prefix": "aad10225",
+   "director_tier": null,
+   "task": "3.5",
+   "attribution": null,
+   "key_claim": "The organization should require the supplier to deliver appropriate and adequate documentation sufficient to show the third-party component performs as intended and aligns with the organization's responsible AI approach, rather than demanding model weights or training data.",
+   "anchor": {
+    "clause": "B.10.3",
+    "support": "The organization should ensure that the supplier of an AI system delivers appropriate and adequate documentation related to the AI system (see B.6.2.7 and B.8.2)."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.10.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.10.3 is classed should"
+  },
+  {
+   "n": 19,
+   "prefix": "aaf67ba6",
+   "director_tier": null,
+   "task": "5.4",
+   "attribution": null,
+   "key_claim": "When a nonconformity occurs (even without harm), the organization must determine its cause(s) and determine whether similar nonconformities exist or could potentially occur elsewhere.",
+   "anchor": {
+    "clause": "10.2",
+    "support": "b) evaluate the need for action to eliminate the cause(s) of the nonconformity, so that it does not recur or occur elsewhere, by: 1) reviewing the nonconformity; 2) determining the causes of the nonconformity; 3) determining if similar nonconformities exist or can potentially occur;"
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 10.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 10.2, verbatim, modal consistent"
+  },
+  {
+   "n": 20,
+   "prefix": "ab6263f0",
+   "director_tier": "B",
+   "task": "3.6",
+   "attribution": null,
+   "key_claim": "Data provenance under ISO/IEC 42001 must record the whole chain of creation, transformation, validation and transfer of control across the life cycles of the data and the AI system, not just the original source.",
+   "anchor": {
+    "clause": "B.7.5",
+    "support": "According to ISO 8000-2, a record of data provenance can include information about the creation, update, transcription, abstraction, validation and transferring of the control of data."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause B.7.5 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.7.5, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause B.7.5 is classed should"
+  },
+  {
+   "n": 21,
+   "prefix": "ad956ac4",
+   "director_tier": null,
+   "task": "1.2",
+   "attribution": null,
+   "key_claim": "Because ISO/IEC 42001's requirements and controls are role-dependent, an organization's determined role(s) govern which requirements and controls apply to it and to what extent.",
+   "anchor": {
+    "clause": "4.1",
+    "support": "The organization’s roles can determine the applicability and extent of applicability of the requirements and controls in this document."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause 4.1 is classed shall"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 4.1, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause 4.1 is classed shall"
+  },
+  {
+   "n": 22,
+   "prefix": "b30e8ad2",
+   "director_tier": null,
+   "task": "3.6",
+   "attribution": null,
+   "key_claim": "Data preparation controls under ISO/IEC 42001 are an ongoing governed obligation that applies to each retraining cycle, not only once before initial deployment.",
+   "anchor": {
+    "clause": "B.7.6",
+    "support": "For a given AI task, the organization should document its criteria for selecting specific data preparation methods and transforms as well as the specific methods and transforms used in the AI task."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.7.6 is classed shall"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.7.6, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "rejected",
+    "reason": "the solver picked the key but calls B defensible: B.7.6 only requires documenting the criteria and the methods/transforms used for a given AI task, so a candidate could argue that an unchanged, already-documented preparation pipeline needs no fresh documentation for each retraining cycle."
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (recommendation), clause B.7.6 is classed shall"
+  },
+  {
+   "n": 23,
+   "prefix": "cc3d3b2a",
+   "director_tier": null,
+   "task": "1.6",
+   "attribution": null,
+   "key_claim": "The AIMS fairness/transparency/accountability commitment is a policy element of the AI management system required by ISO/IEC 42001, which is a management system standard rather than an ethics framework in itself.",
+   "anchor": {
+    "clause": "5.2",
+    "support": "Top management shall establish an AI policy that:"
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 5.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 5.2, verbatim, modal consistent"
+  },
+  {
+   "n": 24,
+   "prefix": "d286957e",
+   "director_tier": null,
+   "task": "2.8",
+   "attribution": null,
+   "key_claim": "The statement of applicability must record each excluded Annex A control together with a justification for its exclusion, such as that the risk assessment did not deem the control necessary.",
+   "anchor": {
+    "clause": "6.1.3",
+    "support": "Justification for exclusion can include where the controls are not deemed necessary by the risk assessment and where they are not required by (or are subject to exceptions under) applicable external requirements."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause 6.1.3 is classed shall"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 6.1.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause 6.1.3 is classed shall"
+  },
+  {
+   "n": 25,
+   "prefix": "d3217d0b",
+   "director_tier": null,
+   "task": "3.1",
+   "attribution": null,
+   "key_claim": "The organization should treat the missing legal/societal AI knowledge as a competence gap and act on it by acquiring the necessary competence through training, hiring or contracting as appropriate.",
+   "anchor": {
+    "clause": "7.2",
+    "support": "NOTE 2 Applicable actions can include, for example: the provision of training to, the mentoring of, or the re- assignment of currently employed persons; or the hiring or contracting of competent persons."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause 7.2 is classed shall"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 7.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause 7.2 is classed shall"
+  },
+  {
+   "n": 26,
+   "prefix": "dd09940d",
+   "director_tier": "B",
+   "task": "3.6",
+   "attribution": null,
+   "key_claim": "Under ISO/IEC 42001, data provenance records must span creation, intermediate transformations, validation and transfer of control across the data life cycle, not just the final dataset.",
+   "anchor": {
+    "clause": "B.7.5",
+    "support": "According to ISO 8000-2, a record of data provenance can include information about the creation, update, transcription, abstraction, validation and transferring of the control of data."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause B.7.5 is classed should"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.7.5, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause B.7.5 is classed should"
+  },
+  {
+   "n": 27,
+   "prefix": "dfe1cb56",
+   "director_tier": null,
+   "task": "2.5",
+   "attribution": null,
+   "key_claim": "The team should additionally address the risk of discriminatory/biased model outputs unfairly affecting individuals' employment opportunities, i.e. fairness as an AI-specific risk source.",
+   "anchor": {
+    "clause": "C.2.5",
+    "support": "The inappropriate application of AI systems for automated decision-making can be unfair to specific persons or groups of persons."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause C.2.5 is classed can"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in C.2.5, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "flag",
+   "kind": "modal-fidelity",
+   "reason": "modal-fidelity: the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause C.2.5 is classed can"
+  },
+  {
+   "n": 28,
+   "prefix": "e412ffd4",
+   "director_tier": null,
+   "task": "5.4",
+   "attribution": null,
+   "key_claim": "The corrective action should be extended to the two other AI systems sharing the data pipeline so the similar potential nonconformity is addressed before it occurs.",
+   "anchor": {
+    "clause": "10.2",
+    "support": "b) evaluate the need for action to eliminate the cause(s) of the nonconformity, so that it does not recur or occur elsewhere, by: 1) reviewing the nonconformity; 2) determining the causes of the nonconformity; 3) determining if similar nonconformities exist or can potentially occur; c) implement any action needed;"
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 10.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 10.2, verbatim, modal consistent"
+  },
+  {
+   "n": 29,
+   "prefix": "edb840b2",
+   "director_tier": null,
+   "task": "2.5",
+   "attribution": null,
+   "key_claim": "ISO/IEC 42001's consistency requirement is satisfied by a documented, uniformly applied risk assessment process yielding comparable results, not by assessors producing identical numerical scores.",
+   "anchor": {
+    "clause": "6.1.2",
+    "support": "b) is designed such that repeated AI risk assessments can produce consistent, valid and comparable results;"
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 6.1.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 6.1.2, verbatim, modal consistent"
+  },
+  {
+   "n": 30,
+   "prefix": "f073235b",
+   "director_tier": null,
+   "task": "5.4",
+   "attribution": null,
+   "key_claim": "Because the same supplier nonconformity recurred, the organisation must treat the earlier corrective action as ineffective and redo the cause analysis and implement new action.",
+   "anchor": {
+    "clause": "10.2",
+    "support": "b) evaluate the need for action to eliminate the cause(s) of the nonconformity, so that it does not recur or occur elsewhere, by: 1) reviewing the nonconformity; 2) determining the causes of the nonconformity; 3) determining if similar nonconformities exist or can potentially occur; c) implement any action needed; d) review the effectiveness of any corrective action taken;"
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in 10.2, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in 10.2, verbatim, modal consistent"
+  }
+ ]
+}

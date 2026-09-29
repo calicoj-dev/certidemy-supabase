@@ -51,7 +51,7 @@ import { AUDIT480_TIER_A, AUDIT480_TIER_B, AUDIT480_TIER_C, AUDIT480_TIER_D,
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false, ONLY = null, TAG = "";
+let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false, ONLY = null, TAG = "", REUSE_SOLVER = null;
 for (const a of process.argv.slice(2)) {
   const m = /^--cert=(.+)$/.exec(a);
   if (m) { CERT = m[1]; continue; }
@@ -62,6 +62,8 @@ for (const a of process.argv.slice(2)) {
   if (o) { ONLY = o[1]; continue; }
   const g = /^--tag=([A-Za-z0-9_-]+)$/.exec(a);
   if (g) { TAG = "-" + g[1]; continue; }
+  const rs = /^--reuse-solver=(.+)$/.exec(a);
+  if (rs) { REUSE_SOLVER = rs[1]; continue; }
   console.error("unknown flag " + JSON.stringify(a) + " -- READ-ONLY and MEASURE-ONLY.");
   console.error("There is no --apply: an instrument that disagrees with an item must not be able");
   console.error("to change it.");
@@ -78,6 +80,24 @@ if (ONLY && !TAG) {
   console.error("Without it this run would overwrite the full run's ANCHOR-OR-FLAG and ANCHOR-PARSE");
   console.error("files with just the subset, and the verdicts not re-run would be lost silently.");
   process.exitCode = 2; process.exit();
+}
+
+/* ---- --reuse-solver: the recorded blind-solver verdicts, so a re-gate makes NO model call ---- */
+const reusedSolver = new Map();
+if (REUSE_SOLVER) {
+  if (!PINNED) {
+    console.error('--reuse-solver requires --pinned. Pairing a recorded solver verdict with a FRESH');
+    console.error('anchor would attach a verdict to an item the solver never saw in that form.');
+    process.exitCode = 2; process.exit();
+  }
+  const src = JSON.parse(readFileSync(REUSE_SOLVER, 'utf8'));
+  for (const it of src.items || []) if (it.solver) reusedSolver.set(it.prefix, it.solver);
+  console.log('REUSED SOLVER: ' + reusedSolver.size + ' recorded verdict(s) from ' + REUSE_SOLVER +
+    '. No solver call will be made.');
+  if (!reusedSolver.size) {
+    console.error('that artifact carries no solver verdicts, so every item would be could-not-run.');
+    process.exitCode = 2; process.exit();
+  }
 }
 
 /* ---------------------------------------------------------------- controls first */
@@ -540,12 +560,19 @@ for (const s of sampled) {
 
   /* ---- the blind solver, as a SECOND and SEPARATE signal ---- */
   let solver = null;
-  try {
-    const payload = blindPayload(item);
-    assertBlind(payload, item);
-    solver = solverVerdict(parseObject(await claude(SOLVER_SYSTEM,
-      solverUser(payload, [...map.primary, ...map.supporting]), 1500)), keyLabel);
-  } catch (e) { solver = { state: "could-not-run", reason: String(e.message).slice(0, 140) }; }
+  if (REUSE_SOLVER) {
+    /* A MISSING VERDICT IS could-not-run, NEVER A PASS. An absent recording is not evidence that the
+     * solver agreed; folding it into `accepted` would clear an item nothing checked. */
+    solver = reusedSolver.get(base.prefix) ||
+      { state: "could-not-run", reason: "no recorded solver verdict for this item in " + REUSE_SOLVER };
+  } else {
+    try {
+      const payload = blindPayload(item);
+      assertBlind(payload, item);
+      solver = solverVerdict(parseObject(await claude(SOLVER_SYSTEM,
+        solverUser(payload, [...map.primary, ...map.supporting]), 1500)), keyLabel);
+    } catch (e) { solver = { state: "could-not-run", reason: String(e.message).slice(0, 140) }; }
+  }
 
   /* ============ verbatim AND clause-exists JUDGE THE MODEL'S QUOTE, NOT THE ITEM ============
    *

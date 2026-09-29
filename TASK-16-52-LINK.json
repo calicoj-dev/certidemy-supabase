@@ -1,0 +1,22 @@
+{
+ "cert": "AIMS-F",
+ "task": "1.6",
+ "statement": "Distinguish an AIMS from model-level assurance and from AI ethics frameworks",
+ "passage": {
+  "id": "f7f2c5e0-ccfa-405e-a1c2-ed7a203a85f0",
+  "source_id": "ISO/IEC 42001",
+  "edition": "2023",
+  "clause": "5.2",
+  "title": "AI policy"
+ },
+ "role": "primary",
+ "added_by": "director hand link 2026-09-29 (cc3d3b2a re-anchor)",
+ "why": "the ruling 'cc3d3b2a: keep, re-anchor to 42001 5.2' cannot be honoured without it -- the gates resolve a clause against the task's own linked passages, so an unlinked 5.2 reads as 'not in the library'",
+ "also_primary_on": [
+  "3.3(primary)",
+  "1.5(primary)",
+  "1.4(supporting)",
+  "3.2(supporting)",
+  "2.3(primary)"
+ ]
+}

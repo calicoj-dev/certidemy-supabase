@@ -1,0 +1,77 @@
+{
+ "ruled": "2026-09-29",
+ "note": "Per-item director decisions, applied by report-aimsf-survivors.mjs AFTER the mechanical verdict. Both verdicts are reported, so a ruled verdict can never be mistaken for a measured one. An overlay entry naming an item whose mechanical verdict already agrees is recorded as `agrees` rather than silently dropped -- an override nobody needed is worth seeing.",
+ "survivors": {
+  "decision": "all 20 read survivors KEEP; keys correct",
+  "explanation_fidelity_backlog": {
+   "prefixes": ["17b73169", "89837081", "703c8787", "bc001137", "5bba26f8"],
+   "why": "minor explanation softness. NOT a retirement and NOT a verdict on the item: secure explanations are not served (migration 378), so this is a quality backlog with no serving consequence.",
+   "action": "log only"
+  }
+ },
+ "overrides": [
+  {
+   "prefix": "cc3d3b2a",
+   "verdict": "keep",
+   "why": "ruled keep, re-anchored to ISO/IEC 42001 5.2. The key asserts that an AI policy is a REQUIRED management system element; the old anchor was clause 1 (Scope), which carries no obligation, so the gate was right about the anchor and the anchor was the wrong sentence. 5.2's lead-in 'Top management shall establish an AI policy that:' is the requirement.",
+   "implied_write": "42001 5.2 had to be LINKED to task 1.6 as primary, because the gates resolve a clause against the task's own linked passages and an unlinked 5.2 reads as 'not in the library'. Tagged 'director hand link 2026-09-29 (cc3d3b2a re-anchor)'."
+  },
+  {
+   "prefix": "aa74ddac",
+   "verdict": "drop",
+   "why": "double key, and the explanation falsely states that ISO/IEC 42006 is not an extension of ISO/IEC 17021-1. It is: 42006 specifies additional requirements TO 17021-1."
+  },
+  {
+   "prefix": "3dc72015",
+   "verdict": "drop",
+   "cluster": "B.10.3",
+   "why": "the STEM asserts the standard mandates B-guidance content: 'What additional step MUST the organization take for AI component suppliers UNDER ISO/IEC 42001?' -- B.10.3 is Annex B guidance classed should. The blind solver also rejected this item, so both signals agree."
+  },
+  {
+   "prefix": "65ee65c8",
+   "verdict": "drop",
+   "cluster": "B.10.3",
+   "why": "the director's named example. Stem asks for 'its AIMS OBLIGATIONS UNDER ISO/IEC 42001' and the key answers 'The organization MUST apply AI-specific due diligence, DOCUMENT INTEGRATION, and retain accountability' -- the standard imposing B-guidance content as a requirement."
+  },
+  {
+   "prefix": "98fced09",
+   "verdict": "drop",
+   "cluster": "B.10.3",
+   "why": "the STEM asserts it directly: 'What does ISO/IEC 42001 REQUIRE the organization to do?', and the key's second verb is 'document how the component integrates' -- B-guidance content presented as required."
+  },
+  {
+   "prefix": "04816f41",
+   "verdict": "keep",
+   "cluster": "B.10.3",
+   "why": "the director's named example. The verb is the organization's own action toward a third party -- 'REQUIRE THE SUPPLIER to deliver appropriate and adequate documentation' -- and the stem asks what the organization SHOULD do. Distractors b) and c) are calibrated on mandate-versus-guidance, so the item teaches the distinction rather than blurring it. Overrides modal-fidelity only; the blind solver accepted the key."
+  },
+  {
+   "prefix": "20ad8d94",
+   "verdict": "keep",
+   "cluster": "B.10.3",
+   "why": "no deontic verb in the stem or the key at all. The key is a permissive judgement -- 'Treat the model card as potentially sufficient, provided it supports the organization's own risk assessment' -- which asserts no requirement to inflate. Solver accepted."
+  },
+  {
+   "prefix": "4e995733",
+   "verdict": "keep",
+   "cluster": "B.10.3",
+   "why": "'REQUIRE corrective action and adequate documentation' is the organization acting on its supplier, and the stem asks what the organization should do with no claim about what 42001 mandates. Solver accepted."
+  },
+  {
+   "prefix": "aad10225",
+   "verdict": "keep",
+   "cluster": "B.10.3",
+   "why": "'REQUIRE supplier documentation adequate to show the component performs as intended' is the organization's own action; the stem says 'what SHOULD the organization do', not what the standard requires. Solver accepted."
+  }
+ ],
+ "unexamined_unheld_sources": {
+  "decision": "drop, and replace from held sources",
+  "why": "the key rests on a source the library does not hold -- the EU AI Act as a legal instrument, GDPR, ISO 31000, ISO/IEC Directives Annex SL. An item we cannot anchor is an item we cannot stand behind, and buying the source is a bigger decision than rewriting the item.",
+  "applies_to": "every item whose verdict is `unexamined` for an unheld source. NOT the blindness refusals, which are a re-run and were resolved by the assertBlind fidelity fix."
+ },
+ "modal_gate_fix": {
+  "ruled": "when the anchor is a lettered list item of a clause whose lead-in is shall, the item inherits shall even if the lead-in is not in the quoted support",
+  "regression_case": "965e4d08",
+  "implemented": "anchorForceInPassage no longer returns early on the anchor's own modal; both are computed and the STRONGER wins. 3 controls added, 66 total, 0 fail."
+ }
+}

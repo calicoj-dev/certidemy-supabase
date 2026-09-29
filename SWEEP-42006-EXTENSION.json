@@ -1,0 +1,547 @@
+{
+ "claim_that_is_false": "ISO/IEC 42006 is not an extension of ISO/IEC 17021-1",
+ "the_truth": "ISO/IEC 42006 specifies additional requirements TO ISO/IEC 17021-1",
+ "certifications": [
+  "AIMS-F",
+  "AIMS-IA"
+ ],
+ "scanned": {
+  "items": 4085,
+  "concepts": 312,
+  "concept_translations": 624,
+  "lessons": 225
+ },
+ "mention_both": 72,
+ "positive_control": {
+  "prefix": "aa74ddac",
+  "found": true,
+  "forms": [
+   "not an extension"
+  ]
+ },
+ "hits": [
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "7119ddfd",
+   "field": "explanation",
+   "text": "ISO/IEC 42006:2025 specifies requirements for bodies that audit and certify an AIMS, including audit-time determination for certification cycles. It applies to certification bodies, not to organizations conducting first-party audits. The fact that ISO/IEC 42006 references ISO/IEC 42001 does not extend its scope to internal audit planning. Internal audit duration is determined by the organization using the guidance in ISO 19011:2026, scaled to the AIMS scope and complexity. ISO/IEC 17021-1 governs certification bodies generally but does not supersede ISO/IEC 42006 for AIMS certification audits, making that option a genuine but incorrect distractor.",
+   "forms": [
+    "does not extend",
+    "replaces / supersedes"
+   ]
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "7119ddfd",
+   "field": "options[3]",
+   "text": "Decline them — ISO/IEC 17021-1 supersedes ISO/IEC 42006, so its time calculations must be used for any AIMS audit.",
+   "forms": [
+    "replaces / supersedes"
+   ]
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "en",
+   "id": "aa74ddac",
+   "field": "explanation",
+   "text": "ISO/IEC 42006 sets requirements for certification bodies auditing and certifying AI management systems, covering competence, impartiality, and audit conduct. ISO/IEC 42001 contains no conformity assessment provisions; it defines what an organization's AIMS must do, not how a certification body must operate. ISO/IEC 17021-1 provides general management system certification body requirements but is not the AI-specific document. ISO/IEC 42006 is a distinct standard, not a sector extension of ISO/IEC 17021-1.",
+   "forms": [
+    "not an extension"
+   ]
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "2a9e8b1a",
+   "field": "content_md",
+   "text": "---\nlesson_id: aims-ia-02-01-a-programme-is-designed-not-scheduled\nmodule_slug: aia-audit-programme\ncertification_code: AIMS-IA\ntitle: A Programme Is Designed, Not Scheduled\nsubtitle: Where audit programme objectives come from, and why they cannot be borrowed\nlanguage: en\nlesson_group_id: aims-ia-02-01-a-programme-is-designed-not-scheduled\nduration_minutes: 11\norder_index: 1\ntask_codes: [\"2.1\"]\nconcept_slugs:\n  - aia-programme-objectives\n  - aia-objectives-from-context\n  - aia-programme-vs-individual-audit\nprerequisites: [aims-ia-01-05-inside-and-outside-the-remit]\npreview: |\n  An 11-minute lesson on what an AIMS audit programme is for, how\n  its objectives derive from the organization's context, and why\n  programme objectives and audit objectives are different things.\nauthors:\n  - Certidemy team\nstatus: draft\n---\n\n::hook\nTwo organizations run four AIMS audits a year each. One has an audit programme. The other has a calendar.\n::\n\n::concept title=\"A programme is a set of audits with a purpose, not a set of dates\"\nISO 19011:2026 clause 3.5 defines an **audit programme** as arrangements for a set of one or more audits planned for a set period and aimed at a particular purpose.\n\nThree elements, and the last is the one organizations skip. A set of audits is easy. A time frame is easy. **Directed towards a specific purpose** is the part that turns a schedule into a design, and it is what an auditor examining clause 9.2 looks for first.\n\nClause 5.1 adds that the extent of a programme should follow from how large the auditee is and what kind of body it is, and on the functionality, complexity, type of risks and opportunities, scope, and level of maturity of the management systems to be audited. A programme that would fit any organization of similar size has not been based on the nature of this one.\n::\n\n::concept title=\"Objectives come from the audit client and its context\"\nISO 19011:2026 clause 5.2 places responsibility precisely: the **audit client** should ensure that programme objectives are set so they steer how audits are planned and run, and should ensure the programme is implemented effectively.\n\nIt then states where they come from. Objectives should line up with the audit client's **strategic direction** and **context**, and support its management system policies and objectives. The clause lists what they can be based on, including:\n\n- the needs and expectations of relevant interested parties, external and internal;\n- the characteristics and requirements of processes, products, services and projects, and how those change;\n- management system requirements;\n- the need to evaluate organizations that are part of the supply chain;\n- the auditee's level of performance and level of maturity.\n\nFor an AI management system, that list is not abstract. The interested parties include the individuals a system's outputs affect. The characteristics that changed may be a model replaced, a new deployment context, or a jurisdiction the system now operates in. The supply chain is the model provider, the data broker, the inference platform.\n::\n\n::concept title=\"Borrowed objectives cannot direct anything\"\nProgramme objectives written generically - *verify conformity to ISO/IEC 42001*, *maintain certification readiness* - satisfy the letter of having objectives and do none of the work clause 5.2 asks of them.\n\nThe test is whether an objective **directs** planning. If two candidate audit plans would both serve the objective equally, the objective is not directing; it is describing. An objective such as *establish whether the impact assessment process is producing results that are actually considered in risk decisions, across the three systems deployed since the last cycle* directs planning: it names what the audit is for, and a plan that does not reach those three systems fails it visibly.\n\nThis is also where an auditor gets leverage. Clause 9.2.1 makes the organization's own requirements audit criteria. **A programme objective the organization set for itself is a requirement it set for itself**, and an audit programme that did not pursue its own stated objectives can be found against them.\n::\n\n::callout type=\"pitfall\"\nAn audit programme that repeats last year's schedule with the dates changed has not considered the results of previous audits or the importance of the processes concerned - and ISO/IEC 42001 clause 9.2.2 requires the organization to consider both when establishing the programme. The evidence is the comparison: two consecutive programmes that differ only in dates, over a period in which the AI estate changed.\n::\n\n::concept title=\"Programme objectives and audit objectives are different\"\nISO 19011:2026 separates them, and clause 5.5.2 requires that they be consistent with one another.\n\n| | Programme objective (5.2) | Individual audit objective (5.5.2) |\n|---|---|---|\n| Set by | the audit client | the individual managing the programme |\n| Spans | the whole time frame | one audit |\n| Answers | what this set of audits is for | what this audit is to accomplish |\n| Example | Establish whether AI impact assessment outputs influence risk decisions across the estate | Determine the extent of conformity of the three customer-facing systems to clauses 6.1.4 and 8.4 |\n\nConflating them produces one of two failures. Either the programme carries only audit-level objectives, so nothing coordinates the set - each audit is defensible and the year adds up to nothing. Or the individual audits carry only the programme objective, so no audit has a scope precise enough for a finding to be tested against.\n::\n\n::interactive widget=\"drag-match\" id=\"programme-or-audit-objective\" concept_slugs=\"aia-programme-objectives,aia-programme-vs-individual-audit,aia-objectives-from-context\"\n{\n  \"items\": [\n    { \"id\": \"s1\", \"text\": \"Establish, over the coming year, whether the organization's AI impact assessment outputs are influencing its risk decisions as the AIMS claims.\" },\n    { \"id\": \"s2\", \"text\": \"Determine the extent of conformity of the customer-facing recommendation system to clauses 6.1.4 and 8.4, covering the period since its last model update.\" },\n    { \"id\": \"s3\", \"text\": \"Verify conformity to ISO/IEC 42001.\" },\n    { \"id\": \"s4\", \"text\": \"Evaluate whether the AIMS is capable of supporting the organization's obligations in the two new jurisdictions it entered this year.\" }\n  ],\n  \"targets\": [\n    { \"id\": \"t-prog\", \"text\": \"Programme objective - directs a set of audits\" },\n    { \"id\": \"t-audit\", \"text\": \"Individual audit objective - scoped to one audit\" },\n    { \"id\": \"t-empty\", \"text\": \"Neither - describes rather than directs\" },\n    { \"id\": \"t-prog-context\", \"text\": \"Programme objective derived from a change in context\" }\n  ],\n  \"correct\": {\n    \"s1\": \"t-prog\",\n    \"s2\": \"t-audit\",\n    \"s3\": \"t-empty\",\n    \"s4\": \"t-prog-context\"\n  },\n  \"explanation\": \"The third is the one that appears in real programmes most often. It is not false, and it directs nothing: every conceivable audit plan serves it equally, which means it cannot be used to choose between them or to tell afterwards whether the programme achieved anything. The fourth shows clause 5.2 working as written - the objective exists because the context changed, and it names the change.\"\n}\n::\n\n::deep-dive title=\"Who the audit client is when everyone works for the same organization\"\nClause 5.2 assigns the responsibility for programme objectives to the audit client. In an internal audit that role sits inside the organization, and lesson 1 of module 1 established that the audit client can also be the auditee or the individual managing the programme.\n\nThat overlap makes a practical question worth asking early: **who, by name, ensured these objectives were established?**\n\nThe answer matters because clause 5.2 asks the audit client not only to establish objectives but to ensure the programme is implemented effectively. Where no one holds that role, the usual symptom is a programme that exists on paper and slips in practice - audits deferred, scopes quietly narrowed, findings from the previous cycle never revisited - with no one whose responsibility it was to notice.\n\nISO/IEC 42001 clause 5.3 requires top management to assign responsibility and authority for reporting on AIMS performance to top management. An audit programme with no identifiable client is often an early indicator that this assignment was made on paper only.\n::\n\n::checkpoint\n[\n  {\n    \"id\": \"q1\",\n    \"question\": \"An organization's AIMS audit programme objective reads: \\\"To verify ongoing conformity with ISO/IEC 42001 and readiness for certification.\\\" What is the most accurate assessment?\",\n    \"type\": \"single_choice\",\n    \"options\": [\n      { \"id\": \"a\", \"text\": \"Adequate - it names the standard and the purpose of the programme.\" },\n      { \"id\": \"b\", \"text\": \"Weak against clause 5.2: it does not derive from the organization's context and cannot direct planning, since any audit plan would serve it equally.\" },\n      { \"id\": \"c\", \"text\": \"Nonconforming - programme objectives must be quantitative.\" },\n      { \"id\": \"d\", \"text\": \"Adequate for a first cycle, after which it should be replaced.\" }\n    ],\n    \"correct\": [\"b\"],\n    \"explanation\": \"Clause 5.2 asks that objectives be consistent with the audit client's strategic direction and context and that they direct the planning and conducting of audits. Nothing requires them to be quantitative, and nothing makes generic objectives acceptable in a first cycle - a first cycle has a context too.\",\n    \"concept_slugs\": [\"aia-programme-objectives\", \"aia-objectives-from-context\"],\n    \"bloom_level\": \"2_understand\",\n    \"difficulty\": 3\n  },\n  {\n    \"id\": \"q2\",\n    \"question\": \"Which statement correctly distinguishes a programme objective from an individual audit objective?\",\n    \"type\": \"single_choice\",\n    \"options\": [\n      { \"id\": \"a\", \"text\": \"Programme objectives concern conformity; audit objectives concern effectiveness.\" },\n      { \"id\": \"b\", \"text\": \"A programme objective directs a set of audits over a time frame; an audit objective states what one audit is to accomplish, and ISO 19011 asks that the second be consistent with the first.\" },\n      { \"id\": \"c\", \"text\": \"Programme objectives are set by the auditor; audit objectives are set by the auditee.\" },\n      { \"id\": \"d\", \"text\": \"They are the same thing described at different levels of detail.\" }\n    ],\n    \"correct\": [\"b\"],\n    \"explanation\": \"Clause 5.2 covers programme objectives and 5.5.2 covers individual audit objectives, requiring consistency between them. Both can address conformity and effectiveness. Clause 5.2 places programme objectives with the audit client and 5.5.2 places audit objectives with the individual managing the programme; neither belongs to the auditee.\",\n    \"concept_slugs\": [\"aia-programme-vs-individual-audit\"],\n    \"bloom_level\": \"2_understand\",\n    \"difficulty\": 3\n  },\n  {\n    \"id\": \"q3\",\n    \"question\": \"An organization deployed AI systems in two new jurisdictions this year. Its audit programme objectives are unchanged from last year. What does ISO 19011:2026 clause 5.2 suggest about this?\",\n    \"type\": \"single_choice\",\n    \"options\": [\n      { \"id\": \"a\", \"text\": \"Nothing - objectives should be stable to allow comparison between cycles.\" },\n      { \"id\": \"b\", \"text\": \"Objectives should be consistent with the audit client's context, and a material change in context that produced no change in objectives suggests they were not derived from it.\" },\n      { \"id\": \"c\", \"text\": \"The programme is nonconforming, because clause 5.2 requires annual revision of objectives.\" },\n      { \"id\": \"d\", \"text\": \"Only the individual audit objectives need to change.\" }\n    ],\n    \"correct\": [\"b\"],\n    \"explanation\": \"Clause 5.2 ties objectives to the audit client's strategic direction and context and lists changes to processes, products, services and projects among what they can be based on. It does not require annual revision, and stability is not itself a defect - what the unchanged objectives suggest is worth testing, not concluding.\",\n    \"concept_slugs\": [\"aia-objectives-from-context\", \"aia-programme-objectives\"],\n    \"bloom_level\": \"2_understand\",\n    \"difficulty\": 4\n  },\n  {\n    \"id\": \"q4\",\n    \"question\": \"Why does ISO 19011:2026 clause 5.1 say the extent of an audit programme should follow from the auditee's size and character and the maturity of its management systems?\",\n    \"type\": \"single_choice\",\n    \"options\": [\n      { \"id\": \"a\", \"text\": \"So that larger organizations receive proportionally more audit days.\" },\n      { \"id\": \"b\", \"text\": \"So that the programme is sized to what this organization's systems actually require, rather than to a general standard of what an audit programme looks like.\" },\n      { \"id\": \"c\", \"text\": \"Because certification bodies calculate audit time on the same basis.\" },\n      { \"id\": \"d\", \"text\": \"Because clause 9.2 of ISO/IEC 42001 requires programme extent to be documented.\" }\n    ],\n    \"correct\": [\"b\"],\n    \"explanation\": \"Clause 5.1 lists size, nature, functionality, complexity, risks and opportunities, scope and maturity - a set of factors about this auditee, not a formula. Certification body audit-time calculation is a different exercise governed by ISO/IEC 17021-1 and, for AI, ISO/IEC 42006. Clause 9.2.2 requires an audit programme covering frequency, methods, responsibilities, planning requirements and reporting, not its extent as such.\",\n    \"concept_slugs\": [\"aia-programme-objectives\", \"aia-objectives-from-context\"],\n    \"bloom_level\": \"2_understand\",\n    \"difficulty\": 4\n  }\n]\n::\n\n::summary\n- An audit programme is arrangements for a set of audits over a time frame directed towards a specific purpose - the purpose is what makes it a design.\n- Clause 5.2 places programme objectives with the audit client and ties them to its strategic direction and context.\n- Objectives that any audit plan would serve equally are describing rather than directing.\n- Programme extent should reflect this auditee's size, nature, complexity, risks and maturity.\n- Programme objectives direct a set of audits; individual audit objectives state what one audit accomplishes, and must be consistent with them.\n- A programme objective the organization set itself is a requirement it set itself, and can be audited against.\n::\n",
+   "forms": [
+    "not based on"
+   ]
+  }
+ ],
+ "mention_both_no_negation": [
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "05e838bb",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "0cb80882",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "1179612e",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "es-419",
+   "id": "140001c1",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "en",
+   "id": "17cb787b",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "1a60cabc",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "pt-BR",
+   "id": "257aba89",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "2a99218c",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "2f5acced",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "30f3ca05",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "34eb2387",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "41ac88f9",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "423529fd",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "es-419",
+   "id": "480a6935",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "60a36788",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "60a36788",
+   "field": "options[3]"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "62667193",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "63a8f5c5",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "es-419",
+   "id": "6ab6b289",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "7072cb79",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "7072cb79",
+   "field": "options[0]"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "82fcb638",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "82fcb638",
+   "field": "options[0]"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "8421c355",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "en",
+   "id": "86ee73d8",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "en",
+   "id": "91b346e8",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "es-419",
+   "id": "91cf3878",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "es-419",
+   "id": "91cf3878",
+   "field": "options[1]"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "943245f8",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "9890b429",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "98af852f",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "a2f15fbc",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "en",
+   "id": "aa74ddac",
+   "field": "options[1]"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "pt-BR",
+   "id": "ace0cd0d",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "b34352cf",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "b80199aa",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "b8fb31dd",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "b8fb31dd",
+   "field": "options[3]"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "bbb6e86d",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "c247c687",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "c247c687",
+   "field": "options[0]"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "c254166f",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "c402ccc0",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "pt-BR",
+   "id": "c59cec1c",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "pt-BR",
+   "id": "c59cec1c",
+   "field": "options[1]"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "cc3000a0",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "pt-BR",
+   "id": "ce7caec4",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "en",
+   "id": "d2b7df76",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "pt-BR",
+   "id": "d77413e5",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-F",
+   "lang": "es-419",
+   "id": "dba5966b",
+   "field": "explanation"
+  },
+  {
+   "surface": "item",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "ff6e0fff",
+   "field": "explanation"
+  },
+  {
+   "surface": "concept",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "13dfc5a0",
+   "field": "description"
+  },
+  {
+   "surface": "concept",
+   "cert": "AIMS-F",
+   "lang": "en",
+   "id": "f8988d41",
+   "field": "description"
+  },
+  {
+   "surface": "concept",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "13dfc5a0",
+   "field": "description"
+  },
+  {
+   "surface": "concept",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "13dfc5a0",
+   "field": "description"
+  },
+  {
+   "surface": "concept",
+   "cert": "AIMS-F",
+   "lang": "es-419",
+   "id": "f8988d41",
+   "field": "description"
+  },
+  {
+   "surface": "concept",
+   "cert": "AIMS-F",
+   "lang": "pt-BR",
+   "id": "f8988d41",
+   "field": "description"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-F",
+   "lang": "en",
+   "id": "0dd937cb",
+   "field": "content_md"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-F",
+   "lang": "pt-BR",
+   "id": "1d55b154",
+   "field": "content_md"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-F",
+   "lang": "en",
+   "id": "30851db0",
+   "field": "content_md"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "44e4d2ba",
+   "field": "content_md"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-F",
+   "lang": "es-419",
+   "id": "66afe9f4",
+   "field": "content_md"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "966aeab5",
+   "field": "content_md"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-F",
+   "lang": "pt-BR",
+   "id": "a2678859",
+   "field": "content_md"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-IA",
+   "lang": "es-419",
+   "id": "a925fb1b",
+   "field": "content_md"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-IA",
+   "lang": "en",
+   "id": "b1df496a",
+   "field": "content_md"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-IA",
+   "lang": "pt-BR",
+   "id": "ddc33833",
+   "field": "content_md"
+  },
+  {
+   "surface": "lesson",
+   "cert": "AIMS-F",
+   "lang": "es-419",
+   "id": "ebe1a4f0",
+   "field": "content_md"
+  }
+ ]
+}

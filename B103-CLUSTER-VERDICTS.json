@@ -1,0 +1,127 @@
+{
+ "rule": "DROPPED if the KEY or stem asserts the standard requires or mandates B-guidance content; KEPT if the verb is the organization's own action.",
+ "named_cases": {
+  "65ee65c8": "DROP",
+  "04816f41": "KEEP"
+ },
+ "items": [
+  {
+   "prefix": "04816f41",
+   "task": "3.5",
+   "clause": "B.10.3",
+   "stem": "A supplier provides a machine learning algorithm with no documentation about its intended use conditions or known limitations. What should the deploying organization do under ISO/IEC 42001?",
+   "key": "Require the supplier to deliver appropriate and adequate documentation, including information needed for responsible integration.",
+   "deontic": [
+    {
+     "field": "key",
+     "verb": "Require",
+     "lead": "",
+     "tail": "Require the supplier to deliver appropriate and adequate doc",
+     "standardIsSubject": false
+    }
+   ],
+   "proposed": "KEEP"
+  },
+  {
+   "prefix": "20ad8d94",
+   "task": "3.5",
+   "clause": "B.10.3",
+   "stem": "A company deploys a third-party sentiment-analysis model via cloud API. The supplier refuses to share training data or model weights but provides a model card covering intended use, known limitations, and bias evaluation. What should the organization do under its AIMS?",
+   "key": "Treat the model card as potentially sufficient, provided it supports the organization's own risk assessment and responsible-AI objectives.",
+   "deontic": [],
+   "proposed": "KEEP"
+  },
+  {
+   "prefix": "3dc72015",
+   "task": "3.5",
+   "clause": "B.10.3",
+   "stem": "An AIMS review finds that existing ISO 9001 supplier controls cover quality and security checks for all vendors. What additional step must the organization take for AI component suppliers under ISO/IEC 42001?",
+   "key": "Apply AI-specific requirements scaled to supplier type and risk, covering bias, transparency, and intended-use documentation beyond generic quality controls.",
+   "deontic": [
+    {
+     "field": "stem",
+     "verb": "must",
+     "lead": "ver quality and security checks for all vendors. What additional step ",
+     "tail": "must the organization take for AI component suppliers under ",
+     "standardIsSubject": false
+    }
+   ],
+   "proposed": "KEEP"
+  },
+  {
+   "prefix": "4e995733",
+   "task": "3.5",
+   "clause": "B.10.3",
+   "stem": "During an AIMS review, an integrated third-party AI component produces outputs that conflict with the organization's responsible AI objectives. The supplier is not ISO/IEC 42001 certified. What should the organization do?",
+   "key": "Require corrective action and adequate documentation showing the component aligns with AI objectives.",
+   "deontic": [
+    {
+     "field": "key",
+     "verb": "Require",
+     "lead": "",
+     "tail": "Require corrective action and adequate documentation showing",
+     "standardIsSubject": false
+    }
+   ],
+   "proposed": "KEEP"
+  },
+  {
+   "prefix": "65ee65c8",
+   "task": "3.5",
+   "clause": "B.10.3",
+   "stem": "An organization procures a complete AI system from a third-party vendor for standalone use. Which statement correctly describes its AIMS obligations under ISO/IEC 42001?",
+   "key": "The organization must apply AI-specific due diligence, document integration, and retain accountability for the system's impacts.",
+   "deontic": [
+    {
+     "field": "key",
+     "verb": "must",
+     "lead": "The organization ",
+     "tail": "must apply AI-specific due diligence, document integration, ",
+     "standardIsSubject": false
+    }
+   ],
+   "proposed": "KEEP"
+  },
+  {
+   "prefix": "98fced09",
+   "task": "3.5",
+   "clause": "B.10.3",
+   "stem": "A risk assessment finds that a supplied computer-vision component produces outputs misaligned with the organization's responsible AI objectives. What does ISO/IEC 42001 require the organization to do?",
+   "key": "Require corrective action from the supplier and document how the component integrates with the organization's AI system.",
+   "deontic": [
+    {
+     "field": "stem",
+     "verb": "require",
+     "lead": "the organization's responsible AI objectives. What does ISO/IEC 42001 ",
+     "tail": "require the organization to do?",
+     "standardIsSubject": true
+    },
+    {
+     "field": "key",
+     "verb": "Require",
+     "lead": "",
+     "tail": "Require corrective action from the supplier and document how",
+     "standardIsSubject": false
+    }
+   ],
+   "proposed": "DROP"
+  },
+  {
+   "prefix": "aad10225",
+   "task": "3.5",
+   "clause": "B.10.3",
+   "stem": "An organization uses a third-party sentiment-analysis model via a cloud API. The supplier refuses to share training data or model weights. Under ISO/IEC 42001, what should the organization do?",
+   "key": "Require supplier documentation adequate to show the component performs as intended and aligns with the organization's responsible AI approach.",
+   "deontic": [
+    {
+     "field": "key",
+     "verb": "Require",
+     "lead": "",
+     "tail": "Require supplier documentation adequate to show the componen",
+     "standardIsSubject": false
+    }
+   ],
+   "proposed": "KEEP"
+  }
+ ]
+}
