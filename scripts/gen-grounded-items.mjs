@@ -378,13 +378,29 @@ if (HELD_TASKS.length) {
 
 const alloc = new Map();
 if (ONLY) {
-  /* One item per named task, in the order given. */
-  for (const code of ONLY) {
+  /* One item per named task, in the order given -- or `code:count` for several against one task.
+   * Refilling a task to its floor needs N items on ONE task, and the bare form could not express
+   * that: repeating the code collapses in this Map and would have produced one item while looking
+   * like it worked. */
+  for (const spec of ONLY) {
+    const mm = /^(.+?)(?::(\d+))?$/.exec(spec);
+    const code = mm[1].trim();
+    const count = mm[2] === undefined ? 1 : Number(mm[2]);
+    if (!Number.isFinite(count) || count < 1) {
+      console.error('--tasks=' + spec + ': a count must be 1 or more. A count of 0 is refused rather');
+      console.error('than skipped -- a flag that silently does nothing is how a generator misleads.');
+      process.exitCode = 2; process.exit();
+    }
     const t = mappedTasks.find((x) => x.code === code);
-    if (!t) { console.error("--tasks names " + code + " which is not a mapped " + CERT + " task"); process.exitCode = 2; process.exit(); }
-    alloc.set(t.id, 1);
+    if (!t) {
+      console.error('--tasks names ' + code + ' which is not a mapped ' + CERT + ' task');
+      process.exitCode = 2; process.exit();
+    }
+    alloc.set(t.id, (alloc.get(t.id) || 0) + count);
   }
-  N = alloc.size;
+  N = [...alloc.values()].reduce((s, v) => s + v, 0);
+  console.log('--tasks: ' + alloc.size + ' task(s), ' + N + ' item(s) -- ' +
+    ONLY.join(' '));
 }
 if (!ONLY)
 {
