@@ -135,7 +135,33 @@
         "corroborated_by": "OCR-SOURCES-BLOCKED.md reached the same three addresses by a different route: clause numbers present in the contents block and absent later in the body. Two instruments, one answer.",
         "script": "scripts/find-ocr-missing-page.mjs",
         "action": "Juan re-scans or photographs page 2 of ISO/IEC 38507:2022.",
-        "blocks_indexing": true
+        "blocks_indexing": true,
+        "transcription": {
+          "file": "sources/incoming/ISO-38507-2022-page2-transcription.txt",
+          "provenance": "transcription",
+          "provenance_class": "ocr",
+          "transcribed": "2026-09-29",
+          "read_from": "the publisher's preview PDF (cdn.standards.iteh.ai sample), by the director",
+          "covers": [
+            "3.1",
+            "3.1.1",
+            "3.2",
+            "3.2.1",
+            "3.2.2",
+            "3.2.3",
+            "3.2.4",
+            "3.2.5",
+            "4.1 (partial)"
+          ],
+          "anchorable": false,
+          "anchorable_reason": "NOT anchorable for quotation until a SECOND READ confirms it. One read of an image is one reading; a verbatim gate compares character for character, and a transcription nobody has checked twice would put a misread character behind an item's key.",
+          "incomplete": [
+            "4.1"
+          ],
+          "incomplete_reason": "Clause 4.1 continues past the bottom of the screenshot and its remainder is not transcribed. A partial clause at a real address is the junk-at-a-real-address defect: a coverage report would say 4.1 is held."
+        },
+        "state": "filled by transcription, NOT closed",
+        "blocks_indexing_reason": "Two reasons, and neither is the original one. The missing PAGE is now transcribed, so the scan hole is filled. Indexing is still blocked because (a) the transcription is unconfirmed and therefore not anchorable, and (b) clause 4.1 is incomplete, so indexing it would hold a partial clause at a real address."
       },
       "note": " NOT INDEXED: provenance ocr, and page 2 of the scan is missing (see scan_gap). Loads as NO DECLARED POPULATION when it loads -- a scanned document has no machine-readable contents list, and deriving one from the hand transcription would check the extraction against the transcription."
     },

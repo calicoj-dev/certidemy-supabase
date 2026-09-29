@@ -51,12 +51,13 @@ import { AUDIT480_TIER_A, AUDIT480_TIER_B, AUDIT480_TIER_C, AUDIT480_TIER_D,
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false;
+let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false;
 for (const a of process.argv.slice(2)) {
   const m = /^--cert=(.+)$/.exec(a);
   if (m) { CERT = m[1]; continue; }
   if (a === "--pinned") { PINNED = true; continue; }
   if (a === "--legacy-keying") { LEGACY_KEYING = true; continue; }
+  if (a === "--all-secure") { ALL_SECURE = true; continue; }
   console.error("unknown flag " + JSON.stringify(a) + " -- READ-ONLY and MEASURE-ONLY.");
   console.error("There is no --apply: an instrument that disagrees with an item must not be able");
   console.error("to change it.");
@@ -142,7 +143,7 @@ for (const line of sampleMd.split(/\r?\n/)) {
   const m = /^###\s+(\d+)\.\s+(\S+)\s+·\s+(\S+)\s+·\s+task\s+(\S+)\s+·\s+`([0-9a-f]{8})`/.exec(line);
   if (m && m[2] === CERT) sampled.push({ n: Number(m[1]), task: m[4], prefix: m[5] });
 }
-if (sampled.length !== 40) {
+if (!ALL_SECURE && sampled.length !== 40) {
   console.error("parsed " + sampled.length + " " + CERT + " rows from AUDIT-SAMPLE.md, expected 40.");
   console.error("An empty or short parse is a fact about the parser until something proves otherwise.");
   process.exitCode = 2; process.exit();
@@ -171,7 +172,7 @@ const tsRows = await getAll(KEY, "task_sources?select=task_id,passage_id,role&or
 const pById = new Map((await getAll(KEY, "source_passages?select=id,source_id,edition,clause,title,text,normative&order=id"))
   .map((r) => [r.id, r]));
 /* the pinned-parse record: read under --pinned, written otherwise */
-const PARSE_FILE = join(ROOT, "ANCHOR-PARSE-" + CERT + ".json");
+const PARSE_FILE = join(ROOT, "ANCHOR-PARSE-" + CERT + (ALL_SECURE ? "-all-secure" : "") + ".json");
 const pinned = new Map();
 const parseOut = {};
 if (PINNED) {
@@ -202,8 +203,36 @@ if (!tsRows.length) {
 }
 
 const rows = await getAll(KEY,
-  "quiz_questions?select=id,task_id,question_text,options,correct_answer,explanation,status,retired_at" +
+  "quiz_questions?select=id,task_id,question_text,options,correct_answer,explanation,status,retired_at,pool" +
   "&certification_id=eq." + cid + "&language=eq.en&order=id");
+
+/* ============ --all-secure: THE WHOLE LIVE BANK, NOT THE 40-ITEM SAMPLE ============
+ *
+ * The sample answers "what is the defect rate". This answers a different question the director asked
+ * before a rebuild: WHICH INDIVIDUAL ITEMS SURVIVE. An item is kept only if it anchors cleanly AND
+ * the blind solver picks its key, and generation then fills only the shortfall per task -- so the
+ * unit has to be every live secure English item, not a sample of them.
+ *
+ * The sample list is replaced rather than extended: a run over the whole bank includes the 40, and
+ * carrying both would double-count them. `sampled` keeps its shape so nothing downstream changes,
+ * and the director's tier annotations still attach where a prefix matches. */
+if (ALL_SECURE) {
+  const live = rows.filter((r) => r.pool === "secure" && r.status === "approved" && !r.retired_at);
+  sampled.length = 0;
+  let n = 0;
+  for (const r of live) {
+    const t = taskById.get(r.task_id);
+    sampled.push({ n: ++n, task: t ? t.code : "(no task)", prefix: String(r.id).slice(0, 8) });
+  }
+  const byTask = new Map();
+  for (const s of sampled) byTask.set(s.task, (byTask.get(s.task) || 0) + 1);
+  console.log("--all-secure: " + sampled.length + " live secure English item(s) across " +
+    byTask.size + " task(s) -- the whole bank, not the 40-item sample");
+  if (!sampled.length) {
+    console.error("no live secure English items for " + CERT + " -- nothing to audit.");
+    process.exitCode = 2; process.exit();
+  }
+}
 
 /* ---------------------------------------------------------------- the ask */
 const ANCHOR_SYSTEM = `You are given some passages from a published standard and one
@@ -568,7 +597,8 @@ if (!PINNED) {
   console.log("  recorded " + Object.keys(parseOut).length + " parse(s) to " +
     "ANCHOR-PARSE-" + CERT + ".json");
 }
-const OUT_NAME = "ANCHOR-OR-FLAG-" + CERT + (LEGACY_KEYING ? "-legacy" : "") + ".json";
+const OUT_NAME = "ANCHOR-OR-FLAG-" + CERT + (LEGACY_KEYING ? "-legacy" : "") +
+  (ALL_SECURE ? "-all-secure" : "") + ".json";
 writeFileSync(join(ROOT, OUT_NAME), JSON.stringify({
   certification: CERT, model: MODEL, method: "anchor or flag, primary passages only, code gates decide",
   sampled: sampled.length,
