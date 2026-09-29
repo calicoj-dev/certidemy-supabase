@@ -26,8 +26,12 @@ const TASK = "1.3";
 
 const surv = JSON.parse(readFileSync(join(ROOT, "AIMSF-SURVIVORS.json"), "utf8"));
 const anchorOf = new Map(), taskOf = new Map();
+/* FOUR layers now. The director-87 re-anchor is a layer, and a script with its own hand-kept list is a
+ * second copy of that fact -- this one still read 1b0d5be6 as anchored in A.6.2 after it had been
+ * re-anchored to B.6.2.6, which is exactly the divergence the shared census module exists to prevent. */
 for (const f of ["ANCHOR-OR-FLAG-AIMS-F-all-secure.json", "ANCHOR-OR-FLAG-AIMS-F-all-secure-rerun.json",
-  "ANCHOR-OR-FLAG-AIMS-F-all-secure-modal.json"]) {
+  "ANCHOR-OR-FLAG-AIMS-F-all-secure-modal.json",
+  "ANCHOR-OR-FLAG-AIMS-F-all-secure-director-87.json"]) {
   const j = JSON.parse(readFileSync(join(ROOT, f), "utf8"));
   for (const it of j.items || []) {
     if (it.anchor && it.anchor.clause) anchorOf.set(it.prefix, it.anchor.clause);

@@ -1,0 +1,15 @@
+{
+ "cert": "AIMS-F",
+ "model": "claude-opus-5",
+ "recorded": "2026-09-29T17:03:11Z",
+ "note": "A RECORD OF A PARSE, not a result. --pinned re-gates from this with no model call.",
+ "parses": {
+  "1b0d5be6": {
+   "key_claim": "Because concept/data drift can degrade a model's performance even without continuous learning, AI management obligations (monitoring) continue into the operation stage of the AI system life cycle.",
+   "key_support_clause": "B.6.2.6",
+   "key_support": "The performance of some AI systems can change even if such systems do not use continuous learning, usually due to concept or data drift in production data.",
+   "rests_on_unheld_source": null,
+   "cannot_anchor_reason": null
+  }
+ }
+}

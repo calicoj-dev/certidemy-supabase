@@ -26,6 +26,9 @@ const LAYERS = [
   "ANCHOR-OR-FLAG-AIMS-F-all-secure.json",
   "ANCHOR-OR-FLAG-AIMS-F-all-secure-rerun.json",
   "ANCHOR-OR-FLAG-AIMS-F-all-secure-modal.json",
+  /* the director-87 re-anchor layer. A layer missing from this list is an anchor the cap cannot see, and
+   * the whole point of re-anchoring 1b0d5be6 off a container was to put it somewhere the cap counts. */
+  "ANCHOR-OR-FLAG-AIMS-F-all-secure-director-87.json",
 ];
 
 export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert }) {

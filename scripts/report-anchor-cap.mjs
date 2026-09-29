@@ -38,7 +38,8 @@ const ROOT = join(HERE, "..");
 const surv = JSON.parse(readFileSync(join(ROOT, "AIMSF-SURVIVORS.json"), "utf8"));
 const RD = (n) => existsSync(join(ROOT, n)) ? JSON.parse(readFileSync(join(ROOT, n), "utf8")) : null;
 const layers = ["ANCHOR-OR-FLAG-AIMS-F-all-secure.json", "ANCHOR-OR-FLAG-AIMS-F-all-secure-rerun.json",
-  "ANCHOR-OR-FLAG-AIMS-F-all-secure-modal.json"];
+  "ANCHOR-OR-FLAG-AIMS-F-all-secure-modal.json",
+  "ANCHOR-OR-FLAG-AIMS-F-all-secure-director-87.json"];
 const anchorOf = new Map();
 const taskOf = new Map();
 for (const f of layers) {
