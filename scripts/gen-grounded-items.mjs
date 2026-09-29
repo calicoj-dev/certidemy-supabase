@@ -41,7 +41,7 @@
  * items measured. `--apply` then inserts THAT artifact rather than generating afresh, which
  * is the generate-once-then-persist shape the old generators do not have.
  */
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, appendFileSync, renameSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
@@ -220,6 +220,11 @@ if (!ANTHROPIC_API_KEY) { console.error("ANTHROPIC_API_KEY not found (scripts/.e
 const PRICE_PER_MTOK = { input: 15.0, output: 75.0 };   /* claude-opus, USD per million tokens */
 const SPEND = { calls: 0, input: 0, output: 0, byRole: {} };
 let CALL_ROLE = "unattributed";
+function meterRaw(role, inp, out, calls) {
+  SPEND.calls += calls; SPEND.input += inp; SPEND.output += out;
+  const r = SPEND.byRole[role] || (SPEND.byRole[role] = { calls: 0, input: 0, output: 0 });
+  r.calls += calls; r.input += inp; r.output += out;
+}
 function meter(role, usage) {
   const inp = Number((usage || {}).input_tokens || 0);
   const out = Number((usage || {}).output_tokens || 0);
@@ -638,9 +643,65 @@ function writerUser(task, domain, passages, k) {
 
 /* ---------------------------------------------------------------- generate */
 const cueCfg = cueConfigFor(cert.exam_blueprint);
-const results = [];
 const rejectCounts = new Map();
 const bump = (k) => rejectCounts.set(k, (rejectCounts.get(k) || 0) + 1);
+/* ============ THE GATING CHECKPOINT ============
+ *
+ * Ruled PROMPT-92 s1. A kill used to lose every gated verdict, because the gated artifact is written only
+ * at the end of a run -- batch 2 lost 18 of them and the calls that produced them went unrecorded. Each
+ * item's record and its token cost are now appended as soon as it is decided.
+ *
+ * The spend DELTA travels with the verdict: a resumed run that could not report total spend would still
+ * be losing half of what the kill destroyed. */
+const PARTIAL = join(ROOT, OUT.replace(/\.json$/, "") + ".partial.jsonl");
+const resumed = new Map();
+if (existsSync(PARTIAL)) {
+  let bad = 0;
+  for (const line of readFileSync(PARTIAL, "utf8").split(/\r?\n/)) {
+    if (!line.trim()) continue;
+    let rec = null;
+    try { rec = JSON.parse(line); } catch { bad++; continue; }
+    /* A TRUNCATED LAST LINE IS THE NORMAL SHAPE OF A KILL, so a bad line is counted and skipped rather
+     * than aborting the resume -- that item simply gets gated again, which is correct and costs one item. */
+    if (rec && rec.record && rec.item_id) resumed.set(rec.item_id, rec);
+  }
+  /* fold the recorded spend back into the meter, so the total is the TRUE total across attempts */
+  for (const rec of resumed.values()) {
+    const d = rec.spend_delta || {};
+    for (const [role, r] of Object.entries(d.by_role || {})) meterRaw(role, r.input, r.output, r.calls);
+    for (const [k, n] of Object.entries(rec.reject_delta || {})) rejectCounts.set(k, (rejectCounts.get(k) || 0) + n);
+  }
+  console.log("  CHECKPOINT: resumed " + resumed.size + " gated item(s) from " +
+    PARTIAL.split(/[\\/]/).pop() + (bad ? ", " + bad + " unparseable line(s) skipped" : "") +
+    "; $" + spendUSD().toFixed(2) + " of prior gating spend restored");
+}
+function checkpoint(record, before, rejectBefore) {
+  const by_role = {};
+  for (const [role, r] of Object.entries(SPEND.byRole)) {
+    const b = before.byRole[role] || { calls: 0, input: 0, output: 0 };
+    const d = { calls: r.calls - b.calls, input: r.input - b.input, output: r.output - b.output };
+    if (d.calls || d.input || d.output) by_role[role] = d;
+  }
+  const line = JSON.stringify({ item_id: record.item_id || itemId(record.item),
+    task_code: record.task_code, verdict: record.verdict,
+    spend_delta: { calls: SPEND.calls - before.calls, input: SPEND.input - before.input,
+      output: SPEND.output - before.output, by_role },
+    reject_delta: rejectDelta(rejectBefore),
+    record });
+  appendFileSync(PARTIAL, line + String.fromCharCode(10), "utf8");
+}
+/* The generator's own rejection table is accumulated by bump() DURING gating, so a resumed item would
+ * never be counted in it. The delta travels with the verdict, like the spend. */
+const snapshotRejects = () => new Map(rejectCounts);
+function rejectDelta(before) {
+  const d = {};
+  for (const [k, n] of rejectCounts) { const b = before.get(k) || 0; if (n - b) d[k] = n - b; }
+  return d;
+}
+const snapshotSpend = () => ({ calls: SPEND.calls, input: SPEND.input, output: SPEND.output,
+  byRole: Object.fromEntries(Object.entries(SPEND.byRole).map(([k, v]) => [k, { ...v }])) });
+
+const results = [];
 
 if (FROM) {
   console.log("  --from: re-running gates over " + FROM + ", generating nothing");
@@ -758,6 +819,15 @@ console.log("");
 console.log("GATES");
 let retriedOk = 0, retriedStillBad = 0;
 for (const g of generated) {
+  /* A RESUMED ITEM MAKES NO CALL. The skip is before the first gate, so it cannot cost anything, and
+   * the control asserts that by counting calls rather than by trusting this line. */
+  const gid = itemId(g.item);
+  if (resumed.has(gid)) {
+    results.push(resumed.get(gid).record);
+    continue;
+  }
+  const spendBefore = snapshotSpend();
+  const rejectBefore = snapshotRejects();
   const t = g.task;
   let item = g.item;
   const ps = passagesFor(t);
@@ -825,12 +895,16 @@ for (const g of generated) {
     attributed_quotation: reproGate ? (reproGate.quotation ?? null) : null,
     grounding_family: normClauseForFamily(item.key_support_clause),
     solver: null, options_probe: null, verdict: null,
+    /* the id at CREATION, not only on the survivor path: three of the four record sites are rejections,
+     * and the id is what a resume matches on. */
+    item_id: itemId(item),
   };
 
   if (!code.passed) {
     for (const f of code.failed) bump("code: " + f);
     for (const u of code.unasserted) bump("code UNASSERTED: " + u);
     record.verdict = "rejected by code";
+    checkpoint(record, spendBefore, rejectBefore);
     results.push(record);
     console.log("  " + t.code + "  REJECTED  " + [...code.failed, ...code.unasserted.map((u) => u + "(unasserted)")].join(", "));
     continue;
@@ -852,6 +926,7 @@ for (const g of generated) {
     record.solver = { state: "could-not-run", reason: String(e.message) };
     bump("blind payload leak");
     console.log("  " + t.code + "  REFUSED   " + String(e.message).slice(0, 120));
+    checkpoint(record, spendBefore, rejectBefore);
     results.push(record);
     continue;
   }
@@ -905,7 +980,6 @@ for (const g of generated) {
   }
   record.solver = { ...v, raw: parsed };
   if (v.state === "accepted") {
-    record.item_id = itemId(record.item);
     record.verdict = "survivor";
 
     /* ============ THE OPTIONS-ONLY PROBE: FLAGGED, NEVER REJECTED ============
@@ -1062,6 +1136,7 @@ for (const g of generated) {
             record.de_cue = { state: "reverted", reason: revertReason };
             deCueRevertedRewrite++;
             record.shape_cues_after = record.shape_cues_before;
+            checkpoint(record, spendBefore, rejectBefore);
             results.push(record);
             continue;
           }
@@ -1129,6 +1204,7 @@ for (const g of generated) {
     bump("solver COULD NOT RUN");
     console.log("  " + t.code + "  UNDECIDED  solver could not run: " + v.reason.slice(0, 90));
   }
+  checkpoint(record, spendBefore, rejectBefore);
   results.push(record);
 }
 
@@ -1296,6 +1372,17 @@ writeFileSync(join(ROOT, OUT), JSON.stringify({
 }, null, 1) + "\n", "utf8");
 console.log("");
 console.log("wrote " + OUT);
+/* ============ A COMPLETED RUN RETIRES ITS PARTIAL ============
+ *
+ * Left in place, a full partial file would make the next run with this --out skip every item, make zero
+ * calls and finish instantly -- a run that did nothing, wearing the look of a fast success. Renamed, so a
+ * resume is only ever possible for a run that did NOT finish. */
+if (existsSync(PARTIAL)) {
+  const done = PARTIAL + ".done";
+  renameSync(PARTIAL, done);
+  console.log("  checkpoint retired: " + PARTIAL.split(/[\\/]/).pop() + " -> " +
+    done.split(/[\\/]/).pop() + "   (a resume is only possible for an unfinished run)");
+}
 
 if (!APPLY) {
   console.log("");
