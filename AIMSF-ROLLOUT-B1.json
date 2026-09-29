@@ -1,0 +1,3104 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "spend": {
+  "calls": 55,
+  "input_tokens": 209033,
+  "output_tokens": 43669,
+  "usd": 6.4107,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {
+   "writer": {
+    "calls": 3,
+    "input": 18297,
+    "output": 27376
+   },
+   "solver": {
+    "calls": 28,
+    "input": 147688,
+    "output": 3817
+   },
+   "options-probe": {
+    "calls": 16,
+    "input": 9734,
+    "output": 5738
+   },
+   "de-cue": {
+    "calls": 3,
+    "input": 3676,
+    "output": 3124
+   },
+   "solver-recheck": {
+    "calls": 2,
+    "input": 8027,
+    "output": 300
+   },
+   "paraphrase": {
+    "calls": 3,
+    "input": 21611,
+    "output": 3314
+   }
+  }
+ },
+ "attempted": 15,
+ "generated": 15,
+ "survivors": 14,
+ "generation_note": null,
+ "reject_counts": {
+  "code: modal-fidelity": 1,
+  "code: reproduction": 1
+ },
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 3,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 3,
+  "applied": 2,
+  "reverted_by_rewrite_check": 0,
+  "reverted_by_solver": 0,
+  "reverted_by_gates": 1,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 14,
+  "hit": 11,
+  "pct": 79
+ },
+ "key_pick_after": {
+  "n": 14,
+  "hit": 11,
+  "pct": 79
+ },
+ "shape_cues_before": {
+  "only-hedged": 1,
+  "key-length": 2,
+  "clang": 1
+ },
+ "shape_cues_after": {
+  "key-length": 1,
+  "clang": 1
+ },
+ "anchor_clusters": [
+  {
+   "family": "10.1",
+   "tasks": [
+    "1.1",
+    "1.4"
+   ],
+   "items": 2
+  },
+  {
+   "family": "4.1",
+   "tasks": [
+    "1.4",
+    "1.5"
+   ],
+   "items": 2
+  }
+ ],
+ "options_probe_flags": 9,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 9,
+ "items": [
+  {
+   "task_code": "1.1",
+   "domain": "D1",
+   "item": {
+    "question_text": "In the terminology of the standard, which description corresponds to a management system?",
+    "options": [
+     {
+      "text": "Linked parts of an organization through which it sets direction and targets and runs the processes for reaching them.",
+      "is_correct": true
+     },
+     {
+      "text": "Linked activities that consume or convert inputs so as to deliver a result for a given context of use.",
+      "is_correct": false
+     },
+     {
+      "text": "The intentions and the direction of an organization as formally expressed by the people at its top level.",
+      "is_correct": false
+     },
+     {
+      "text": "A result that an organization intends to achieve, which may be strategic, tactical or operational in nature.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.4 defines a management system as the \"set of interrelated or interacting elements of an organization (3.1) to establish policies (3.5) and objectives (3.6), as well as processes (3.8) to achieve those objectives\". The other options restate the separate definitions of process, policy and objective.",
+    "key_support_clause": "3.4",
+    "key_support": "management system set of interrelated or interacting elements of an organization (3.1) to establish policies (3.5) and objectives (3.6), as well as processes (3.8) to achieve those objectives",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.8",
+      "support": "process set of interrelated or interacting activities that uses or transforms inputs to deliver a result",
+      "why_wrong": "This is the definition of a process, which is one element within a management system rather than the system itself."
+     },
+     {
+      "index": 2,
+      "clause": "3.5",
+      "support": "policy intentions and direction of an organization (3.1) as formally expressed by its top management (3.3)",
+      "why_wrong": "This describes a policy, which the management system is used to establish, not the management system."
+     },
+     {
+      "index": 3,
+      "clause": "3.6",
+      "support": "Note 1 to entry: An objective can be strategic, tactical, or operational.",
+      "why_wrong": "This describes an objective, an intended result that the management system exists to pursue."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 33%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 3.4, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 8 words in option c, plus one 26-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 8,
+   "longest_served_in": "option c",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 26
+   },
+   "grounding_family": "3.4",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.4 defines a management system as a set of interrelated or interacting elements of an organization to establish policies and objectives, as well as processes to achieve those objectives, which matches option A.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "A",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked the key but named no concrete cue -- one in four is luck, not evidence"
+   },
+   "verdict": "survivor",
+   "item_id": "c45a02f1",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "A",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked the key but named no concrete cue -- one in four is luck, not evidence"
+   },
+   "item_before_decue": {
+    "question_text": "In the terminology of the standard, which description corresponds to a management system?",
+    "options": [
+     {
+      "text": "Linked parts of an organization through which it sets direction and targets and runs the processes for reaching them.",
+      "is_correct": true
+     },
+     {
+      "text": "Linked activities that consume or convert inputs so as to deliver a result for a given context of use.",
+      "is_correct": false
+     },
+     {
+      "text": "The intentions and the direction of an organization as formally expressed by the people at its top level.",
+      "is_correct": false
+     },
+     {
+      "text": "A result that an organization intends to achieve, which may be strategic, tactical or operational in nature.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.4 defines a management system as the \"set of interrelated or interacting elements of an organization (3.1) to establish policies (3.5) and objectives (3.6), as well as processes (3.8) to achieve those objectives\". The other options restate the separate definitions of process, policy and objective.",
+    "key_support_clause": "3.4",
+    "key_support": "management system set of interrelated or interacting elements of an organization (3.1) to establish policies (3.5) and objectives (3.6), as well as processes (3.8) to achieve those objectives",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.8",
+      "support": "process set of interrelated or interacting activities that uses or transforms inputs to deliver a result",
+      "why_wrong": "This is the definition of a process, which is one element within a management system rather than the system itself."
+     },
+     {
+      "index": 2,
+      "clause": "3.5",
+      "support": "policy intentions and direction of an organization (3.1) as formally expressed by its top management (3.3)",
+      "why_wrong": "This describes a policy, which the management system is used to establish, not the management system."
+     },
+     {
+      "index": 3,
+      "clause": "3.6",
+      "support": "Note 1 to entry: An objective can be strategic, tactical, or operational.",
+      "why_wrong": "This describes an objective, an intended result that the management system exists to pursue."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.1",
+   "domain": "D1",
+   "item": {
+    "question_text": "How does the annex table of control objectives and controls relate to controls that an organization works out for itself?",
+    "options": [
+     {
+      "text": "It serves as a reference set, and an organization can instead devise and put in place controls of its own.",
+      "is_correct": true
+     },
+     {
+      "text": "It forms a fixed baseline that has to be adopted in full, and controls an organization devises itself are not accepted.",
+      "is_correct": false
+     },
+     {
+      "text": "It is supplemented by a further annex, and an organization can apply those extra controls alongside the tabled ones.",
+      "is_correct": false
+     },
+     {
+      "text": "It states technical build specifications for AI models, and an organization implements them in the form they are written.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.1 states that \"Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).\" The table is a reference, not a fixed technical specification.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "The clause says the listed controls need not all be used and that own controls can be designed, so treating the table as a fixed baseline misreads it."
+     },
+     {
+      "index": 2,
+      "clause": "A.1",
+      "support": "Annex B provides implementation guidance for all the controls listed in Table A.1.",
+      "why_wrong": "The second annex gives implementation guidance for the same controls, not additional controls."
+     },
+     {
+      "index": 3,
+      "clause": "A.1",
+      "support": "The controls detailed in Table A.1 provide the organization with a reference for meeting organizational objectives and addressing risks related to the design and operation of AI systems.",
+      "why_wrong": "The controls are a reference for organizational objectives and risk, not technical build specifications for models."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed can)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 25%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in A.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem, plus one 28-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 28
+   },
+   "grounding_family": "A.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and B are direct mirror-images of each other (reference set vs. fixed baseline; own controls allowed vs. not accepted), so the answer is almost certainly one of that pair; B is the only option containing a negation plus absolutes ('has to be adopted in full', 'not accepted'), which usually marks it as the distractor, leaving A.",
+    "cue_kind": "only-negation",
+    "reason": "picked the key from the options alone and named a cue (only-negation): A and B are direct mirror-images of each other (reference set vs. fixed baseline; own controls allowed vs. not accepted), so the answer is almost certainly one of that pair; B is the only option containing a negation plus absolutes ('has to be adopted in full', 'not accepted'), which usually marks it as the distractor, leaving A."
+   },
+   "verdict": "survivor",
+   "item_id": "19ce57e0",
+   "shape_cues_before": [
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "decue_trigger": [
+    "only-hedged"
+   ],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option phrased permissively (\"can instead devise... its own\"), while B states an absolute with the only negation (\"has to be adopted in full... not accepted\") and C/D are flat absolutes too.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only option phrased permissively (\"can instead devise... its own\"), while B states an absolute with the only negation (\"has to be adopted in full... not accepted\") and C/D are flat absolutes too."
+   },
+   "item_before_decue": {
+    "question_text": "How does the annex table of control objectives and controls relate to controls that an organization works out for itself?",
+    "options": [
+     {
+      "text": "It serves as a reference set, and an organization can instead devise and put in place controls of its own.",
+      "is_correct": true
+     },
+     {
+      "text": "It forms a fixed baseline that has to be adopted in full, with organization-devised controls not accepted.",
+      "is_correct": false
+     },
+     {
+      "text": "It is supplemented by a further annex that adds extra controls to be applied alongside the tabled ones.",
+      "is_correct": false
+     },
+     {
+      "text": "It states technical build specifications for AI models, which an organization implements as they are written.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.1 states that \"Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).\" The table is a reference, not a fixed technical specification.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "The clause says the listed controls need not all be used and that own controls can be designed, so treating the table as a fixed baseline misreads it."
+     },
+     {
+      "index": 2,
+      "clause": "A.1",
+      "support": "Annex B provides implementation guidance for all the controls listed in Table A.1.",
+      "why_wrong": "The second annex gives implementation guidance for the same controls, not additional controls."
+     },
+     {
+      "index": 3,
+      "clause": "A.1",
+      "support": "The controls detailed in Table A.1 provide the organization with a reference for meeting organizational objectives and addressing risks related to the design and operation of AI systems.",
+      "why_wrong": "The controls are a reference for organizational objectives and risk, not technical build specifications for models."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": []
+   },
+   "shape_cues_after": [],
+   "de_cue": {
+    "state": "applied",
+    "probe_before": "only-hedged: the key is the only hedged option (can)",
+    "probe_after": "flag"
+   }
+  },
+  {
+   "task_code": "1.1",
+   "domain": "D1",
+   "item": {
+    "question_text": "Which obligation does the standard place on an organization with respect to the AI management system itself?",
+    "options": [
+     {
+      "text": "To set up, operate, sustain, improve and document the system, including its processes and the way they interact.",
+      "is_correct": true
+     },
+     {
+      "text": "To record the technical design of each deployed model, including its data pipelines and component interfaces.",
+      "is_correct": false
+     },
+     {
+      "text": "To secure certification of the system from an accredited body before any AI system is put into operation.",
+      "is_correct": false
+     },
+     {
+      "text": "To apply the system where AI forms a core product, given the size and nature of the organization concerned.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.4 requires the organization to \"establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.\" The obligation is about the management system, not about technical artefacts or certification.",
+    "key_support_clause": "4.4",
+    "key_support": "The organization shall establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "D.1",
+      "support": "AI systems consist not only of components using AI technology, but can use a variety of technologies and components.",
+      "why_wrong": "Clause 4.4 addresses the management system and its processes, not documentation of each model's technical design."
+     },
+     {
+      "index": 2,
+      "clause": "1",
+      "support": "This document specifies the requirements and provides guidance for establishing, implementing, maintaining and continually improving an AI (artificial intelligence) management system within the context of an organization.",
+      "why_wrong": "The document sets requirements for the management system and does not oblige an organization to obtain certification."
+     },
+     {
+      "index": 3,
+      "clause": "1",
+      "support": "This document is applicable to any organization, regardless of size, type and nature, that provides or uses products or services that utilize AI systems.",
+      "why_wrong": "Applicability does not depend on AI being a core product or on the organization's size and nature."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 38%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 4.4, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 7 words in stem, plus one 26-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 7,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 26
+   },
+   "grounding_family": "4.4",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 4.4 requires the organization to \"establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions\", which matches option A verbatim in substance.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option with a five-verb chain ('set up, operate, sustain, improve and document') covering a whole lifecycle, while B, C and D each name a single narrow action; C also contains the absolute 'any ... before'.",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): A is the only option with a five-verb chain ('set up, operate, sustain, improve and document') covering a whole lifecycle, while B, C and D each name a single narrow action; C also contains the absolute 'any ... before'."
+   },
+   "verdict": "survivor",
+   "item_id": "f1dff639",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option with a five-verb chain ('set up, operate, sustain, improve and document') covering a whole lifecycle, while B, C and D each name a single narrow action; C also contains the absolute 'any ... before'.",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): A is the only option with a five-verb chain ('set up, operate, sustain, improve and document') covering a whole lifecycle, while B, C and D each name a single narrow action; C also contains the absolute 'any ... before'."
+   },
+   "item_before_decue": {
+    "question_text": "Which obligation does the standard place on an organization with respect to the AI management system itself?",
+    "options": [
+     {
+      "text": "To set up, operate, sustain, improve and document the system, including its processes and the way they interact.",
+      "is_correct": true
+     },
+     {
+      "text": "To record the technical design of each deployed model, including its data pipelines and component interfaces.",
+      "is_correct": false
+     },
+     {
+      "text": "To secure certification of the system from an accredited body before any AI system is put into operation.",
+      "is_correct": false
+     },
+     {
+      "text": "To apply the system where AI forms a core product, given the size and nature of the organization concerned.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.4 requires the organization to \"establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.\" The obligation is about the management system, not about technical artefacts or certification.",
+    "key_support_clause": "4.4",
+    "key_support": "The organization shall establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "D.1",
+      "support": "AI systems consist not only of components using AI technology, but can use a variety of technologies and components.",
+      "why_wrong": "Clause 4.4 addresses the management system and its processes, not documentation of each model's technical design."
+     },
+     {
+      "index": 2,
+      "clause": "1",
+      "support": "This document specifies the requirements and provides guidance for establishing, implementing, maintaining and continually improving an AI (artificial intelligence) management system within the context of an organization.",
+      "why_wrong": "The document sets requirements for the management system and does not oblige an organization to obtain certification."
+     },
+     {
+      "index": 3,
+      "clause": "1",
+      "support": "This document is applicable to any organization, regardless of size, type and nature, that provides or uses products or services that utilize AI systems.",
+      "why_wrong": "Applicability does not depend on AI being a core product or on the organization's size and nature."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.1",
+   "domain": "D1",
+   "item": {
+    "question_text": "The standard contains a continual-improvement requirement. What is the object of that improvement?",
+    "options": [
+     {
+      "text": "The suitability, the adequacy and the effectiveness of the AI management system taken as a whole.",
+      "is_correct": true
+     },
+     {
+      "text": "The predictive accuracy and the runtime performance of each AI system that the organization operates.",
+      "is_correct": false
+     },
+     {
+      "text": "The implementation guidance supplied in the annex for the tabled control objectives and controls.",
+      "is_correct": false
+     },
+     {
+      "text": "The intentions and the direction of the organization as these are formally expressed by top management.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 10.1 states: \"The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.\" The target is the management system, not model performance, annex guidance or the policy alone.",
+    "key_support_clause": "10.1",
+    "key_support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "The controls detailed in Table A.1 provide the organization with a reference for meeting organizational objectives and addressing risks related to the design and operation of AI systems.",
+      "why_wrong": "Design and operation of AI systems are addressed through controls; the improvement requirement is directed at the management system."
+     },
+     {
+      "index": 2,
+      "clause": "A.1",
+      "support": "Annex B provides implementation guidance for all the controls listed in Table A.1.",
+      "why_wrong": "The annex guidance is part of the document, not something the organization is required to improve."
+     },
+     {
+      "index": 3,
+      "clause": "3.5",
+      "support": "policy intentions and direction of an organization (3.1) as formally expressed by its top management (3.3)",
+      "why_wrong": "This is the policy, only one element of the system that clause 10.1 requires to be improved."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 17%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 10.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 8 words in option a, plus one 15-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 8,
+   "longest_served_in": "option a",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 15
+   },
+   "grounding_family": "10.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 10.1 states the organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option whose scope is the whole system (\"taken as a whole\") and the only one listing three parallel abstract nouns; B, C and D each restrict themselves to a narrower part (each AI system / the annex / top management).",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): A is the only option whose scope is the whole system (\"taken as a whole\") and the only one listing three parallel abstract nouns; B, C and D each restrict themselves to a narrower part (each AI system / the annex / top management)."
+   },
+   "verdict": "survivor",
+   "item_id": "342b88d6",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option whose scope is the whole system (\"taken as a whole\") and the only one listing three parallel abstract nouns; B, C and D each restrict themselves to a narrower part (each AI system / the annex / top management).",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): A is the only option whose scope is the whole system (\"taken as a whole\") and the only one listing three parallel abstract nouns; B, C and D each restrict themselves to a narrower part (each AI system / the annex / top management)."
+   },
+   "item_before_decue": {
+    "question_text": "The standard contains a continual-improvement requirement. What is the object of that improvement?",
+    "options": [
+     {
+      "text": "The suitability, the adequacy and the effectiveness of the AI management system taken as a whole.",
+      "is_correct": true
+     },
+     {
+      "text": "The predictive accuracy and the runtime performance of each AI system that the organization operates.",
+      "is_correct": false
+     },
+     {
+      "text": "The implementation guidance supplied in the annex for the tabled control objectives and controls.",
+      "is_correct": false
+     },
+     {
+      "text": "The intentions and the direction of the organization as these are formally expressed by top management.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 10.1 states: \"The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.\" The target is the management system, not model performance, annex guidance or the policy alone.",
+    "key_support_clause": "10.1",
+    "key_support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "The controls detailed in Table A.1 provide the organization with a reference for meeting organizational objectives and addressing risks related to the design and operation of AI systems.",
+      "why_wrong": "Design and operation of AI systems are addressed through controls; the improvement requirement is directed at the management system."
+     },
+     {
+      "index": 2,
+      "clause": "A.1",
+      "support": "Annex B provides implementation guidance for all the controls listed in Table A.1.",
+      "why_wrong": "The annex guidance is part of the document, not something the organization is required to improve."
+     },
+     {
+      "index": 3,
+      "clause": "3.5",
+      "support": "policy intentions and direction of an organization (3.1) as formally expressed by its top management (3.3)",
+      "why_wrong": "This is the policy, only one element of the system that clause 10.1 requires to be improved."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.4",
+   "domain": "D1",
+   "item": {
+    "question_text": "An organisation already certified to ISO/IEC 27001 is mapping its existing arrangements onto ISO/IEC 42001, whose clauses are numbered the same way. Which description matches what ISO/IEC 42001 places at the clause numbered 9.2.1?",
+    "options": [
+     {
+      "text": "Top management looks over the system periodically to confirm it stays suitable, adequate and effective.",
+      "is_correct": false
+     },
+     {
+      "text": "The organisation records the limits and applicability of its system and holds that as documented information.",
+      "is_correct": false
+     },
+     {
+      "text": "Checks made at intervals fixed in advance report on conformity with internal and standard requirements and on effective operation.",
+      "is_correct": true
+     },
+     {
+      "text": "The organisation keeps raising how suitable, adequate and effective the system is over time.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause 9.2.1 is the harmonised internal audit clause: audits at planned intervals give information on conformity with the organisation's own AIMS requirements and with the standard, and on whether the system \"is effectively implemented and maintained\" (9.2.1). The other options describe management review, scope and continual improvement, which sit at different clause numbers.",
+    "key_support_clause": "9.2.1",
+    "key_support": "The organization shall conduct internal audits at planned intervals to provide information on whether the AI management system: a) conforms to: 1) the organization’s own requirements for its AI management system; 2) the requirements of this document; b) is effectively implemented and maintained.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "9.3.1",
+      "support": "Top management shall review the organization’s AI management system, at planned intervals, to ensure its continuing suitability, adequacy and effectiveness.",
+      "why_wrong": "This is the management review provision at 9.3.1, not the internal audit provision at 9.2.1."
+     },
+     {
+      "index": 1,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "Documenting scope belongs to clause 4.3 on determining the scope of the AI management system."
+     },
+     {
+      "index": 3,
+      "clause": "10.1",
+      "support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+      "why_wrong": "Continual improvement sits in Clause 10.1, not in the audit clause."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 47%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 11,
+     "reason": "the key anchors in 9.2.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in stem, plus one 5-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 5
+   },
+   "grounding_family": "9.2.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "C",
+     "answer_reason": "Clause 9.2.1 states the organization shall conduct internal audits at planned intervals to provide information on whether the AI management system conforms to its own and this document's requirements and is effectively implemented and maintained.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "A",
+    "cue": "A and D are the only pair sharing the triad \"suitable, adequate and effective\"; within that pair A is the more specific, qualified statement (\"looks over ... periodically to confirm\") while D is a vague blanket claim.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked A, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "b90e65f1",
+   "shape_cues_before": [
+    {
+     "id": "key-length",
+     "cue": "the key is 19 words against a median distractor of 15 (1.27x, tolerance 1.25x)"
+    }
+   ],
+   "decue_trigger": [
+    "key-length"
+   ],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "A",
+    "cue": "A and D are the only pair sharing the triad \"suitable, adequate and effective\"; within that pair A is the more specific, qualified statement (\"looks over ... periodically to confirm\") while D is a vague blanket claim.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked A, not the key -- the options do not give it away"
+   },
+   "item_before_decue": {
+    "question_text": "An organisation already certified to ISO/IEC 27001 is mapping its existing arrangements onto ISO/IEC 42001, whose clauses are numbered the same way. Which description matches what ISO/IEC 42001 places at the clause numbered 9.2.1?",
+    "options": [
+     {
+      "text": "Top management looks over the system periodically to confirm it stays suitable, adequate and effective.",
+      "is_correct": false
+     },
+     {
+      "text": "The organisation records the limits and applicability of its system and holds that as documented information.",
+      "is_correct": false
+     },
+     {
+      "text": "Checks made at intervals fixed in advance report on conformity with internal and standard requirements and on effective operation.",
+      "is_correct": true
+     },
+     {
+      "text": "The organisation keeps raising how suitable, adequate and effective the system is over time.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause 9.2.1 is the harmonised internal audit clause: audits at planned intervals give information on conformity with the organisation's own AIMS requirements and with the standard, and on whether the system \"is effectively implemented and maintained\" (9.2.1). The other options describe management review, scope and continual improvement, which sit at different clause numbers.",
+    "key_support_clause": "9.2.1",
+    "key_support": "The organization shall conduct internal audits at planned intervals to provide information on whether the AI management system: a) conforms to: 1) the organization’s own requirements for its AI management system; 2) the requirements of this document; b) is effectively implemented and maintained.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "9.3.1",
+      "support": "Top management shall review the organization’s AI management system, at planned intervals, to ensure its continuing suitability, adequacy and effectiveness.",
+      "why_wrong": "This is the management review provision at 9.3.1, not the internal audit provision at 9.2.1."
+     },
+     {
+      "index": 1,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "Documenting scope belongs to clause 4.3 on determining the scope of the AI management system."
+     },
+     {
+      "index": 3,
+      "clause": "10.1",
+      "support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+      "why_wrong": "Continual improvement sits in Clause 10.1, not in the audit clause."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": []
+   },
+   "shape_cues_after": [
+    {
+     "id": "key-length",
+     "cue": "the key is 19 words against a median distractor of 15 (1.27x, tolerance 1.25x)"
+    }
+   ],
+   "de_cue": {
+    "state": "reverted",
+    "reason": "the rewritten distractors failed reproduction"
+   },
+   "de_cue_candidate_discarded": true
+  },
+  {
+   "task_code": "1.4",
+   "domain": "D1",
+   "item": {
+    "question_text": "ISO/IEC 42001 and ISO/IEC 27001 number their management review provisions identically. What does ISO/IEC 42001 place on top management at 9.3.1?",
+    "options": [
+     {
+      "text": "Looking over the AI management system at planned intervals so that it goes on being suitable, adequate and effective.",
+      "is_correct": true
+     },
+     {
+      "text": "Running audits at planned intervals to establish whether the system meets the organisation's own stated requirements.",
+      "is_correct": false
+     },
+     {
+      "text": "Setting AI objectives at the functions and levels that matter, keeping them in line with the AI policy.",
+      "is_correct": false
+     },
+     {
+      "text": "Seeing to it that the resources the AI management system needs are made available across the organisation.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 9.3.1 assigns the periodic review to top management to ensure \"continuing suitability, adequacy and effectiveness\" of the AI management system. Auditing (9.2.1), objective setting (6.2) and resourcing (5.1) are separate clauses of the harmonised structure.",
+    "key_support_clause": "9.3.1",
+    "key_support": "Top management shall review the organization’s AI management system, at planned intervals, to ensure its continuing suitability, adequacy and effectiveness.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "9.2.1",
+      "support": "The organization shall conduct internal audits at planned intervals to provide information on whether the AI management system: a) conforms to: 1) the organization’s own requirements for its AI management system;",
+      "why_wrong": "Internal auditing is clause 9.2.1 and is placed on the organization, not on top management at 9.3.1."
+     },
+     {
+      "index": 2,
+      "clause": "6.2",
+      "support": "The organization shall establish AI objectives at relevant functions and levels.",
+      "why_wrong": "Objective setting sits in the planning clause 6.2, not in management review."
+     },
+     {
+      "index": 3,
+      "clause": "5.1",
+      "support": "— ensuring that the resources needed for the AI management system are available;",
+      "why_wrong": "Making resources available is part of the leadership and commitment clause 5.1."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 33%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 11,
+     "reason": "the key anchors in 9.3.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in option a, plus one 5-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "option a",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 5
+   },
+   "grounding_family": "9.3.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 9.3.1 states: \"Top management shall review the organization's AI management system, at planned intervals, to ensure its continuing suitability, adequacy and effectiveness.\"",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "A",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked the key but named no concrete cue -- one in four is luck, not evidence"
+   },
+   "verdict": "survivor",
+   "item_id": "90fff510",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "A",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked the key but named no concrete cue -- one in four is luck, not evidence"
+   },
+   "item_before_decue": {
+    "question_text": "ISO/IEC 42001 and ISO/IEC 27001 number their management review provisions identically. What does ISO/IEC 42001 place on top management at 9.3.1?",
+    "options": [
+     {
+      "text": "Looking over the AI management system at planned intervals so that it goes on being suitable, adequate and effective.",
+      "is_correct": true
+     },
+     {
+      "text": "Running audits at planned intervals to establish whether the system meets the organisation's own stated requirements.",
+      "is_correct": false
+     },
+     {
+      "text": "Setting AI objectives at the functions and levels that matter, keeping them in line with the AI policy.",
+      "is_correct": false
+     },
+     {
+      "text": "Seeing to it that the resources the AI management system needs are made available across the organisation.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 9.3.1 assigns the periodic review to top management to ensure \"continuing suitability, adequacy and effectiveness\" of the AI management system. Auditing (9.2.1), objective setting (6.2) and resourcing (5.1) are separate clauses of the harmonised structure.",
+    "key_support_clause": "9.3.1",
+    "key_support": "Top management shall review the organization’s AI management system, at planned intervals, to ensure its continuing suitability, adequacy and effectiveness.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "9.2.1",
+      "support": "The organization shall conduct internal audits at planned intervals to provide information on whether the AI management system: a) conforms to: 1) the organization’s own requirements for its AI management system;",
+      "why_wrong": "Internal auditing is clause 9.2.1 and is placed on the organization, not on top management at 9.3.1."
+     },
+     {
+      "index": 2,
+      "clause": "6.2",
+      "support": "The organization shall establish AI objectives at relevant functions and levels.",
+      "why_wrong": "Objective setting sits in the planning clause 6.2, not in management review."
+     },
+     {
+      "index": 3,
+      "clause": "5.1",
+      "support": "— ensuring that the resources needed for the AI management system are available;",
+      "why_wrong": "Making resources available is part of the leadership and commitment clause 5.1."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.4",
+   "domain": "D1",
+   "item": {
+    "question_text": "Improvement in ISO/IEC 42001 is split between clauses 10.1 and 10.2, following the same pattern as ISO/IEC 27001. Which obligation belongs to 10.1?",
+    "options": [
+     {
+      "text": "Reacting when something fails to conform and weighing whether its causes need to be removed.",
+      "is_correct": false
+     },
+     {
+      "text": "Holding evidence about the nature of nonconformities and about what corrective action achieved.",
+      "is_correct": false
+     },
+     {
+      "text": "Judging whether corrective action worked and altering the management system where that is needed.",
+      "is_correct": false
+     },
+     {
+      "text": "Improving, on a continuing basis, how suitable, adequate and effective the AI management system is.",
+      "is_correct": true
+     }
+    ],
+    "correct_index": 3,
+    "explanation": "Clause 10.1 is the short continual improvement clause: the organization \"shall continually improve the suitability, adequacy and effectiveness of the AI management system\". The other three obligations all come from the nonconformity and corrective action clause, 10.2.",
+    "key_support_clause": "10.1",
+    "key_support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "10.2",
+      "support": "When a nonconformity occurs, the organization shall: a) react to the nonconformity and as applicable: 1) take action to control and correct it",
+      "why_wrong": "Reacting to a nonconformity and evaluating its causes is required by 10.2, not 10.1."
+     },
+     {
+      "index": 1,
+      "clause": "10.2",
+      "support": "Documented information shall be available as evidence of: — the nature of the nonconformities and any subsequent actions taken; — the results of any corrective action.",
+      "why_wrong": "The documented information duty about nonconformities belongs to 10.2."
+     },
+     {
+      "index": 2,
+      "clause": "10.2",
+      "support": "d) review the effectiveness of any corrective action taken; e) make changes to the AI management system, if necessary.",
+      "why_wrong": "Reviewing corrective action effectiveness is a step listed within 10.2."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 29%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 11,
+     "reason": "the key anchors in 10.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in stem, plus one 13-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 13
+   },
+   "grounding_family": "10.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "D",
+     "answer_reason": "Clause 10.1 states the organization shall continually improve the suitability, adequacy and effectiveness of the AI management system, whereas A, B and C are all elements of 10.2.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "D",
+    "cue": "A, B and C all describe steps of the same nonconformity/corrective-action cycle while D is the odd one out and is also the only option that names the domain ('AI management system') explicitly.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A, B and C all describe steps of the same nonconformity/corrective-action cycle while D is the odd one out and is also the only option that names the domain ('AI management system') explicitly."
+   },
+   "verdict": "survivor",
+   "item_id": "ce7cd810",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "D",
+    "cue": "A, B and C all describe steps of the same nonconformity/corrective-action cycle while D is the odd one out and is also the only option that names the domain ('AI management system') explicitly.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A, B and C all describe steps of the same nonconformity/corrective-action cycle while D is the odd one out and is also the only option that names the domain ('AI management system') explicitly."
+   },
+   "item_before_decue": {
+    "question_text": "Improvement in ISO/IEC 42001 is split between clauses 10.1 and 10.2, following the same pattern as ISO/IEC 27001. Which obligation belongs to 10.1?",
+    "options": [
+     {
+      "text": "Reacting when something fails to conform and weighing whether its causes need to be removed.",
+      "is_correct": false
+     },
+     {
+      "text": "Holding evidence about the nature of nonconformities and about what corrective action achieved.",
+      "is_correct": false
+     },
+     {
+      "text": "Judging whether corrective action worked and altering the management system where that is needed.",
+      "is_correct": false
+     },
+     {
+      "text": "Improving, on a continuing basis, how suitable, adequate and effective the AI management system is.",
+      "is_correct": true
+     }
+    ],
+    "correct_index": 3,
+    "explanation": "Clause 10.1 is the short continual improvement clause: the organization \"shall continually improve the suitability, adequacy and effectiveness of the AI management system\". The other three obligations all come from the nonconformity and corrective action clause, 10.2.",
+    "key_support_clause": "10.1",
+    "key_support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "10.2",
+      "support": "When a nonconformity occurs, the organization shall: a) react to the nonconformity and as applicable: 1) take action to control and correct it",
+      "why_wrong": "Reacting to a nonconformity and evaluating its causes is required by 10.2, not 10.1."
+     },
+     {
+      "index": 1,
+      "clause": "10.2",
+      "support": "Documented information shall be available as evidence of: — the nature of the nonconformities and any subsequent actions taken; — the results of any corrective action.",
+      "why_wrong": "The documented information duty about nonconformities belongs to 10.2."
+     },
+     {
+      "index": 2,
+      "clause": "10.2",
+      "support": "d) review the effectiveness of any corrective action taken; e) make changes to the AI management system, if necessary.",
+      "why_wrong": "Reviewing corrective action effectiveness is a step listed within 10.2."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.4",
+   "domain": "D1",
+   "item": {
+    "question_text": "Clause 4.1 of ISO/IEC 42001 carries the harmonised title also used in ISO 9001 and ISO/IEC 27001. Which requirement is part of the AI standard's version of that clause?",
+    "options": [
+     {
+      "text": "Deciding which of the interested parties' requirements will be handled through the management system.",
+      "is_correct": false
+     },
+     {
+      "text": "Taking account of the purpose for which the organisation's AI systems are meant to be used.",
+      "is_correct": true
+     },
+     {
+      "text": "Setting out the limits and applicability of the management system and keeping that as documented information.",
+      "is_correct": false
+     },
+     {
+      "text": "Establishing and maintaining the management system along with the processes needed and their interactions.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause 4.1 adds AI-specific text to the harmonised context clause, including that the organization \"shall consider the intended purpose of the AI systems that are developed, provided or used by the organization\" (4.1). The other options belong to clauses 4.2, 4.3 and 4.4.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "4.2",
+      "support": "— which of these requirements will be addressed through the AI management system.",
+      "why_wrong": "Deciding which interested party requirements are addressed belongs to clause 4.2."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "Boundaries, applicability and documented scope are dealt with in clause 4.3."
+     },
+     {
+      "index": 3,
+      "clause": "4.4",
+      "support": "The organization shall establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.",
+      "why_wrong": "Establishing and maintaining the system with its processes is clause 4.4."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 43%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 11,
+     "reason": "the key anchors in 4.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in option d, plus one 18-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "option d",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 18
+   },
+   "grounding_family": "4.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "B",
+     "answer_reason": "Clause 4.1 states \"The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization\", which is the AI-specific addition to the harmonised clause.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "C is the longest option and the only one with an extra appended clause ('and keeping that as documented information'), while A, B and D are single flat clauses.",
+    "cue_kind": "length",
+    "reason": "picked C, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "e11bd9f1",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "C is the longest option and the only one with an extra appended clause ('and keeping that as documented information'), while A, B and D are single flat clauses.",
+    "cue_kind": "length",
+    "reason": "picked C, not the key -- the options do not give it away"
+   },
+   "item_before_decue": {
+    "question_text": "Clause 4.1 of ISO/IEC 42001 carries the harmonised title also used in ISO 9001 and ISO/IEC 27001. Which requirement is part of the AI standard's version of that clause?",
+    "options": [
+     {
+      "text": "Deciding which of the interested parties' requirements will be handled through the management system.",
+      "is_correct": false
+     },
+     {
+      "text": "Taking account of the purpose for which the organisation's AI systems are meant to be used.",
+      "is_correct": true
+     },
+     {
+      "text": "Setting out the limits and applicability of the management system and keeping that as documented information.",
+      "is_correct": false
+     },
+     {
+      "text": "Establishing and maintaining the management system along with the processes needed and their interactions.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause 4.1 adds AI-specific text to the harmonised context clause, including that the organization \"shall consider the intended purpose of the AI systems that are developed, provided or used by the organization\" (4.1). The other options belong to clauses 4.2, 4.3 and 4.4.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "4.2",
+      "support": "— which of these requirements will be addressed through the AI management system.",
+      "why_wrong": "Deciding which interested party requirements are addressed belongs to clause 4.2."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "Boundaries, applicability and documented scope are dealt with in clause 4.3."
+     },
+     {
+      "index": 3,
+      "clause": "4.4",
+      "support": "The organization shall establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.",
+      "why_wrong": "Establishing and maintaining the system with its processes is clause 4.4."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.4",
+   "domain": "D1",
+   "item": {
+    "question_text": "The general part of Annex D notes that an AI system is built from AI components together with other technologies. What view does it take of objectives such as safety, security, privacy and environmental impact?",
+    "options": [
+     {
+      "text": "They are best looked after across the system as a whole rather than handled apart for the AI parts.",
+      "is_correct": true
+     },
+     {
+      "text": "They are best pursued each in its own separate management system so that AI work stays distinct.",
+      "is_correct": false
+     },
+     {
+      "text": "This document addresses them from a technology neutral angle, leaving AI specifics to other standards.",
+      "is_correct": false
+     },
+     {
+      "text": "They are dealt with through ISO/IEC 27701, which extends the AI management system to cover privacy.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Annex D.1 advises that such objectives \"should be managed holistically and not separately for AI and the other components of the system\", which is why integration with other management system standards matters. The annex also states the opposite of option C: other management system standards are the technology neutral ones, while the AI management system adds AI-specific considerations.",
+    "key_support_clause": "D.1",
+    "key_support": "Objectives such as safety, security, privacy and environmental impact should be managed holistically and not separately for AI and the other components of the system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "D.1",
+      "support": "Integration of the AI management system with generic or sector-specific management system standards for relevant topics is therefore essential for responsible development and use of an AI system.",
+      "why_wrong": "The annex points towards integration of management systems, not towards keeping each objective in a system of its own."
+     },
+     {
+      "index": 2,
+      "clause": "D.1",
+      "support": "These management system standards consider the objective usually from a technology neutral point of view, while the AI management system provides AI technology specific considerations.",
+      "why_wrong": "The roles are reversed: the other standards are technology neutral and this document gives the AI-specific view."
+     },
+     {
+      "index": 3,
+      "clause": "D.2",
+      "support": "Similarly, as for ISO/IEC 27001, the organization can benefit from the integration of ISO/IEC 27701 with the AI management system.",
+      "why_wrong": "ISO/IEC 27701 is a separate privacy standard that can be integrated with the AI management system, not an extension of it that covers these objectives."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a recommendation; anchor is a recommendation by the anchor sentence (clause classed should)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 25%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 11,
+     "reason": "the key anchors in D.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 9 words in stem, plus one 16-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 9,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 16
+   },
+   "grounding_family": "D.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause D.1 states that \"Objectives such as safety, security, privacy and environmental impact should be managed holistically and not separately for AI and the other components of the system.\"",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and B share the stem \"They are best ...\" and state directly opposite claims (handled system-wide vs. kept separate), so the key is likely one of that contradictory pair; A is the integrative member.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and B share the stem \"They are best ...\" and state directly opposite claims (handled system-wide vs. kept separate), so the key is likely one of that contradictory pair; A is the integrative member."
+   },
+   "verdict": "survivor",
+   "item_id": "a5eb5694",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and B share the stem \"They are best ...\" and state directly opposite claims (handled system-wide vs. kept separate), so the key is likely one of that contradictory pair; A is the integrative member.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and B share the stem \"They are best ...\" and state directly opposite claims (handled system-wide vs. kept separate), so the key is likely one of that contradictory pair; A is the integrative member."
+   },
+   "item_before_decue": {
+    "question_text": "The general part of Annex D notes that an AI system is built from AI components together with other technologies. What view does it take of objectives such as safety, security, privacy and environmental impact?",
+    "options": [
+     {
+      "text": "They are best looked after across the system as a whole rather than handled apart for the AI parts.",
+      "is_correct": true
+     },
+     {
+      "text": "They are best pursued each in its own separate management system so that AI work stays distinct.",
+      "is_correct": false
+     },
+     {
+      "text": "This document addresses them from a technology neutral angle, leaving AI specifics to other standards.",
+      "is_correct": false
+     },
+     {
+      "text": "They are dealt with through ISO/IEC 27701, which extends the AI management system to cover privacy.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Annex D.1 advises that such objectives \"should be managed holistically and not separately for AI and the other components of the system\", which is why integration with other management system standards matters. The annex also states the opposite of option C: other management system standards are the technology neutral ones, while the AI management system adds AI-specific considerations.",
+    "key_support_clause": "D.1",
+    "key_support": "Objectives such as safety, security, privacy and environmental impact should be managed holistically and not separately for AI and the other components of the system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "D.1",
+      "support": "Integration of the AI management system with generic or sector-specific management system standards for relevant topics is therefore essential for responsible development and use of an AI system.",
+      "why_wrong": "The annex points towards integration of management systems, not towards keeping each objective in a system of its own."
+     },
+     {
+      "index": 2,
+      "clause": "D.1",
+      "support": "These management system standards consider the objective usually from a technology neutral point of view, while the AI management system provides AI technology specific considerations.",
+      "why_wrong": "The roles are reversed: the other standards are technology neutral and this document gives the AI-specific view."
+     },
+     {
+      "index": 3,
+      "clause": "D.2",
+      "support": "Similarly, as for ISO/IEC 27001, the organization can benefit from the integration of ISO/IEC 27701 with the AI management system.",
+      "why_wrong": "ISO/IEC 27701 is a separate privacy standard that can be integrated with the AI management system, not an extension of it that covers these objectives."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.5",
+   "domain": "D1",
+   "item": {
+    "question_text": "A board member asks what an implemented and certified AI management system is meant to do for the organization. Which answer best reflects the stated scope of the standard?",
+    "options": [
+     {
+      "text": "Support it in developing, providing or using AI systems responsibly while meeting requirements that apply to it",
+      "is_correct": true
+     },
+     {
+      "text": "Certify that the AI products it places on the market satisfy the safety legislation applying to them",
+      "is_correct": false
+     },
+     {
+      "text": "Apply to sizeable organizations that build AI systems rather than to those that merely use them",
+      "is_correct": false
+     },
+     {
+      "text": "Replace the separate management systems it runs for information security, privacy and quality topics",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 1 frames the document as an aid to acting responsibly when an organization builds, supplies or operates AI while pursuing its own objectives and satisfying obligations owed to, and expectations of, interested parties — including a commitment to \"meet applicable requirements\" (Clause 1). That is a management-system claim, not a declaration that products or the organization are legally compliant.",
+    "key_support_clause": "1",
+    "key_support": "This document is intended to help the organization develop, provide or use AI systems responsibly in pursuing its objectives and meet applicable requirements, obligations related to interested parties and expectations from them.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "D.2",
+      "support": "[11] ISO/IEC 17065, Conformity assessment — Requirements for bodies certifying products, processes and services",
+      "why_wrong": "Product certification is the subject of a different standard cited in the bibliography; this document specifies a management system, not product conformity assessment."
+     },
+     {
+      "index": 2,
+      "clause": "1",
+      "support": "This document is applicable to any organization, regardless of size, type and nature, that provides or uses products or services that utilize AI systems.",
+      "why_wrong": "The scope covers organizations of any size that provide or use AI-based products or services, not just large developers."
+     },
+     {
+      "index": 3,
+      "clause": "D.2",
+      "support": "Given that both ISO/IEC 27001 and the AI management systems use the high-level structure, their integrated use is facilitated and of great benefit for the organization.",
+      "why_wrong": "Annex D describes integration with other management system standards, not replacement of them."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 29%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 12,
+     "reason": "the key anchors in 1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in option a, plus one 3-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "option a",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 3
+   },
+   "grounding_family": "1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 1 (Scope) states the document 'is intended to help the organization develop, provide or use AI systems responsibly in pursuing its objectives and meet applicable requirements, obligations related to interested parties and expectations from them.'",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each make a narrow/exclusive claim (\"certify\", \"rather than those that merely use them\", \"replace the separate management systems\"), while A is the only broad, non-restrictive option.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B, C and D each make a narrow/exclusive claim (\"certify\", \"rather than those that merely use them\", \"replace the separate management systems\"), while A is the only broad, non-restrictive option."
+   },
+   "verdict": "survivor",
+   "item_id": "b1831403",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each make a narrow/exclusive claim (\"certify\", \"rather than those that merely use them\", \"replace the separate management systems\"), while A is the only broad, non-restrictive option.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B, C and D each make a narrow/exclusive claim (\"certify\", \"rather than those that merely use them\", \"replace the separate management systems\"), while A is the only broad, non-restrictive option."
+   },
+   "item_before_decue": {
+    "question_text": "A board member asks what an implemented and certified AI management system is meant to do for the organization. Which answer best reflects the stated scope of the standard?",
+    "options": [
+     {
+      "text": "Support it in developing, providing or using AI systems responsibly while meeting requirements that apply to it",
+      "is_correct": true
+     },
+     {
+      "text": "Certify that the AI products it places on the market satisfy the safety legislation applying to them",
+      "is_correct": false
+     },
+     {
+      "text": "Apply to sizeable organizations that build AI systems rather than to those that merely use them",
+      "is_correct": false
+     },
+     {
+      "text": "Replace the separate management systems it runs for information security, privacy and quality topics",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 1 frames the document as an aid to acting responsibly when an organization builds, supplies or operates AI while pursuing its own objectives and satisfying obligations owed to, and expectations of, interested parties — including a commitment to \"meet applicable requirements\" (Clause 1). That is a management-system claim, not a declaration that products or the organization are legally compliant.",
+    "key_support_clause": "1",
+    "key_support": "This document is intended to help the organization develop, provide or use AI systems responsibly in pursuing its objectives and meet applicable requirements, obligations related to interested parties and expectations from them.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "D.2",
+      "support": "[11] ISO/IEC 17065, Conformity assessment — Requirements for bodies certifying products, processes and services",
+      "why_wrong": "Product certification is the subject of a different standard cited in the bibliography; this document specifies a management system, not product conformity assessment."
+     },
+     {
+      "index": 2,
+      "clause": "1",
+      "support": "This document is applicable to any organization, regardless of size, type and nature, that provides or uses products or services that utilize AI systems.",
+      "why_wrong": "The scope covers organizations of any size that provide or use AI-based products or services, not just large developers."
+     },
+     {
+      "index": 3,
+      "clause": "D.2",
+      "support": "Given that both ISO/IEC 27001 and the AI management systems use the high-level structure, their integrated use is facilitated and of great benefit for the organization.",
+      "why_wrong": "Annex D describes integration with other management system standards, not replacement of them."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.5",
+   "domain": "D1",
+   "item": {
+    "question_text": "In the terminology of the standard, the word 'conformity' carries which meaning?",
+    "options": [
+     {
+      "text": "Fulfilment of a requirement",
+      "is_correct": true
+     },
+     {
+      "text": "Demonstration of compliance with applicable law",
+      "is_correct": false
+     },
+     {
+      "text": "Commitment to continual improvement",
+      "is_correct": false
+     },
+     {
+      "text": "Successful audit by a certification body",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The defined term in 3.15 is 'conformity fulfilment of a requirement (3.14)'. Conformity is therefore about meeting stated requirements, which is a narrower claim than legal compliance.",
+    "key_support_clause": "3.15",
+    "key_support": "conformity fulfilment of a requirement (3.14)",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "applicable legal requirements, including prohibited uses of AI",
+      "why_wrong": "Legal requirements are treated as context to be determined, not as the definition of the term conformity."
+     },
+     {
+      "index": 2,
+      "clause": "5.2",
+      "support": "includes a commitment to continual improvement of the AI management system",
+      "why_wrong": "This is required content of the AI policy, not the meaning of conformity."
+     },
+     {
+      "index": 3,
+      "clause": "D.2",
+      "support": "Independent conformity assessment to ISO 9001 facilitates business across organizations and inspires customer confidence in products or services.",
+      "why_wrong": "Third-party conformity assessment is an activity performed against requirements; it is not what the defined term means."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 17%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 12,
+     "reason": "the key anchors in 3.15, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "3.15",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.15 defines conformity as 'fulfilment of a requirement (3.14)'.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options name concrete activities/events (demonstration, commitment, audit) while A is a short abstract definition-style phrase, making it the odd one out and the typical keyed definition.",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): Three options name concrete activities/events (demonstration, commitment, audit) while A is a short abstract definition-style phrase, making it the odd one out and the typical keyed definition."
+   },
+   "verdict": "survivor",
+   "item_id": "cea3b329",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options name concrete activities/events (demonstration, commitment, audit) while A is a short abstract definition-style phrase, making it the odd one out and the typical keyed definition.",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): Three options name concrete activities/events (demonstration, commitment, audit) while A is a short abstract definition-style phrase, making it the odd one out and the typical keyed definition."
+   },
+   "item_before_decue": {
+    "question_text": "In the terminology of the standard, the word 'conformity' carries which meaning?",
+    "options": [
+     {
+      "text": "Fulfilment of a requirement",
+      "is_correct": true
+     },
+     {
+      "text": "Demonstration of compliance with applicable law",
+      "is_correct": false
+     },
+     {
+      "text": "Commitment to continual improvement",
+      "is_correct": false
+     },
+     {
+      "text": "Successful audit by a certification body",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The defined term in 3.15 is 'conformity fulfilment of a requirement (3.14)'. Conformity is therefore about meeting stated requirements, which is a narrower claim than legal compliance.",
+    "key_support_clause": "3.15",
+    "key_support": "conformity fulfilment of a requirement (3.14)",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "applicable legal requirements, including prohibited uses of AI",
+      "why_wrong": "Legal requirements are treated as context to be determined, not as the definition of the term conformity."
+     },
+     {
+      "index": 2,
+      "clause": "5.2",
+      "support": "includes a commitment to continual improvement of the AI management system",
+      "why_wrong": "This is required content of the AI policy, not the meaning of conformity."
+     },
+     {
+      "index": 3,
+      "clause": "D.2",
+      "support": "Independent conformity assessment to ISO 9001 facilitates business across organizations and inspires customer confidence in products or services.",
+      "why_wrong": "Third-party conformity assessment is an activity performed against requirements; it is not what the defined term means."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.5",
+   "domain": "D1",
+   "item": {
+    "question_text": "When determining its context, an organization lists issues arising outside the organization. Which of the following is offered in the guidance as an example of such an external issue?",
+    "options": [
+     {
+      "text": "Decisions and guidance issued by regulators that shape how legal rules are interpreted or enforced",
+      "is_correct": true
+     },
+     {
+      "text": "Obligations the organization has taken on through contracts agreed with its counterparties and business partners",
+      "is_correct": false
+     },
+     {
+      "text": "Purposes for which the organization intends its AI systems to be developed, provided or used",
+      "is_correct": false
+     },
+     {
+      "text": "Governance arrangements, objectives, policies and internal procedures adopted by the organization to direct its activities",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "NOTE 2 to clause 4.1 places regulator-issued policies, guidance and decisions that bear on how legal rules are read or enforced for AI among the external context considerations. The other three options are drawn from the internal context list in the same note: contractual commitments, the AI system's intended purpose, and the organization's governance, objectives, policies and procedures.",
+    "key_support_clause": "4.1",
+    "key_support": "policies, guidelines and decisions from regulators that have an impact on the interpretation or enforcement of legal requirements in the development and use of AI systems",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "internal context related considerations such as: 1) organizational context, governance, objectives (see 6.2), policies and procedures; 2) contractual obligations;",
+      "why_wrong": "Contractual obligations are given as an internal context consideration, not an external one."
+     },
+     {
+      "index": 2,
+      "clause": "4.1",
+      "support": "3) intended purpose of the AI system to be developed or used",
+      "why_wrong": "Intended purpose is listed under internal context considerations."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "1) organizational context, governance, objectives (see 6.2), policies and procedures",
+      "why_wrong": "Governance, objectives and procedures are given as internal, not external, considerations."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 20%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 12,
+     "reason": "the key anchors in 4.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 8,
+   "longest_served_in": "option c",
+   "attributed_quotation": null,
+   "grounding_family": "4.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "A, B and D all define a category of rules/obligations/policies (regulator decisions, contractual obligations, governance arrangements), while C is the odd one out — the only option about 'purposes' and the only one naming the domain object ('AI systems'), and it is also the shortest.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked C, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "568cbf03",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"guidance\" from the stem and no distractor does"
+    },
+    {
+     "id": "key-length",
+     "cue": "the key is 15 words against a median distractor of 11 (1.36x, tolerance 1.25x)"
+    }
+   ],
+   "decue_trigger": [
+    "key-length"
+   ],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "C",
+    "cue": "A, B and D all name external or internal rule-type constraints (regulator decisions, contractual obligations, governance policies); C is the only option describing an intention/purpose, making it the odd one out.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked C, not the key -- the options do not give it away"
+   },
+   "item_before_decue": {
+    "question_text": "When determining its context, an organization lists issues arising outside the organization. Which of the following is offered in the guidance as an example of such an external issue?",
+    "options": [
+     {
+      "text": "Decisions and guidance issued by regulators that shape how legal rules are interpreted or enforced",
+      "is_correct": true
+     },
+     {
+      "text": "Obligations the organization has taken on through contracts with its counterparties",
+      "is_correct": false
+     },
+     {
+      "text": "The purpose for which the organization intends the AI system to be developed or used",
+      "is_correct": false
+     },
+     {
+      "text": "The organization's governance arrangements, objectives, policies and internal procedures",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "NOTE 2 to clause 4.1 places regulator-issued policies, guidance and decisions that bear on how legal rules are read or enforced for AI among the external context considerations. The other three options are drawn from the internal context list in the same note: contractual commitments, the AI system's intended purpose, and the organization's governance, objectives, policies and procedures.",
+    "key_support_clause": "4.1",
+    "key_support": "policies, guidelines and decisions from regulators that have an impact on the interpretation or enforcement of legal requirements in the development and use of AI systems",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "internal context related considerations such as: 1) organizational context, governance, objectives (see 6.2), policies and procedures; 2) contractual obligations;",
+      "why_wrong": "Contractual obligations are given as an internal context consideration, not an external one."
+     },
+     {
+      "index": 2,
+      "clause": "4.1",
+      "support": "3) intended purpose of the AI system to be developed or used",
+      "why_wrong": "Intended purpose is listed under internal context considerations."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "1) organizational context, governance, objectives (see 6.2), policies and procedures",
+      "why_wrong": "Governance, objectives and procedures are given as internal, not external, considerations."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": []
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"guidance\" from the stem and no distractor does"
+    }
+   ],
+   "de_cue": {
+    "state": "applied",
+    "probe_before": "key-length: the key is 15 words against a median distractor of 11 (1.36x, tolerance 1.25x)",
+    "probe_after": "no-cue"
+   }
+  },
+  {
+   "task_code": "1.5",
+   "domain": "D1",
+   "item": {
+    "question_text": "An organization that deploys an AI system bought from a vendor is examining how its position affects its management system. Which statement matches what clause 4.1 says about roles?",
+    "options": [
+     {
+      "text": "The roles it holds can affect which requirements and controls apply to it, and how far they apply",
+      "is_correct": true
+     },
+     {
+      "text": "Its role follows automatically from the life cycle descriptions set out in ISO/IEC 22989",
+      "is_correct": false
+     },
+     {
+      "text": "It holds one role for each AI system, being either an AI customer or an AI provider",
+      "is_correct": false
+     },
+     {
+      "text": "Its role is settled as an outcome of the certification audit rather than by its own analysis",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.1 requires the organization to determine its roles and notes that 'The organization’s roles can determine the applicability and extent of applicability of the requirements and controls in this document.' Conformity therefore evidences responsibility for the role actually held.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization’s roles can determine the applicability and extent of applicability of the requirements and controls in this document.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "A detailed description of these roles is provided by ISO/IEC 22989.",
+      "why_wrong": "That standard describes the roles, but clause 4.1 places the determination of roles on the organization itself."
+     },
+     {
+      "index": 2,
+      "clause": "4.1",
+      "support": "These roles can include, but are not limited to, one or more of the following:",
+      "why_wrong": "The note contemplates one or more roles from a non-exhaustive list, not a single role per system."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine its roles with respect to these AI systems.",
+      "why_wrong": "Role determination is part of understanding context, performed by the organization, not an output of an audit."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "examined": 1,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the anchor sentence (permission), clause 4.1 is classed shall"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 17%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 12,
+     "reason": "the key anchors in 4.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": false,
+     "examined": 6,
+     "reason": "explanation: a 18-word run shared with 42001:2023 -- the ceiling is 9"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "modal-fidelity",
+    "reproduction"
+   ],
+   "unasserted": [],
+   "longest_served_run": 18,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "4.1",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "1.5",
+   "domain": "D1",
+   "item": {
+    "question_text": "An organization has listed requirements raised by customers, a sector regulator and a trade body. What does clause 4.2 ask it to do next with that list?",
+    "options": [
+     {
+      "text": "Decide which of the listed requirements the management system itself will address",
+      "is_correct": true
+     },
+     {
+      "text": "Show that each listed party's requirement has been met before certification proceeds",
+      "is_correct": false
+     },
+     {
+      "text": "Ask the certification body to confirm which of the listed parties count as relevant",
+      "is_correct": false
+     },
+     {
+      "text": "Record the listed requirements as external issues determined under clause 4.1",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.2 has the organization identify the interested parties that matter and the requirements they raise, and then settle which of those the AIMS will actually take on. The system therefore covers a selected subset of external expectations, which is why conformity to the standard is a narrower claim than meeting every obligation an organization faces.",
+    "key_support_clause": "4.2",
+    "key_support": "which of these requirements will be addressed through the AI management system",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "5.2",
+      "support": "includes a commitment to meet applicable requirements",
+      "why_wrong": "The standard calls for a policy commitment and a decision on scope, not proof that every party's requirement has already been met."
+     },
+     {
+      "index": 2,
+      "clause": "D.2",
+      "support": "Independent conformity assessment to ISO 9001 facilitates business across organizations and inspires customer confidence in products or services.",
+      "why_wrong": "Determining which interested parties are relevant is placed on the organization, not on an external assessment body."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine external and internal issues that are relevant to its purpose and that affect its ability to achieve the intended result(s) of its AI management system.",
+      "why_wrong": "Clause 4.1 deals with context issues; interested-party requirements are handled under clause 4.2."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 14%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 12,
+     "reason": "the key anchors in 4.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in option b"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option b",
+   "attributed_quotation": null,
+   "grounding_family": "4.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 4.2 requires the organization to determine the relevant interested parties, their relevant requirements, and \"which of these requirements will be addressed through the AI management system\", so the next step for the compiled list is deciding which requirements the AIMS will address.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and C both hinge on 'certification'/'certification body' and pair off against each other, and D is the only one citing a specific clause number as a cross-reference, leaving A as the plain stand-alone statement.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B and C both hinge on 'certification'/'certification body' and pair off against each other, and D is the only one citing a specific clause number as a cross-reference, leaving A as the plain stand-alone statement."
+   },
+   "verdict": "survivor",
+   "item_id": "a5c4095a",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and C both hinge on 'certification'/'certification body' and pair off against each other, and D is the only one citing a specific clause number as a cross-reference, leaving A as the plain stand-alone statement.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B and C both hinge on 'certification'/'certification body' and pair off against each other, and D is the only one citing a specific clause number as a cross-reference, leaving A as the plain stand-alone statement."
+   },
+   "item_before_decue": {
+    "question_text": "An organization has listed requirements raised by customers, a sector regulator and a trade body. What does clause 4.2 ask it to do next with that list?",
+    "options": [
+     {
+      "text": "Decide which of the listed requirements the management system itself will address",
+      "is_correct": true
+     },
+     {
+      "text": "Show that each listed party's requirement has been met before certification proceeds",
+      "is_correct": false
+     },
+     {
+      "text": "Ask the certification body to confirm which of the listed parties count as relevant",
+      "is_correct": false
+     },
+     {
+      "text": "Record the listed requirements as external issues determined under clause 4.1",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.2 has the organization identify the interested parties that matter and the requirements they raise, and then settle which of those the AIMS will actually take on. The system therefore covers a selected subset of external expectations, which is why conformity to the standard is a narrower claim than meeting every obligation an organization faces.",
+    "key_support_clause": "4.2",
+    "key_support": "which of these requirements will be addressed through the AI management system",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "5.2",
+      "support": "includes a commitment to meet applicable requirements",
+      "why_wrong": "The standard calls for a policy commitment and a decision on scope, not proof that every party's requirement has already been met."
+     },
+     {
+      "index": 2,
+      "clause": "D.2",
+      "support": "Independent conformity assessment to ISO 9001 facilitates business across organizations and inspires customer confidence in products or services.",
+      "why_wrong": "Determining which interested parties are relevant is placed on the organization, not on an external assessment body."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine external and internal issues that are relevant to its purpose and that affect its ability to achieve the intended result(s) of its AI management system.",
+      "why_wrong": "Clause 4.1 deals with context issues; interested-party requirements are handled under clause 4.2."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.5",
+   "domain": "D1",
+   "item": {
+    "question_text": "Top management is drafting the AI policy. Which of the following must the policy contain according to clause 5.2?",
+    "options": [
+     {
+      "text": "A commitment to meet the requirements that apply to the organization",
+      "is_correct": true
+     },
+     {
+      "text": "A declaration that the organization's AI systems satisfy applicable AI legislation",
+      "is_correct": false
+     },
+     {
+      "text": "A documented plan for telling users about incidents affecting the AI system",
+      "is_correct": false
+     },
+     {
+      "text": "A list of the interested parties whose requirements the system will address",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 5.2 states that the AI policy 'includes a commitment to meet applicable requirements'. It is a commitment by top management, not an attestation of legal compliance, and the other items belong to different clauses.",
+    "key_support_clause": "5.2",
+    "key_support": "includes a commitment to meet applicable requirements",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "1",
+      "support": "This document is intended to help the organization develop, provide or use AI systems responsibly in pursuing its objectives and meet applicable requirements, obligations related to interested parties and expectations from them.",
+      "why_wrong": "The standard positions itself as helping the organization meet requirements; it does not call for the policy to declare legal compliance."
+     },
+     {
+      "index": 2,
+      "clause": "B.8.4",
+      "support": "The organization should determine and document a plan for communicating incidents to users of the system.",
+      "why_wrong": "Incident communication is guidance for a separate Annex B control, not required content of the AI policy."
+     },
+     {
+      "index": 3,
+      "clause": "4.2",
+      "support": "the interested parties that are relevant to the AI management system",
+      "why_wrong": "Identifying interested parties is a clause 4.2 determination, not an element clause 5.2 requires in the policy."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 20%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 12,
+     "reason": "the key anchors in 5.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "5.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 5.2 requires the AI policy to include 'a commitment to meet applicable requirements' (item c).",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B makes an absolute claim (systems 'satisfy' legislation) while A is the hedged, general 'commitment to meet requirements'; C and D name narrow concrete artifacts, so A is the broad catch-all option.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B makes an absolute claim (systems 'satisfy' legislation) while A is the hedged, general 'commitment to meet requirements'; C and D name narrow concrete artifacts, so A is the broad catch-all option."
+   },
+   "verdict": "survivor",
+   "item_id": "152f5b26",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B makes an absolute claim (systems 'satisfy' legislation) while A is the hedged, general 'commitment to meet requirements'; C and D name narrow concrete artifacts, so A is the broad catch-all option.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B makes an absolute claim (systems 'satisfy' legislation) while A is the hedged, general 'commitment to meet requirements'; C and D name narrow concrete artifacts, so A is the broad catch-all option."
+   },
+   "item_before_decue": {
+    "question_text": "Top management is drafting the AI policy. Which of the following must the policy contain according to clause 5.2?",
+    "options": [
+     {
+      "text": "A commitment to meet the requirements that apply to the organization",
+      "is_correct": true
+     },
+     {
+      "text": "A declaration that the organization's AI systems satisfy applicable AI legislation",
+      "is_correct": false
+     },
+     {
+      "text": "A documented plan for telling users about incidents affecting the AI system",
+      "is_correct": false
+     },
+     {
+      "text": "A list of the interested parties whose requirements the system will address",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 5.2 states that the AI policy 'includes a commitment to meet applicable requirements'. It is a commitment by top management, not an attestation of legal compliance, and the other items belong to different clauses.",
+    "key_support_clause": "5.2",
+    "key_support": "includes a commitment to meet applicable requirements",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "1",
+      "support": "This document is intended to help the organization develop, provide or use AI systems responsibly in pursuing its objectives and meet applicable requirements, obligations related to interested parties and expectations from them.",
+      "why_wrong": "The standard positions itself as helping the organization meet requirements; it does not call for the policy to declare legal compliance."
+     },
+     {
+      "index": 2,
+      "clause": "B.8.4",
+      "support": "The organization should determine and document a plan for communicating incidents to users of the system.",
+      "why_wrong": "Incident communication is guidance for a separate Annex B control, not required content of the AI policy."
+     },
+     {
+      "index": 3,
+      "clause": "4.2",
+      "support": "the interested parties that are relevant to the AI management system",
+      "why_wrong": "Identifying interested parties is a clause 4.2 determination, not an element clause 5.2 requires in the policy."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  }
+ ]
+}
