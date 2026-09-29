@@ -1,0 +1,1224 @@
+{
+ "cert": "AIMS-F",
+ "judged_rows": 171,
+ "changed": 119,
+ "skipped": [],
+ "drops": [],
+ "primary_before": 150,
+ "primary_after": 269,
+ "per_task_primary": {
+  "1.1": {
+   "before": 3,
+   "after": 5
+  },
+  "1.2": {
+   "before": 1,
+   "after": 1
+  },
+  "1.3": {
+   "before": 5,
+   "after": 6
+  },
+  "1.4": {
+   "before": 2,
+   "after": 11
+  },
+  "1.5": {
+   "before": 2,
+   "after": 13
+  },
+  "1.6": {
+   "before": 2,
+   "after": 11
+  },
+  "2.1": {
+   "before": 2,
+   "after": 2
+  },
+  "2.2": {
+   "before": 1,
+   "after": 2
+  },
+  "2.3": {
+   "before": 4,
+   "after": 8
+  },
+  "2.4": {
+   "before": 2,
+   "after": 3
+  },
+  "2.5": {
+   "before": 2,
+   "after": 21
+  },
+  "2.6": {
+   "before": 6,
+   "after": 7
+  },
+  "2.7": {
+   "before": 2,
+   "after": 3
+  },
+  "2.8": {
+   "before": 2,
+   "after": 2
+  },
+  "3.1": {
+   "before": 2,
+   "after": 3
+  },
+  "3.2": {
+   "before": 2,
+   "after": 3
+  },
+  "3.3": {
+   "before": 3,
+   "after": 17
+  },
+  "3.4": {
+   "before": 1,
+   "after": 3
+  },
+  "3.5": {
+   "before": 7,
+   "after": 9
+  },
+  "3.6": {
+   "before": 10,
+   "after": 12
+  },
+  "3.7": {
+   "before": 9,
+   "after": 10
+  },
+  "3.8": {
+   "before": 3,
+   "after": 4
+  },
+  "4.1": {
+   "before": 3,
+   "after": 6
+  },
+  "4.2": {
+   "before": 2,
+   "after": 2
+  },
+  "4.3": {
+   "before": 10,
+   "after": 10
+  },
+  "4.4": {
+   "before": 13,
+   "after": 13
+  },
+  "4.5": {
+   "before": 9,
+   "after": 9
+  },
+  "4.6": {
+   "before": 6,
+   "after": 10
+  },
+  "4.7": {
+   "before": 1,
+   "after": 6
+  },
+  "5.1": {
+   "before": 1,
+   "after": 5
+  },
+  "5.2": {
+   "before": 2,
+   "after": 2
+  },
+  "5.3": {
+   "before": 3,
+   "after": 3
+  },
+  "5.4": {
+   "before": 1,
+   "after": 1
+  },
+  "5.5": {
+   "before": 24,
+   "after": 36
+  },
+  "5.6": {
+   "before": 2,
+   "after": 10
+  }
+ },
+ "changes": [
+  {
+   "task": "1.1",
+   "source": "ISO/IEC 42001",
+   "clause": "10.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.1",
+   "source": "ISO/IEC 42001",
+   "clause": "A.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.3",
+   "source": "ISO/IEC 42001",
+   "clause": "8.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.4",
+   "source": "ISO/IEC 42001",
+   "clause": "4.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.4",
+   "source": "ISO/IEC 42001",
+   "clause": "4.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.4",
+   "source": "ISO/IEC 42001",
+   "clause": "4.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.4",
+   "source": "ISO/IEC 42001",
+   "clause": "5.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.4",
+   "source": "ISO/IEC 42001",
+   "clause": "6.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.4",
+   "source": "ISO/IEC 42001",
+   "clause": "9.2.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.4",
+   "source": "ISO/IEC 42001",
+   "clause": "9.3.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.4",
+   "source": "ISO/IEC 42001",
+   "clause": "10.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.4",
+   "source": "ISO/IEC 42001",
+   "clause": "10.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 42001",
+   "clause": "1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 42001",
+   "clause": "4.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 42001",
+   "clause": "3.15",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 42006",
+   "clause": "7.1.3.3",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 42006",
+   "clause": "8.2.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 42006",
+   "clause": "9.1.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 42006",
+   "clause": "C.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 17021-1",
+   "clause": "8.2.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 17021-1",
+   "clause": "8.3.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 17021-1",
+   "clause": "8.3.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.5",
+   "source": "ISO/IEC 17021-1",
+   "clause": "8.3.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.2",
+   "source": "ISO/IEC 42001",
+   "clause": "A.10.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.3",
+   "source": "ISO/IEC 42001",
+   "clause": "5.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.3",
+   "source": "ISO/IEC 42001",
+   "clause": "8.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "2.3",
+   "source": "ISO/IEC 42001",
+   "clause": "3.5",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "2.3",
+   "source": "ISO/IEC 42001",
+   "clause": "3.6",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "2.4",
+   "source": "ISO/IEC 42001",
+   "clause": "A.10.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.4",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.5",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.6",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.7",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.8",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.9",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.10",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.11",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.3.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.3.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.3.3",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.3.4",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.3.5",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.3.6",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.5",
+   "source": "ISO/IEC 42001",
+   "clause": "C.3.7",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "2.6",
+   "source": "ISO/IEC 42001",
+   "clause": "3.24",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "2.7",
+   "source": "ISO/IEC 42001",
+   "clause": "3.24",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "3.1",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "3.2",
+   "source": "ISO/IEC 42001",
+   "clause": "7.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "4.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "5.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "6.1.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "6.1.4",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "6.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "7.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "8.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "8.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "8.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "8.4",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "9.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "9.2.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "9.3.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.3",
+   "source": "ISO/IEC 42001",
+   "clause": "10.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.4",
+   "source": "ISO/IEC 42001",
+   "clause": "A.10.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.4",
+   "source": "ISO/IEC 42001",
+   "clause": "A.10.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.5",
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.5",
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.7",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.6",
+   "source": "ISO/IEC 42001",
+   "clause": "A.7",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "3.6",
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.7",
+   "source": "ISO/IEC 42001",
+   "clause": "8.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "3.8",
+   "source": "ISO/IEC 42001",
+   "clause": "8.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "4.1",
+   "source": "ISO/IEC 42001",
+   "clause": "3.26",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "4.1",
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "4.1",
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "4.6",
+   "source": "ISO/IEC 42001",
+   "clause": "A.9",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "4.6",
+   "source": "ISO/IEC 42001",
+   "clause": "A.10",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "4.6",
+   "source": "ISO/IEC 42001",
+   "clause": "A.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "4.6",
+   "source": "ISO/IEC 42001",
+   "clause": "6.1.3",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "4.7",
+   "source": "ISO/IEC 42001",
+   "clause": "D.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "4.7",
+   "source": "ISO/IEC 42001",
+   "clause": "6.1.3",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "4.7",
+   "source": "ISO/IEC 42001",
+   "clause": "3.26",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "4.7",
+   "source": "ISO/IEC 42001",
+   "clause": "C.2.10",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "4.7",
+   "source": "ISO/IEC 42001",
+   "clause": "A.2.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "5.1",
+   "source": "ISO/IEC 42001",
+   "clause": "3.11",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.1",
+   "source": "ISO/IEC 42001",
+   "clause": "3.13",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.1",
+   "source": "ISO/IEC 42001",
+   "clause": "3.19",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.1",
+   "source": "ISO/IEC 42001",
+   "clause": "3.20",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.6",
+   "source": "ISO/IEC 42001",
+   "clause": "3.18",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.6",
+   "source": "ISO/IEC 42001",
+   "clause": "9.2.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.6",
+   "source": "ISO/IEC 42001",
+   "clause": "9.3.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.6",
+   "source": "ISO/IEC 42001",
+   "clause": "9.3.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.6",
+   "source": "ISO/IEC 42001",
+   "clause": "9.3.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "5.6",
+   "source": "ISO/IEC 42001",
+   "clause": "10.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.6",
+   "source": "ISO/IEC 42001",
+   "clause": "6.1.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.6",
+   "source": "ISO/IEC 42001",
+   "clause": "7.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "1.6",
+   "source": "ISO/IEC 42001",
+   "clause": "4.4",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "1.6",
+   "source": "ISO/IEC 42001",
+   "clause": "6.1.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "1.6",
+   "source": "ISO/IEC 42001",
+   "clause": "6.1.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.6",
+   "source": "ISO/IEC 42001",
+   "clause": "6.1.4",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.6",
+   "source": "ISO/IEC 42001",
+   "clause": "A.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "1.6",
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.1.2",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.6",
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.1.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "1.6",
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.4",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "1.6",
+   "source": "ISO/IEC 42001",
+   "clause": "D.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 42001",
+   "clause": "1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 42006",
+   "clause": "7.1.3.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 42006",
+   "clause": "9.3.2.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 42006",
+   "clause": "9.3.2.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 42006",
+   "clause": "9.5",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 42006",
+   "clause": "9.6.2.2",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 42006",
+   "clause": "9.6.3",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 17021-1",
+   "clause": "1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 17021-1",
+   "clause": "9.3.1.1",
+   "confidence": "high",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence high"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 17021-1",
+   "clause": "9.6.2.1.1",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 17021-1",
+   "clause": "5.1.3",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  },
+  {
+   "task": "5.5",
+   "source": "ISO/IEC 17021-1",
+   "clause": "3.4",
+   "confidence": "medium",
+   "from": "supporting",
+   "to": "primary",
+   "why": "confidence medium"
+  }
+ ]
+}

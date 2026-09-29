@@ -73,16 +73,42 @@ export function assertBlind(payload, item) {
   if (extra.length) {
     bad.push("the payload carries field(s) outside the allowlist: " + extra.join(", "));
   }
-  /* Value comparisons, on this item's own key-bearing text. A prefix rather than the whole
-   * string, because a leak would carry the opening of it. */
   const flat = JSON.stringify(payload);
-  if (item.explanation && String(item.explanation).length >= 40 &&
-      flat.includes(String(item.explanation).slice(0, 40))) {
-    bad.push("this item's explanation text is in the payload");
+  /* ---- FIDELITY FIRST: is the payload exactly the item's own visible text? ----
+   *
+   * blindPayload emits {question, options} and nothing else, so this item's explanation can reach the
+   * payload ONLY by being part of the stem or an option -- which the candidate sees anyway. Three
+   * AIMS-F items open their explanation with the same clause quotation an option carries, and the
+   * value test below read that as the key leaking and refused to solve them.
+   *
+   * So the payload is proved identical to the item's visible text first. Once that holds an overlap is
+   * inherent to the item and a leak is impossible by construction. If ANY of it has been altered --
+   * an explanation appended to the question, an option rewritten -- fidelity fails, and then the value
+   * tests run exactly as before. The allowlist alone could not catch that, because `question` is an
+   * allowed field. */
+  const itemVisible = {
+    question: String((item && item.question_text) || ""),
+    options: ((item && item.options) || []).map((o, i) => ({
+      label: String.fromCharCode(65 + i),
+      text: String((o && o.text) || ""),
+    })),
+  };
+  const faithful = JSON.stringify(payload) === JSON.stringify(itemVisible);
+  if (!faithful) {
+    bad.push("the payload is not byte-identical to the item's own question and options");
   }
-  if (item.key_support && String(item.key_support).length >= 40 &&
-      flat.includes(String(item.key_support).slice(0, 40))) {
-    bad.push("this item's key_support anchor is in the payload");
+  /* Value comparisons, on this item's own key-bearing text. A prefix rather than the whole
+   * string, because a leak would carry the opening of it. Skipped only when the payload has been
+   * proved to be the item's visible text and nothing else. */
+  if (!faithful) {
+    if (item.explanation && String(item.explanation).length >= 40 &&
+        flat.includes(String(item.explanation).slice(0, 40))) {
+      bad.push("this item's explanation text is in the payload");
+    }
+    if (item.key_support && String(item.key_support).length >= 40 &&
+        flat.includes(String(item.key_support).slice(0, 40))) {
+      bad.push("this item's key_support anchor is in the payload");
+    }
   }
   /* And the option objects must not carry a correctness flag, whatever it is called. This is
    * a property test, so it cannot fire on prose. */
@@ -193,14 +219,44 @@ export function blindSolverControls() {
      * demonstration that it still catches the real thing is a guard we have merely stopped
      * hearing from. */
     ["prose containing the word \"explanation\" is not a leak", () => {
-      const p = blindPayload({
+      /* ONE item: assertBlind's contract is that `item` is the item the payload came from, and the
+       * fidelity check compares them. The earlier fixture passed a different object and could not
+       * satisfy it -- the intent is the same and it is now stated against a single item. */
+      const prose = {
         question_text: "Which record must carry an explanation of the decision?",
         options: [{ text: "The documented explanation retained as evidence", is_correct: true },
           { text: "A verbal briefing with no correct answer recorded" }],
-      });
-      try { assertBlind(p, { explanation: "unrelated", key_support: "unrelated" }); return "accepted"; }
+        explanation: "unrelated",
+        key_support: "unrelated",
+      };
+      try { assertBlind(blindPayload(prose), prose); return "accepted"; }
       catch (e) { return "threw: " + e.message; }
     }, "accepted"],
+
+    /* AND AN EXPLANATION THAT QUOTES THE ITEM'S OWN OPTION IS NOT A LEAK EITHER.
+     * This is the shape that refused three real AIMS-F items: the explanation opens with the same
+     * clause quotation an option carries, so the value test saw the explanation "in the payload" when
+     * the payload was only ever the stem and the options -- which the candidate reads anyway. */
+    ["an explanation quoting the item's own option is not a leak", () => {
+      const q = "The AI policy shall be available as documented information and communicated";
+      const self = {
+        question_text: "An AI policy sits on an internal wiki only. Which is correct?",
+        options: [{ text: "Sufficient, because " + q + " within the organization." },
+          { text: "Insufficient until interested parties can obtain it.", is_correct: true }],
+        explanation: q + " within the organization, and it must also be available to interested parties.",
+      };
+      try { assertBlind(blindPayload(self), self); return "accepted"; }
+      catch (e) { return "threw: " + e.message; }
+    }, "accepted"],
+
+    /* THE NEGATIVE HALF OF THE FIDELITY CHECK: a payload built from one item and checked against
+     * another must be REFUSED. That mismatch is how a swapped or edited payload reaches the solver,
+     * and it is what the loosening above must not have let through. */
+    ["a payload that is not this item's own visible text IS refused", () => {
+      const a = { question_text: "Question A?", options: [{ text: "A1" }, { text: "A2" }] };
+      const b = { question_text: "Question B?", options: [{ text: "B1" }, { text: "B2" }] };
+      try { assertBlind(blindPayload(a), b); return "did not throw"; } catch { return "threw"; }
+    }, "threw"],
     ["an option object carrying is_correct IS a leak", () => {
       const p = blindPayload(item);
       p.options[0].is_correct = true;

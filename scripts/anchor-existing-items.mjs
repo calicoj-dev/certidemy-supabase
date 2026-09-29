@@ -51,16 +51,32 @@ import { AUDIT480_TIER_A, AUDIT480_TIER_B, AUDIT480_TIER_C, AUDIT480_TIER_D,
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false;
+let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false, ONLY = null, TAG = "";
 for (const a of process.argv.slice(2)) {
   const m = /^--cert=(.+)$/.exec(a);
   if (m) { CERT = m[1]; continue; }
   if (a === "--pinned") { PINNED = true; continue; }
   if (a === "--legacy-keying") { LEGACY_KEYING = true; continue; }
   if (a === "--all-secure") { ALL_SECURE = true; continue; }
+  const o = /^--only=(.+)$/.exec(a);
+  if (o) { ONLY = o[1]; continue; }
+  const g = /^--tag=([A-Za-z0-9_-]+)$/.exec(a);
+  if (g) { TAG = "-" + g[1]; continue; }
   console.error("unknown flag " + JSON.stringify(a) + " -- READ-ONLY and MEASURE-ONLY.");
   console.error("There is no --apply: an instrument that disagrees with an item must not be able");
   console.error("to change it.");
+  process.exitCode = 2; process.exit();
+}
+
+/* A SUBSET RUN MAY NOT WRITE TO THE FULL RUN'S FILENAME.
+ *
+ * --only narrows the run; the artifact name is derived from --cert and --all-secure, so without a tag a
+ * 106-item re-run would overwrite a 278-item baseline and the other 172 verdicts would vanish with no
+ * error. Refused here rather than remembered. */
+if (ONLY && !TAG) {
+  console.error("--only needs --tag=<name> so the subset writes its own artifact.");
+  console.error("Without it this run would overwrite the full run's ANCHOR-OR-FLAG and ANCHOR-PARSE");
+  console.error("files with just the subset, and the verdicts not re-run would be lost silently.");
   process.exitCode = 2; process.exit();
 }
 
@@ -172,7 +188,9 @@ const tsRows = await getAll(KEY, "task_sources?select=task_id,passage_id,role&or
 const pById = new Map((await getAll(KEY, "source_passages?select=id,source_id,edition,clause,title,text,normative&order=id"))
   .map((r) => [r.id, r]));
 /* the pinned-parse record: read under --pinned, written otherwise */
-const PARSE_FILE = join(ROOT, "ANCHOR-PARSE-" + CERT + (ALL_SECURE ? "-all-secure" : "") + ".json");
+/* TAG keeps a SUBSET run from overwriting the full run's artifact and pinned parse. A --only run
+ * writing to the baseline filename would replace 278 verdicts with 106 and the loss would be silent. */
+const PARSE_FILE = join(ROOT, "ANCHOR-PARSE-" + CERT + (ALL_SECURE ? "-all-secure" : "") + TAG + ".json");
 const pinned = new Map();
 const parseOut = {};
 if (PINNED) {
@@ -234,6 +252,41 @@ if (ALL_SECURE) {
   }
 }
 
+/* ============ --only=<file>: RE-RUN A NAMED SUBSET ============
+ *
+ * One 8-character item prefix per line; blank lines and #comments ignored. The ruling scopes the
+ * re-run to the items whose verdict the map change can actually move, so re-running all 278 would
+ * spend two thirds of the calls re-confirming verdicts nothing touched.
+ *
+ * EVERY REQUESTED PREFIX MUST MATCH, and an unmatched one ABORTS rather than being skipped. A subset
+ * file that silently matches 80 of 112 produces a report that looks complete and is a third short --
+ * the same shape as a page cap read as a total. */
+if (ONLY) {
+  const want = readFileSync(ONLY, "utf8").split(/\r?\n/)
+    .map((l) => l.replace(/#.*$/, "").trim()).filter(Boolean);
+  if (!want.length) {
+    console.error("--only=" + ONLY + " named no prefixes. An empty subset is not a run.");
+    process.exitCode = 2; process.exit();
+  }
+  const have = new Set(sampled.map((x) => x.prefix));
+  const missing = want.filter((w) => !have.has(w));
+  if (missing.length) {
+    console.error("--only: " + missing.length + " of " + want.length + " prefix(es) are not in " +
+      "the sampled set, so the subset cannot be honoured: " + missing.slice(0, 8).join(", "));
+    console.error("A subset that silently drops members reports a short run as a complete one.");
+    console.error("Did you mean to pass --all-secure as well?");
+    process.exitCode = 2; process.exit();
+  }
+  const keep = new Set(want);
+  const before = sampled.length;
+  const filtered = sampled.filter((x) => keep.has(x.prefix));
+  sampled.length = 0;
+  let k = 0;
+  for (const x of filtered) sampled.push({ ...x, n: ++k });
+  console.log("--only=" + ONLY + ": " + sampled.length + " of " + before + " item(s); all " +
+    want.length + " requested prefix(es) matched");
+}
+
 /* ---------------------------------------------------------------- the ask */
 const ANCHOR_SYSTEM = `You are given some passages from a published standard and one
 multiple-choice question WITH its key marked.
@@ -255,16 +308,29 @@ RULES
 - Copy "key_support" exactly. Do not tidy it, shorten it, or join two sentences. Code checks it
   against the passage verbatim.
 - Use ONLY the supplied passages. They are the ones this task is examined against.
+- Each passage is labelled PRIMARY or SUPPORTING for this task. BOTH are supplied and you may anchor
+  in either: anchor in whichever passage genuinely carries the key, and report its clause. Whether a
+  key may rest on a supporting passage is decided by code afterwards, not by you -- so do not avoid a
+  supporting passage that is the real support, and do not reach for a primary one that is not.
 - If no supplied passage supports the key, set "key_support" to null and say why in
   "cannot_anchor_reason". THAT IS A CORRECT AND USEFUL ANSWER. Do not stretch a passage to fit.
 - If the key rests on a document that is not among the passages -- the EU AI Act, ISO/IEC 42006,
   ISO/IEC 17021, ITIL, a national law -- name it in "rests_on_unheld_source". That is not a
   defect in the item; it is a source we do not hold.`;
 
-function anchorUser(item, keyLabel, primary) {
-  const src = primary.map((p) =>
+/* EVERY LINKED PASSAGE IS SUPPLIED, PRIMARY AND SUPPORTING, AND THE ROLE IS LABELLED.
+ *
+ * Ruled 2026-09-29. Supplying primaries only meant an item resting on a supporting passage had nothing
+ * to anchor in, and the instrument recorded that absence as "the key rests on a clause not supplied"
+ * -- which read as an off-task finding. 86 of 95 such items named a source the library holds.
+ * anchor-is-primary remains the gate that decides; it can only decide once the model has been given
+ * the passage to point at. */
+function anchorUser(item, keyLabel, primary, supporting) {
+  const fmt = (p, role) =>
     "--- " + p.source_id + " clause " + p.clause + (p.title ? " (" + p.title + ")" : "") +
-    "  [this clause is " + p.normative + "] ---\n" + p.text).join("\n\n");
+    "  [this clause is " + p.normative + "; this passage is " + role + " for this task] ---\n" + p.text;
+  const src = [...primary.map((p) => fmt(p, "PRIMARY")),
+    ...supporting.map((p) => fmt(p, "SUPPORTING"))].join("\n\n");
   const opts = item.options.map((o, i) =>
     String.fromCharCode(65 + i) + ") " + o.text + (i === item.options.findIndex((x) => x.is_correct) ? "   <- KEY" : ""));
   return "PASSAGES THIS TASK IS EXAMINED AGAINST\n\n" + src +
@@ -336,7 +402,7 @@ for (const s of sampled) {
       continue;
     }
   } else {
-    try { parsed = parseObject(await claude(ANCHOR_SYSTEM, anchorUser(item, keyLabel, map.primary))); }
+    try { parsed = parseObject(await claude(ANCHOR_SYSTEM, anchorUser(item, keyLabel, map.primary, map.supporting))); }
     catch (e) { err = String(e.message).slice(0, 160); }
     if (parsed) parseOut[base.prefix] = parsed;
   }
@@ -478,11 +544,55 @@ for (const s of sampled) {
     const payload = blindPayload(item);
     assertBlind(payload, item);
     solver = solverVerdict(parseObject(await claude(SOLVER_SYSTEM,
-      solverUser(payload, map.primary), 1500)), keyLabel);
+      solverUser(payload, [...map.primary, ...map.supporting]), 1500)), keyLabel);
   } catch (e) { solver = { state: "could-not-run", reason: String(e.message).slice(0, 140) }; }
 
+  /* ============ verbatim AND clause-exists JUDGE THE MODEL'S QUOTE, NOT THE ITEM ============
+   *
+   * Ruled 2026-09-29. Both gates read `key_support` and `key_support_clause` -- fields the ANCHORING
+   * MODEL wrote. A misquote there is the model's transcription and a non-existent address there is
+   * the model's address; neither is evidence about the item unless the ITEM'S OWN text makes the same
+   * claim. So an attribution is RECORDED here and the reporter drops on it. Deciding here would throw
+   * away the gate verdict, which is a separate and true fact about the anchor. */
+  let attribution = null;
+  if (failed.some((g) => g.id === "verbatim" || g.id === "clause-exists")) {
+    const itemText = [item.question_text, ...(item.options || []).map((o) => o.text),
+      item.explanation].filter(Boolean).join(String.fromCharCode(10));
+    const addr = normClause(parsed.key_support_clause);
+    /* Does the ITEM cite this address? ANCHORED forms only -- a bare decimal is a number, which is
+     * this repository's own rule about unanchored addresses. */
+    const esc = (x) => String(x).replace(/[-/\\\\^$*+?.()|[\]{}]/g,
+      (c) => String.fromCharCode(92) + c);
+    const citesClause = addr ? new RegExp(
+      "(clause|annex|control|section|subclause|table)" + String.fromCharCode(92) + "s*(A" +
+      String.fromCharCode(92) + ".)?" + esc(addr) + String.fromCharCode(92) + "b", "i"
+    ).test(itemText) : false;
+    /* Does the ITEM misquote? Any span it presents in quotation marks that no supplied passage
+     * contains. 5+ words, so an ordinary quoted term is not a misquote. */
+    const passages = [...map.primary, ...map.supporting].map((p) => String(p.text || ""));
+    const SQ = String.fromCharCode(8216, 8217), DQ = String.fromCharCode(8220, 8221);
+    const norm = (x) => String(x).replace(/\s+/g, " ")
+      .replace(new RegExp("[" + SQ + "]", "g"), String.fromCharCode(39))
+      .replace(new RegExp("[" + DQ + "]", "g"), String.fromCharCode(34))
+      .trim().toLowerCase();
+    const QRE = new RegExp("[" + String.fromCharCode(34, 8220) + "]([^" +
+      String.fromCharCode(34, 8221) + "]{20,400})[" + String.fromCharCode(34, 8221) + "]", "g");
+    const quoted = [...itemText.matchAll(QRE)].map((m) => m[1])
+      .filter((q) => q.trim().split(/\s+/).length >= 5);
+    const badQuotes = quoted.filter((q) => !passages.some((t) => norm(t).includes(norm(q))));
+    attribution = {
+      item_cites_the_clause: citesClause,
+      item_quotations_examined: quoted.length,
+      item_misquotes: quoted.length ? badQuotes.length > 0 : null,
+      attributable_to_item: citesClause || badQuotes.length > 0,
+      note: "verbatim and clause-exists judge the ANCHORING MODEL'S quote; this records whether the " +
+        "ITEM makes the same claim. item_misquotes is null when the item quotes nothing to check, " +
+        "which is not the same as quoting correctly.",
+    };
+  }
   const rec = {
     ...base, task: code,
+    attribution,
     key_claim: parsed.key_claim || null,
     anchor: { clause: normClause(parsed.key_support_clause), support: parsed.key_support },
     gates: gates.map((g) => ({ id: g.id, pass: g.pass, reason: g.reason })),
@@ -598,9 +708,9 @@ if (!PINNED) {
     "ANCHOR-PARSE-" + CERT + ".json");
 }
 const OUT_NAME = "ANCHOR-OR-FLAG-" + CERT + (LEGACY_KEYING ? "-legacy" : "") +
-  (ALL_SECURE ? "-all-secure" : "") + ".json";
+  (ALL_SECURE ? "-all-secure" : "") + TAG + ".json";
 writeFileSync(join(ROOT, OUT_NAME), JSON.stringify({
-  certification: CERT, model: MODEL, method: "anchor or flag, primary passages only, code gates decide",
+  certification: CERT, model: MODEL, method: "anchor or flag, ALL linked passages supplied (primary + supporting) with roles labelled, code gates decide",
   sampled: sampled.length,
   anchored: anchored.length, flagged: flags.length, cannot_be_checked: unchecked.length,
   director_tier_ab: dirAB.length,
