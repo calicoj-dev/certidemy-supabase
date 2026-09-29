@@ -39,7 +39,7 @@
  * so a contents entry can never win.
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { readdirSync, existsSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -2277,8 +2277,14 @@ for (const p of passages) delete p.textAlt;
  * build rather than silently overwriting something it was not reviewed against.
  */
 {
-  const OV = join(ROOT, "source-overrides-27001.json");
-  if (existsSync(OV)) {
+  /* EVERY override file, derived from the directory rather than named here. A second hardcoded path is how
+   * two lists of one idea diverge; this way adding a source is adding a file. */
+  const ovFiles = readdirSync(ROOT).filter((f) => /^source-overrides-.+\.json$/.test(f)).sort();
+  console.log("");
+  console.log("REVIEWED OVERRIDE FILES  " + ovFiles.length +
+    (ovFiles.length ? ": " + ovFiles.join(", ") : " -- none found"));
+  for (const ovFile of ovFiles) {
+    const OV = join(ROOT, ovFile);
     const spec = JSON.parse(readFileSync(OV, "utf8"));
     const stale = [], applied = [];
     for (const o of spec.overrides || []) {
@@ -2297,10 +2303,9 @@ for (const p of passages) delete p.textAlt;
       p.provenance = "reviewed override, 27001 PDF page " + o.page;
       applied.push(o.clause);
     }
-    console.log("");
-    console.log("REVIEWED OVERRIDES  applied " + applied.length + (applied.length ? " (" + applied.join(", ") + ")" : "") +
-      "   stale " + stale.length);
-    for (const s of stale) console.log("    STALE " + s);
+    console.log("  " + ovFile + "  applied " + applied.length +
+      (applied.length ? " (" + applied.join(", ") + ")" : "") + "   stale " + stale.length);
+    for (const st of stale) console.log("    STALE " + st);
     if (stale.length) {
       console.error("");
       console.error("REFUSING TO WRITE: an override no longer matches what the extractor produces.");

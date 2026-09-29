@@ -1,0 +1,62 @@
+{
+  "ruled": "2026-09-29, PROMPT-93 s3",
+  "certification": "AIMS-F",
+  "added_by": "director-93",
+  "why_this_file_exists": "The 14 thin-map proposals in THIN-MAP-PROPOSALS-AIMSF.md were put to the director and ruled one task at a time. This file holds those rulings so the write and the ruling cannot drift apart: scripts/promote-thin-maps-93.mjs refuses to promote any clause this file does not list, and refuses to run at all if a task's promote and decline lists overlap.",
+  "rules": [
+    "`promote` is the exact set that may move to PRIMARY. A clause absent from it is refused by the promote script, whatever a proposal document says.",
+    "`decline` records what was proposed and NOT approved, with the reason. A declined clause left unrecorded reads as an oversight next time somebody re-proposes it.",
+    "`boundary_check_first` names a clause the boundary rule holds back. The promote script refuses it until the check has run and the passage is under the 60-word trigger or cleared by name.",
+    "Every clause here is 42001 unless `source_id` says otherwise."
+  ],
+  "tasks": [
+    {
+      "task": "1.2",
+      "promote": ["4.1", "A.3.2", "A.10.2"],
+      "decline": [
+        { "clause": "3.2", "why": "that is 2.1's vocabulary" }
+      ],
+      "director_note": "YOU MISSED 4.1. 'The organization shall determine its role with respect to these AI systems' is in 4.1, and its note lists the roles; it is the requirement the task is named for.",
+      "also": "Check the library for 22989's AI stakeholder roles clause and propose it if it is there."
+    },
+    { "task": "2.1", "promote": ["3.2", "4.1", "4.2"], "decline": [] },
+    { "task": "2.2", "promote": ["4.1", "4.2", "4.4"], "decline": [] },
+    { "task": "2.4", "promote": ["3.3", "A.3.3"], "decline": [] },
+    { "task": "2.7", "promote": ["8.2", "8.4", "A.5.2"], "decline": [] },
+    { "task": "2.8", "promote": ["6.1.1", "8.3", "A.1"], "decline": [] },
+    {
+      "task": "3.1",
+      "promote": ["A.4.2", "A.4.3", "A.4.4", "A.4.5", "A.4.6"],
+      "decline": [],
+      "director_note": "Approve A.4.2 to A.4.6. The range is expanded against the library rather than typed, so it covers what is held -- A.4.6 exists only because the extractor recovered it this week."
+    },
+    { "task": "3.2", "promote": ["5.2", "A.3.3"], "decline": [] },
+    {
+      "task": "3.4",
+      "promote": ["6.1.3", "6.3"],
+      "decline": [
+        { "clause": "6.2", "why": "objectives are planning, not operational control" }
+      ],
+      "director_note": "That leaves 5."
+    },
+    {
+      "task": "4.2",
+      "promote": ["A.1", "6.1.3"],
+      "boundary_check_first": [
+        { "clause": "3.26", "why": "a definition of 304 words has almost certainly swallowed the entries that follow it" }
+      ],
+      "decline": []
+    },
+    { "task": "5.1", "promote": ["6.2", "A.6.2.6"], "decline": [] },
+    { "task": "5.2", "promote": ["3.18", "9.2.1", "9.2.2"], "decline": [] },
+    { "task": "5.3", "promote": ["10.1", "9.3.2", "9.3.3"], "decline": [] },
+    {
+      "task": "5.4",
+      "promote": ["3.17", "10.1", "10.2"],
+      "boundary_check_first": [
+        { "clause": "3.16", "why": "'Nonconformity' is one line of definition, not 111 words" }
+      ],
+      "decline": []
+    }
+  ]
+}

@@ -58,10 +58,18 @@
   {
    "cert": "AIMS-F",
    "code": "1.2",
-   "primary": 1,
-   "effective": 1,
+   "primary": 3,
+   "effective": 3,
    "containers": [],
    "detail": [
+    {
+     "clause": "A.10.2",
+     "effective": true,
+     "words": 26,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Allocating responsibilities"
+    },
     {
      "clause": "4.1",
      "effective": true,
@@ -69,6 +77,14 @@
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "Understanding the organization and its context"
+    },
+    {
+     "clause": "A.3.2",
+     "effective": true,
+     "words": 21,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "AI roles and responsibilities"
     }
    ]
   },
@@ -506,8 +522,8 @@
   {
    "cert": "AIMS-F",
    "code": "2.1",
-   "primary": 2,
-   "effective": 2,
+   "primary": 3,
+   "effective": 3,
    "containers": [],
    "detail": [
     {
@@ -517,6 +533,14 @@
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "Understanding the organization and its context"
+    },
+    {
+     "clause": "3.2",
+     "effective": true,
+     "words": 40,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "interested party person or"
     },
     {
      "clause": "4.2",
@@ -531,10 +555,18 @@
   {
    "cert": "AIMS-F",
    "code": "2.2",
-   "primary": 2,
-   "effective": 2,
+   "primary": 5,
+   "effective": 5,
    "containers": [],
    "detail": [
+    {
+     "clause": "4.1",
+     "effective": true,
+     "words": 465,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Understanding the organization and its context"
+    },
     {
      "clause": "A.10.3",
      "effective": true,
@@ -550,6 +582,22 @@
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "Determining the scope of the AI management system"
+    },
+    {
+     "clause": "4.4",
+     "effective": true,
+     "words": 29,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "AI management system"
+    },
+    {
+     "clause": "4.2",
+     "effective": true,
+     "words": 48,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Understanding the needs and expectations of interested parties"
     }
    ]
   },
@@ -629,8 +677,8 @@
   {
    "cert": "AIMS-F",
    "code": "2.4",
-   "primary": 3,
-   "effective": 3,
+   "primary": 5,
+   "effective": 5,
    "containers": [],
    "detail": [
     {
@@ -650,12 +698,28 @@
      "title": "AI roles and responsibilities"
     },
     {
+     "clause": "3.3",
+     "effective": true,
+     "words": 69,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "top management person or"
+    },
+    {
      "clause": "5.3",
      "effective": true,
      "words": 81,
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "Roles, responsibilities and authorities"
+    },
+    {
+     "clause": "A.3.3",
+     "effective": true,
+     "words": 67,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Reporting of concerns"
     }
    ]
   },
@@ -904,10 +968,18 @@
   {
    "cert": "AIMS-F",
    "code": "2.7",
-   "primary": 3,
-   "effective": 3,
+   "primary": 6,
+   "effective": 6,
    "containers": [],
    "detail": [
+    {
+     "clause": "8.4",
+     "effective": true,
+     "words": 37,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "AI system impact assessment"
+    },
     {
      "clause": "6.1.4",
      "effective": true,
@@ -925,29 +997,69 @@
      "title": "AI system impact assessment"
     },
     {
+     "clause": "8.2",
+     "effective": true,
+     "words": 36,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "AI risk assessment"
+    },
+    {
      "clause": "6.1.2",
      "effective": true,
      "words": 164,
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "AI risk assessment"
+    },
+    {
+     "clause": "A.5.2",
+     "effective": true,
+     "words": 37,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "AI system impact assessment"
     }
    ]
   },
   {
    "cert": "AIMS-F",
    "code": "2.8",
-   "primary": 2,
-   "effective": 2,
+   "primary": 5,
+   "effective": 5,
    "containers": [],
    "detail": [
     {
-     "clause": "3.26",
+     "clause": "8.3",
      "effective": true,
-     "words": 304,
+     "words": 91,
      "why": "anchorable",
      "source": "ISO/IEC 42001",
-     "title": "statement of applicability documentation"
+     "title": "AI risk treatment"
+    },
+    {
+     "clause": "3.26",
+     "effective": true,
+     "words": 89,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "statement of applicability"
+    },
+    {
+     "clause": "A.1",
+     "effective": true,
+     "words": 76,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "General"
+    },
+    {
+     "clause": "6.1.1",
+     "effective": true,
+     "words": 383,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "General"
     },
     {
      "clause": "6.1.3",
@@ -962,8 +1074,8 @@
   {
    "cert": "AIMS-F",
    "code": "3.1",
-   "primary": 3,
-   "effective": 3,
+   "primary": 8,
+   "effective": 8,
    "containers": [],
    "detail": [
     {
@@ -973,6 +1085,14 @@
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "AI expertise"
+    },
+    {
+     "clause": "A.4.6",
+     "effective": true,
+     "words": 74,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Human resources"
     },
     {
      "clause": "7.2",
@@ -989,14 +1109,46 @@
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "Resources"
+    },
+    {
+     "clause": "A.4.2",
+     "effective": true,
+     "words": 29,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Resource documentation"
+    },
+    {
+     "clause": "A.4.3",
+     "effective": true,
+     "words": 21,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Data resources"
+    },
+    {
+     "clause": "A.4.5",
+     "effective": true,
+     "words": 25,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "System and computing resources"
+    },
+    {
+     "clause": "A.4.4",
+     "effective": true,
+     "words": 21,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Tooling resources"
     }
    ]
   },
   {
    "cert": "AIMS-F",
    "code": "3.2",
-   "primary": 3,
-   "effective": 3,
+   "primary": 5,
+   "effective": 5,
    "containers": [],
    "detail": [
     {
@@ -1022,6 +1174,22 @@
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "Awareness"
+    },
+    {
+     "clause": "A.3.3",
+     "effective": true,
+     "words": 67,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Reporting of concerns"
+    },
+    {
+     "clause": "5.2",
+     "effective": true,
+     "words": 117,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "AI policy"
     }
    ]
   },
@@ -1173,8 +1341,8 @@
   {
    "cert": "AIMS-F",
    "code": "3.4",
-   "primary": 3,
-   "effective": 3,
+   "primary": 5,
+   "effective": 5,
    "containers": [],
    "detail": [
     {
@@ -1186,12 +1354,28 @@
      "title": "Allocating responsibilities"
     },
     {
+     "clause": "6.3",
+     "effective": true,
+     "words": 23,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Planning of changes"
+    },
+    {
      "clause": "A.10.3",
      "effective": true,
      "words": 34,
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "Suppliers"
+    },
+    {
+     "clause": "6.1.3",
+     "effective": true,
+     "words": 374,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "AI risk treatment"
     },
     {
      "clause": "8.1",
@@ -1534,10 +1718,10 @@
     {
      "clause": "3.26",
      "effective": true,
-     "words": 304,
+     "words": 89,
      "why": "anchorable",
      "source": "ISO/IEC 42001",
-     "title": "statement of applicability documentation"
+     "title": "statement of applicability"
     },
     {
      "clause": "A.1",
@@ -1584,17 +1768,25 @@
   {
    "cert": "AIMS-F",
    "code": "4.2",
-   "primary": 2,
-   "effective": 2,
+   "primary": 3,
+   "effective": 3,
    "containers": [],
    "detail": [
     {
      "clause": "3.26",
      "effective": true,
-     "words": 304,
+     "words": 89,
      "why": "anchorable",
      "source": "ISO/IEC 42001",
-     "title": "statement of applicability documentation"
+     "title": "statement of applicability"
+    },
+    {
+     "clause": "A.1",
+     "effective": true,
+     "words": 76,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "General"
     },
     {
      "clause": "6.1.3",
@@ -1991,10 +2183,10 @@
     {
      "clause": "3.26",
      "effective": true,
-     "words": 304,
+     "words": 89,
      "why": "anchorable",
      "source": "ISO/IEC 42001",
-     "title": "statement of applicability documentation"
+     "title": "statement of applicability"
     },
     {
      "clause": "A.2.3",
@@ -2041,8 +2233,8 @@
   {
    "cert": "AIMS-F",
    "code": "5.1",
-   "primary": 5,
-   "effective": 3,
+   "primary": 7,
+   "effective": 5,
    "containers": [],
    "detail": [
     {
@@ -2052,6 +2244,14 @@
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "performance measurable result Note"
+    },
+    {
+     "clause": "6.2",
+     "effective": true,
+     "words": 149,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "AI objectives and planning to achieve them"
     },
     {
      "clause": "3.13",
@@ -2084,16 +2284,32 @@
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "monitoring determining the status"
+    },
+    {
+     "clause": "A.6.2.6",
+     "effective": true,
+     "words": 37,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "AI system operation and monitor-  The organization shall define and document the necessary"
     }
    ]
   },
   {
    "cert": "AIMS-F",
    "code": "5.2",
-   "primary": 2,
-   "effective": 2,
+   "primary": 3,
+   "effective": 3,
    "containers": [],
    "detail": [
+    {
+     "clause": "3.18",
+     "effective": true,
+     "words": 94,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "audit systematic and independent"
+    },
     {
      "clause": "9.2.1",
      "effective": true,
@@ -2115,8 +2331,8 @@
   {
    "cert": "AIMS-F",
    "code": "5.3",
-   "primary": 3,
-   "effective": 3,
+   "primary": 4,
+   "effective": 4,
    "containers": [],
    "detail": [
     {
@@ -2126,6 +2342,14 @@
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "Management review inputs"
+    },
+    {
+     "clause": "10.1",
+     "effective": true,
+     "words": 15,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Continual improvement"
     },
     {
      "clause": "9.3.3",
@@ -2148,8 +2372,8 @@
   {
    "cert": "AIMS-F",
    "code": "5.4",
-   "primary": 1,
-   "effective": 1,
+   "primary": 4,
+   "effective": 3,
    "containers": [],
    "detail": [
     {
@@ -2159,6 +2383,30 @@
      "why": "anchorable",
      "source": "ISO/IEC 42001",
      "title": "Nonconformity and corrective action"
+    },
+    {
+     "clause": "10.1",
+     "effective": true,
+     "words": 15,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "Continual improvement"
+    },
+    {
+     "clause": "3.17",
+     "effective": true,
+     "words": 15,
+     "why": "anchorable",
+     "source": "ISO/IEC 42001",
+     "title": "corrective action action to"
+    },
+    {
+     "clause": "3.16",
+     "effective": false,
+     "words": 6,
+     "why": "under the 15-word floor -- too short to carry a key",
+     "source": "ISO/IEC 42001",
+     "title": "nonconformity"
     }
    ]
   },
@@ -2682,7 +2930,7 @@
    "cert": "AIMS-IA",
    "code": "1.3",
    "primary": 12,
-   "effective": 10,
+   "effective": 9,
    "containers": [],
    "detail": [
     {
@@ -2775,11 +3023,11 @@
     },
     {
      "clause": "3.16",
-     "effective": true,
-     "words": 111,
-     "why": "anchorable",
+     "effective": false,
+     "words": 6,
+     "why": "under the 15-word floor -- too short to carry a key",
      "source": "ISO/IEC 42001",
-     "title": "nonconformity non-fulfilment of a requirement (3.14)"
+     "title": "nonconformity"
     }
    ]
   },
@@ -4249,10 +4497,10 @@
     {
      "clause": "3.26",
      "effective": true,
-     "words": 304,
+     "words": 89,
      "why": "anchorable",
      "source": "ISO/IEC 42001",
-     "title": "statement of applicability documentation"
+     "title": "statement of applicability"
     },
     {
      "clause": "A.1",
@@ -4477,10 +4725,10 @@
     {
      "clause": "3.26",
      "effective": true,
-     "words": 304,
+     "words": 89,
      "why": "anchorable",
      "source": "ISO/IEC 42001",
-     "title": "statement of applicability documentation"
+     "title": "statement of applicability"
     },
     {
      "clause": "A.1",
@@ -4542,10 +4790,10 @@
     {
      "clause": "3.26",
      "effective": true,
-     "words": 304,
+     "words": 89,
      "why": "anchorable",
      "source": "ISO/IEC 42001",
-     "title": "statement of applicability documentation"
+     "title": "statement of applicability"
     },
     {
      "clause": "A.1",
@@ -4724,7 +4972,7 @@
    "cert": "AIMS-IA",
    "code": "5.1",
    "primary": 9,
-   "effective": 7,
+   "effective": 6,
    "containers": [],
    "detail": [
     {
@@ -4793,11 +5041,11 @@
     },
     {
      "clause": "3.16",
-     "effective": true,
-     "words": 111,
-     "why": "anchorable",
+     "effective": false,
+     "words": 6,
+     "why": "under the 15-word floor -- too short to carry a key",
      "source": "ISO/IEC 42001",
-     "title": "nonconformity non-fulfilment of a requirement (3.14)"
+     "title": "nonconformity"
     }
    ]
   },
@@ -4895,7 +5143,7 @@
    "cert": "AIMS-IA",
    "code": "5.4",
    "primary": 13,
-   "effective": 11,
+   "effective": 10,
    "containers": [],
    "detail": [
     {
@@ -4996,11 +5244,11 @@
     },
     {
      "clause": "3.16",
-     "effective": true,
-     "words": 111,
-     "why": "anchorable",
+     "effective": false,
+     "words": 6,
+     "why": "under the 15-word floor -- too short to carry a key",
      "source": "ISO/IEC 42001",
-     "title": "nonconformity non-fulfilment of a requirement (3.14)"
+     "title": "nonconformity"
     }
    ]
   },
@@ -5049,7 +5297,7 @@
    "cert": "AIMS-IA",
    "code": "5.6",
    "primary": 4,
-   "effective": 4,
+   "effective": 3,
    "containers": [],
    "detail": [
     {
@@ -5078,11 +5326,11 @@
     },
     {
      "clause": "3.16",
-     "effective": true,
-     "words": 111,
-     "why": "anchorable",
+     "effective": false,
+     "words": 6,
+     "why": "under the 15-word floor -- too short to carry a key",
      "source": "ISO/IEC 42001",
-     "title": "nonconformity non-fulfilment of a requirement (3.14)"
+     "title": "nonconformity"
     }
    ]
   },
@@ -5259,7 +5507,7 @@
     {
      "clause": "6.8",
      "effective": true,
-     "words": 286,
+     "words": 265,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security event reporting"
@@ -5267,7 +5515,7 @@
     {
      "clause": "5.25",
      "effective": true,
-     "words": 155,
+     "words": 134,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Assessment and decision on information security events"
@@ -5405,7 +5653,7 @@
     {
      "clause": "5.9",
      "effective": true,
-     "words": 674,
+     "words": 652,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Inventory of information and other associated assets"
@@ -5413,7 +5661,7 @@
     {
      "clause": "5.12",
      "effective": true,
-     "words": 618,
+     "words": 597,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Classification of information"
@@ -5421,7 +5669,7 @@
     {
      "clause": "5.7",
      "effective": true,
-     "words": 461,
+     "words": 436,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Threat intelligence"
@@ -5429,7 +5677,7 @@
     {
      "clause": "5.23",
      "effective": true,
-     "words": 966,
+     "words": 943,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security for use of cloud services"
@@ -5437,7 +5685,7 @@
     {
      "clause": "8.12",
      "effective": true,
-     "words": 559,
+     "words": 538,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Data leakage prevention"
@@ -5445,7 +5693,7 @@
     {
      "clause": "8.26",
      "effective": true,
-     "words": 681,
+     "words": 659,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Application security requirements"
@@ -5453,7 +5701,7 @@
     {
      "clause": "8.27",
      "effective": true,
-     "words": 803,
+     "words": 782,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Secure system architecture and engineering principles"
@@ -5461,7 +5709,7 @@
     {
      "clause": "5.8",
      "effective": true,
-     "words": 663,
+     "words": 641,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security in project management"
@@ -5469,7 +5717,7 @@
     {
      "clause": "8.32",
      "effective": true,
-     "words": 372,
+     "words": 351,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Change management"
@@ -5754,7 +6002,7 @@
     {
      "clause": "5.9",
      "effective": true,
-     "words": 674,
+     "words": 652,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Inventory of information and other associated assets"
@@ -5778,7 +6026,7 @@
     {
      "clause": "5.19",
      "effective": true,
-     "words": 863,
+     "words": 840,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security in supplier relationships"
@@ -5786,7 +6034,7 @@
     {
      "clause": "5.23",
      "effective": true,
-     "words": 966,
+     "words": 943,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security for use of cloud services"
@@ -5794,7 +6042,7 @@
     {
      "clause": "8.12",
      "effective": true,
-     "words": 559,
+     "words": 538,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Data leakage prevention"
@@ -5850,7 +6098,7 @@
     {
      "clause": "5.14",
      "effective": true,
-     "words": 899,
+     "words": 879,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information transfer"
@@ -5956,7 +6204,7 @@
     {
      "clause": "5.2",
      "effective": true,
-     "words": 334,
+     "words": 312,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security roles and responsibilities"
@@ -6037,7 +6285,7 @@
     {
      "clause": "6.4",
      "effective": true,
-     "words": 269,
+     "words": 245,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Disciplinary process"
@@ -6053,7 +6301,7 @@
     {
      "clause": "5.36",
      "effective": true,
-     "words": 252,
+     "words": 227,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Compliance with policies, rules and standards for information security"
@@ -6061,7 +6309,7 @@
     {
      "clause": "8.23",
      "effective": true,
-     "words": 340,
+     "words": 320,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Web filtering"
@@ -6077,7 +6325,7 @@
     {
      "clause": "5.1",
      "effective": true,
-     "words": 651,
+     "words": 630,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Policies for information security"
@@ -6101,7 +6349,7 @@
     {
      "clause": "5.10",
      "effective": true,
-     "words": 393,
+     "words": 370,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Acceptable use of information and other associated assets"
@@ -6638,7 +6886,7 @@
     {
      "clause": "5.12",
      "effective": true,
-     "words": 618,
+     "words": 597,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Classification of information"
@@ -6646,7 +6894,7 @@
     {
      "clause": "5.23",
      "effective": true,
-     "words": 966,
+     "words": 943,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security for use of cloud services"
@@ -6654,7 +6902,7 @@
     {
      "clause": "8.12",
      "effective": true,
-     "words": 559,
+     "words": 538,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Data leakage prevention"
@@ -6670,7 +6918,7 @@
     {
      "clause": "8.33",
      "effective": true,
-     "words": 237,
+     "words": 219,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Test information"
@@ -6735,7 +6983,7 @@
     {
      "clause": "5.12",
      "effective": true,
-     "words": 618,
+     "words": 597,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Classification of information"
@@ -6751,7 +6999,7 @@
     {
      "clause": "5.19",
      "effective": true,
-     "words": 863,
+     "words": 840,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security in supplier relationships"
@@ -6759,7 +7007,7 @@
     {
      "clause": "5.23",
      "effective": true,
-     "words": 966,
+     "words": 943,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security for use of cloud services"
@@ -6767,7 +7015,7 @@
     {
      "clause": "8.12",
      "effective": true,
-     "words": 559,
+     "words": 538,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Data leakage prevention"
@@ -6775,7 +7023,7 @@
     {
      "clause": "8.10",
      "effective": true,
-     "words": 527,
+     "words": 507,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information deletion"
@@ -6791,7 +7039,7 @@
     {
      "clause": "5.20",
      "effective": true,
-     "words": 801,
+     "words": 778,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Addressing information security within supplier agreements"
@@ -6799,7 +7047,7 @@
     {
      "clause": "5.14",
      "effective": true,
-     "words": 899,
+     "words": 879,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information transfer"
@@ -6815,7 +7063,7 @@
     {
      "clause": "5.10",
      "effective": true,
-     "words": 393,
+     "words": 370,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Acceptable use of information and other associated assets"
@@ -6897,7 +7145,7 @@
     {
      "clause": "5.9",
      "effective": true,
-     "words": 674,
+     "words": 652,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Inventory of information and other associated assets"
@@ -6905,7 +7153,7 @@
     {
      "clause": "5.23",
      "effective": true,
-     "words": 966,
+     "words": 943,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security for use of cloud services"
@@ -7036,7 +7284,7 @@
     {
      "clause": "5.9",
      "effective": true,
-     "words": 674,
+     "words": 652,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Inventory of information and other associated assets"
@@ -7052,7 +7300,7 @@
     {
      "clause": "5.12",
      "effective": true,
-     "words": 618,
+     "words": 597,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Classification of information"
@@ -7060,7 +7308,7 @@
     {
      "clause": "5.2",
      "effective": true,
-     "words": 334,
+     "words": 312,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security roles and responsibilities"
@@ -7076,7 +7324,7 @@
     {
      "clause": "5.1",
      "effective": true,
-     "words": 651,
+     "words": 630,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Policies for information security"
@@ -7084,7 +7332,7 @@
     {
      "clause": "5.4",
      "effective": true,
-     "words": 287,
+     "words": 267,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Management responsibilities"
@@ -7092,7 +7340,7 @@
     {
      "clause": "5.3",
      "effective": true,
-     "words": 266,
+     "words": 244,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Segregation of duties"
@@ -7100,7 +7348,7 @@
     {
      "clause": "5.11",
      "effective": true,
-     "words": 285,
+     "words": 265,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Return of assets"
@@ -7108,7 +7356,7 @@
     {
      "clause": "5.10",
      "effective": true,
-     "words": 393,
+     "words": 370,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Acceptable use of information and other associated assets"
@@ -7125,7 +7373,7 @@
     {
      "clause": "5.9",
      "effective": true,
-     "words": 674,
+     "words": 652,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Inventory of information and other associated assets"
@@ -7174,7 +7422,7 @@
     {
      "clause": "5.16",
      "effective": true,
-     "words": 406,
+     "words": 386,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Identity management"
@@ -7182,7 +7430,7 @@
     {
      "clause": "5.15",
      "effective": true,
-     "words": 708,
+     "words": 688,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Access control"
@@ -7190,7 +7438,7 @@
     {
      "clause": "8.18",
      "effective": true,
-     "words": 254,
+     "words": 231,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Use of privileged utility programs"
@@ -7198,7 +7446,7 @@
     {
      "clause": "8.3",
      "effective": true,
-     "words": 604,
+     "words": 584,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information access restriction"
@@ -7222,7 +7470,7 @@
     {
      "clause": "8.2",
      "effective": true,
-     "words": 570,
+     "words": 549,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Privileged access rights"
@@ -7238,7 +7486,7 @@
     {
      "clause": "5.18",
      "effective": true,
-     "words": 652,
+     "words": 632,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Access rights"
@@ -7254,7 +7502,7 @@
     {
      "clause": "5.3",
      "effective": true,
-     "words": 266,
+     "words": 244,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Segregation of duties"
@@ -7287,7 +7535,7 @@
     {
      "clause": "5.16",
      "effective": true,
-     "words": 406,
+     "words": 386,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Identity management"
@@ -7303,7 +7551,7 @@
     {
      "clause": "5.15",
      "effective": true,
-     "words": 708,
+     "words": 688,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Access control"
@@ -7311,7 +7559,7 @@
     {
      "clause": "5.17",
      "effective": true,
-     "words": 721,
+     "words": 701,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Authentication information"
@@ -7319,7 +7567,7 @@
     {
      "clause": "8.15",
      "effective": true,
-     "words": 994,
+     "words": 973,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Logging"
@@ -7327,7 +7575,7 @@
     {
      "clause": "8.3",
      "effective": true,
-     "words": 604,
+     "words": 584,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information access restriction"
@@ -7351,7 +7599,7 @@
     {
      "clause": "8.5",
      "effective": true,
-     "words": 630,
+     "words": 610,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Secure authentication"
@@ -7359,7 +7607,7 @@
     {
      "clause": "8.2",
      "effective": true,
-     "words": 570,
+     "words": 549,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Privileged access rights"
@@ -7407,7 +7655,7 @@
     {
      "clause": "5.18",
      "effective": true,
-     "words": 652,
+     "words": 632,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Access rights"
@@ -7415,7 +7663,7 @@
     {
      "clause": "5.3",
      "effective": true,
-     "words": 266,
+     "words": 244,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Segregation of duties"
@@ -7464,7 +7712,7 @@
     {
      "clause": "5.19",
      "effective": true,
-     "words": 863,
+     "words": 840,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security in supplier relationships"
@@ -7472,7 +7720,7 @@
     {
      "clause": "5.21",
      "effective": true,
-     "words": 766,
+     "words": 743,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Managing information security in the ICT supply chain"
@@ -7496,7 +7744,7 @@
     {
      "clause": "5.22",
      "effective": true,
-     "words": 473,
+     "words": 447,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Monitoring, review and change management of supplier services"
@@ -7504,7 +7752,7 @@
     {
      "clause": "5.20",
      "effective": true,
-     "words": 801,
+     "words": 778,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Addressing information security within supplier agreements"
@@ -7545,7 +7793,7 @@
     {
      "clause": "5.19",
      "effective": true,
-     "words": 863,
+     "words": 840,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security in supplier relationships"
@@ -7553,7 +7801,7 @@
     {
      "clause": "8.30",
      "effective": true,
-     "words": 275,
+     "words": 247,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Outsourced development"
@@ -7561,7 +7809,7 @@
     {
      "clause": "5.23",
      "effective": true,
-     "words": 966,
+     "words": 943,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security for use of cloud services"
@@ -7569,7 +7817,7 @@
     {
      "clause": "5.21",
      "effective": true,
-     "words": 766,
+     "words": 743,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Managing information security in the ICT supply chain"
@@ -7593,7 +7841,7 @@
     {
      "clause": "5.22",
      "effective": true,
-     "words": 473,
+     "words": 447,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Monitoring, review and change management of supplier services"
@@ -7601,7 +7849,7 @@
     {
      "clause": "5.20",
      "effective": true,
-     "words": 801,
+     "words": 778,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Addressing information security within supplier agreements"
@@ -7642,7 +7890,7 @@
     {
      "clause": "6.6",
      "effective": true,
-     "words": 368,
+     "words": 348,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Confidentiality or non-disclosure agreements"
@@ -7658,7 +7906,7 @@
     {
      "clause": "6.8",
      "effective": true,
-     "words": 286,
+     "words": 265,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security event reporting"
@@ -7666,7 +7914,7 @@
     {
      "clause": "6.3",
      "effective": true,
-     "words": 630,
+     "words": 609,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security awareness, education and training"
@@ -7682,7 +7930,7 @@
     {
      "clause": "6.4",
      "effective": true,
-     "words": 269,
+     "words": 245,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Disciplinary process"
@@ -7698,7 +7946,7 @@
     {
      "clause": "6.5",
      "effective": true,
-     "words": 362,
+     "words": 340,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Responsibilities after termination or change of employment"
@@ -7706,7 +7954,7 @@
     {
      "clause": "6.1",
      "effective": true,
-     "words": 451,
+     "words": 430,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Screening"
@@ -7722,7 +7970,7 @@
     {
      "clause": "6.2",
      "effective": true,
-     "words": 380,
+     "words": 359,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Terms and conditions of employment"
@@ -7730,7 +7978,7 @@
     {
      "clause": "6.7",
      "effective": true,
-     "words": 605,
+     "words": 581,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Remote working"
@@ -7771,7 +8019,7 @@
     {
      "clause": "6.8",
      "effective": true,
-     "words": 286,
+     "words": 265,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security event reporting"
@@ -7779,7 +8027,7 @@
     {
      "clause": "6.3",
      "effective": true,
-     "words": 630,
+     "words": 609,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security awareness, education and training"
@@ -7795,7 +8043,7 @@
     {
      "clause": "5.36",
      "effective": true,
-     "words": 252,
+     "words": 227,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Compliance with policies, rules and standards for information security"
@@ -7819,7 +8067,7 @@
     {
      "clause": "5.10",
      "effective": true,
-     "words": 393,
+     "words": 370,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Acceptable use of information and other associated assets"
@@ -7860,7 +8108,7 @@
     {
      "clause": "7.7",
      "effective": true,
-     "words": 339,
+     "words": 322,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Clear desk and clear screen"
@@ -7932,7 +8180,7 @@
     {
      "clause": "7.1",
      "effective": true,
-     "words": 300,
+     "words": 281,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Physical security perimeters"
@@ -7956,7 +8204,7 @@
     {
      "clause": "7.9",
      "effective": true,
-     "words": 385,
+     "words": 365,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Security of assets off-premises"
@@ -7964,7 +8212,7 @@
     {
      "clause": "7.8",
      "effective": true,
-     "words": 237,
+     "words": 217,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Equipment siting and protection"
@@ -7980,7 +8228,7 @@
     {
      "clause": "7.2",
      "effective": true,
-     "words": 646,
+     "words": 625,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Physical entry"
@@ -8005,7 +8253,7 @@
     {
      "clause": "8.16",
      "effective": true,
-     "words": 793,
+     "words": 771,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Monitoring activities"
@@ -8037,7 +8285,7 @@
     {
      "clause": "8.17",
      "effective": true,
-     "words": 301,
+     "words": 281,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Clock synchronization"
@@ -8045,7 +8293,7 @@
     {
      "clause": "8.4",
      "effective": true,
-     "words": 430,
+     "words": 407,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Access to source code"
@@ -8053,7 +8301,7 @@
     {
      "clause": "8.30",
      "effective": true,
-     "words": 275,
+     "words": 247,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Outsourced development"
@@ -8061,7 +8309,7 @@
     {
      "clause": "8.12",
      "effective": true,
-     "words": 559,
+     "words": 538,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Data leakage prevention"
@@ -8069,7 +8317,7 @@
     {
      "clause": "8.26",
      "effective": true,
-     "words": 681,
+     "words": 659,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Application security requirements"
@@ -8085,7 +8333,7 @@
     {
      "clause": "8.27",
      "effective": true,
-     "words": 803,
+     "words": 782,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Secure system architecture and engineering principles"
@@ -8101,7 +8349,7 @@
     {
      "clause": "8.15",
      "effective": true,
-     "words": 994,
+     "words": 973,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Logging"
@@ -8109,7 +8357,7 @@
     {
      "clause": "8.31",
      "effective": true,
-     "words": 611,
+     "words": 590,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Separation of development, test and production environments"
@@ -8117,7 +8365,7 @@
     {
      "clause": "8.33",
      "effective": true,
-     "words": 237,
+     "words": 219,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Test information"
@@ -8141,7 +8389,7 @@
     {
      "clause": "8.24",
      "effective": true,
-     "words": 804,
+     "words": 784,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Use of cryptography"
@@ -8149,7 +8397,7 @@
     {
      "clause": "8.25",
      "effective": true,
-     "words": 251,
+     "words": 230,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Secure development life cycle"
@@ -8165,7 +8413,7 @@
     {
      "clause": "8.28",
      "effective": true,
-     "words": 939,
+     "words": 917,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Secure coding"
@@ -8213,7 +8461,7 @@
     {
      "clause": "8.11",
      "effective": true,
-     "words": 725,
+     "words": 708,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Data masking"
@@ -8221,7 +8469,7 @@
     {
      "clause": "8.29",
      "effective": true,
-     "words": 492,
+     "words": 469,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Security testing in development and acceptance"
@@ -8238,7 +8486,7 @@
     {
      "clause": "5.12",
      "effective": true,
-     "words": 618,
+     "words": 597,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Classification of information"
@@ -8278,7 +8526,7 @@
     {
      "clause": "5.13",
      "effective": true,
-     "words": 446,
+     "words": 425,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Labelling of information"
@@ -8286,7 +8534,7 @@
     {
      "clause": "5.14",
      "effective": true,
-     "words": 899,
+     "words": 879,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information transfer"
@@ -8294,7 +8542,7 @@
     {
      "clause": "5.10",
      "effective": true,
-     "words": 393,
+     "words": 370,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Acceptable use of information and other associated assets"
@@ -8829,7 +9077,7 @@
     {
      "clause": "5.27",
      "effective": true,
-     "words": 183,
+     "words": 161,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Learning from information security incidents"
@@ -8837,7 +9085,7 @@
     {
      "clause": "6.8",
      "effective": true,
-     "words": 286,
+     "words": 265,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security event reporting"
@@ -8845,7 +9093,7 @@
     {
      "clause": "5.25",
      "effective": true,
-     "words": 155,
+     "words": 134,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Assessment and decision on information security events"
@@ -8877,7 +9125,7 @@
     {
      "clause": "5.24",
      "effective": true,
-     "words": 630,
+     "words": 608,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security incident management planning and preparation"
@@ -8885,7 +9133,7 @@
     {
      "clause": "5.26",
      "effective": true,
-     "words": 281,
+     "words": 260,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Response to information security incidents"
@@ -8926,7 +9174,7 @@
     {
      "clause": "8.16",
      "effective": true,
-     "words": 793,
+     "words": 771,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Monitoring activities"
@@ -8934,7 +9182,7 @@
     {
      "clause": "8.15",
      "effective": true,
-     "words": 994,
+     "words": 973,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Logging"
@@ -9056,7 +9304,7 @@
     {
      "clause": "5.35",
      "effective": true,
-     "words": 344,
+     "words": 320,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Independent review of information security"
@@ -9854,7 +10102,7 @@
     {
      "clause": "5.19",
      "effective": true,
-     "words": 863,
+     "words": 840,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Information security in supplier relationships"
@@ -9894,7 +10142,7 @@
     {
      "clause": "8.32",
      "effective": true,
-     "words": 372,
+     "words": 351,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Change management"
@@ -9926,7 +10174,7 @@
     {
      "clause": "5.22",
      "effective": true,
-     "words": 473,
+     "words": 447,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Monitoring, review and change management of supplier services"
@@ -10357,7 +10605,7 @@
     {
      "clause": "8.34",
      "effective": true,
-     "words": 285,
+     "words": 261,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Protection of information systems during audit testing"
@@ -10994,7 +11242,7 @@
     {
      "clause": "5.9",
      "effective": true,
-     "words": 674,
+     "words": 652,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Inventory of information and other associated assets"
@@ -11083,7 +11331,7 @@
     {
      "clause": "5.36",
      "effective": true,
-     "words": 252,
+     "words": 227,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Compliance with policies, rules and standards for information security"
@@ -11147,7 +11395,7 @@
     {
      "clause": "5.35",
      "effective": true,
-     "words": 344,
+     "words": 320,
      "why": "anchorable",
      "source": "ISO/IEC 27002",
      "title": "Independent review of information security"
@@ -11647,86 +11895,32 @@
   {
    "cert": "AIMS-F",
    "code": "1.2",
-   "primary": 1,
-   "effective": 1
+   "primary": 3,
+   "effective": 3
   },
   {
    "cert": "AIMS-F",
    "code": "2.1",
-   "primary": 2,
-   "effective": 2
-  },
-  {
-   "cert": "AIMS-F",
-   "code": "2.2",
-   "primary": 2,
-   "effective": 2
-  },
-  {
-   "cert": "AIMS-F",
-   "code": "2.4",
-   "primary": 3,
-   "effective": 3
-  },
-  {
-   "cert": "AIMS-F",
-   "code": "2.7",
-   "primary": 3,
-   "effective": 3
-  },
-  {
-   "cert": "AIMS-F",
-   "code": "2.8",
-   "primary": 2,
-   "effective": 2
-  },
-  {
-   "cert": "AIMS-F",
-   "code": "3.1",
-   "primary": 3,
-   "effective": 3
-  },
-  {
-   "cert": "AIMS-F",
-   "code": "3.2",
-   "primary": 3,
-   "effective": 3
-  },
-  {
-   "cert": "AIMS-F",
-   "code": "3.4",
    "primary": 3,
    "effective": 3
   },
   {
    "cert": "AIMS-F",
    "code": "4.2",
-   "primary": 2,
-   "effective": 2
-  },
-  {
-   "cert": "AIMS-F",
-   "code": "5.1",
-   "primary": 5,
+   "primary": 3,
    "effective": 3
   },
   {
    "cert": "AIMS-F",
    "code": "5.2",
-   "primary": 2,
-   "effective": 2
-  },
-  {
-   "cert": "AIMS-F",
-   "code": "5.3",
    "primary": 3,
    "effective": 3
   },
   {
    "cert": "AIMS-F",
    "code": "5.4",
-   "primary": 1,
-   "effective": 1
+   "primary": 4,
+   "effective": 3
   },
   {
    "cert": "AIMS-IA",
@@ -11762,6 +11956,12 @@
    "cert": "AIMS-IA",
    "code": "5.3",
    "primary": 3,
+   "effective": 3
+  },
+  {
+   "cert": "AIMS-IA",
+   "code": "5.6",
+   "primary": 4,
    "effective": 3
   },
   {

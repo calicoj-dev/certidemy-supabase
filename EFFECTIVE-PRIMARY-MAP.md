@@ -10,53 +10,53 @@ themselves primary.
 Same function the generator gates on, so a task called thin here is one it will refuse to allocate
 against.
 
-## AIMS-F   (35 tasks; 14 below 4)
+## AIMS-F   (35 tasks; 5 below 4)
 
 | task | primary | effective | of which containers | shortfall to 4 |
 |---|---|---|---|---|
 | 1.1 | 5 | 5 | 0 | - |
-| 1.2  **thin** | 1 | 1 | 0 | 3 |
+| 1.2  **thin** | 3 | 3 | 0 | 1 |
 | 1.3 | 13 | 11 | 2 | - |
 | 1.4 | 11 | 11 | 0 | - |
 | 1.5 | 13 | 12 | 0 | - |
 | 1.6 | 12 | 12 | 0 | - |
-| 2.1  **thin** | 2 | 2 | 0 | 2 |
-| 2.2  **thin** | 2 | 2 | 0 | 2 |
+| 2.1  **thin** | 3 | 3 | 0 | 1 |
+| 2.2 | 5 | 5 | 0 | - |
 | 2.3 | 8 | 8 | 0 | - |
-| 2.4  **thin** | 3 | 3 | 0 | 1 |
+| 2.4 | 5 | 5 | 0 | - |
 | 2.5 | 21 | 20 | 0 | - |
 | 2.6 | 7 | 7 | 0 | - |
-| 2.7  **thin** | 3 | 3 | 0 | 1 |
-| 2.8  **thin** | 2 | 2 | 0 | 2 |
-| 3.1  **thin** | 3 | 3 | 0 | 1 |
-| 3.2  **thin** | 3 | 3 | 0 | 1 |
+| 2.7 | 6 | 6 | 0 | - |
+| 2.8 | 5 | 5 | 0 | - |
+| 3.1 | 8 | 8 | 0 | - |
+| 3.2 | 5 | 5 | 0 | - |
 | 3.3 | 17 | 17 | 0 | - |
-| 3.4  **thin** | 3 | 3 | 0 | 1 |
+| 3.4 | 5 | 5 | 0 | - |
 | 3.5 | 9 | 9 | 0 | - |
 | 3.6 | 12 | 11 | 1 | - |
 | 3.7 | 10 | 10 | 0 | - |
 | 3.8 | 4 | 4 | 0 | - |
 | 4.1 | 6 | 4 | 2 | - |
-| 4.2  **thin** | 2 | 2 | 0 | 2 |
+| 4.2  **thin** | 3 | 3 | 0 | 1 |
 | 4.3 | 10 | 10 | 0 | - |
 | 4.4 | 13 | 13 | 0 | - |
 | 4.5 | 9 | 9 | 0 | - |
 | 4.6 | 10 | 8 | 2 | - |
 | 4.7 | 6 | 6 | 0 | - |
-| 5.1  **thin** | 5 | 3 | 0 | 1 |
-| 5.2  **thin** | 2 | 2 | 0 | 2 |
-| 5.3  **thin** | 3 | 3 | 0 | 1 |
-| 5.4  **thin** | 1 | 1 | 0 | 3 |
+| 5.1 | 7 | 5 | 0 | - |
+| 5.2  **thin** | 3 | 3 | 0 | 1 |
+| 5.3 | 4 | 4 | 0 | - |
+| 5.4  **thin** | 4 | 3 | 0 | 1 |
 | 5.5 | 36 | 34 | 0 | - |
 | 5.6 | 10 | 10 | 0 | - |
 
-## AIMS-IA   (40 tasks; 7 below 4)
+## AIMS-IA   (40 tasks; 8 below 4)
 
 | task | primary | effective | of which containers | shortfall to 4 |
 |---|---|---|---|---|
 | 1.1 | 5 | 4 | 0 | - |
 | 1.2 | 9 | 9 | 0 | - |
-| 1.3 | 12 | 10 | 0 | - |
+| 1.3 | 12 | 9 | 0 | - |
 | 1.4  **thin** | 2 | 2 | 0 | 2 |
 | 1.5  **thin** | 2 | 2 | 0 | 2 |
 | 2.1 | 5 | 5 | 0 | - |
@@ -87,12 +87,12 @@ against.
 | 4.11  **thin** | 2 | 2 | 0 | 2 |
 | 4.12 | 5 | 5 | 0 | - |
 | 4.13 | 7 | 7 | 0 | - |
-| 5.1 | 9 | 7 | 0 | - |
+| 5.1 | 9 | 6 | 0 | - |
 | 5.2 | 6 | 5 | 0 | - |
 | 5.3  **thin** | 3 | 3 | 0 | 1 |
-| 5.4 | 13 | 11 | 0 | - |
+| 5.4 | 13 | 10 | 0 | - |
 | 5.5 | 4 | 4 | 0 | - |
-| 5.6 | 4 | 4 | 0 | - |
+| 5.6  **thin** | 4 | 3 | 0 | 1 |
 | 5.7  **thin** | 3 | 3 | 0 | 1 |
 
 ## ISMS-F   (49 tasks; 9 below 4; 2 declared none_apply)
@@ -198,141 +198,59 @@ against.
 
 Declared `none_apply` tasks are excluded by ruling and listed separately at the end.
 
-**37 task(s).** Each is printed with every primary it has and why each one does or
+**29 task(s).** Each is printed with every primary it has and why each one does or
 does not count, because the count alone does not say which fix it needs.
 
-### AIMS-F 1.2   -- 1 effective of 1 primary
+### AIMS-F 1.2   -- 3 effective of 3 primary
 
 *task:* Determine the organization's roles with respect to its AI systems
 
 | clause | source | words | counts | why |
 |---|---|---|---|---|
+| `A.10.2` | 42001 | 26 | yes | anchorable |
 | `4.1` | 42001 | 465 | yes | anchorable |
+| `A.3.2` | 42001 | 21 | yes | anchorable |
 
-### AIMS-F 2.1   -- 2 effective of 2 primary
+### AIMS-F 2.1   -- 3 effective of 3 primary
 
 *task:* Determine the organization's context and interested parties for an AIMS
 
 | clause | source | words | counts | why |
 |---|---|---|---|---|
 | `4.1` | 42001 | 465 | yes | anchorable |
+| `3.2` | 42001 | 40 | yes | anchorable |
 | `4.2` | 42001 | 48 | yes | anchorable |
 
-### AIMS-F 2.2   -- 2 effective of 2 primary
-
-*task:* Determine the scope of the AI management system
-
-| clause | source | words | counts | why |
-|---|---|---|---|---|
-| `A.10.3` | 42001 | 34 | yes | anchorable |
-| `4.3` | 42001 | 83 | yes | anchorable |
-
-### AIMS-F 2.4   -- 3 effective of 3 primary
-
-*task:* Assign roles, responsibilities and authorities for AI
-
-| clause | source | words | counts | why |
-|---|---|---|---|---|
-| `A.10.2` | 42001 | 26 | yes | anchorable |
-| `A.3.2` | 42001 | 21 | yes | anchorable |
-| `5.3` | 42001 | 81 | yes | anchorable |
-
-### AIMS-F 2.7   -- 3 effective of 3 primary
-
-*task:* Differentiate the AI risk assessment from the AI system impact assessment and determine what a situation requires
-
-| clause | source | words | counts | why |
-|---|---|---|---|---|
-| `6.1.4` | 42001 | 191 | yes | anchorable |
-| `3.24` | 42001 | 39 | yes | anchorable |
-| `6.1.2` | 42001 | 164 | yes | anchorable |
-
-### AIMS-F 2.8   -- 2 effective of 2 primary
-
-*task:* Apply AI risk treatment and produce the Statement of Applicability
-
-| clause | source | words | counts | why |
-|---|---|---|---|---|
-| `3.26` | 42001 | 304 | yes | anchorable |
-| `6.1.3` | 42001 | 374 | yes | anchorable |
-
-### AIMS-F 3.1   -- 3 effective of 3 primary
-
-*task:* Determine resources and competence needs for an AIMS
-
-| clause | source | words | counts | why |
-|---|---|---|---|---|
-| `C.2.2` | 42001 | 20 | yes | anchorable |
-| `7.2` | 42001 | 112 | yes | anchorable |
-| `7.1` | 42001 | 47 | yes | anchorable |
-
-### AIMS-F 3.2   -- 3 effective of 3 primary
-
-*task:* Explain awareness and communication requirements
-
-| clause | source | words | counts | why |
-|---|---|---|---|---|
-| `7.4` | 42001 | 34 | yes | anchorable |
-| `7.2` | 42001 | 112 | yes | anchorable |
-| `7.3` | 42001 | 47 | yes | anchorable |
-
-### AIMS-F 3.4   -- 3 effective of 3 primary
-
-*task:* Explain operational planning and control
-
-| clause | source | words | counts | why |
-|---|---|---|---|---|
-| `A.10.2` | 42001 | 26 | yes | anchorable |
-| `A.10.3` | 42001 | 34 | yes | anchorable |
-| `8.1` | 42001 | 169 | yes | anchorable |
-
-### AIMS-F 4.2   -- 2 effective of 2 primary
+### AIMS-F 4.2   -- 3 effective of 3 primary
 
 *task:* Explain how Annex A relates to the Statement of Applicability
 
 | clause | source | words | counts | why |
 |---|---|---|---|---|
-| `3.26` | 42001 | 304 | yes | anchorable |
+| `3.26` | 42001 | 89 | yes | anchorable |
+| `A.1` | 42001 | 76 | yes | anchorable |
 | `6.1.3` | 42001 | 374 | yes | anchorable |
 
-### AIMS-F 5.1   -- 3 effective of 5 primary
-
-*task:* Explain monitoring, measurement, analysis and evaluation for an AIMS
-
-| clause | source | words | counts | why |
-|---|---|---|---|---|
-| `3.11` | 42001 | 77 | yes | anchorable |
-| `3.13` | 42001 | 13 | **no** | under the 15-word floor -- too short to carry a key |
-| `9.1` | 42001 | 73 | yes | anchorable |
-| `3.19` | 42001 | 7 | **no** | under the 15-word floor -- too short to carry a key |
-| `3.20` | 42001 | 32 | yes | anchorable |
-
-### AIMS-F 5.2   -- 2 effective of 2 primary
+### AIMS-F 5.2   -- 3 effective of 3 primary
 
 *task:* Explain the internal audit requirement
 
 | clause | source | words | counts | why |
 |---|---|---|---|---|
+| `3.18` | 42001 | 94 | yes | anchorable |
 | `9.2.1` | 42001 | 43 | yes | anchorable |
 | `9.2.2` | 42001 | 102 | yes | anchorable |
 
-### AIMS-F 5.3   -- 3 effective of 3 primary
-
-*task:* Explain management review inputs and results
-
-| clause | source | words | counts | why |
-|---|---|---|---|---|
-| `9.3.2` | 42001 | 75 | yes | anchorable |
-| `9.3.3` | 42001 | 37 | yes | anchorable |
-| `9.3.1` | 42001 | 20 | yes | anchorable |
-
-### AIMS-F 5.4   -- 1 effective of 1 primary
+### AIMS-F 5.4   -- 3 effective of 4 primary
 
 *task:* Apply nonconformity and corrective action
 
 | clause | source | words | counts | why |
 |---|---|---|---|---|
 | `10.2` | 42001 | 142 | yes | anchorable |
+| `10.1` | 42001 | 15 | yes | anchorable |
+| `3.17` | 42001 | 15 | yes | anchorable |
+| `3.16` | 42001 | 6 | **no** | under the 15-word floor -- too short to carry a key |
 
 ### AIMS-IA 1.4   -- 2 effective of 2 primary
 
@@ -368,7 +286,7 @@ does not count, because the count alone does not say which fix it needs.
 
 | clause | source | words | counts | why |
 |---|---|---|---|---|
-| `3.26` | 42001 | 304 | yes | anchorable |
+| `3.26` | 42001 | 89 | yes | anchorable |
 | `A.1` | 42001 | 76 | yes | anchorable |
 | `6.1.3` | 42001 | 374 | yes | anchorable |
 
@@ -390,6 +308,17 @@ does not count, because the count alone does not say which fix it needs.
 | `A.18.3` | ISO 19011 | 56 | yes | anchorable |
 | `A.18.4` | ISO 19011 | 177 | yes | anchorable |
 | `6.4.8` | ISO 19011 | 202 | yes | anchorable |
+
+### AIMS-IA 5.6   -- 3 effective of 4 primary
+
+*task:* Determine whether corrective action and its follow-up satisfy clause 10.2
+
+| clause | source | words | counts | why |
+|---|---|---|---|---|
+| `10.2` | 42001 | 142 | yes | anchorable |
+| `6.7` | ISO 19011 | 101 | yes | anchorable |
+| `3.17` | 42001 | 15 | yes | anchorable |
+| `3.16` | 42001 | 6 | **no** | under the 15-word floor -- too short to carry a key |
 
 ### AIMS-IA 5.7   -- 3 effective of 3 primary
 
@@ -531,7 +460,7 @@ does not count, because the count alone does not say which fix it needs.
 
 | clause | source | words | counts | why |
 |---|---|---|---|---|
-| `5.9` | 27002 | 674 | yes | anchorable |
+| `5.9` | 27002 | 652 | yes | anchorable |
 | `A.5.9` | 27001 | 18 | yes | anchorable |
 | `4.3` | 27001 | 69 | yes | anchorable |
 
