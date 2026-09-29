@@ -27,6 +27,7 @@ import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
 import { CAP, anchorKey } from "./lib/anchor-cap.mjs";
 import { classifyPrimaries } from "./lib/effective-primary.mjs";
+import { anchorLayers } from "./lib/anchor-layers.mjs";
 
 for (const a of process.argv.slice(2)) {
   console.error("Unrecognised flag: " + a + ". READ-ONLY, takes none.");
@@ -38,10 +39,8 @@ const FLOOR = 8, MIN_PRIMARY = 4, EXCLUDE = new Set(["1.3"]);
 
 const surv = JSON.parse(readFileSync(join(ROOT, "AIMSF-SURVIVORS.json"), "utf8"));
 const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));
-const LAYERS = ["ANCHOR-OR-FLAG-AIMS-F-all-secure.json", "ANCHOR-OR-FLAG-AIMS-F-all-secure-rerun.json",
-  "ANCHOR-OR-FLAG-AIMS-F-all-secure-modal.json", "ANCHOR-OR-FLAG-AIMS-F-all-secure-director-87.json"];
 const anchorOf = new Map(), taskOf = new Map();
-for (const f of LAYERS) {
+for (const f of anchorLayers(ROOT)) {
   const p = join(ROOT, f);
   if (!existsSync(p)) continue;
   for (const it of (JSON.parse(readFileSync(p, "utf8")).items || [])) {

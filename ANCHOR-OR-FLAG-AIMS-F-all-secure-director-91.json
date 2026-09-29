@@ -1,0 +1,102 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "method": "anchor or flag, ALL linked passages supplied (primary + supporting) with roles labelled, code gates decide",
+ "sampled": 2,
+ "anchored": 2,
+ "flagged": 0,
+ "cannot_be_checked": 0,
+ "director_tier_ab": 0,
+ "caught_by_anchor": 0,
+ "caught_by_solver": 0,
+ "anchorable": 0,
+ "contested": 0,
+ "caught_of_anchorable": 0,
+ "solver_caught_of_contested": 0,
+ "extra_flags": 0,
+ "extra_lesser_tier": 0,
+ "items": [
+  {
+   "n": 1,
+   "prefix": "333a50d8",
+   "director_tier": null,
+   "task": "4.3",
+   "attribution": null,
+   "key_claim": "The Annex A control that directly addresses the failure to analyse whether existing corporate policies (privacy, security, quality) are affected by or apply to the bank's AI objectives is the control on alignment with other organizational policies.",
+   "anchor": {
+    "clause": "A.2.3",
+    "support": "Alignment with other organizaThe organization shall determine where other policies can tional policies be affected by or apply to, the organization’s objectives with respect to AI systems."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item asserts a recommendation; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in A.2.3, a primary passage of this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in A.2.3, verbatim, modal consistent"
+  },
+  {
+   "n": 2,
+   "prefix": "a287616d",
+   "director_tier": null,
+   "task": "4.4",
+   "attribution": null,
+   "key_claim": "The Annex B control that most directly addresses failure to monitor a deployed model's live performance is AI system operation and monitoring, which requires defining and documenting the necessary elements for ongoing operation, at minimum system and performance monitoring, repairs, updates and support.",
+   "anchor": {
+    "clause": "B.6.2.6",
+    "support": "Control The organization should define and document the necessary elements for the ongoing operation of the AI system. At the minimum this should include system and performance monitoring, repairs, updates and support."
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "reason": "1 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "reason": "1 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "reason": "item asserts a none; anchor is a recommendation by the anchor sentence (clause classed should)"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "reason": "the key anchors in B.6.2.6, the implementation guidance for A.6.2.6, which IS primary for this task"
+    }
+   ],
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "state": "anchored",
+   "kind": null,
+   "reason": "anchored in B.6.2.6, verbatim, modal consistent"
+  }
+ ]
+}

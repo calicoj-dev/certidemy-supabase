@@ -77,11 +77,29 @@ for (const g of ig) {
     }
   }
   const t = taskId ? taskInfo.get(taskId) : null;
+  /* ============ THE B.x/A.x PAIRING, WHICH THIS CHECK WAS MISSING ============
+   *
+   * The gate counts 42001 Annex B guidance as PRIMARY when its own Annex A control is primary: B.6.2.6
+   * is primary wherever A.6.2.6 is. This check looked up (task, source, clause) directly and therefore
+   * reported a287616d as resting on a supporting anchor when the gate is perfectly happy with it --
+   * over-reporting, which is the direction that gets a guard deleted by the first person it inconveniences.
+   *
+   * Measured after the fix: 4.4 has A.6.2.6 primary and B.6.2.6 supporting, so the pairing applies and
+   * a287616d was never a finding. 4.3 had B.2.3 supporting with A.2.3 primary -- the pairing applies there
+   * too, but that item anchored in the GUIDANCE rather than the control and has been re-anchored to
+   * A.2.3, which is the better anchor either way. */
   const key = taskId + "|" + g.source_id + "|" + g.key_support_clause;
-  const role = roleOf.get(key) || null;
+  let role = roleOf.get(key) || null;
+  if (role !== "primary" && /^B\./.test(String(g.key_support_clause))) {
+    const sibling = "A." + String(g.key_support_clause).slice(2);
+    if (roleOf.get(taskId + "|" + g.source_id + "|" + sibling) === "primary") {
+      role = "primary (via its Annex A control " + sibling + ")";
+    }
+  }
   roleRows.push({ id: String(g.question_id).slice(0, 8), cert: t ? t.cert : "?", task: t ? t.code : "?",
     source: g.source_id, clause: g.key_support_clause, role: role || "NOT LINKED",
-    ok: role === "primary" });
+    /* startsWith, because a paired role reads "primary (via its Annex A control A.6.2.6)" */
+    ok: String(role || "").startsWith("primary") });
 }
 const notPrimary = roleRows.filter((r) => !r.ok);
 

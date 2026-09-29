@@ -22,14 +22,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { census } from "./anchor-cap.mjs";
 
-const LAYERS = [
-  "ANCHOR-OR-FLAG-AIMS-F-all-secure.json",
-  "ANCHOR-OR-FLAG-AIMS-F-all-secure-rerun.json",
-  "ANCHOR-OR-FLAG-AIMS-F-all-secure-modal.json",
-  /* the director-87 re-anchor layer. A layer missing from this list is an anchor the cap cannot see, and
-   * the whole point of re-anchoring 1b0d5be6 off a container was to put it somewhere the cap counts. */
-  "ANCHOR-OR-FLAG-AIMS-F-all-secure-director-87.json",
-];
+import { anchorLayers } from "./anchor-layers.mjs";
 
 export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert }) {
   const entriesByTask = new Map();
@@ -60,7 +53,7 @@ export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert })
   if (cert === "AIMS-F" && existsSync(survPath)) {
     const surv = JSON.parse(readFileSync(survPath, "utf8"));
     const anchorOf = new Map(), taskOfPrefix = new Map();
-    for (const f of LAYERS) {
+    for (const f of anchorLayers(ROOT)) {
       const p = join(ROOT, f);
       if (!existsSync(p)) continue;
       for (const it of (JSON.parse(readFileSync(p, "utf8")).items || [])) {

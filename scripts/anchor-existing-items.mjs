@@ -51,13 +51,14 @@ import { AUDIT480_TIER_A, AUDIT480_TIER_B, AUDIT480_TIER_C, AUDIT480_TIER_D,
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false, ONLY = null, TAG = "", REUSE_SOLVER = null;
+let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false, ONLY = null, TAG = "", REUSE_SOLVER = null, INCLUDE_PENDING = false;
 for (const a of process.argv.slice(2)) {
   const m = /^--cert=(.+)$/.exec(a);
   if (m) { CERT = m[1]; continue; }
   if (a === "--pinned") { PINNED = true; continue; }
   if (a === "--legacy-keying") { LEGACY_KEYING = true; continue; }
   if (a === "--all-secure") { ALL_SECURE = true; continue; }
+  if (a === "--include-pending") { INCLUDE_PENDING = true; continue; }
   const o = /^--only=(.+)$/.exec(a);
   if (o) { ONLY = o[1]; continue; }
   const g = /^--tag=([A-Za-z0-9_-]+)$/.exec(a);
@@ -255,7 +256,12 @@ const rows = await getAll(KEY,
  * carrying both would double-count them. `sampled` keeps its shape so nothing downstream changes,
  * and the director's tier annotations still attach where a prefix matches. */
 if (ALL_SECURE) {
-  const live = rows.filter((r) => r.pool === "secure" && r.status === "approved" && !r.retired_at);
+  /* --include-pending widens this to pending_review. The DEFAULT stays approved-only, because the
+   * audit is about the LIVE bank and a pending_review row is not live. It is needed to re-anchor a
+   * generated item whose anchor role has since moved, which is a real case: 333a50d8 and a287616d are
+   * both pending_review and both anchor in a clause that is now supporting. */
+  const live = rows.filter((r) => r.pool === "secure" && !r.retired_at &&
+    (r.status === "approved" || (INCLUDE_PENDING && r.status === "pending_review")));
   sampled.length = 0;
   let n = 0;
   for (const r of live) {
