@@ -225,6 +225,49 @@ p("before anything is retired on it. Drawn on seed " + SEED + ", reproducible wi
   " --modal=" + N_MODAL + "`.");
 for (const r of draw(modal, N_MODAL, SEED)) renderItem(r);
 
+/* ---- THE CLUSTER, BECAUSE 30 IS NOT 30 QUESTIONS ---- */
+{
+  const cl = {};
+  for (const r of modal) {
+    const k = ((r.anchor && r.anchor.clause) || "?") + " | " + r.task;
+    cl[k] = (cl[k] || 0) + 1;
+  }
+  const groups = Object.entries(cl).sort((a, b) => b[1] - a[1]);
+  p("");
+  p("**These " + PR + " items are not " + PR + " separate questions.** Grouped by the clause they");
+  p("anchor in and the task they belong to:");
+  p("");
+  p("| anchored clause | task | items |");
+  p("|---|---|---|");
+  for (const [k, v] of groups) {
+    const [clause, task] = k.split(" | ");
+    p("| `" + clause + "` | " + task + " | " + v + (v > 1 ? "  **cluster**" : "") + " |");
+  }
+  const big = groups.filter(([, v]) => v > 1);
+  p("");
+  p(big.length + " cluster(s) account for " + big.reduce((s, [, v]) => s + v, 0) + " of the " + PR +
+    " items; " + groups.filter(([, v]) => v === 1).length + " stand alone.");
+  /* the largest cluster is printed with its shared reason, verbatim and once */
+  if (big.length) {
+    const [topKey, topN] = big[0];
+    const [tc, tt] = topKey.split(" | ");
+    const mine = modal.filter((r) => ((r.anchor && r.anchor.clause) || "?") === tc && r.task === tt);
+    const reasons = new Set(mine.map((r) => {
+      const g = (r.gates || []).find((x) => x.id === "modal-fidelity");
+      return String((g && g.reason) || "").replace(/\s+/g, " ");
+    }));
+    p("");
+    p("The largest is task " + tt + " on `" + tc + "`: " + topN + " items, and " +
+      (reasons.size === 1 ? "**one identical gate reason**" : reasons.size + " distinct reasons") + ":");
+    p("");
+    for (const x of reasons) p("> " + x.slice(0, 300));
+    p("");
+    p("One clause, one reason, " + topN + " items -- so it is a single judgement about whether the");
+    p("items overclaim against `" + tc + "`, not " + topN + " independent reads. Ruling on it settles");
+    p("all " + topN + ".");
+  }
+}
+
 p("");
 p("---");
 p("");
