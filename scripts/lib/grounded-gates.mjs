@@ -19,6 +19,7 @@
  */
 import { auditItem, keyIsStrictLongest, CUE_CFG } from "../../functions/_shared/item-rules/item-cue-guard.mjs";
 import { supersededIn } from "./superseded-wording.mjs";
+import { clauseNumberRecall } from "./clause-number-recall.mjs";
 
 /* ============ NORMALISATION, AND WHY IT IS THE RISKY PART ============
  *
@@ -872,6 +873,13 @@ export function gateSharedDistractorPhrase(item, minRun = 4) {
 }
 
 /** Run every code gate. `pass: null` anywhere means the item is not cleared. */
+/* A stem may cite a clause number only if the item is answerable without knowing what that number
+ * contains. Ruled PROMPT-93 s2; the discriminator and its stated limits are in clause-number-recall.mjs. */
+function gateClauseNumberRecall(item) {
+  const v = clauseNumberRecall(item);
+  return { id: "clause-number-recall", pass: v.pass, examined: v.examined ? 1 : 0, reason: v.reason };
+}
+
 export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps = [],
   liveStemsForTask = [], cueCfg = CUE_CFG, cert,
   primaryClauses = null, supportingClauses = null, sources = null, leak = null }) {
@@ -888,6 +896,7 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
     gateAnchorIsPrimary(item, primaryClauses, supportingClauses),
     gateReproduction(item, sources, leak),
     gateNo27000(item),
+    gateClauseNumberRecall(item),
   ];
   const failed = gates.filter((g) => g.pass === false);
   const unasserted = gates.filter((g) => g.pass === null || g.examined === 0);
@@ -1461,6 +1470,20 @@ export function groundedGateControls() {
       key_support_clause: "3.2",
       key_support: "ISO/IEC 27000:2018, 3.2: asset -- anything that has value to the organization",
     }).pass, true],
+    ["refuses a clause-number recall stem", () => {
+      const recall = { ...good, question_text: "Improvement in ISO/IEC 42001 is split between " +
+        "clauses 10.1 and 10.2. Which obligation belongs to 10.1?" };
+      return runCodeGates(recall, { passagesByKey: byKey, primaryClauses: new Set(["9.2.2"]),
+        supportingClauses: new Set(["B.9.2"]), sources: [], leak: null })
+        .failed.includes("clause-number-recall");
+    }, true],
+    ["does NOT refuse a stem citing a clause as authority", () => {
+      const auth = { ...good, question_text: "Top management is drafting the AI policy. Which of the " +
+        "following must the policy contain according to clause 5.2?" };
+      return runCodeGates(auth, { passagesByKey: byKey, primaryClauses: new Set(["9.2.2"]),
+        supportingClauses: new Set(["B.9.2"]), sources: [], leak: null })
+        .failed.includes("clause-number-recall");
+    }, false],
   ];
 
   const fails = [];

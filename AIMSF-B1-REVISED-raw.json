@@ -1,0 +1,322 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "generation_note": "PROMPT-93 s1 revisions of AIMSF-ROLLOUT-B1.json. NOT generated -- hand edits to the declared fields only, asserted against the original. Re-gate before any insert.",
+ "items": [
+  {
+   "task_code": "1.1",
+   "item": {
+    "question_text": "How does the annex table of control objectives and controls relate to controls that an organization works out for itself?",
+    "options": [
+     {
+      "text": "It is a reference set: not every control in it is required, and an organization can also design and implement controls of its own.",
+      "is_correct": true
+     },
+     {
+      "text": "It lists the controls that apply to AI providers only, and organizations in other roles use their own.",
+      "is_correct": false
+     },
+     {
+      "text": "It is supplemented by a further annex, and an organization can apply those extra controls alongside the tabled ones.",
+      "is_correct": false
+     },
+     {
+      "text": "It states technical build specifications for AI models, and an organization implements them in the form they are written.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.1 states that \"Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).\" The table is a reference, not a fixed technical specification.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "The clause says the listed controls need not all be used and that own controls can be designed, so treating the table as a fixed baseline misreads it."
+     },
+     {
+      "index": 2,
+      "clause": "A.1",
+      "support": "Annex B provides implementation guidance for all the controls listed in Table A.1.",
+      "why_wrong": "The second annex gives implementation guidance for the same controls, not additional controls."
+     },
+     {
+      "index": 3,
+      "clause": "A.1",
+      "support": "The controls detailed in Table A.1 provide the organization with a reference for meeting organizational objectives and addressing risks related to the design and operation of AI systems.",
+      "why_wrong": "The controls are a reference for organizational objectives and risk, not technical build specifications for models."
+     }
+    ]
+   },
+   "revision_of": "19ce57e0",
+   "revision_fields": [
+    "key text",
+    "option B text"
+   ]
+  },
+  {
+   "task_code": "1.5",
+   "item": {
+    "question_text": "When determining its context, an organization lists issues arising outside the organization. Which of the following is offered in the guidance as an example of such an external issue?",
+    "options": [
+     {
+      "text": "Decisions and guidance issued by regulators that shape how legal rules are interpreted or enforced",
+      "is_correct": true
+     },
+     {
+      "text": "Obligations the organization has taken on through contracts agreed with its counterparties and business partners",
+      "is_correct": false
+     },
+     {
+      "text": "Purposes for which the organization intends its AI systems to be developed, provided or used",
+      "is_correct": false
+     },
+     {
+      "text": "Governance arrangements, objectives, policies and internal procedures adopted by the organization to direct its activities",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "NOTE 2 to clause 4.1 splits its examples into two sub-lists: a) external context related considerations, which include policies, guidelines and decisions from regulators that have an impact on the interpretation or enforcement of legal requirements; and b) internal context related considerations. The other three options are all drawn from sub-list b) -- contractual obligations, the intended purpose of the AI system, and organizational governance, objectives, policies and procedures.",
+    "key_support_clause": "4.1",
+    "key_support": "policies, guidelines and decisions from regulators that have an impact on the interpretation or enforcement of legal requirements in the development and use of AI systems",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "internal context related considerations such as: 1) organizational context, governance, objectives (see 6.2), policies and procedures; 2) contractual obligations;",
+      "why_wrong": "Contractual obligations are given as an internal context consideration, not an external one."
+     },
+     {
+      "index": 2,
+      "clause": "4.1",
+      "support": "3) intended purpose of the AI system to be developed or used",
+      "why_wrong": "Intended purpose is listed under internal context considerations."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "1) organizational context, governance, objectives (see 6.2), policies and procedures",
+      "why_wrong": "Governance, objectives and procedures are given as internal, not external, considerations."
+     }
+    ]
+   },
+   "revision_of": "568cbf03",
+   "revision_fields": [
+    "explanation"
+   ]
+  },
+  {
+   "task_code": "1.4",
+   "item": {
+    "question_text": "An organisation already certified to ISO/IEC 27001 is mapping its existing arrangements onto an AI management system. Which description matches the AIMS requirement for internal audit?",
+    "options": [
+     {
+      "text": "Top management looks over the system periodically to confirm it stays suitable, adequate and effective.",
+      "is_correct": false
+     },
+     {
+      "text": "The organisation records the limits and applicability of its system and holds that as documented information.",
+      "is_correct": false
+     },
+     {
+      "text": "Checks made at intervals fixed in advance report on conformity with internal and standard requirements and on effective operation.",
+      "is_correct": true
+     },
+     {
+      "text": "The organisation keeps raising how suitable, adequate and effective the system is over time.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause 9.2.1 is the harmonised internal audit clause: audits at planned intervals give information on conformity with the organisation's own AIMS requirements and with the standard, and on whether the system \"is effectively implemented and maintained\" (9.2.1). The other options describe management review, scope and continual improvement, which sit at different clause numbers.",
+    "key_support_clause": "9.2.1",
+    "key_support": "The organization shall conduct internal audits at planned intervals to provide information on whether the AI management system: a) conforms to: 1) the organization’s own requirements for its AI management system; 2) the requirements of this document; b) is effectively implemented and maintained.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "9.3.1",
+      "support": "Top management shall review the organization’s AI management system, at planned intervals, to ensure its continuing suitability, adequacy and effectiveness.",
+      "why_wrong": "This is the management review provision at 9.3.1, not the internal audit provision at 9.2.1."
+     },
+     {
+      "index": 1,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "Documenting scope belongs to clause 4.3 on determining the scope of the AI management system."
+     },
+     {
+      "index": 3,
+      "clause": "10.1",
+      "support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+      "why_wrong": "Continual improvement sits in Clause 10.1, not in the audit clause."
+     }
+    ]
+   },
+   "revision_of": "b90e65f1",
+   "revision_fields": [
+    "question_text"
+   ]
+  },
+  {
+   "task_code": "1.4",
+   "item": {
+    "question_text": "An organisation already certified to ISO/IEC 27001 is mapping its existing arrangements onto an AI management system. Which description matches the AIMS requirement for management review?",
+    "options": [
+     {
+      "text": "Looking over the AI management system at planned intervals so that it goes on being suitable, adequate and effective.",
+      "is_correct": true
+     },
+     {
+      "text": "Running audits at planned intervals to establish whether the system meets the organisation's own stated requirements.",
+      "is_correct": false
+     },
+     {
+      "text": "Setting AI objectives at the functions and levels that matter, keeping them in line with the AI policy.",
+      "is_correct": false
+     },
+     {
+      "text": "Seeing to it that the resources the AI management system needs are made available across the organisation.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 9.3.1 assigns the periodic review to top management to ensure \"continuing suitability, adequacy and effectiveness\" of the AI management system. Auditing (9.2.1), objective setting (6.2) and resourcing (5.1) are separate clauses of the harmonised structure.",
+    "key_support_clause": "9.3.1",
+    "key_support": "Top management shall review the organization’s AI management system, at planned intervals, to ensure its continuing suitability, adequacy and effectiveness.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "9.2.1",
+      "support": "The organization shall conduct internal audits at planned intervals to provide information on whether the AI management system: a) conforms to: 1) the organization’s own requirements for its AI management system;",
+      "why_wrong": "Internal auditing is clause 9.2.1 and is placed on the organization, not on top management at 9.3.1."
+     },
+     {
+      "index": 2,
+      "clause": "6.2",
+      "support": "The organization shall establish AI objectives at relevant functions and levels.",
+      "why_wrong": "Objective setting sits in the planning clause 6.2, not in management review."
+     },
+     {
+      "index": 3,
+      "clause": "5.1",
+      "support": "— ensuring that the resources needed for the AI management system are available;",
+      "why_wrong": "Making resources available is part of the leadership and commitment clause 5.1."
+     }
+    ]
+   },
+   "revision_of": "90fff510",
+   "revision_fields": [
+    "question_text"
+   ]
+  },
+  {
+   "task_code": "1.4",
+   "item": {
+    "question_text": "ISO/IEC 42001 divides improvement between continual improvement and the handling of nonconformities, as ISO/IEC 27001 does. Which of these obligations is part of continual improvement rather than of handling a nonconformity?",
+    "options": [
+     {
+      "text": "Reacting when something fails to conform and weighing whether its causes need to be removed.",
+      "is_correct": false
+     },
+     {
+      "text": "Holding evidence about the nature of nonconformities and about what corrective action achieved.",
+      "is_correct": false
+     },
+     {
+      "text": "Judging whether corrective action worked and altering the management system where that is needed.",
+      "is_correct": false
+     },
+     {
+      "text": "Improving, on a continuing basis, how suitable, adequate and effective the AI management system is.",
+      "is_correct": true
+     }
+    ],
+    "correct_index": 3,
+    "explanation": "Clause 10.1 is the short continual improvement clause: the organization \"shall continually improve the suitability, adequacy and effectiveness of the AI management system\". The other three obligations all come from the nonconformity and corrective action clause, 10.2.",
+    "key_support_clause": "10.1",
+    "key_support": "The organization shall continually improve the suitability, adequacy and effectiveness of the AI management system.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "10.2",
+      "support": "When a nonconformity occurs, the organization shall: a) react to the nonconformity and as applicable: 1) take action to control and correct it",
+      "why_wrong": "Reacting to a nonconformity and evaluating its causes is required by 10.2, not 10.1."
+     },
+     {
+      "index": 1,
+      "clause": "10.2",
+      "support": "Documented information shall be available as evidence of: — the nature of the nonconformities and any subsequent actions taken; — the results of any corrective action.",
+      "why_wrong": "The documented information duty about nonconformities belongs to 10.2."
+     },
+     {
+      "index": 2,
+      "clause": "10.2",
+      "support": "d) review the effectiveness of any corrective action taken; e) make changes to the AI management system, if necessary.",
+      "why_wrong": "Reviewing corrective action effectiveness is a step listed within 10.2."
+     }
+    ]
+   },
+   "revision_of": "ce7cd810",
+   "revision_fields": [
+    "question_text"
+   ]
+  },
+  {
+   "task_code": "1.4",
+   "item": {
+    "question_text": "An organisation that has determined context for its ISMS is now doing so for an AI management system. Which requirement does ISO/IEC 42001 add when an organisation determines its context?",
+    "options": [
+     {
+      "text": "Deciding which of the interested parties' requirements will be handled through the management system.",
+      "is_correct": false
+     },
+     {
+      "text": "Taking account of the purpose for which the organisation's AI systems are meant to be used.",
+      "is_correct": true
+     },
+     {
+      "text": "Setting out the limits and applicability of the management system and keeping that as documented information.",
+      "is_correct": false
+     },
+     {
+      "text": "Establishing and maintaining the management system along with the processes needed and their interactions.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause 4.1 adds AI-specific text to the harmonised context clause, including that the organization \"shall consider the intended purpose of the AI systems that are developed, provided or used by the organization\" (4.1). The other options belong to clauses 4.2, 4.3 and 4.4.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "4.2",
+      "support": "— which of these requirements will be addressed through the AI management system.",
+      "why_wrong": "Deciding which interested party requirements are addressed belongs to clause 4.2."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "Boundaries, applicability and documented scope are dealt with in clause 4.3."
+     },
+     {
+      "index": 3,
+      "clause": "4.4",
+      "support": "The organization shall establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.",
+      "why_wrong": "Establishing and maintaining the system with its processes is clause 4.4."
+     }
+    ]
+   },
+   "revision_of": "e11bd9f1",
+   "revision_fields": [
+    "question_text"
+   ]
+  }
+ ]
+}

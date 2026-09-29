@@ -42,7 +42,7 @@
  * is the generate-once-then-persist shape the old generators do not have.
  */
 import { readFileSync, writeFileSync, existsSync, appendFileSync, renameSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { runCodeGates } from "./lib/grounded-gates.mjs";
@@ -132,6 +132,10 @@ let deCueAttempted = 0, deCueApplied = 0, deCueRevertedSolver = 0, deCueReverted
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
+/* A path the caller gave ABSOLUTELY is used as given; a bare name is relative to the repository root.
+ * join(ROOT, <absolute>) silently produces an unopenable path on Windows, and both --out and --from had
+ * it -- so the rule lives in one place rather than at each flag. */
+const underRoot = (p) => (isAbsolute(p) ? p : join(ROOT, p));
 
 let CERT = "AIMS-F", N = 40, APPLY = false, OUT = null, FROM = null, ONLY = null, IDS = null, EXAM_SCOPE = false;
 for (const a of process.argv.slice(2)) {
@@ -638,6 +642,21 @@ function writerUser(task, domain, passages, k) {
     " SUPPORTING passage and do not paraphrase a primary one to fit." +
     (full.length ? "\n\nAT THE ANCHOR CAP for this task -- do NOT anchor any key in these; they" +
       " already carry " + CAP + " item(s) each: " + full.map((f) => f.clause).join(", ") : "") +
+    /* PROMPT-93 s2. Both of these answer defects READ in the output rather than guessed at: the probe
+     * flags clustered on one habit (broad moderate key, narrow absolute distractors), and four batch-1
+     * survivors asked what sits at a numbered clause. */
+    "\n\nDISTRACTOR BREADTH. Most items rejected for being answerable from the options alone share one" +
+    " shape: the key is the broad, measured statement and every distractor is narrow, absolute or" +
+    " technical, so a candidate who knows nothing picks the moderate one. AT LEAST ONE DISTRACTOR MUST BE" +
+    " AS BROAD AND AS MEASURED IN TONE AS THE KEY. Make a distractor wrong on its SUBSTANCE, not by" +
+    " hanging an absolute qualifier or a self-justifying 'because...' clause on it." +
+    (k > 1 ? "\n\nVARY WHICH OPTION IS THE GENERAL ONE across these " + k + " items: sometimes the key" +
+      " should be the specific option and a broad statement should be the distractor that is wrong." : "") +
+    "\n\nCLAUSE NUMBERS. You may cite a clause number, but ONLY if the item can be answered without" +
+    " knowing what that number contains. Name the topic. Code REFUSES a stem that asks what is 'at'," +
+    " 'in' or 'under' clause X, which obligation 'belongs to' X, or which option 'matches' X --" +
+    " those test memory of ISO's numbering rather than understanding of the requirement. Citing a clause" +
+    " as the AUTHORITY for a question whose subject the stem names is fine." +
     "\n\nWrite " + k + " item(s). Return the JSON array only.";
 }
 
@@ -653,7 +672,10 @@ const bump = (k) => rejectCounts.set(k, (rejectCounts.get(k) || 0) + 1);
  *
  * The spend DELTA travels with the verdict: a resumed run that could not report total spend would still
  * be losing half of what the kill destroyed. */
-const PARTIAL = join(ROOT, OUT.replace(/\.json$/, "") + ".partial.jsonl");
+/* An absolute --out must not be joined onto ROOT. One resolved constant for the artifact and its
+ * checkpoint, so the two cannot disagree about where the run is writing. */
+const OUT_PATH = underRoot(OUT);
+const PARTIAL = OUT_PATH.replace(/\.json$/, "") + ".partial.jsonl";
 const resumed = new Map();
 if (existsSync(PARTIAL)) {
   let bad = 0;
@@ -710,7 +732,7 @@ if (FROM) {
 let priorNote = null;
 const generated = [];
 if (FROM) {
-  const prior = JSON.parse(readFileSync(join(ROOT, FROM), "utf8"));
+  const prior = JSON.parse(readFileSync(underRoot(FROM), "utf8"));
   /* The raw artifact's provenance travels with the gated one. A note saying how the items
    * came to exist is exactly the field a reader needs and exactly the field that gets
    * dropped between artifacts -- this repository has already had a verdict rebuilt wrongly
@@ -1345,7 +1367,7 @@ console.log("  LONGEST SERVED RUN across survivors   max " + (runs.length ? Math
 const over = survivors.filter((r) => typeof r.longest_served_run === "number" && r.longest_served_run > 9);
 console.log("  survivors over the ceiling            " + over.length + " (must be 0)");
 
-writeFileSync(join(ROOT, OUT), JSON.stringify({
+writeFileSync(OUT_PATH, JSON.stringify({
   certification: CERT, model: MODEL, standard: mapping.standard, edition: mapping.edition,
   /* the FINAL spend, after gating. The raw artifact carries only the writer calls, because it is written
    * before any gate runs -- so a cost read off that one would omit every solver call. */
