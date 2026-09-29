@@ -53,7 +53,7 @@
   {
    "task": "1.1",
    "batch": "batch 1",
-   "shortfall": 4,
+   "shortfall": 0,
    "attempted": 4,
    "survivors": 4,
    "gates": {},
@@ -92,7 +92,7 @@
   {
    "task": "1.4",
    "batch": "batch 1",
-   "shortfall": 5,
+   "shortfall": 0,
    "attempted": 5,
    "survivors": 5,
    "gates": {},
@@ -112,7 +112,7 @@
   {
    "task": "1.5",
    "batch": "batch 1",
-   "shortfall": 6,
+   "shortfall": 1,
    "attempted": 6,
    "survivors": 5,
    "gates": {

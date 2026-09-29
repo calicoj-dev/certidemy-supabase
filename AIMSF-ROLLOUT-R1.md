@@ -28,10 +28,10 @@ At $15 / $75 per million tokens (input / output).
 
 | task | batch | shortfall | attempted | survived | rejections by gate | key-pick | flag | cue flags | distinct anchors |
 |---|---|---|---|---|---|---|---|---|---|
-| 1.1 | batch 1 | 4 | 4 | **4** | — | 100% (4/4) | 75% (3/4) | length 2, only-negation 1 | 4 |
+| 1.1 | batch 1 | 0 | 4 | **4** | — | 100% (4/4) | 75% (3/4) | length 2, only-negation 1 | 4 |
 | 1.3 | batch 2 | 4 | 4 | **3** | `solver-split` 1 | 67% (2/3) | 67% (2/3) | only-hedged 1, shared-phrase 1 | 3 |
-| 1.4 | batch 1 | 5 | 5 | **5** | — | 60% (3/5) | 40% (2/5) | odd-verdict 1, shared-phrase 1 | 5 |
-| 1.5 | batch 1 | 6 | 6 | **5** | `modal-fidelity` 1, `reproduction` 1 | 80% (4/5) | 80% (4/5) | odd-verdict 1, length 1, shared-phrase 1, only-hedged 1 | 5 |
+| 1.4 | batch 1 | 0 | 5 | **5** | — | 60% (3/5) | 40% (2/5) | odd-verdict 1, shared-phrase 1 | 5 |
+| 1.5 | batch 1 | 1 | 6 | **5** | `modal-fidelity` 1, `reproduction` 1 | 80% (4/5) | 80% (4/5) | odd-verdict 1, length 1, shared-phrase 1, only-hedged 1 | 5 |
 | 1.6 | batch 2 | 5 | 5 | **4** | `reproduction` 1 | 100% (4/4) | 100% (4/4) | only-hedged 1, length 1, shared-phrase 1, odd-verdict 1 | 4 |
 | 2.3 | batch 2 | 3 | 3 | **3** | — | 33% (1/3) | 33% (1/3) | odd-verdict 1 | 3 |
 | 2.5 | batch 2 | 4 | 4 | **2** | `solver` 2 | 0% (0/2) | 0% (0/2) | — | 2 |
@@ -65,7 +65,8 @@ improvement nobody measured.
 | **key-pick, these survivors** | **82%** (55/67) | the figure comparable to 98% |
 | key-pick, authored bank | 98% | measured in the 480-item audit |
 | key-pick, chance | 25% | four options |
-| flag (picked the key AND named the cue) | 79% (53/67) | a SUBSET of key-pick, not comparable to 98% |
+| flag (picked the key AND named the cue) | **79%** (53/67) | a SUBSET of key-pick, not comparable to 98% |
+| flag, batch 1 | 64% (9/14) | the figure comparable to the flag rate above |
 
 The probe FLAGS and never rejects, and it has no target rate. Per-task rates are in the table above.
 

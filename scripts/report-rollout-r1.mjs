@@ -13,13 +13,22 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+/* R1 by default, so the existing invocation is unchanged. --batch may be repeated; --report names the
+ * output stem. One implementation, two reports. */
+const argBatches = [];
+let STEM = "AIMSF-ROLLOUT-R1", TITLE = "AIMS-F rollout R1";
 for (const a of process.argv.slice(2)) {
-  console.error("Unrecognised flag: " + a + ". READ-ONLY, takes none.");
+  let m;
+  if ((m = /^--batch=([^:]+):(.+)$/.exec(a))) { argBatches.push([m[1], m[2]]); continue; }
+  if ((m = /^--report=(.+)$/.exec(a))) { STEM = m[1]; continue; }
+  if ((m = /^--title=(.+)$/.exec(a))) { TITLE = m[1]; continue; }
+  console.error("Unrecognised flag: " + a + ". Known: --batch=<label>:<file> (repeatable), --report=<stem>, --title=<text>.");
   process.exit(2);
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-const BATCHES = [["batch 1", "AIMSF-ROLLOUT-B1.json"], ["batch 2", "AIMSF-ROLLOUT-B2.json"]];
+const BATCHES = argBatches.length ? argBatches
+  : [["batch 1", "AIMSF-ROLLOUT-B1.json"], ["batch 2", "AIMSF-ROLLOUT-B2.json"]];
 
 const loaded = [];
 for (const [name, f] of BATCHES) {
@@ -98,7 +107,7 @@ const stopped = rows.filter((r) => r.halfRule || r.noItems);
 
 const md = [];
 const p = (s = "") => md.push(s);
-p("# AIMS-F rollout R1");
+p("# " + TITLE);
 p("");
 p("**Nothing is inserted.** Every item below is in an artifact awaiting the director's read.");
 p("");
@@ -161,8 +170,9 @@ p("| **key-pick, these survivors** | **" + pct(tot.keyPick, tot.probed) + "** ("
   tot.probed + ") | the figure comparable to 98% |");
 p("| key-pick, authored bank | 98% | measured in the 480-item audit |");
 p("| key-pick, chance | 25% | four options |");
-p("| flag (picked the key AND named the cue) | " + pct(tot.flags, tot.probed) + " (" + tot.flags + "/" +
+p("| flag (picked the key AND named the cue) | **" + pct(tot.flags, tot.probed) + "** (" + tot.flags + "/" +
   tot.probed + ") | a SUBSET of key-pick, not comparable to 98% |");
+p("| flag, batch 1 | 64% (9/14) | the figure comparable to the flag rate above |");
 p("");
 p("The probe FLAGS and never rejects, and it has no target rate. Per-task rates are in the table above.");
 p("");
@@ -216,8 +226,8 @@ for (const r of rows) {
     p("");
   }
 }
-writeFileSync(join(ROOT, "AIMSF-ROLLOUT-R1.md"), md.join("\n") + "\n", "utf8");
-writeFileSync(join(ROOT, "AIMSF-ROLLOUT-R1.json"), JSON.stringify({
+writeFileSync(join(ROOT, STEM + ".md"), md.join("\n") + "\n", "utf8");
+writeFileSync(join(ROOT, STEM + ".json"), JSON.stringify({
   tasks: rows.length, attempted: totalAttempted, survivors: totalSurvivors,
   spend: { ...spend, usd: Number(spend.usd.toFixed(4)) },
   usd_per_survivor: totalSurvivors ? Number((spend.usd / totalSurvivors).toFixed(4)) : null,
@@ -234,4 +244,4 @@ console.log("spend $" + spend.usd.toFixed(2) + "   per survivor $" +
 console.log("gates: " + (Object.entries(gateTotals).sort((a, b) => b[1] - a[1])
   .map(([k, v]) => k + " " + v).join(", ") || "none"));
 console.log("stopped: " + (stopped.map((r) => r.code).join(" ") || "none"));
-console.log("wrote AIMSF-ROLLOUT-R1.md and .json");
+console.log("wrote " + STEM + ".md and .json");

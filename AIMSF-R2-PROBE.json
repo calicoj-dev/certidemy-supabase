@@ -1,0 +1,2240 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "spend": {
+  "calls": 39,
+  "input_tokens": 88497,
+  "output_tokens": 38561,
+  "usd": 4.2195,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {
+   "writer": {
+    "calls": 2,
+    "input": 6745,
+    "output": 19979
+   },
+   "paraphrase": {
+    "calls": 8,
+    "input": 33857,
+    "output": 9416
+   },
+   "solver": {
+    "calls": 18,
+    "input": 38258,
+    "output": 3875
+   },
+   "options-probe": {
+    "calls": 8,
+    "input": 4988,
+    "output": 2721
+   },
+   "de-cue": {
+    "calls": 2,
+    "input": 2508,
+    "output": 2168
+   },
+   "solver-recheck": {
+    "calls": 1,
+    "input": 2141,
+    "output": 402
+   }
+  }
+ },
+ "attempted": 11,
+ "generated": 11,
+ "survivors": 8,
+ "generation_note": null,
+ "reject_counts": {
+  "code: structure": 1,
+  "code: reproduction": 2,
+  "solver: second defensible option": 1,
+  "code: modal-fidelity": 1
+ },
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 8,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 2,
+  "applied": 0,
+  "reverted_by_rewrite_check": 1,
+  "reverted_by_solver": 1,
+  "reverted_by_gates": 0,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 8,
+  "hit": 8,
+  "pct": 100
+ },
+ "key_pick_after": {
+  "n": 8,
+  "hit": 8,
+  "pct": 100
+ },
+ "shape_cues_before": {
+  "clang": 3,
+  "key-length": 1,
+  "only-hedged": 1
+ },
+ "shape_cues_after": {
+  "clang": 3,
+  "key-length": 1,
+  "only-hedged": 1
+ },
+ "anchor_clusters": [],
+ "options_probe_flags": 8,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 8,
+ "items": [
+  {
+   "task_code": "2.2",
+   "domain": "D2",
+   "item": {
+    "question_text": "A general insurer builds no models itself. Its claims platform, bought from a vendor, ships with an embedded risk-scoring feature, and its HR suite offers an optional CV-ranking add-on that two teams have switched on. The scoping team is working through context issues before fixing the AIMS boundary. Which approach fits the requirement on understanding context?",
+    "options": [
+     {
+      "text": "Cover the systems the insurer develops or provides in the context work, and handle the bought-in features through supplier contract review alone.",
+      "is_correct": false
+     },
+     {
+      "text": "Postpone deciding the insurer's roles relative to these systems until an impact assessment for each feature has been commissioned.",
+      "is_correct": false
+     },
+     {
+      "text": "Take account of what the vendor's scoring and ranking features are meant to achieve where the insurer runs them, alongside anything it builds.",
+      "is_correct": true
+     },
+     {
+      "text": "Leave climate change to the interested-party analysis rather than to the determination of context issues.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause 4.1 extends the context determination beyond what an organization builds: it must weigh the purpose an AI system is meant to serve whether that system is developed in house, supplied to others, or simply operated as a bought-in capability. The vendor's scoring and ranking features, being in live use, are therefore in view when context issues are worked through, and a supplier process under A.10.3 sits alongside that rather than replacing it.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "A.10.3",
+      "support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+      "why_wrong": "The supplier process is an additional control and does not displace considering the purpose of AI systems the organization uses when determining context."
+     },
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "The organization shall determine its roles with respect to these AI systems.",
+      "why_wrong": "Role determination belongs to the context work itself rather than waiting on a later impact assessment."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "Relevance of climate change is settled as part of determining external and internal issues, not handed off to the interested-party analysis."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 24%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 4.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in option d"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option d",
+   "attributed_quotation": null,
+   "grounding_family": "4.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "C",
+     "answer_reason": "Clause 4.1 requires the organization to consider the intended purpose of AI systems that are developed, provided **or used** by the organization, so the vendor-supplied scoring and CV-ranking features it runs must be included in the context determination.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "A, B and D each narrow, defer or exclude something ('alone', 'Postpone... until', 'rather than'), while C is the only option that adds scope inclusively ('alongside anything it builds').",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A, B and D each narrow, defer or exclude something ('alone', 'Postpone... until', 'rather than'), while C is the only option that adds scope inclusively ('alongside anything it builds')."
+   },
+   "verdict": "survivor",
+   "item_id": "74b18e4a",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"scoring\", \"ranking\", \"builds\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "A, B and D each narrow, defer or exclude something ('alone', 'Postpone... until', 'rather than'), while C is the only option that adds scope inclusively ('alongside anything it builds').",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A, B and D each narrow, defer or exclude something ('alone', 'Postpone... until', 'rather than'), while C is the only option that adds scope inclusively ('alongside anything it builds')."
+   },
+   "item_before_decue": {
+    "question_text": "A general insurer builds no models itself. Its claims platform, bought from a vendor, ships with an embedded risk-scoring feature, and its HR suite offers an optional CV-ranking add-on that two teams have switched on. The scoping team is working through context issues before fixing the AIMS boundary. Which approach fits the requirement on understanding context?",
+    "options": [
+     {
+      "text": "Cover the systems the insurer develops or provides in the context work, and handle the bought-in features through supplier contract review alone.",
+      "is_correct": false
+     },
+     {
+      "text": "Postpone deciding the insurer's roles relative to these systems until an impact assessment for each feature has been commissioned.",
+      "is_correct": false
+     },
+     {
+      "text": "Take account of what the vendor's scoring and ranking features are meant to achieve where the insurer runs them, alongside anything it builds.",
+      "is_correct": true
+     },
+     {
+      "text": "Leave climate change to the interested-party analysis rather than to the determination of context issues.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause 4.1 extends the context determination beyond what an organization builds: it must weigh the purpose an AI system is meant to serve whether that system is developed in house, supplied to others, or simply operated as a bought-in capability. The vendor's scoring and ranking features, being in live use, are therefore in view when context issues are worked through, and a supplier process under A.10.3 sits alongside that rather than replacing it.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "A.10.3",
+      "support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+      "why_wrong": "The supplier process is an additional control and does not displace considering the purpose of AI systems the organization uses when determining context."
+     },
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "The organization shall determine its roles with respect to these AI systems.",
+      "why_wrong": "Role determination belongs to the context work itself rather than waiting on a later impact assessment."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall determine whether climate change is a relevant issue.",
+      "why_wrong": "Relevance of climate change is settled as part of determining external and internal issues, not handed off to the interested-party analysis."
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"scoring\", \"ranking\", \"builds\" from the stem and no distractor does"
+    }
+   ]
+  },
+  {
+   "task_code": "2.2",
+   "domain": "D2",
+   "item": {
+    "question_text": "During scoping, a bank lists a financial regulator, a works council, enterprise customers and internal audit, each with stated expectations about its AI use. Several of those expectations will be handled by legal and procurement rather than by the management system. What does the requirement on needs and expectations of interested parties call for here?",
+    "options": [
+     {
+      "text": "List only the expectations the team has already agreed the management system will take on.",
+      "is_correct": false
+     },
+     {
+      "text": "Capture the relevant requirements of each of these parties, then settle which of them the management system will address.",
+      "is_correct": true
+     },
+     {
+      "text": "Forward every expectation to risk assessment, which then rules on which parties are relevant.",
+      "is_correct": false
+     },
+     {
+      "text": "Confine the analysis to the regulator and the enterprise customers, treating internal functions as covered by policy.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause 4.2 directs the organization to identify which interested parties are relevant, establish what their relevant requirements are, and then decide which of those the management system itself will take on. The capture step therefore comes first, and the decision about what the AIMS will handle follows; expectations routed to legal or procurement are still recorded as part of the determination.",
+    "key_support_clause": "4.2",
+    "key_support": "The organization shall determine: — the interested parties that are relevant to the AI management system; — the relevant requirements of these interested parties; — which of these requirements will be addressed through the AI management system.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "4.2",
+      "support": "the relevant requirements of these interested parties",
+      "why_wrong": "Relevant requirements of relevant parties are determined regardless of whether the management system will be the vehicle for addressing them."
+     },
+     {
+      "index": 2,
+      "clause": "4.2",
+      "support": "the interested parties that are relevant to the AI management system",
+      "why_wrong": "Identifying which parties are relevant is part of this determination, not an output of risk assessment."
+     },
+     {
+      "index": 3,
+      "clause": "4.2",
+      "support": "the interested parties that are relevant to the AI management system",
+      "why_wrong": "Relevance is not limited to external parties; internal bodies such as audit or a works council can be relevant interested parties."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 11%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 4.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in stem"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "4.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "B",
+     "answer_reason": "Clause 4.2 requires determining the relevant interested parties, their relevant requirements, and then which of those requirements will be addressed through the AI management system.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "B",
+    "cue": "A, C and D each contain an absolute/restrictive qualifier ('only', 'every', 'Confine ... to'), while B is the one unrestricted two-step option and also the longest.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A, C and D each contain an absolute/restrictive qualifier ('only', 'every', 'Confine ... to'), while B is the one unrestricted two-step option and also the longest."
+   },
+   "verdict": "survivor",
+   "item_id": "1f6aed28",
+   "shape_cues_before": [
+    {
+     "id": "key-length",
+     "cue": "the key is 19 words against a median distractor of 15 (1.27x, tolerance 1.25x)"
+    }
+   ],
+   "decue_trigger": [
+    "key-length"
+   ],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "B",
+    "cue": "A, C and D each contain an absolute/restrictive qualifier ('only', 'every', 'Confine ... to'), while B is the one unrestricted two-step option and also the longest.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A, C and D each contain an absolute/restrictive qualifier ('only', 'every', 'Confine ... to'), while B is the one unrestricted two-step option and also the longest."
+   },
+   "item_before_decue": {
+    "question_text": "During scoping, a bank lists a financial regulator, a works council, enterprise customers and internal audit, each with stated expectations about its AI use. Several of those expectations will be handled by legal and procurement rather than by the management system. What does the requirement on needs and expectations of interested parties call for here?",
+    "options": [
+     {
+      "text": "List only the expectations the team has already agreed the management system will take on.",
+      "is_correct": false
+     },
+     {
+      "text": "Capture the relevant requirements of each of these parties, then settle which of them the management system will address.",
+      "is_correct": true
+     },
+     {
+      "text": "Forward every expectation to risk assessment, which then rules on which parties are relevant.",
+      "is_correct": false
+     },
+     {
+      "text": "Confine the analysis to the regulator and the enterprise customers, treating internal functions as covered by policy.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause 4.2 directs the organization to identify which interested parties are relevant, establish what their relevant requirements are, and then decide which of those the management system itself will take on. The capture step therefore comes first, and the decision about what the AIMS will handle follows; expectations routed to legal or procurement are still recorded as part of the determination.",
+    "key_support_clause": "4.2",
+    "key_support": "The organization shall determine: — the interested parties that are relevant to the AI management system; — the relevant requirements of these interested parties; — which of these requirements will be addressed through the AI management system.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "4.2",
+      "support": "the relevant requirements of these interested parties",
+      "why_wrong": "Relevant requirements of relevant parties are determined regardless of whether the management system will be the vehicle for addressing them."
+     },
+     {
+      "index": 2,
+      "clause": "4.2",
+      "support": "the interested parties that are relevant to the AI management system",
+      "why_wrong": "Identifying which parties are relevant is part of this determination, not an output of risk assessment."
+     },
+     {
+      "index": 3,
+      "clause": "4.2",
+      "support": "the interested parties that are relevant to the AI management system",
+      "why_wrong": "Relevance is not limited to external parties; internal bodies such as audit or a works council can be relevant interested parties."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": [
+     {
+      "index": 0,
+      "limiter": "only",
+      "kept": null
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "key-length",
+     "cue": "the key is 19 words against a median distractor of 15 (1.27x, tolerance 1.25x)"
+    }
+   ],
+   "de_cue": {
+    "state": "reverted",
+    "reason": "check 5: limiter dropped -- option 1 lost \"only\""
+   }
+  },
+  {
+   "task_code": "2.2",
+   "domain": "D2",
+   "item": {
+    "question_text": "A retailer's AI estate consists of a hosted document-classification service and an analytics product whose vendor added a forecasting model in the latest release. Neither was built in-house. Which action meets the supplier-related control?",
+    "options": [
+     {
+      "text": "Run a process that checks vendor-provided services and products against the retailer's own approach to responsible AI development and use.",
+      "is_correct": true
+     },
+     {
+      "text": "Require each vendor to hold certification against this document before its service may remain in use.",
+      "is_correct": false
+     },
+     {
+      "text": "Bring the vendors' own operations inside the retailer's management system boundary and audit them as internal processes.",
+      "is_correct": false
+     },
+     {
+      "text": "Keep the hosted service outside the retailer's own arrangements and rely on the vendor's published governance statements.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The supplier control (A.10.3) calls for a process that keeps the retailer's use of supplier-supplied services, products or materials consistent with its own stance on developing and using AI responsibly. The test is that consistency with the retailer's own stance — not vendor certification, not treating vendor operations as the retailer's own processes, and not deferring to the vendor's published statements.",
+    "key_support_clause": "A.10.3",
+    "key_support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.10.3",
+      "support": "aligns with the organization’s approach to the responsible development and use of AI systems",
+      "why_wrong": "The control asks for alignment with the organization's approach, not for supplier certification to the document."
+     },
+     {
+      "index": 2,
+      "clause": "A.10.3",
+      "support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+      "why_wrong": "What is addressed is the organization's own usage of supplier offerings, not the supplier's internal operations as part of its system."
+     },
+     {
+      "index": 3,
+      "clause": "A.10.3",
+      "support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+      "why_wrong": "Relying on vendor statements leaves the organization without the process the control calls for over its own usage."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 22%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in A.10.3, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "A.10.3",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.10.3 requires a process ensuring that usage of services, products or materials provided by suppliers aligns with the organization's approach to responsible development and use of AI systems, which is exactly option A.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only moderate 'run a process to check' option; the other three state absolutes (require certification before use, bring vendors inside the boundary, rely solely on vendor statements).",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only moderate 'run a process to check' option; the other three state absolutes (require certification before use, bring vendors inside the boundary, rely solely on vendor statements)."
+   },
+   "verdict": "survivor",
+   "item_id": "c20a3808",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only moderate 'run a process to check' option; the other three state absolutes (require certification before use, bring vendors inside the boundary, rely solely on vendor statements).",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only moderate 'run a process to check' option; the other three state absolutes (require certification before use, bring vendors inside the boundary, rely solely on vendor statements)."
+   },
+   "item_before_decue": {
+    "question_text": "A retailer's AI estate consists of a hosted document-classification service and an analytics product whose vendor added a forecasting model in the latest release. Neither was built in-house. Which action meets the supplier-related control?",
+    "options": [
+     {
+      "text": "Run a process that checks vendor-provided services and products against the retailer's own approach to responsible AI development and use.",
+      "is_correct": true
+     },
+     {
+      "text": "Require each vendor to hold certification against this document before its service may remain in use.",
+      "is_correct": false
+     },
+     {
+      "text": "Bring the vendors' own operations inside the retailer's management system boundary and audit them as internal processes.",
+      "is_correct": false
+     },
+     {
+      "text": "Keep the hosted service outside the retailer's own arrangements and rely on the vendor's published governance statements.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The supplier control (A.10.3) calls for a process that keeps the retailer's use of supplier-supplied services, products or materials consistent with its own stance on developing and using AI responsibly. The test is that consistency with the retailer's own stance — not vendor certification, not treating vendor operations as the retailer's own processes, and not deferring to the vendor's published statements.",
+    "key_support_clause": "A.10.3",
+    "key_support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.10.3",
+      "support": "aligns with the organization’s approach to the responsible development and use of AI systems",
+      "why_wrong": "The control asks for alignment with the organization's approach, not for supplier certification to the document."
+     },
+     {
+      "index": 2,
+      "clause": "A.10.3",
+      "support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+      "why_wrong": "What is addressed is the organization's own usage of supplier offerings, not the supplier's internal operations as part of its system."
+     },
+     {
+      "index": 3,
+      "clause": "A.10.3",
+      "support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+      "why_wrong": "Relying on vendor statements leaves the organization without the process the control calls for over its own usage."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "2.2",
+   "domain": "D2",
+   "item": {
+    "question_text": "A software company sells an AI platform to other businesses, deploys a third-party language model in its own support desk, and supplies training data to a partner. It is working out its roles relative to these systems during scoping. What can follow from that role determination?",
+    "options": [
+     {
+      "text": "The roles fix the wording that the documented scope statement has to take.",
+      "is_correct": false
+     },
+     {
+      "text": "Roles can narrow the interested parties needing consideration to those holding a comparable role.",
+      "is_correct": false
+     },
+     {
+      "text": "Roles are settled by the certification body once it has reviewed the inventory of AI systems.",
+      "is_correct": false
+     },
+     {
+      "text": "Which requirements and controls apply, and how far they apply, can turn on the roles the company holds.",
+      "is_correct": true
+     }
+    ],
+    "correct_index": 3,
+    "explanation": "Clause 4.1 states that the organization's roles 'can determine the applicability and extent of applicability of the requirements and controls in this document', so applicability and its extent may follow from the roles held.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization’s roles can determine the applicability and extent of applicability of the requirements and controls in this document.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "The scope must be documented, but no wording is prescribed by the roles determined."
+     },
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "External and internal issues to be addressed under this clause can vary according to the organization’s roles and jurisdiction and their impact on its ability to achieve the intended outcome(s) of its AI management system.",
+      "why_wrong": "Roles can make context issues vary, but they do not restrict which interested parties are relevant."
+     },
+     {
+      "index": 2,
+      "clause": "4.1",
+      "support": "The organization shall determine its roles with respect to these AI systems.",
+      "why_wrong": "Determining roles is the organization's own task, not something assigned by a certification body."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": false,
+     "examined": 4,
+     "reason": "every distractor opens with the word \"roles\" and the key does not"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 13%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 4.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": false,
+     "examined": 6,
+     "reason": "explanation: a 14-word run shared with 42001:2023 -- the ceiling is 9"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "structure",
+    "reproduction"
+   ],
+   "unasserted": [],
+   "longest_served_run": 14,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "4.1",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code",
+   "item_id": "85753d58"
+  },
+  {
+   "task_code": "2.2",
+   "domain": "D2",
+   "item": {
+    "question_text": "A logistics firm has published a scope statement and an AI policy and has named owners for its intake, evaluation and deployment processes. A reviewer finds nothing describing how those three processes feed one another. Which expectation about the management system applies?",
+    "options": [
+     {
+      "text": "Interactions between processes are described only where a process crosses a business unit boundary.",
+      "is_correct": false
+     },
+     {
+      "text": "The system, the processes it needs and the way those processes interact are established, maintained and documented.",
+      "is_correct": true
+     },
+     {
+      "text": "A documented scope statement together with an AI policy is what the requirement for the system asks for.",
+      "is_correct": false
+     },
+     {
+      "text": "Process interactions surface through performance evaluation rather than in the documentation of the system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause 4.4 covers the management system together with, in its words, \"the processes needed and their interactions\", so the links between intake, evaluation and deployment sit inside what the organization has to set up, keep up and document.",
+    "key_support_clause": "4.4",
+    "key_support": "The organization shall establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "4.4",
+      "support": "including the processes needed and their interactions",
+      "why_wrong": "No boundary-crossing condition is placed on the interactions that form part of the system."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "A documented scope is a separate obligation and does not by itself constitute the established and documented management system."
+     },
+     {
+      "index": 3,
+      "clause": "4.4",
+      "support": "The organization shall establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.",
+      "why_wrong": "Interactions belong to what is established and documented for the system, rather than being left to later evaluation activity."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 17%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 4.4, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in explanation, plus one 6-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "explanation",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 6
+   },
+   "grounding_family": "4.4",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "B",
+     "answer_reason": "Clause 4.4 requires the organization to establish, implement, maintain, continually improve and document an AI management system \"including the processes needed and their interactions\".",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "B",
+    "cue": "A, C and D each contain a restrictive or contrastive limiter (\"only where\", \"together with ... is what the requirement asks for\", \"rather than\"), while B is the sole unqualified statement and uses the comprehensive triple \"established, maintained and documented\".",
+    "cue_kind": "only-negation",
+    "reason": "picked the key from the options alone and named a cue (only-negation): A, C and D each contain a restrictive or contrastive limiter (\"only where\", \"together with ... is what the requirement asks for\", \"rather than\"), while B is the sole unqualified statement and uses the comprehensive triple \"established, maintained and documented\"."
+   },
+   "verdict": "survivor",
+   "item_id": "48064135",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "B",
+    "cue": "A, C and D each contain a restrictive or contrastive limiter (\"only where\", \"together with ... is what the requirement asks for\", \"rather than\"), while B is the sole unqualified statement and uses the comprehensive triple \"established, maintained and documented\".",
+    "cue_kind": "only-negation",
+    "reason": "picked the key from the options alone and named a cue (only-negation): A, C and D each contain a restrictive or contrastive limiter (\"only where\", \"together with ... is what the requirement asks for\", \"rather than\"), while B is the sole unqualified statement and uses the comprehensive triple \"established, maintained and documented\"."
+   },
+   "item_before_decue": {
+    "question_text": "A logistics firm has published a scope statement and an AI policy and has named owners for its intake, evaluation and deployment processes. A reviewer finds nothing describing how those three processes feed one another. Which expectation about the management system applies?",
+    "options": [
+     {
+      "text": "Interactions between processes are described only where a process crosses a business unit boundary.",
+      "is_correct": false
+     },
+     {
+      "text": "The system, the processes it needs and the way those processes interact are established, maintained and documented.",
+      "is_correct": true
+     },
+     {
+      "text": "A documented scope statement together with an AI policy is what the requirement for the system asks for.",
+      "is_correct": false
+     },
+     {
+      "text": "Process interactions surface through performance evaluation rather than in the documentation of the system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause 4.4 covers the management system together with, in its words, \"the processes needed and their interactions\", so the links between intake, evaluation and deployment sit inside what the organization has to set up, keep up and document.",
+    "key_support_clause": "4.4",
+    "key_support": "The organization shall establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "4.4",
+      "support": "including the processes needed and their interactions",
+      "why_wrong": "No boundary-crossing condition is placed on the interactions that form part of the system."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "A documented scope is a separate obligation and does not by itself constitute the established and documented management system."
+     },
+     {
+      "index": 3,
+      "clause": "4.4",
+      "support": "The organization shall establish, implement, maintain, continually improve and document an AI management system, including the processes needed and their interactions, in accordance with the requirements of this document.",
+      "why_wrong": "Interactions belong to what is established and documented for the system, rather than being left to later evaluation activity."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "2.2",
+   "domain": "D2",
+   "item": {
+    "question_text": "At a scoping workshop, an investor group and a major customer have each raised expectations about the energy consumption of the firm's model training. A participant asks whether such expectations have any place in the interested-party work for the management system. Which response is sound?",
+    "options": [
+     {
+      "text": "Expectations of this kind sit outside the management system and belong in sustainability reporting.",
+      "is_correct": false
+     },
+     {
+      "text": "Once a party has raised them, climate-related expectations have to be addressed through the management system.",
+      "is_correct": false
+     },
+     {
+      "text": "Requirements bearing on climate change can come from relevant interested parties and be captured in this work.",
+      "is_correct": true
+     },
+     {
+      "text": "Climate-related expectations are handled as internal context issues rather than as interested-party requirements.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "The note to clause 4.2 records that 'Relevant interested parties can have requirements related to climate change', so such expectations can properly be captured when interested-party requirements are determined.",
+    "key_support_clause": "4.2",
+    "key_support": "Relevant interested parties can have requirements related to climate change.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "4.2",
+      "support": "Relevant interested parties can have requirements related to climate change.",
+      "why_wrong": "Such requirements are expressly contemplated within the interested-party determination for the management system."
+     },
+     {
+      "index": 1,
+      "clause": "4.2",
+      "support": "which of these requirements will be addressed through the AI management system",
+      "why_wrong": "The organization decides which determined requirements the management system will address; being raised does not settle that."
+     },
+     {
+      "index": 3,
+      "clause": "4.2",
+      "support": "Relevant interested parties can have requirements related to climate change.",
+      "why_wrong": "The note places climate-related requirements with interested parties, so they are not confined to internal context issues."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 14%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 4.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 8 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 8,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "4.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "C",
+     "answer_reason": "Clause 4.2's NOTE states that \"Relevant interested parties can have requirements related to climate change,\" so such expectations legitimately form part of determining interested parties' relevant requirements.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "C is the only option phrased permissively ('can come from... and be captured'), while A, B and D each assert an exclusive or obligatory rule ('outside', 'have to be', 'rather than').",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): C is the only option phrased permissively ('can come from... and be captured'), while A, B and D each assert an exclusive or obligatory rule ('outside', 'have to be', 'rather than')."
+   },
+   "verdict": "survivor",
+   "item_id": "81ddd809",
+   "shape_cues_before": [
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "decue_trigger": [
+    "only-hedged"
+   ],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "C is the only option phrased permissively ('can come from... and be captured'), while A, B and D each assert an exclusive or obligatory rule ('outside', 'have to be', 'rather than').",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): C is the only option phrased permissively ('can come from... and be captured'), while A, B and D each assert an exclusive or obligatory rule ('outside', 'have to be', 'rather than')."
+   },
+   "item_before_decue": {
+    "question_text": "At a scoping workshop, an investor group and a major customer have each raised expectations about the energy consumption of the firm's model training. A participant asks whether such expectations have any place in the interested-party work for the management system. Which response is sound?",
+    "options": [
+     {
+      "text": "Expectations of this kind sit outside the management system and belong in sustainability reporting.",
+      "is_correct": false
+     },
+     {
+      "text": "Once a party has raised them, climate-related expectations have to be addressed through the management system.",
+      "is_correct": false
+     },
+     {
+      "text": "Requirements bearing on climate change can come from relevant interested parties and be captured in this work.",
+      "is_correct": true
+     },
+     {
+      "text": "Climate-related expectations are handled as internal context issues rather than as interested-party requirements.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "The note to clause 4.2 records that 'Relevant interested parties can have requirements related to climate change', so such expectations can properly be captured when interested-party requirements are determined.",
+    "key_support_clause": "4.2",
+    "key_support": "Relevant interested parties can have requirements related to climate change.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "4.2",
+      "support": "Relevant interested parties can have requirements related to climate change.",
+      "why_wrong": "Such requirements are expressly contemplated within the interested-party determination for the management system."
+     },
+     {
+      "index": 1,
+      "clause": "4.2",
+      "support": "which of these requirements will be addressed through the AI management system",
+      "why_wrong": "The organization decides which determined requirements the management system will address; being raised does not settle that."
+     },
+     {
+      "index": 3,
+      "clause": "4.2",
+      "support": "Relevant interested parties can have requirements related to climate change.",
+      "why_wrong": "The note places climate-related requirements with interested parties, so they are not confined to internal context issues."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": []
+   },
+   "shape_cues_after": [
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "de_cue": {
+    "state": "reverted",
+    "reason": "the solver no longer accepts it: rejected"
+   },
+   "de_cue_candidate_discarded": true
+  },
+  {
+   "task_code": "2.4",
+   "domain": "D2",
+   "item": {
+    "question_text": "An insurer runs a claims triage model that is hosted by a vendor, trained on data labelled by an external annotation firm, and operated by the insurer's own claims team. Applying the control on allocating responsibilities, what does this arrangement call for?",
+    "options": [
+     {
+      "text": "Life cycle responsibilities are apportioned across the insurer, its partners, suppliers, customers and any other third parties involved.",
+      "is_correct": true
+     },
+     {
+      "text": "Life cycle responsibilities stay with the insurer, and the two external firms are engaged purely through contractual service terms.",
+      "is_correct": false
+     },
+     {
+      "text": "Life cycle responsibilities rest mainly with the vendor that built and hosts the model rather than with the insurer that operates it.",
+      "is_correct": false
+     },
+     {
+      "text": "Responsibilities are settled internally to suit the insurer's needs, and external parties are covered by the channel for raising concerns.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The allocating-responsibilities control (A.10.2) obliges the organization to see that duties arising anywhere in the life cycle of its AI system are divided up among itself and the partners, suppliers, customers and other outside parties involved. Keeping them internal, pushing them all onto one supplier, or substituting a concerns channel does not meet that.",
+    "key_support_clause": "A.10.2",
+    "key_support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "The control expects responsibilities to be allocated to the external parties as well, not retained wholly in-house."
+     },
+     {
+      "index": 2,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "Allocation is a sharing out among all the named parties, not a transfer of the life cycle to the hosting vendor."
+     },
+     {
+      "index": 3,
+      "clause": "A.3.3",
+      "support": "The organization shall define and put in place a process to report concerns about the organization’s role with respect to an AI system throughout its life cycle.",
+      "why_wrong": "The concerns-reporting process is a separate control and does not allocate life cycle responsibilities to partners and suppliers."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 11%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in A.10.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in option a"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "option a",
+   "attributed_quotation": null,
+   "grounding_family": "A.10.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "A.10.2 requires that responsibilities within the AI system life cycle be allocated between the organization, its partners, suppliers, customers and third parties, which matches apportioning across the insurer, vendor, annotation firm and others.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option that spreads responsibility across every party listed (insurer, partners, suppliers, customers, other third parties), while B, C and D each restrict it to one party — A is the umbrella option that contains the others.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A is the only option that spreads responsibility across every party listed (insurer, partners, suppliers, customers, other third parties), while B, C and D each restrict it to one party — A is the umbrella option that contains the others."
+   },
+   "verdict": "survivor",
+   "item_id": "63e98f56",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option that spreads responsibility across every party listed (insurer, partners, suppliers, customers, other third parties), while B, C and D each restrict it to one party — A is the umbrella option that contains the others.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A is the only option that spreads responsibility across every party listed (insurer, partners, suppliers, customers, other third parties), while B, C and D each restrict it to one party — A is the umbrella option that contains the others."
+   },
+   "item_before_decue": {
+    "question_text": "An insurer runs a claims triage model that is hosted by a vendor, trained on data labelled by an external annotation firm, and operated by the insurer's own claims team. Applying the control on allocating responsibilities, what does this arrangement call for?",
+    "options": [
+     {
+      "text": "Life cycle responsibilities are apportioned across the insurer, its partners, suppliers, customers and any other third parties involved.",
+      "is_correct": true
+     },
+     {
+      "text": "Life cycle responsibilities stay with the insurer, and the two external firms are engaged purely through contractual service terms.",
+      "is_correct": false
+     },
+     {
+      "text": "Life cycle responsibilities rest mainly with the vendor that built and hosts the model rather than with the insurer that operates it.",
+      "is_correct": false
+     },
+     {
+      "text": "Responsibilities are settled internally to suit the insurer's needs, and external parties are covered by the channel for raising concerns.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The allocating-responsibilities control (A.10.2) obliges the organization to see that duties arising anywhere in the life cycle of its AI system are divided up among itself and the partners, suppliers, customers and other outside parties involved. Keeping them internal, pushing them all onto one supplier, or substituting a concerns channel does not meet that.",
+    "key_support_clause": "A.10.2",
+    "key_support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "The control expects responsibilities to be allocated to the external parties as well, not retained wholly in-house."
+     },
+     {
+      "index": 2,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "Allocation is a sharing out among all the named parties, not a transfer of the life cycle to the hosting vendor."
+     },
+     {
+      "index": 3,
+      "clause": "A.3.3",
+      "support": "The organization shall define and put in place a process to report concerns about the organization’s role with respect to an AI system throughout its life cycle.",
+      "why_wrong": "The concerns-reporting process is a separate control and does not allocate life cycle responsibilities to partners and suppliers."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "2.4",
+   "domain": "D2",
+   "item": {
+    "question_text": "A start-up asks whether the AI management system controls hand it a fixed roster of AI job titles it has to create. What is the correct understanding of the control on AI roles and responsibilities?",
+    "options": [
+     {
+      "text": "AI roles and responsibilities are defined and allocated to match what the organization actually needs.",
+      "is_correct": true
+     },
+     {
+      "text": "Named owners are mandated for each area listed in the implementation guidance, such as safety, privacy and data quality.",
+      "is_correct": false
+     },
+     {
+      "text": "AI roles may be left undefined where existing management system roles already provide general accountability.",
+      "is_correct": false
+     },
+     {
+      "text": "AI roles are settled by top management privately and need not be made known beyond the people appointed.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The control at A.3.2 requires AI roles and responsibilities to be defined and allocated in line with what the organization itself needs, so the set of roles is shaped by the organization rather than handed down as a fixed roster. The areas named in the implementation guidance (B.3.2) are examples that can require defined roles, and that guidance is expressed as should/can rather than as a mandated list; leaving roles undefined, or not communicating assignments, both fall short.",
+    "key_support_clause": "A.3.2",
+    "key_support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.3.2",
+      "support": "The organization can prioritize how the roles and responsibilities are assigned.",
+      "why_wrong": "The listed areas are examples in guidance that can require roles, not a mandated set of named owners."
+     },
+     {
+      "index": 2,
+      "clause": "A.3.2",
+      "support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+      "why_wrong": "Defining and allocating AI roles is required, so relying on undefined general accountability does not satisfy the control."
+     },
+     {
+      "index": 3,
+      "clause": "5.3",
+      "support": "Top management shall ensure that the responsibilities and authorities for relevant roles are assigned and communicated within the organization.",
+      "why_wrong": "Assignments for relevant roles have to be communicated within the organization, not kept to the appointees."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 12%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in A.3.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "A.3.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "A.3.2/B.3.2 state that roles and responsibilities for AI shall/should be \"defined and allocated according to the needs of the organization\", not from a fixed list.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each carry an extreme/restrictive qualifier ('mandated for each area', 'may be left undefined', 'privately and need not be made known'), while A is the only moderately-worded option with no absolute.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B, C and D each carry an extreme/restrictive qualifier ('mandated for each area', 'may be left undefined', 'privately and need not be made known'), while A is the only moderately-worded option with no absolute."
+   },
+   "verdict": "survivor",
+   "item_id": "6ea4afde",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"responsibilities\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each carry an extreme/restrictive qualifier ('mandated for each area', 'may be left undefined', 'privately and need not be made known'), while A is the only moderately-worded option with no absolute.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B, C and D each carry an extreme/restrictive qualifier ('mandated for each area', 'may be left undefined', 'privately and need not be made known'), while A is the only moderately-worded option with no absolute."
+   },
+   "item_before_decue": {
+    "question_text": "A start-up asks whether the AI management system controls hand it a fixed roster of AI job titles it has to create. What is the correct understanding of the control on AI roles and responsibilities?",
+    "options": [
+     {
+      "text": "AI roles and responsibilities are defined and allocated to match what the organization actually needs.",
+      "is_correct": true
+     },
+     {
+      "text": "Named owners are mandated for each area listed in the implementation guidance, such as safety, privacy and data quality.",
+      "is_correct": false
+     },
+     {
+      "text": "AI roles may be left undefined where existing management system roles already provide general accountability.",
+      "is_correct": false
+     },
+     {
+      "text": "AI roles are settled by top management privately and need not be made known beyond the people appointed.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The control at A.3.2 requires AI roles and responsibilities to be defined and allocated in line with what the organization itself needs, so the set of roles is shaped by the organization rather than handed down as a fixed roster. The areas named in the implementation guidance (B.3.2) are examples that can require defined roles, and that guidance is expressed as should/can rather than as a mandated list; leaving roles undefined, or not communicating assignments, both fall short.",
+    "key_support_clause": "A.3.2",
+    "key_support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.3.2",
+      "support": "The organization can prioritize how the roles and responsibilities are assigned.",
+      "why_wrong": "The listed areas are examples in guidance that can require roles, not a mandated set of named owners."
+     },
+     {
+      "index": 2,
+      "clause": "A.3.2",
+      "support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+      "why_wrong": "Defining and allocating AI roles is required, so relying on undefined general accountability does not satisfy the control."
+     },
+     {
+      "index": 3,
+      "clause": "5.3",
+      "support": "Top management shall ensure that the responsibilities and authorities for relevant roles are assigned and communicated within the organization.",
+      "why_wrong": "Assignments for relevant roles have to be communicated within the organization, not kept to the appointees."
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"responsibilities\" from the stem and no distractor does"
+    }
+   ]
+  },
+  {
+   "task_code": "2.4",
+   "domain": "D2",
+   "item": {
+    "question_text": "A holding group has drawn its AI management system scope around one analytics subsidiary only. When responsibilities and authorities for relevant AI roles are assigned, who is meant by \"top management\" in this case?",
+    "options": [
+     {
+      "text": "Those who direct and control the analytics subsidiary at its highest level.",
+      "is_correct": true
+     },
+     {
+      "text": "The group board that directs the whole organization, whatever scope has been declared.",
+      "is_correct": false
+     },
+     {
+      "text": "The person given the authority for system conformance and for reporting on performance.",
+      "is_correct": false
+     },
+     {
+      "text": "Any subsidiary manager who has been delegated authority and resources for the AI work.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The definition of top management in clause 3.3 carries a note explaining that where the management system covers only a portion of an organization, the term refers instead to the people who direct and control that portion. The group board is therefore not the referent here; the assignee of conformance and reporting authority and any delegated manager are recipients of authority, not top management itself.",
+    "key_support_clause": "3.3",
+    "key_support": "Note 2 to entry: If the scope of the management system (3.4) covers only part of an organization, then top management refers to those who direct and control that part of the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.3",
+      "support": "Note 2 to entry: If the scope of the management system (3.4) covers only part of an organization, then top management refers to those who direct and control that part of the organization.",
+      "why_wrong": "When the scope covers part of the organization, the referent shifts to the direction of that part rather than the whole group."
+     },
+     {
+      "index": 2,
+      "clause": "5.3",
+      "support": "Top management shall assign the responsibility and authority for: a) ensuring that the AI management system conforms to the requirements of this document; b) reporting on the performance of the AI management system to top management.",
+      "why_wrong": "That person receives the assigned authority from top management and is not top management."
+     },
+     {
+      "index": 3,
+      "clause": "3.3",
+      "support": "Note 1 to entry: Top management has the power to delegate authority and provide resources within the organization.",
+      "why_wrong": "Holding delegated authority does not make a manager the person or group directing and controlling the organization at the highest level."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 23%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 3.3, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "3.3",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.3 Note 2 states that if the management system scope covers only part of an organization, top management refers to those who direct and control that part.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and D are broadened by sweeping quantifiers ('the whole organization, whatever scope', 'Any subsidiary manager') while A alone keeps the tight textbook wording 'direct and control ... at its highest level'.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B and D are broadened by sweeping quantifiers ('the whole organization, whatever scope', 'Any subsidiary manager') while A alone keeps the tight textbook wording 'direct and control ... at its highest level'."
+   },
+   "verdict": "survivor",
+   "item_id": "689452e1",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"analytics\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and D are broadened by sweeping quantifiers ('the whole organization, whatever scope', 'Any subsidiary manager') while A alone keeps the tight textbook wording 'direct and control ... at its highest level'.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B and D are broadened by sweeping quantifiers ('the whole organization, whatever scope', 'Any subsidiary manager') while A alone keeps the tight textbook wording 'direct and control ... at its highest level'."
+   },
+   "item_before_decue": {
+    "question_text": "A holding group has drawn its AI management system scope around one analytics subsidiary only. When responsibilities and authorities for relevant AI roles are assigned, who is meant by \"top management\" in this case?",
+    "options": [
+     {
+      "text": "Those who direct and control the analytics subsidiary at its highest level.",
+      "is_correct": true
+     },
+     {
+      "text": "The group board that directs the whole organization, whatever scope has been declared.",
+      "is_correct": false
+     },
+     {
+      "text": "The person given the authority for system conformance and for reporting on performance.",
+      "is_correct": false
+     },
+     {
+      "text": "Any subsidiary manager who has been delegated authority and resources for the AI work.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The definition of top management in clause 3.3 carries a note explaining that where the management system covers only a portion of an organization, the term refers instead to the people who direct and control that portion. The group board is therefore not the referent here; the assignee of conformance and reporting authority and any delegated manager are recipients of authority, not top management itself.",
+    "key_support_clause": "3.3",
+    "key_support": "Note 2 to entry: If the scope of the management system (3.4) covers only part of an organization, then top management refers to those who direct and control that part of the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.3",
+      "support": "Note 2 to entry: If the scope of the management system (3.4) covers only part of an organization, then top management refers to those who direct and control that part of the organization.",
+      "why_wrong": "When the scope covers part of the organization, the referent shifts to the direction of that part rather than the whole group."
+     },
+     {
+      "index": 2,
+      "clause": "5.3",
+      "support": "Top management shall assign the responsibility and authority for: a) ensuring that the AI management system conforms to the requirements of this document; b) reporting on the performance of the AI management system to top management.",
+      "why_wrong": "That person receives the assigned authority from top management and is not top management."
+     },
+     {
+      "index": 3,
+      "clause": "3.3",
+      "support": "Note 1 to entry: Top management has the power to delegate authority and provide resources within the organization.",
+      "why_wrong": "Holding delegated authority does not make a manager the person or group directing and controlling the organization at the highest level."
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"analytics\" from the stem and no distractor does"
+    }
+   ]
+  },
+  {
+   "task_code": "2.4",
+   "domain": "D2",
+   "item": {
+    "question_text": "A model development house is reviewing the control on reporting of concerns. Which statement describes what that control obliges the organization to have?",
+    "options": [
+     {
+      "text": "A process for raising concerns about the organization's role regarding an AI system throughout its life cycle.",
+      "is_correct": true
+     },
+     {
+      "text": "A process for informing senior leaders how well the organization's AI management arrangements are performing.",
+      "is_correct": false
+     },
+     {
+      "text": "A channel offering confidentiality or anonymity that is staffed by qualified persons with investigation powers.",
+      "is_correct": false
+     },
+     {
+      "text": "A process for apportioning life cycle responsibilities between the organization, its suppliers and other third parties.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.3.3 states: \"The organization shall define and put in place a process to report concerns about the organization’s role with respect to an AI system throughout its life cycle.\" Performance reporting to top management and the allocation of life cycle responsibilities are different provisions, and the confidentiality and staffing features sit in the implementation guidance (B.3.3), which is phrased as should.",
+    "key_support_clause": "A.3.3",
+    "key_support": "The organization shall define and put in place a process to report concerns about the organization’s role with respect to an AI system throughout its life cycle.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "5.3",
+      "support": "reporting on the performance of the AI management system to top management",
+      "why_wrong": "That is the assigned authority for performance reporting, a different provision from the concerns-reporting process."
+     },
+     {
+      "index": 2,
+      "clause": "B.3.3",
+      "support": "The reporting mechanism should fulfil the following functions:",
+      "why_wrong": "Those features appear in implementation guidance expressed as should, so the control itself does not oblige them."
+     },
+     {
+      "index": 3,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "Allocating responsibilities is a separate control and is not what the reporting-of-concerns control addresses."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 27%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in A.3.3, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 7 words in option a, plus one 27-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 7,
+   "longest_served_in": "option a",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 27
+   },
+   "grounding_family": "A.3.3",
+   "solver": {
+    "state": "rejected",
+    "reason": "the solver picked the key but calls C defensible: B.3.3 implementation guidance says the reporting mechanism should offer confidentiality/anonymity, be staffed with qualified persons and give them investigation powers, so a candidate could read those features as part of the obligation, though they are 'should' guidance rather than the control itself.",
+    "runs": 2,
+    "second": {
+     "state": "rejected",
+     "reason": "the solver picked the key but calls A defensible: B.3.3 implementation guidance says the reporting mechanism should offer confidentiality/anonymity and be staffed with qualified persons having investigation and resolution powers, so a candidate could read those features as part of what is required."
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.3.3 states the control as: 'The organization shall define and put in place a process to report concerns about the organization's role with respect to an AI system throughout its life cycle.'",
+     "second_defensible": "C",
+     "second_defensible_reason": "B.3.3 implementation guidance says the reporting mechanism should offer confidentiality/anonymity, be staffed with qualified persons and give them investigation powers, so a candidate could read those features as part of the obligation, though they are 'should' guidance rather than the control itself.",
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": null,
+   "verdict": "rejected by solver",
+   "item_id": "11825794"
+  },
+  {
+   "task_code": "2.4",
+   "domain": "D2",
+   "item": {
+    "question_text": "A hospital outsources training-data labelling to one vendor and post-deployment monitoring to another. Each vendor assumes the other watches for performance drift, and no one does. How should this be read against the requirement on allocating responsibilities?",
+    "options": [
+     {
+      "text": "It is a responsibility within the life cycle that has not been allocated between the hospital and its two vendors.",
+      "is_correct": true
+     },
+     {
+      "text": "It is tolerable while the hospital keeps overall accountability for the deployed system and its clinical use.",
+      "is_correct": false
+     },
+     {
+      "text": "It is a resourcing matter belonging to asset and resource management rather than an allocation question.",
+      "is_correct": false
+     },
+     {
+      "text": "It is resolved once the hospital opens a channel for staff to raise concerns about the deployed system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "A.10.2 requires that \"responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties\" — drift monitoring is such a responsibility, and mutual assumption means it is unallocated. Retained overall accountability does not allocate it, and neither resource management nor a concerns channel closes the gap.",
+    "key_support_clause": "A.10.2",
+    "key_support": "responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "General accountability at the hospital does not discharge the requirement to allocate the specific life cycle responsibility among the parties."
+     },
+     {
+      "index": 2,
+      "clause": "B.3.2",
+      "support": "— asset and resource management;",
+      "why_wrong": "Asset and resource management is a different area that can require defined roles; the unowned monitoring duty is an allocation gap."
+     },
+     {
+      "index": 3,
+      "clause": "A.3.3",
+      "support": "The organization shall define and put in place a process to report concerns about the organization’s role with respect to an AI system throughout its life cycle.",
+      "why_wrong": "A concerns-reporting process lets issues be raised but does not assign the monitoring responsibility to anyone."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": false,
+     "examined": 1,
+     "reason": "the item asserts a requirement and the anchor carries none -- force taken from the passage class (shall), clause A.10.2 is classed shall"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell  [FLAGGED, not refused: the key is the only negated option (FLAG, not a refusal: a word test cannot tell a verdict from a purpose clause or a noun phrase -- the options probe covers the real case)]"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 13%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in A.10.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": false,
+     "examined": 6,
+     "reason": "explanation: the quotation names no clause -- an attributed quotation has to say what it is quoting"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "modal-fidelity",
+    "reproduction"
+   ],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option c",
+   "attributed_quotation": null,
+   "grounding_family": "A.10.2",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code",
+   "item_id": "cd2cf085"
+  }
+ ]
+}
