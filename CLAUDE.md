@@ -1559,10 +1559,36 @@ The individual scripts:
   compare against the table above and investigate anything that moved.
 
 - `scan-iso-leaks.mjs` — the lesson-body leak scan, and **it needs `pdftotext`
-  on PATH**. That binary ships with poppler-utils, is not installed by npm, and
-  is not declared in `package.json` because nothing in npm can declare it:
-  `choco install poppler` on Windows, `brew install poppler` on macOS,
-  `apt-get install poppler-utils` on Debian. It also needs the three ISO PDFs at
+  on PATH**. It is not installed by npm and cannot be declared in
+  `package.json`.
+
+  **AND THE BINARY INSTALLED HERE IS NOT POPPLER'S. Measured 2026-09-29 with
+  `pdftotext -v`: `pdftotext version 4.00 / Copyright 1996-2017 Glyph & Cog,
+  LLC` — the commercial Xpdf build, a DIFFERENT PROGRAM with a different option
+  set.** This file said it "ships with poppler-utils" and gave three poppler
+  install commands, so every script here has been written against the wrong
+  manual. Nothing has broken because `-layout`, `-q`, `-enc`, `-f`, `-l` and
+  `-v` exist in both — which is luck, not compatibility.
+
+  `scripts/check-pdftotext-options.mjs` reads the option list **out of the
+  installed binary** and compares it against every option any script passes.
+  Measured: **38 scripts use pdftotext, 0 pass an option this build does not
+  advertise.** Run it before reaching for an option you read about somewhere.
+
+  **Xpdf has NO `-bbox`, `-bbox-layout`, `-tsv`, `-xml` or `-html`.** So word
+  coordinates do not come from pdftotext here. **The coordinate dependency is
+  `pdfplumber` (pip, no admin rights): 0.11.10 under python 3.14.7 at
+  `scoop\apps\python\current`.** It reads 9 of the 10 `iso-corpus` PDFs and
+  **ZERO pages from `iso-iec-42001-2023.pdf`** — pdfminer reports that file's
+  catalog as empty while Xpdf reads it fine, so the two readers disagree about
+  one document. `pdfplumber.open(repair=True)` needs Ghostscript, which is not
+  installed. **33 of the 54 damaged primaries are in 42001**, so the
+  coordinate repair cannot reach them by this route.
+
+  If a poppler build is ever wanted: `choco install poppler` on Windows,
+  `brew install poppler` on macOS, `apt-get install poppler-utils` on Debian —
+  but check `pdftotext -v` afterwards, because PATH order decides which one
+  answers. It also needs the three ISO PDFs at
   the absolute paths in `scripts/lib/citation-index.mjs`. Both are now checked
   before anything else runs and each exits 2 naming the remedy.
 

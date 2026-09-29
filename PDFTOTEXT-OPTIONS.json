@@ -1,0 +1,338 @@
+{
+ "installed": "pdftotext version 4.00 | Copyright 1996-2017 Glyph & Cog, LLC",
+ "supported": [
+  "-bom",
+  "-cfg",
+  "-clip",
+  "-enc",
+  "-eol",
+  "-f",
+  "-fixed",
+  "-h",
+  "-help",
+  "-l",
+  "-layout",
+  "-lineprinter",
+  "-linespacing",
+  "-nodiag",
+  "-nopgbrk",
+  "-opw",
+  "-q",
+  "-raw",
+  "-simple",
+  "-table",
+  "-upw",
+  "-v"
+ ],
+ "scripts": [
+  {
+   "file": "apply-blueprint-repairs.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "audit-aimsf-claims.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "audit-quotations-unmarked.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "audit-quotations.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "build-iso-manifest.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": true,
+   "unsupported": []
+  },
+  {
+   "file": "census-isms-f-concepts.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "check-cited-clauses-resolve.mjs",
+   "options": [
+    "-enc",
+    "-q"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "check-definitional-citations.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "check-library-completeness.mjs",
+   "options": [
+    "-enc",
+    "-layout",
+    "-q"
+   ],
+   "spreads": true,
+   "unsupported": []
+  },
+  {
+   "file": "check-open-items.mjs",
+   "options": [],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "check-pdftotext-options.mjs",
+   "options": [
+    "-v"
+   ],
+   "spreads": true,
+   "unsupported": []
+  },
+  {
+   "file": "diagnose-run-splitting.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "extract-source-passages.mjs",
+   "options": [
+    "-enc",
+    "-layout",
+    "-q"
+   ],
+   "spreads": true,
+   "unsupported": []
+  },
+  {
+   "file": "gate-concept-descriptions.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "gen-iso-repair-spec.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "gen-lesson-repair-spec-aimsf.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "gen-misattribution-read.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "gen-union-fires.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "iso-passage-census.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "lib/citation-index.mjs",
+   "options": [
+    "-layout",
+    "-v"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "lib/iso-locator.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "lib/leak-score.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "list-defined-term-glosses.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "measure-blockquote-exemption.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "measure-blockquote-omission.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "measure-concept-leak-sensitivity.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "measure-index-widening.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "measure-ksa-review-cost.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "probe-0501-clause.mjs",
+   "options": [
+    "-enc",
+    "-q"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "probe-0501-source.mjs",
+   "options": [
+    "-enc",
+    "-q"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "scan-concept-iso.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "scan-iso-leaks.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "triage-missing-addresses.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "verify-audit-note-attribution.mjs",
+   "options": [
+    "-enc",
+    "-q"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "verify-cert.mjs",
+   "options": [],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "verify-citations.mjs",
+   "options": [],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "verify-claim-content.mjs",
+   "options": [
+    "-layout"
+   ],
+   "spreads": false,
+   "unsupported": []
+  },
+  {
+   "file": "verify-recovered-27001-controls.mjs",
+   "options": [
+    "-enc",
+    "-layout",
+    "-q"
+   ],
+   "spreads": false,
+   "unsupported": []
+  }
+ ]
+}

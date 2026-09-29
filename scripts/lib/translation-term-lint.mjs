@@ -212,6 +212,33 @@ export function lintRow(row, code, en) {
       }
     }
   }
+
+  /* ============ DOUBLED WORD, A FLAG AND NEVER A FAILURE ============
+   *
+   * Ruled PROMPT-89 s3, after three genuine duplications were found in the served bank:
+   * "pratica pratica repetida" and two "padrao padrao". They are translation artifacts -- in one case
+   * English "standard ... pattern" rendered both words as `padrao`.
+   *
+   * A FLAG, because legitimate homographs are common and five turned up in one sweep: "la muestra
+   * muestra que" (the sample shows), "e nao nao conformidades" (and NOT nonconformities), "cada una una
+   * no conformidad" (each one, one nonconformity), "la pregunta pregunta que" (the question asks). The
+   * last was listed as a defect in the ruling itself until it was read in full, which is the argument
+   * against ever making this a failure.
+   *
+   * UNICODE BOUNDARIES, not `\b`. `\b` is ASCII-only, so "excluidos dos" with an accented i reads as a
+   * doubled `dos`: the accent is a non-word character and the first word's tail becomes a word. Eight of
+   * fourteen served hits were that defect. In a lint about Spanish and Portuguese, an ASCII word
+   * boundary is not a word boundary. */
+  for (const [field, value] of fields) {
+    const re = /(?<![\p{L}\p{M}])(\p{L}{3,})\s+\1(?![\p{L}\p{M}])/giu;
+    for (let m = re.exec(String(value || "")); m; m = re.exec(String(value || ""))) {
+      res.mixed.push({ family: "text_quality", key: "doubled-word", severity: "flag",
+        field, variants: [m[0]], house: m[1],
+        note: "the same word twice. A FLAG: legitimate homograph pairs exist -- 'la muestra muestra " +
+          "que', 'e nao nao conformidades', 'la pregunta pregunta que' -- so a human decides." });
+      if (re.lastIndex <= m.index) break;   /* a zero-width advance would loop forever */
+    }
+  }
   return res;
 }
 

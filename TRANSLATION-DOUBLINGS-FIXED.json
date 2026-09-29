@@ -1,0 +1,37 @@
+{
+ "ruled": "PROMPT-89 s3",
+ "fixed": [
+  {
+   "cert": "AISM-I",
+   "id": "72082029",
+   "lang": "pt-BR",
+   "field": "option[2]",
+   "word": "prática",
+   "after": "Risco de perda de habilidades — os manuais de procedimento documentam etapas, mas não conseguem substituir o julgamento diagnóstico desenvolvido por meio de prática repetida.",
+   "english_sibling": "Deskilling risk — runbooks document steps but cannot replace diagnostic judgment built through repeated hands-on practice."
+  },
+  {
+   "cert": "SD-AI-I",
+   "id": "89a7d2ef",
+   "lang": "pt-BR",
+   "field": "explanation",
+   "word": "padrão",
+   "after": "Branches de curta duração com pull requests são um padrão do desenvolvimento baseado em trunk que combina integração frequente com revisão humana. O equívoco de que o desenvolvimento baseado em trunk significa fazer commits diretamente sem revisão confunde frequência de integração com processo de revisão. Exigir que o código seja implantável em produção antes da revisão é uma restrição adicional que o desenvolvimento baseado em trunk não exige.",
+   "english_sibling": "Short-lived branches with pull requests are a standard trunk-based development pattern that combines frequent integration with human review. The misconception that trunk-based development means committing directly without review conflates integration frequency with review process. Requiring production-deployability before review is an additional constraint that trunk-based development does not mandate."
+  },
+  {
+   "cert": "SM-AI-II",
+   "id": "417f066d",
+   "lang": "pt-BR",
+   "field": "explanation",
+   "word": "padrão",
+   "after": "Uma emergência genuína é uma situação distinta de interferência habitual, e a habilidade do Scrum Master é perceber qual das duas está presente. O movimento correto é reconhecer o contexto de emergência — não tratá-lo como uma violação — enquanto usa a conversa com o gerente para evitar que a resposta de emergência se torne o padrão. Levantar na Retrospective é genuinamente defensável — dá ao time a propriedade do protocolo —, mas evita a conversa organizacional que pertence ao Scrum Master e deixa o gerente sem feedback sobre onde está o limite, razão pela qual é a segunda melhor opção. Escalar imediatamente à liderança sênior é desproporcional quando uma conversa direta com o gerente ainda não ocorreu; não tomar nenhuma ação trata o resultado como a única medida de se a autogestão foi respeitada.",
+   "english_sibling": "A genuine emergency is a distinct situation from habitual interference, and the Scrum Master's skill is reading which one is present. The right move is to acknowledge the emergency context—not treat it as a violation—while using the conversation with the manager to prevent the emergency response from becoming the default pattern. Raising it at the Retrospective is genuinely defensible—it gives the team ownership of the protocol—but it avoids the organizational conversation the Scrum Master owns and leaves the manager without feedback on where the boundary lies, which is why it is second-best rather than best. Escalating immediately to senior leadership is disproportionate when a direct conversation with the manager has not occurred; taking no action treats outcome as the only measure of whether self-management was respected."
+  }
+ ],
+ "left_alone": [
+  "La muestra muestra que -- noun then verb",
+  "e nao nao conformidades -- 'and not nonconformities'",
+  "cada una una no conformidad -- 'each one, one nonconformity'"
+ ]
+}
