@@ -301,7 +301,13 @@ for (const r of liveRows) {
  * READ FROM `task_sources`, NOT FROM THE RANKER'S JSON. The ranker offered candidates; the table
  * holds the director's ruling, written by write-task-sources.mjs with role primary or supporting.
  * A generator reading the candidate file would be anchoring items in a guess. */
-const tsRows = await getAll(KEY, "task_sources?select=task_id,passage_id,role&order=task_id");
+/* ORDERED ON A UNIQUE KEY, not on task_id alone. This read is now 1,706 rows -- more than one page --
+ * and task_id is not unique, so Range pagination over it can return one row twice and drop another
+ * while the count assertion still passes: the total matches and the SET is wrong. _pg.mjs refuses an
+ * unordered read but cannot see that a named order is non-unique. A doubled or short map here would
+ * silently change which clauses count as primary. */
+const tsRows = await getAll(KEY,
+  "task_sources?select=task_id,passage_id,role&order=task_id,passage_id");
 const clauseOfPassage = new Map(
   (await getAll(KEY, "source_passages?select=id,source_id,edition,clause&order=id"))
     .map((r) => [r.id, r]));
@@ -503,16 +509,32 @@ RULES
   quotation in quotation marks, naming its clause, of at most one sentence. The key_support
   field is internal and is never shown to a candidate, so quote freely THERE.`;
 
+/* THE WRITER IS TOLD WHICH PASSAGES IT MAY ANCHOR A KEY IN.
+ *
+ * `anchor-is-primary` refuses a key resting on a supporting passage. The writer used to be handed every
+ * passage with no role and no rule, so on task 1.3 it anchored 6 of 7 keys in supporting clauses and
+ * six writer calls were spent discovering a rule nobody had given it. A distractor's reason may still
+ * use a supporting passage -- that is the gate's own contract, so prompt and gate cannot drift. */
 function writerUser(task, domain, passages, k) {
-  const src = passages.map((p) =>
+  const prim = new Set(primaryOf(task.code));
+  const fmt = (p) =>
     "--- clause " + p.clause + (p.title ? " (" + p.title + ")" : "") +
-    "  [this clause is " + p.normative + "] ---\n" + p.text).join("\n\n");
+    "  [this clause is " + p.normative + "; " +
+    (prim.has(p.clause) ? "PRIMARY for this task -- a KEY MAY anchor here" :
+      "SUPPORTING -- a distractor's reason may use it, a KEY MAY NOT anchor here") + "] ---\n" + p.text;
+  const primaries = passages.filter((p) => prim.has(p.clause));
+  const others = passages.filter((p) => !prim.has(p.clause));
+  const src = [...primaries.map(fmt), ...others.map(fmt)].join("\n\n");
   return "CERTIFICATION: " + CERT + "\nDOMAIN: " + domain.code + " " + domain.title +
     "\nTASK " + task.code + ": " + task.statement +
     "\nBLOOM: " + (task.bloom_level || "2_understand") +
     (task.knowledge ? "\n\nKNOWLEDGE THE TASK COVERS:\n" + task.knowledge : "") +
     (task.skills ? "\n\nSKILLS:\n" + task.skills : "") +
     "\n\nPASSAGES THIS TASK IS EXAMINED AGAINST:\n\n" + src +
+    "\n\nEVERY item's `key_support` MUST be copied from a passage marked PRIMARY. There are " +
+    primaries.length + " of them, and code refuses a key anchored anywhere else. If a PRIMARY passage" +
+    " does not support the point you want to make, make a different point: do not anchor in a" +
+    " SUPPORTING passage and do not paraphrase a primary one to fit." +
     "\n\nWrite " + k + " item(s). Return the JSON array only.";
 }
 
@@ -544,13 +566,25 @@ if (FROM) {
     if (!ps.length) { bump("no mapped passage"); continue; }
     let arr = null;
     try {
-      arr = parseArray(await claude(WRITER_SYSTEM, writerUser(t, d, ps, k), 6000));
+      /* THE BUDGET SCALES WITH k. A fixed 6000 was right only while every run asked for one item:
+       * seven grounded items in one response truncated, the array would not parse, and the run
+       * reported `writer returned nothing` under an OUTCOME block that reads like a gate result. */
+      const budget = Math.min(32000, 2000 + 2200 * k);
+      arr = parseArray(await claude(WRITER_SYSTEM, writerUser(t, d, ps, k), budget));
     } catch (e) {
       console.log("  " + t.code + "  WRITER FAILED: " + String(e.message).slice(0, 120));
       bump("writer could not run");
       continue;
     }
     if (!Array.isArray(arr) || !arr.length) { bump("writer returned nothing"); continue; }
+    /* A SHORT ARRAY IS REPORTED, NEVER SILENTLY ACCEPTED. `slice(0, k)` below takes what arrived, so
+     * a half-truncated response would have produced 3 of 7 and printed "wrote 3 item(s)" with nothing
+     * saying four were lost -- a shortfall refilled by a run that itself came up short. */
+    if (arr.length < k) {
+      console.log("  " + t.code + "  SHORT: the writer returned " + arr.length + " item(s) of " + k +
+        " requested. Generating what arrived; the remainder is still a shortfall.");
+      bump("writer returned fewer items than requested");
+    }
     for (const raw of arr.slice(0, k)) {
       const opts = (raw.options || []).map((o, i) => ({
         text: String((o && o.text) || ""), is_correct: i === Number(raw.correct_index),

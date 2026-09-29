@@ -1,0 +1,1000 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "attempted": 7,
+ "generated": 7,
+ "survivors": 1,
+ "generation_note": null,
+ "reject_counts": {
+  "code: anchor-is-primary": 6,
+  "code: reproduction": 6,
+  "code: structure": 1
+ },
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 1,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 1,
+  "applied": 1,
+  "reverted_by_rewrite_check": 0,
+  "reverted_by_solver": 0,
+  "reverted_by_gates": 0,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 1,
+  "hit": 1,
+  "pct": 100
+ },
+ "key_pick_after": {
+  "n": 1,
+  "hit": 1,
+  "pct": 100
+ },
+ "shape_cues_before": {
+  "only-hedged": 1
+ },
+ "shape_cues_after": {},
+ "anchor_clusters": [],
+ "options_probe_flags": 1,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 4,
+ "items": [
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "A team is mapping where risk can originate for an AI system it provides. Which statement best reflects the guidance in Annex C on life-cycle risk?",
+    "options": [
+     {
+      "text": "Risk can arise at any point, from design flaws through to problems at decommissioning.",
+      "is_correct": true
+     },
+     {
+      "text": "Risk can arise mainly once the system meets production data, so monitoring is where it is found.",
+      "is_correct": false
+     },
+     {
+      "text": "Risk can arise during design and build, and is closed out at the release gate.",
+      "is_correct": false
+     },
+     {
+      "text": "Risk can arise chiefly in maintenance, where neglect accumulates after handover to operations teams.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "C.3.6 treats the origins of risk as spread across the whole life cycle, illustrating this with examples that run from poor design, through deployment and neglected maintenance, to trouble at decommissioning. The other options narrow that span to a single stage.",
+    "key_support_clause": "C.3.6",
+    "key_support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "C.3.6",
+      "support": "Sources of risk can appear over the entire AI system life cycle",
+      "why_wrong": "It confines origination to the operational phase, whereas the clause names design flaws and decommissioning as well."
+     },
+     {
+      "index": 2,
+      "clause": "C.3.6",
+      "support": "issues with decommissioning",
+      "why_wrong": "Risk sources are described as continuing beyond release, including at decommissioning."
+     },
+     {
+      "index": 3,
+      "clause": "C.3.6",
+      "support": "flaws in design, inadequate deployment, lack of maintenance",
+      "why_wrong": "Lack of maintenance is only one example among several spread across the life cycle."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed can)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 25%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 6,
+     "reason": "the key anchors in C.3.6, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in stem"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "C.3.6",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options restrict risk to a single stage using limiting words ('mainly', 'closed out at the release gate', 'chiefly'), while A is the only all-inclusive 'any point, design through decommissioning' option.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): Three options restrict risk to a single stage using limiting words ('mainly', 'closed out at the release gate', 'chiefly'), while A is the only all-inclusive 'any point, design through decommissioning' option."
+   },
+   "verdict": "survivor",
+   "shape_cues_before": [
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "decue_trigger": [
+    "only-hedged"
+   ],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each pin risk to one single phase (\"mainly once...\", \"during design and build\", \"chiefly in maintenance\"), while A is the only option that spans the whole span and so is the odd one out in a family of three parallel narrow claims.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B, C and D each pin risk to one single phase (\"mainly once...\", \"during design and build\", \"chiefly in maintenance\"), while A is the only option that spans the whole span and so is the odd one out in a family of three parallel narrow claims."
+   },
+   "item_before_decue": {
+    "question_text": "A team is mapping where risk can originate for an AI system it provides. Which statement best reflects the guidance in Annex C on life-cycle risk?",
+    "options": [
+     {
+      "text": "Risk can arise at any point, from design flaws through to problems at decommissioning.",
+      "is_correct": true
+     },
+     {
+      "text": "Risk arises mainly once the system meets production data, so monitoring is where it is found.",
+      "is_correct": false
+     },
+     {
+      "text": "Risk arises during design and build and is closed out at the release gate.",
+      "is_correct": false
+     },
+     {
+      "text": "Risk arises chiefly in maintenance, where neglect accumulates after handover to operations.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "C.3.6 treats the origins of risk as spread across the whole life cycle, illustrating this with examples that run from poor design, through deployment and neglected maintenance, to trouble at decommissioning. The other options narrow that span to a single stage.",
+    "key_support_clause": "C.3.6",
+    "key_support": "Sources of risk can appear over the entire AI system life cycle (e.g. flaws in design, inadequate deployment, lack of maintenance, issues with decommissioning).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "C.3.6",
+      "support": "Sources of risk can appear over the entire AI system life cycle",
+      "why_wrong": "It confines origination to the operational phase, whereas the clause names design flaws and decommissioning as well."
+     },
+     {
+      "index": 2,
+      "clause": "C.3.6",
+      "support": "issues with decommissioning",
+      "why_wrong": "Risk sources are described as continuing beyond release, including at decommissioning."
+     },
+     {
+      "index": 3,
+      "clause": "C.3.6",
+      "support": "flaws in design, inadequate deployment, lack of maintenance",
+      "why_wrong": "Lack of maintenance is only one example among several spread across the life cycle."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": []
+   },
+   "shape_cues_after": [],
+   "de_cue": {
+    "state": "applied",
+    "probe_before": "only-hedged: the key is the only hedged option (can)",
+    "probe_after": "flag"
+   }
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "A deployed system goes on training its model using production data and output data while it is in service. What does the operation and monitoring guidance advise the organization to do?",
+    "options": [
+     {
+      "text": "Keep its performance under review so it goes on meeting the goals set at design.",
+      "is_correct": true
+     },
+     {
+      "text": "Treat any change in behaviour as drift and retrain the model on a fixed schedule.",
+      "is_correct": false
+     },
+     {
+      "text": "Rely on the acceptance testing done before release and then log errors and failures.",
+      "is_correct": false
+     },
+     {
+      "text": "Ask users to report deviations through the support channel as the main check.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "B.6.2.6 addresses continuously learning systems directly: \"Where continuous learning is used, the organization should monitor the performance of the AI system to ensure that it continues to meet its design goals and operates on production data as intended.\" The guidance is advisory, and monitoring rests with the organization.",
+    "key_support_clause": "B.6.2.6",
+    "key_support": "Where continuous learning is used, the organization should monitor the performance of the AI system to ensure that it continues to meet its design goals and operates on production data as intended.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.6.2.6",
+      "support": "The performance of some AI systems can change even if such systems do not use continuous learning, usually due to concept or data drift in production data.",
+      "why_wrong": "Drift-driven retraining is the guidance for systems that do not learn continuously, not for this case."
+     },
+     {
+      "index": 2,
+      "clause": "B.6.2.6",
+      "support": "Some deployed AI systems evolve their performance as a result of ML, where production data and output data are used to further train the ML model.",
+      "why_wrong": "Because behaviour evolves in service, pre-release testing plus error logging is not what the guidance describes."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.2.6",
+      "support": "Support processes should consider how users can contact the appropriate help, how issues and incidents are reported, support service level agreements and metrics.",
+      "why_wrong": "User support is a separate operational element and is not offered as the means of tracking learned behaviour."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a recommendation; anchor is a recommendation by the anchor sentence (clause classed should)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 15%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": false,
+     "examined": 6,
+     "reason": "the key anchors in B.6.2.6, which is SUPPORTING for this task, not primary -- a distractor's reason may use it, a key may not. Primary: A.6.2, C.3.6, B.6.2.1, A.6.1, B.6.1.1, 8.1"
+    },
+    {
+     "id": "reproduction",
+     "pass": false,
+     "examined": 6,
+     "reason": "explanation: the quotation is 32 words; the ruling allows at most one sentence (30 words)"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "anchor-is-primary",
+    "reproduction"
+   ],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "B.6.2.6",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "A model that is never retrained in service shows falling accuracy because the production data has shifted. According to the operation and monitoring guidance, what can monitoring do in this situation?",
+    "options": [
+     {
+      "text": "It can surface a need to retrain so the system again meets its design goals.",
+      "is_correct": true
+     },
+     {
+      "text": "It can show that continuous learning has altered the model's behaviour in service.",
+      "is_correct": false
+     },
+     {
+      "text": "It can establish that the shift is a security event such as data poisoning.",
+      "is_correct": false
+     },
+     {
+      "text": "It can confirm the system needs withdrawing until a fresh impact assessment is run.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "B.6.2.6 states that where performance changes through concept or data drift, \"monitoring can identify the need for retraining to ensure that the AI system continues to meet its design goals and operates on production data as intended\".",
+    "key_support_clause": "B.6.2.6",
+    "key_support": "In such cases, monitoring can identify the need for retraining to ensure that the AI system continues to meet its design goals and operates on production data as intended.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.6.2.6",
+      "support": "The performance of some AI systems can change even if such systems do not use continuous learning, usually due to concept or data drift in production data.",
+      "why_wrong": "The scenario explicitly excludes continuous learning, so that mechanism does not explain the change."
+     },
+     {
+      "index": 2,
+      "clause": "B.6.2.6",
+      "support": "AI-specific information security threats include, but are not limited to data poisoning, model stealing and model inversion attacks.",
+      "why_wrong": "Data poisoning is treated as an information security threat, not as the explanation for concept or data drift."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.2.6",
+      "support": "monitoring can identify the need for retraining",
+      "why_wrong": "The named response to drift is retraining, not withdrawal pending a new impact assessment."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed should)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 31%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": false,
+     "examined": 6,
+     "reason": "the key anchors in B.6.2.6, which is SUPPORTING for this task, not primary -- a distractor's reason may use it, a key may not. Primary: A.6.2, C.3.6, B.6.2.1, A.6.1, B.6.1.1, 8.1"
+    },
+    {
+     "id": "reproduction",
+     "pass": false,
+     "examined": 6,
+     "reason": "explanation: the quotation names no clause -- an attributed quotation has to say what it is quoting"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "anchor-is-primary",
+    "reproduction"
+   ],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "B.6.2.6",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "When an organization documents its processes for responsible design and development, how does the implementation guidance treat life-cycle stages?",
+    "options": [
+     {
+      "text": "A generic model exists in another standard, and an organization can set out stages of its own.",
+      "is_correct": true
+     },
+     {
+      "text": "The stages published in ISO/IEC 22989 are adopted as given, with local naming applied.",
+      "is_correct": false
+     },
+     {
+      "text": "The stages are fixed by the supplier of the AI technology chosen for the system.",
+      "is_correct": false
+     },
+     {
+      "text": "The stages are settled after release, once operational performance criteria are known.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "B.6.1.3 lists life cycle stages among the matters to consider and notes that \"a generic AI system life cycle model is provided by ISO/IEC 22989, but the organization can specify their own life cycle stages\".",
+    "key_support_clause": "B.6.1.3",
+    "key_support": "a generic AI system life cycle model is provided by ISO/IEC 22989, but the organization can specify their own life cycle stages",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.6.1.3",
+      "support": "but the organization can specify their own life cycle stages",
+      "why_wrong": "It turns an available reference model into a fixed set of stages the organization takes as given."
+     },
+     {
+      "index": 2,
+      "clause": "B.6.1.3",
+      "support": "The organization should define and document the specific processes for the responsible design and development of the AI system.",
+      "why_wrong": "The stages sit with the organization, not with the technology supplier."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.1.3",
+      "support": "Responsible development for AI system processes should include consideration of, without limitation, the following:",
+      "why_wrong": "Life cycle stages are considered as part of design and development processes, not settled after release."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed should)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": false,
+     "examined": 4,
+     "reason": "every distractor opens with the word \"stages\" and the key does not"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 10%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": false,
+     "examined": 6,
+     "reason": "the key anchors in B.6.1.3, which is SUPPORTING for this task, not primary -- a distractor's reason may use it, a key may not. Primary: A.6.2, C.3.6, B.6.2.1, A.6.1, B.6.1.1, 8.1"
+    },
+    {
+     "id": "reproduction",
+     "pass": false,
+     "examined": 6,
+     "reason": "explanation: the quotation names no clause -- an attributed quotation has to say what it is quoting"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "structure",
+    "anchor-is-primary",
+    "reproduction"
+   ],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "B.6.1.3",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "Annex A carries a control on responsible design and development of the AI system. What does that control oblige the organization to do?",
+    "options": [
+     {
+      "text": "Set out and record the particular processes by which it will responsibly design and build the system.",
+      "is_correct": true
+     },
+     {
+      "text": "Set out and record the technical documentation each category of interested party needs.",
+      "is_correct": false
+     },
+     {
+      "text": "Set out and record the elements needed to keep the system running once it is live.",
+      "is_correct": false
+     },
+     {
+      "text": "Set out and record the life-cycle stages it has taken from ISO/IEC 5338.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "A.6.1.3 is expressed as a requirement: the organization \"shall define and document the specific ... processes for the responsible design and development of the AI system\". The other options name different controls or a stage list that is not required.",
+    "key_support_clause": "A.6.1.3",
+    "key_support": "The organization shall define and document the specific",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.6.2.7",
+      "support": "The organization should determine what AI system technical documentation is needed for each relevant category of interested parties, such as users, partners, supervisory authorities, and provide the technical documentation to them in the appropriate form.",
+      "why_wrong": "That is the separate technical documentation control, expressed as guidance rather than this Annex A obligation."
+     },
+     {
+      "index": 2,
+      "clause": "B.6.2.6",
+      "support": "The organization should define and document the necessary elements for the ongoing operation of the AI system.",
+      "why_wrong": "Ongoing operation is a different control from responsible design and development."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.1.3",
+      "support": "but the organization can specify their own life cycle stages",
+      "why_wrong": "No stage list from a cited standard has to be adopted and recorded."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 11%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": false,
+     "examined": 6,
+     "reason": "the key anchors in A.6.1.3, which is SUPPORTING for this task, not primary -- a distractor's reason may use it, a key may not. Primary: A.6.2, C.3.6, B.6.2.1, A.6.1, B.6.1.1, 8.1"
+    },
+    {
+     "id": "reproduction",
+     "pass": false,
+     "examined": 6,
+     "reason": "explanation: the quotation names no clause -- an attributed quotation has to say what it is quoting"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "anchor-is-primary",
+    "reproduction"
+   ],
+   "unasserted": [],
+   "longest_served_run": 8,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "A.6.1.3",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "An organization is assembling the technical documentation elements that relate to all stages of the AI system life cycle. Which item is named among those elements?",
+    "options": [
+     {
+      "text": "Amendments made to the system while it is running in service.",
+      "is_correct": true
+     },
+     {
+      "text": "Service level agreements arranged with the support function.",
+      "is_correct": false
+     },
+     {
+      "text": "Confidence rates achieved by the system in its first month live.",
+      "is_correct": false
+     },
+     {
+      "text": "Acceptable values agreed for each chosen performance metric.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "B.6.2.7 lists, among documentation elements related to all AI system life cycle stages, \"changes made to the AI system when it is in operation\". The other three items come from the operation and monitoring guidance in B.6.2.6, not from this documentation list.",
+    "key_support_clause": "B.6.2.7",
+    "key_support": "changes made to the AI system when it is in operation",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.6.2.6",
+      "support": "Support processes should consider how users can contact the appropriate help, how issues and incidents are reported, support service level agreements and metrics.",
+      "why_wrong": "Service level agreements are a consideration for support processes, not a listed life-cycle documentation element."
+     },
+     {
+      "index": 2,
+      "clause": "B.6.2.6",
+      "support": "Technical performance criteria can include success rates in resolving problems or in achieving tasks, or confidence rates.",
+      "why_wrong": "Confidence rates are examples of performance criteria, not items on the documentation list."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.2.6",
+      "support": "For each metric, the organization should consider acceptable values based on, for example, domain expert’s recommendations and analysis of expectations of interested parties relative to existing non-AI practices.",
+      "why_wrong": "Setting acceptable metric values belongs to performance criteria guidance rather than the life-cycle documentation elements."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a should by the passage class (clause classed should)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 30%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": false,
+     "examined": 6,
+     "reason": "the key anchors in B.6.2.7, which is SUPPORTING for this task, not primary -- a distractor's reason may use it, a key may not. Primary: A.6.2, C.3.6, B.6.2.1, A.6.1, B.6.1.1, 8.1"
+    },
+    {
+     "id": "reproduction",
+     "pass": false,
+     "examined": 6,
+     "reason": "explanation: the quotation names no clause -- an attributed quotation has to say what it is quoting"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "anchor-is-primary",
+    "reproduction"
+   ],
+   "unasserted": [],
+   "longest_served_run": 7,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "B.6.2.7",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "Which activity belongs to the operation and monitoring part of the life cycle rather than to design and development?",
+    "options": [
+     {
+      "text": "Checking that the system behaves as expected against live production data.",
+      "is_correct": true
+     },
+     {
+      "text": "Agreeing the criteria the system meets before it can be released.",
+      "is_correct": false
+     },
+     {
+      "text": "Setting the rules on which training data may be used and by whom.",
+      "is_correct": false
+     },
+     {
+      "text": "Fixing the approvals and sign-offs needed at points in the build.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "B.6.2.6 places this under system and performance monitoring: \"System and performance monitoring can include monitoring for general errors and failures, as well as for whether the system is performing as expected with production data.\" Release criteria, training data rules and sign-offs are listed in B.6.1.3 under responsible design and development.",
+    "key_support_clause": "B.6.2.6",
+    "key_support": "System and performance monitoring can include monitoring for general errors and failures, as well as for whether the system is performing as expected with production data.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.6.1.3",
+      "support": "release criteria",
+      "why_wrong": "Release criteria are listed among design and development process considerations, not operation and monitoring."
+     },
+     {
+      "index": 2,
+      "clause": "B.6.1.3",
+      "support": "training data expectations and rules (e.g. what data can be used, approved data suppliers and labelling)",
+      "why_wrong": "Training data rules sit within the responsible design and development processes."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.1.3",
+      "support": "approvals and sign-offs necessary at various stages",
+      "why_wrong": "Approvals and sign-offs are part of the design and development process list, not the operational monitoring elements."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a recommendation by the anchor sentence (clause classed should)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 36%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": false,
+     "examined": 6,
+     "reason": "the key anchors in B.6.2.6, which is SUPPORTING for this task, not primary -- a distractor's reason may use it, a key may not. Primary: A.6.2, C.3.6, B.6.2.1, A.6.1, B.6.1.1, 8.1"
+    },
+    {
+     "id": "reproduction",
+     "pass": false,
+     "examined": 6,
+     "reason": "explanation: the quotation names no clause -- an attributed quotation has to say what it is quoting"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "anchor-is-primary",
+    "reproduction"
+   ],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "B.6.2.6",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code"
+  }
+ ]
+}
