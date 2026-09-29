@@ -1,0 +1,25 @@
+{
+ "generated_secure": 34,
+ "grounding_rows": 34,
+ "orphans": [],
+ "anchors_not_primary": [
+  {
+   "id": "333a50d8",
+   "cert": "AIMS-F",
+   "task": "4.3",
+   "source": "ISO/IEC 42001",
+   "clause": "B.2.3",
+   "role": "supporting",
+   "ok": false
+  },
+  {
+   "id": "a287616d",
+   "cert": "AIMS-F",
+   "task": "4.4",
+   "source": "ISO/IEC 42001",
+   "clause": "B.6.2.6",
+   "role": "supporting",
+   "ok": false
+  }
+ ]
+}

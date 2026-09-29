@@ -1,0 +1,8 @@
+{
+ "id": "89a7d2ef",
+ "field": "explanation",
+ "from": "um padrão do desenvolvimento baseado em trunk",
+ "to": "um padrão comum de desenvolvimento trunk-based",
+ "after": "Branches de curta duração com pull requests são um padrão comum de desenvolvimento trunk-based que combina integração frequente com revisão humana. O equívoco de que o desenvolvimento baseado em trunk significa fazer commits diretamente sem revisão confunde frequência de integração com processo de revisão. Exigir que o código seja implantável em produção antes da revisão é uma restrição adicional que o desenvolvimento baseado em trunk não exige.",
+ "english_sibling": "Short-lived branches with pull requests are a standard trunk-based development pattern that combines frequent integration with human review. The misconception that trunk-based development means committing directly without review conflates integration frequency with review process. Requiring production-deployability before review is an additional constraint that trunk-based development does not mandate."
+}

@@ -171,6 +171,12 @@ const itemId = (item) => createHash("sha256")
   .update(String((item && item.question_text) || "").replace(/\s+/g, " ").trim())
   .digest("hex").slice(0, 8);
 
+/* which standard a certification's anchors come from. Declared: hardcoding 42001 would silently
+ * mislabel every ISMS grounding row the first time this path runs for ISMS-F. */
+const STANDARD_OF = { "AIMS-F": "ISO/IEC 42001", "AIMS-IA": "ISO/IEC 42001",
+  "ISMS-F": "ISO/IEC 27001", "ISMS-IA": "ISO/IEC 27001" };
+const EDITION_OF = { "AIMS-F": "2023", "AIMS-IA": "2023", "ISMS-F": "2022", "ISMS-IA": "2022" };
+
 /* ---------------------------------------------------------------- the controls run first */
 {
   const a = groundedGateControls(), b = blindSolverControls(), c = supersededControls();
@@ -1223,6 +1229,7 @@ if (!APPLY) {
   } else {
     let wrote = 0;
     const insertedIds = [];
+    let groundingWrote = 0, groundingFailed = 0;
     for (const r of survivors) {
       const t = tasks.find((x) => x.code === r.task_code);
       const body = {
@@ -1284,8 +1291,55 @@ if (!APPLY) {
       const back = await res.json().catch(() => null);
       const id = Array.isArray(back) ? (back[0] || {}).id : (back || {}).id;
       if (id) insertedIds.push(id);
+
+      /* ---- the grounding row, paired with the question ---- */
+      if (id) {
+        const gBody = {
+          question_id: id,
+          key_support_clause: r.item.key_support_clause,
+          key_support: r.item.key_support,
+          source_id: STANDARD_OF[CERT] || "ISO/IEC 42001",
+          edition: EDITION_OF[CERT] || "2023",
+          gates: r.gates ?? [],
+          solver: r.solver ?? null,
+          generator: "gen-grounded-items.mjs",
+          model: MODEL,
+          grounding_family: r.grounding_family ?? r.item.key_support_clause,
+        };
+        const gRes = await fetch(REST_URL + "/item_grounding", {
+          method: "POST",
+          headers: { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json",
+            Prefer: "return=representation" },
+          body: JSON.stringify([gBody]),
+        });
+        if (!gRes.ok) {
+          /* NO TRANSACTION, SO COMPENSATE. A question with no grounding row is invisible to the
+           * anchor-cap census, which is exactly the defect this write exists to close -- so the
+           * question is removed rather than left behind. */
+          console.error("  grounding insert FAILED for " + String(id).slice(0, 8) + ": " +
+            gRes.status + " " + (await gRes.text()).slice(0, 200));
+          const del = await fetch(REST_URL + "/quiz_questions?id=eq." + id, {
+            method: "DELETE",
+            headers: { apikey: KEY, Authorization: "Bearer " + KEY, Prefer: "return=representation" },
+          });
+          const gone = del.ok ? (await del.json().catch(() => [])).length : 0;
+          if (!del.ok || gone !== 1) {
+            console.error("  AND THE COMPENSATING DELETE FAILED. Row " + id + " is an ORPHAN:");
+            console.error("  a question with no grounding row, invisible to the anchor-cap census.");
+            console.error("  Delete it by hand or run the orphan backfill before generating again.");
+            process.exitCode = 2;
+            break;
+          }
+          wrote--;
+          insertedIds.pop();
+          groundingFailed++;
+          continue;
+        }
+        groundingWrote++;
+      }
     }
-    console.log("  inserted " + wrote + " pending_review row(s)");
+    console.log("  inserted " + wrote + " pending_review row(s), " + groundingWrote +
+      " grounding row(s)" + (groundingFailed ? "; " + groundingFailed + " rolled back" : ""));
 
     /* ============ THE POST-CONDITION READS BACK THE ROWS IT WROTE ============
      *
