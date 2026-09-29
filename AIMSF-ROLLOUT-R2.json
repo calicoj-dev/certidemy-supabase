@@ -1,0 +1,245 @@
+{
+ "tasks": 9,
+ "attempted": 47,
+ "survivors": 36,
+ "spend": {
+  "calls": 162,
+  "input": 378522,
+  "output": 84806,
+  "usd": 12.0382,
+  "byRole": {
+   "writer": {
+    "calls": 2,
+    "input": 6745,
+    "output": 19979
+   },
+   "paraphrase": {
+    "calls": 25,
+    "input": 120954,
+    "output": 26396
+   },
+   "solver": {
+    "calls": 88,
+    "input": 213758,
+    "output": 19679
+   },
+   "options-probe": {
+    "calls": 40,
+    "input": 24492,
+    "output": 13603
+   },
+   "de-cue": {
+    "calls": 4,
+    "input": 4973,
+    "output": 4364
+   },
+   "solver-recheck": {
+    "calls": 3,
+    "input": 7600,
+    "output": 785
+   }
+  }
+ },
+ "usd_per_survivor": 0.3344,
+ "gate_totals": {
+  "structure": 1,
+  "reproduction": 3,
+  "solver": 4,
+  "modal-fidelity": 2,
+  "solver-split": 2
+ },
+ "per_task": [
+  {
+   "task": "2.2",
+   "batch": "R2 probe",
+   "shortfall": 6,
+   "attempted": 6,
+   "survivors": 5,
+   "gates": {
+    "structure": 1,
+    "reproduction": 1
+   },
+   "cues": {
+    "odd-verdict": 2,
+    "only-hedged": 2,
+    "only-negation": 1
+   },
+   "distinct_anchors": 4,
+   "anchors": [
+    "4.1",
+    "4.2",
+    "A.10.3",
+    "4.4"
+   ]
+  },
+  {
+   "task": "2.4",
+   "batch": "R2 probe",
+   "shortfall": 5,
+   "attempted": 5,
+   "survivors": 3,
+   "gates": {
+    "solver": 1,
+    "modal-fidelity": 1,
+    "reproduction": 1
+   },
+   "cues": {
+    "odd-verdict": 1,
+    "only-hedged": 1,
+    "shared-phrase": 1
+   },
+   "distinct_anchors": 3,
+   "anchors": [
+    "A.10.2",
+    "A.3.2",
+    "3.3"
+   ]
+  },
+  {
+   "task": "2.7",
+   "batch": "R2 rest",
+   "shortfall": 6,
+   "attempted": 6,
+   "survivors": 5,
+   "gates": {},
+   "cues": {
+    "odd-verdict": 1,
+    "shared-phrase": 3,
+    "length": 1
+   },
+   "distinct_anchors": 4,
+   "anchors": [
+    "6.1.2",
+    "8.4",
+    "A.5.2",
+    "3.24"
+   ]
+  },
+  {
+   "task": "2.8",
+   "batch": "R2 rest",
+   "shortfall": 6,
+   "attempted": 6,
+   "survivors": 5,
+   "gates": {
+    "solver": 1
+   },
+   "cues": {
+    "length": 2,
+    "shared-phrase": 1,
+    "odd-verdict": 1
+   },
+   "distinct_anchors": 4,
+   "anchors": [
+    "8.3",
+    "3.26",
+    "A.1",
+    "6.1.1"
+   ]
+  },
+  {
+   "task": "3.1",
+   "batch": "R2 rest",
+   "shortfall": 6,
+   "attempted": 6,
+   "survivors": 4,
+   "gates": {
+    "solver": 1,
+    "modal-fidelity": 1,
+    "reproduction": 1
+   },
+   "cues": {
+    "length": 1,
+    "only-negation": 1
+   },
+   "distinct_anchors": 4,
+   "anchors": [
+    "A.4.6",
+    "A.4.2",
+    "A.4.5",
+    "A.4.3"
+   ]
+  },
+  {
+   "task": "3.2",
+   "batch": "R2 rest",
+   "shortfall": 4,
+   "attempted": 4,
+   "survivors": 4,
+   "gates": {},
+   "cues": {
+    "odd-verdict": 1,
+    "shared-phrase": 2,
+    "only-hedged": 1
+   },
+   "distinct_anchors": 3,
+   "anchors": [
+    "7.2",
+    "5.2",
+    "A.3.3"
+   ]
+  },
+  {
+   "task": "3.4",
+   "batch": "R2 rest",
+   "shortfall": 6,
+   "attempted": 6,
+   "survivors": 4,
+   "gates": {
+    "solver": 1,
+    "solver-split": 1
+   },
+   "cues": {
+    "shared-phrase": 2,
+    "length": 1,
+    "grammar": 1
+   },
+   "distinct_anchors": 4,
+   "anchors": [
+    "A.10.3",
+    "6.3",
+    "6.1.3",
+    "A.10.2"
+   ]
+  },
+  {
+   "task": "5.1",
+   "batch": "R2 rest",
+   "shortfall": 5,
+   "attempted": 5,
+   "survivors": 4,
+   "gates": {
+    "solver-split": 1
+   },
+   "cues": {
+    "shared-phrase": 3,
+    "grammar": 1
+   },
+   "distinct_anchors": 4,
+   "anchors": [
+    "3.11",
+    "3.13",
+    "6.2",
+    "3.19"
+   ]
+  },
+  {
+   "task": "5.3",
+   "batch": "R2 rest",
+   "shortfall": 3,
+   "attempted": 3,
+   "survivors": 2,
+   "gates": {},
+   "cues": {
+    "odd-verdict": 1,
+    "shared-phrase": 1
+   },
+   "distinct_anchors": 2,
+   "anchors": [
+    "9.3.3",
+    "10.1"
+   ]
+  }
+ ],
+ "stopped": []
+}

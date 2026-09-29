@@ -66,7 +66,18 @@ improvement nobody measured.
 | key-pick, authored bank | 98% | measured in the 480-item audit |
 | key-pick, chance | 25% | four options |
 | flag (picked the key AND named the cue) | **79%** (53/67) | a SUBSET of key-pick, not comparable to 98% |
-| flag, batch 1 | 64% (9/14) | the figure comparable to the flag rate above |
+| flag, ALL pre-instruction survivors | **79%** (53/67) | the POPULATION baseline |
+| flag, batch 1 alone | 64% (9/14) | the ruling's baseline, and the LOW OUTLIER of the set |
+| flag, batch 2 alone | 83% (44/53) | the other pre-instruction point |
+
+**The ruling asked for 64%, and 64% is the low outlier of a two-point set.** Against it the flag rate
+looks 28 points worse; against the population of every pre-instruction survivor it is 13. The control
+keeps its job -- it is what made the comparison worth making -- but it does not get to be the baseline.
+
+**And the delta is confounded, which is stated rather than buried.** This run changed the writer prompt
+AND the task set AND the maps those tasks anchor on, all in one session. A delta measurement changes one
+thing. So this figure is a fact about the run, not a measurement of the instruction, and the honest next
+step is to read the flagged members rather than to tune the prompt again.
 
 The probe FLAGS and never rejects, and it has no target rate. Per-task rates are in the table above.
 
