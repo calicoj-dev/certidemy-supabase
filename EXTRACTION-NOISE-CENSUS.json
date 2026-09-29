@@ -1,0 +1,1092 @@
+{
+ "signatures": [
+  "column-interleave",
+  "title-bleed",
+  "hyphen-break",
+  "doubled-word",
+  "doubled-word-at-junction",
+  "run-together"
+ ],
+ "damage_signatures": [
+  "column-interleave",
+  "title-bleed",
+  "hyphen-break",
+  "doubled-word",
+  "run-together"
+ ],
+ "by_source": {
+  "EBM Guide": {
+   "passages": 38,
+   "column-interleave": 0,
+   "title-bleed": 0,
+   "hyphen-break": 0,
+   "doubled-word": 0,
+   "doubled-word-at-junction": 0,
+   "run-together": 0,
+   "damaged": 0
+  },
+  "EU AI Act": {
+   "passages": 951,
+   "column-interleave": 0,
+   "title-bleed": 0,
+   "hyphen-break": 4,
+   "doubled-word": 3,
+   "doubled-word-at-junction": 0,
+   "run-together": 0,
+   "damaged": 7
+  },
+  "ISO 19011": {
+   "passages": 114,
+   "column-interleave": 0,
+   "title-bleed": 1,
+   "hyphen-break": 3,
+   "doubled-word": 2,
+   "doubled-word-at-junction": 3,
+   "run-together": 0,
+   "damaged": 6
+  },
+  "ISO/IEC 17021-1": {
+   "passages": 248,
+   "column-interleave": 3,
+   "title-bleed": 1,
+   "hyphen-break": 1,
+   "doubled-word": 3,
+   "doubled-word-at-junction": 7,
+   "run-together": 0,
+   "damaged": 7
+  },
+  "ISO/IEC 22989": {
+   "passages": 131,
+   "column-interleave": 0,
+   "title-bleed": 0,
+   "hyphen-break": 9,
+   "doubled-word": 3,
+   "doubled-word-at-junction": 1,
+   "run-together": 0,
+   "damaged": 12
+  },
+  "ISO/IEC 27000": {
+   "passages": 121,
+   "column-interleave": 0,
+   "title-bleed": 0,
+   "hyphen-break": 1,
+   "doubled-word": 0,
+   "doubled-word-at-junction": 6,
+   "run-together": 0,
+   "damaged": 1
+  },
+  "ISO/IEC 27001": {
+   "passages": 129,
+   "column-interleave": 0,
+   "title-bleed": 2,
+   "hyphen-break": 1,
+   "doubled-word": 0,
+   "doubled-word-at-junction": 0,
+   "run-together": 2,
+   "damaged": 5
+  },
+  "ISO/IEC 27002": {
+   "passages": 113,
+   "column-interleave": 0,
+   "title-bleed": 0,
+   "hyphen-break": 15,
+   "doubled-word": 4,
+   "doubled-word-at-junction": 0,
+   "run-together": 0,
+   "damaged": 18
+  },
+  "ISO/IEC 42001": {
+   "passages": 169,
+   "column-interleave": 9,
+   "title-bleed": 16,
+   "hyphen-break": 6,
+   "doubled-word": 0,
+   "doubled-word-at-junction": 5,
+   "run-together": 4,
+   "damaged": 32
+  },
+  "ISO/IEC 42006": {
+   "passages": 91,
+   "column-interleave": 0,
+   "title-bleed": 0,
+   "hyphen-break": 4,
+   "doubled-word": 2,
+   "doubled-word-at-junction": 0,
+   "run-together": 0,
+   "damaged": 5
+  },
+  "ITIL 4 Foundation": {
+   "passages": 105,
+   "column-interleave": 0,
+   "title-bleed": 0,
+   "hyphen-break": 22,
+   "doubled-word": 0,
+   "doubled-word-at-junction": 0,
+   "run-together": 1,
+   "damaged": 22
+  },
+  "NIST AI RMF": {
+   "passages": 89,
+   "column-interleave": 0,
+   "title-bleed": 11,
+   "hyphen-break": 5,
+   "doubled-word": 0,
+   "doubled-word-at-junction": 0,
+   "run-together": 0,
+   "damaged": 16
+  },
+  "Scrum Guide": {
+   "passages": 26,
+   "column-interleave": 0,
+   "title-bleed": 0,
+   "hyphen-break": 1,
+   "doubled-word": 0,
+   "doubled-word-at-junction": 0,
+   "run-together": 0,
+   "damaged": 1
+  }
+ },
+ "totals": {
+  "passages": 2325,
+  "column-interleave": 12,
+  "title-bleed": 31,
+  "hyphen-break": 72,
+  "doubled-word": 17,
+  "doubled-word-at-junction": 22,
+  "run-together": 7,
+  "damaged": 132
+ },
+ "damaged": [
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "7.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.1.2",
+   "signatures": [
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.1.3",
+   "signatures": [
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.2",
+   "signatures": [
+    "hyphen-break",
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.3",
+   "signatures": [
+    "hyphen-break",
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.4",
+   "signatures": [
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.5",
+   "signatures": [
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.6",
+   "signatures": [
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.7",
+   "signatures": [
+    "hyphen-break",
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.6.2.8",
+   "signatures": [
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "B.7.6",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "D.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.2.3",
+   "signatures": [
+    "run-together"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.2.4",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.3.2",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.3.3",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.2",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.3",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.4",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.5",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.4.6",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.5.4",
+   "signatures": [
+    "run-together"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.2",
+   "signatures": [
+    "run-together"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.3",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.4",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.5",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.7.6",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.8.2",
+   "signatures": [
+    "run-together"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.8.3",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.8.4",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.9.4",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42001",
+   "clause": "A.10.2",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27001",
+   "clause": "A.5.21",
+   "signatures": [
+    "run-together"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27001",
+   "clause": "A.5.24",
+   "signatures": [
+    "run-together"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27001",
+   "clause": "A.7.1",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27001",
+   "clause": "A.8.9",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27001",
+   "clause": "10.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "0.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "0.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "5.8",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "5.17",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "5.19",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "5.31",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "7.6",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "7.10",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.22",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.24",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.26",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.27",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.28",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "8.29",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "A.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "A.2",
+   "signatures": [
+    "hyphen-break",
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "3.1.5",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27002",
+   "clause": "3.1.31",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "6.3.3",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "A.1",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "A.6.3",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "A.9",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "3.20",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO 19011",
+   "clause": "3.27",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "Scrum Guide",
+   "clause": "Sprint Retrospective",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "EU AI Act",
+   "clause": "Recital 14",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "EU AI Act",
+   "clause": "Recital 49",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "EU AI Act",
+   "clause": "Art. 30(3)",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "EU AI Act",
+   "clause": "Art. 34(2)",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "EU AI Act",
+   "clause": "Art. 43(3)",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "EU AI Act",
+   "clause": "Annex I 14",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "EU AI Act",
+   "clause": "Annex V 5",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "6",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "1.2.1",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "1.2.2",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "1.2.3",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "3.1",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "3.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "3.3",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "3.4",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "3.5",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "3.6",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "3.7",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "5.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "GOVERN 6.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "MEASURE 2.11",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "MEASURE 4.1",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "NIST AI RMF",
+   "clause": "MANAGE 4.3",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "1.3.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "2.1.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "2.2.3",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "3.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "4.3.6.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "4.3.7.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "4.3.7.3",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "4.6.1.3",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "4.6.1.6",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "4.6.1.7",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.1.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.1.3",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.1.5.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.1.7",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.1.8",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.1.13.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.2.6",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.2.9",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.2.15.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.2.17.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.3.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ITIL 4 Foundation",
+   "clause": "5.3.3",
+   "signatures": [
+    "hyphen-break",
+    "run-together"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42006",
+   "clause": "7.1.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42006",
+   "clause": "A.2.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42006",
+   "clause": "A.876",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42006",
+   "clause": "B.2.1.1",
+   "signatures": [
+    "hyphen-break",
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO/IEC 42006",
+   "clause": "B.2.2.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 17021-1",
+   "clause": "3.2",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO/IEC 17021-1",
+   "clause": "3.14",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO/IEC 17021-1",
+   "clause": "7.5.3",
+   "signatures": [
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 17021-1",
+   "clause": "8.1.2",
+   "signatures": [
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 17021-1",
+   "clause": "9.4.8.3",
+   "signatures": [
+    "title-bleed"
+   ]
+  },
+  {
+   "source": "ISO/IEC 17021-1",
+   "clause": "9.6.5.2",
+   "signatures": [
+    "column-interleave"
+   ]
+  },
+  {
+   "source": "ISO/IEC 17021-1",
+   "clause": "B.6",
+   "signatures": [
+    "hyphen-break",
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO/IEC 27000",
+   "clause": "1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "5.5",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "5.7",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "5.12.1.3",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "5.13",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "6.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "6.2.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "8.7.1",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "8.7.2",
+   "signatures": [
+    "hyphen-break"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "3.1.25",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "3.2.10",
+   "signatures": [
+    "doubled-word"
+   ]
+  },
+  {
+   "source": "ISO/IEC 22989",
+   "clause": "3.2.14",
+   "signatures": [
+    "doubled-word"
+   ]
+  }
+ ]
+}
