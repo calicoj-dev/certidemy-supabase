@@ -4,19 +4,20 @@
  "standard": "ISO/IEC 42001",
  "edition": "2023",
  "attempted": 5,
- "generated": 0,
- "survivors": 0,
+ "generated": 5,
+ "survivors": 4,
  "generation_note": null,
  "reject_counts": {
-  "writer produced no items: the model returned an EMPTY array": 1
+  "reproduction survived the retry": 1,
+  "code: reproduction": 1
  },
  "tasks_mapped": 35,
  "tasks_total": 35,
  "unmapped_tasks": [],
  "held_tasks": [],
  "paraphrase_retry": {
-  "fixed": 0,
-  "still_failing": 0
+  "fixed": 4,
+  "still_failing": 1
  },
  "de_cue_retry": {
   "attempted": 0,
@@ -28,20 +29,943 @@
   "could_not_run": 0
  },
  "key_pick_before": {
-  "n": 0,
-  "hit": 0,
-  "pct": null
+  "n": 4,
+  "hit": 2,
+  "pct": 50
  },
  "key_pick_after": {
-  "n": 0,
-  "hit": 0,
-  "pct": null
+  "n": 4,
+  "hit": 2,
+  "pct": 50
  },
- "shape_cues_before": {},
- "shape_cues_after": {},
+ "shape_cues_before": {
+  "clang": 2
+ },
+ "shape_cues_after": {
+  "clang": 2
+ },
  "anchor_clusters": [],
- "options_probe_flags": 0,
+ "options_probe_flags": 2,
  "options_probe_unrun": 0,
- "longest_served_run_max": null,
- "items": []
+ "longest_served_run_max": 6,
+ "items": [
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "A team is deciding how far event-log keeping should reach across an AI system's life cycle. Which statement matches the Annex A control on recording event logs?",
+    "options": [
+     {
+      "text": "The organization determines the phases with event logging, expected at least while the system is in use.",
+      "is_correct": true
+     },
+     {
+      "text": "The model supplier fixes the logging phases when handing over the technical documentation package.",
+      "is_correct": false
+     },
+     {
+      "text": "Logging belongs with the verification and validation runs carried out in the period before release.",
+      "is_correct": false
+     },
+     {
+      "text": "Logging is switched on once users have reported an incident during ordinary operation of the system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "A.6.2.8 places the decision with the organization and sets a floor: \"The organization shall determine at which phases of the AI system life cycle, record keeping of event logs should be enabled, but at the minimum when the AI system is in use.\" The other options move the actor, the stage or the trigger.",
+    "key_support_clause": "A.6.2.8",
+    "key_support": "The organization shall determine at which phases of the AI system life cycle, record keeping of event logs should be enabled, but at the minimum when the AI system is in use.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.6.2.8",
+      "support": "The organization shall determine at which phases of the AI system life cycle, record keeping of event logs should be enabled, but at the minimum when the AI system is in use.",
+      "why_wrong": "The organization, not a supplier, determines the phases at which logging is enabled."
+     },
+     {
+      "index": 2,
+      "clause": "A.6.2.8",
+      "support": "but at the minimum when the AI system is in use",
+      "why_wrong": "Confining logging to pre-release testing ignores the stated minimum of the in-use period."
+     },
+     {
+      "index": 3,
+      "clause": "A.6.2.8",
+      "support": "record keeping of event logs should be enabled, but at the minimum when the AI system is in use",
+      "why_wrong": "Logging is tied to life-cycle phases decided in advance, not to an incident report."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 20,
+     "reason": "closest live item on this task shares 42%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 13,
+     "reason": "the key anchors in A.6.2.8, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": false,
+     "examined": 6,
+     "reason": "explanation: the quotation is 32 words; the ruling allows at most one sentence (30 words)"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "reproduction"
+   ],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option a",
+   "attributed_quotation": null,
+   "grounding_family": "A.6.2.8",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code"
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "A deployed classifier does not learn continuously, but its accuracy declines as the production data shifts, and the team prepares a retraining round. Which Annex A life-cycle control covers this activity?",
+    "options": [
+     {
+      "text": "Operation and monitoring, whose documented elements cover performance monitoring and updates",
+      "is_correct": true
+     },
+     {
+      "text": "Verification and validation, whose documented measures come with criteria for their use",
+      "is_correct": false
+     },
+     {
+      "text": "Deployment, whose documented plan confirms the applicable requirements before go-live",
+      "is_correct": false
+     },
+     {
+      "text": "Technical documentation, whose content is matched to categories of interested parties",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Detecting shifted performance in production and updating the system sits in the operation and monitoring stage. A.6.2.6 calls for documented elements for the ongoing running of the AI system, covering as a minimum the monitoring of the system and its performance, the fixing of faults, the issuing of updates and the provision of support. The other options name controls attached to earlier stages or to documentation provision.",
+    "key_support_clause": "A.6.2.6",
+    "key_support": "At the minimum, this should include system and performance monitoring, repairs, updates and support.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.6.2.4",
+      "support": "and validation measures for the AI system and specify criteria for their use.",
+      "why_wrong": "Verification and validation measures are set for testing the system, not for handling drift in live production data."
+     },
+     {
+      "index": 2,
+      "clause": "A.6.2.5",
+      "support": "The organization shall document a deployment plan and ensure that appropriate requirements are met prior to deployment.",
+      "why_wrong": "The deployment control addresses what happens ahead of go-live, not performance change during use."
+     },
+     {
+      "index": 3,
+      "clause": "A.6.2.7",
+      "support": "documentation is needed for each relevant category of interested parties",
+      "why_wrong": "This control concerns determining and supplying technical documentation, not monitoring or retraining."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a recommendation by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 20,
+     "reason": "closest live item on this task shares 17%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 13,
+     "reason": "the key anchors in A.6.2.6, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "A.6.2.6",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "B.6.2.6 (guidance for control A.6.2.6) explicitly states that where systems do not use continuous learning, performance can change due to concept or data drift in production data and that monitoring can identify the need for retraining, and it also covers updates.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "D",
+    "cue": "A, B and C all use the phrase \"whose documented ...\" while D alone drops \"documented\" and says \"whose content\"",
+    "cue_kind": "shared-phrase",
+    "reason": "picked D, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "35f851d3",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "D",
+    "cue": "A, B and C all use the phrase \"whose documented ...\" while D alone drops \"documented\" and says \"whose content\"",
+    "cue_kind": "shared-phrase",
+    "reason": "picked D, not the key -- the options do not give it away"
+   },
+   "item_before_decue": {
+    "question_text": "A deployed classifier does not learn continuously, but its accuracy declines as the production data shifts, and the team prepares a retraining round. Which Annex A life-cycle control covers this activity?",
+    "options": [
+     {
+      "text": "Operation and monitoring, whose documented elements cover performance monitoring and updates",
+      "is_correct": true
+     },
+     {
+      "text": "Verification and validation, whose documented measures come with criteria for their use",
+      "is_correct": false
+     },
+     {
+      "text": "Deployment, whose documented plan confirms the applicable requirements before go-live",
+      "is_correct": false
+     },
+     {
+      "text": "Technical documentation, whose content is matched to categories of interested parties",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Detecting shifted performance in production and updating the system sits in the operation and monitoring stage. A.6.2.6 calls for documented elements for the ongoing running of the AI system, covering as a minimum the monitoring of the system and its performance, the fixing of faults, the issuing of updates and the provision of support. The other options name controls attached to earlier stages or to documentation provision.",
+    "key_support_clause": "A.6.2.6",
+    "key_support": "At the minimum, this should include system and performance monitoring, repairs, updates and support.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.6.2.4",
+      "support": "and validation measures for the AI system and specify criteria for their use.",
+      "why_wrong": "Verification and validation measures are set for testing the system, not for handling drift in live production data."
+     },
+     {
+      "index": 2,
+      "clause": "A.6.2.5",
+      "support": "The organization shall document a deployment plan and ensure that appropriate requirements are met prior to deployment.",
+      "why_wrong": "The deployment control addresses what happens ahead of go-live, not performance change during use."
+     },
+     {
+      "index": 3,
+      "clause": "A.6.2.7",
+      "support": "documentation is needed for each relevant category of interested parties",
+      "why_wrong": "This control concerns determining and supplying technical documentation, not monitoring or retraining."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "A system already in production is to receive a substantial functional upgrade. Which statement reflects the Annex A control on AI system requirements and specification?",
+    "options": [
+     {
+      "text": "Requirements are specified and documented for the upgrade, just as for a newly built system.",
+      "is_correct": true
+     },
+     {
+      "text": "Requirements documents are prepared for new builds; upgrades are handled under the deployment plan.",
+      "is_correct": false
+     },
+     {
+      "text": "Requirements are captured inside the design and development documentation rather than separately.",
+      "is_correct": false
+     },
+     {
+      "text": "Requirements for the upgrade are conveyed through the technical documentation given to users.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "A.6.2.2 extends the requirements control beyond first builds: it reaches both brand-new systems and significant upgrades to systems already in place. The distractors displace that work onto deployment planning, design documentation or user-facing technical documentation.",
+    "key_support_clause": "A.6.2.2",
+    "key_support": "for new AI systems or material enhancements to existing systems.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.6.2.2",
+      "support": "for new AI systems or material enhancements to existing systems.",
+      "why_wrong": "Material enhancements are explicitly inside the scope of the requirements control, not covered by deployment planning alone."
+     },
+     {
+      "index": 2,
+      "clause": "A.6.2.3",
+      "support": "The organization shall document the AI system design and and development development based on organizational objectives, docu- mented requirements and specification criteria.",
+      "why_wrong": "Design and development documentation is built on documented requirements, so it presupposes rather than replaces them."
+     },
+     {
+      "index": 3,
+      "clause": "A.6.2.7",
+      "support": "documentation is needed for each relevant category of interested parties",
+      "why_wrong": "Technical documentation is provided to interested parties and is not the vehicle for specifying requirements."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a shall by the passage class (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 20,
+     "reason": "closest live item on this task shares 20%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 13,
+     "reason": "the key anchors in A.6.2.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "A.6.2.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "A.6.2.2 requires the organization to \"specify and document requirements for new AI systems or material enhancements to existing systems\", so a substantial functional upgrade is treated like a new build for requirements purposes.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Options B, C and D all relocate the requirements into some other document (deployment plan, design/development docs, technical documentation), while A alone states they are documented in their own right — the odd one out.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): Options B, C and D all relocate the requirements into some other document (deployment plan, design/development docs, technical documentation), while A alone states they are documented in their own right — the odd one out."
+   },
+   "verdict": "survivor",
+   "item_id": "a1411c8e",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"system\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Options B, C and D all relocate the requirements into some other document (deployment plan, design/development docs, technical documentation), while A alone states they are documented in their own right — the odd one out.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): Options B, C and D all relocate the requirements into some other document (deployment plan, design/development docs, technical documentation), while A alone states they are documented in their own right — the odd one out."
+   },
+   "item_before_decue": {
+    "question_text": "A system already in production is to receive a substantial functional upgrade. Which statement reflects the Annex A control on AI system requirements and specification?",
+    "options": [
+     {
+      "text": "Requirements are specified and documented for the upgrade, just as for a newly built system.",
+      "is_correct": true
+     },
+     {
+      "text": "Requirements documents are prepared for new builds; upgrades are handled under the deployment plan.",
+      "is_correct": false
+     },
+     {
+      "text": "Requirements are captured inside the design and development documentation rather than separately.",
+      "is_correct": false
+     },
+     {
+      "text": "Requirements for the upgrade are conveyed through the technical documentation given to users.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "A.6.2.2 extends the requirements control beyond first builds: it reaches both brand-new systems and significant upgrades to systems already in place. The distractors displace that work onto deployment planning, design documentation or user-facing technical documentation.",
+    "key_support_clause": "A.6.2.2",
+    "key_support": "for new AI systems or material enhancements to existing systems.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.6.2.2",
+      "support": "for new AI systems or material enhancements to existing systems.",
+      "why_wrong": "Material enhancements are explicitly inside the scope of the requirements control, not covered by deployment planning alone."
+     },
+     {
+      "index": 2,
+      "clause": "A.6.2.3",
+      "support": "The organization shall document the AI system design and and development development based on organizational objectives, docu- mented requirements and specification criteria.",
+      "why_wrong": "Design and development documentation is built on documented requirements, so it presupposes rather than replaces them."
+     },
+     {
+      "index": 3,
+      "clause": "A.6.2.7",
+      "support": "documentation is needed for each relevant category of interested parties",
+      "why_wrong": "Technical documentation is provided to interested parties and is not the vehicle for specifying requirements."
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"system\" from the stem and no distractor does"
+    }
+   ]
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "A validated model is about to be released into a cloud environment. Which item does Annex A place at the deployment stage?",
+    "options": [
+     {
+      "text": "A documented deployment plan, with the applicable requirements satisfied beforehand",
+      "is_correct": true
+     },
+     {
+      "text": "A documented record of design choices resting on the specification criteria",
+      "is_correct": false
+     },
+     {
+      "text": "A documented decision on which life-cycle phases keep records of events",
+      "is_correct": false
+     },
+     {
+      "text": "A documented set of objectives steering responsible development of the system",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.6.2.5 places two things at this stage: a written plan for the deployment, and confirmation that the relevant requirements have been satisfied before the system goes live. The other options belong to design documentation (A.6.2.3), event-log phases (A.6.2.8) and development objectives (A.6.1.2).",
+    "key_support_clause": "A.6.2.5",
+    "key_support": "The organization shall document a deployment plan and ensure that appropriate requirements are met prior to deployment.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.6.2.3",
+      "support": "The organization shall document the AI system design and and development development based on organizational objectives, docu- mented requirements and specification criteria.",
+      "why_wrong": "Documenting design and development belongs to an earlier stage than deployment."
+     },
+     {
+      "index": 2,
+      "clause": "A.6.2.8",
+      "support": "The organization shall determine at which phases of the AI system life cycle, record keeping of event logs should be enabled, but at the minimum when the AI system is in use.",
+      "why_wrong": "The logging-phase decision is a separate control and is not what the deployment control calls for."
+     },
+     {
+      "index": 3,
+      "clause": "A.6.1.2",
+      "support": "Objectives for responsible develop- The organization shall identify and document objectives ment of AI system to guide the responsible development AI systems, and take those objectives into account and integrate measures to achieve them in the development life cycle.",
+      "why_wrong": "Responsible development objectives are set for the development life cycle, not as the deployment-stage item."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 20,
+     "reason": "closest live item on this task shares 27%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 13,
+     "reason": "the key anchors in A.6.2.5, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in option a"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option a",
+   "attributed_quotation": null,
+   "grounding_family": "A.6.2.5",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.6.2.5 (AI system deployment) states the organization shall document a deployment plan and ensure that appropriate requirements are met prior to deployment.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "All four begin 'A documented …', but A is the only one containing a comma and a trailing qualifying clause ('with the applicable requirements satisfied beforehand'), making it structurally the odd one out with added specification.",
+    "cue_kind": "grammar",
+    "reason": "picked the key from the options alone and named a cue (grammar): All four begin 'A documented …', but A is the only one containing a comma and a trailing qualifying clause ('with the applicable requirements satisfied beforehand'), making it structurally the odd one out with added specification."
+   },
+   "verdict": "survivor",
+   "item_id": "843ad22b",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"deployment\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "All four begin 'A documented …', but A is the only one containing a comma and a trailing qualifying clause ('with the applicable requirements satisfied beforehand'), making it structurally the odd one out with added specification.",
+    "cue_kind": "grammar",
+    "reason": "picked the key from the options alone and named a cue (grammar): All four begin 'A documented …', but A is the only one containing a comma and a trailing qualifying clause ('with the applicable requirements satisfied beforehand'), making it structurally the odd one out with added specification."
+   },
+   "item_before_decue": {
+    "question_text": "A validated model is about to be released into a cloud environment. Which item does Annex A place at the deployment stage?",
+    "options": [
+     {
+      "text": "A documented deployment plan, with the applicable requirements satisfied beforehand",
+      "is_correct": true
+     },
+     {
+      "text": "A documented record of design choices resting on the specification criteria",
+      "is_correct": false
+     },
+     {
+      "text": "A documented decision on which life-cycle phases keep records of events",
+      "is_correct": false
+     },
+     {
+      "text": "A documented set of objectives steering responsible development of the system",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.6.2.5 places two things at this stage: a written plan for the deployment, and confirmation that the relevant requirements have been satisfied before the system goes live. The other options belong to design documentation (A.6.2.3), event-log phases (A.6.2.8) and development objectives (A.6.1.2).",
+    "key_support_clause": "A.6.2.5",
+    "key_support": "The organization shall document a deployment plan and ensure that appropriate requirements are met prior to deployment.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.6.2.3",
+      "support": "The organization shall document the AI system design and and development development based on organizational objectives, docu- mented requirements and specification criteria.",
+      "why_wrong": "Documenting design and development belongs to an earlier stage than deployment."
+     },
+     {
+      "index": 2,
+      "clause": "A.6.2.8",
+      "support": "The organization shall determine at which phases of the AI system life cycle, record keeping of event logs should be enabled, but at the minimum when the AI system is in use.",
+      "why_wrong": "The logging-phase decision is a separate control and is not what the deployment control calls for."
+     },
+     {
+      "index": 3,
+      "clause": "A.6.1.2",
+      "support": "Objectives for responsible develop- The organization shall identify and document objectives ment of AI system to guide the responsible development AI systems, and take those objectives into account and integrate measures to achieve them in the development life cycle.",
+      "why_wrong": "Responsible development objectives are set for the development life cycle, not as the deployment-stage item."
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"deployment\" from the stem and no distractor does"
+    }
+   ]
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "An auditor asks why AIMS obligations are spread across stages instead of concentrating at release. Which description best captures the stated aim of the AI system life cycle control set?",
+    "options": [
+     {
+      "text": "Setting the criteria and requirements that apply at each separate stage",
+      "is_correct": true
+     },
+     {
+      "text": "Gathering evidence from earlier work into a single release decision",
+      "is_correct": false
+     },
+     {
+      "text": "Tracking where data came from across the data and system life cycles",
+      "is_correct": false
+     },
+     {
+      "text": "Documenting objectives and processes for responsible design and development",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The objective stated at B.6.2.1 for this control set is to establish, stage by stage, what the criteria and requirements are across the AI system life cycle, which is why obligations attach at every stage rather than only at release. The other options restate the aim of data provenance, restate the aim of the responsible development guidance, or collapse the life cycle into a single release gate.",
+    "key_support_clause": "B.6.2.1",
+    "key_support": "To define the criteria and requirements for each stage of the AI system life cycle.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.6.2.1",
+      "support": "To define the criteria and requirements for each stage of the AI system life cycle.",
+      "why_wrong": "The stated aim is stage-by-stage criteria, not evidence funnelled into one release decision."
+     },
+     {
+      "index": 2,
+      "clause": "A.7.5",
+      "support": "Data provenance The organization shall define and document a process for recording the provenance of data used in its AI systems over the life cycles of the data and the AI system.",
+      "why_wrong": "This is the aim of the data provenance control, not of the life cycle control set."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.1.1",
+      "support": "To ensure that the organization identifies and documents objectives and implements processes for the responsible design and development of AI systems.",
+      "why_wrong": "This is the objective of the management guidance for development, a different control set."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 20,
+     "reason": "closest live item on this task shares 58%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 13,
+     "reason": "the key anchors in B.6.2.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in stem"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "B.6.2.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.6.2 / B.6.2.1 states the objective of the AI system life cycle control set is \"To define the criteria and requirements for each stage of the AI system life cycle.\"",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "B",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked B, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "4f639a4b",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "B",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked B, not the key -- the options do not give it away"
+   },
+   "item_before_decue": {
+    "question_text": "An auditor asks why AIMS obligations are spread across stages instead of concentrating at release. Which description best captures the stated aim of the AI system life cycle control set?",
+    "options": [
+     {
+      "text": "Setting the criteria and requirements that apply at each separate stage",
+      "is_correct": true
+     },
+     {
+      "text": "Gathering evidence from earlier work into a single release decision",
+      "is_correct": false
+     },
+     {
+      "text": "Tracking where data came from across the data and system life cycles",
+      "is_correct": false
+     },
+     {
+      "text": "Documenting objectives and processes for responsible design and development",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The objective stated at B.6.2.1 for this control set is to establish, stage by stage, what the criteria and requirements are across the AI system life cycle, which is why obligations attach at every stage rather than only at release. The other options restate the aim of data provenance, restate the aim of the responsible development guidance, or collapse the life cycle into a single release gate.",
+    "key_support_clause": "B.6.2.1",
+    "key_support": "To define the criteria and requirements for each stage of the AI system life cycle.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.6.2.1",
+      "support": "To define the criteria and requirements for each stage of the AI system life cycle.",
+      "why_wrong": "The stated aim is stage-by-stage criteria, not evidence funnelled into one release decision."
+     },
+     {
+      "index": 2,
+      "clause": "A.7.5",
+      "support": "Data provenance The organization shall define and document a process for recording the provenance of data used in its AI systems over the life cycles of the data and the AI system.",
+      "why_wrong": "This is the aim of the data provenance control, not of the life cycle control set."
+     },
+     {
+      "index": 3,
+      "clause": "B.6.1.1",
+      "support": "To ensure that the organization identifies and documents objectives and implements processes for the responsible design and development of AI systems.",
+      "why_wrong": "This is the objective of the management guidance for development, a different control set."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  }
+ ]
 }

@@ -1,0 +1,158 @@
+{
+ "detectors": [
+  "duplicated adjacent word",
+  "hyphenation break mid-word",
+  "title bleeding into the text",
+  "double space inside a sentence",
+  "a lone letter between words"
+ ],
+ "rows": [
+  {
+   "clause": "A.6.2.2",
+   "promoted": true,
+   "words": 24,
+   "findings": [
+    "hyphenation break mid-word",
+    "title bleeding into the text"
+   ],
+   "samples": [
+    "AI system requirements and spec- The organization shall specify and document require- ific",
+    "AI system requirements and spec- The organization shall spec"
+   ]
+  },
+  {
+   "clause": "A.6.2.3",
+   "promoted": true,
+   "words": 27,
+   "findings": [
+    "duplicated adjacent word",
+    "hyphenation break mid-word",
+    "title bleeding into the text"
+   ],
+   "samples": [
+    "document the AI system design and and development development based on organizational obje",
+    "organizational objectives, docu- mented requirements and specification criteria.",
+    "Documentation of AI system design The organization shall doc"
+   ]
+  },
+  {
+   "clause": "A.6.2.4",
+   "promoted": true,
+   "words": 26,
+   "findings": [
+    "hyphenation break mid-word",
+    "title bleeding into the text"
+   ],
+   "samples": [
+    " system verification and valida- The organization shall define and document verification t",
+    "AI system verification and valida- The organization shall de"
+   ]
+  },
+  {
+   "clause": "A.6.2.5",
+   "promoted": true,
+   "words": 23,
+   "findings": [
+    "title bleeding into the text"
+   ],
+   "samples": [
+    "AI system deployment The organization shall document a deplo"
+   ]
+  },
+  {
+   "clause": "A.6.2.6",
+   "promoted": true,
+   "words": 37,
+   "findings": [
+    "hyphenation break mid-word",
+    "title bleeding into the text"
+   ],
+   "samples": [
+    "AI system operation and monitor- The organization shall define and document the necessary ",
+    "AI system operation and monitor- The organization shall defi"
+   ]
+  },
+  {
+   "clause": "A.6.2.7",
+   "promoted": true,
+   "words": 40,
+   "findings": [
+    "hyphenation break mid-word",
+    "title bleeding into the text"
+   ],
+   "samples": [
+    "determine what AI system techni- cal documentation is needed for each relevant category of",
+    "AI system technical documentation The organization shall det"
+   ]
+  },
+  {
+   "clause": "A.6.2.8",
+   "promoted": true,
+   "words": 38,
+   "findings": [
+    "title bleeding into the text"
+   ],
+   "samples": [
+    "AI system recording of event logs The organization shall det"
+   ]
+  },
+  {
+   "clause": "A.6.1.2",
+   "promoted": false,
+   "words": 39,
+   "findings": [
+    "hyphenation break mid-word",
+    "title bleeding into the text"
+   ],
+   "samples": [
+    "ectives for responsible develop- The organization shall identify and document objectives m",
+    "Objectives for responsible develop- The organization shall i"
+   ]
+  },
+  {
+   "clause": "A.6.1.3",
+   "promoted": false,
+   "words": 28,
+   "findings": [
+    "hyphenation break mid-word",
+    "title bleeding into the text"
+   ],
+   "samples": [
+    "rocesses for responsible AI sys- The organization shall define and document the specific t",
+    "Processes for responsible AI sys- The organization shall def"
+   ]
+  },
+  {
+   "clause": "B.6.1.1",
+   "promoted": false,
+   "words": 21,
+   "findings": [],
+   "samples": []
+  },
+  {
+   "clause": "B.6.2.1",
+   "promoted": false,
+   "words": 15,
+   "findings": [],
+   "samples": []
+  },
+  {
+   "clause": "C.3.6",
+   "promoted": false,
+   "words": 24,
+   "findings": [],
+   "samples": []
+  },
+  {
+   "clause": "8.1",
+   "promoted": false,
+   "words": 169,
+   "findings": [
+    "a lone letter between words"
+   ],
+   "samples": [
+    "s reference controls and Annex B provides implementation guidance for them. Documented inf"
+   ]
+  }
+ ]
+}
