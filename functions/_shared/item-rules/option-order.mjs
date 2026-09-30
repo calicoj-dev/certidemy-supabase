@@ -29,6 +29,17 @@
  * It does not touch `correct_answer`, it does not renumber anything, and it does not reorder the options of
  * an item whose ids are not unique -- that item is returned untouched, because a reorder that cannot be
  * traced back to its ids is worse than an unbalanced one.
+ *
+ * ============ AND SOME ITEMS MUST NEVER BE REORDERED, MARKED PER ITEM ============
+ *
+ * Ruled PROMPT-95 addendum. "All of the above", "None of the above", "Both A and B", an option that names
+ * another option by letter, and an ordered scale (30/60/90 days, monthly/quarterly/annually) are only true in
+ * the position they were written for. `quiz_questions.options_fixed_order` (migration 384) marks such an
+ * item, and `orderOptionsForAttempt` returns its options untouched.
+ *
+ * THE MARKER IS SET BY A HUMAN. The census over 27,732 live rows found ZERO such items and the director ruled
+ * that no detector marks items on its own until that count has been reviewed. So the flag exists, the
+ * delivery path honours it, and every row is false.
  */
 
 /** FNV-1a over a string. Small, dependency-free, and stable across runtimes -- which a hash used for
@@ -55,10 +66,16 @@ function mulberry32(a) {
 /**
  * @param options   [{ id, text, ... }]  -- returned reordered, each entry byte-identical
  * @param seedParts strings that identify THIS attempt of THIS item, e.g. [session_id, question_id]
+ * @param fixedOrder  the item's `options_fixed_order`. TRUE returns the options untouched.
+ *                    Defaults to false, which is the column's own default -- but a caller that FORGETS to
+ *                    pass it gets shuffling, so every call site passes it explicitly and the controls assert
+ *                    the skip works.
  * @returns a new array; the input is never mutated
  */
-export function orderOptionsForAttempt(options, seedParts) {
+export function orderOptionsForAttempt(options, seedParts, fixedOrder = false) {
   const arr = Array.isArray(options) ? options.slice() : [];
+  /* MARKED ITEMS ARE RETURNED IN STORED ORDER. "All of the above" is only true where it was written. */
+  if (fixedOrder === true) return arr;
   if (arr.length < 2) return arr;
   /* ids must be present and unique, or the reorder is untraceable and is refused */
   const ids = arr.map((o) => (o && o.id !== undefined && o.id !== null ? String(o.id) : null));
@@ -154,6 +171,26 @@ export function optionOrderControls() {
   ok("a single option is returned untouched",
     JSON.stringify(orderOptionsForAttempt([{ id: "a", text: "x" }], ["s", "q"])) ===
       JSON.stringify([{ id: "a", text: "x" }]));
+
+  /* 6b. THE FIXED-ORDER MARKER, both directions. An item marked `options_fixed_order` must come back in
+   *     stored order for EVERY seed -- and an unmarked one must still move, or the marker is doing nothing
+   *     because the shuffle is broken. */
+  let everFixed = true, unmarkedMoved = false;
+  for (let s = 0; s < 40; s++) {
+    const fixed = orderOptionsForAttempt(opts, ["sess" + s, "q-fixed"], true);
+    if (fixed.map((o) => o.id).join("") !== opts.map((o) => o.id).join("")) everFixed = false;
+    const free = orderOptionsForAttempt(opts, ["sess" + s, "q-fixed"], false);
+    if (free.map((o) => o.id).join("") !== opts.map((o) => o.id).join("")) unmarkedMoved = true;
+  }
+  ok("a marked item keeps stored order for every seed", everFixed);
+  ok("...and an UNMARKED item with the same seeds still moves", unmarkedMoved,
+    "nothing moved, so the marker control proves nothing");
+  /* only the literal `true` skips: a truthy string from a loose read must not silently freeze an item */
+  ok("only the literal true skips the shuffle",
+    orderOptionsForAttempt(opts, ["s", "q"], "true").map((o) => o.id).join("") !==
+      opts.map((o) => o.id).join("") ||
+    orderOptionsForAttempt(opts, ["s2", "q"], "true").map((o) => o.id).join("") !==
+      opts.map((o) => o.id).join(""));
 
   /* 7. THE DISTRIBUTION IS FLAT. A shuffle that always produced the same few permutations would pass every
    *    control above and leave the skew in place. */

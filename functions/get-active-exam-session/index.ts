@@ -377,7 +377,7 @@ serve(async (req) => {
     const ids = served.map((s) => s.question_id as string);
     const { data: questionRows, error: qErr } = await svc
       .from("quiz_questions")
-      .select("id, question_text, question_type, options")
+      .select("id, question_text, question_type, options, options_fixed_order")
       .in("id", ids);
 
     if (qErr) {
@@ -402,7 +402,7 @@ serve(async (req) => {
         question_text: q.question_text,
         question_type: q.question_type,
         // Same seed as generate-mock-exam, so the resumed form shows the order the candidate already saw.
-        options: orderOptionsForAttempt(q.options, [session.id, q.id]),
+        options: orderOptionsForAttempt(q.options, [session.id, q.id], q.options_fixed_order === true),
       });
     }
     if (missing > 0) {

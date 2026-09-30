@@ -65,6 +65,16 @@ interface QuestionRow {
   question_text: string;
   question_type: string;
   options: unknown;
+  /**
+   * PROMPT-95 addendum: TRUE means these options must be served in stored order. Migration 384.
+   *
+   * REQUIRED, NOT OPTIONAL, AND THAT IS THE POINT. The `candidates` mapping below rebuilds each row field by
+   * field, and the first version of this change did not carry the flag through it -- so the serve site read
+   * `undefined`, `=== true` was false, and a MARKED ITEM WOULD HAVE BEEN SHUFFLED ANYWAY with nothing
+   * reporting it. Making the field required means `deno check` refuses that mapping instead of a candidate
+   * discovering it. The column is NOT NULL, so the database always supplies a boolean.
+   */
+  options_fixed_order: boolean;
   difficulty: number;
   task_id: string | null;
   domain_id: string | null;
@@ -278,7 +288,7 @@ serve(async (req) => {
     //    approved practice items in the language.
     let questionQuery = svc
       .from("quiz_questions")
-      .select("id, question_text, question_type, options, difficulty, task_id, question_group_id")
+      .select("id, question_text, question_type, options, options_fixed_order, difficulty, task_id, question_group_id")
       .eq("certification_id", body.certification_id)
       .eq("pool", pool)
       .eq("language", language)
@@ -367,6 +377,9 @@ serve(async (req) => {
       question_text: q.question_text,
       question_type: q.question_type,
       options: q.options,
+      // Carried through, because the serve site reads it. Dropping it here would make the fixed-order
+      // marker silently inert -- the flag set, the code reading it, and `undefined` every time.
+      options_fixed_order: q.options_fixed_order === true,
       difficulty: q.difficulty,
       task_id: q.task_id,
       domain_id: q.task_id ? domainByTask.get(q.task_id) ?? null : null,
@@ -503,7 +516,7 @@ serve(async (req) => {
         //
         // Seeded on (session_id, question_id): the same attempt always renders the same order, so a reload
         // or a resume does not move the options; a different attempt renders a different one.
-        options: orderOptionsForAttempt(q.options, [session.id, q.id]),
+        options: orderOptionsForAttempt(q.options, [session.id, q.id], q.options_fixed_order === true),
         // difficulty / task / domain deliberately omitted so the client
         // can't infer answer strategies. Used only at scoring time.
       })),
