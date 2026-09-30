@@ -29,26 +29,26 @@ At $15 / $75 per million tokens (input / output).
 | task | batch | shortfall | attempted | survived | rejections by gate | key-pick | flag | cue flags | distinct anchors |
 |---|---|---|---|---|---|---|---|---|---|
 | 1.1 | batch 1 | 0 | 4 | **4** | — | 100% (4/4) | 75% (3/4) | length 2, only-negation 1 | 4 |
-| 1.3 | batch 2 | 4 | 4 | **3** | `solver-split` 1 | 67% (2/3) | 67% (2/3) | only-hedged 1, shared-phrase 1 | 3 |
+| 1.3 | batch 2 | 1 | 4 | **3** | `solver-split` 1 | 67% (2/3) | 67% (2/3) | only-hedged 1, shared-phrase 1 | 3 |
 | 1.4 | batch 1 | 0 | 5 | **5** | — | 60% (3/5) | 40% (2/5) | odd-verdict 1, shared-phrase 1 | 5 |
 | 1.5 | batch 1 | 1 | 6 | **5** | `modal-fidelity` 1, `reproduction` 1 | 80% (4/5) | 80% (4/5) | odd-verdict 1, length 1, shared-phrase 1, only-hedged 1 | 5 |
-| 1.6 | batch 2 | 5 | 5 | **4** | `reproduction` 1 | 100% (4/4) | 100% (4/4) | only-hedged 1, length 1, shared-phrase 1, odd-verdict 1 | 4 |
-| 2.3 | batch 2 | 3 | 3 | **3** | — | 33% (1/3) | 33% (1/3) | odd-verdict 1 | 3 |
-| 2.5 | batch 2 | 4 | 4 | **2** | `solver` 2 | 0% (0/2) | 0% (0/2) | — | 2 |
-| 2.6 | batch 2 | 5 | 5 | **5** | — | 100% (5/5) | 100% (5/5) | shared-phrase 3, only-hedged 1, odd-verdict 1 | 5 |
-| 3.3 | batch 2 | 4 | 4 | **4** | — | 75% (3/4) | 75% (3/4) | length 3 | 4 |
-| 3.5 | batch 2 | 6 | 6 | **6** | — | 100% (6/6) | 100% (6/6) | odd-verdict 3, shared-phrase 2, only-hedged 1 | 6 |
-| 3.6 | batch 2 | 5 | 5 | **5** | — | 80% (4/5) | 80% (4/5) | length 1, shared-phrase 1, odd-verdict 1, only-hedged 1 | 5 |
-| 3.7 | batch 2 | 5 | 5 | **4** | `solver-split` 1 | 100% (4/4) | 100% (4/4) | odd-verdict 2, only-hedged 1, shared-phrase 1 | 4 |
-| 3.8 | batch 2 | 3 | 3 | **3** | — | 100% (3/3) | 100% (3/3) | odd-verdict 2, shared-phrase 1 | 2 |
+| 1.6 | batch 2 | 1 | 5 | **4** | `reproduction` 1 | 100% (4/4) | 100% (4/4) | only-hedged 1, length 1, shared-phrase 1, odd-verdict 1 | 4 |
+| 2.3 | batch 2 | 0 | 3 | **3** | — | 33% (1/3) | 33% (1/3) | odd-verdict 1 | 3 |
+| 2.5 | batch 2 | 2 | 4 | **2** | `solver` 2 | 0% (0/2) | 0% (0/2) | — | 2 |
+| 2.6 | batch 2 | 0 | 5 | **5** | — | 100% (5/5) | 100% (5/5) | shared-phrase 3, only-hedged 1, odd-verdict 1 | 5 |
+| 3.3 | batch 2 | 0 | 4 | **4** | — | 75% (3/4) | 75% (3/4) | length 3 | 4 |
+| 3.5 | batch 2 | 0 | 6 | **6** | — | 100% (6/6) | 100% (6/6) | odd-verdict 3, shared-phrase 2, only-hedged 1 | 6 |
+| 3.6 | batch 2 | 0 | 5 | **5** | — | 80% (4/5) | 80% (4/5) | length 1, shared-phrase 1, odd-verdict 1, only-hedged 1 | 5 |
+| 3.7 | batch 2 | 1 | 5 | **4** | `solver-split` 1 | 100% (4/4) | 100% (4/4) | odd-verdict 2, only-hedged 1, shared-phrase 1 | 4 |
+| 3.8 | batch 2 | 0 | 3 | **3** | — | 100% (3/3) | 100% (3/3) | odd-verdict 2, shared-phrase 1 | 2 |
 | 4.1 | batch 2 | 2 | 2 | **1** | `modal-fidelity` 1, `reproduction` 1 | 0% (0/1) | 0% (0/1) | — | 1 |
 | 4.3 | batch 2 | 1 | 1 | **0** | `solver` 1 | — | — | — | 0 |
-| 4.4 | batch 2 | 4 | 4 | **1** | `reproduction` 2, `solver-split` 1, `modal-fidelity` 1, `shared-distractor-phrase` 1 | 0% (0/1) | 0% (0/1) | — | 1 |
+| 4.4 | batch 2 | 3 | 4 | **1** | `reproduction` 2, `solver-split` 1, `modal-fidelity` 1, `shared-distractor-phrase` 1 | 0% (0/1) | 0% (0/1) | — | 1 |
 | 4.5 | batch 2 | 3 | 3 | **0** | `reproduction` 3 | — | — | — | 0 |
-| 4.6 | batch 2 | 2 | 2 | **1** | `solver` 1 | 100% (1/1) | 100% (1/1) | shared-phrase 1 | 1 |
-| 4.7 | batch 2 | 7 | 7 | **4** | `structure` 2, `shared-distractor-phrase` 1, `solver-split` 1 | 100% (4/4) | 100% (4/4) | odd-verdict 3, shared-phrase 1 | 4 |
-| 5.5 | batch 2 | 5 | 5 | **2** | `structure` 1, `reproduction` 1 | 100% (2/2) | 100% (2/2) | shared-phrase 1, odd-verdict 1 | 1 |
-| 5.6 | batch 2 | 5 | 5 | **5** | — | 100% (5/5) | 100% (5/5) | odd-verdict 2, length 2, shared-phrase 1 | 5 |
+| 4.6 | batch 2 | 1 | 2 | **1** | `solver` 1 | 100% (1/1) | 100% (1/1) | shared-phrase 1 | 1 |
+| 4.7 | batch 2 | 3 | 7 | **4** | `structure` 2, `shared-distractor-phrase` 1, `solver-split` 1 | 100% (4/4) | 100% (4/4) | odd-verdict 3, shared-phrase 1 | 4 |
+| 5.5 | batch 2 | 4 | 5 | **2** | `structure` 1, `reproduction` 1 | 100% (2/2) | 100% (2/2) | shared-phrase 1, odd-verdict 1 | 1 |
+| 5.6 | batch 2 | 0 | 5 | **5** | — | 100% (5/5) | 100% (5/5) | odd-verdict 2, length 2, shared-phrase 1 | 5 |
 
 **Rejections across the run:** `reproduction` 9, `solver-split` 4, `solver` 4, `modal-fidelity` 3, `structure` 3, `shared-distractor-phrase` 2
 
@@ -668,7 +668,7 @@ ways across two runs with the options shuffled.
 
 #### `bf9c381b`   anchor `A.6.2.7`
 
-> The organization shall determine what AI system techni- cal documentation is needed for each relevant category of interested parties, such as users, partners, supervisory authorities, and provide the technical documentation to them in the appropriate form.
+> The organization shall determine what AI system technical documentation is needed for each relevant category of interested parties, such as users, partners, supervisory authorities, and provide the technical documentation to them in the appropriate form.
 
 **Q** A device maker embeds a supplier's diagnostic model in a triage product. Clinical users ask how the model behaves at its limits, and a supervisory authority asks for evidence about the product. What does the AI management system require the device maker to do?
 
@@ -976,7 +976,7 @@ ways across two runs with the options shuffled.
 
 #### `984044c0`   anchor `A.2.3`
 
-> Alignment with other organizaThe organization shall determine where other policies can tional policies be affected by or apply to, the organization’s objectives with respect to AI systems.
+> The organization shall determine where other policies can be affected by or apply to, the organization’s objectives with respect to AI systems.
 
 **Q** An organization holds an information security policy and a records retention policy that predate its AI work. Which action does the Annex A control on alignment with other organizational policies call for?
 

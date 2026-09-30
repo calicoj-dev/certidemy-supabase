@@ -70,6 +70,39 @@ const sfOf = new Map(SF.per_task.map((r) => [r.code, r]));
   }
 }
 
+/* ============ AND FRESHNESS, WHICH THE ARITHMETIC CHECK ABOVE CANNOT SEE ============
+ *
+ * `have === keptUsable + inserted` reconciles a STALE artifact with itself perfectly. This report ran once
+ * against a shortfall written before 97 rows were inserted and summarised it as fact: every `inserted` column
+ * was hours out of date and the totals all added up.
+ *
+ * So the artifact's own `inserted` figures are compared against THE BANK AS IT IS NOW. That is one read and
+ * it cannot be satisfied by a self-consistent stale file -- the same reason a migration asserts a
+ * before-state rather than a literal. A mismatch names the tasks and says which command to re-run.
+ */
+{
+  const rows = await getAll(KEY, "quiz_questions?select=id,task_id,status,item_origin" +
+    "&certification_id=eq." + certs[0].id + "&language=eq.en&pool=eq.secure&retired_at=is.null" +
+    "&status=eq.pending_review&item_origin=eq.generated");
+  const taskById = new Map(tasks.map((t) => [t.id, t.code]));
+  const live = new Map();
+  for (const r of rows) {
+    const code = taskById.get(r.task_id);
+    if (code) live.set(code, (live.get(code) || 0) + 1);
+  }
+  const drift = SF.per_task.filter((r) => (live.get(r.code) || 0) !== r.inserted)
+    .map((r) => r.code + ": artifact says " + r.inserted + ", the bank holds " + (live.get(r.code) || 0));
+  if (drift.length) {
+    console.error("ABORT: AIMSF-ROLLOUT-SHORTFALL.json is STALE against the bank on " + drift.length +
+      " task(s). Its arithmetic reconciles with itself, which is exactly why that check could not see this.");
+    for (const d of drift.slice(0, 12)) console.error("  " + d);
+    console.error("Re-run:  node --dns-result-order=ipv4first scripts/rollout-shortfall.mjs");
+    process.exit(2);
+  }
+  console.log("  freshness: the shortfall's inserted counts match the bank on all " + SF.per_task.length +
+    " task(s)   (" + rows.length + " pending_review grounded row(s) read)");
+}
+
 /* ---- INSERTED ids, needed only to tell an inserted survivor from a waiting one ---- */
 const ig = await getAll(KEY, "item_grounding?select=question_id&order=question_id");
 const gq = await getAllIn(KEY, "quiz_questions", "id,question_text", "id",
@@ -80,6 +113,53 @@ const WAITING = [["batch 2", "AIMSF-ROLLOUT-B2.json"], ["R2", "AIMSF-R2-PROBE.js
   ["R3", "AIMSF-R3-PROBE.json"], ["R3", "AIMSF-R3-REST.json"]];
 /* match by STEM HASH, because an artifact carries no question_id: the same stem inserted is the same item */
 const insertedStems = new Set(gq.map((q) => idOf(q.question_text)));
+
+/* ============ AWAITING MEANS "YOU COULD STILL APPROVE THIS". DISPOSED ITEMS ARE NOT AWAITING. ============
+ *
+ * The first run of this report after the PROMPT-95 s2 insert claimed task 3.7 *"reaches its floor on
+ * approval"*, on the strength of one artifact survivor that was not in the bank. That item was `3d1d332c` --
+ * SUPERSEDED by a stem rewrite whose replacement is already inserted. There was nothing to approve, and the
+ * claim was the most consequential kind this report can make.
+ *
+ * Three ways an artifact survivor stops being awaiting, and every one is DERIVED from an outcome artifact
+ * rather than listed here, because a hand-kept list of dispositions is a second copy of a fact:
+ *
+ *   REJECTED     the director's own list, from the revision artifact's `rejected` block
+ *   SUPERSEDED   an id named as `revision_of` by a revision -- its replacement is a different item now
+ *   GATE-REFUSED an id the insert run recorded with a non-survivor verdict
+ */
+const DISPOSED = new Map();   /* id8 -> reason */
+{
+  const revRaw = join(ROOT, "AIMSF-S2-REVISED-raw.json");
+  if (existsSync(revRaw)) {
+    const a = JSON.parse(readFileSync(revRaw, "utf8"));
+    for (const r of a.rejected || []) DISPOSED.set(String(r.id).slice(0, 8), "REJECTED: " + r.why);
+    for (const r of a.items || []) {
+      if (r.revision_of) {
+        DISPOSED.set(String(r.revision_of).slice(0, 8),
+          "SUPERSEDED by an s2 revision of " + (r.revision_fields || []).join(", "));
+      }
+    }
+  }
+  const inserted = join(ROOT, "AIMSF-S2-INSERTED.json");
+  if (existsSync(inserted)) {
+    for (const r of JSON.parse(readFileSync(inserted, "utf8")).items || []) {
+      if (r.verdict === "survivor") continue;
+      DISPOSED.set(String(r.item_id || "").slice(0, 8),
+        "GATE-REFUSED at insert: " + r.verdict + " (" + (r.failed || []).join(", ") + ")");
+    }
+  }
+  /* THE SET MUST BE NON-EMPTY OR THIS EXCLUSION IS DOING NOTHING, and doing nothing quietly is how the
+   * claim it exists to prevent came back. If every outcome artifact were renamed, the report would go back
+   * to counting superseded items as awaiting and say nothing about it. */
+  if (!DISPOSED.size) {
+    console.log("  NOTE: no disposition artifact found, so NOTHING is excluded from `awaiting`. If any item " +
+      "has been rejected or superseded, this report will over-count what you can approve.");
+  } else {
+    console.log("  dispositions: " + DISPOSED.size + " artifact survivor(s) excluded from `awaiting` -- " +
+      [...DISPOSED].map(([id, why]) => id + " " + why.split(":")[0]).join(", "));
+  }
+}
 const awaiting = new Map();      /* code -> { "batch 2": n, R2: n, R3: n } */
 const missingArtifacts = [];
 for (const [label, f] of WAITING) {
@@ -91,6 +171,7 @@ for (const [label, f] of WAITING) {
     /* ALREADY INSERTED IS NOT AWAITING. Batch 1's survivors were inserted this session, so counting every
      * artifact survivor as waiting would double-count them against the bank. */
     if (insertedStems.has(id)) continue;
+    if (DISPOSED.has(String(id).slice(0, 8))) continue;
     const code = r.task_code;
     if (!awaiting.has(code)) awaiting.set(code, {});
     const a = awaiting.get(code);

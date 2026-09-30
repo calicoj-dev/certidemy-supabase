@@ -18,13 +18,18 @@ import { reporterGateParity, reporterGateParityControls } from "./lib/reporter-g
 /* R1 by default, so the existing invocation is unchanged. --batch may be repeated; --report names the
  * output stem. One implementation, two reports. */
 const argBatches = [];
-let STEM = "AIMSF-ROLLOUT-R1", TITLE = "AIMS-F rollout R1";
+let STEM = "AIMSF-ROLLOUT-R1", TITLE = "AIMS-F rollout R1", CEILING = null;
 for (const a of process.argv.slice(2)) {
   let m;
   if ((m = /^--batch=([^:]+):(.+)$/.exec(a))) { argBatches.push([m[1], m[2]]); continue; }
   if ((m = /^--report=(.+)$/.exec(a))) { STEM = m[1]; continue; }
   if ((m = /^--title=(.+)$/.exec(a))) { TITLE = m[1]; continue; }
-  console.error("Unrecognised flag: " + a + ". Known: --batch=<label>:<file> (repeatable), --report=<stem>, --title=<text>.");
+  /* --ceiling=<usd> prints the ceiling, the per-attempt rate measured on the FIRST batch, the projection
+   * that rate authorised, and the actual. A ceiling reported only as a total cannot be checked against the
+   * decision taken before the money was spent. */
+  if ((m = /^--ceiling=([\d.]+)$/.exec(a))) { CEILING = Number(m[1]); continue; }
+  console.error("Unrecognised flag: " + a + ". Known: --batch=<label>:<file> (repeatable), --report=<stem>, " +
+    "--title=<text>, --ceiling=<usd>.");
   process.exit(2);
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -99,14 +104,32 @@ for (const b of loaded) {
         if (pr.state === "flag") t.flags++;
       }
     } else {
-      /* a rejection can name more than one gate; solver states are counted under their own names */
-      const failed = (r.gates || []).filter((g) => g.pass === false).map((g) => g.id);
+      /* ============ THE REASON SET IS THE UNION OF `gates` AND `failed`, AND IT WAS NOT ============
+       *
+       * This read `r.gates` alone, and R4 is where that cost something: task 5.5 lost THREE items to
+       * `anchor-cap` and the table printed a dash. `anchor-cap` is applied after the gate sweep, so it lands
+       * in `record.failed` without a `gates[]` entry -- and those items also carry `solver: accepted`, so the
+       * `(unattributed)` fallback could not fire either. Three rejections vanished from a report whose whole
+       * job is to say why items were refused.
+       *
+       * Same family as `quote-noise` printing 0 while wired to nothing, with the direction reversed: there a
+       * REPORTED gate did not run, here a gate that RAN and REJECTED was not reported. The parity check
+       * cannot see this one -- it compares names the reporter can print against gates that run, and a reason
+       * the reporter never collects has no name to compare. */
+      const failed = [...new Set([
+        ...(r.gates || []).filter((g) => g.pass === false).map((g) => g.id),
+        ...(Array.isArray(r.failed) ? r.failed : []),
+      ])];
       for (const id of failed) t.gates[id] = (t.gates[id] || 0) + 1;
       const s = (r.solver || {}).state;
       if (s === "split") t.gates["solver-split"] = (t.gates["solver-split"] || 0) + 1;
       else if (s === "rejected") t.gates["solver"] = (t.gates["solver"] || 0) + 1;
       else if (s === "could-not-run") t.gates["solver-could-not-run"] = (t.gates["solver-could-not-run"] || 0) + 1;
-      if (!failed.length && !s) t.gates["(unattributed)"] = (t.gates["(unattributed)"] || 0) + 1;
+      /* A NON-SURVIVOR THAT NAMES NOTHING IS `(unattributed)`, whatever the solver said. The old condition
+       * also required no solver state, so a rejection with `solver: accepted` and no gate fell through
+       * entirely -- counted nowhere, printed as a dash. */
+      const named = failed.length || s === "split" || s === "rejected" || s === "could-not-run";
+      if (!named) t.gates["(unattributed)"] = (t.gates["(unattributed)"] || 0) + 1;
     }
   }
 }
@@ -125,10 +148,51 @@ for (const b of loaded) {
     acc.calls += r.calls; acc.input += r.input; acc.output += r.output;
   }
 }
+/* PER BATCH, so a ceiling measured on the first batch can be compared with what it authorised. A single
+ * total cannot separate a measurement from the run it paid for. */
+const perBatch = loaded.map((b) => ({
+  label: b.name,
+  attempted: (b.j.items || []).length,
+  survivors: (b.j.items || []).filter((r) => r.verdict === "survivor").length,
+  spend: ((b.j.spend || {}).usd) || 0,
+}));
 const price = (loaded[0].j.spend || {}).price_per_mtok || { input: 15, output: 75 };
 const usdOf = (r) => (r.input / 1e6) * price.input + (r.output / 1e6) * price.output;
 const totalAttempted = rows.reduce((s, r) => s + r.attempted, 0);
 const totalSurvivors = rows.reduce((s, r) => s + r.survivors, 0);
+
+/* ============ EVERY NON-SURVIVOR MUST BE ACCOUNTED FOR BY NAME ============
+ *
+ * The check that would have caught three vanished `anchor-cap` rejections, and it is cheap: count the
+ * non-survivors, count the ones this report can name a reason for, and refuse to print if the two disagree.
+ * A rejection table that silently omits rows is worse than no table -- its dashes read as "nothing went
+ * wrong here". */
+{
+  const nonSurvivors = [];
+  for (const b of loaded) {
+    for (const r of (b.j.items || [])) if (r.verdict !== "survivor") nonSurvivors.push({ b: b.name, r });
+  }
+  const unnamed = nonSurvivors.filter(({ r }) => {
+    const f = [...new Set([
+      ...(r.gates || []).filter((g) => g.pass === false).map((g) => g.id),
+      ...(Array.isArray(r.failed) ? r.failed : []),
+    ])];
+    const s = (r.solver || {}).state;
+    return !f.length && s !== "split" && s !== "rejected" && s !== "could-not-run";
+  });
+  if (unnamed.length) {
+    console.error("REFUSING TO REPORT: " + unnamed.length + " of " + nonSurvivors.length + " non-survivor(s) " +
+      "name no reason this report can print, so the rejection table would omit them silently.");
+    for (const { b, r } of unnamed.slice(0, 8)) {
+      console.error("  " + b + "  " + String(r.item_id || "").slice(0, 8) + "  task " + r.task_code +
+        "  verdict " + JSON.stringify(r.verdict));
+    }
+    process.exitCode = 2;
+    process.exit();
+  }
+  console.log("rejection reconciliation: " + nonSurvivors.length + " non-survivor(s), every one naming at " +
+    "least one reason this report prints");
+}
 
 /* ---- per-task stop conditions, evaluated ---- */
 for (const r of rows) {
@@ -150,7 +214,42 @@ p("| attempted | " + totalAttempted + " |");
 p("| survivors | **" + totalSurvivors + "** |");
 p("| spend | **$" + spend.usd.toFixed(2) + "** |");
 p("| dollars per survivor | **$" + (totalSurvivors ? (spend.usd / totalSurvivors).toFixed(3) : "n/a") + "** |");
+if (CEILING) p("| ceiling | **$" + CEILING.toFixed(2) + "**, " +
+  (spend.usd <= CEILING ? "held with $" + (CEILING - spend.usd).toFixed(2) + " unspent"
+    : "**EXCEEDED by $" + (spend.usd - CEILING).toFixed(2) + "**") + " |");
 p("");
+
+/* ============ THE CEILING, AND THE PROJECTION THAT AUTHORISED THE SPEND ============
+ *
+ * Ruled PROMPT-95 s5: *"ceiling $30, measured on the first two tasks and projected."* The measurement is
+ * the FIRST BATCH and the projection is what it authorised -- printed together, because a ceiling reported
+ * only as a total cannot be checked against the decision that was taken before the money was spent. A
+ * projection recorded after the fact is not a projection; it is a rationalisation. */
+if (CEILING && BATCHES.length > 1) {
+  const first = perBatch[0];
+  if (first && first.attempted) {
+    const rate = first.spend / first.attempted;
+    const rest = totalAttempted - first.attempted;
+    p("## The ceiling: measured, projected, then spent");
+    p("");
+    p("| | |");
+    p("|---|---|");
+    p("| ceiling | $" + CEILING.toFixed(2) + " |");
+    p("| measured on `" + first.label + "` | " + first.attempted + " attempt(s), $" +
+      first.spend.toFixed(2) + " -- **$" + rate.toFixed(3) + " per attempt** |");
+    p("| projected for the remaining " + rest + " | $" + (rate * rest).toFixed(2) + " |");
+    p("| projected TOTAL | $" + (first.spend + rate * rest).toFixed(2) + " |");
+    p("| actual TOTAL | **$" + spend.usd.toFixed(2) + "** |");
+    p("| projection error | " + (first.spend + rate * rest ?
+      (((spend.usd - (first.spend + rate * rest)) / (first.spend + rate * rest)) * 100).toFixed(1) + "%"
+      : "n/a") + " |");
+    p("");
+    p("**The projection is printed even where it was accurate.** A ceiling held is only evidence of");
+    p("discipline if the number that authorised the run is beside the number it cost -- otherwise a run that");
+    p("came in under budget by luck is indistinguishable from one that was measured first.");
+    p("");
+  }
+}
 p("## Spend by role");
 p("");
 p("At $" + price.input + " / $" + price.output + " per million tokens (input / output).");

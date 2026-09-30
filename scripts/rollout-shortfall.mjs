@@ -44,6 +44,16 @@ const ROOT = join(HERE, "..");
 const FLOORS = JSON.parse(readFileSync(join(ROOT, "TASK-FLOORS-AIMSF.json"), "utf8"));
 const FLOOR = FLOORS.default_floor;
 const MIN_EFFECTIVE_TO_GENERATE = 3;
+/* ============ WHY 1.3 IS EXCLUDED, WHICH THIS LINE DID NOT SAY ============
+ *
+ * The bare literal carried no reason for four prompts. Recovered from the commit that added it (`c9f24d1`,
+ * PROMPT-87 s3): *"task 1.3 is closed at 4 of 8"* -- the director closed it after a run in which one ruled
+ * insertion was refused on re-gate by the blind solver and `C.3.6` reached the anchor cap.
+ *
+ * AND THE PREMISE HAS MOVED. 1.3 stood at 4 of 8 when it was closed; it now stands at 7 of 8, short ONE.
+ * Whether the closure still holds is the director's call, so this stays as it is and the shortfall report
+ * names it rather than quietly generating for it -- but an exclusion whose stated ground was a number that
+ * has since changed should not be a literal with no comment. Recorded PROMPT-95 s5. */
 const MIN_PRIMARY = 4, EXCLUDE = new Set(["1.3"]);
 /* min(default, 2 x effective): three primaries at the cap of 2 is six items, which is the ruling. */
 const floorFor = (effective) => Math.min(FLOOR, CAP * effective);
