@@ -85,7 +85,33 @@ export function noiseIn(span) {
  * The gate. Examines the key's support and every distractor's support.
  * @returns {{id:string, pass:boolean|null, examined:number, reason:string}}
  */
-export function gateQuoteNoise(item) {
+/* ============ A SPAN THAT OPENS WITH ITS OWN PASSAGE TITLE ============
+ *
+ * Ruled PROMPT-95 s2. `Suppliers The organization shall establish...` and `Allocating responsibilities The
+ * organization shall ensure...` are the extractor's column-join at a clause boundary: the title and the
+ * first sentence of the body, run together with no punctuation between them.
+ *
+ * Detected against the PASSAGE'S OWN TITLE, passed in by the caller -- not against a list of title-shaped
+ * words, and not against "a short line with no terminal punctuation", which is the shape test that
+ * already excused a genuine reproduction of `availability` in this repository. A title is whatever the
+ * document says its title is.
+ *
+ * The capital letter after it is what makes it a BLEED rather than a legitimate opening: a span may quote
+ * a clause whose first words happen to repeat its title, but not with a new sentence starting immediately
+ * afterwards and no separator. */
+export function titleBleed(span, title) {
+  const s = String(span || "").trimStart();
+  const t = String(title || "").trim();
+  if (!s || !t) return null;
+  if (!s.startsWith(t)) return null;
+  const after = s.slice(t.length);
+  /* a separator means the title was quoted deliberately; no separator plus a capital is the join */
+  const m = /^\s+([A-Z])/.exec(after);
+  if (!m) return null;
+  return { title: t, next: m[1] };
+}
+
+export function gateQuoteNoise(item, titleOf = null) {
   const spans = [];
   if (item && item.key_support) spans.push({ what: "key_support", text: item.key_support });
   const ds = (item && item.distractor_support) || [];
@@ -103,6 +129,19 @@ export function gateQuoteNoise(item) {
   for (const s of spans) {
     for (const n of noiseIn(s.text)) {
       bad.push(s.what + " carries " + n.name + " (" + JSON.stringify(n.matched) + "): " + n.why);
+    }
+    /* TITLE BLEED, checked against the passage's own declared title. `titleOf` maps a clause address to its
+     * title; without it this arm is simply not run, which is why the caller passes it and why an item whose
+     * clause is unknown is reported below rather than silently cleared. */
+    if (typeof titleOf === "function") {
+      const clause = s.what === "key_support" ? (item && item.key_support_clause) : null;
+      const title = clause ? titleOf(clause) : null;
+      const tb = title ? titleBleed(s.text, title) : null;
+      if (tb) {
+        bad.push(s.what + " opens with its passage TITLE (" + JSON.stringify(tb.title) +
+          ") followed immediately by \"" + tb.next + "\" -- the extractor's column join at a clause " +
+          "boundary, not text the standard runs together");
+      }
     }
   }
   if (bad.length) {
@@ -173,6 +212,48 @@ export function quoteNoiseControls({ quiet = false } = {}) {
   /* ---- a clean item passes ---- */
   add("a clean key_support passes", true,
     () => gateQuoteNoise({ key_support: clean }).pass);
+
+  /* ============ THE FIVE THAT REACHED SURVIVOR STATUS, AS POSITIVE CONTROLS ============
+   *
+   * Ruled PROMPT-95 s2. These five spans are quoted VERBATIM from the artifacts, not paraphrased -- a control
+   * built from a paraphrase tests the paraphrase. All five cleared every gate and reached the director's read,
+   * because this module was never wired into runCodeGates at all: it is referenced by the census, the served
+   * sweep and the reporter, and by neither grounded-gates.mjs nor the generator. The reporter has therefore
+   * been printing "quote-noise: 0" in R1, R2 and R3 -- a structural zero, not a measured one. */
+  add("bf9c381b: a hyphen-split word in the quote FIRES", false,
+    () => gateQuoteNoise({ key_support: "The organization shall determine what AI system techni- cal " +
+      "documentation is needed for each relevant category of interested parties" }).pass);
+  add("2f10b746: a hyphen-split word mid-note FIRES", false,
+    () => gateQuoteNoise({ key_support: "NOTE 2 Applicable actions can include, for example: the provision " +
+      "of training to, the mentoring of, or the re- assignment of currently employed persons" }).pass);
+  add("984044c0: a column-interleaved span FIRES", false,
+    () => gateQuoteNoise({ key_support: "Alignment with other organizaThe organization shall determine " +
+      "where other policies can tional policies be affected by or apply to, the organization" }).pass);
+  /* the two title bleeds need the passage's own title, which is what the new arm takes */
+  add("693d1f0f: a span opening with its passage TITLE fires", false,
+    () => gateQuoteNoise({ key_support_clause: "A.10.3",
+      key_support: "Suppliers The organization shall establish a process to ensure that its usage of " +
+        "services, products or materials provided by suppliers aligns with its approach" },
+    (c) => (c === "A.10.3" ? "Suppliers" : null)).pass);
+  add("972b8caa: the same, with a two-word title", false,
+    () => gateQuoteNoise({ key_support_clause: "A.10.2",
+      key_support: "Allocating responsibilities The organization shall ensure that responsibilities " +
+        "within their AI system life cycle are allocated" },
+    (c) => (c === "A.10.2" ? "Allocating responsibilities" : null)).pass);
+  /* BOTH DIRECTIONS on title bleed: a span that merely CONTAINS its title, or is separated from it by
+   * punctuation, is legitimate quotation and must pass. */
+  add("a span whose title is followed by punctuation PASSES", true,
+    () => gateQuoteNoise({ key_support_clause: "A.10.3",
+      key_support: "Suppliers. The organization shall establish a process to ensure that its usage of " +
+        "services aligns with its approach" },
+    (c) => (c === "A.10.3" ? "Suppliers" : null)).pass);
+  add("a span that does not START with its title PASSES", true,
+    () => gateQuoteNoise({ key_support_clause: "A.10.3",
+      key_support: "The organization shall establish a process for Suppliers That deliver AI components" },
+    (c) => (c === "A.10.3" ? "Suppliers" : null)).pass);
+  add("no title lookup means the bleed arm does not run, and the span still passes on its other merits", true,
+    () => gateQuoteNoise({ key_support_clause: "A.10.3",
+      key_support: "Suppliers The organization shall establish a process" }).pass);
   add("clean key and clean distractors pass", true,
     () => gateQuoteNoise({ key_support: clean,
       distractor_support: [{ support: "Event logs shall be enabled when the AI system is in use." }] }).pass);

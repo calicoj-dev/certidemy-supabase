@@ -54,6 +54,7 @@ import { classifyPrimaries, effectivePrimaryCount, effectivePrimaryControls, MIN
   from "./lib/effective-primary.mjs";
 import { groundedGateControls } from "./lib/grounded-gates.mjs";
 import { balanceKeyOrder, balancedKeyOrderControls } from "./lib/balanced-key-order.mjs";
+import { quoteNoiseControls } from "./lib/quote-noise.mjs";
 import { supersededControls } from "./lib/superseded-wording.mjs";
 import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs";
 import { optionsPayload, assertOptionsOnly, optionsProbeUser, optionsProbeVerdict,
@@ -193,17 +194,18 @@ const EDITION_OF = { "AIMS-F": "2023", "AIMS-IA": "2023", "ISMS-F": "2022", "ISM
   /* The balanced-order controls, adapted to this harness's {fails, examined} shape. A mis-permutation is
    * unrecoverable once inserted -- a key pointing at the wrong text grades every attempt wrongly -- so they
    * run before anything else, like every other gate's. */
+  const qn = quoteNoiseControls({ quiet: true });
   const bal = balancedKeyOrderControls();
   const i = { examined: bal.length,
     fails: bal.filter((x) => !x.pass).map((x) => "balanced-order: " + x.what + (x.detail ? "   " + x.detail : "")) };
-  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails, ...i.fails];
-  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined + i.examined) + " cases");
+  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails, ...i.fails, ...qn.fails];
+  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined + i.examined + qn.examined) + " cases");
   if (fails.length) {
     console.error("REFUSING TO RUN -- the gates' own controls fail:");
     for (const f of fails) console.error("  " + f);
     process.exitCode = 2; process.exit();
   }
-  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + ", balanced-order " + i.examined + " -- all pass");
+  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + ", balanced-order " + i.examined + ", quote-noise " + qn.examined + " -- all pass");
 }
 
 function env(k) {

@@ -20,6 +20,11 @@
 import { auditItem, keyIsStrictLongest, CUE_CFG } from "../../functions/_shared/item-rules/item-cue-guard.mjs";
 import { supersededIn } from "./superseded-wording.mjs";
 import { clauseNumberRecall } from "./clause-number-recall.mjs";
+/* PROMPT-95 s2: this module existed with 49 controls and was WIRED TO NOTHING -- referenced by the census,
+ * the served sweep and the reporter, and by neither this file nor the generator. Three items with hyphen-split
+ * words and one column-interleaved span reached survivor status, and the reporter printed "quote-noise: 0"
+ * three times because a gate that is never called cannot reject. */
+import { gateQuoteNoise } from "./quote-noise.mjs";
 
 /* ============ NORMALISATION, AND WHY IT IS THE RISKY PART ============
  *
@@ -897,6 +902,12 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
     gateReproduction(item, sources, leak),
     gateNo27000(item),
     gateClauseNumberRecall(item),
+    /* the passage title comes from passagesByKey, so the title-bleed arm is given what it needs rather
+     * than guessing at title shape -- the shape test is what excused a real reproduction of `availability`. */
+    gateQuoteNoise(item, (clause) => {
+      const p = passagesByKey && passagesByKey.get ? passagesByKey.get(String(clause)) : null;
+      return p ? p.title : null;
+    }),
   ];
   const failed = gates.filter((g) => g.pass === false);
   const unasserted = gates.filter((g) => g.pass === null || g.examined === 0);
@@ -1483,6 +1494,16 @@ export function groundedGateControls() {
       return runCodeGates(auth, { passagesByKey: byKey, primaryClauses: new Set(["9.2.2"]),
         supportingClauses: new Set(["B.9.2"]), sources: [], leak: null })
         .failed.includes("clause-number-recall");
+    }, false],
+    ["refuses a hyphen-split word in key_support THROUGH runCodeGates", () => {
+      const noisy = { ...good, key_support: "The organization shall plan, establish, implement and maintain an audit" +
+        " programme including the frequency, methods, responsibi- lities and reporting" };
+      return runCodeGates(noisy, { passagesByKey: byKey, primaryClauses: new Set(["9.2.2"]),
+        supportingClauses: new Set(["B.9.2"]), sources: [], leak: null }).failed.includes("quote-noise");
+    }, true],
+    ["does NOT refuse a clean key_support through runCodeGates", () => {
+      return runCodeGates(good, { passagesByKey: byKey, primaryClauses: new Set(["9.2.2"]),
+        supportingClauses: new Set(["B.9.2"]), sources: [], leak: null }).failed.includes("quote-noise");
     }, false],
   ];
 
