@@ -45,6 +45,11 @@ import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.ts";
 import { consumeAttempt } from "../_shared/vouchers.ts";
 import { normStem, stemIdentity } from "../_shared/item-rules/stem-identity.mjs";
+// PROMPT-95 s1e. The option ORDER is presentation; the ids are the contract. Grading compares id sets
+// (score-mock-exam:129), so reordering the array cannot change a grade -- and the order is a pure function
+// of (session_id, question_id), so a resumed session renders the same order rather than moving under the
+// candidate. get-active-exam-session imports the same function for exactly that reason.
+import { orderOptionsForAttempt } from "../_shared/item-rules/option-order.mjs";
 
 const SUPPORTED_LANGUAGES = ["en", "es-419", "pt-BR"] as const;
 type Language = (typeof SUPPORTED_LANGUAGES)[number];
@@ -489,7 +494,16 @@ serve(async (req) => {
         id: q.id,
         question_text: q.question_text,
         question_type: q.question_type,
-        options: q.options,
+        // ============ OPTION ORDER IS PER ATTEMPT ============
+        //
+        // This served `q.options` verbatim. The bank's key positions were 73% option A on grounded items,
+        // so a candidate answering A scored about 75% on them with no knowledge -- and this function
+        // already withholds difficulty and task "so the client can't infer answer strategies" while
+        // leaving the order, which was the strategy actually available.
+        //
+        // Seeded on (session_id, question_id): the same attempt always renders the same order, so a reload
+        // or a resume does not move the options; a different attempt renders a different one.
+        options: orderOptionsForAttempt(q.options, [session.id, q.id]),
         // difficulty / task / domain deliberately omitted so the client
         // can't infer answer strategies. Used only at scoring time.
       })),

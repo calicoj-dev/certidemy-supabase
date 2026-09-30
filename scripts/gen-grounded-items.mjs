@@ -53,6 +53,7 @@ import { buildCapCensus } from "./lib/anchor-cap-census.mjs";
 import { classifyPrimaries, effectivePrimaryCount, effectivePrimaryControls, MIN_WORDS }
   from "./lib/effective-primary.mjs";
 import { groundedGateControls } from "./lib/grounded-gates.mjs";
+import { balanceKeyOrder, balancedKeyOrderControls } from "./lib/balanced-key-order.mjs";
 import { supersededControls } from "./lib/superseded-wording.mjs";
 import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs";
 import { optionsPayload, assertOptionsOnly, optionsProbeUser, optionsProbeVerdict,
@@ -189,14 +190,20 @@ const EDITION_OF = { "AIMS-F": "2023", "AIMS-IA": "2023", "ISMS-F": "2022", "ISM
   const f = deCueCheckControls();
   const g = effectivePrimaryControls({ quiet: true });
   const h = anchorCapControls({ quiet: true });
-  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails];
-  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined) + " cases");
+  /* The balanced-order controls, adapted to this harness's {fails, examined} shape. A mis-permutation is
+   * unrecoverable once inserted -- a key pointing at the wrong text grades every attempt wrongly -- so they
+   * run before anything else, like every other gate's. */
+  const bal = balancedKeyOrderControls();
+  const i = { examined: bal.length,
+    fails: bal.filter((x) => !x.pass).map((x) => "balanced-order: " + x.what + (x.detail ? "   " + x.detail : "")) };
+  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails, ...i.fails];
+  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined + i.examined) + " cases");
   if (fails.length) {
     console.error("REFUSING TO RUN -- the gates' own controls fail:");
     for (const f of fails) console.error("  " + f);
     process.exitCode = 2; process.exit();
   }
-  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + " -- all pass");
+  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + ", balanced-order " + i.examined + " -- all pass");
 }
 
 function env(k) {
@@ -1431,10 +1438,21 @@ if (!APPLY) {
     process.exitCode = 2;
   } else {
     let wrote = 0;
+    /* ============ BALANCED KEY POSITION, COUNTED PER TASK ============
+     *
+     * Ruled PROMPT-95 s1c. `seq` is a counter keyed on TASK CODE, not the position in the survivor list: a
+     * list ordered by task would otherwise put every task's first item at position A, which is the skew
+     * with extra steps. `placed` is reported after the insert so the fix is visible in the run that made it. */
+    const seqOf = new Map();
+    const placed = {};
     const insertedIds = [];
     let groundingWrote = 0, groundingFailed = 0;
     for (const r of survivors) {
       const t = tasks.find((x) => x.code === r.task_code);
+      const seq = seqOf.get(r.task_code) || 0;
+      seqOf.set(r.task_code, seq + 1);
+      const balanced = balanceKeyOrder(r.item, seq, r.item_id || itemId(r.item), r.task_code);
+      placed[balanced.keyId] = (placed[balanced.keyId] || 0) + 1;
       const body = {
         certification_id: cert.id, task_id: t.id, language: "en",
         question_text: r.item.question_text,
@@ -1450,8 +1468,18 @@ if (!APPLY) {
          * run -- a branch that has never executed reads exactly like one that works. Found
          * when the section 5 comparison could not read the live rows either, for the mirror
          * image of the same wrong assumption. */
-        options: r.item.options.map((o, i) => ({ id: String.fromCharCode(97 + i), text: o.text })),
-        correct_answer: [String.fromCharCode(97 + r.item.options.findIndex((o) => o.is_correct))],
+        /* ============ THE OPTIONS ARE PERMUTED HERE, NOT TAKEN IN ARTIFACT ORDER ============
+         *
+         * 73 percent of grounded keys sat at option A, and nothing shuffled at insert or at delivery, so a
+         * candidate answering A scored about 75 percent on grounded items. `balanceKeyOrder` walks the key
+         * round-robin A, B, C, D within each task and reassigns the ids in DISPLAY ORDER -- because
+         * exam-runner.tsx:897 renders the letter from `opt.id` and not from the array index, so permuting
+         * the array alone would display A, C, B, D.
+         *
+         * Grading is untouched: both graders compare id SETS, and `correct_answer` is taken from the key's
+         * own id below. That agreement is asserted inside balanceKeyOrder rather than assumed here. */
+        options: balanced.item.options.map((o) => ({ id: o.id, text: o.text })),
+        correct_answer: [balanced.keyId],
         explanation: r.item.explanation,
         /* draft, never approved, and out of exam scope: two independent reasons it cannot
          * reach a form, because a guarantee that depends on one column staying true is not
@@ -1543,6 +1571,9 @@ if (!APPLY) {
     }
     console.log("  inserted " + wrote + " pending_review row(s), " + groundingWrote +
       " grounding row(s)" + (groundingFailed ? "; " + groundingFailed + " rolled back" : ""));
+    console.log("  KEY POSITION as inserted:  " + ["a", "b", "c", "d"]
+      .map((L) => L.toUpperCase() + ":" + (placed[L] || 0)).join("  ") +
+      "   (round-robin per task, reproducible from the artifact)");
 
     /* ============ THE POST-CONDITION READS BACK THE ROWS IT WROTE ============
      *

@@ -112,6 +112,10 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.ts";
+// PROMPT-95 s1e. THE SAME function generate-mock-exam uses, with the SAME seed, so a resumed session renders
+// the options in the order the candidate already saw. Two implementations here would mean the options moved
+// on reload, which is worse for a candidate than the skew this fixes.
+import { orderOptionsForAttempt } from "../_shared/item-rules/option-order.mjs";
 
 /** Matches score-mock-exam's grace, so both agree on what "expired" means. */
 const LATE_GRACE_SECONDS = 60;
@@ -397,7 +401,8 @@ serve(async (req) => {
         id: q.id,
         question_text: q.question_text,
         question_type: q.question_type,
-        options: q.options,
+        // Same seed as generate-mock-exam, so the resumed form shows the order the candidate already saw.
+        options: orderOptionsForAttempt(q.options, [session.id, q.id]),
       });
     }
     if (missing > 0) {
