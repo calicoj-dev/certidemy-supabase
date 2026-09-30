@@ -99,7 +99,36 @@ export function reporterGateParity(runCodeGates, reporterSrc) {
     fails.push("the reporter can print `" + n + "` and runCodeGates does not produce it -- a reported gate " +
       "that never runs, which is how `quote-noise` printed 0 for three rollouts");
   }
-  return { fails, ran, named: uniqNamed, examined: uniqNamed.length + ran.length };
+
+  /* ============ AND THE MIRROR, WHICH THIS FILE'S OWN HEADER CLAIMED AND THE CODE DID NOT DO ============
+   *
+   * The header has said since the day it was written that parity "has two directions" and that RUN BUT NOT
+   * REPORTED "is also a defect". Only the first direction was implemented. So a module whose whole subject is
+   * a documented claim the code does not honour was itself a documented claim the code did not honour --
+   * found while adding `anchor-assignment` to `runCodeGates` and wondering whether the reporter would be
+   * forced to name it. It would not have been.
+   *
+   * WHY IT MATTERS RATHER THAN BEING TIDINESS: a gate that rejects items while its name never appears in the
+   * report produces a rejection count nobody can reconcile. Last session's reporter lost three `anchor-cap`
+   * rejections exactly that way and printed a dash for the task. A reconciliation assertion caught it after
+   * the fact; this catches it before the report is written.
+   *
+   * IT IS A WARNING RATHER THAN A FAILURE, and that distinction is deliberate. Not every gate needs its own
+   * paragraph -- most reach the report through the per-task table, derived from the item records, which is
+   * why they cannot drift. What must not happen is a gate REJECTING with no way to see it, and the
+   * per-task table covers that. So an unnamed gate is reported as an observation for whoever reads the
+   * output, and only the first direction blocks. A warning that blocked would make every new gate a report
+   * edit, which is how a guard gets loosened. */
+  const derivedFromRecords = "the per-task table derives its gate names from the item records, so a gate " +
+    "reaching the report that way cannot drift from the gates that ran";
+  const unnamed = ran.filter((id) => id && !uniqNamed.includes(id));
+  return { fails, ran, named: uniqNamed, unnamed,
+    unnamedNote: unnamed.length
+      ? unnamed.length + " gate(s) run without being NAMED in this reporter (" + unnamed.join(", ") +
+        "). Not a failure: " + derivedFromRecords + ". It is worth a look only if one of them is rejecting " +
+        "items and you cannot find the count."
+      : null,
+    examined: uniqNamed.length + ran.length };
 }
 
 /* ---------------------------------------------------------------- controls */
@@ -131,5 +160,22 @@ export function reporterGateParityControls(runCodeGates, reporterSrc) {
   const empty = reporterGateParity(() => ({ gates: [] }), 'gateTotals["x"] = 1;');
   ok("an EMPTY gate set is a failure, never a pass",
     empty.fails.some((f) => f.includes("NO gates")));
+
+  /* ---- the second direction: RUN BUT NOT REPORTED, reported as an observation and not as a failure ---- */
+  const onlyOne = reporterGateParity(runCodeGates, 'gateTotals["quote-noise"] = 1;');
+  ok("a gate that RUNS without being named is listed under `unnamed`",
+    Array.isArray(onlyOne.unnamed) && onlyOne.unnamed.length > 0 && !onlyOne.unnamed.includes("quote-noise"),
+    "unnamed: " + JSON.stringify(onlyOne.unnamed));
+  ok("...and does NOT fail the check, because most gates reach the report through the per-task table",
+    onlyOne.fails.length === 0, onlyOne.fails.join(" | "));
+  ok("...and the note names them, so it is an observation rather than a silence",
+    typeof onlyOne.unnamedNote === "string" && onlyOne.unnamedNote.includes("without being NAMED"),
+    String(onlyOne.unnamedNote));
+  /* and when the reporter names everything, the note is null rather than an empty sentence */
+  const allNamed = reporterGateParity(runCodeGates,
+    live.ran.map((id) => 'gateTotals["' + id + '"] = 1;').join("\n"));
+  ok("a reporter naming EVERY running gate produces no unnamed note at all",
+    allNamed.unnamedNote === null && allNamed.fails.length === 0,
+    JSON.stringify({ note: allNamed.unnamedNote, fails: allNamed.fails }));
   return out;
 }

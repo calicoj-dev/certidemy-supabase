@@ -1,0 +1,28 @@
+{
+  "what": "Items the director has rejected, with the prompt that ruled each. A rejection is the one disposition that cannot be derived from an artifact: a gate refusal is recorded by the run that made it and a supersession by the revision that caused it, but a ruling leaves no trace unless written.",
+  "read_by": [
+    "scripts/report-aimsf-completion.mjs -- so a rejected item is not counted as awaiting approval"
+  ],
+  "and_the_per_run_blocks_stay": "AIMSF-S2-REVISED-raw.json keeps its own `rejected` block as the record of that run. The report unions both sources, because a rejection dropped from either should still be excluded and a union cannot lose one.",
+  "rejections": [
+    {
+      "id": "c590b702",
+      "task": "4.1",
+      "ruled": "PROMPT-95 s2",
+      "why": "anchored in A.6.2, a container, and its options are Annex A category numbers -- a recall item in disguise. Verified before acting: all four options are literally 'A.6, covering...', 'A.4, covering...', 'A.9...', 'A.10...'."
+    },
+    {
+      "id": "43882b06",
+      "task": "5.5",
+      "ruled": "PROMPT-95 s2",
+      "why": "a near-duplicate of c45a02f1 (1.1): same anchor (3.4), same key substance, and its distractors are certificates, certification-body rules and accreditation -- eliminable without knowing the standard, against c45a02f1's process / policy / objective. Its distractor 2's `why_wrong` also talks about certification bodies while its support span is 3.4's Note 2 on management-system elements: the reason and the evidence do not match."
+    },
+    {
+      "id": "3a3d26fa",
+      "task": "3.1",
+      "ruled": "PROMPT-96 s3",
+      "why": "cites A.4.6 -- human resources -- for text belonging to A.5's objective: \"Assessing impacts of AI systems Objective: To assess AI system impacts to individuals or groups...\". A.4.6's held text used to run on into A.5, and the item anchored its distractor in that over-run. THE CITATION WAS ALWAYS WRONG; repairing the passage is what made it refusable. It failed `verbatim` at the PROMPT-95 s2 insert and was already excluded from the bank -- this records the VERDICT, so it cannot return to a queue as an awaiting survivor.",
+      "already_gate_refused": "AIMSF-S2-INSERTED.json, verdict `rejected by code`, failed `verbatim`"
+    }
+  ]
+}

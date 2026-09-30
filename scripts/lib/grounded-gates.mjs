@@ -20,6 +20,8 @@
 import { auditItem, keyIsStrictLongest, CUE_CFG } from "../../functions/_shared/item-rules/item-cue-guard.mjs";
 import { supersededIn } from "./superseded-wording.mjs";
 import { clauseNumberRecall } from "./clause-number-recall.mjs";
+/* PROMPT-96 s2. ONE implementation of the assigned-anchor gate, shared with the assignment itself. */
+import { gateAnchorAssignment } from "./anchor-assignment.mjs";
 /* PROMPT-95 s2: this module existed with 49 controls and was WIRED TO NOTHING -- referenced by the census,
  * the served sweep and the reporter, and by neither this file nor the generator. Three items with hyphen-split
  * words and one column-interleaved span reached survivor status, and the reporter printed "quote-noise: 0"
@@ -887,7 +889,12 @@ function gateClauseNumberRecall(item) {
 
 export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps = [],
   liveStemsForTask = [], cueCfg = CUE_CFG, cert,
-  primaryClauses = null, supportingClauses = null, sources = null, leak = null }) {
+  primaryClauses = null, supportingClauses = null, sources = null, leak = null,
+  /* PROMPT-96 s2. The clause THIS item was assigned before the writer was called, or null for an item
+   * generated before the assignment existed. It lives here rather than being folded in by the caller so
+   * that `reporterGateParity` can see it: a gate the reporter names must be one this function produces,
+   * and a gate added beside this function is invisible to that check. */
+  assignedAnchor = null }) {
   const gates = [
     gateClauseExists(item, passagesByKey, annexGaps, sequenceGaps),
     gateVerbatim(item, passagesByKey),
@@ -908,12 +915,29 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
       const p = passagesByKey && passagesByKey.get ? passagesByKey.get(String(clause)) : null;
       return p ? p.title : null;
     }),
+    gateAnchorAssignment(item, assignedAnchor),
   ];
   const failed = gates.filter((g) => g.pass === false);
   const unasserted = gates.filter((g) => g.pass === null || g.examined === 0);
+  /* ============ ONE GATE'S UNASSERTED DOES NOT BLOCK, AND IT IS NAMED HERE RATHER THAN EXCEPTED QUIETLY ===
+   *
+   * Every gate here treats UNASSERTED as a rejection cause, and rightly: a gate that could not examine an
+   * item has not cleared it. `anchor-assignment` is the exception, and the difference is whose fault the
+   * absence is.
+   *
+   * An item has no assignment only when it was generated BEFORE PROMPT-96 s2 and is now coming through
+   * `--from` -- the insert path for 97 already-read items among them. Blocking those would refuse work the
+   * director has approved, because a gate written afterwards did not run at generation time. A retroactive
+   * rule is how a correct backlog becomes unshippable.
+   *
+   * It still appears in `unasserted`, so it is counted and printed. The exception is to `passed`, not to
+   * visibility -- and it is one NAMED id rather than a predicate, so a second gate cannot inherit it by
+   * accident. */
+  const NON_BLOCKING_WHEN_UNASSERTED = new Set(["anchor-assignment"]);
+  const blockingUnasserted = unasserted.filter((g) => !NON_BLOCKING_WHEN_UNASSERTED.has(g.id));
   return {
     gates,
-    passed: failed.length === 0 && unasserted.length === 0,
+    passed: failed.length === 0 && blockingUnasserted.length === 0,
     failed: failed.map((g) => g.id),
     unasserted: unasserted.map((g) => g.id),
   };

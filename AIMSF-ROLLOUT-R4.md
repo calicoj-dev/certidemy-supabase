@@ -102,6 +102,10 @@ the extraction repair is worth money.
 `solver-split`: **2** — items the solver answered two different
 ways across two runs with the options shuffled.
 
+`anchor-assignment`: **NOT MEASURED ON THIS RUN.** The artifact carries no assignment and no
+unasserted entry for it, which means it was gated before the gate existed rather than that every
+item passed. Three zeros and a clean bill of health look identical, so this says which it is.
+
 ## Tasks that hit a stop condition
 
 - **2.7**: fewer than half survived (0 of 1)

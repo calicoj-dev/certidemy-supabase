@@ -8,13 +8,13 @@ task that gains a primary returns to 8 with no edit anywhere.
 **Read-only.** Ruled PROMPT-87 s5. Kept items count only up to the cap of 2 per
 (source, clause); the 15 provisional items count as
 ZERO until ruled on. Scope is 4+ effective primaries and a shortfall above zero,
-excluding 1.3.
+with no task excluded.
 
 | task | kept | usable | over cap | inserted | provisional | have | shortfall | eff. primaries | in scope |
 |---|---|---|---|---|---|---|---|---|---|
 | 1.1 | 3 | 3 | 0 | 5 | 0 | 8 | **0** | 5 | no |
 | 1.2 | 2 | 1 | 1 | 1 | 1 | 2 | **6** | 7 | **yes** |
-| 1.3 | 1 | 1 | 0 | 6 | 0 | 7 | **1** | 11 | _excluded_ |
+| 1.3 | 1 | 1 | 0 | 6 | 0 | 7 | **1** | 11 | **yes** |
 | 1.4 | 2 | 2 | 0 | 6 | 1 | 8 | **0** | 11 | no |
 | 1.5 | 2 | 2 | 0 | 5 | 1 | 7 | **1** | 12 | **yes** |
 | 1.6 | 3 | 3 | 0 | 4 | 1 | 7 | **1** | 12 | **yes** |
@@ -48,5 +48,5 @@ excluding 1.3.
 | 5.5 | 3 | 3 | 0 | 1 | 0 | 4 | **4** | 34 | **yes** |
 | 5.6 | 3 | 3 | 0 | 5 | 0 | 8 | **0** | 10 | no |
 
-**22 task(s) in scope, 42 item(s) to generate.** 0 task(s) have a shortfall but fewer than 4 effective primaries and wait for a map ruling.
+**23 task(s) in scope, 43 item(s) to generate.** 0 task(s) have a shortfall but fewer than 4 effective primaries and wait for a map ruling.
 

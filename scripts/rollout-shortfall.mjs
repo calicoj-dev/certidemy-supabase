@@ -17,7 +17,8 @@
  * all anchored in one clause has two usable items, not six, and sizing a run off six would leave the form
  * short while the report said it was full.
  *
- * SCOPE: 4 or more EFFECTIVE primaries and a shortfall above zero, excluding 1.3. A task with fewer cannot
+ * SCOPE: 4 or more EFFECTIVE primaries and a shortfall above zero, minus whatever EXCLUDE holds -- which is
+ * EMPTY as of PROMPT-96 s3, when 1.3 was reopened. A task with fewer primaries cannot
  * support eight distinct anchorable items, and generating there produces refusals that are facts about the
  * map rather than about the items.
  */
@@ -44,17 +45,25 @@ const ROOT = join(HERE, "..");
 const FLOORS = JSON.parse(readFileSync(join(ROOT, "TASK-FLOORS-AIMSF.json"), "utf8"));
 const FLOOR = FLOORS.default_floor;
 const MIN_EFFECTIVE_TO_GENERATE = 3;
-/* ============ WHY 1.3 IS EXCLUDED, WHICH THIS LINE DID NOT SAY ============
+/* ============ 1.3 IS REOPENED. THE EXCLUSION SET IS NOW EMPTY, AND THE RECORD STAYS ============
  *
- * The bare literal carried no reason for four prompts. Recovered from the commit that added it (`c9f24d1`,
- * PROMPT-87 s3): *"task 1.3 is closed at 4 of 8"* -- the director closed it after a run in which one ruled
- * insertion was refused on re-gate by the blind solver and `C.3.6` reached the anchor cap.
+ * RULED PROMPT-96 s3: *"1.3: reopen it. It was closed at 4 of 8 and stands at 7 of 8. Remove the exclusion
+ * and record why, citing this prompt. Its shortfall of 1 goes into section 4."*
  *
- * AND THE PREMISE HAS MOVED. 1.3 stood at 4 of 8 when it was closed; it now stands at 7 of 8, short ONE.
- * Whether the closure still holds is the director's call, so this stays as it is and the shortfall report
- * names it rather than quietly generating for it -- but an exclusion whose stated ground was a number that
- * has since changed should not be a literal with no comment. Recorded PROMPT-95 s5. */
-const MIN_PRIMARY = 4, EXCLUDE = new Set(["1.3"]);
+ * THE HISTORY, because an exclusion that is simply deleted leaves the next reader unable to tell a decision
+ * from an oversight. `EXCLUDE` held `"1.3"` as a bare literal with no reason for four prompts. Recovered
+ * from the commit that added it (`c9f24d1`, PROMPT-87 s3): *"task 1.3 is closed at 4 of 8"* -- closed after
+ * a run in which one ruled insertion was refused on re-gate by the blind solver and `C.3.6` reached the
+ * anchor cap.
+ *
+ * THE PREMISE MOVED, WHICH IS WHY IT IS REOPENED RATHER THAN RE-ARGUED. It stood at 4 of 8 when it was
+ * closed and at 7 of 8 now -- short ONE. The closure was a judgement about a task three items short of its
+ * floor; that task no longer exists.
+ *
+ * THE SET IS KEPT RATHER THAN THE MECHANISM REMOVED. An empty `EXCLUDE` still prints "excluding none" and
+ * still has one obvious place to put the next exclusion -- with a reason this time. Deleting the set would
+ * mean the next person adds an `if` somewhere instead. */
+const MIN_PRIMARY = 4, EXCLUDE = new Set();
 /* min(default, 2 x effective): three primaries at the cap of 2 is six items, which is the ruling. */
 const floorFor = (effective) => Math.min(FLOOR, CAP * effective);
 
@@ -155,7 +164,9 @@ p("");
 p("**Read-only.** Ruled PROMPT-87 s5. Kept items count only up to the cap of " + CAP + " per");
 p("(source, clause); the " + rows.reduce((s, r) => s + r.provisional, 0) + " provisional items count as");
 p("ZERO until ruled on. Scope is " + MIN_PRIMARY + "+ effective primaries and a shortfall above zero,");
-p("excluding 1.3.");
+/* DERIVED, not typed. This line read "excluding 1.3" and would have gone on saying so after PROMPT-96 s3
+ * reopened the task -- a second copy of a fact that lives in EXCLUDE, ten lines from the set itself. */
+p(EXCLUDE.size ? "excluding " + [...EXCLUDE].join(", ") + "." : "with no task excluded.");
 p("");
 p("| task | kept | usable | over cap | inserted | provisional | have | shortfall | eff. primaries | in scope |");
 p("|---|---|---|---|---|---|---|---|---|---|");

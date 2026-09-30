@@ -129,24 +129,38 @@ const insertedStems = new Set(gq.map((q) => idOf(q.question_text)));
  *   GATE-REFUSED an id the insert run recorded with a non-survivor verdict
  */
 const DISPOSED = new Map();   /* id8 -> reason */
+/* APPEND, NEVER OVERWRITE. `3a3d26fa` is both gate-refused at insert AND rejected by ruling, and whichever
+ * source is read second would otherwise erase the other. The two are different facts -- one says why it is
+ * not in the bank, the other says it must never come back -- and the record that survives should carry both. */
+const dispose = (id, why) => {
+  const k = String(id).slice(0, 8);
+  DISPOSED.set(k, DISPOSED.has(k) ? DISPOSED.get(k) + "  ||  " + why : why);
+};
 {
   const revRaw = join(ROOT, "AIMSF-S2-REVISED-raw.json");
   if (existsSync(revRaw)) {
     const a = JSON.parse(readFileSync(revRaw, "utf8"));
-    for (const r of a.rejected || []) DISPOSED.set(String(r.id).slice(0, 8), "REJECTED: " + r.why);
+    for (const r of a.rejected || []) dispose(r.id, "REJECTED: " + r.why);
     for (const r of a.items || []) {
       if (r.revision_of) {
-        DISPOSED.set(String(r.revision_of).slice(0, 8),
-          "SUPERSEDED by an s2 revision of " + (r.revision_fields || []).join(", "));
+        dispose(r.revision_of, "SUPERSEDED by an s2 revision of " + (r.revision_fields || []).join(", "));
       }
+    }
+  }
+  /* THE STANDING REJECTION LIST, unioned with the per-run blocks. Ruled PROMPT-96 s3. A rejection is the
+   * one disposition no artifact can carry on its own -- a ruling leaves no trace unless written down -- and
+   * reading BOTH sources means a rejection dropped from either is still excluded. */
+  const rejFile = join(ROOT, "AIMSF-DIRECTOR-REJECTIONS.json");
+  if (existsSync(rejFile)) {
+    for (const r of JSON.parse(readFileSync(rejFile, "utf8")).rejections || []) {
+      dispose(r.id, "REJECTED (" + r.ruled + "): " + r.why);
     }
   }
   const inserted = join(ROOT, "AIMSF-S2-INSERTED.json");
   if (existsSync(inserted)) {
     for (const r of JSON.parse(readFileSync(inserted, "utf8")).items || []) {
       if (r.verdict === "survivor") continue;
-      DISPOSED.set(String(r.item_id || "").slice(0, 8),
-        "GATE-REFUSED at insert: " + r.verdict + " (" + (r.failed || []).join(", ") + ")");
+      dispose(r.item_id || "", "GATE-REFUSED at insert: " + r.verdict + " (" + (r.failed || []).join(", ") + ")");
     }
   }
   /* THE SET MUST BE NON-EMPTY OR THIS EXCLUSION IS DOING NOTHING, and doing nothing quietly is how the

@@ -49,6 +49,10 @@ import { runCodeGates } from "./lib/grounded-gates.mjs";
 import { blindPayload, assertBlind, solverUser, solverVerdict, SOLVER_SYSTEM, blindSolverControls } from "./lib/blind-solver.mjs";
 import { createHash } from "node:crypto";
 import { CAP, atCap, applyCap, anchorCapControls } from "./lib/anchor-cap.mjs";
+/* PROMPT-96 s2. ONE implementation of the assignment, imported by the writer prompt AND by the gate, so the
+ * clause the writer is told to use is exactly the clause the gate checks for. */
+import { assignAnchors, assignmentInstruction, gateAnchorAssignment, anchorAssignmentControls }
+  from "./lib/anchor-assignment.mjs";
 import { buildCapCensus } from "./lib/anchor-cap-census.mjs";
 import { classifyPrimaries, effectivePrimaryCount, effectivePrimaryControls, MIN_WORDS }
   from "./lib/effective-primary.mjs";
@@ -215,6 +219,10 @@ const EDITION_OF = { "AIMS-F": "2023", "AIMS-IA": "2023", "ISMS-F": "2022", "ISM
   const f = deCueCheckControls();
   const g = effectivePrimaryControls({ quiet: true });
   const h = anchorCapControls({ quiet: true });
+  const aa0 = anchorAssignmentControls({ quiet: true });
+  const aa = { examined: aa0.examined,
+    fails: aa0.cases.filter((x) => !x.pass).map((x) => "anchor-assignment: " + x.what +
+      (x.detail ? "   " + x.detail : "")) };
   /* The balanced-order controls, adapted to this harness's {fails, examined} shape. A mis-permutation is
    * unrecoverable once inserted -- a key pointing at the wrong text grades every attempt wrongly -- so they
    * run before anything else, like every other gate's. */
@@ -236,14 +244,14 @@ const EDITION_OF = { "AIMS-F": "2023", "AIMS-IA": "2023", "ISMS-F": "2022", "ISM
   const bal = balancedKeyOrderControls();
   const i = { examined: bal.length,
     fails: bal.filter((x) => !x.pass).map((x) => "balanced-order: " + x.what + (x.detail ? "   " + x.detail : "")) };
-  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails, ...i.fails, ...qn.fails, ...par.fails];
-  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined + i.examined + qn.examined + par.examined) + " cases");
+  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails, ...aa.fails, ...i.fails, ...qn.fails, ...par.fails];
+  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined + aa.examined + i.examined + qn.examined + par.examined) + " cases");
   if (fails.length) {
     console.error("REFUSING TO RUN -- the gates' own controls fail:");
     for (const f of fails) console.error("  " + f);
     process.exitCode = 2; process.exit();
   }
-  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + ", balanced-order " + i.examined + ", quote-noise " + qn.examined + ", gate-parity " + par.examined + " -- all pass");
+  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + ", anchor-assignment " + aa.examined + ", balanced-order " + i.examined + ", quote-noise " + qn.examined + ", gate-parity " + par.examined + " -- all pass");
 }
 
 function env(k) {
@@ -661,7 +669,7 @@ RULES
  * passage with no role and no rule, so on task 1.3 it anchored 6 of 7 keys in supporting clauses and
  * six writer calls were spent discovering a rule nobody had given it. A distractor's reason may still
  * use a supporting passage -- that is the gate's own contract, so prompt and gate cannot drift. */
-function writerUser(task, domain, passages, k) {
+function writerUser(task, domain, passages, k, assignments) {
   const prim = new Set(primaryOf(task.code));
   /* clauses already at the cap for THIS task. The writer is told AND the gate refuses, so a model that
    * ignores the instruction costs a rejection rather than a bad insert. */
@@ -689,6 +697,7 @@ function writerUser(task, domain, passages, k) {
     " SUPPORTING passage and do not paraphrase a primary one to fit." +
     (full.length ? "\n\nAT THE ANCHOR CAP for this task -- do NOT anchor any key in these; they" +
       " already carry " + CAP + " item(s) each: " + full.map((f) => f.clause).join(", ") : "") +
+    assignmentInstruction(assignments) +
     /* ============ THE DISTRACTOR-BREADTH INSTRUCTION WAS REVERTED, PROMPT-94 s2 ============
      *
      * It stood here for one run and was removed by the director who wrote it, on his own measurement. It
@@ -732,6 +741,24 @@ const bump = (k) => rejectCounts.set(k, (rejectCounts.get(k) || 0) + 1);
  * checkpoint, so the two cannot disagree about where the run is writing. */
 const OUT_PATH = underRoot(OUT);
 const PARTIAL = OUT_PATH.replace(/\.json$/, "") + ".partial.jsonl";
+
+/* ============ THE RUN ID: THE TIE-BREAK SEED FOR ANCHOR ASSIGNMENT ============
+ *
+ * PROMPT-96 s2 asks for ties broken by "a hash of the task and the run", so a RE-RUN re-orders rather than
+ * re-drawing the same clause and reproducing the same loss.
+ *
+ * IT IS THE ARTIFACT NAME, NOT A TIMESTAMP OR A RANDOM NUMBER, and that is deliberate on two counts. A
+ * timestamp would make the assignment unreproducible -- re-running the same command would order differently
+ * and a failure could not be argued with. `Date.now()` and `Math.random()` are also unavailable in some of
+ * this repository's runtimes for exactly that reason. The artifact name is stable across a resume (the
+ * checkpoint keys on it too), differs between runs because a run names its own output, and is visible in
+ * the output so the order can be recomputed by hand.
+ *
+ * Consequence worth stating: re-running with the SAME `--out` re-draws the SAME order. That is the right
+ * default for a resume, and it means a deliberate re-draw needs a new `--out` name. */
+const RUN_ID = OUT.replace(/\.json$/, "");
+/* task code -> the assignments handed to the writer, read back by the gate */
+const assignmentByTask = new Map();
 const resumed = new Map();
 if (existsSync(PARTIAL)) {
   let bad = 0;
@@ -830,11 +857,40 @@ if (FROM) {
       "retry are skipped (the retry rewrites distractors, and every regenerated word is unreviewed).");
   }
 } else {
-  for (const [taskId, k] of alloc) {
+  for (const [taskId, kWanted] of alloc) {
+    let k = kWanted;
     const t = tasks.find((x) => x.id === taskId);
     const d = domById.get(t.domain_id);
     const ps = passagesFor(t);
     if (!ps.length) { bump("no mapped passage"); continue; }
+    /* ============ EACH ITEM GETS ITS OWN ANCHOR CLAUSE, BEFORE THE WRITER IS CALLED ============
+     *
+     * Ruled PROMPT-96 s2. Task 5.5 asked one call for four items and got four items on ONE clause out of
+     * thirty-six; 1.2 asked for six and got two. Measured across R4: 8 of 10 multi-item tasks spread
+     * perfectly, and the 2 that did not are the only ones with k >= 4 -- between them they account for
+     * every anchor-cap loss in the run. A writer handed a list of passages picks the most salient one
+     * repeatedly, so this is a decision the CODE makes rather than an instruction the writer may ignore. */
+    const asg = assignAnchors({
+      taskCode: t.code, runId: RUN_ID,
+      primaries: primaryOf(t.code).map((clause) => ({ source_id: STANDARD_OF[CERT] || "ISO/IEC 42001", clause })),
+      censusMap: capCensus.get(t.code) || new Map(),
+      want: k,
+    });
+    assignmentByTask.set(t.code, asg.assignments);
+    console.log("  " + t.code + "  anchors assigned: " +
+      (asg.assignments.length ? asg.assignments.map((a) => a.clause).join(", ") : "none") +
+      "   (" + asg.eligible + " eligible primary(ies), capacity " + asg.capacity + ")");
+    /* A SHORTFALL HERE IS THE MAP, NOT THE WRITER, AND IT IS SAID BEFORE A CALL IS PAID FOR. Asking for
+     * more items than `cap x eligible` can hold would force an over-cap assignment; the ask is reduced
+     * and the remainder stays a shortfall rather than becoming a rejection. */
+    if (asg.shortfall) {
+      console.log("      SHORTFALL " + asg.shortfall + " of " + k + ": " + asg.why +
+        ". Generating " + asg.assignments.length + " rather than spending a call on an item the cap " +
+        "would refuse.");
+      bump("anchor capacity short by " + asg.shortfall);
+    }
+    if (!asg.assignments.length) { bump("no eligible primary under the anchor cap"); continue; }
+    k = asg.assignments.length;
     let arr = null;
     try {
       /* THE BUDGET SCALES WITH k. A fixed 6000 was right only while every run asked for one item:
@@ -842,7 +898,7 @@ if (FROM) {
        * reported `writer returned nothing` under an OUTCOME block that reads like a gate result. */
       const budget = Math.min(32000, 2000 + 2200 * k);
       CALL_ROLE = "writer";
-      const rawText = await claude(WRITER_SYSTEM, writerUser(t, d, ps, k), budget);
+      const rawText = await claude(WRITER_SYSTEM, writerUser(t, d, ps, k, asg.assignments), budget);
       arr = parseArray(rawText);
       /* THREE CAUSES, THREE MESSAGES. parseArray returns null whether the response carried no
        * brackets, would not parse, or was empty -- and one bumped string for all three is why two
@@ -878,12 +934,16 @@ if (FROM) {
         " requested. Generating what arrived; the remainder is still a shortfall.");
       bump("writer returned fewer items than requested");
     }
-    for (const raw of arr.slice(0, k)) {
-      const opts = (raw.options || []).map((o, i) => ({
-        text: String((o && o.text) || ""), is_correct: i === Number(raw.correct_index),
+    arr.slice(0, k).forEach((raw, i) => {
+      const opts = (raw.options || []).map((o, j) => ({
+        text: String((o && o.text) || ""), is_correct: j === Number(raw.correct_index),
       }));
-      generated.push({ task: t, item: { ...raw, options: opts } });
-    }
+      /* THE ASSIGNMENT TRAVELS WITH THE ITEM, BY POSITION, because that is how the writer was told:
+       * "item 1 anchors in X, item 2 in Y". Looking it up later by the clause the item HAPPENS to carry
+       * would make the gate tautological -- it would find the assignment that matches and always pass,
+       * which is a check that cannot fire. */
+      generated.push({ task: t, item: { ...raw, options: opts }, assigned: asg.assignments[i] || null });
+    });
     console.log("  " + t.code + "  wrote " + Math.min(k, arr.length) + " item(s) from " + ps.length + " passage(s)");
   }
 }
@@ -915,6 +975,9 @@ if (!FROM) {
 console.log("");
 console.log("GATES");
 let retriedOk = 0, retriedStillBad = 0;
+/* items whose anchor-assignment gate could not run: generated before PROMPT-96 s2 and arriving through
+ * --from. Counted so an unassigned population cannot grow quietly. */
+let anchorUnassigned = 0;
 for (const g of generated) {
   /* A RESUMED ITEM MAKES NO CALL. The skip is before the first gate, so it cannot cost anything, and
    * the control asserts that by counting calls rather than by trusting this line. */
@@ -933,8 +996,16 @@ for (const g of generated) {
     liveStemsForTask: liveByTask.get(t.id) || [], cueCfg,
     primaryClauses: primaryOf(t.code), supportingClauses: supportingOf(t.code),
     sources: leakSources, leak: leakMod,
+    /* PROMPT-96 s2. The clause assigned to THIS item, by POSITION, carried on the generated record --
+     * never looked up by the clause the item happens to name, which would find the matching assignment
+     * and always pass. Null for an item generated before the assignment existed, which runCodeGates
+     * reports as UNASSERTED without blocking. */
+    assignedAnchor: g.assigned || (g.prior && g.prior.assigned) || null,
   });
   let code = runCodeGates(item, gateInput());
+  /* counted here rather than inside the gate, because the gate is pure and this is a run statistic. An
+   * unassigned population that GROWS means the assignment stopped happening. */
+  if ((code.unasserted || []).includes("anchor-assignment")) anchorUnassigned++;
 
   /* ============ ONE PARAPHRASE RETRY, AND ONLY FOR REPRODUCTION ============
    *
@@ -995,6 +1066,10 @@ for (const g of generated) {
     /* the id at CREATION, not only on the survivor path: three of the four record sites are rejections,
      * and the id is what a resume matches on. */
     item_id: itemId(item),
+    /* THE ASSIGNMENT IS PERSISTED, so a --from re-gate can check the same clause this run assigned rather
+     * than reporting UNASSERTED on an item that was in fact assigned. Without it every re-gate would
+     * report the gate as never having run, which is true of the re-gate and false of the item. */
+    assigned: g.assigned || (g.prior && g.prior.assigned) || null,
   };
 
   if (!code.passed) {
@@ -1424,6 +1499,37 @@ if (probeUnrun) console.log("    " + probeUnrun + " probe(s) COULD NOT RUN -- no
 
 console.log("");
 console.log("  PARAPHRASE RETRY (reproduction only)  fixed " + retriedOk + ", still failing " + retriedStillBad);
+
+/* ============ THE ANCHOR ASSIGNMENT, REPORTED WHETHER OR NOT IT FIRED ============
+ *
+ * Three numbers, because two of them can only be read against the third. A zero `refused` means either the
+ * writers all obeyed or the gate never ran, and those are opposite facts. */
+{
+  const assignedN = results.filter((r) => r.assigned && r.assigned.clause).length;
+  const refused = results.filter((r) => (r.failed || []).includes("anchor-assignment")).length;
+  console.log("  ANCHOR ASSIGNMENT  " + assignedN + " item(s) carried an assigned clause, " +
+    anchorUnassigned + " UNASSERTED (generated before PROMPT-96 s2; reported, never blocking), " +
+    refused + " refused for anchoring elsewhere");
+  if (assignedN) {
+    const distinct = new Map();
+    for (const r of results) {
+      if (!r.assigned || !r.assigned.clause) continue;
+      if (!distinct.has(r.task_code)) distinct.set(r.task_code, new Set());
+      distinct.get(r.task_code).add(r.item.key_support_clause);
+    }
+    const byTask = results.reduce((m, r) => {
+      if (r.assigned && r.assigned.clause) m[r.task_code] = (m[r.task_code] || 0) + 1;
+      return m;
+    }, {});
+    const spread = Object.entries(byTask).filter(([, n]) => n > 1)
+      .map(([c, n]) => c + " " + (distinct.get(c) || new Set()).size + "/" + n);
+    console.log("      distinct anchors per multi-item task: " + (spread.length ? spread.join("  ") : "none") +
+      "   (this is the 5.5 measurement: it read 1/4 before the assignment)");
+  } else if (!anchorUnassigned) {
+    console.log("      NOTHING WAS ASSIGNED AND NOTHING WAS UNASSERTED, which should be impossible --");
+    console.log("      every generated item is assigned and every --from item is unasserted. Investigate.");
+  }
+}
 
 /* ============ THE DE-CUE RETRY, AND THE KEY-PICK RATE BEFORE AND AFTER ============
  *

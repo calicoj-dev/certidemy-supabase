@@ -65,6 +65,11 @@ const BATCHES = argBatches.length ? argBatches
   }
   console.log("gate parity: " + par.named.length + " gate name(s) in this file, " + par.ran.length +
     " gate(s) running, every named one runs");
+  /* THE SECOND DIRECTION, PRINTED RATHER THAN SWALLOWED. A gate that rejects items while its name never
+   * appears in the report produces a count nobody can reconcile -- last session lost three `anchor-cap`
+   * rejections exactly that way and printed a dash for the task. It is an observation, not a failure: most
+   * gates reach the report through the per-task table, which derives its names from the item records. */
+  if (par.unnamedNote) console.log("  " + par.unnamedNote);
 }
 
 const loaded = [];
@@ -85,10 +90,15 @@ for (const b of loaded) {
         clauses: new Set(), items: [],
         /* TWO measurements, never one. keyPick = the probe picked the key from the options alone;
          * flags = it picked the key AND named the cue. flags is a SUBSET of keyPick. */
-        keyPick: 0, flags: 0, probed: 0 });
+        keyPick: 0, flags: 0, probed: 0,
+        /* PROMPT-96 s2. The two denominators the `anchor-assignment` count is unreadable without: a zero
+         * refusal count reads identically whether every writer obeyed or the gate never ran. */
+        anchorAssigned: 0, anchorUnasserted: 0 });
     }
     const t = byTask.get(code);
     t.attempted++;
+    if (r.assigned && r.assigned.clause) t.anchorAssigned++;
+    if ((r.unasserted || []).includes("anchor-assignment")) t.anchorUnasserted++;
     if (r.verdict === "survivor") {
       t.survivors++;
       t.clauses.add(r.item.key_support_clause);
@@ -324,6 +334,36 @@ p("");
 p("`solver-split`: **" + (gateTotals["solver-split"] || 0) + "** — items the solver answered two different");
 p("ways across two runs with the options shuffled.");
 p("");
+/* ============ THE ASSIGNED ANCHOR, REPORTED WITH ITS DENOMINATOR ============
+ *
+ * Ruled PROMPT-96 s2. A bare count here would be unreadable in the direction that matters: zero refusals
+ * means either every writer used its assigned clause or the gate never ran on these items, and those are
+ * opposite facts. So the UNASSERTED count sits beside it -- items generated before the assignment existed,
+ * which are reported and never blocked. */
+{
+  const refused = gateTotals["anchor-assignment"] || 0;
+  const unasserted = rows.reduce((s, r) => s + (r.anchorUnasserted || 0), 0);
+  const assigned = rows.reduce((s, r) => s + (r.anchorAssigned || 0), 0);
+  /* ============ ALL THREE ZERO IS A THIRD STATE: THE ARTIFACT PREDATES THE GATE ============
+   *
+   * An artifact gated before PROMPT-96 s2 carries no `assigned` field AND no `anchor-assignment` entry in
+   * its `unasserted` list, because the gate did not exist to record either. So `0 refused of 0 assigned,
+   * 0 unasserted` is not "nothing went wrong" -- it is "this question was never asked of these items", and
+   * printing it as three zeros beside a live run's figures would put the two side by side as though they
+   * were the same measurement. */
+  if (!refused && !assigned && !unasserted) {
+    p("`anchor-assignment`: **NOT MEASURED ON THIS RUN.** The artifact carries no assignment and no");
+    p("unasserted entry for it, which means it was gated before the gate existed rather than that every");
+    p("item passed. Three zeros and a clean bill of health look identical, so this says which it is.");
+  } else {
+    p("`anchor-assignment`: **" + refused + "** refused for anchoring outside the clause assigned to them, of " +
+      assigned + " item(s) that carried an assignment. " + unasserted + " item(s) had none — generated");
+    p("before PROMPT-96 s2 and re-gated through `--from`, so the gate could not examine them; UNASSERTED,");
+    p("never a pass, and never blocking. **A zero refusal count means nothing without those two");
+    p("denominators**: it reads identically whether every writer obeyed or the gate never ran.");
+  }
+  p("");
+}
 if (stopped.length) {
   p("## Tasks that hit a stop condition");
   p("");
