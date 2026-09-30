@@ -4,6 +4,56 @@
 
 ---
 
+## THE WEB CHANGE SHIPS FIRST. THIS IS NOT A PREFERENCE.
+
+Ruled PROMPT-95 addendum-2, and the reason is a defect in my original design that the director caught.
+
+`exam-runner.tsx` rendered the chip letter from `opt.id`. With the functions live and the web unchanged, a
+candidate would see **the letters scrambled — C, A, D, B down the list** — and the letter would still follow
+the **stored** position, so clicking "A" selected id `a` in every attempt and **the shuffle would protect
+nothing at all.** Worse, the keyboard handler matched the keypress against the option id, so pressing "a"
+would have selected a *different* option from the one the chip labelled A — a mis-selection with nothing on
+screen to show it.
+
+So the order is:
+
+| step | what | how |
+|---|---|---|
+| 1 | **certidemy-web** — letters from the position | `git push` to `origin/main` |
+| 2 | the two edge functions | the CLI commands below |
+
+### Step 1: how certidemy-web reaches production
+
+**By `git push` to `origin/main`, built by Cloudflare Workers CI. It is automatic — not Vercel, and not
+`npm run cf:deploy`.**
+
+`npm run cf:deploy` pushes to `certidemy-web.jroman-mobile.workers.dev`, which is **not** the production
+domain. That is a recorded defect: on 2026-09-24 a "successful" `cf:deploy` left production on the previous
+commit. The header `x-certidemy-build-src: WORKERS_CI_COMMIT_SHA` is what says which commit is serving, and
+`x-certidemy-build` is the only thing that answers *is my change live*.
+
+```powershell
+# from C:\Users\Juan\Documents\certidemy\certidemy-web
+git push origin main
+# then confirm the commit is serving before touching the functions:
+curl.exe -sI https://certidemy.com/ | Select-String "x-certidemy-build"
+```
+
+**Wait for that header to show the pushed commit before step 2.** A local build succeeding is not evidence
+that the thing you edited is live.
+
+### What a candidate sees if the order is reversed
+
+| order | what happens |
+|---|---|
+| **web first** (correct) | between the two deploys the web change is a **no-op**: options still arrive in stored order, so index-derived letters are A, B, C, D on ids a, b, c, d — exactly today's display. Asserted by `scripts/check-letter-from-position.mjs` point 5. |
+| **functions first** | every exam form served in the gap shows **scrambled letters** (C, A, D, B), and "always answer A" still finds id `a`, so the fix is inert while looking broken. Pressing a letter key selects the wrong option. Scores stay correct throughout — grading compares id sets — so **nothing would alert anyone**: it is a silent-wrongness window, not an outage. |
+
+That asymmetry is the whole reason for the order. The safe step is the one that changes nothing until the
+other lands.
+
+---
+
 ## Preconditions, all verified read-only
 
 | | |
@@ -19,7 +69,7 @@ more than an hour has passed — the answer is only true as of when it was measu
 
 ---
 
-## The commands
+## Step 2: the function commands
 
 **The CLI expects to find `supabase/` beneath the working directory, so it cannot be run from inside
 `supabase/`.** These are written to be pasted while sitting in `supabase/`: `Push-Location ..` steps up,
@@ -43,11 +93,14 @@ safely — and a silent failure on the first followed by a success on the second
 `lookup api.supabase.com: no such host` while `nslookup` answered normally, and once it succeeded on a blind
 retry, which taught nothing. It is a global CLI flag.
 
-### Order does not matter, and I checked rather than guessing
+### The order of these TWO does not matter, and I checked rather than guessing
 
-Both orders expose exactly the same window — a session created **and** resumed in the gap between the two
-deploys would see its options move. With zero live sessions and a gap of seconds, neither order is safer.
-What does matter is deploying both back to back rather than leaving one live overnight.
+This is about the two functions only — the web change still ships before both of them, for the reason at the
+top of this file.
+
+Between the two functions, both orders expose exactly the same window: a session created **and** resumed in
+the gap would see its options move. With zero live sessions and a gap of seconds, neither is safer. What does
+matter is deploying both back to back rather than leaving one live overnight.
 
 ---
 
@@ -79,9 +132,10 @@ the default, which is what we want.
    ```powershell
    node --dns-result-order=ipv4first scripts/check-384-and-live-sessions.mjs
    ```
-2. **Start a simulator attempt** on any certification and confirm the options render with letters A–D in
-   order and text beside each. The letters come from the option `id`, so A–D in sequence is the signal that
-   the ids were reassigned correctly rather than the array reordered underneath them.
+2. **Start a simulator attempt** and confirm the options render with letters A–D in order, text beside each.
+   The letters now come from the **position**, so A–D in sequence is guaranteed and proves nothing on its own.
+   What to look for instead: start a **second** attempt on the same certification and check that an item you
+   recognise has its option **texts** in a different order. That is the shuffle working.
 3. **Reload the page mid-attempt.** The options must be in the SAME order. That is the one thing the
    deterministic seed buys, and it is the one thing a per-request shuffle would have got wrong.
 4. **Submit it** and confirm the score is what you expect. Grading compares option id sets, so a changed
