@@ -21,7 +21,8 @@
  * of two DIFFERENT standards must not be an enemy pair, because ISO 19011's 4.x collides with the harmonised
  * management-system 4.x and keying on the clause alone would merge two unrelated subjects.
  */
-import { dirname } from "node:path";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { enemyRuleControls, enemyReason, markEnemy, freshUsed, enemyKeyOf, OPTION_TEXT_FLOOR }
   from "../functions/_shared/item-rules/enemy-rule.mjs";
@@ -30,9 +31,16 @@ for (const a of process.argv.slice(2)) {
   console.error("Unrecognised flag: " + a + ". This script takes none.");
   process.exit(2);
 }
-void dirname(fileURLToPath(import.meta.url));
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 let fails = 0;
+/* ONE reporter for every assertion in this file. The first version printed each result inline and counted
+ * failures by hand, so the source assertion added later called an `ok` that did not exist -- caught by
+ * `node --check` passing and the run throwing, which is the parse-is-not-a-resolution shape. */
+const ok = (what, cond, detail) => {
+  console.log("  " + (cond ? "ok  " : "FAIL") + " " + what + (cond ? "" : "   -- " + detail));
+  if (!cond) fails++;
+};
 console.log("ENEMY RULE -- the shared module's own controls");
 for (const r of enemyRuleControls()) {
   console.log("  " + (r.pass ? "ok  " : "FAIL") + " " + r.what + (r.pass ? "" : "   -- " + r.detail));
@@ -110,6 +118,45 @@ console.log("THE OPTION-TEXT FLOOR is " + OPTION_TEXT_FLOOR + " normalised chara
   console.log("  future boilerplate only.");
 }
 console.log("");
+
+/* ============ THE READ ERROR MUST BE LOUD, ASSERTED AGAINST THE FUNCTION'S SOURCE ============
+ *
+ * Ruled PROMPT-96 s5: *"confirm that a read error on `item_grounding` fails loudly (a 500)."*
+ *
+ * This cannot be shown from the shared module -- the read lives in the deployed function -- and it cannot be
+ * shown by calling the function, because there is no way to make a healthy database fail a read on demand.
+ * So it is asserted against the SOURCE, and the assertion is written to fail on the wrong shape rather than
+ * to pass on the right one: the `gErr` branch must THROW, and it must not be a `?? []` or a bare `if (gErr)
+ * continue` that degrades the rule to "nothing is an enemy".
+ *
+ * WHY THAT PARTICULAR FAILURE MODE IS THE ONE TO GUARD. A swallowed read error produces an EMPTY enemy map,
+ * which is indistinguishable from a pool with no grounded items -- and a pool with no grounded items is the
+ * normal case for eleven of twelve certifications. So the degraded state looks exactly like the healthy one
+ * everywhere it would be noticed, which is this repository's silent-success shape aimed at an exam form.
+ *
+ * A SOURCE ASSERTION IS WEAKER THAN A BEHAVIOURAL ONE AND IT SAYS SO: it proves the code as written throws,
+ * not that the deployed bundle does. `deno check` and the post-deploy smoke cover the second. */
+{
+  console.log("THE item_grounding READ ERROR IS LOUD");
+  const src = readFileSync(join(ROOT, "functions/generate-mock-exam/index.ts"), "utf8");
+  const block = /item_grounding[\s\S]{0,900}?\n\s*\}/.exec(src);
+  const seg = block ? block[0] : "";
+  const hasThrow = /if\s*\(\s*gErr\s*\)\s*throw new HttpError\(\s*500/.test(seg);
+  const swallows = /if\s*\(\s*gErr\s*\)\s*(continue|return|\{\s*\})/.test(seg) ||
+    /gErr\s*\)\s*console\.(warn|error)[\s\S]{0,40}\n(?![\s\S]{0,40}throw)/.test(seg);
+  ok("the item_grounding read block exists in generate-mock-exam", !!block,
+    "no block matched, so this assertion could not have fired");
+  ok("a read error THROWS a 500", hasThrow, "no `if (gErr) throw new HttpError(500` in the block");
+  ok("...and does not swallow, log-and-continue, or default to an empty map", !swallows,
+    "the block degrades instead of throwing");
+  /* THE ASSERTION MUST BE ABLE TO FAIL. Fed a swallowing version of the same block, it must say so --
+   * otherwise it is a regex that matched something and proved nothing. */
+  const fake = "from('item_grounding')\n  .select('question_id')\n  if (gErr) continue;\n}";
+  const fakeThrow = /if\s*\(\s*gErr\s*\)\s*throw new HttpError\(\s*500/.test(fake);
+  ok("the assertion FIRES on a swallowing version of the same block", !fakeThrow,
+    "it passed a block with no throw, so it cannot fire");
+  console.log("");
+}
 
 /* the clause-collision guard, named once more because it is the one that would merge two standards */
 console.log("KEY SHAPE  " + JSON.stringify(enemyKeyOf({ source_id: "ISO 19011", edition: "2026",

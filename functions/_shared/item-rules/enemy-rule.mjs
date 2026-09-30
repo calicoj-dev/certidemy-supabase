@@ -150,6 +150,30 @@ export function enemyRuleControls() {
   ok("NONE of the " + BOILER.length + " declared boilerplate phrases makes two items enemies",
     boilerFires.length === 0, "these fired: " + boilerFires.join(" | "));
 
+  /* ============ A POOL WITH NO GROUNDED ROWS: NOTHING IS AN ENEMY ============
+   *
+   * Ruled PROMPT-96 s5: *"an exam for any other certification must not break because of this."* Eleven of
+   * the twelve certifications have ZERO grounded items, so their entire pool arrives with `enemy_key: null`
+   * -- and this asserts that such a form loses nothing at all. Without it, a rule that refused a null key
+   * would silently shorten every other certification's exam into an integrity-gate refusal, which is the
+   * loudest possible way to break eleven products to protect one.
+   *
+   * Deliberately a whole FORM rather than a pair: the defect would be cumulative, and two items cannot show
+   * it. Forty, which is AIMS-F's form size. */
+  {
+    const form = Array.from({ length: 40 }, (_, i) => ({
+      enemy_key: null,
+      options: opt("authored option " + i + " alpha bravo charlie", "authored option " + i + " delta echo"),
+    }));
+    const u2 = freshUsed();
+    let taken = 0;
+    for (const q of form) { if (!enemyReason(q, u2)) { markEnemy(q, u2); taken++; } }
+    ok("a 40-item form with NO grounded rows loses nothing -- the eleven other certifications are safe",
+      taken === 40, "took " + taken + " of 40");
+    ok("...and the enemy set stays empty, so nothing was recorded either",
+      u2.enemy.size === 0, u2.enemy.size + " key(s) recorded");
+  }
+
   /* ---- the source is part of the key, so a clause collision across standards is not an enemy ---- */
   const iso19011 = { enemy_key: "ISO 19011|2026|4.1", options: opt("lambda twenty one two", "mu twenty two") };
   const iso42001 = { enemy_key: "ISO/IEC 42001|2023|4.1", options: opt("nu twenty three four", "xi twenty five") };

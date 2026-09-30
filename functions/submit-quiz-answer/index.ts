@@ -18,6 +18,8 @@ import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.ts";
 import { review, ratingFromOutcome, defaultNewCard, FsrsCard } from "../_shared/fsrs.ts";
+/* PROMPT-96 s1b. ONE definition of servable, shared with get-review-batch. */
+import { isServable } from "../_shared/item-rules/language-sibling.mjs";
 import { updateMastery } from "../_shared/mastery.ts";
 
 interface Body {
@@ -25,6 +27,22 @@ interface Body {
   question_id: string;
   user_answer: string[];
   time_taken_seconds: number;
+  /**
+   * PROMPT-96 s1b. The locale the learner is on, so the EXPLANATION comes back in it.
+   *
+   * WHY THIS FUNCTION NEEDED A LANGUAGE AT ALL. `get-review-batch` now serves a review in the requested
+   * language by keeping the CARD's question id and taking the display text from the sibling -- scheduling is
+   * keyed on that id, so it cannot change. The consequence lands here: the client submits the card's id,
+   * this function reads that row, and returns ITS explanation. A learner answering a Spanish question was
+   * therefore shown an English explanation on the same page.
+   *
+   * Fixing it in `get-review-batch` is not possible: the explanation is not in the review payload, by
+   * design, because a client holding the explanation before the answer holds the answer.
+   *
+   * OPTIONAL, AND ABSENCE MEANS "THE QUESTION'S OWN LANGUAGE". An older client that does not send it gets
+   * exactly the behaviour it has today, so the two deploys are independent in either order.
+   */
+  language?: string;
 }
 
 serve(async (req) => {
@@ -78,10 +96,50 @@ serve(async (req) => {
     //    returned to the caller.
     const { data: question, error: qErr } = await svc
       .from('quiz_questions')
-      .select('id, certification_id, module_id, correct_answer, explanation, difficulty, language, pool, status')
+      // ONE UNBROKEN LITERAL. Splitting this across a `+` collapsed the row type to `GenericStringError`
+      // and `deno check` reported five phantom "property does not exist" errors -- the trap CLAUDE.md
+      // records for exactly this, caught here by the type checker on the first run.
+      .select('id, certification_id, module_id, correct_answer, explanation, difficulty, language, pool, status, retired_at, question_group_id')
       .eq('id', body.question_id)
       .single();
     if (qErr || !question) throw new HttpError(404, 'question not found');
+
+    // ============ THE EXPLANATION IS RESOLVED INTO THE REQUESTED LANGUAGE ============
+    //
+    // PROMPT-96 s1b. GRADING IS UNTOUCHED AND THAT IS THE POINT: `correct_answer` is read from the row
+    // above, the FSRS card is keyed on that row's id, and only the explanation TEXT moves. A sibling's
+    // `correct_answer` is identical by construction (9,224 of 9,224 translated option sets pair by id), but
+    // this path does not rely on that -- it never reads the sibling's key.
+    //
+    // NO SERVABLE SIBLING MEANS THE QUESTION'S OWN EXPLANATION, WHICH IS A DELIBERATE FALLBACK AND THE
+    // OPPOSITE OF THE RULE IN `get-review-batch`. There, a missing sibling means the review is skipped: the
+    // learner has not yet been shown anything, so showing nothing costs them nothing. Here the answer is
+    // already submitted and graded; withholding the explanation to avoid the wrong language would take away
+    // the one thing the learner is owed for having answered. Wrong-language text beats no text ONLY after
+    // the answer, and the two rules differ for that reason rather than by oversight.
+    let explanation = question.explanation;
+    let explanation_language = question.language;
+    const want = (body.language && body.language.trim()) || null;
+    if (want && want !== question.language && question.question_group_id) {
+      const { data: sib, error: sibErr } = await svc
+        .from('quiz_questions')
+        .select('id, explanation, language, status, pool, retired_at, question_group_id')
+        .eq('question_group_id', question.question_group_id)
+        .eq('language', want);
+      // A FAILED READ IS NOT "NO SIBLING". It is logged and the fallback stands, rather than being
+      // indistinguishable from a bank with no translation.
+      if (sibErr) {
+        console.warn('explanation sibling read failed: ' + JSON.stringify({ q: question.id, want,
+          error: sibErr.message }));
+      } else {
+        const hit = (sib ?? []).find((s) => isServable(s) && s.explanation);
+        if (hit) { explanation = hit.explanation; explanation_language = hit.language; }
+        else {
+          console.warn('explanation stays in ' + question.language + ': ' + JSON.stringify({
+            q: question.id, want, reason: 'no servable ' + want + ' sibling with an explanation' }));
+        }
+      }
+    }
 
     // ============ A SECURE ITEM IS NEVER GRADED HERE ============
     //
@@ -277,7 +335,11 @@ serve(async (req) => {
     return jsonResponse({
       is_correct,
       correct_answer: question.correct_answer,
-      explanation: question.explanation,
+      explanation,
+      // WHICH LANGUAGE THE EXPLANATION IS IN, stated rather than inferred by the client. Where no sibling
+      // was available this differs from the requested locale, and the caller can say so instead of the
+      // learner wondering.
+      explanation_language,
       rating,
       next_due: card_after.due.toISOString(),
       next_interval_days: card_after.scheduled_days,
