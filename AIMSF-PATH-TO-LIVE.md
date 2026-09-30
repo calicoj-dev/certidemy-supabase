@@ -51,24 +51,45 @@ own read of 40 items found three such misses that anchored cleanly AND the solve
 the strongest instrument was **7 of 14** of his findings, **5 of the 9 that are a named defect in the key**.
 The gates reduce the read; they do not replace it.
 
-### 2b. A director read -- NO MECHANISM, and this is the binding constraint
+### 2b. A director read -- RECORDED PER ROW since migration 379. 34 of 146 read.
 
-**HOW MANY OF THE 146 HAVE BEEN READ IS NOT DERIVABLE FROM ANYTHING ON DISK.** I started to write *"40 read,
-106 unread"* and it is exactly the inference this section exists to say is unavailable -- the document would
-have contradicted itself two paragraphs apart.
+```
+review_verdict   read 34, unread 112     reviewed_by  director     on  2026-09-27, 2026-09-29
+```
 
-What the record actually holds:
+`item_grounding` carries `reviewed_by`, `reviewed_at`, `review_verdict` and `review_note`, added by **migration
+379 on 2026-09-27**, with a closed verdict vocabulary (`read | tier_a | tier_b | tier_c`) and a CHECK that a
+verdict cannot exist without a reviewer and a date. The verdict is a record and never a gate: 379's own header
+says so, and `quiz_questions.status` remains what decides what may be served.
 
-| record | what it covers | does it name these rows? |
-|---|---|---|
-| `AUDIT-FINDINGS-480.md` | 40 English secure items per certification, stratified, read 2026-09-26 | **no** -- that sample is the PRE-EXISTING bank, not the grounded pilot |
-| `DIRECTOR-RULINGS-AIMSF.json` | a read of **20 survivors on 2026-09-29**, all KEEP, 5 flagged for explanation softness | by content-id PREFIX, in an artifact -- not as row state |
-| `AIMSF-DIRECTOR-REJECTIONS.json` | **3 rejections**, each citing the prompt that ruled it | by prefix, same caveat |
+> **[CORRECTED 2026-09-30. THE TEXT BELOW THIS BANNER IS WHAT THIS SECTION SAID, AND IT WAS FALSE WHEN
+> WRITTEN, NOT STALE.]** It read *"no mechanism records the outcome"* and called that the binding constraint,
+> then argued at length that the unread count was UNKNOWN. Migration 379 had been applied three days earlier
+> and 34 rows already carried a read.
+>
+> **The two failures are different and only one of them is ordinary.** Everything else this repository guards
+> against is DECAY -- a sentence true when written that rotted. This one was wrong on arrival, so nothing about
+> it ever looked stale and no re-read asking *is this still true* could catch it.
+>
+> It was produced by `measure-path-to-live.mjs` selecting `solver` from `item_grounding` and not the review
+> columns beside it. **An empty result is a fact about the probe until something proves the probe could have
+> found it** -- committed by the probe written to replace a prose claim, which is this file's own thesis
+> arriving one level down. The select now names them.
+>
+> And the sharper part: I ALSO wrote *"I started to write 40 read, 106 unread and that is the inference this
+> section says is unavailable"* -- congratulating the document for a rigour it did not have. **A correction
+> written into a false claim makes it read as carefully established.** The real answer, 34 and 112, was one
+> query away the whole time.
 
-Nothing records *"a human read this item and accepted it"* as a property of the row. The rejections list
-records the opposite verdict, because that is the one that cannot be derived from an artifact -- but there is
-no positive counterpart, so **the unread count is UNKNOWN rather than large**, and establishing it is itself a
-piece of work: resolve every read artifact's prefixes against the bank and see what is left over.
+**The superseded text, preserved:** *"HOW MANY OF THE 146 HAVE BEEN READ IS NOT DERIVABLE FROM ANYTHING ON
+DISK... Nothing records "a human read this item and accepted it" as a property of the row... so the unread
+count is UNKNOWN rather than large."* Every sentence of that is false. The three artifacts it named
+(`AUDIT-FINDINGS-480.md`, `DIRECTOR-RULINGS-AIMSF.json`, `AIMSF-DIRECTOR-REJECTIONS.json`) do carry the reads
+it described, and they are a SECOND copy of what the rows now hold.
+
+**What is actually left here:** 112 rows unread, and the verdict vocabulary has no `accept` or `reject` -- so
+the director's PROMPT-97-addendum verdicts need it widened before they can be recorded. That is the live gap,
+and it is much smaller than the one this section claimed.
 
 > **A ROW CANNOT TODAY DISTINGUISH READ-AND-ACCEPTED FROM NEVER-READ.** Both are `pending_review`. That is the
 > same shape as `description_is_fallback` rendering two withholding reasons identically, and it is the one gap
@@ -215,11 +236,9 @@ it is the one nobody chose.
 ## 6. The order, and the two things that block everything after them
 
 ```
-1  finish the R5 top-up                          IN FLIGHT, $12.15 projected, nothing inserted
+1  finish the R5 top-up                          DONE. 28 survivors of 38 at $15.56
 2  decide 1.2 and 5.5                            a MAP or FLOOR ruling; generation cannot help
-3a establish WHICH rows are unread              not derivable today; resolve the read
-                                                artifacts' prefixes against the bank
-3b read them                                     no mechanism records the outcome  <- BLOCKER
+3  read the remaining 112                        34 of 146 read, recorded per row by migration 379
 4  build the promotion script                    does not exist                    <- BLOCKER
 5  measure translation on one task               one call, then project
 6  translate, group, read the translations
@@ -235,9 +254,9 @@ why it is worth doing before step 6 rather than during it.
 
 ## What this document cannot tell you
 
-- **how many items are unread, let alone whether they are correct.** Section 2b: no row carries a read. The
-  gates reduce what a read has to catch; the measured recall of the strongest one is 7 of 14 against the
-  director's own findings.
+- **whether a read item is correct.** 112 of 146 are unread, which IS known (section 2b). What a read cannot
+  be replaced by is the gates: the measured recall of the strongest one is 7 of 14 against the director's own
+  findings, and 5 of the 9 that are a named defect in the key.
 - **the translation bill.** Section 3 says why, and names the one call that would settle it.
 - **whether the approved pool assembles a form.** Only 5b can answer that, and only after step 4.
 - **anything about the other eleven certifications.** Every figure here is AIMS-F.

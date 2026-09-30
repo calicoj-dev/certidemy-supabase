@@ -38,7 +38,19 @@ const codeOfTask = new Map(tasks.map((t) => [t.id, t.code]));
 const qs = await getAll(KEY, "quiz_questions?select=id,task_id,language,pool,status,visibility," +
   "is_exam_scope,item_origin,question_group_id,options,correct_answer&certification_id=eq." + cert.id +
   "&retired_at=is.null&order=id");
-const ig = await getAll(KEY, "item_grounding?select=question_id,source_id,key_support_clause,solver&order=question_id");
+/* ============ THE REVIEW COLUMNS ARE SELECTED, AND THE FIRST VERSION DID NOT SELECT THEM ============
+ *
+ * This script's first run reported that NO ROW RECORDS A DIRECTOR READ, and `AIMSF-PATH-TO-LIVE.md` carried
+ * that as its binding constraint. Migration 379 added `reviewed_by`, `reviewed_at`, `review_verdict` and
+ * `review_note` to this table on 2026-09-27 -- THREE DAYS BEFORE -- and 34 rows already carried `read`.
+ *
+ * So the claim was FALSE WHEN WRITTEN, not stale, and that is the worse kind: a stale claim has a date when it
+ * turned and a re-read that asks "is this still true" eventually catches it, while a claim that was never true
+ * survives every re-read because currency was never the problem.
+ *
+ * It was produced by a select that did not ask. **An empty result is a fact about the probe until something
+ * proves the probe could have found it** -- this file's own rule, committed by this file. */
+const ig = await getAll(KEY, "item_grounding?select=question_id,source_id,key_support_clause,solver,reviewed_by,reviewed_at,review_verdict,review_note&order=question_id");
 const groundedIds = new Set(ig.map((g) => g.question_id));
 
 const en = qs.filter((q) => q.language === "en");
@@ -100,6 +112,21 @@ console.log("  visibility     " + JSON.stringify(out.visibility));
 console.log("  is_exam_scope  " + JSON.stringify(out.is_exam_scope));
 console.log("  solver verdict recorded on " + out.solver_recorded + " of " + ig.length +
   " item_grounding row(s)");
+/* THE READ IS A RECORDED FACT, PER ROW. Reported with its denominator and its dates, because "34 read" alone
+ * cannot say whether the other 112 are unread or simply unrecorded -- and that distinction is the whole
+ * question the approval step turns on. */
+{
+  const by = {}, who = {}, dates = new Set();
+  for (const g of ig) {
+    by[g.review_verdict || "(unread)"] = (by[g.review_verdict || "(unread)"] || 0) + 1;
+    if (g.review_verdict) who[g.reviewed_by || "(unattributed)"] = (who[g.reviewed_by || "(unattributed)"] || 0) + 1;
+    if (g.reviewed_at) dates.add(String(g.reviewed_at).slice(0, 10));
+  }
+  console.log("  DIRECTOR READ, per row (migration 379)   " + JSON.stringify(by));
+  console.log("    by                                     " + JSON.stringify(who));
+  console.log("    on                                     " + [...dates].sort().join(", "));
+  out.review = { by_verdict: by, by_reviewer: who, dates: [...dates].sort() };
+}
 console.log("");
 console.log("TRANSLATION GAP (the grain is the GROUP, because a sibling set is one editorial decision)");
 console.log("  no question_group_id at all   " + out.translation.no_group_id);

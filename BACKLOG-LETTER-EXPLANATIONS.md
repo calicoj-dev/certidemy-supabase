@@ -122,6 +122,18 @@ one to plan against rather than the row count.
 |---|---|---|---|---|---|---|---|
 | `409c6db3-3576-4bc9-9827-6149f8dbfee7` | secure | en | approved | authored | `by-letter` | "Option b" | Option b is the key. This item exists only to exercise the exam path. |
 
+## Drafts awaiting a read (not served, and the cheap place to fix one)
+
+Ruled PROMPT-97 addendum s3. These are artifact survivors, scanned with the same rules. **A draft is not
+a live defect** -- no learner can reach it -- so these are kept out of the totals above and reported here,
+because the two need different actions: a served row needs a content edit, a draft needs the item rewritten
+or dropped before it is inserted.
+
+| item | task | artifact | already inserted? | rule | matched |
+|---|---|---|---|---|---|
+| `29a3ad5f` | 2.4 | AIMSF-R5.json | no | `by-number` | "Option 1" |
+| `a5eb5694` | 1.4 | AIMSF-ROLLOUT-B1.json | **yes** | `by-letter` | "option C" |
+
 ## What this list cannot see
 
 - an explanation naming an option by a DESCRIPTION of its position ("the shortest option", "the one

@@ -246,6 +246,89 @@ const overTotal = rows.reduce((s, r) => s + r.over, 0);
 md.push("**" + overTotal + " kept item(s) are over the anchor cap** and are excluded from `kept` above. They");
 md.push("are real, reviewed items; they are simply not available to a floor that counts " + CAP + " per");
 md.push("(source, clause). They were reported and not dropped, per PROMPT-87.");
+/* ============ AND THE TABLE THE RULING ASKED FOR: FLOORS OVER ACCEPTED ITEMS ONLY ============
+ *
+ * Ruled PROMPT-97 addendum s4: *"the per-task table showing which tasks are at their floor with ACCEPTED
+ * items only."*
+ *
+ * Everything above counts what is INSERTED, which is the right denominator for "can a form be built". This is
+ * a different and stricter question: how much of each task rests on an item a human has read and accepted.
+ * The two differ by 158 rows today, so reporting only the first would let "29 of 35 at floor" be read as
+ * "29 of 35 reviewed", which is the claim nobody has earned.
+ *
+ * THE VERDICT IS READ FROM THE ROW, not from the ruling artifact, so this table cannot drift from the record.
+ * `accept` is the verdict; `read` is NOT counted -- 379's vocabulary keeps them apart deliberately, because a
+ * read with findings is not an acceptance.
+ *
+ * AND WHERE THE RECORD CANNOT YET HOLD THE VERDICT, THE TABLE SAYS SO RATHER THAN COUNTING IT. Migration 385
+ * widens the vocabulary to admit `accept`; until it runs, the 46 accepted rows carry no verdict and this table
+ * shows PENDING against them. A number that silently included them would be a claim about a record that does
+ * not exist yet. */
+{
+  /* the verdict column and the question->task map, read here rather than assumed from the reads above: this
+   * script's earlier `ig` selects only `question_id`, and re-using it would have made every verdict undefined
+   * and the table a column of zeros -- an empty result that is a fact about the select. */
+  const igAll = await getAll(KEY,
+    "item_grounding?select=question_id,review_verdict,reviewed_by&order=question_id");
+  const certRow = (await getAll(KEY, "certifications?select=id,code&code=eq.AIMS-F"))[0];
+  const taskRows = (await getAll(KEY, "tasks?select=id,code,certification_id&order=code"))
+    .filter((t) => t.certification_id === certRow.id);
+  const codeOfTaskId = new Map(taskRows.map((t) => [t.id, t.code]));
+  const taskOfQuestion = new Map((await getAll(KEY,
+    "quiz_questions?select=id,task_id&certification_id=eq." + certRow.id + "&language=eq.en&order=id"))
+    .map((q) => [q.id, q.task_id]));
+  const accByTask = new Map();
+  for (const g of igAll) {
+    if (g.review_verdict !== "accept") continue;
+    const code = codeOfTaskId.get(taskOfQuestion.get(g.question_id));
+    if (!code) continue;
+    accByTask.set(code, (accByTask.get(code) || 0) + 1);
+  }
+  /* the ruling's own accepted set, for the PENDING column: the rows whose verdict 385 will make writable */
+  let pendingByTask = new Map(), pendingTotal = 0;
+  const vp = join(ROOT, "AIMSF-97-VERDICTS.json");
+  if (existsSync(vp)) {
+    for (const a of (JSON.parse(readFileSync(vp, "utf8")).accept || [])) {
+      pendingByTask.set(a.task, (pendingByTask.get(a.task) || 0) + 1);
+      pendingTotal++;
+    }
+  }
+  const accTotal = [...accByTask.values()].reduce((s, n) => s + n, 0);
+  md.push("");
+  md.push("---");
+  md.push("");
+  md.push("## Floors over ACCEPTED items only");
+  md.push("");
+  md.push("Ruled PROMPT-97 addendum s4. The table above counts what is inserted. This one counts only items");
+  md.push("carrying `review_verdict = 'accept'` on their `item_grounding` row -- a human read them and");
+  md.push("accepted them. **`read` is not counted**: migration 379 keeps the two apart because a read with");
+  md.push("findings is not an acceptance.");
+  md.push("");
+  md.push("- verdict `accept` recorded on **" + accTotal + "** row(s)");
+  md.push("- the PROMPT-97 ruling accepted **" + pendingTotal + "**, whose verdict is PENDING migration 385");
+  md.push("  (the vocabulary has no `accept` until it runs, so the column below is a claim about the ruling,");
+  md.push("  not yet about the record)");
+  md.push("");
+  md.push("| task | floor | accepted (recorded) | + pending 385 | at floor on accepted? |");
+  md.push("|---|---|---|---|---|");
+  let atFloorAcc = 0;
+  for (const r of rows) {
+    const rec = accByTask.get(r.code) || 0;
+    const pend = pendingByTask.get(r.code) || 0;
+    const ok = rec + pend >= r.floor;
+    if (ok) atFloorAcc++;
+    md.push("| " + r.code + " | " + r.floor + " | " + rec + " | " + (rec + pend) + " | " +
+      (ok ? "yes" : "**no** -- short " + (r.floor - rec - pend)) + " |");
+  }
+  md.push("");
+  md.push("**" + atFloorAcc + " of " + rows.length + " tasks would be at their floor on accepted items** once");
+  md.push("385 lands and the verdicts are recorded. On the record as it stands today the figure is " +
+    rows.filter((r) => (accByTask.get(r.code) || 0) >= r.floor).length + ".");
+  md.push("");
+  md.push("**Neither number says an item is servable.** A verdict is a record, never a gate:");
+  md.push("`quiz_questions.status` is `pending_review` on every one of these rows and");
+  md.push("`generate-mock-exam` filters `approved`.");
+}
 writeFileSync(join(ROOT, "AIMSF-COMPLETION.md"), md.join("\n") + "\n", "utf8");
 
 console.log("AIMS-F COMPLETION");

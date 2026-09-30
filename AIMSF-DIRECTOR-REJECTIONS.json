@@ -1,28 +1,89 @@
 {
-  "what": "Items the director has rejected, with the prompt that ruled each. A rejection is the one disposition that cannot be derived from an artifact: a gate refusal is recorded by the run that made it and a supersession by the revision that caused it, but a ruling leaves no trace unless written.",
-  "read_by": [
-    "scripts/report-aimsf-completion.mjs -- so a rejected item is not counted as awaiting approval"
-  ],
-  "and_the_per_run_blocks_stay": "AIMSF-S2-REVISED-raw.json keeps its own `rejected` block as the record of that run. The report unions both sources, because a rejection dropped from either should still be excluded and a union cannot lose one.",
-  "rejections": [
-    {
-      "id": "c590b702",
-      "task": "4.1",
-      "ruled": "PROMPT-95 s2",
-      "why": "anchored in A.6.2, a container, and its options are Annex A category numbers -- a recall item in disguise. Verified before acting: all four options are literally 'A.6, covering...', 'A.4, covering...', 'A.9...', 'A.10...'."
-    },
-    {
-      "id": "43882b06",
-      "task": "5.5",
-      "ruled": "PROMPT-95 s2",
-      "why": "a near-duplicate of c45a02f1 (1.1): same anchor (3.4), same key substance, and its distractors are certificates, certification-body rules and accreditation -- eliminable without knowing the standard, against c45a02f1's process / policy / objective. Its distractor 2's `why_wrong` also talks about certification bodies while its support span is 3.4's Note 2 on management-system elements: the reason and the evidence do not match."
-    },
-    {
-      "id": "3a3d26fa",
-      "task": "3.1",
-      "ruled": "PROMPT-96 s3",
-      "why": "cites A.4.6 -- human resources -- for text belonging to A.5's objective: \"Assessing impacts of AI systems Objective: To assess AI system impacts to individuals or groups...\". A.4.6's held text used to run on into A.5, and the item anchored its distractor in that over-run. THE CITATION WAS ALWAYS WRONG; repairing the passage is what made it refusable. It failed `verbatim` at the PROMPT-95 s2 insert and was already excluded from the bank -- this records the VERDICT, so it cannot return to a queue as an awaiting survivor.",
-      "already_gate_refused": "AIMSF-S2-INSERTED.json, verdict `rejected by code`, failed `verbatim`"
-    }
-  ]
+ "what": "Items the director has rejected, with the prompt that ruled each. A rejection is the one disposition that cannot be derived from an artifact: a gate refusal is recorded by the run that made it and a supersession by the revision that caused it, but a ruling leaves no trace unless written.",
+ "read_by": [
+  "scripts/report-aimsf-completion.mjs -- so a rejected item is not counted as awaiting approval",
+  "scripts/lib/item-disposition.mjs -- so a rejected item does not occupy a task's anchor cap"
+ ],
+ "and_the_per_run_blocks_stay": "AIMSF-S2-REVISED-raw.json keeps its own `rejected` block as the record of that run. The report unions both sources, because a rejection dropped from either should still be excluded and a union cannot lose one.",
+ "rejections": [
+  {
+   "id": "c590b702",
+   "task": "4.1",
+   "ruled": "PROMPT-95 s2",
+   "why": "anchored in A.6.2, a container, and its options are Annex A category numbers -- a recall item in disguise. Verified before acting: all four options are literally 'A.6, covering...', 'A.4, covering...', 'A.9...', 'A.10...'."
+  },
+  {
+   "id": "43882b06",
+   "task": "5.5",
+   "ruled": "PROMPT-95 s2",
+   "why": "a near-duplicate of c45a02f1 (1.1): same anchor (3.4), same key substance, and its distractors are certificates, certification-body rules and accreditation -- eliminable without knowing the standard, against c45a02f1's process / policy / objective. Its distractor 2's `why_wrong` also talks about certification bodies while its support span is 3.4's Note 2 on management-system elements: the reason and the evidence do not match."
+  },
+  {
+   "id": "3a3d26fa",
+   "task": "3.1",
+   "ruled": "PROMPT-96 s3",
+   "why": "cites A.4.6 -- human resources -- for text belonging to A.5's objective: \"Assessing impacts of AI systems Objective: To assess AI system impacts to individuals or groups...\". A.4.6's held text used to run on into A.5, and the item anchored its distractor in that over-run. THE CITATION WAS ALWAYS WRONG; repairing the passage is what made it refusable. It failed `verbatim` at the PROMPT-95 s2 insert and was already excluded from the bank -- this records the VERDICT, so it cannot return to a queue as an awaiting survivor.",
+   "already_gate_refused": "AIMSF-S2-INSERTED.json, verdict `rejected by code`, failed `verbatim`"
+  },
+  {
+   "id": "05c54c05",
+   "task": "5.5",
+   "ruled": "PROMPT-97 addendum s2",
+   "why": "anchored on 42001 3.4 through the cross-standard collision; also a near-duplicate of c45a02f1"
+  },
+  {
+   "id": "97623833",
+   "task": "5.5",
+   "ruled": "PROMPT-97 addendum s2",
+   "why": "the same cross-standard collision on 42001 3.4"
+  },
+  {
+   "id": "7fc70283",
+   "task": "2.2",
+   "ruled": "PROMPT-97 addendum s2",
+   "why": "the key overclaims: 4.1 requires considering purpose, the scope decision is 4.3's. 3bb6992f states it correctly"
+  },
+  {
+   "id": "460d87c8",
+   "task": "2.4",
+   "ruled": "PROMPT-97 addendum s2",
+   "why": "near-duplicate of the inserted 689452e1 (same partial-scope / who-is-top-management scenario)"
+  },
+  {
+   "id": "4d544a58",
+   "task": "1.2",
+   "ruled": "PROMPT-97 addendum s2",
+   "why": "generic A.3.2 item, near-duplicate of 6ea4afde; over the cap"
+  },
+  {
+   "id": "b6382561",
+   "task": "1.2",
+   "ruled": "PROMPT-97 addendum s2",
+   "why": "generic A.3.2 item, near-duplicate of 6ea4afde; over the cap"
+  },
+  {
+   "id": "fb629038",
+   "task": "1.2",
+   "ruled": "PROMPT-97 addendum s2",
+   "why": "generic A.10.2 item; over the cap"
+  },
+  {
+   "id": "ec26b212",
+   "task": "1.2",
+   "ruled": "PROMPT-97 addendum s2",
+   "why": "generic A.10.2 item; over the cap"
+  },
+  {
+   "id": "29a3ad5f",
+   "task": "2.4",
+   "ruled": "PROMPT-97 addendum s2",
+   "why": "A.10.2 over the cap; its explanation also says 'Option 1 / option 2 / option 4', which the letter-reference gate missed"
+  },
+  {
+   "id": "3279aed3",
+   "task": "4.5",
+   "ruled": "PROMPT-97 addendum s2",
+   "why": "near-duplicate of 5d0353c2 (same imputation/scaling/encoding scenario on A.7.6)"
+  }
+ ]
 }

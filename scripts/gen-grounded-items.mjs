@@ -51,6 +51,8 @@ import { createHash } from "node:crypto";
 import { CAP, atCap, applyCap, anchorCapControls } from "./lib/anchor-cap.mjs";
 /* PROMPT-96 s2. ONE implementation of the assignment, imported by the writer prompt AND by the gate, so the
  * clause the writer is told to use is exactly the clause the gate checks for. */
+import { itemDispositionControls } from "./lib/item-disposition.mjs";
+import { itemIdControls } from "./lib/item-id.mjs";
 import { assignAnchors, assignmentInstruction, gateAnchorAssignment, anchorAssignmentControls }
   from "./lib/anchor-assignment.mjs";
 import { buildCapCensus } from "./lib/anchor-cap-census.mjs";
@@ -241,17 +243,25 @@ const EDITION_OF = { "AIMS-F": "2023", "AIMS-IA": "2023", "ISMS-F": "2022", "ISM
       fails: [...c.filter((x) => !x.pass).map((x) => "gate-parity control: " + x.what),
         ...p.fails.map((f) => "gate-parity: " + f)] };
   })();
+  /* PROMPT-97 addendum s1. The cap census now counts survivors AWAITING a read, and the control that
+   * matters reproduces the task 1.2 case: two runs drawing one task before either is inserted. */
+  const dsp0 = itemDispositionControls();
+  const dsp = { examined: dsp0.cases.length,
+    fails: dsp0.cases.filter((x) => !x.pass).map((x) => "item-disposition: " + x.what + (x.detail ? "   " + x.detail : "")) };
+  const iid0 = itemIdControls();
+  const iid = { examined: iid0.cases.length,
+    fails: iid0.cases.filter((x) => !x.pass).map((x) => "item-id: " + x.what + (x.detail ? "   " + x.detail : "")) };
   const bal = balancedKeyOrderControls();
   const i = { examined: bal.length,
     fails: bal.filter((x) => !x.pass).map((x) => "balanced-order: " + x.what + (x.detail ? "   " + x.detail : "")) };
-  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails, ...aa.fails, ...i.fails, ...qn.fails, ...par.fails];
-  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined + aa.examined + i.examined + qn.examined + par.examined) + " cases");
+  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails, ...aa.fails, ...i.fails, ...qn.fails, ...par.fails, ...dsp.fails, ...iid.fails];
+  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined + aa.examined + i.examined + qn.examined + par.examined + dsp.examined + iid.examined) + " cases");
   if (fails.length) {
     console.error("REFUSING TO RUN -- the gates' own controls fail:");
     for (const f of fails) console.error("  " + f);
     process.exitCode = 2; process.exit();
   }
-  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + ", anchor-assignment " + aa.examined + ", balanced-order " + i.examined + ", quote-noise " + qn.examined + ", gate-parity " + par.examined + " -- all pass");
+  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + ", anchor-assignment " + aa.examined + ", balanced-order " + i.examined + ", quote-noise " + qn.examined + ", gate-parity " + par.examined + ", item-disposition " + dsp.examined + ", item-id " + iid.examined + " -- all pass");
 }
 
 function env(k) {
@@ -573,17 +583,35 @@ const mapByCode = new Map((mapping.tasks || []).map((t) => [t.code, t]));
  * which is what matters for a form, and the redistribution is STATED rather than left implicit. */
 /* the hold list uses the SAME definition as the allocation, or a task with only container primaries
  * would be allocated items it cannot anchor and the refusals would name the items, not the map. */
-/* the within-task anchor cap census: kept audit items + already-inserted rows. This run's survivors are
- * added at gate time, because a cap that counted only the current run would let each run add CAP more
- * to a clause that already carries four. */
-const capInfo = await buildCapCensus({ KEY, getAll, certId: cert.id, tasks, ROOT, cert: CERT });
+/* the within-task anchor cap census: kept audit items, already-inserted rows, AND survivors awaiting a read.
+ * This run's survivors are added at gate time, because a cap that counted only the current run would let each
+ * run add CAP more to a clause that already carries four.
+ *
+ * THE THIRD LAYER IS RULED PROMPT-97 ADDENDUM s1 and it is the one that was missing: R4 and R5 both drew task
+ * 1.2 before either was inserted, so the second run was told its clauses were empty and 1.2 ended with eight
+ * items on two clauses. An item awaiting a read is on its way to a form, so the cap must see it. */
+/* THE ARTIFACT BEING INSERTED IS EXCLUDED FROM THE AWAITING LAYER: its survivors are added by applyCap at
+ * gate time, and counting them here as well would refuse every one of them for being already present.
+ * Generation passes nothing, because its survivors are in no artifact yet. */
+const capInfo = await buildCapCensus({ KEY, getAll, certId: cert.id, tasks, ROOT, cert: CERT,
+  excludeArtifacts: FROM ? [FROM] : [] });
 const capCensus = capInfo.byTask;
 const atCapFor = (code) => atCap(capCensus.get(code) || new Map(), CAP);
 console.log("  anchor cap          " + CAP + " per (source, clause) per task; " +
   [...capCensus.values()].reduce((s, m) => s + [...m.values()].filter((n) => n >= CAP).length, 0) +
   " clause(s) at the cap (from " + capInfo.fromKept + " kept + " + capInfo.fromInserted +
-  " inserted)" + (capInfo.unknownAnchor.length ? "; " + capInfo.unknownAnchor.length +
+  " inserted + " + capInfo.fromAwaiting + " awaiting a read)" +
+  (capInfo.unknownAnchor.length ? "; " + capInfo.unknownAnchor.length +
     " kept item(s) with NO recorded anchor, not counted" : ""));
+/* THE AWAITING LAYER IS ENUMERATED, NOT JUST COUNTED. It is the layer that can WRONGLY suppress generation --
+ * an item counted as awaiting that is really inserted, or really withdrawn, refuses a task that has room. A
+ * count cannot be checked against anything; the artifacts and the withdrawals can. */
+if (capInfo.awaitingDetail && capInfo.awaitingDetail.counts) {
+  const d = capInfo.awaitingDetail;
+  console.log("    awaiting layer     " + JSON.stringify(d.counts) +
+    (d.withdrawn.length ? "; withdrawn: " + d.withdrawn.join(", ") : "; none withdrawn") +
+    ((d.excluded && d.excluded.length) ? "; EXCLUDED as this run's own input: " + d.excluded.join(", ") : ""));
+}
 
 const HELD_TASKS = tasks.filter((t) => !effectiveCountOf(t.code)).map((t) => t.code);
 const mappedTasks = tasks.filter((t) => primaryOf(t.code).length);

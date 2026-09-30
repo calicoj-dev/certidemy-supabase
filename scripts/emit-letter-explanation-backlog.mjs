@@ -32,11 +32,13 @@
  *
  * The enumeration is the artifact. A count of 41 is commentary until somebody can see which rows.
  */
-import { writeFileSync } from "node:fs";
+import { writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
 import { explanationOptionRef, explanationOptionRefControls } from "./lib/explanation-option-ref.mjs";
+import { generatorArtifacts } from "./lib/item-disposition.mjs";
+import { itemIdOfStem } from "./lib/item-id.mjs";
 
 for (const a of process.argv.slice(2)) {
   console.error("Unrecognised flag: " + a + ". READ-ONLY apart from the report; takes none.");
@@ -77,6 +79,37 @@ for (const c of certs) {
       origin: q.item_origin, rule: v.hits.map((h) => h.rule).join("+"),
       matched: v.hits.map((h) => h.match).join(" | "),
       head: String(q.explanation).replace(/\s+/g, " ").slice(0, 150) });
+  }
+}
+
+/* ============ AND THE ARTIFACTS, BECAUSE A DRAFT IS WHERE THE CHEAP FIX IS ============
+ *
+ * Ruled PROMPT-97 addendum s3: *"re-run it read-only over all grounded items and the live served bank."* This
+ * script read the BANK only, so an item awaiting a read was invisible to it -- which is exactly where the
+ * director found `29a3ad5f`, and exactly where the repair costs nothing, because the row does not exist yet.
+ *
+ * Reported as its OWN section rather than merged into the totals: a served explanation is a live defect on the
+ * practice path, a draft one is a defect that can still be prevented, and averaging the two would hide which
+ * is which. The bank total stays the number it was.
+ */
+const artifactHits = [];
+{
+  const insertedStems = new Set(
+    (await getAll(KEY, "quiz_questions?select=id,question_text&language=eq.en&retired_at=is.null&order=id"))
+      .map((q) => itemIdOfStem(q.question_text)));
+  const seen = new Set();
+  for (const f of generatorArtifacts(ROOT)) {
+    for (const r of (JSON.parse(readFileSync(join(ROOT, f), "utf8")).items || [])) {
+      if (r.verdict !== "survivor") continue;
+      const id = String(r.item_id || "");
+      if (seen.has(id)) continue;
+      seen.add(id);
+      const v = explanationOptionRef(r.item || {});
+      if (!v || v.pass !== false) continue;
+      artifactHits.push({ id: id.slice(0, 8), task: r.task_code, file: f,
+        inserted: insertedStems.has(itemIdOfStem((r.item || {}).question_text)),
+        rule: v.hits.map((h) => h.rule).join("+"), matched: v.hits.map((h) => h.match).join(" | ") });
+    }
   }
 }
 
@@ -151,6 +184,24 @@ for (const [cert] of Object.entries(byCert).sort((a, b) => b[1].total - a[1].tot
   }
   p("");
 }
+p("## Drafts awaiting a read (not served, and the cheap place to fix one)");
+p("");
+p("Ruled PROMPT-97 addendum s3. These are artifact survivors, scanned with the same rules. **A draft is not");
+p("a live defect** -- no learner can reach it -- so these are kept out of the totals above and reported here,");
+p("because the two need different actions: a served row needs a content edit, a draft needs the item rewritten");
+p("or dropped before it is inserted.");
+p("");
+if (!artifactHits.length) {
+  p("No artifact survivor names an option by letter, number or position.");
+} else {
+  p("| item | task | artifact | already inserted? | rule | matched |");
+  p("|---|---|---|---|---|---|");
+  for (const h of artifactHits) {
+    p("| `" + h.id + "` | " + h.task + " | " + h.file + " | " + (h.inserted ? "**yes**" : "no") +
+      " | `" + h.rule + "` | " + JSON.stringify(h.matched) + " |");
+  }
+}
+p("");
 p("## What this list cannot see");
 p("");
 p("- an explanation naming an option by a DESCRIPTION of its position (\"the shortest option\", \"the one");

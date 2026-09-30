@@ -1,0 +1,579 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "spend": {
+  "calls": 0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "usd": 0,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {}
+ },
+ "attempted": 40,
+ "generated": 3,
+ "survivors": 3,
+ "generation_note": null,
+ "reject_counts": {},
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 0,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 0,
+  "applied": 0,
+  "reverted_by_rewrite_check": 0,
+  "reverted_by_solver": 0,
+  "reverted_by_gates": 0,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 3,
+  "hit": 3,
+  "pct": 100
+ },
+ "key_pick_after": {
+  "n": 3,
+  "hit": 3,
+  "pct": 100
+ },
+ "shape_cues_before": {},
+ "shape_cues_after": {},
+ "anchor_clusters": [],
+ "options_probe_flags": 3,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 6,
+ "items": [
+  {
+   "task_code": "1.2",
+   "domain": "D1",
+   "item": {
+    "question_text": "A retailer contracts an external laboratory to test and validate its AI model before release. What follows for the retailer from the control on allocating responsibilities across the AI system life cycle?",
+    "options": [
+     {
+      "text": "Responsibility for the testing stage is apportioned between the retailer and the laboratory.",
+      "is_correct": true
+     },
+     {
+      "text": "Responsibility for the testing stage passes to the laboratory once the contract is signed.",
+      "is_correct": false
+     },
+     {
+      "text": "The testing stage sits outside the retailer's allocation while the work is performed externally.",
+      "is_correct": false
+     },
+     {
+      "text": "The retailer captures the laboratory's expectations as a supplier of the testing service.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "A.10.2 requires responsibilities within the AI system life cycle to be allocated between the organization and third parties, so engaging an external tester is precisely a case where the split has to be settled rather than avoided.",
+    "key_support_clause": "A.10.2",
+    "key_support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.10.2",
+      "support": "The organization should document all parties intervening in the AI system life cycle and their roles and determine their responsibilities.",
+      "why_wrong": "The guidance points to determining each party's responsibilities, not to a contract transferring the organization's responsibilities away."
+     },
+     {
+      "index": 2,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "Externally performed life cycle activities are exactly what the allocation across third parties covers."
+     },
+     {
+      "index": 3,
+      "clause": "B.10.4",
+      "support": "The organization should understand customer expectations and needs when it is supplying a product or service related to an AI system (i.e. when it is itself a supplier).",
+      "why_wrong": "Understanding expectations applies when the organization is the supplier to a customer, which is not the situation described."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 7%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in A.10.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": null,
+     "examined": 0,
+     "reason": "no clause was assigned to this item, so nothing was checked"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [
+    "anchor-assignment"
+   ],
+   "longest_served_run": 6,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "A.10.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "B.10.2 states responsibilities in the AI system life cycle are allocated/split between the organization, its partners, suppliers, customers and third parties, with all intervening parties documented and their responsibilities determined — so testing responsibility is apportioned between retailer and laboratory rather than wholly transferred or excluded.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the moderate/inclusive option, splitting the responsibility between both named parties, while B, C and D each assign it wholly to one side or reframe it; the other three are mutually exclusive variants around A.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the moderate/inclusive option, splitting the responsibility between both named parties, while B, C and D each assign it wholly to one side or reframe it; the other three are mutually exclusive variants around A."
+   },
+   "verdict": "survivor",
+   "item_id": "cdfbfffc",
+   "assigned": null,
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the moderate/inclusive option, splitting the responsibility between both named parties, while B, C and D each assign it wholly to one side or reframe it; the other three are mutually exclusive variants around A.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the moderate/inclusive option, splitting the responsibility between both named parties, while B, C and D each assign it wholly to one side or reframe it; the other three are mutually exclusive variants around A."
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R4-PROBE.json"
+  },
+  {
+   "task_code": "1.2",
+   "domain": "D1",
+   "item": {
+    "question_text": "A ten-person startup that deploys a single purchased AI tool argues that, because of its size, it need not define who is accountable for AI. Which response is correct?",
+    "options": [
+     {
+      "text": "AI roles and duties have to be defined and assigned, shaped by what the startup itself needs.",
+      "is_correct": true
+     },
+     {
+      "text": "AI roles and duties are recommended at that size and their assignment can be deferred.",
+      "is_correct": false
+     },
+     {
+      "text": "AI roles and duties have to be assigned once the startup supplies its tool to outside customers.",
+      "is_correct": false
+     },
+     {
+      "text": "AI roles and duties have to be assigned by organizations that build models rather than deploy them.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The control on AI roles and responsibilities (A.3.2) obliges the organization to set out AI roles and hand out the duties in line with what it needs. The obligation therefore stands regardless of headcount, and neither supply relationships nor model-building activity is what triggers it.",
+    "key_support_clause": "A.3.2",
+    "key_support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.3.2",
+      "support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+      "why_wrong": "The control uses mandatory wording, so it is not an optional or deferrable recommendation."
+     },
+     {
+      "index": 2,
+      "clause": "B.10.2",
+      "support": "Where the organization supplies an AI system to a third party, the organization should ensure that it takes a responsible approach to developing the AI system.",
+      "why_wrong": "Supplying a system to a third party triggers separate guidance; it is not the trigger for defining AI roles."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization.",
+      "why_wrong": "Organizations that use AI systems are covered as well, so the obligation is not limited to developers."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 14%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in A.3.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in stem"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": null,
+     "examined": 0,
+     "reason": "no clause was assigned to this item, so nothing was checked"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [
+    "anchor-assignment"
+   ],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": null,
+   "grounding_family": "A.3.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.3.2 states that \"Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization\", with no size-based exemption.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B is the only hedged/weakened option (\"recommended\", \"can be deferred\") and C and D each tack on a narrowing condition (\"once the startup supplies its tool to outside customers\", \"rather than deploy them\"), leaving A as the only unconditional, generally-worded statement.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B is the only hedged/weakened option (\"recommended\", \"can be deferred\") and C and D each tack on a narrowing condition (\"once the startup supplies its tool to outside customers\", \"rather than deploy them\"), leaving A as the only unconditional, generally-worded statement."
+   },
+   "verdict": "survivor",
+   "item_id": "cc92ad83",
+   "assigned": null,
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B is the only hedged/weakened option (\"recommended\", \"can be deferred\") and C and D each tack on a narrowing condition (\"once the startup supplies its tool to outside customers\", \"rather than deploy them\"), leaving A as the only unconditional, generally-worded statement.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B is the only hedged/weakened option (\"recommended\", \"can be deferred\") and C and D each tack on a narrowing condition (\"once the startup supplies its tool to outside customers\", \"rather than deploy them\"), leaving A as the only unconditional, generally-worded statement."
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R4-PROBE.json"
+  },
+  {
+   "task_code": "1.5",
+   "domain": "D1",
+   "item": {
+    "question_text": "A vendor tells a prospective customer that its management system certificate demonstrates that its AI systems satisfy the AI legislation applying to them. Regarding legal obligations, what does the AI management system standard actually place on the organization?",
+    "options": [
+     {
+      "text": "Top management establishes an AI policy that commits the organization to meeting applicable requirements.",
+      "is_correct": true
+     },
+     {
+      "text": "A certification body attests that the organization meets the legal requirements applying to its AI systems.",
+      "is_correct": false
+     },
+     {
+      "text": "A documented plan for notifying users of incidents is the required route to discharging legal obligations.",
+      "is_correct": false
+     },
+     {
+      "text": "An information security management system is required wherever legal obligations touch AI system security.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The AI policy requirement at 5.2 obliges top management to build into the policy an undertaking that the organization will meet the requirements applicable to it. That supports a claim of responsible, accountable management of legal obligations; it is not an attestation that the law has been satisfied, and nothing in the standard has a certifier confirm legal compliance.",
+    "key_support_clause": "5.2",
+    "key_support": "includes a commitment to meet applicable requirements",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "The organization shall determine external and internal issues that are relevant to its purpose and that affect its ability to achieve the intended result(s) of its AI management system.",
+      "why_wrong": "The standard places determination of legal and regulatory issues and the policy commitment on the organization itself, not an attestation of legal compliance on a certification body."
+     },
+     {
+      "index": 2,
+      "clause": "B.8.4",
+      "support": "The organization should determine and document a plan for communicating incidents to users of the system.",
+      "why_wrong": "Incident communication planning is expressed as should-level implementation guidance for a specific control, not as the standard's mechanism for meeting legal obligations."
+     },
+     {
+      "index": 3,
+      "clause": "D.2",
+      "support": "If an organization identifies the need to implement an AI management system and to address security objectives in a similar thorough and systematic way, it can implement an information security management system in conformity with ISO/IEC 27001.",
+      "why_wrong": "Integration with a security management system is presented as something the organization can do, not as an obligation arising from legal requirements."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 23,
+     "reason": "closest live item on this task shares 29%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 5.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in option d"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": null,
+     "examined": 0,
+     "reason": "no clause was assigned to this item, so nothing was checked"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [
+    "anchor-assignment"
+   ],
+   "longest_served_run": 6,
+   "longest_served_in": "option d",
+   "attributed_quotation": null,
+   "grounding_family": "5.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 5.2 requires top management to establish an AI policy that \"includes a commitment to meet applicable requirements\", i.e. the standard imposes a policy-level commitment rather than attesting legal compliance of the AI systems.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each make an absolute claim ('attests that the organization meets the legal requirements', 'the required route', 'is required wherever'), while A is the only qualified/hedged option ('applicable requirements').",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B, C and D each make an absolute claim ('attests that the organization meets the legal requirements', 'the required route', 'is required wherever'), while A is the only qualified/hedged option ('applicable requirements')."
+   },
+   "verdict": "survivor",
+   "item_id": "7eb8209f",
+   "assigned": null,
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each make an absolute claim ('attests that the organization meets the legal requirements', 'the required route', 'is required wherever'), while A is the only qualified/hedged option ('applicable requirements').",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B, C and D each make an absolute claim ('attests that the organization meets the legal requirements', 'the required route', 'is required wherever'), while A is the only qualified/hedged option ('applicable requirements')."
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R4-PROBE.json"
+  }
+ ]
+}

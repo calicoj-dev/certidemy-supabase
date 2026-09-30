@@ -1,0 +1,4075 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "spend": {
+  "calls": 0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "usd": 0,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {}
+ },
+ "attempted": 40,
+ "generated": 22,
+ "survivors": 22,
+ "generation_note": null,
+ "reject_counts": {},
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 0,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 0,
+  "applied": 0,
+  "reverted_by_rewrite_check": 0,
+  "reverted_by_solver": 0,
+  "reverted_by_gates": 0,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 22,
+  "hit": 20,
+  "pct": 91
+ },
+ "key_pick_after": {
+  "n": 22,
+  "hit": 20,
+  "pct": 91
+ },
+ "shape_cues_before": {
+  "clang": 11,
+  "only-hedged": 3
+ },
+ "shape_cues_after": {},
+ "anchor_clusters": [
+  {
+   "family": "A.1",
+   "tasks": [
+    "2.8",
+    "4.2"
+   ],
+   "items": 2
+  }
+ ],
+ "options_probe_flags": 20,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 8,
+ "items": [
+  {
+   "task_code": "1.2",
+   "domain": "D1",
+   "item": {
+    "question_text": "A deployer of an AI triage tool works with a data supplier and a systems integrator. Considering the Annex A control on allocating responsibilities in the AI system life cycle together with its Annex B implementation guidance, which pairing is correct?",
+    "options": [
+     {
+      "text": "Splitting life-cycle responsibilities among the parties is required, and recording each intervening party and its role is advised.",
+      "is_correct": true
+     },
+     {
+      "text": "Splitting life-cycle responsibilities among the parties is required, and recording each intervening party and its role is required.",
+      "is_correct": false
+     },
+     {
+      "text": "Splitting life-cycle responsibilities among the parties is advised, and recording each intervening party and its role is advised.",
+      "is_correct": false
+     },
+     {
+      "text": "Splitting life-cycle responsibilities among the parties is advised, and recording each intervening party and its role is required.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.10.2 frames the sharing out of life-cycle responsibilities across the organization and its partners, suppliers, customers and third parties as an obligation, using shall. The related implementation guidance in B.10.2 is phrased with should when it advises writing down the parties that take part in the life cycle and the roles they hold, so that step is recommended rather than obligatory.",
+    "key_support_clause": "A.10.2",
+    "key_support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.10.2",
+      "support": "The organization should document all parties intervening in the AI system life cycle and their roles and determine their responsibilities.",
+      "why_wrong": "Documenting every intervening party is expressed as guidance, so treating it as an obligation overstates it."
+     },
+     {
+      "index": 2,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "Allocating life-cycle responsibilities is stated as an obligation, not as advice."
+     },
+     {
+      "index": 3,
+      "clause": "B.10.2",
+      "support": "Control The organization should ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "This reverses the two: the allocation itself is the obligation and the documentation of parties is the guidance."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 21,
+     "reason": "closest live item on this task shares 35%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in A.10.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 7 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.10.2"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 7,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "A.10.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Annex A control A.10.2 states responsibilities \"shall\" be allocated between the organization, partners, suppliers, customers and third parties, while the Annex B guidance (B.10.2) says the organization \"should document all parties intervening in the AI system life cycle and their roles\".",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "B",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked B, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "2741d373",
+   "assigned": {
+    "index": 2,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.10.2"
+   },
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "B",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked B, not the key -- the options do not give it away"
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "1.2",
+   "domain": "D1",
+   "item": {
+    "question_text": "An AI service provider has contractually agreed with its model supplier and its customers how life-cycle duties are divided, but has assigned no internal owners for AI oversight, testing or impact assessment. What follows for the organization?",
+    "options": [
+     {
+      "text": "Internal AI roles and responsibilities still have to be defined and assigned to suit its needs.",
+      "is_correct": true
+     },
+     {
+      "text": "The agreed division of life-cycle duties with supplier and customers already covers the obligation.",
+      "is_correct": false
+     },
+     {
+      "text": "Assigning internal AI roles becomes necessary once the management system scope is documented.",
+      "is_correct": false
+     },
+     {
+      "text": "Internal AI roles are derived from the expectations of the customers it supplies the service to.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.3.2 requires that \"Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.\" That is a distinct control from the allocation of responsibilities between the organization and external parties across the life cycle, so a contractual split with supplier and customers does not discharge it.",
+    "key_support_clause": "A.3.2",
+    "key_support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "This is a separate control about allocation across external parties and does not substitute for defining and allocating the organization's own AI roles."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "Documenting the scope is a separate requirement and is not a precondition that triggers the allocation of AI roles."
+     },
+     {
+      "index": 3,
+      "clause": "B.10.4",
+      "support": "The organization should understand customer expectations and needs when it is supplying a product or service related to an AI system (i.e. when it is itself a supplier).",
+      "why_wrong": "Customer expectations inform a responsible approach to development and use, whereas role allocation is driven by the organization's needs."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 21,
+     "reason": "closest live item on this task shares 12%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in A.3.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in option a, plus one 17-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.3.2"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option a",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 17
+   },
+   "grounding_family": "A.3.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.3.2 imposes a distinct requirement that \"Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization\", which is not discharged by the external allocation under A.10.2.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options attach an external dependency or condition ('division of duties with supplier and customers already covers', 'once the management system scope is documented', 'derived from the expectations of the customers'), while A alone states the duty unconditionally.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): Three options attach an external dependency or condition ('division of duties with supplier and customers already covers', 'once the management system scope is documented', 'derived from the expectations of the customers'), while A alone states the duty unconditionally."
+   },
+   "verdict": "survivor",
+   "item_id": "6bb11929",
+   "assigned": {
+    "index": 3,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.3.2"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options attach an external dependency or condition ('division of duties with supplier and customers already covers', 'once the management system scope is documented', 'derived from the expectations of the customers'), while A alone states the duty unconditionally.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): Three options attach an external dependency or condition ('division of duties with supplier and customers already covers', 'once the management system scope is documented', 'derived from the expectations of the customers'), while A alone states the duty unconditionally."
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"assigned\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "1.3",
+   "domain": "D1",
+   "item": {
+    "question_text": "A project team is settling on the learning algorithm and model type for a planned AI system, and is writing down the reasons for each choice against the organization's stated aims and the agreed specification criteria. Which Annex A life-cycle obligation is this team fulfilling?",
+    "options": [
+     {
+      "text": "Fixing the measures and the criteria by which the system will later be verified and validated before acceptance.",
+      "is_correct": false
+     },
+     {
+      "text": "Keeping a record of the system's design and build choices, grounded in organizational objectives, documented requirements and specification criteria.",
+      "is_correct": true
+     },
+     {
+      "text": "Recording a release plan and confirming that the relevant requirements are satisfied before the system goes live.",
+      "is_correct": false
+     },
+     {
+      "text": "Setting out the elements needed for continuing operation, covering monitoring, repairs, updates and user support.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "The activity described is design and development work being recorded against objectives and agreed criteria. Clause A.6.2.3 requires that the organization \"shall document the AI system design and development based on organizational objectives, documented requirements and specification criteria.\" The other options describe obligations attaching to later life-cycle stages: verification and validation, deployment, and operation and monitoring.",
+    "key_support_clause": "A.6.2.3",
+    "key_support": "The organization shall document the AI system design and development based on organizational objectives, documented requirements and specification criteria.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "A.6.2.4",
+      "support": "The organization shall define and document verification and validation measures for the AI system and specify criteria for their use.",
+      "why_wrong": "Defining test and evaluation measures is the verification and validation obligation, not the recording of design choices described in the stem."
+     },
+     {
+      "index": 2,
+      "clause": "A.6.2.5",
+      "support": "The organization shall document a deployment plan and ensure that appropriate requirements are met prior to deployment.",
+      "why_wrong": "Release planning and pre-deployment checks sit at the deployment stage, after the design decisions being documented here."
+     },
+     {
+      "index": 3,
+      "clause": "A.6.2.6",
+      "support": "The organization shall define and document the necessary elements for the ongoing operation of the AI system.",
+      "why_wrong": "Monitoring, repair, update and support arrangements belong to operation of a system already in use, not to design and development."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 24,
+     "reason": "closest live item on this task shares 27%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 13,
+     "reason": "the key anchors in A.6.2.3, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 7 words in option b, plus one 17-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.6.2.3"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 7,
+   "longest_served_in": "option b",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 17
+   },
+   "grounding_family": "A.6.2.3",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "B",
+     "answer_reason": "A.6.2.3 requires the organization to document the AI system design and development based on organizational objectives, documented requirements and specification criteria, and B.6.2.3 lists 'learning algorithm and type of machine learning model utilized' among the design choices to be documented.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "B",
+    "cue": "B is the longest option and the only one stacking a three-item qualifier ('organizational objectives, documented requirements and specification criteria'), while A, C and D are single-clause and shorter.",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): B is the longest option and the only one stacking a three-item qualifier ('organizational objectives, documented requirements and specification criteria'), while A, C and D are single-clause and shorter."
+   },
+   "verdict": "survivor",
+   "item_id": "182229d1",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.6.2.3"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "B",
+    "cue": "B is the longest option and the only one stacking a three-item qualifier ('organizational objectives, documented requirements and specification criteria'), while A, C and D are single-clause and shorter.",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): B is the longest option and the only one stacking a three-item qualifier ('organizational objectives, documented requirements and specification criteria'), while A, C and D are single-clause and shorter."
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"specification\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "1.5",
+   "domain": "D1",
+   "item": {
+    "question_text": "A provider certified to ISO/IEC 42001 is asked by a customer whether the certificate demonstrates that it satisfies every legal obligation applying to its AI systems. Considering what ISO/IEC 42001 requires about interested parties and their requirements, which statement is accurate?",
+    "options": [
+     {
+      "text": "The organization itself settles which of the identified interested-party requirements its AI management system will take on.",
+      "is_correct": true
+     },
+     {
+      "text": "Every requirement identified for a relevant interested party has to be taken on by the AI management system.",
+      "is_correct": false
+     },
+     {
+      "text": "The certification body settles which interested-party requirements the AI management system will take on.",
+      "is_correct": false
+     },
+     {
+      "text": "Interested-party requirements are covered by top management's policy commitment instead of being determined individually.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.2 requires the organization to determine \"which of these requirements will be addressed through the AI management system\", so the scope of what conformity evidences is a set the organization itself delimits — a narrower claim than satisfying all applicable law.",
+    "key_support_clause": "4.2",
+    "key_support": "The organization shall determine: — the interested parties that are relevant to the AI management system; — the relevant requirements of these interested parties; — which of these requirements will be addressed through the AI management system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.2",
+      "support": "which of these requirements will be addressed through the AI management system",
+      "why_wrong": "The clause expressly calls for a determination of which identified requirements the management system will address, rather than obliging the system to address all of them."
+     },
+     {
+      "index": 2,
+      "clause": "4.2",
+      "support": "The organization shall determine: — the interested parties that are relevant to the AI management system; — the relevant requirements of these interested parties; — which of these requirements will be addressed through the AI management system.",
+      "why_wrong": "The determination is placed on the organization, not on an external certification body."
+     },
+     {
+      "index": 3,
+      "clause": "5.2",
+      "support": "includes a commitment to meet applicable requirements;",
+      "why_wrong": "The policy commitment in the AI policy clause does not replace the separate determination of interested parties and their requirements."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 24,
+     "reason": "closest live item on this task shares 50%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 4.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem, plus one 12-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause 4.2"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 12
+   },
+   "grounding_family": "4.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 4.2 requires the organization to determine the interested parties, their relevant requirements, and \"which of these requirements will be addressed through the AI management system\", i.e. the organization itself decides the scope of requirements taken on.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and C are the same sentence with only the agent swapped (organization vs certification body), marking that pair as the real contrast; B is the only absolute ('Every ... has to') and D the only option that dodges the 'settles which' frame, so the answer sits in the A/C pair and A names the option's own subject.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and C are the same sentence with only the agent swapped (organization vs certification body), marking that pair as the real contrast; B is the only absolute ('Every ... has to') and D the only option that dodges the 'settles which' frame, so the answer sits in the A/C pair and A names the option's own subject."
+   },
+   "verdict": "survivor",
+   "item_id": "4e9044fe",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "4.2"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A and C are the same sentence with only the agent swapped (organization vs certification body), marking that pair as the real contrast; B is the only absolute ('Every ... has to') and D the only option that dodges the 'settles which' frame, so the answer sits in the A/C pair and A names the option's own subject.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): A and C are the same sentence with only the agent swapped (organization vs certification body), marking that pair as the real contrast; B is the only absolute ('Every ... has to') and D the only option that dodges the 'settles which' frame, so the answer sits in the A/C pair and A names the option's own subject."
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "1.6",
+   "domain": "D1",
+   "item": {
+    "question_text": "A team building an AI system asks what its AI management system actually obliges it to do about responsible-development goals such as fairness, safety and robustness. Which action is required of the organization?",
+    "options": [
+     {
+      "text": "Set out its own responsible-development aims in documented form and build measures for achieving them into the development life cycle.",
+      "is_correct": true
+     },
+     {
+      "text": "Apply the numeric fairness and robustness thresholds fixed in Annex C for AI systems used in automated decision-making.",
+      "is_correct": false
+     },
+     {
+      "text": "Adopt the testing methodologies, test-data choices and release criteria listed in the implementation guidance on verification and validation.",
+      "is_correct": false
+     },
+     {
+      "text": "Implement each of the control objectives and controls set out in the Annex A table before the system is released.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.6.1.2 requires the organization to \"identify and document objectives to guide the responsible development AI systems, and take those objectives into account and integrate measures to achieve them in the development life cycle.\" The management system therefore obliges the organization to decide and record its own objectives and to work measures for them into development; it does not itself set the substantive engineering targets. Annex C only describes possible objectives, Annex B offers implementation guidance rather than obligations, and the Annex A controls are a reference set, not a mandatory checklist.",
+    "key_support_clause": "A.6.1.2",
+    "key_support": "The organization shall identify and document objectives to guide the responsible development AI systems, and take those objectives into account and integrate measures to achieve them in the development life cycle.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "C.2",
+      "support": "C.2.5 Fairness The inappropriate application of AI systems for automated decision-making can be unfair to specific persons or groups of persons.",
+      "why_wrong": "Annex C describes possible objectives such as fairness in narrative terms and sets no numeric thresholds for an organization to apply."
+     },
+     {
+      "index": 2,
+      "clause": "B.6.2.4",
+      "support": "The verification and validation measures can include, but are not limited to: — testing methodologies and tools; — selection of test data and their representation of the intended domain of use; — release criteria requirements.",
+      "why_wrong": "These items are implementation guidance the organization can extend or replace, not measures it is obliged to adopt as listed."
+     },
+     {
+      "index": 3,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "The Annex A controls are a reference set from which necessary controls are selected, so implementing every one of them is not an obligation."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 23,
+     "reason": "closest live item on this task shares 31%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 12,
+     "reason": "the key anchors in A.6.1.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in option d, plus one 28-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.6.1.2"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "option d",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 28
+   },
+   "grounding_family": "A.6.1.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.6.1.2 requires that the organization \"shall identify and document objectives to guide the responsible development AI systems, and take those objectives into account and integrate measures to achieve them in the development life cycle\".",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D all direct the reader to adopt a fixed externally-specified list (Annex C thresholds, implementation-guidance methodologies, Annex A controls), while A is the only option with no such reference and instead lets the organisation set its own aims.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D all direct the reader to adopt a fixed externally-specified list (Annex C thresholds, implementation-guidance methodologies, Annex A controls), while A is the only option with no such reference and instead lets the organisation set its own aims."
+   },
+   "verdict": "survivor",
+   "item_id": "c54499aa",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.6.1.2"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D all direct the reader to adopt a fixed externally-specified list (Annex C thresholds, implementation-guidance methodologies, Annex A controls), while A is the only option with no such reference and instead lets the organisation set its own aims.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D all direct the reader to adopt a fixed externally-specified list (Annex C thresholds, implementation-guidance methodologies, Annex A controls), while A is the only option with no such reference and instead lets the organisation set its own aims."
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"responsible\", \"development\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "2.2",
+   "domain": "D2",
+   "item": {
+    "question_text": "A regional insurer builds two pricing models in-house. It also runs a purchased claims platform with a vendor-embedded scoring model it cannot modify, and a customer-service chatbot that calls an external model through an API. The AIMS working group proposes to base its context analysis on the two in-house models only, arguing that the other capability was bought rather than built. Applying the context requirements of ISO/IEC 42001, what should the group do instead?",
+    "options": [
+     {
+      "text": "Take the intended purposes of the embedded scoring model and the chatbot's external model into account alongside the two in-house models when working out context.",
+      "is_correct": true
+     },
+     {
+      "text": "Confine the context analysis to the two in-house models and deal with the embedded scoring model and the chatbot's external model through the supplier process.",
+      "is_correct": false
+     },
+     {
+      "text": "Treat the embedded scoring model and the chatbot's external model as interested-party requirements to be listed, rather than as systems whose purposes are considered.",
+      "is_correct": false
+     },
+     {
+      "text": "Record the boundary as a shared understanding within the working group and hold documented information for the two in-house models alone.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 4.1 requires that “The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization.” Systems the insurer merely uses — the vendor-embedded scoring model and the externally hosted chatbot model — fall within that consideration, so context cannot be limited to what was built in-house.",
+    "key_support_clause": "4.1",
+    "key_support": "The organization shall consider the intended purpose of the AI systems that are developed, provided or used by the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.10.3",
+      "support": "The organization shall establish a process to ensure that its usage of services, products or materials provided by suppliers aligns with the organization’s approach to the responsible development and use of AI systems.",
+      "why_wrong": "A supplier process is additional to, not a substitute for, considering the intended purpose of AI systems the organization uses when determining its context."
+     },
+     {
+      "index": 2,
+      "clause": "4.2",
+      "support": "the relevant requirements of these interested parties;",
+      "why_wrong": "Interested-party requirements are a separate determination and listing a vendor's system there does not discharge the obligation to consider the intended purpose of AI systems used."
+     },
+     {
+      "index": 3,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "The scope of the AI management system has to be available as documented information, so an informal team understanding covering only part of the estate is not acceptable."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 24,
+     "reason": "closest live item on this task shares 40%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 4.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem, plus one 20-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause 4.1"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 20
+   },
+   "grounding_family": "4.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 4.1 requires the organization to \"consider the intended purpose of the AI systems that are developed, provided or used by the organization\", so bought-in and API-accessed models must be included in the context analysis alongside the in-house ones.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options (B, C, D) all limit the analysis to the two in-house models and handle the other two systems some other way; A is the only one that treats all four together, making it the odd verdict out.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options (B, C, D) all limit the analysis to the two in-house models and handle the other two systems some other way; A is the only one that treats all four together, making it the odd verdict out."
+   },
+   "verdict": "survivor",
+   "item_id": "3bb6992f",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "4.1"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options (B, C, D) all limit the analysis to the two in-house models and handle the other two systems some other way; A is the only one that treats all four together, making it the odd verdict out.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options (B, C, D) all limit the analysis to the two in-house models and handle the other two systems some other way; A is the only one that treats all four together, making it the odd verdict out."
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "2.5",
+   "domain": "D2",
+   "item": {
+    "question_text": "A bank has deployed a fraud-detection model built with machine learning. The security team has already run its standard IT review, covering network segmentation, access control and patching of the hosting platform, and now asks the AI governance lead what else to do about security risk sources. What is the most appropriate response?",
+    "options": [
+     {
+      "text": "Extend the review to security concerns arising from the model's learning approach itself.",
+      "is_correct": true
+     },
+     {
+      "text": "Treat the completed conventional review as covering the model's security risk sources.",
+      "is_correct": false
+     },
+     {
+      "text": "Pass the security questions to the assessment of consequences for individuals and societies.",
+      "is_correct": false
+     },
+     {
+      "text": "Hold any further security work until the next scheduled interval for risk assessment.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause C.2.10 states that \"In the context of AI and in particular with regard to AI systems based on ML approaches, new security issues should be considered beyond classical information and system security concerns.\" The classical infrastructure review is therefore a starting point, not the whole picture, for a machine learning based system.",
+    "key_support_clause": "C.2.10",
+    "key_support": "In the context of AI and in particular with regard to AI systems based on ML approaches, new security issues should be considered beyond classical information and system security concerns.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "C.2.10",
+      "support": "In the context of AI and in particular with regard to AI systems based on ML approaches, new security issues should be considered beyond classical information and system security concerns.",
+      "why_wrong": "Classical information and system security coverage is exactly what the guidance says is not the full set of concerns for an ML-based system."
+     },
+     {
+      "index": 2,
+      "clause": "6.1.4",
+      "support": "The AI system impact assessment shall determine the potential consequences an AI system’s deployment, intended use and foreseeable misuse has on individuals or groups of individuals, or both, and societies.",
+      "why_wrong": "The impact assessment addresses consequences for individuals and societies and feeds the risk assessment; it is not the vehicle for examining ML-specific security concerns."
+     },
+     {
+      "index": 3,
+      "clause": "8.2",
+      "support": "The organization shall perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur.",
+      "why_wrong": "Risk assessment is also triggered by significant proposed or actual changes such as this deployment, so waiting for the next planned interval misapplies the timing rule."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a recommendation; anchor is a recommendation by the anchor sentence (clause classed should)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 23,
+     "reason": "closest live item on this task shares 22%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 21,
+     "reason": "the key anchors in C.2.10, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in stem, plus one 30-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause C.2.10"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 30
+   },
+   "grounding_family": "C.2.10",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause C.2.10 states that for AI, particularly ML-based systems, new security issues should be considered beyond classical information and system security concerns, so the conventional IT review is not sufficient.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options defer, delay, or hand off the security question (treat as covered / pass to another assessment / hold until next interval) while only A takes an affirmative extending action, making it the odd one out.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options defer, delay, or hand off the security question (treat as covered / pass to another assessment / hold until next interval) while only A takes an affirmative extending action, making it the odd one out."
+   },
+   "verdict": "survivor",
+   "item_id": "d73d4f82",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "C.2.10"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "Three options defer, delay, or hand off the security question (treat as covered / pass to another assessment / hold until next interval) while only A takes an affirmative extending action, making it the odd one out.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options defer, delay, or hand off the security question (treat as covered / pass to another assessment / hold until next interval) while only A takes an affirmative extending action, making it the odd one out."
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"learning\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "2.5",
+   "domain": "D2",
+   "item": {
+    "question_text": "A hospital analytics team is drawing up candidate risk sources for a model trained on patient records, and wants to record the privacy-related entry. Which statement best characterises that risk source?",
+    "options": [
+     {
+      "text": "Harmful effects on the individuals whose health data is disclosed or misused.",
+      "is_correct": true
+     },
+     {
+      "text": "Uncertainty about performance where the range of operating situations is very broad.",
+      "is_correct": false
+     },
+     {
+      "text": "Limited ability of the organisation to fix defects or adapt to new requirements.",
+      "is_correct": false
+     },
+     {
+      "text": "Inability to give interested parties suitable information about the organisation and its system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause C.2.7 frames privacy in terms of data subjects: \"The misuse or disclosure of personal and sensitive data (e.g. health records) can have harmful effects on data subjects.\" The other statements name genuine candidate risk sources, but they belong to different objectives and topics.",
+    "key_support_clause": "C.2.7",
+    "key_support": "The misuse or disclosure of personal and sensitive data (e.g. health records) can have harmful effects on data subjects.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "C.3.1",
+      "support": "When AI systems operate in complex environments, where the range of situation is broad, there can be uncertainty on the performance and therefore a source of risk (e.g. complex environment of autonomous driving).",
+      "why_wrong": "This describes complexity of the operating environment, not the privacy exposure of personal and sensitive data."
+     },
+     {
+      "index": 2,
+      "clause": "C.2.6",
+      "support": "Maintainability is related to the ability of the organization to handle modifications of the AI system in order to correct defects or adjust to new requirements.",
+      "why_wrong": "This is the maintainability objective and says nothing about effects on data subjects."
+     },
+     {
+      "index": 3,
+      "clause": "C.3.2",
+      "support": "The inability to provide appropriate information to interested parties can be a source of risk (i.e. in terms of trustworthiness and accountability of the organization).",
+      "why_wrong": "This is the transparency and explainability risk source, which concerns trustworthiness and accountability rather than data subject harm."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed can)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 23,
+     "reason": "closest live item on this task shares 32%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 21,
+     "reason": "the key anchors in C.2.7, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in option b, plus one 19-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause C.2.7"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option b",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 19
+   },
+   "grounding_family": "C.2.7",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause C.2.7 (Privacy) states that \"the misuse or disclosure of personal and sensitive data (e.g. health records) can have harmful effects on data subjects\", which matches option A.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option naming a concrete subject (individuals' health data); B, C and D are generic organisation/system statements, making A the specific odd one out.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A is the only option naming a concrete subject (individuals' health data); B, C and D are generic organisation/system statements, making A the specific odd one out."
+   },
+   "verdict": "survivor",
+   "item_id": "20fe9eeb",
+   "assigned": {
+    "index": 1,
+    "source_id": "ISO/IEC 42001",
+    "clause": "C.2.7"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option naming a concrete subject (individuals' health data); B, C and D are generic organisation/system statements, making A the specific odd one out.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A is the only option naming a concrete subject (individuals' health data); B, C and D are generic organisation/system statements, making A the specific odd one out."
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "2.7",
+   "domain": "D2",
+   "item": {
+    "question_text": "A provider has completed and documented an AI system impact assessment for a new recommendation engine, covering the consequences of its deployment, intended use and foreseeable misuse for affected individuals and communities. The AI management system lead proposes that this document be filed as the operational risk record for the engine, so that no separate risk assessment cycle is run. Under ISO/IEC 42001, which analysis of this proposal is correct?",
+    "options": [
+     {
+      "text": "The risk analysis may be limited to consequences for the organization, with individuals and societies left to the impact assessment.",
+      "is_correct": false
+     },
+     {
+      "text": "The documented impact assessment can stand in for the operational risk record where its results are shared with interested parties.",
+      "is_correct": false
+     },
+     {
+      "text": "The impact findings feed the risk assessment, which is still performed on schedule and when major changes arise, with results retained.",
+      "is_correct": true
+     },
+     {
+      "text": "The impact assessment sits downstream of the risk assessment, taking the determined levels of risk as its starting point.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause 8.2 obliges the organization to \"perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur\" and to keep documented results, so the impact assessment cannot serve as the risk record. The two are linked but not interchangeable: the impact assessment's documented consequences are an input considered during risk assessment, while the risk assessment is anchored to the AI objectives and outputs risk levels prioritized for treatment.",
+    "key_support_clause": "8.2",
+    "key_support": "The organization shall perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur. The organization shall retain documented information of the results of all AI risk assessments.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "6.1.2",
+      "support": "assess the potential consequences to the organization, individuals and societies that would result if the identified risks were to materialize",
+      "why_wrong": "The risk analysis itself already extends to consequences for individuals and societies, so it is not narrowed to organizational consequences by the existence of an impact assessment."
+     },
+     {
+      "index": 1,
+      "clause": "6.1.4",
+      "support": "Where appropriate, the result of the system impact assessment can be made available to relevant interested parties as defined by the organization.",
+      "why_wrong": "Releasing impact results to interested parties is a permitted disclosure of that assessment, not a means of discharging the separate obligation to perform and record AI risk assessments."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.4",
+      "support": "The organization shall consider the results of the AI system impact assessment in the risk assessment (see 6.1.2).",
+      "why_wrong": "The direction of the link is reversed: impact assessment results are taken into account when risk is assessed, rather than being derived from determined risk levels."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 24,
+     "reason": "closest live item on this task shares 68%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 6,
+     "reason": "the key anchors in 8.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in stem, plus one 19-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause 8.2"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 19
+   },
+   "grounding_family": "8.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "C",
+     "answer_reason": "Clause 6.1.4 requires the impact assessment results to be considered in the risk assessment, while 8.2 separately requires AI risk assessments in accordance with 6.1.2 at planned intervals or on significant changes with documented results retained.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "C is the longest option and the only one stacking multiple qualifying clauses (\"on schedule and when major changes arise, with results retained\"), while A and B are hedged single-clause claims (\"may be limited\", \"can stand in for\").",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): C is the longest option and the only one stacking multiple qualifying clauses (\"on schedule and when major changes arise, with results retained\"), while A and B are hedged single-clause claims (\"may be limited\", \"can stand in for\")."
+   },
+   "verdict": "survivor",
+   "item_id": "eef76522",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "8.2"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "C is the longest option and the only one stacking multiple qualifying clauses (\"on schedule and when major changes arise, with results retained\"), while A and B are hedged single-clause claims (\"may be limited\", \"can stand in for\").",
+    "cue_kind": "length",
+    "reason": "picked the key from the options alone and named a cue (length): C is the longest option and the only one stacking multiple qualifying clauses (\"on schedule and when major changes arise, with results retained\"), while A and B are hedged single-clause claims (\"may be limited\", \"can stand in for\")."
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "2.8",
+   "domain": "D2",
+   "item": {
+    "question_text": "An AI risk treatment team judges that the reference controls in Table A.1 of ISO/IEC 42001 do not adequately address one of its assessed risks. Consistent with the annex's own statement about how that table is used, which approach is available to the team?",
+    "options": [
+     {
+      "text": "The team can design and apply controls of its own to treat the risk.",
+      "is_correct": true
+     },
+     {
+      "text": "The team must first adopt every listed reference control before adding any control of its own.",
+      "is_correct": false
+     },
+     {
+      "text": "The team must record in the statement of applicability why each item of implementation guidance was left out.",
+      "is_correct": false
+     },
+     {
+      "text": "The team may add controls of its own, but the statement of applicability lists only reference controls.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.1 states that \"Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).\" The reference table is a starting point, so where it does not fit an assessed risk the organization is free to determine and implement controls of its own design.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "The annex expressly does not require the whole reference set to be used, so there is no prior obligation to adopt every listed control."
+     },
+     {
+      "index": 2,
+      "clause": "B.1",
+      "support": "It provides information to support the implementation of the controls listed in Table A.1 and to meet the control objective, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3).",
+      "why_wrong": "Justification in the statement of applicability concerns controls, not the individual items of implementation guidance."
+     },
+     {
+      "index": 3,
+      "clause": "3.26",
+      "support": "All identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability.",
+      "why_wrong": "The statement of applicability covers all necessary controls addressing identified risks, including those the organization establishes itself."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed can)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 25,
+     "reason": "closest live item on this task shares 44%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in A.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem, plus one 28-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.1"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 28
+   },
+   "grounding_family": "A.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.1 states that \"Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).\"",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option with no restrictive qualifier (the other three all contain 'must' or 'only') and is also the shortest by a wide margin.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A is the only option with no restrictive qualifier (the other three all contain 'must' or 'only') and is also the shortest by a wide margin."
+   },
+   "verdict": "survivor",
+   "item_id": "f08a242f",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.1"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option with no restrictive qualifier (the other three all contain 'must' or 'only') and is also the shortest by a wide margin.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A is the only option with no restrictive qualifier (the other three all contain 'must' or 'only') and is also the shortest by a wide margin."
+   },
+   "shape_cues_before": [
+    {
+     "id": "only-hedged",
+     "cue": "every distractor carries an absolute and the key carries none (must, must, only)"
+    }
+   ],
+   "decue_trigger": [
+    "only-hedged"
+   ],
+   "de_cue": {
+    "state": "reverted",
+    "reason": "check 4: the triggering cue only-hedged did not clear"
+   },
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "3.1",
+   "domain": "D3",
+   "item": {
+    "question_text": "A bank is compiling the resource identification record for a fraud-detection model. The record already covers the modelling tools, the servers and storage, and the staff and their competences, but nothing has been written down about the training and validation datasets, their provenance or how they were labelled. Which action closes this gap?",
+    "options": [
+     {
+      "text": "Defer any dataset write-up until an impact assessment raises a concern about bias in the training data.",
+      "is_correct": false
+     },
+     {
+      "text": "Rely on the external supplier's own records for the datasets, which were not built in-house.",
+      "is_correct": false
+     },
+     {
+      "text": "Add a description of the datasets the model uses to the resource identification for the system.",
+      "is_correct": true
+     },
+     {
+      "text": "Cover the datasets by describing the storage hardware and processing capacity in the system record.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause A.4.3 requires the organization, as part of resource identification, to \"document information about the data resources utilized for the AI system.\" The missing element is the dataset documentation itself; documenting other resource categories does not satisfy it.",
+    "key_support_clause": "A.4.3",
+    "key_support": "As part of resource identification, the organization shall document information about the data resources utilized for the AI system.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "B.4.2",
+      "support": "The documentation of such resources (which can utilize, for instance, data flow diagrams or system architecture diagrams) can inform the AI system impact assessments (see B.5).",
+      "why_wrong": "Resource documentation feeds impact assessment rather than waiting on its findings, so the dataset record is not conditional on a bias flag."
+     },
+     {
+      "index": 1,
+      "clause": "B.4.2",
+      "support": "Resources can be provided by the organization itself, by its customers or by third parties.",
+      "why_wrong": "Resources sourced from third parties are still resources the organization documents in its own resource identification."
+     },
+     {
+      "index": 3,
+      "clause": "A.4.5",
+      "support": "As part of resource identification, the organization shall document information about the system and computing resources utilized for the AI system.",
+      "why_wrong": "Hardware and processing capacity are the system and computing resource category, which is separate from the data resources that remain undocumented."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 25,
+     "reason": "closest live item on this task shares 33%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 8,
+     "reason": "the key anchors in A.4.3, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in explanation, plus one 11-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.4.3"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "explanation",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 11
+   },
+   "grounding_family": "A.4.3",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "C",
+     "answer_reason": "Clause A.4.3 requires that, as part of resource identification, the organization document information about the data resources utilized for the AI system, with B.4.3 listing provenance and labelling process as topics to include.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "A, B and D each attach a limiting or substituting clause (defer until..., rely on supplier's records..., cover by describing hardware instead), while C is the only option stating the action plainly with no deferral or substitution.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A, B and D each attach a limiting or substituting clause (defer until..., rely on supplier's records..., cover by describing hardware instead), while C is the only option stating the action plainly with no deferral or substitution."
+   },
+   "verdict": "survivor",
+   "item_id": "3e47e159",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.4.3"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "A, B and D each attach a limiting or substituting clause (defer until..., rely on supplier's records..., cover by describing hardware instead), while C is the only option stating the action plainly with no deferral or substitution.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): A, B and D each attach a limiting or substituting clause (defer until..., rely on supplier's records..., cover by describing hardware instead), while C is the only option stating the action plainly with no deferral or substitution."
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"model\", \"resource\", \"identification\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "3.1",
+   "domain": "D3",
+   "item": {
+    "question_text": "An insurer has costed out the staff, tooling and infrastructure needed to build its AI management system and plans to release those people and that infrastructure back to other work once the system is up and running, on the assumption that upkeep will absorb itself. How should the resourcing plan be corrected?",
+    "options": [
+     {
+      "text": "Provide for what the management system will need to be sustained and improved, not only to be put in place.",
+      "is_correct": true
+     },
+     {
+      "text": "Plan resources stage by stage across the AI system life cycle and leave the management system itself outside the plan.",
+      "is_correct": false
+     },
+     {
+      "text": "Concentrate the provision on establishing and implementing the system, leaving upkeep to existing operational budgets.",
+      "is_correct": false
+     },
+     {
+      "text": "Work out centrally what resources are needed and hand the actual provision to the owners of each AI project.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 7.1 states that the organization \"shall determine and provide the resources needed for the establishment, implementation, maintenance and continual improvement of the AI management system.\" Maintenance and continual improvement are inside the scope of that obligation, so resourcing cannot stop at go-live.",
+    "key_support_clause": "7.1",
+    "key_support": "The organization shall determine and provide the resources needed for the establishment, implementation, maintenance and continual improvement of the AI management system.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.4.2",
+      "support": "The organization shall identify and document relevant resources required for the activities at given AI system life cycle stages and other AI-related activities relevant for the organization.",
+      "why_wrong": "Identifying resources per life-cycle stage is an additional control and does not displace the resourcing of the management system itself."
+     },
+     {
+      "index": 2,
+      "clause": "7.1",
+      "support": "The organization shall determine and provide the resources needed for the establishment, implementation, maintenance and continual improvement of the AI management system.",
+      "why_wrong": "Maintenance and continual improvement are named alongside establishment, so provision cannot be limited to the build phase."
+     },
+     {
+      "index": 3,
+      "clause": "7.1",
+      "support": "The organization shall determine and provide the resources needed for the establishment, implementation, maintenance and continual improvement of the AI management system.",
+      "why_wrong": "The organization is obliged to provide the resources as well as determine them, so provision cannot be devolved as an optional extra."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 25,
+     "reason": "closest live item on this task shares 8%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 8,
+     "reason": "the key anchors in 7.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 6 words in option b, plus one 20-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause 7.1"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 6,
+   "longest_served_in": "option b",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 20
+   },
+   "grounding_family": "7.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 7.1 requires the organization to determine and provide the resources needed for the establishment, implementation, maintenance and continual improvement of the AI management system, so provision cannot stop at initial set-up.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D all share the pattern 'do X and leave/hand the rest to someone/something else', while A is the only option without that carve-out clause (and the only one phrased as 'not only').",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D all share the pattern 'do X and leave/hand the rest to someone/something else', while A is the only option without that carve-out clause (and the only one phrased as 'not only')."
+   },
+   "verdict": "survivor",
+   "item_id": "87f4fe40",
+   "assigned": {
+    "index": 1,
+    "source_id": "ISO/IEC 42001",
+    "clause": "7.1"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D all share the pattern 'do X and leave/hand the rest to someone/something else', while A is the only option without that carve-out clause (and the only one phrased as 'not only').",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D all share the pattern 'do X and leave/hand the rest to someone/something else', while A is the only option without that carve-out clause (and the only one phrased as 'not only')."
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "3.1",
+   "domain": "D3",
+   "item": {
+    "question_text": "A team preparing the resource inventory for a machine learning recommendation service has written up its datasets, its servers and storage, and the people involved with their competences. Nothing has been recorded about the model types chosen, the data conditioning steps or the evaluation methods applied. Which action addresses the omission?",
+    "options": [
+     {
+      "text": "Fold the model and algorithm details into the existing record of datasets held for the service.",
+      "is_correct": false
+     },
+     {
+      "text": "Treat the listed categories of tools as implementation guidance rather than something to write down.",
+      "is_correct": false
+     },
+     {
+      "text": "Capture the tools indirectly through the record of servers and processing capacity supporting the service.",
+      "is_correct": false
+     },
+     {
+      "text": "Record the models, conditioning steps and evaluation methods used within the resource identification.",
+      "is_correct": true
+     }
+    ],
+    "correct_index": 3,
+    "explanation": "Clause A.4.4 requires the organization, as part of resource identification, to \"document information about the tooling resources utilized for the AI system.\" Models, data conditioning processes and evaluation methods sit in that tooling category, which the team has not documented.",
+    "key_support_clause": "A.4.4",
+    "key_support": "As part of resource identification, the organization shall document information about the tooling resources utilized for the AI system.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "A.4.3",
+      "support": "As part of resource identification, the organization shall document information about the data resources utilized for the AI system.",
+      "why_wrong": "The data resources record is a distinct category and merging tooling into it leaves the tooling documentation obligation unmet."
+     },
+     {
+      "index": 1,
+      "clause": "B.4.4",
+      "support": "As part of resource identification, the organization should document information about the tooling resources utilized for the AI system.",
+      "why_wrong": "The examples of tool types are guidance, but documenting tooling resources is itself an Annex A control the organization has adopted."
+     },
+     {
+      "index": 2,
+      "clause": "A.4.5",
+      "support": "As part of resource identification, the organization shall document information about the system and computing resources utilized for the AI system.",
+      "why_wrong": "Servers and processing capacity belong to the system and computing resource category, which is separate from tooling."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 25,
+     "reason": "closest live item on this task shares 23%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 8,
+     "reason": "the key anchors in A.4.4, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in explanation, plus one 11-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.4.4"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "explanation",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 11
+   },
+   "grounding_family": "A.4.4",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "D",
+     "answer_reason": "Clause A.4.4 requires that, as part of resource identification, the organization document tooling resources, which B.4.4 exemplifies as algorithm types and machine learning models, data conditioning tools or processes, and evaluation methods.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "D",
+    "cue": "Three options say to fold/subsume/not write down the tools (deflecting away from explicit documentation) while D alone says to record them directly, making it the odd verdict.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options say to fold/subsume/not write down the tools (deflecting away from explicit documentation) while D alone says to record them directly, making it the odd verdict."
+   },
+   "verdict": "survivor",
+   "item_id": "b7a63cf1",
+   "assigned": {
+    "index": 2,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.4.4"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "D",
+    "cue": "Three options say to fold/subsume/not write down the tools (deflecting away from explicit documentation) while D alone says to record them directly, making it the odd verdict.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options say to fold/subsume/not write down the tools (deflecting away from explicit documentation) while D alone says to record them directly, making it the odd verdict."
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"conditioning\", \"steps\", \"evaluation\", \"methods\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "3.4",
+   "domain": "D3",
+   "item": {
+    "question_text": "A team has completed its AI risk assessment, chosen treatment options, and drafted its own list of controls to implement them. How does the Annex A reference set bear on that draft list?",
+    "options": [
+     {
+      "text": "Each control listed in Annex A is implemented, with any exclusions noted later.",
+      "is_correct": false
+     },
+     {
+      "text": "Annex A gives implementation guidance, while Annex B lists the reference controls.",
+      "is_correct": false
+     },
+     {
+      "text": "The team's necessary controls are compared with Annex A to confirm none needed was left out.",
+      "is_correct": true
+     },
+     {
+      "text": "Where Annex A controls are adopted unchanged, no statement of applicability is produced.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause 6.1.3 b) has the organization work out every control needed for the chosen treatment options and then set that set against the annex as a check that nothing necessary was missed, making Annex A a completeness cross-check rather than a mandatory checklist. Annex A is the reference control list and Annex B the implementation guidance, and a statement of applicability with justification for inclusions and exclusions is produced in every case.",
+    "key_support_clause": "6.1.3",
+    "key_support": "determine all controls that are necessary to implement the AI risk treatment options chosen and compare the controls with those in Annex A to verify that no necessary controls have been omitted",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "6.1.3",
+      "support": "The organization can select an appropriate set of control objectives and controls from Annex A.",
+      "why_wrong": "An appropriate set is selected on the basis of the risk assessment, so blanket implementation of the whole annex is not what is asked for."
+     },
+     {
+      "index": 1,
+      "clause": "8.1",
+      "support": "Annex A lists reference controls and Annex B provides implementation guidance for them.",
+      "why_wrong": "The roles of the two annexes are reversed in this option."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.3",
+      "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+      "why_wrong": "The statement of applicability, covering inclusions and exclusions, is part of the risk treatment process regardless of where the controls came from."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 25,
+     "reason": "closest live item on this task shares 22%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 5,
+     "reason": "the key anchors in 6.1.3, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in option a"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause 6.1.3"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option a",
+   "attributed_quotation": null,
+   "grounding_family": "6.1.3",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "C",
+     "answer_reason": "Clause 6.1.3 b) requires the organization to determine all necessary controls and 'compare the controls with those in Annex A to verify that no necessary controls have been omitted'.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "A, B and D each make a flat absolute claim (\"Each ... is implemented\", \"Annex B lists\", \"no statement ... is produced\"), while C is the only option phrased as a cautious checking/comparison process and is also the longest.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A, B and D each make a flat absolute claim (\"Each ... is implemented\", \"Annex B lists\", \"no statement ... is produced\"), while C is the only option phrased as a cautious checking/comparison process and is also the longest."
+   },
+   "verdict": "survivor",
+   "item_id": "2accd914",
+   "assigned": {
+    "index": 1,
+    "source_id": "ISO/IEC 42001",
+    "clause": "6.1.3"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "A, B and D each make a flat absolute claim (\"Each ... is implemented\", \"Annex B lists\", \"no statement ... is produced\"), while C is the only option phrased as a cautious checking/comparison process and is also the longest.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A, B and D each make a flat absolute claim (\"Each ... is implemented\", \"Annex B lists\", \"no statement ... is produced\"), while C is the only option phrased as a cautious checking/comparison process and is also the longest."
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "3.7",
+   "domain": "D3",
+   "item": {
+    "question_text": "An organization with a mature ISMS wants to reuse its existing security risk treatment workflow for its AI management system. The workflow implements the approved treatment plan and files evidence of each treatment, but it has no defined step for the case where an implemented treatment turns out not to work. Under the AI management system requirements for risk treatment during operation, what gap must be closed in the reused workflow?",
+    "options": [
+     {
+      "text": "An ineffective treatment option is re-examined and revalidated through the risk treatment process, and the treatment plan is then updated.",
+      "is_correct": true
+     },
+     {
+      "text": "An ineffective treatment option triggers a fresh assessment of consequences for individuals and societies before the plan is amended.",
+      "is_correct": false
+     },
+     {
+      "text": "An ineffective treatment option is logged with the treatment results and picked up at the next scheduled AI risk assessment.",
+      "is_correct": false
+     },
+     {
+      "text": "An ineffective treatment option obliges the organization to reissue the documented boundaries and applicability of the management system.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 8.3 states that when treatment options defined by the plan \"are not effective, these treatment options shall be reviewed and revalidated following the risk treatment process according to 6.1.3 and the risk treatment plan shall be updated.\" A reused ISMS workflow that only implements and records treatments therefore needs this review-and-revalidate loop added; the other options substitute impact assessment, a scheduled reassessment or scope documentation for that loop.",
+    "key_support_clause": "8.3",
+    "key_support": "When risk treatment options as defined by the risk treatment plan are not effective, these treatment options shall be reviewed and revalidated following the risk treatment process according to 6.1.3 and the risk treatment plan shall be updated.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "8.4",
+      "support": "The organization shall perform AI system impact assessments according to 6.1.4 at planned intervals or when significant changes are proposed to occur.",
+      "why_wrong": "Impact assessment is driven by planned intervals or significant proposed changes, not by the failure of a treatment option, so it is the wrong control for this gap."
+     },
+     {
+      "index": 2,
+      "clause": "8.2",
+      "support": "The organization shall perform AI risk assessments in accordance with 6.1.2 at planned intervals or when significant changes are proposed or occur.",
+      "why_wrong": "Deferring a failed treatment to the next scheduled risk assessment leaves out the required review, revalidation and update of the treatment plan."
+     },
+     {
+      "index": 3,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "Scope documentation concerns boundaries and applicability of the management system and is not tied to the effectiveness of an individual treatment option."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 24,
+     "reason": "closest live item on this task shares 28%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 10,
+     "reason": "the key anchors in 8.3, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem, plus one 27-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause 8.3"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 27
+   },
+   "grounding_family": "8.3",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 8.3 states that when risk treatment options defined by the plan are not effective, those options shall be reviewed and revalidated following the risk treatment process according to 6.1.3 and the risk treatment plan shall be updated.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "All four share the stem 'An ineffective treatment option...', but only A stays inside that vocabulary (treatment process / treatment plan) while B, C and D each pivot to an unrelated noun phrase (consequences for individuals and societies, next scheduled assessment, documented boundaries).",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): All four share the stem 'An ineffective treatment option...', but only A stays inside that vocabulary (treatment process / treatment plan) while B, C and D each pivot to an unrelated noun phrase (consequences for individuals and societies, next scheduled assessment, documented boundaries)."
+   },
+   "verdict": "survivor",
+   "item_id": "159b5fda",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "8.3"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "All four share the stem 'An ineffective treatment option...', but only A stays inside that vocabulary (treatment process / treatment plan) while B, C and D each pivot to an unrelated noun phrase (consequences for individuals and societies, next scheduled assessment, documented boundaries).",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): All four share the stem 'An ineffective treatment option...', but only A stays inside that vocabulary (treatment process / treatment plan) while B, C and D each pivot to an unrelated noun phrase (consequences for individuals and societies, next scheduled assessment, documented boundaries)."
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "4.2",
+   "domain": "D4",
+   "item": {
+    "question_text": "An organization is deciding how the reference controls in Annex A of ISO/IEC 42001 bear on the set of controls it will actually put in place. Which statement describes that relationship correctly?",
+    "options": [
+     {
+      "text": "The annex is a reference set, so a subset of it may be used and self-designed controls can be added.",
+      "is_correct": true
+     },
+     {
+      "text": "The annex is a mandatory baseline, so each listed control objective has to be adopted before any control is added.",
+      "is_correct": false
+     },
+     {
+      "text": "The annex's implementation guidance items also need inclusion or exclusion reasoning recorded in the statement of applicability.",
+      "is_correct": false
+     },
+     {
+      "text": "The organization's own controls sit outside the statement of applicability, which records the annex reference controls only.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.1 states that \"Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).\" The annex therefore functions as a reference for addressing AI risks, not as a compulsory complete list.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "Treats the reference table as a compulsory baseline, whereas the clause says its control objectives and controls need not all be used."
+     },
+     {
+      "index": 2,
+      "clause": "B.1",
+      "support": "It provides information to support the implementation of the controls listed in Table A.1 and to meet the control objective, but organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3).",
+      "why_wrong": "Confuses controls with implementation guidance, which need not be justified for inclusion or exclusion in the statement of applicability."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.3",
+      "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+      "why_wrong": "The statement of applicability covers all necessary controls, including additional ones identified beyond the annex, not the annex list alone."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed can)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 21,
+     "reason": "closest live item on this task shares 67%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 3,
+     "reason": "the key anchors in A.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in option c, plus one 28-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.1"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "option c",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 28
+   },
+   "grounding_family": "A.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.1 states \"Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls\", matching option A.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option without an absolutist marker — B says \"mandatory\"/\"has to\", C says \"need\", D says \"only\" — while A alone uses permissive modals (\"may be used\", \"can be added\").",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only option without an absolutist marker — B says \"mandatory\"/\"has to\", C says \"need\", D says \"only\" — while A alone uses permissive modals (\"may be used\", \"can be added\")."
+   },
+   "verdict": "survivor",
+   "item_id": "a7c36ebd",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.1"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option without an absolutist marker — B says \"mandatory\"/\"has to\", C says \"need\", D says \"only\" — while A alone uses permissive modals (\"may be used\", \"can be added\").",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only option without an absolutist marker — B says \"mandatory\"/\"has to\", C says \"need\", D says \"only\" — while A alone uses permissive modals (\"may be used\", \"can be added\")."
+   },
+   "shape_cues_before": [
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (may, can)"
+    }
+   ],
+   "decue_trigger": [
+    "only-hedged"
+   ],
+   "de_cue": {
+    "state": "reverted",
+    "reason": "check 5: limiter dropped -- option 3 lost \"only\""
+   },
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "4.4",
+   "domain": "D4",
+   "item": {
+    "question_text": "Six months after launch, a demand-forecasting system's accuracy has drifted far below expectation. Investigation shows the organization never settled what would be watched in production, who would respond to faults, how updates would be issued, or how users would get help. Which Annex A life-cycle control addresses this omission?",
+    "options": [
+     {
+      "text": "Determining the life-cycle phases at which event records are kept, at least during use.",
+      "is_correct": false
+     },
+     {
+      "text": "Recording in writing what ongoing operation requires: monitoring, fixes, updates and support.",
+      "is_correct": true
+     },
+     {
+      "text": "Defining the measures used to verify and validate the system, with criteria for use.",
+      "is_correct": false
+     },
+     {
+      "text": "Assessing and recording potential impacts on individuals across the system's life cycle.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 1,
+    "explanation": "Clause A.6.2.6 requires the organization to \"define and document the necessary elements for the ongoing operation of the AI system\", and names system and performance monitoring, repairs, updates and support as the expected baseline content — exactly the arrangements that were never settled here.",
+    "key_support_clause": "A.6.2.6",
+    "key_support": "The organization shall define and document the necessary elements for the ongoing operation of the AI system.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "A.6.2.8",
+      "support": "The organization shall determine at which phases of the AI system life cycle, record keeping of event logs should be enabled, but at the minimum when the AI system is in use.",
+      "why_wrong": "Event log record keeping is a determination about which phases logging is enabled in, not the definition of operational monitoring, repair, update and support arrangements."
+     },
+     {
+      "index": 2,
+      "clause": "A.6.2.4",
+      "support": "The organization shall define and document verification and validation measures for the AI system and specify criteria for their use.",
+      "why_wrong": "Verification and validation concerns evidence gathered about the system rather than the arrangements for running and supporting it after release."
+     },
+     {
+      "index": 3,
+      "clause": "B.5.4",
+      "support": "The organization should assess and document the potential impacts of AI systems to individuals or groups of individuals throughout the system’s life cycle.",
+      "why_wrong": "Impact assessment of individuals identifies potential consequences; it does not establish the operational monitoring, repair and support elements that were absent."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 21,
+     "reason": "closest live item on this task shares 35%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 13,
+     "reason": "the key anchors in A.6.2.6, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 8 words in explanation, plus one 14-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.6.2.6"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 8,
+   "longest_served_in": "explanation",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 14
+   },
+   "grounding_family": "A.6.2.6",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "B",
+     "answer_reason": "A.6.2.6 requires the organization to define and document the necessary elements for ongoing operation, including at minimum system and performance monitoring, repairs, updates and support — exactly the omitted items.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "D",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked D, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "677d4794",
+   "assigned": {
+    "index": 1,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.6.2.6"
+   },
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "D",
+    "cue": null,
+    "cue_kind": "none",
+    "reason": "picked D, not the key -- the options do not give it away"
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"updates\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "4.4",
+   "domain": "D4",
+   "item": {
+    "question_text": "A supervisory authority requests information on a deployed system's intended purpose and known limitations, while customers separately ask for usage instructions. The provider holds only an internal engineering wiki written in developer shorthand, and hands over extracts of it to both. Which Annex A life-cycle control was not implemented?",
+    "options": [
+     {
+      "text": "Recording the system's design and development against organizational objectives and specification criteria.",
+      "is_correct": false
+     },
+     {
+      "text": "Retaining documented outcomes of impact assessments for a period the organization has defined.",
+      "is_correct": false
+     },
+     {
+      "text": "Working out what technical information each category of interested party needs and supplying it suitably.",
+      "is_correct": true
+     },
+     {
+      "text": "Enabling the keeping of event records across the phases the organization has determined.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause A.6.2.7 requires the organization to determine what technical documentation \"is needed for each relevant category of interested parties, such as users, partners, supervisory authorities, and provide the technical documentation to them in the appropriate form\", which a single developer-facing wiki extract does not satisfy.",
+    "key_support_clause": "A.6.2.7",
+    "key_support": "The organization shall determine what AI system technical documentation is needed for each relevant category of interested parties, such as users, partners, supervisory authorities, and provide the technical documentation to them in the appropriate form.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "A.6.2.3",
+      "support": "The organization shall document the AI system design and development based on organizational objectives, documented requirements and specification criteria.",
+      "why_wrong": "Design and development documentation records how the system was built; it is not the control about tailoring and issuing documentation to each audience."
+     },
+     {
+      "index": 1,
+      "clause": "A.5.3",
+      "support": "The organization shall document the results of AI system impact assessments and retain results for a defined period.",
+      "why_wrong": "Impact assessment documentation and retention addresses assessment results, not the technical information owed to users and authorities."
+     },
+     {
+      "index": 3,
+      "clause": "A.6.2.8",
+      "support": "The organization shall determine at which phases of the AI system life cycle, record keeping of event logs should be enabled, but at the minimum when the AI system is in use.",
+      "why_wrong": "Event logs capture occurrences during operation and are a different artefact from the technical documentation supplied to interested parties."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 21,
+     "reason": "closest live item on this task shares 18%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 13,
+     "reason": "the key anchors in A.6.2.7, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in explanation, plus one 26-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.6.2.7"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "explanation",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 26
+   },
+   "grounding_family": "A.6.2.7",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "C",
+     "answer_reason": "A.6.2.7 requires the organization to determine what AI system technical documentation is needed for each relevant category of interested parties (users, partners, supervisory authorities) and provide it 'in the appropriate form', which handing over developer-shorthand wiki extracts to all parties fails to do (B.6.2.7 lists intended purpose, usage instructions and technical limitations as elements).",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "Three options are about recording/retaining documentation (A 'Recording', B 'Retaining documented', D 'keeping of event records'), and two of those share the 'the organization has defined/determined' tail; C is the only one about stakeholder information needs and is also the longest option.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options are about recording/retaining documentation (A 'Recording', B 'Retaining documented', D 'keeping of event records'), and two of those share the 'the organization has defined/determined' tail; C is the only one about stakeholder information needs and is also the longest option."
+   },
+   "verdict": "survivor",
+   "item_id": "5513f191",
+   "assigned": {
+    "index": 2,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.6.2.7"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "Three options are about recording/retaining documentation (A 'Recording', B 'Retaining documented', D 'keeping of event records'), and two of those share the 'the organization has defined/determined' tail; C is the only one about stakeholder information needs and is also the longest option.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): Three options are about recording/retaining documentation (A 'Recording', B 'Retaining documented', D 'keeping of event records'), and two of those share the 'the organization has defined/determined' tail; C is the only one about stakeholder information needs and is also the longest option."
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"information\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "4.6",
+   "domain": "D4",
+   "item": {
+    "question_text": "A hospital uses a diagnostic AI system bought from a vendor; it does not build AI systems itself. While preparing its statement of applicability, the AIMS team considers how clinicians operate the system day to day. Under the Annex A controls for the use of AI systems, what does the hospital itself have to do?",
+    "options": [
+     {
+      "text": "Set out and record the procedures that govern responsible operation of the system.",
+      "is_correct": true
+     },
+     {
+      "text": "Adopt the vendor's deployment instructions in place of its own recorded use procedures.",
+      "is_correct": false
+     },
+     {
+      "text": "Record the nine responsible-use objectives named in Annex B as its mandatory set.",
+      "is_correct": false
+     },
+     {
+      "text": "Treat the apportioning of life cycle duties among the parties as covering its use procedures.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.9.2 states that \"The organization shall define and document the processes for the responsible use of AI systems.\" The obligation rests on the organization that uses the system, regardless of who developed it.",
+    "key_support_clause": "A.9.2",
+    "key_support": "The organization shall define and document the processes for the responsible use of AI systems.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "A.9.2",
+      "support": "The organization shall define and document the processes for the responsible use of AI systems.",
+      "why_wrong": "The control places the duty to define and document use processes on the organization itself, so supplier instructions do not discharge it."
+     },
+     {
+      "index": 2,
+      "clause": "B.9.3",
+      "support": "Depending on its context, the organization should identify its objectives related to responsible use.",
+      "why_wrong": "The listed objectives are context-dependent examples offered under a 'should', not a fixed set the organization has to adopt."
+     },
+     {
+      "index": 3,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "Allocating responsibilities among parties is a separate relationship control and does not replace defining and documenting processes for responsible use."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 22,
+     "reason": "closest live item on this task shares 36%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 10,
+     "reason": "the key anchors in A.9.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem, plus one 15-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.9.2"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 15
+   },
+   "grounding_family": "A.9.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Control A.9.2 states the organization shall define and document the processes for the responsible use of AI systems, which applies to the hospital as a user regardless of whether it develops AI itself.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each swap in some external item (the vendor's instructions, Annex B's nine objectives, the apportioning of life-cycle duties) as a substitute for the entity's own procedures; A is the only option that states the duty plainly without a substitution.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D each swap in some external item (the vendor's instructions, Annex B's nine objectives, the apportioning of life-cycle duties) as a substitute for the entity's own procedures; A is the only option that states the duty plainly without a substitution."
+   },
+   "verdict": "survivor",
+   "item_id": "ef298246",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.9.2"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each swap in some external item (the vendor's instructions, Annex B's nine objectives, the apportioning of life-cycle duties) as a substitute for the entity's own procedures; A is the only option that states the duty plainly without a substitution.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D each swap in some external item (the vendor's instructions, Annex B's nine objectives, the apportioning of life-cycle duties) as a substitute for the entity's own procedures; A is the only option that states the duty plainly without a substitution."
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"system\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "4.7",
+   "domain": "D4",
+   "item": {
+    "question_text": "A team has recorded a risk that the origin of its training data is unknown. It decides to treat that risk with an access control already running over the model serving endpoint under its information security management system, and then leaves data provenance out of its statement of applicability altogether. Judged against what a statement of applicability is meant to contain, what is wrong with this?",
+    "options": [
+     {
+      "text": "The recorded provenance risk and the measure chosen to treat it both have to appear in the statement of applicability.",
+      "is_correct": true
+     },
+     {
+      "text": "Controls already operating under an information security management system belong in that system's documentation rather than in this one.",
+      "is_correct": false
+     },
+     {
+      "text": "The statement of applicability covers the Annex A reference controls, while measures the organization designs itself are logged elsewhere.",
+      "is_correct": false
+     },
+     {
+      "text": "A reason has to be stated for controls that are left out, while controls brought in need no recorded reason.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "The definition of the statement of applicability in Clause 3.26 states that \"All identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability.\" A risk about data origin that has been identified cannot simply disappear from the document because an endpoint access control was reused; both the risk and the measure addressing it have to be reflected there.",
+    "key_support_clause": "3.26",
+    "key_support": "All identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.26",
+      "support": "statement of applicability documentation of all necessary controls (3.23) and justification for inclusion or exclusion of controls",
+      "why_wrong": "The statement of applicability documents all necessary controls, whatever other management system they are implemented through."
+     },
+     {
+      "index": 2,
+      "clause": "3.26",
+      "support": "Note 1 to entry: Organizations may not require all controls listed in Annex A or may even exceed the list in Annex A with additional controls established by the organization itself.",
+      "why_wrong": "Controls the organization establishes for itself go beyond the Annex A list and still belong in the statement of applicability."
+     },
+     {
+      "index": 3,
+      "clause": "3.26",
+      "support": "justification for inclusion or exclusion of controls",
+      "why_wrong": "Justification attaches to inclusion as well as to exclusion, not to exclusion alone."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 24,
+     "reason": "closest live item on this task shares 41%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 6,
+     "reason": "the key anchors in 3.26, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem, plus one 21-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause 3.26"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 21
+   },
+   "grounding_family": "3.26",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.26 Note 2 states that all identified risks and the risk management measures (controls) established to address them shall be reflected in the statement of applicability, so omitting the provenance risk and its treating control is the fault.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and C both say some items live in other documentation and D exempts one half from a requirement; A is the only option that keeps both items inside the statement of applicability, i.e. the odd inclusive one against three 'kept out/elsewhere' variants.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B and C both say some items live in other documentation and D exempts one half from a requirement; A is the only option that keeps both items inside the statement of applicability, i.e. the odd inclusive one against three 'kept out/elsewhere' variants."
+   },
+   "verdict": "survivor",
+   "item_id": "60239a31",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "3.26"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and C both say some items live in other documentation and D exempts one half from a requirement; A is the only option that keeps both items inside the statement of applicability, i.e. the odd inclusive one against three 'kept out/elsewhere' variants.",
+    "cue_kind": "odd-verdict",
+    "reason": "picked the key from the options alone and named a cue (odd-verdict): B and C both say some items live in other documentation and D exempts one half from a requirement; A is the only option that keeps both items inside the statement of applicability, i.e. the odd inclusive one against three 'kept out/elsewhere' variants."
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"provenance\", \"treat\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "4.7",
+   "domain": "D4",
+   "item": {
+    "question_text": "An organization already operating an information security management system conforming to ISO/IEC 27001 is building its AI management system, and several of the AI controls it has selected bear partly on information security. Which statement best describes how the two bodies of work relate?",
+    "options": [
+     {
+      "text": "The AI controls touching on information security can be carried out through the existing ISO/IEC 27001 implementation rather than built afresh.",
+      "is_correct": true
+     },
+     {
+      "text": "Conformity with ISO/IEC 27001 can be taken as discharging the security-related controls selected for the AI management system, needing no further treatment.",
+      "is_correct": false
+     },
+     {
+      "text": "Security-related AI controls are carried out separately from the existing information security work, so the boundary between the two systems stays intact.",
+      "is_correct": false
+     },
+     {
+      "text": "Security objectives for the AI system can be met by the ISO/IEC 27001 control set in place of the controls AI risk treatment determines.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause D.2 notes that \"In this case, the way to implement controls which (partly) relate to information security in this document (see B.6.1.2) can be integrated with the organization’s implementation of ISO/IEC 27001.\" Shared implementation is contemplated, which is different from one certification discharging the other's controls.",
+    "key_support_clause": "D.2",
+    "key_support": "In this case, the way to implement controls which (partly) relate to information security in this document (see B.6.1.2) can be integrated with the organization’s implementation of ISO/IEC 27001.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "D.2",
+      "support": "If an organization identifies the need to implement an AI management system and to address security objectives in a similar thorough and systematic way, it can implement an information security management system in conformity with ISO/IEC 27001.",
+      "why_wrong": "The guidance offers integrated implementation of the AI controls, not automatic satisfaction of them by holding the other certification."
+     },
+     {
+      "index": 2,
+      "clause": "D.1",
+      "support": "Objectives such as safety, security, privacy and environmental impact should be managed holistically and not separately for AI and the other components of the system.",
+      "why_wrong": "Deliberately separating the security work runs against the holistic handling the guidance describes."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.3",
+      "support": "determine all controls that are necessary to implement the AI risk treatment options chosen and compare the controls with those in Annex A to verify that no necessary controls have been omitted",
+      "why_wrong": "The necessary controls come from the organization's own AI risk treatment compared against Annex A, not from another standard's control set instead."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a permission by the anchor sentence (clause classed can)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 24,
+     "reason": "closest live item on this task shares 53%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 6,
+     "reason": "the key anchors in D.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in stem, plus one 29-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause D.2"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 29
+   },
+   "grounding_family": "D.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and D make absolute substitution claims (\"needing no further treatment\", \"in place of the controls\") and C is the lone flat opposite; A is the only moderately hedged wording (\"can be carried out through ... rather than built afresh\").",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B and D make absolute substitution claims (\"needing no further treatment\", \"in place of the controls\") and C is the lone flat opposite; A is the only moderately hedged wording (\"can be carried out through ... rather than built afresh\")."
+   },
+   "verdict": "survivor",
+   "item_id": "17f918e9",
+   "assigned": {
+    "index": 1,
+    "source_id": "ISO/IEC 42001",
+    "clause": "D.2"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A, B and D all say the AI security controls are satisfied by the existing ISO/IEC 27001 work, but B ('discharges') and D ('in place of') state it as total replacement while A is the hedged version ('can be carried out through ... rather than built afresh'); C is the lone reversal.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A, B and D all say the AI security controls are satisfied by the existing ISO/IEC 27001 work, but B ('discharges') and D ('in place of') state it as total replacement while A is the hedged version ('can be carried out through ... rather than built afresh'); C is the lone reversal."
+   },
+   "shape_cues_before": [
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "decue_trigger": [
+    "only-hedged"
+   ],
+   "de_cue": {
+    "state": "applied",
+    "probe_before": "only-hedged: the key is the only hedged option (can)",
+    "probe_after": "flag"
+   },
+   "solver_reused_from": "AIMSF-R5.json"
+  },
+  {
+   "task_code": "5.1",
+   "domain": "D5",
+   "item": {
+    "question_text": "An AI management system team is agreeing on vocabulary before designing its evaluation arrangements. As the term is defined for AI management systems, monitoring consists of what activity?",
+    "options": [
+     {
+      "text": "Determining the current state of a system, process or activity, sometimes by close observation.",
+      "is_correct": true
+     },
+     {
+      "text": "Carrying out a process that arrives at a value for a chosen characteristic.",
+      "is_correct": false
+     },
+     {
+      "text": "Assessing how far intended actions were carried out and intended results attained.",
+      "is_correct": false
+     },
+     {
+      "text": "Reporting results obtained from using AI systems as quantitative or qualitative findings.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.20 defines monitoring as \"determining the status of a system, a process (3.8) or an activity\", and its note adds that checking, supervising or critically observing can be needed to do so. The other options restate measurement, effectiveness and performance respectively.",
+    "key_support_clause": "3.20",
+    "key_support": "determining the status of a system, a process (3.8) or an activity",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.19",
+      "support": "measurement process (3.8) to determine a value",
+      "why_wrong": "This describes measurement, which determines a value, rather than monitoring, which determines status."
+     },
+     {
+      "index": 2,
+      "clause": "3.13",
+      "support": "effectiveness extent to which planned activities are realized and planned results are achieved",
+      "why_wrong": "This is the definition of effectiveness, an evaluative judgement, not the act of monitoring."
+     },
+     {
+      "index": 3,
+      "clause": "3.11",
+      "support": "Note 1 to entry: Performance can relate either to quantitative or qualitative findings.",
+      "why_wrong": "This describes the notion of performance and the forms its findings take, not what monitoring is."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 24,
+     "reason": "closest live item on this task shares 27%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 7,
+     "reason": "the key anchors in 3.20, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in stem, plus one 12-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause 3.20"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 12
+   },
+   "grounding_family": "3.20",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.20 defines monitoring as \"determining the status of a system, a process or an activity\", with Note 1 adding that this can require checking, supervising or critically observing.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the longest option and the only one containing a hedge ('sometimes by close observation'), the classic broad-definition shape.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the longest option and the only one containing a hedge ('sometimes by close observation'), the classic broad-definition shape."
+   },
+   "verdict": "survivor",
+   "item_id": "28a28fac",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "3.20"
+   },
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the longest option and the only one containing a hedge ('sometimes by close observation'), the classic broad-definition shape.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the longest option and the only one containing a hedge ('sometimes by close observation'), the classic broad-definition shape."
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"system\", \"activity\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "de_cue": null,
+   "solver_reused_from": "AIMSF-R5.json"
+  }
+ ]
+}

@@ -104,8 +104,33 @@ const BARE_MARK = /(?:^|[.;:!?]\s+|\n\s*)\(?([A-D])\)\s*(?=[a-z"'“])/;
 const BY_LETTER_ES = /\bopci[oó]n(?:es)?\s*\(?\s*([A-D])(?![A-Za-z])(?!\.\d)\s*\)?/i;
 const BY_LETTER_PT = /\bop[cç][aã]o(?:es|ões)?\s*\(?\s*([A-D])(?![A-Za-z])(?!\.\d)\s*\)?/i;
 
+/* ============ AND AN OPTION CAN BE NUMBERED. RULED PROMPT-97 ADDENDUM s3 ============
+ *
+ * The director found it in `29a3ad5f`, whose explanation says *"Option 1 ... option 2 ... option 4"*. Every
+ * rule above looks for a LETTER or an ORDINAL WORD, so a numeral was invisible by construction -- the item
+ * passed the gate and was caught by a human reading it.
+ *
+ * It is the same property and the same failure: a number names a POSITION, and the position changes the moment
+ * the order does. It is arguably worse than a letter, because the rendered options carry letters, so "option 2"
+ * does not even match what the learner is looking at -- it is a reference to the author's own draft order.
+ *
+ * SEPARATE RULE IDS RATHER THAN WIDENING `[A-D]` TO `[A-D1-4]`. The report names the rule that fired, and a
+ * finding printed as `by-letter` for the text "option 2" sends the reader looking for a letter. The
+ * article-versus-letter exception does not apply here either -- no numeral is an English word -- so folding
+ * them together would put a guard in front of a case that cannot need it.
+ *
+ * `(?!\.\d)` and the `(?!\d)` right-hand boundary are both kept: `option 4.1` and `option 12` are not
+ * references to option 4. */
+const NUM = "([1-4])(?!\\d)(?!\\.\\d)";
+const BY_NUMBER = new RegExp("\\boptions?\\s*\\(?\\s*" + NUM + "\\s*\\)?", "i");
+const BY_NUMBER_ES = new RegExp("\\bopci[oó]n(?:es)?\\s*\\(?\\s*" + NUM + "\\s*\\)?", "i");
+const BY_NUMBER_PT = new RegExp("\\bop[cç][aã]o(?:es|ões)?\\s*\\(?\\s*" + NUM + "\\s*\\)?", "i");
+
 export const RULES = [
   { id: "by-letter", re: BY_LETTER, why: 'names an option by its letter ("option A")' },
+  { id: "by-number", re: BY_NUMBER, why: 'names an option by a number ("option 2")' },
+  { id: "by-number-es", re: BY_NUMBER_ES, why: 'names an option by a number in Spanish ("opcion 2")' },
+  { id: "by-number-pt", re: BY_NUMBER_PT, why: 'names an option by a number in Portuguese ("opcao 3")' },
   { id: "by-letter-es", re: BY_LETTER_ES, why: 'names an option by its letter in Spanish ("opcion A")' },
   { id: "by-letter-pt", re: BY_LETTER_PT, why: 'names an option by its letter in Portuguese ("opcao A")' },
   { id: "by-position", re: BY_POSITION, why: 'names an option by its position ("the second option")' },
@@ -158,6 +183,35 @@ export function explanationOptionRefControls() {
   ok("a5eb5694: 'the opposite of option C' fires",
     fires("This is the opposite of option C, which defers the assessment.").pass === false);
 
+  /* ============ 29a3ad5f: THE NUMBERED FORM, RULED PROMPT-97 ADDENDUM s3 ============
+   *
+   * The director's positive control, and the sentence is his item's own, read out of AIMSF-R5.json rather than
+   * paraphrased -- a control built from a remembered sentence tests the memory. It carries all three numerals
+   * in one explanation, so a rule that caught only the first would still pass a weaker assertion. */
+  const R5_29a3ad5f = "Option 1 limits allocation to an early stage, option 2 confuses internal role " +
+    "definition with allocation across parties, and option 4 contradicts the note that top management " +
+    "may delegate.";
+  const num = fires(R5_29a3ad5f);
+  ok("29a3ad5f: 'Option 1 / option 2 / option 4' fires", num.pass === false,
+    JSON.stringify(num.hits));
+  ok("...and it is reported as by-number, not as by-letter",
+    num.hits.some((h) => h.rule === "by-number") && !num.hits.some((h) => h.rule === "by-letter"),
+    num.hits.map((h) => h.rule).join(","));
+  ok("the Spanish numbered form fires", fires("La opción 2 limita la asignación.").pass === false);
+  ok("the Portuguese numbered form fires", fires("A opção 3 confunde a definição de papéis.").pass === false);
+
+  /* NEGATIVES FOR THE NUMBERED RULE, each a shape that genuinely appears in this corpus. A numeral near the
+   * word "option" is not a reference to option N, and a rule that fired on these would be deleted. */
+  ok("'option 4.1' is an address, not a reference",
+    fires("The option 4.1 discussion of context is not relevant here.").pass === true,
+    JSON.stringify(fires("The option 4.1 discussion of context is not relevant here.").hits));
+  ok("'option 12' is not option 1",
+    fires("Option 12 does not exist in this item.").pass === true,
+    JSON.stringify(fires("Option 12 does not exist in this item.").hits));
+  ok("a count of options does not fire",
+    fires("There is only 1 option that survives the clause.").pass === true,
+    JSON.stringify(fires("There is only 1 option that survives the clause.").hits));
+
   /* NEGATIVE -- naming an option by its CONTENT is what the rewrite produces */
   const byContent = fires("The option confining the scope to AI-only systems is wrong because the " +
     "management system covers the organization's processes as a whole.");
@@ -182,18 +236,33 @@ export function explanationOptionRefControls() {
   ok("an empty explanation is UNEXAMINED, not a pass", empty.examined === false && empty.pass === false,
     "examined=" + empty.examined + " pass=" + empty.pass);
 
-  /* every declared rule must be able to match its own example, or a rule is dead weight */
+  /* every declared rule must be able to match its own example, or a rule is dead weight.
+   *
+   * KEYED BY ID, AND EVERY RULE MUST HAVE AN ENTRY. This was a chain of ternaries ending in a bare `else`, so
+   * adding the three `by-number` rules silently gave all three the bare-mark example and reported them as
+   * DEAD -- three failures that said "by-number did not match A) restates the clause", which is a true
+   * statement about the wrong pairing. A default case in a per-rule table is an example nobody chose, and it
+   * fails in the direction that looks like the new rule is broken. */
+  const EXAMPLES = {
+    "by-letter": "Option B is wrong.",
+    "by-letter-es": "La opcion B es incorrecta.",
+    "by-letter-pt": "A opcao B esta incorreta.",
+    "by-number": "Option 2 is wrong.",
+    "by-number-es": "La opcion 2 es incorrecta.",
+    "by-number-pt": "A opcao 3 esta incorreta.",
+    "by-position": "The third option is wrong.",
+    /* CHANGED, and saying so rather than quietly: this was "The option listed second is wrong.", which
+     * the narrowed rule no longer matches by design -- the ordinal must END its clause, because a
+     * 24-character window could not tell "the second option" from "the second AUDITOR". The example is
+     * now a real shape from the corpus. */
+    "by-position-2": "the option, which is the second.",
+    "bare-mark": "A) restates the clause.",
+  };
+  ok("every rule has a declared example", RULES.every((r) => EXAMPLES[r.id]),
+    RULES.filter((r) => !EXAMPLES[r.id]).map((r) => r.id).join(",") || "all present");
   for (const r of RULES) {
-    const ex = r.id === "by-letter" ? "Option B is wrong."
-      : r.id === "by-letter-es" ? "La opcion B es incorrecta."
-        : r.id === "by-letter-pt" ? "A opcao B esta incorreta."
-          : r.id === "by-position" ? "The third option is wrong."
-        /* CHANGED, and saying so rather than quietly: this was "The option listed second is wrong.", which
-         * the narrowed rule no longer matches by design -- the ordinal must END its clause, because a
-         * 24-character window could not tell "the second option" from "the second AUDITOR". The example is
-         * now a real shape from the corpus. */
-        : r.id === "by-position-2" ? "the option, which is the second."
-          : "A) restates the clause.";
+    const ex = EXAMPLES[r.id];
+    if (!ex) continue;                            /* already reported above; no default is supplied */
     ok("RULE " + r.id + " matches its own example", r.re.test(ex), "did not match: " + ex);
   }
   return out;

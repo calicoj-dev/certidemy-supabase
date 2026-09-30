@@ -15,35 +15,35 @@ report a finished certification that does not exist.
 | task | floor | eff | kept | inserted | **now** | b2 | R2 | R3 | **after approval** | at floor? |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1.1 | 8 | 5 | 3 | 5 | **8** |  |  |  | **8** | **already** |
-| 1.2 | 8 | 7 | 1 | 1 | **2** |  |  |  | **2** | no, short 6 |
-| 1.3 | 8 | 11 | 1 | 6 | **7** |  |  |  | **7** | no, short 1 |
+| 1.2 | 8 | 7 | 1 | 5 | **6** |  |  |  | **6** | no, short 2 |
+| 1.3 | 8 | 11 | 1 | 7 | **8** |  |  |  | **8** | **already** |
 | 1.4 | 8 | 11 | 2 | 6 | **8** |  |  |  | **8** | **already** |
-| 1.5 | 8 | 12 | 2 | 5 | **7** |  |  |  | **7** | no, short 1 |
-| 1.6 | 8 | 12 | 3 | 4 | **7** |  |  |  | **7** | no, short 1 |
+| 1.5 | 8 | 12 | 2 | 7 | **9** |  |  |  | **9** | **already** |
+| 1.6 | 8 | 12 | 3 | 6 | **9** |  |  |  | **9** | **already** |
 | 2.1 | 6 | 3 | 1 | 5 | **6** |  |  |  | **6** | **already** |
-| 2.2 | 8 | 5 | 1 | 6 | **7** |  |  |  | **7** | no, short 1 |
+| 2.2 | 8 | 5 | 1 | 7 | **8** |  |  |  | **8** | **already** |
 | 2.3 | 8 | 8 | 5 | 3 | **8** |  |  |  | **8** | **already** |
-| 2.4 | 8 | 5 | 2 | 4 | **6** |  |  |  | **6** | no, short 2 |
-| 2.5 | 8 | 20 | 3 | 3 | **6** |  |  |  | **6** | no, short 2 |
+| 2.4 | 8 | 5 | 2 | 5 | **7** |  |  |  | **7** | no, short 1 |
+| 2.5 | 8 | 20 | 3 | 7 | **10** |  |  |  | **10** | **already** |
 | 2.6 | 8 | 7 | 1 | 7 | **8** |  |  |  | **8** | **already** |
-| 2.7 | 8 | 6 | 1 | 6 | **7** |  |  |  | **7** | no, short 1 |
-| 2.8 | 8 | 5 | 1 | 6 | **7** |  |  |  | **7** | no, short 1 |
-| 3.1 | 8 | 8 | 1 | 4 | **5** |  |  |  | **5** | no, short 3 |
+| 2.7 | 8 | 6 | 1 | 7 | **8** |  |  |  | **8** | **already** |
+| 2.8 | 8 | 5 | 1 | 8 | **9** |  |  |  | **9** | **already** |
+| 3.1 | 8 | 8 | 1 | 10 | **11** |  |  |  | **11** | **already** |
 | 3.2 | 8 | 5 | 3 | 5 | **8** |  |  |  | **8** | **already** |
 | 3.3 | 8 | 17 | 3 | 5 | **8** |  |  |  | **8** | **already** |
-| 3.4 | 8 | 5 | 1 | 5 | **6** |  |  |  | **6** | no, short 2 |
+| 3.4 | 8 | 5 | 1 | 8 | **9** |  |  |  | **9** | **already** |
 | 3.5 | 8 | 9 | 1 | 7 | **8** |  |  |  | **8** | **already** |
 | 3.6 | 8 | 11 | 2 | 6 | **8** |  |  |  | **8** | **already** |
-| 3.7 | 8 | 10 | 2 | 5 | **7** |  |  |  | **7** | no, short 1 |
+| 3.7 | 8 | 10 | 2 | 7 | **9** |  |  |  | **9** | **already** |
 | 3.8 | 8 | 4 | 4 | 4 | **8** |  |  |  | **8** | **already** |
 | 4.1 | 8 | 4 | 4 | 2 | **6** |  |  |  | **6** | no, short 2 |
-| 4.2 | 6 | 3 | 2 | 3 | **5** |  |  |  | **5** | no, short 1 |
-| 4.3 | 8 | 9 | 5 | 2 | **7** |  |  |  | **7** | no, short 1 |
-| 4.4 | 8 | 13 | 3 | 2 | **5** |  |  |  | **5** | no, short 3 |
-| 4.5 | 8 | 9 | 4 | 1 | **5** |  |  |  | **5** | no, short 3 |
-| 4.6 | 8 | 8 | 4 | 3 | **7** |  |  |  | **7** | no, short 1 |
-| 4.7 | 8 | 6 | 1 | 4 | **5** |  |  |  | **5** | no, short 3 |
-| 5.1 | 8 | 5 | 2 | 5 | **7** |  |  |  | **7** | no, short 1 |
+| 4.2 | 6 | 3 | 2 | 4 | **6** |  |  |  | **6** | **already** |
+| 4.3 | 8 | 9 | 5 | 3 | **8** |  |  |  | **8** | **already** |
+| 4.4 | 8 | 13 | 3 | 5 | **8** |  |  |  | **8** | **already** |
+| 4.5 | 8 | 9 | 4 | 4 | **8** |  |  |  | **8** | **already** |
+| 4.6 | 8 | 8 | 4 | 5 | **9** |  |  |  | **9** | **already** |
+| 4.7 | 8 | 6 | 1 | 9 | **10** |  |  |  | **10** | **already** |
+| 5.1 | 8 | 5 | 2 | 7 | **9** |  |  |  | **9** | **already** |
 | 5.2 | 6 | 3 | 2 | 4 | **6** |  |  |  | **6** | **already** |
 | 5.3 | 8 | 4 | 4 | 3 | **7** |  |  |  | **7** | no, short 1 |
 | 5.4 | 6 | 3 | 2 | 3 | **5** |  |  |  | **5** | no, short 1 |
@@ -52,12 +52,71 @@ report a finished certification that does not exist.
 
 ## The line you asked for
 
-**At their floor once you approve what is waiting: 12 of 35 tasks.**
+**At their floor once you approve what is waiting: 29 of 35 tasks.**
 
-- **already at floor, no approval needed (12)**: 1.1, 1.4, 2.1, 2.3, 2.6, 3.2, 3.3, 3.5, 3.6, 3.8, 5.2, 5.6
+- **already at floor, no approval needed (29)**: 1.1, 1.3, 1.4, 1.5, 1.6, 2.1, 2.2, 2.3, 2.5, 2.6, 2.7, 2.8, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 5.1, 5.2, 5.6
 - **reach it on approval (0)**: none
-- **still short after approval (23)**: 1.2 (2 of 8, short 6), 1.3 (7 of 8, short 1), 1.5 (7 of 8, short 1), 1.6 (7 of 8, short 1), 2.2 (7 of 8, short 1), 2.4 (6 of 8, short 2), 2.5 (6 of 8, short 2), 2.7 (7 of 8, short 1), 2.8 (7 of 8, short 1), 3.1 (5 of 8, short 3), 3.4 (6 of 8, short 2), 3.7 (7 of 8, short 1), 4.1 (6 of 8, short 2), 4.2 (5 of 6, short 1), 4.3 (7 of 8, short 1), 4.4 (5 of 8, short 3), 4.5 (5 of 8, short 3), 4.6 (7 of 8, short 1), 4.7 (5 of 8, short 3), 5.1 (7 of 8, short 1), 5.3 (7 of 8, short 1), 5.4 (5 of 6, short 1), 5.5 (4 of 8, short 4)
+- **still short after approval (6)**: 1.2 (6 of 8, short 2), 2.4 (7 of 8, short 1), 4.1 (6 of 8, short 2), 5.3 (7 of 8, short 1), 5.4 (5 of 6, short 1), 5.5 (4 of 8, short 4)
 
 **78 kept item(s) are over the anchor cap** and are excluded from `kept` above. They
 are real, reviewed items; they are simply not available to a floor that counts 2 per
 (source, clause). They were reported and not dropped, per PROMPT-87.
+
+---
+
+## Floors over ACCEPTED items only
+
+Ruled PROMPT-97 addendum s4. The table above counts what is inserted. This one counts only items
+carrying `review_verdict = 'accept'` on their `item_grounding` row -- a human read them and
+accepted them. **`read` is not counted**: migration 379 keeps the two apart because a read with
+findings is not an acceptance.
+
+- verdict `accept` recorded on **0** row(s)
+- the PROMPT-97 ruling accepted **46**, whose verdict is PENDING migration 385
+  (the vocabulary has no `accept` until it runs, so the column below is a claim about the ruling,
+  not yet about the record)
+
+| task | floor | accepted (recorded) | + pending 385 | at floor on accepted? |
+|---|---|---|---|---|
+| 1.1 | 8 | 0 | 0 | **no** -- short 8 |
+| 1.2 | 8 | 0 | 4 | **no** -- short 4 |
+| 1.3 | 8 | 0 | 1 | **no** -- short 7 |
+| 1.4 | 8 | 0 | 0 | **no** -- short 8 |
+| 1.5 | 8 | 0 | 2 | **no** -- short 6 |
+| 1.6 | 8 | 0 | 2 | **no** -- short 6 |
+| 2.1 | 6 | 0 | 0 | **no** -- short 6 |
+| 2.2 | 8 | 0 | 1 | **no** -- short 7 |
+| 2.3 | 8 | 0 | 0 | **no** -- short 8 |
+| 2.4 | 8 | 0 | 1 | **no** -- short 7 |
+| 2.5 | 8 | 0 | 4 | **no** -- short 4 |
+| 2.6 | 8 | 0 | 0 | **no** -- short 8 |
+| 2.7 | 8 | 0 | 1 | **no** -- short 7 |
+| 2.8 | 8 | 0 | 2 | **no** -- short 6 |
+| 3.1 | 8 | 0 | 6 | **no** -- short 2 |
+| 3.2 | 8 | 0 | 0 | **no** -- short 8 |
+| 3.3 | 8 | 0 | 0 | **no** -- short 8 |
+| 3.4 | 8 | 0 | 3 | **no** -- short 5 |
+| 3.5 | 8 | 0 | 0 | **no** -- short 8 |
+| 3.6 | 8 | 0 | 0 | **no** -- short 8 |
+| 3.7 | 8 | 0 | 2 | **no** -- short 6 |
+| 3.8 | 8 | 0 | 0 | **no** -- short 8 |
+| 4.1 | 8 | 0 | 0 | **no** -- short 8 |
+| 4.2 | 6 | 0 | 1 | **no** -- short 5 |
+| 4.3 | 8 | 0 | 1 | **no** -- short 7 |
+| 4.4 | 8 | 0 | 3 | **no** -- short 5 |
+| 4.5 | 8 | 0 | 3 | **no** -- short 5 |
+| 4.6 | 8 | 0 | 2 | **no** -- short 6 |
+| 4.7 | 8 | 0 | 5 | **no** -- short 3 |
+| 5.1 | 8 | 0 | 2 | **no** -- short 6 |
+| 5.2 | 6 | 0 | 0 | **no** -- short 6 |
+| 5.3 | 8 | 0 | 0 | **no** -- short 8 |
+| 5.4 | 6 | 0 | 0 | **no** -- short 6 |
+| 5.5 | 8 | 0 | 0 | **no** -- short 8 |
+| 5.6 | 8 | 0 | 0 | **no** -- short 8 |
+
+**0 of 35 tasks would be at their floor on accepted items** once
+385 lands and the verdicts are recorded. On the record as it stands today the figure is 0.
+
+**Neither number says an item is servable.** A verdict is a record, never a gate:
+`quiz_questions.status` is `pending_review` on every one of these rows and
+`generate-mock-exam` filters `approved`.
