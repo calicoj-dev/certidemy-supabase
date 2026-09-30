@@ -1,5 +1,12 @@
 # Deploying the option-order shuffle (PROMPT-95 s1e)
 
+> **DEPLOYED 2026-09-30, in this order.** `certidemy-web` `ff0e394` first, confirmed live by
+> `x-certidemy-build` at `https://certidemy.com/en`; then `get-active-exam-session`, then
+> `generate-mock-exam`. Juan ran all three.
+>
+> This file is kept as the record of the sequence and the reasoning, not as a pending instruction. The
+> commands below are still the right ones for a redeploy or a rollback.
+
 **Juan runs these. Nothing here has been run by me.** Supabase CLI 2.98.2.
 
 ---
@@ -35,12 +42,32 @@ commit. The header `x-certidemy-build-src: WORKERS_CI_COMMIT_SHA` is what says w
 ```powershell
 # from C:\Users\Juan\Documents\certidemy\certidemy-web
 git push origin main
-# then confirm the commit is serving before touching the functions:
-curl.exe -sI https://certidemy.com/ | Select-String "x-certidemy-build"
+# then confirm the commit is serving before touching the functions.
+# THE PATH MUST BE /en, NOT THE BARE DOMAIN -- see below.
+curl.exe -sI https://certidemy.com/en | Select-String "x-certidemy-build"
 ```
 
 **Wait for that header to show the pushed commit before step 2.** A local build succeeding is not evidence
 that the thing you edited is live.
+
+### The bare domain cannot answer this, and the first version of this check printed nothing
+
+`https://certidemy.com/` returns **308 Permanent Redirect** to `/en`, and a redirect carries no build header.
+So the command as originally written here printed **nothing at all** — which reads as "not live yet", or gets
+shrugged off, and in either case it is a check that cannot pass rather than a check that failed. That is the
+vacuous-result shape this repository already records against its own instruments, arriving in a deploy
+instruction.
+
+Measured 2026-09-30:
+
+```
+GET https://certidemy.com/     ->  308, Location: /en, NO x-certidemy-build
+GET https://certidemy.com/en   ->  200, x-certidemy-build: ff0e39408f87d6ac6084c5073a7bac1443a26e03
+                                        x-certidemy-build-src: WORKERS_CI_COMMIT_SHA
+```
+
+`curl.exe -sI` does not follow redirects, so the header never appeared. `-L` would also work; naming the
+locale path is better, because it says which page was actually served.
 
 ### What a candidate sees if the order is reversed
 
