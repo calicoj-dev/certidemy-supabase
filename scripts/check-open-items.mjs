@@ -112,6 +112,68 @@ const readFile = (p) => (existsSync(p) ? readFileSync(p, "utf8") : null);
 
 /* ------------------------------------------------------------ the items */
 const ITEMS = {
+  /* ============ FOUND 2026-09-30, PROMPT-96 s4. A CLAUSE NUMBER IS NOT A CLAUSE ============
+   *
+   * `gen-grounded-items` resolved a task's primary clauses as bare STRINGS against a library filtered to the
+   * certification's own standard, so a primary in ANOTHER standard whose clause number also exists in that
+   * one silently became a primary of it. Task 5.5 links ISO/IEC 17021-1 3.4 *certification audit*; the writer
+   * was handed ISO/IEC 42001 3.4 *management system*, and `anchor-is-primary` confirmed it because that gate
+   * compares bare strings too.
+   *
+   * The resolver is FIXED. This probes the consequence that outlived it: the rows written before the fix.
+   * Not a serving exposure -- the row is `pending_review` in the secure pool and `generate-mock-exam` filters
+   * `approved` -- so it is an open item and not an incident. It needs a decision, which is why it is probed
+   * rather than left in a commit message. */
+  "no grounded item rests on a cross-source clause collision": async () => {
+    /* `all()` THROWS on a short or failed read rather than returning null, so a falsy-check here would have
+     * been dead code wearing the costume of a safety net. The third state has to be produced by catching. */
+    let tasks, sp, ts, qs, ig;
+    try {
+      tasks = await all("tasks?select=id,code,certification_id&order=code");
+      sp = await all("source_passages?select=id,source_id,edition,clause&order=id");
+      ts = await all("task_sources?select=task_id,passage_id,role&order=task_id,passage_id");
+      qs = await all("quiz_questions?select=id,task_id,status,certification_id&language=eq.en" +
+        "&retired_at=is.null&order=id");
+      ig = await all("item_grounding?select=question_id,source_id,key_support_clause&order=question_id");
+    } catch (e) {
+      return { open: null, why: "COULD NOT RUN: " + e.message + " -- unknown, never clean" };
+    }
+    const byId = new Map(sp.map((p) => [p.id, p]));
+    /* which (task, clause) pairs are primary, and in which source */
+    const primSources = new Map();          /* task_id|clause -> Set(source_id) */
+    for (const r of ts) {
+      if (r.role !== "primary") continue;
+      const p = byId.get(r.passage_id);
+      if (!p) continue;
+      const k = r.task_id + "|" + p.clause;
+      if (!primSources.has(k)) primSources.set(k, new Set());
+      primSources.get(k).add(p.source_id);
+    }
+    const taskOf = new Map(qs.map((q) => [q.id, q.task_id]));
+    const statusOf = new Map(qs.map((q) => [q.id, q.status]));
+    const codeOfTask = new Map(tasks.map((t) => [t.id, t.code]));
+    const hits = [];
+    for (const g of ig) {
+      const tid = taskOf.get(g.question_id);
+      if (!tid) continue;
+      const srcs = primSources.get(tid + "|" + g.key_support_clause);
+      /* the collision: the clause number IS primary for this task, but NOT from the source the item claims */
+      if (srcs && srcs.size && !srcs.has(g.source_id)) {
+        hits.push(codeOfTask.get(tid) + " " + g.source_id + " " + g.key_support_clause + " (" +
+          statusOf.get(g.question_id) + ", mapped from " + [...srcs].join("/") + ") " +
+          String(g.question_id).slice(0, 8));
+      }
+    }
+    return {
+      open: hits.length > 0,
+      why: hits.length
+        ? hits.length + " item(s) anchored in a clause NUMBER that is primary for the task in a DIFFERENT " +
+          "standard: " + hits.join("; ") + ". The resolver is fixed; these predate it and need a decision " +
+          "(retire, or keep as an on-standard item that is off-task)."
+        : "no grounded item anchors in a clause whose primary mapping comes from another standard",
+    };
+  },
+
   "llms.txt names every tool": async () => {
     /* CLOSED, and the keeper is certidemy-web mcp:check section I, which derives
      * the list from the live tools/list. Re-checking the property here would be

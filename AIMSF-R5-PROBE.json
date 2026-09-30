@@ -1,0 +1,935 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "spend": {
+  "calls": 13,
+  "input_tokens": 29417,
+  "output_tokens": 11172,
+  "usd": 1.2792,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {
+   "writer": {
+    "calls": 1,
+    "input": 4570,
+    "output": 7863
+   },
+   "solver": {
+    "calls": 6,
+    "input": 18072,
+    "output": 1295
+   },
+   "options-probe": {
+    "calls": 4,
+    "input": 2486,
+    "output": 954
+   },
+   "de-cue": {
+    "calls": 1,
+    "input": 1262,
+    "output": 815
+   },
+   "solver-recheck": {
+    "calls": 1,
+    "input": 3027,
+    "output": 245
+   }
+  }
+ },
+ "attempted": 6,
+ "generated": 4,
+ "survivors": 3,
+ "generation_note": null,
+ "reject_counts": {
+  "anchor capacity short by 2": 1,
+  "code: structure": 1
+ },
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 0,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 1,
+  "applied": 1,
+  "reverted_by_rewrite_check": 0,
+  "reverted_by_solver": 0,
+  "reverted_by_gates": 0,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 3,
+  "hit": 2,
+  "pct": 67
+ },
+ "key_pick_after": {
+  "n": 3,
+  "hit": 2,
+  "pct": 67
+ },
+ "shape_cues_before": {
+  "clang": 1,
+  "key-length": 1
+ },
+ "shape_cues_after": {
+  "clang": 1
+ },
+ "anchor_clusters": [],
+ "options_probe_flags": 2,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 5,
+ "items": [
+  {
+   "task_code": "1.2",
+   "domain": "D1",
+   "item": {
+    "question_text": "A software firm builds a recommendation engine from a model licensed from one vendor and training data bought from another, then sells the finished system to retail chains. Applying the Annex A control on allocating responsibilities, how should the firm treat responsibility over the system's life cycle?",
+    "options": [
+     {
+      "text": "Responsibility is apportioned among the firm and the partners, suppliers, customers and other third parties involved.",
+      "is_correct": true
+     },
+     {
+      "text": "Responsibility stays with the firm, because it is the party whose management system scope covers the engine.",
+      "is_correct": false
+     },
+     {
+      "text": "Responsibility is apportioned only where the firm passes an AI system on to a third party, as advisory practice.",
+      "is_correct": false
+     },
+     {
+      "text": "Responsibility is set by what the retail chains expect and need from the product they are buying.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.10.2 requires the organization to ensure that life-cycle responsibilities are allocated \"between the organization, its partners, suppliers, customers and third parties\", so the vendor, the data supplier and the retail customers all feature in the allocation. Retaining everything internally, treating the allocation as optional advice, or substituting customer expectations for an allocation all fall short of that requirement.",
+    "key_support_clause": "A.10.2",
+    "key_support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "Setting the boundaries of the management system does not concentrate life-cycle responsibility in one party; A.10.2 calls for it to be allocated across the parties involved."
+     },
+     {
+      "index": 2,
+      "clause": "B.10.2",
+      "support": "The organization should document all parties intervening in the AI system life cycle and their roles and determine their responsibilities.",
+      "why_wrong": "This is guidance supporting the control and is not limited to onward supply, whereas A.10.2 states the allocation as a requirement for the organization."
+     },
+     {
+      "index": 3,
+      "clause": "B.10.4",
+      "support": "The organization should ensure that its responsible approach to the development and use of AI systems considers their customer expectations and needs.",
+      "why_wrong": "Understanding customer expectations is a separate guidance topic and does not replace the allocation of life-cycle responsibilities."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 29%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 7,
+     "reason": "the key anchors in A.10.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in stem, plus one 10-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.10.2"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "stem",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 10
+   },
+   "grounding_family": "A.10.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.10.2 requires that \"responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties\", and B.10.2 adds that responsibilities can be split between data providers, model providers and developers/users.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "no-cue",
+    "pick": "B",
+    "cue": "B is the only option that supplies its own causal justification (\"because it is the party whose management system scope covers the engine\"), while A, C and D are bare assertions; C is also weakened by the restrictive \"only\".",
+    "cue_kind": "odd-verdict",
+    "reason": "picked B, not the key -- the options do not give it away"
+   },
+   "verdict": "survivor",
+   "item_id": "7265f27d",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.10.2"
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "no-cue",
+    "pick": "B",
+    "cue": "B is the only option that supplies its own causal justification (\"because it is the party whose management system scope covers the engine\"), while A, C and D are bare assertions; C is also weakened by the restrictive \"only\".",
+    "cue_kind": "odd-verdict",
+    "reason": "picked B, not the key -- the options do not give it away"
+   },
+   "item_before_decue": {
+    "question_text": "A software firm builds a recommendation engine from a model licensed from one vendor and training data bought from another, then sells the finished system to retail chains. Applying the Annex A control on allocating responsibilities, how should the firm treat responsibility over the system's life cycle?",
+    "options": [
+     {
+      "text": "Responsibility is apportioned among the firm and the partners, suppliers, customers and other third parties involved.",
+      "is_correct": true
+     },
+     {
+      "text": "Responsibility stays with the firm, because it is the party whose management system scope covers the engine.",
+      "is_correct": false
+     },
+     {
+      "text": "Responsibility is apportioned only where the firm passes an AI system on to a third party, as advisory practice.",
+      "is_correct": false
+     },
+     {
+      "text": "Responsibility is set by what the retail chains expect and need from the product they are buying.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.10.2 requires the organization to ensure that life-cycle responsibilities are allocated \"between the organization, its partners, suppliers, customers and third parties\", so the vendor, the data supplier and the retail customers all feature in the allocation. Retaining everything internally, treating the allocation as optional advice, or substituting customer expectations for an allocation all fall short of that requirement.",
+    "key_support_clause": "A.10.2",
+    "key_support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "Setting the boundaries of the management system does not concentrate life-cycle responsibility in one party; A.10.2 calls for it to be allocated across the parties involved."
+     },
+     {
+      "index": 2,
+      "clause": "B.10.2",
+      "support": "The organization should document all parties intervening in the AI system life cycle and their roles and determine their responsibilities.",
+      "why_wrong": "This is guidance supporting the control and is not limited to onward supply, whereas A.10.2 states the allocation as a requirement for the organization."
+     },
+     {
+      "index": 3,
+      "clause": "B.10.4",
+      "support": "The organization should ensure that its responsible approach to the development and use of AI systems considers their customer expectations and needs.",
+      "why_wrong": "Understanding customer expectations is a separate guidance topic and does not replace the allocation of life-cycle responsibilities."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.2",
+   "domain": "D1",
+   "item": {
+    "question_text": "A hospital group buys AI diagnostic tools, tunes them with its own clinical data and runs them in its wards. Its programme manager asks how AI roles and responsibilities ought to be established. Which approach reflects the Annex A control on AI roles and responsibilities?",
+    "options": [
+     {
+      "text": "Define the AI roles and assign them in a way that fits what the hospital group itself needs.",
+      "is_correct": true
+     },
+     {
+      "text": "Reproduce the role descriptions published in ISO/IEC 22989 without adapting them to the hospital group.",
+      "is_correct": false
+     },
+     {
+      "text": "Leave the assignment of AI roles to the supplier that built and licensed the diagnostic tools.",
+      "is_correct": false
+     },
+     {
+      "text": "Derive the AI roles from the hospital group's obligations for processing personal information alone.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.3.2 states that roles and responsibilities for AI \"shall be defined and allocated according to the needs of the organization\", so the hospital group tailors both the definition and the assignment to itself. External role descriptions, supplier-led assignment, and data-processing duties may inform the picture but none of them is the basis the control names.",
+    "key_support_clause": "A.3.2",
+    "key_support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "A detailed description of these roles is provided by ISO/IEC 22989.",
+      "why_wrong": "The referenced descriptions are a help in understanding roles, not a template that displaces the organization's own needs."
+     },
+     {
+      "index": 2,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "The organization performs the allocation across the parties; it does not hand the task to its supplier."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "Role determination can be formed by obligations related to categories of data the organization processes",
+      "why_wrong": "Data-processing obligations can shape role determination but are not presented as the sole basis for defining AI roles."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 17%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 7,
+     "reason": "the key anchors in A.3.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in explanation, plus one 12-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.3.2"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "explanation",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 12
+   },
+   "grounding_family": "A.3.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.3.2 states that \"Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization\", which is exactly option A.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each contain a restrictive/limiting qualifier ('without adapting them', 'leave... to the supplier', 'alone'), while A is the only unrestricted, organisation-tailored option.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B, C and D each contain a restrictive/limiting qualifier ('without adapting them', 'leave... to the supplier', 'alone'), while A is the only unrestricted, organisation-tailored option."
+   },
+   "verdict": "survivor",
+   "item_id": "b09092f8",
+   "assigned": {
+    "index": 1,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.3.2"
+   },
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each contain a restrictive/limiting qualifier ('without adapting them', 'leave... to the supplier', 'alone'), while A is the only unrestricted, organisation-tailored option.",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B, C and D each contain a restrictive/limiting qualifier ('without adapting them', 'leave... to the supplier', 'alone'), while A is the only unrestricted, organisation-tailored option."
+   },
+   "item_before_decue": {
+    "question_text": "A hospital group buys AI diagnostic tools, tunes them with its own clinical data and runs them in its wards. Its programme manager asks how AI roles and responsibilities ought to be established. Which approach reflects the Annex A control on AI roles and responsibilities?",
+    "options": [
+     {
+      "text": "Define the AI roles and assign them in a way that fits what the hospital group itself needs.",
+      "is_correct": true
+     },
+     {
+      "text": "Reproduce the role descriptions published in ISO/IEC 22989 without adapting them to the hospital group.",
+      "is_correct": false
+     },
+     {
+      "text": "Leave the assignment of AI roles to the supplier that built and licensed the diagnostic tools.",
+      "is_correct": false
+     },
+     {
+      "text": "Derive the AI roles from the hospital group's obligations for processing personal information alone.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.3.2 states that roles and responsibilities for AI \"shall be defined and allocated according to the needs of the organization\", so the hospital group tailors both the definition and the assignment to itself. External role descriptions, supplier-led assignment, and data-processing duties may inform the picture but none of them is the basis the control names.",
+    "key_support_clause": "A.3.2",
+    "key_support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "4.1",
+      "support": "A detailed description of these roles is provided by ISO/IEC 22989.",
+      "why_wrong": "The referenced descriptions are a help in understanding roles, not a template that displaces the organization's own needs."
+     },
+     {
+      "index": 2,
+      "clause": "A.10.2",
+      "support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+      "why_wrong": "The organization performs the allocation across the parties; it does not hand the task to its supplier."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "Role determination can be formed by obligations related to categories of data the organization processes",
+      "why_wrong": "Data-processing obligations can shape role determination but are not presented as the sole basis for defining AI roles."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.2",
+   "domain": "D1",
+   "item": {
+    "question_text": "A bank deploys a purchased fraud-detection model. Its AI governance lead maintains that the requirement to allocate life-cycle responsibilities concerns only the bank's internal departments. Which statement best corrects that view?",
+    "options": [
+     {
+      "text": "Customers and third parties sit alongside the bank's partners and suppliers in the allocation of these responsibilities.",
+      "is_correct": true
+     },
+     {
+      "text": "The allocation reaches upstream suppliers and partners, with customer-side duties handled as expectations to be understood.",
+      "is_correct": false
+     },
+     {
+      "text": "The allocation reaches only those parties that fall inside the documented boundaries of the management system.",
+      "is_correct": false
+     },
+     {
+      "text": "The allocation reaches the policymakers and regulators the bank has identified while examining its context.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.10.2 names the parties across which life-cycle responsibilities are allocated as the organization together with \"its partners, suppliers, customers and third parties\", so the allocation extends well beyond internal departments and includes the customer side. Limiting it to upstream parties, to parties inside the scope boundary, or to authorities each misreads which parties the control lists.",
+    "key_support_clause": "A.10.2",
+    "key_support": "The organization shall ensure that responsibilities within their AI system life cycle are allocated between the organization, its partners, suppliers, customers and third parties.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "B.10.4",
+      "support": "The organization should ensure that its responsible approach to the development and use of AI systems considers their customer expectations and needs.",
+      "why_wrong": "Customer expectations are addressed by separate guidance, but customers are still among the parties named in the allocation of life-cycle responsibilities."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The scope shall be available as documented information.",
+      "why_wrong": "The documented scope defines the management system's boundaries and does not narrow the set of parties across which responsibilities are allocated."
+     },
+     {
+      "index": 3,
+      "clause": "4.1",
+      "support": "— relevant authorities, including policymakers and regulators.",
+      "why_wrong": "Authorities appear in the list of roles relative to an AI system, not as parties to whom the organization allocates its life-cycle responsibilities."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": false,
+     "examined": 4,
+     "reason": "every distractor opens with the word \"allocation\" and the key does not"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 22%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 7,
+     "reason": "the key anchors in A.10.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 4 words in option a, plus one 7-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.10.2"
+    }
+   ],
+   "code_passed": false,
+   "failed": [
+    "structure"
+   ],
+   "unasserted": [],
+   "longest_served_run": 4,
+   "longest_served_in": "option a",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 7
+   },
+   "grounding_family": "A.10.2",
+   "solver": null,
+   "options_probe": null,
+   "verdict": "rejected by code",
+   "item_id": "b7be7277",
+   "assigned": {
+    "index": 2,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.10.2"
+   }
+  },
+  {
+   "task_code": "1.2",
+   "domain": "D1",
+   "item": {
+    "question_text": "An insurer's management system documentation reproduces the role categories listed in the standard's clause on organizational context, under a heading called \"our AI roles\", with no individuals or functions named against them. Judged against the Annex A control on AI roles and responsibilities, which statement identifies the shortfall?",
+    "options": [
+     {
+      "text": "The control expects AI roles to be set out and also assigned, in line with what the insurer needs.",
+      "is_correct": true
+     },
+     {
+      "text": "The control expects the role categories to mirror the definition of an interested party, with that wording carried over unchanged.",
+      "is_correct": false
+     },
+     {
+      "text": "The control expects role assignment to follow directly from the insurer's documented scope boundaries, rather than from its own needs.",
+      "is_correct": false
+     },
+     {
+      "text": "The control expects no more than a documented list of the parties acting across the AI system life cycle.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.3.2 requires that roles and responsibilities for AI be \"defined and allocated according to the needs of the organization\", so a list of categories with nobody holding them satisfies only half of the control. Mirroring the interested-party definition, deriving assignment from the scope statement, or stopping at a documented list of parties all substitute something else for that definition-plus-allocation duty.",
+    "key_support_clause": "A.3.2",
+    "key_support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.2",
+      "support": "interested party person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "This is a definition of interested party and says nothing about how AI roles are to be defined and assigned."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "The scope fixes the boundaries of the management system rather than assigning AI roles to people or functions."
+     },
+     {
+      "index": 3,
+      "clause": "B.10.2",
+      "support": "The organization should document all parties intervening in the AI system life cycle and their roles and determine their responsibilities.",
+      "why_wrong": "This guidance also calls for responsibilities to be determined, so a bare list of parties does not meet the control on AI roles and responsibilities."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 33%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 7,
+     "reason": "the key anchors in A.3.2, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in option b, plus one 10-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.3.2"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "explanation",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 10
+   },
+   "grounding_family": "A.3.2",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option"
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option without a restrictive/limiting qualifier — B says wording is 'carried over unchanged', C says 'rather than from its own needs', D says 'no more than' — leaving A as the inclusive two-part statement.",
+    "cue_kind": "only-negation",
+    "reason": "picked the key from the options alone and named a cue (only-negation): A is the only option without a restrictive/limiting qualifier — B says wording is 'carried over unchanged', C says 'rather than from its own needs', D says 'no more than' — leaving A as the inclusive two-part statement."
+   },
+   "verdict": "survivor",
+   "item_id": "7e4808e4",
+   "assigned": {
+    "index": 3,
+    "source_id": "ISO/IEC 42001",
+    "clause": "A.3.2"
+   },
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"roles\" from the stem and no distractor does"
+    },
+    {
+     "id": "key-length",
+     "cue": "the key is 19 words against a median distractor of 14 (1.36x, tolerance 1.25x)"
+    }
+   ],
+   "decue_trigger": [
+    "key-length"
+   ],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "A is the only option stating two conjoined requirements ('set out and also assigned') plus a qualifying clause, while B, C and D each assert a single narrowing condition (one of them, D, framed as a 'no more than' limit).",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): A is the only option stating two conjoined requirements ('set out and also assigned') plus a qualifying clause, while B, C and D each assert a single narrowing condition (one of them, D, framed as a 'no more than' limit)."
+   },
+   "item_before_decue": {
+    "question_text": "An insurer's management system documentation reproduces the role categories listed in the standard's clause on organizational context, under a heading called \"our AI roles\", with no individuals or functions named against them. Judged against the Annex A control on AI roles and responsibilities, which statement identifies the shortfall?",
+    "options": [
+     {
+      "text": "The control expects AI roles to be set out and also assigned, in line with what the insurer needs.",
+      "is_correct": true
+     },
+     {
+      "text": "The control expects the role categories to mirror the definition of an interested party.",
+      "is_correct": false
+     },
+     {
+      "text": "The control expects role assignment to follow directly from the insurer's documented scope boundaries.",
+      "is_correct": false
+     },
+     {
+      "text": "The control expects no more than a documented list of the parties acting in the life cycle.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.3.2 requires that roles and responsibilities for AI be \"defined and allocated according to the needs of the organization\", so a list of categories with nobody holding them satisfies only half of the control. Mirroring the interested-party definition, deriving assignment from the scope statement, or stopping at a documented list of parties all substitute something else for that definition-plus-allocation duty.",
+    "key_support_clause": "A.3.2",
+    "key_support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.2",
+      "support": "interested party person or organization (3.1) that can affect, be affected by, or perceive itself to be affected by a decision or activity",
+      "why_wrong": "This is a definition of interested party and says nothing about how AI roles are to be defined and assigned."
+     },
+     {
+      "index": 2,
+      "clause": "4.3",
+      "support": "The organization shall determine the boundaries and applicability of the AI management system to establish its scope.",
+      "why_wrong": "The scope fixes the boundaries of the management system rather than assigning AI roles to people or functions."
+     },
+     {
+      "index": 3,
+      "clause": "B.10.2",
+      "support": "The organization should document all parties intervening in the AI system life cycle and their roles and determine their responsibilities.",
+      "why_wrong": "This guidance also calls for responsibilities to be determined, so a bare list of parties does not meet the control on AI roles and responsibilities."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": []
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"roles\" from the stem and no distractor does"
+    }
+   ],
+   "de_cue": {
+    "state": "applied",
+    "probe_before": "key-length: the key is 19 words against a median distractor of 14 (1.36x, tolerance 1.25x)",
+    "probe_after": "flag"
+   }
+  }
+ ]
+}

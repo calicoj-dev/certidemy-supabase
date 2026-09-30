@@ -74,6 +74,12 @@ SOURCE-PASSAGES.json
 # every item including the rejected ones, and --from reads it, so the raw file is redundant
 # once gating has run. It is also more licensed quotation than needs to be in git.
 PILOT-*-raw.json
+# AND THE SAME RULE, FOR THE PREFIX THAT ESCAPED IT. The rollout artifacts are named `AIMSF-*`, so every
+# reason above applied to them and the pattern did not. Found 2026-09-30: SIX `AIMSF-R*-raw.json` files are
+# already tracked (R2, R3, R4 x probe/rest). **Adding this line does not untrack them and untracking them
+# would not remove them from history**, so it is stated rather than quietly fixed -- the decision about the
+# six is the director's. New ones stop here.
+AIMSF-*-raw.json
 
 # The gating CHECKPOINT is a crash-recovery file, not an artifact. It carries the same records the gated
 # artifact does (plus a per-item spend and rejection delta), so committing it would be a second copy of

@@ -101,9 +101,17 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
     capacity,
     shortfall: Math.max(0, want - assignments.length),
     order: seeded.map((p) => p.clause),
+    /* THREE REASONS, NOT TWO. "every primary is at the cap" is a fact about the CAP and says the map is fine;
+     * "the task has no primary in this run's standard" is a fact about the MAP and says generation can never
+     * help. Reporting the second as the first sent me looking for full clauses on task 5.5, which has none at
+     * all -- found 2026-09-30 when the source-collision fix emptied its primary list and the message did not
+     * change. They need opposite actions, so they cannot share a sentence. */
     why: eligible.length
       ? "fewest-held first, ties by hash(task|run|clause), round-robin"
-      : "no eligible primary: every primary is at the cap of " + cap,
+      : (primaries || []).length
+        ? "no eligible primary: all " + primaries.length + " are at the cap of " + cap
+        : "THE TASK HAS NO PRIMARY PASSAGE IN THIS RUN'S STANDARD -- a MAP fact, not a cap fact, and no " +
+          "amount of generation can close it",
   };
 }
 
@@ -203,8 +211,21 @@ export function anchorAssignmentControls({ quiet = false } = {}) {
     const r = assignAnchors({ taskCode: "t", runId: "r", primaries,
       censusMap: cens([["A", CAP], ["B", CAP]]), want: 3 });
     ok("every primary at the cap assigns nothing and names why",
-      r.assignments.length === 0 && r.shortfall === 3 && /every primary is at the cap/.test(r.why),
+      r.assignments.length === 0 && r.shortfall === 3 && /at the cap of/.test(r.why),
       JSON.stringify(r));
+    /* AND IT MUST NOT SAY THE OTHER THING. The two zero-assignment reasons need opposite actions -- a full cap
+     * is fine and a missing map is not -- so each control asserts its own reason AND the absence of the other.
+     * Asserting only the positive half passes on a single message used for both. */
+    ok("...and does NOT blame the map",
+      !/NO PRIMARY PASSAGE/.test(r.why), r.why);
+  }
+
+  /* ---- NO PRIMARY AT ALL: a different reason, because it needs a different action ---- */
+  {
+    const r = assignAnchors({ taskCode: "t", runId: "r", primaries: [], censusMap: cens([]), want: 2 });
+    ok("a task with no primary in this run's standard says so, not that the cap is full",
+      r.assignments.length === 0 && r.shortfall === 2 && r.capacity === 0 &&
+      /NO PRIMARY PASSAGE/.test(r.why) && !/at the cap of/.test(r.why), JSON.stringify(r));
   }
 
   /* ---- REPRODUCIBLE WITHIN A RUN, DIFFERENT BETWEEN RUNS ---- */

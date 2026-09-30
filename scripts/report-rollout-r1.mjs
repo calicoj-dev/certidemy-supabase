@@ -93,11 +93,16 @@ for (const b of loaded) {
         keyPick: 0, flags: 0, probed: 0,
         /* PROMPT-96 s2. The two denominators the `anchor-assignment` count is unreadable without: a zero
          * refusal count reads identically whether every writer obeyed or the gate never ran. */
-        anchorAssigned: 0, anchorUnasserted: 0 });
+        anchorAssigned: 0, anchorUnasserted: 0,
+        /* PROMPT-96 s4. Every ATTEMPTED item's assigned clause, not just the survivors'. `t.items` holds
+         * survivors alone, so counting distinct clauses from it would under-report the spread whenever a
+         * rejected item was the one carrying a clause of its own -- an error in the direction of claiming
+         * the assignment spread LESS than it did. */
+        anchorClauses: new Set() });
     }
     const t = byTask.get(code);
     t.attempted++;
-    if (r.assigned && r.assigned.clause) t.anchorAssigned++;
+    if (r.assigned && r.assigned.clause) { t.anchorAssigned++; t.anchorClauses.add(r.assigned.clause); }
     if ((r.unasserted || []).includes("anchor-assignment")) t.anchorUnasserted++;
     if (r.verdict === "survivor") {
       t.survivors++;
@@ -363,6 +368,42 @@ p("");
     p("denominators**: it reads identically whether every writer obeyed or the gate never ran.");
   }
   p("");
+  /* ============ HOW MANY DISTINCT CLAUSES THE ASSIGNMENT COULD REACH, PER TASK ============
+   *
+   * PROMPT-96 s4. The refusal count above says whether the writers obeyed. It says nothing about whether
+   * obedience was worth anything, and on two tasks in this run it was not: an assignment cannot SPREAD a
+   * task's items across clauses the task does not have.
+   *
+   * Task 5.5 is the case that corrected a ruling. Its four R4 items all anchored in clause 3.4 and I
+   * reported that as the writer choosing the most salient passage repeatedly. It has ONE effective primary
+   * in the standard this run reads -- its other 34 are ISO/IEC 17021-1 and ISO/IEC 42006 -- so there was
+   * nowhere else to go. The premise of the assignment was wrong for that task and right for 1.2.
+   *
+   * Derived from the artifact's own `assigned` fields rather than re-read from the map, so it cannot
+   * disagree with what the writers were actually told. */
+  const spread = rows.filter((r) => (r.anchorAssigned || 0) >= 2)
+    .map((r) => ({ code: r.code, items: r.anchorAssigned || 0,
+      distinct: (r.anchorClauses || new Set()).size }))
+    .filter((r) => r.distinct > 0);
+  const flat = spread.filter((r) => r.distinct < r.items);
+  if (spread.length) {
+    p("**AND WHETHER THE ASSIGNMENT COULD SPREAD AT ALL IS A DIFFERENT QUESTION FROM WHETHER IT WAS");
+    p("OBEYED.** Distinct assigned clauses per multi-item task:");
+    p("");
+    p("| task | items assigned | distinct clauses |");
+    p("|---|---|---|");
+    for (const r of spread) p("| " + r.code + " | " + r.items + " | " +
+      (r.distinct < r.items ? "**" + r.distinct + "**" : String(r.distinct)) + " |");
+    p("");
+    if (flat.length) {
+      p("The bolded rows are tasks where two or more items share a clause. That is **not** the writer");
+      p("clustering — it is the cap being the only room available: `capacity = cap x eligible primaries`,");
+      p("and a task with one eligible primary can hold two items and no more than one clause. Run");
+      p("`scripts/check-floor-vs-anchorable.mjs` for which of those are CROSS-SOURCE maps, where the floor");
+      p("is derived from primaries in standards this run cannot anchor in.");
+      p("");
+    }
+  }
 }
 if (stopped.length) {
   p("## Tasks that hit a stop condition");

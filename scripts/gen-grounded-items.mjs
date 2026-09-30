@@ -432,11 +432,51 @@ const tsRows = await getAll(KEY,
 const clauseOfPassage = new Map(
   (await getAll(KEY, "source_passages?select=id,source_id,edition,clause&order=id"))
     .map((r) => [r.id, r]));
+/* ============ A CLAUSE NUMBER FROM ANOTHER STANDARD IS NOT A CLAUSE OF THIS ONE ============
+ *
+ * Found 2026-09-30 by two of my own instruments disagreeing about task 5.5's capacity -- 0 against 1 -- and
+ * only one of them could be right.
+ *
+ * This map used to push `p.clause` for EVERY primary row whatever standard the passage came from, and every
+ * consumer downstream resolves a bare clause string against `passagesByKey`, which is filtered to THIS run's
+ * standard and edition. So a primary in another standard whose clause number happens to exist in ISO/IEC
+ * 42001 silently became a 42001 primary:
+ *
+ *   task 5.5  "describe the certification route and what ISO/IEC 42006 governs"
+ *     its map links   ISO/IEC 17021-1 3.4   certification audit ... by an auditing organization
+ *     the writer got  ISO/IEC 42001  3.4    management system set of interrelated ... elements
+ *
+ * The map was RIGHT. `anchor-is-primary` then compared bare clause strings too, so it confirmed the item was
+ * anchored in a primary of the task. **One inserted bank item and one R5 item rest on that collision**, and
+ * both are off-task rather than wrong -- which is exactly what `anchor-is-primary` exists to catch.
+ *
+ * This is PROMPT-96 s2's own rule -- a clause address is not a key, the source is part of it -- broken in the
+ * place I did not fix. I corrected the ASSIGNMENT's source stamping and left the resolver keyed on the number.
+ *
+ * MEASURED before choosing the fix: 4 phantom rows across 2 tasks (5.5 three, 1.5 one). Filtering here is the
+ * smallest correct change because every consumer reads through `primaryOf`/`supportingOf`, so one filter makes
+ * the resolver, the writer prompt, the assignment and the gate source-correct at once.
+ *
+ * AND IT CHANGES BEHAVIOUR RATHER THAN ONLY TIGHTENING A CHECK, so it is printed: task 5.5's only genuine
+ * ISO/IEC 42001 primary is clause 1, which is not effective, so 5.5 now has NO anchorable primary and drops
+ * out of generation. That is the honest state and it matches the original hold reasoning -- 5.5 needs 42006
+ * and 17021-1, and this run can anchor in neither. */
 const mapByTask = new Map();
+const phantomPrimaries = [];
 for (const r of tsRows) {
   if (!mapByTask.has(r.task_id)) mapByTask.set(r.task_id, { primary: [], supporting: [] });
   const p = clauseOfPassage.get(r.passage_id);
-  if (p) mapByTask.get(r.task_id)[r.role].push(p.clause);
+  if (!p) continue;
+  if (p.source_id !== mapping.standard || p.edition !== mapping.edition) {
+    /* a foreign-source row. Recorded when its number ALSO exists in this run's standard, because that is the
+     * subset that used to be misread -- the rest were harmlessly dropped by `passagesByKey` returning
+     * undefined. */
+    if (r.role === "primary" && passagesByKey.has(p.clause)) {
+      phantomPrimaries.push({ task_id: r.task_id, source_id: p.source_id, clause: p.clause });
+    }
+    continue;
+  }
+  mapByTask.get(r.task_id)[r.role].push(p.clause);
 }
 const taskIdOfCode = new Map(tasks.map((t) => [t.code, t.id]));
 const primaryOf = (code) => (mapByTask.get(taskIdOfCode.get(code)) || {}).primary || [];
@@ -453,6 +493,30 @@ const effectivePrimariesOf = (code) =>
     .map((r) => r.clause);
 const effectiveCountOf = (code) => effectivePrimaryCount(primaryOf(code), passageOfClause, libClauses);
 const mappedFromTable = tasks.filter((t) => effectiveCountOf(t.code));
+/* PRINTED, not merely filtered. A row silently dropped is a row nobody knows was there, and this one changes
+ * which tasks can generate at all. */
+if (phantomPrimaries.length) {
+  const codeOfId = new Map(tasks.map((t) => [t.id, t.code]));
+  const byTask = new Map();
+  for (const f of phantomPrimaries) {
+    const code = codeOfId.get(f.task_id);
+    if (!code) continue;                  /* another certification's task */
+    if (!byTask.has(code)) byTask.set(code, []);
+    byTask.get(code).push(f.source_id + " " + f.clause);
+  }
+  if (byTask.size) {
+    /* THE COUNT AND THE ENUMERATION MUST BE OVER THE SAME POPULATION. My first version printed
+     * `phantomPrimaries.length` -- 362, every certification's task_sources rows, since that table is read
+     * whole -- beside an enumeration filtered to THIS certification's 2 tasks. A count over one population
+     * next to a list over another is the defect this repository records against every mean it has measured. */
+    const rowsHere = [...byTask.values()].reduce((s, l) => s + l.length, 0);
+    console.log("  foreign-source primaries " + rowsHere + " row(s) on " + byTask.size +
+      " task(s) of " + CERT + " whose clause NUMBER also exists in " + mapping.standard + ", excluded:");
+    for (const [code, list] of byTask) console.log("    " + code + "  " + list.join(", "));
+    console.log("    These used to resolve to " + mapping.standard + "'s clause of the same number. The map is");
+    console.log("    right; this run can only anchor in one standard.");
+  }
+}
 console.log("  task_sources        " + tsRows.length + " link(s); " + mappedFromTable.length +
   " of " + tasks.length + " tasks have an EFFECTIVE primary passage (not a container, own text, " +
   ">= " + MIN_WORDS + " words)");
@@ -661,7 +725,14 @@ RULES
 - Keep the standard's own wording out of the stem and the options: at most about eight
   consecutive words shared with any source. In the explanation you may include ONE short
   quotation in quotation marks, naming its clause, of at most one sentence. The key_support
-  field is internal and is never shown to a candidate, so quote freely THERE.`;
+  field is internal and is never shown to a candidate, so quote freely THERE.
+- IF YOU QUOTE IN THE EXPLANATION, THE CLAUSE NUMBER MUST BE IN THE SAME SENTENCE AS THE
+  QUOTATION. Write: Clause 9.1 requires the organization to determine "what needs to be
+  monitored and measured". Not: the standard requires the organization to determine "what
+  needs to be monitored and measured". An attributed quotation has to say what it is quoting,
+  and code refuses one that does not -- an unattributed quotation is the ONLY reason task 4.5
+  lost all three of its attempts, and three different writers made the same omission. If you
+  do not want to name a clause, do not use quotation marks: put it in your own words.`;
 
 /* THE WRITER IS TOLD WHICH PASSAGES IT MAY ANCHOR A KEY IN.
  *
@@ -870,12 +941,49 @@ if (FROM) {
      * perfectly, and the 2 that did not are the only ones with k >= 4 -- between them they account for
      * every anchor-cap loss in the run. A writer handed a list of passages picks the most salient one
      * repeatedly, so this is a decision the CODE makes rather than an instruction the writer may ignore. */
+    /* ============ EFFECTIVE PRIMARIES, AND THE SOURCE COMES FROM THE PASSAGE ============
+     *
+     * My first version passed `primaryOf(t.code)` -- every primary row -- and stamped
+     * `STANDARD_OF[CERT]` on all of them. **It assigned task 1.2 the clauses `5.19.1`, `5.19.2.1`,
+     * `5.19.3.1` and `5.19.5.1`, which are ISO/IEC 22989, and labelled them ISO/IEC 42001.** So the writer
+     * was told to anchor in a clause this run's library does not hold, under the wrong standard's name, and
+     * the census lookup used a key no count lives at. Both items it returned were refused, correctly, by the
+     * gate for a defect in the assignment rather than in the writing. Six requested, two produced, zero
+     * survivors, $0.44 spent.
+     *
+     * TWO RULES BROKEN AT ONCE, both of which I had written down. The ruling says EFFECTIVE primaries, and
+     * `effectivePrimariesOf` has existed since PROMPT-86 s2 precisely because a raw primary can be a
+     * container or a clause the library does not hold. And `anchor-assignment.mjs`'s own header says a
+     * clause address is not a key because the source is part of it -- and then I stamped one source on
+     * every clause.
+     *
+     * `passagesByKey` is filtered to this run's standard and edition, so taking the source from the passage
+     * is both correct and self-limiting: a clause with no passage cannot produce one, and the assertion
+     * below refuses rather than guessing. */
+    const primariesForAssignment = [];
+    for (const clause of effectivePrimariesOf(t.code)) {
+      const p = passagesByKey.get(clause);
+      if (!p || !p.source_id) continue;   /* not in this run's library: never anchorable, never assignable */
+      primariesForAssignment.push({ source_id: p.source_id, clause });
+    }
     const asg = assignAnchors({
       taskCode: t.code, runId: RUN_ID,
-      primaries: primaryOf(t.code).map((clause) => ({ source_id: STANDARD_OF[CERT] || "ISO/IEC 42001", clause })),
+      primaries: primariesForAssignment,
       censusMap: capCensus.get(t.code) || new Map(),
       want: k,
     });
+    /* ASSERTED, not assumed: every assigned clause must be one the library holds, or the writer is being
+     * told to anchor where `clause-exists` will refuse it. This is the check that would have caught the
+     * 22989 assignment before a call was paid for. */
+    {
+      const unheld = asg.assignments.filter((a) => !passagesByKey.has(a.clause));
+      if (unheld.length) {
+        console.error("  " + t.code + "  REFUSING: " + unheld.length + " assigned clause(s) are not in this " +
+          "run's library -- " + unheld.map((a) => a.clause).join(", ") + ". Telling the writer to anchor " +
+          "there spends a call to manufacture a rejection.");
+        process.exitCode = 2; process.exit();
+      }
+    }
     assignmentByTask.set(t.code, asg.assignments);
     console.log("  " + t.code + "  anchors assigned: " +
       (asg.assignments.length ? asg.assignments.map((a) => a.clause).join(", ") : "none") +
