@@ -555,7 +555,7 @@ ways across two runs with the options shuffled.
 - C) A catalogue of societal impact examples compiled and tailored to suit the organization's own operating context.
 - D) A safety or privacy review carried out inside the wider risk management activities of the organization.
 
-*explanation:* Clause 3.24 defines the term as a formal, documented process run by an organization that develops, provides or uses AI-based products or services, covering identification, evaluation and addressing of impacts on individuals, groups of individuals and societies. All three of those steps belong to the defined activity, which is what option A captures.
+*explanation:* Clause 3.24 defines the term as a formal, documented process run by an organization that develops, provides or uses AI-based products or services, covering identification, evaluation and addressing of impacts on individuals, groups of individuals and societies. All three of those steps belong to the defined activity, which is why the description covering identification, weighing and handling of impacts on people and societies is the one that matches.
 
 *options-only probe FLAG (shared-phrase):* picked the key from the options alone and named a cue (shared-phrase): B, C and D all anchor themselves to 'the organization' and describe a list/catalogue/review, while A alone is phrased as a formal three-stage process (found, weighed, dealt with) — the odd 
 

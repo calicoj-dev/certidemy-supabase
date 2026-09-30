@@ -12,6 +12,8 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { runCodeGates } from "./lib/grounded-gates.mjs";
+import { reporterGateParity, reporterGateParityControls } from "./lib/reporter-gate-parity.mjs";
 
 /* R1 by default, so the existing invocation is unchanged. --batch may be repeated; --report names the
  * output stem. One implementation, two reports. */
@@ -29,6 +31,36 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const BATCHES = argBatches.length ? argBatches
   : [["batch 1", "AIMSF-ROLLOUT-B1.json"], ["batch 2", "AIMSF-ROLLOUT-B2.json"]];
+
+/* ============ A GATE THIS REPORT NAMES MUST ACTUALLY RUN ============
+ *
+ * Ruled PROMPT-95 follow-up 2. This file printed "quote-noise: 0" for R1, R2 and R3 while that gate was wired
+ * to nothing, and the zero was offered three times as evidence. A gate that is never called cannot reject, so
+ * its count was structural, not measured.
+ *
+ * Parity is asserted BEFORE anything is printed. A report that names a gate nobody runs is worse than no
+ * report, because its zeros read as measurements -- and the controls run first, because a parity check that
+ * cannot fire would be the same defect one level up.
+ *
+ * SCOPE, stated so a pass is not over-read: this catches gate names written LITERALLY in this file. Most gate
+ * names in the per-task table are derived from the item records themselves, so they cannot drift from the
+ * gates that ran -- only an explicitly named one can, and those are exactly where the defect was. */
+{
+  const self = readFileSync(join(HERE, "report-rollout-r1.mjs"), "utf8");
+  const ctl = reporterGateParityControls(runCodeGates, self);
+  const badCtl = ctl.filter((x) => !x.pass);
+  for (const x of badCtl) console.error("  PARITY CONTROL FAIL " + x.what + "   " + x.detail);
+  const par = reporterGateParity(runCodeGates, self);
+  for (const f of par.fails) console.error("  PARITY FAIL " + f);
+  if (badCtl.length || par.fails.length) {
+    console.error("");
+    console.error("REFUSING TO REPORT: a gate this file can name does not run in runCodeGates.");
+    process.exitCode = 2;
+    process.exit();
+  }
+  console.log("gate parity: " + par.named.length + " gate name(s) in this file, " + par.ran.length +
+    " gate(s) running, every named one runs");
+}
 
 const loaded = [];
 for (const [name, f] of BATCHES) {

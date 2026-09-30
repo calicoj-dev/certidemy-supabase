@@ -55,6 +55,7 @@ import { classifyPrimaries, effectivePrimaryCount, effectivePrimaryControls, MIN
 import { groundedGateControls } from "./lib/grounded-gates.mjs";
 import { balanceKeyOrder, balancedKeyOrderControls } from "./lib/balanced-key-order.mjs";
 import { quoteNoiseControls } from "./lib/quote-noise.mjs";
+import { reporterGateParity, reporterGateParityControls } from "./lib/reporter-gate-parity.mjs";
 import { supersededControls } from "./lib/superseded-wording.mjs";
 import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs";
 import { optionsPayload, assertOptionsOnly, optionsProbeUser, optionsProbeVerdict,
@@ -195,17 +196,31 @@ const EDITION_OF = { "AIMS-F": "2023", "AIMS-IA": "2023", "ISMS-F": "2022", "ISM
    * unrecoverable once inserted -- a key pointing at the wrong text grades every attempt wrongly -- so they
    * run before anything else, like every other gate's. */
   const qn = quoteNoiseControls({ quiet: true });
+  /* ============ A GATE THE REPORTER NAMES MUST RUN HERE ============
+   *
+   * Ruled PROMPT-95 follow-up 2. `quote-noise` was reported for three rollouts and wired to nothing. This
+   * asserts the pairing at the START of a run, so a run cannot produce an artifact whose gate counts a report
+   * will misrepresent. The reporter asserts it too -- both ends, because either alone leaves the other free
+   * to drift. */
+  const par = (() => {
+    const src = readFileSync(join(HERE, "report-rollout-r1.mjs"), "utf8");
+    const c = reporterGateParityControls(runCodeGates, src);
+    const p = reporterGateParity(runCodeGates, src);
+    return { examined: c.length + (p.examined || 0),
+      fails: [...c.filter((x) => !x.pass).map((x) => "gate-parity control: " + x.what),
+        ...p.fails.map((f) => "gate-parity: " + f)] };
+  })();
   const bal = balancedKeyOrderControls();
   const i = { examined: bal.length,
     fails: bal.filter((x) => !x.pass).map((x) => "balanced-order: " + x.what + (x.detail ? "   " + x.detail : "")) };
-  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails, ...i.fails, ...qn.fails];
-  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined + i.examined + qn.examined) + " cases");
+  const fails = [...a.fails, ...b.fails, ...c.fails, ...d.fails, ...e.fails, ...f.fails, ...g.fails, ...h.fails, ...i.fails, ...qn.fails, ...par.fails];
+  console.log("CONTROLS BEFORE ANYTHING ELSE  " + (a.examined + b.examined + c.examined + d.examined + e.examined + f.examined + g.examined + h.examined + i.examined + qn.examined + par.examined) + " cases");
   if (fails.length) {
     console.error("REFUSING TO RUN -- the gates' own controls fail:");
     for (const f of fails) console.error("  " + f);
     process.exitCode = 2; process.exit();
   }
-  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + ", balanced-order " + i.examined + ", quote-noise " + qn.examined + " -- all pass");
+  console.log("  gates " + a.examined + ", solver " + b.examined + ", superseded " + c.examined + ", options probe " + d.examined + ", shape cues " + e.examined + ", de-cue rewrite " + f.examined + ", effective-primary " + g.examined + ", anchor-cap " + h.examined + ", balanced-order " + i.examined + ", quote-noise " + qn.examined + ", gate-parity " + par.examined + " -- all pass");
 }
 
 function env(k) {
