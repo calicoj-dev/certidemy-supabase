@@ -141,6 +141,7 @@ const ROOT = join(HERE, "..");
 const underRoot = (p) => (isAbsolute(p) ? p : join(ROOT, p));
 
 let CERT = "AIMS-F", N = 40, APPLY = false, OUT = null, FROM = null, ONLY = null, IDS = null, EXAM_SCOPE = false;
+let REUSE_SOLVER = false;
 for (const a of process.argv.slice(2)) {
   let m;
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
@@ -159,6 +160,28 @@ for (const a of process.argv.slice(2)) {
   if ((m = /^--ids=(.+)$/.exec(a))) { IDS = m[1].split(",").map((s) => s.trim()).filter(Boolean); continue; }
   /* the ruled is_exam_scope for these pending_review rows. The DEFAULT STAYS FALSE. */
   if (a === "--exam-scope") { EXAM_SCOPE = true; continue; }
+  /* ============ --reuse-solver: RE-RUN THE CODE GATES, CARRY THE JUDGED VERDICT FORWARD ============
+   *
+   * `--from` re-runs everything, solver included, and that is right for a REVISED item: a new stem needs a
+   * new judgement. It is wrong for an INSERT of items already judged, and not only because it costs the
+   * money twice.
+   *
+   * THE CORRECTNESS ARGUMENT IS THE REASON, NOT THE COST. `item_grounding.solver` records the verdict the
+   * item was APPROVED ON. Re-running the solver at insert replaces that with a fresh judgement nobody read,
+   * so the row would carry a verdict that is not the one the item cleared -- the same shape as re-stamping a
+   * hash instead of comparing it. Reusing the recorded verdict is the honest record.
+   *
+   * THE CODE GATES STILL RUN, FRESH, AND THAT IS THE POINT. The library moved under these items -- 37
+   * ISO/IEC 42001 Annex A passages were de-columned and twelve anchors re-cut -- so `verbatim`,
+   * `quote-noise` and `reproduction` must be re-asserted against the library as it is now. Those are free.
+   *
+   * SKIPPED WITH THE SOLVER: the options probe and the de-cue retry. The probe is a third model call on
+   * survivors, and the de-cue retry REWRITES DISTRACTORS -- running it at insert would rewrite text nobody
+   * approved, which is the "every regenerated word is an unreviewed word" rule pointed at a write.
+   *
+   * It REFUSES an item carrying no recorded verdict rather than solving it quietly, because a partial reuse
+   * would mix judged and unjudged rows with nothing in the output saying which is which. */
+  if (a === "--reuse-solver") { REUSE_SOLVER = true; continue; }
   if (a === "--apply") { APPLY = true; continue; }
   console.error("unknown flag " + JSON.stringify(a));
   console.error("");
@@ -786,7 +809,26 @@ if (FROM) {
     console.log("  --ids: " + priorItems.length + " of " + (prior.items || []).length +
       " item(s); all " + IDS.length + " requested id(s) matched");
   }
-  for (const r of priorItems) generated.push({ item: r.item, task: tasks.find((t) => t.code === r.task_code) });
+  /* the PRIOR RECORD travels with the item, so --reuse-solver has a verdict to carry forward */
+  for (const r of priorItems) {
+    generated.push({ item: r.item, task: tasks.find((t) => t.code === r.task_code), prior: r });
+  }
+  if (REUSE_SOLVER) {
+    const unjudged = priorItems.filter((r) => !r.solver || r.verdict !== "survivor");
+    if (unjudged.length) {
+      console.error("--reuse-solver: " + unjudged.length + " of " + priorItems.length + " item(s) carry no " +
+        "recorded survivor verdict, so there is nothing to reuse for them.");
+      console.error("A partial reuse would mix judged and unjudged rows with nothing in the output saying");
+      console.error("which is which. Re-gate those items without the flag, or select with --ids.");
+      for (const r of unjudged.slice(0, 10)) {
+        console.error("  " + String(r.item_id || "").slice(0, 8) + "  verdict " + JSON.stringify(r.verdict));
+      }
+      process.exitCode = 2; process.exit();
+    }
+    console.log("  --reuse-solver: " + priorItems.length + " recorded solver verdict(s) carried forward; " +
+      "the CODE gates re-run fresh against the library as it is now, and the options probe and the de-cue " +
+      "retry are skipped (the retry rewrites distractors, and every regenerated word is unreviewed).");
+  }
 } else {
   for (const [taskId, k] of alloc) {
     const t = tasks.find((x) => x.id === taskId);
@@ -962,6 +1004,30 @@ for (const g of generated) {
     checkpoint(record, spendBefore, rejectBefore);
     results.push(record);
     console.log("  " + t.code + "  REJECTED  " + [...code.failed, ...code.unasserted.map((u) => u + "(unasserted)")].join(", "));
+    continue;
+  }
+
+  /* ============ --reuse-solver STOPS HERE: CODE RE-ASSERTED, THE JUDGED VERDICT CARRIED ============
+   *
+   * Placed AFTER the code gates deliberately. The code gates are the half that has to run again -- the
+   * library moved under these items -- and they are free; the solver, the probe and the de-cue retry are the
+   * half that must not, because re-judging at insert would record a verdict nobody read and rewriting
+   * distractors at insert would ship text nobody approved. An item that fails a code gate here is REJECTED
+   * even though it was a survivor before, which is the flag doing its job rather than a contradiction: it
+   * means the library moved out from under that anchor. */
+  if (REUSE_SOLVER) {
+    const p = g.prior || {};
+    record.solver = p.solver ?? null;
+    record.options_probe = p.options_probe ?? null;
+    record.options_probe_before = p.options_probe_before ?? null;
+    record.shape_cues_before = p.shape_cues_before ?? null;
+    record.decue_trigger = p.decue_trigger ?? null;
+    record.de_cue = p.de_cue ?? null;
+    record.verdict = "survivor";
+    record.solver_reused_from = FROM;
+    checkpoint(record, spendBefore, rejectBefore);
+    results.push(record);
+    console.log("  " + t.code + "  SURVIVOR  code re-asserted, solver verdict carried forward from " + FROM);
     continue;
   }
 

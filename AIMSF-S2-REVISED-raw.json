@@ -1,0 +1,178 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "generation_note": "PROMPT-95 s2 revisions. NOT generated -- hand edits to the declared fields only, asserted field by field against the original. UNGATED: re-gate before any insert.",
+ "rejected": [
+  {
+   "id": "c590b702",
+   "task": "4.1",
+   "why": "anchored in A.6.2, a container, and its options are Annex A category numbers, so it is a recall item in disguise"
+  },
+  {
+   "id": "43882b06",
+   "task": "5.5",
+   "why": "a near-duplicate of c45a02f1 (1.1): same clause 3.4, same question, weaker distractors"
+  }
+ ],
+ "items": [
+  {
+   "task_code": "3.7",
+   "item": {
+    "question_text": "An auditor reviews an inherited ISMS communication plan that is to serve the AI management system. The plan fixes what will be communicated, when, and to whom. Which set of determinations must the organization make about its internal and external communications?",
+    "options": [
+     {
+      "text": "The AI policy, individual contributions to effectiveness, and implications of nonconformity.",
+      "is_correct": false
+     },
+     {
+      "text": "The message, the timing, the audience, and the retention and disposal arrangements.",
+      "is_correct": false
+     },
+     {
+      "text": "The message, the timing, the audience, and the method of communication.",
+      "is_correct": true
+     },
+     {
+      "text": "The message, the timing, the audience, and the person designated to communicate.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause 7.4 sets out four determinations for communications relevant to the AI management system: \"— what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.\" A plan carried over from an ISMS should be checked against exactly this set.",
+    "key_support_clause": "7.4",
+    "key_support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "7.3",
+      "support": "Persons doing work under the organization’s control shall be aware of: — the AI policy (see 5.2); — their contribution to the effectiveness of the AI management system, including the benefits of improved AI performance; — the implications of not conforming with the AI management system requirements.",
+      "why_wrong": "This lists the matters persons are to be aware of, which is the awareness provision rather than communication planning."
+     },
+     {
+      "index": 1,
+      "clause": "7.5.3",
+      "support": "— retention and disposition.",
+      "why_wrong": "Retention and disposition are activities addressed for control of documented information, not determinations about communication."
+     },
+     {
+      "index": 3,
+      "clause": "7.4",
+      "support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.",
+      "why_wrong": "Designating who performs the communication is not among the four determinations listed in this clause."
+     }
+    ]
+   },
+   "revision_of": "3d1d332c",
+   "revision_fields": [
+    "stem"
+   ]
+  },
+  {
+   "task_code": "5.1",
+   "item": {
+    "question_text": "The terminology section carries a note explaining how the word \"performance\" is to be read throughout the AI management system document. What does the term cover there?",
+    "options": [
+     {
+      "text": "Outcomes obtained from putting AI systems to use together with outcomes of the management system itself.",
+      "is_correct": true
+     },
+     {
+      "text": "Measurable results about the managing of activities and processes, with products and services outside the term.",
+      "is_correct": false
+     },
+     {
+      "text": "Quantitative findings about AI systems, with qualitative judgements handled separately as audit criteria.",
+      "is_correct": false
+     },
+     {
+      "text": "Outcomes of the management system alone, since AI system results are treated as technical criteria.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.11's third note to the definition of performance explains that, for the purposes of this document, the word takes in both the results that come from using AI systems and the results associated with the AI management system, with context showing which reading applies. The term therefore spans both at once. The option restricting the term to the managing of activities and processes contradicts Note 2, which extends performance to products, services, systems and organizations as well; and the remaining options each discard part of what Note 3 includes.",
+    "key_support_clause": "3.11",
+    "key_support": "Note 3 to entry: In the context of this document, performance refers both to results achieved by using AI systems and results related to the AI management system (3.4).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.13",
+      "support": "effectiveness extent to which planned activities are realized and planned results are achieved",
+      "why_wrong": "This wording defines effectiveness, a separate term, not performance."
+     },
+     {
+      "index": 2,
+      "clause": "3.11",
+      "support": "Note 1 to entry: Performance can relate either to quantitative or qualitative findings.",
+      "why_wrong": "The note allows performance to relate to qualitative findings as well as quantitative ones."
+     },
+     {
+      "index": 3,
+      "clause": "3.11",
+      "support": "Note 3 to entry: In the context of this document, performance refers both to results achieved by using AI systems and results related to the AI management system (3.4).",
+      "why_wrong": "It drops the AI systems' own results, which the note expressly includes."
+     }
+    ]
+   },
+   "revision_of": "b25f378f",
+   "revision_fields": [
+    "option B text",
+    "explanation"
+   ]
+  },
+  {
+   "task_code": "1.6",
+   "item": {
+    "question_text": "An assessor tells a client that certification depends on implementing every control in the reference table in Annex A. How is that position best corrected?",
+    "options": [
+     {
+      "text": "The table serves as a reference, and an organization can devise and apply controls it designs itself",
+      "is_correct": true
+     },
+     {
+      "text": "Each tabled control applies, and any omission is recorded within the risk treatment plan instead",
+      "is_correct": false
+     },
+     {
+      "text": "Entries in the implementation guidance annex also need inclusion or exclusion reasons recorded",
+      "is_correct": false
+     },
+     {
+      "text": "The tabled set covers everything needed, so further controls are drawn from other standards",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.1 presents Table A.1 as a reference set rather than a compulsory checklist: the organization need not adopt every listed control objective and control, and it may also 'design and implement their own controls' (A.1), working through the risk treatment process in 6.1.3.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "6.1.3",
+      "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+      "why_wrong": "Inclusion and exclusion reasons belong in the statement of applicability, and the tabled controls are not all required in the first place."
+     },
+     {
+      "index": 2,
+      "clause": "B.1",
+      "support": "organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3)",
+      "why_wrong": "Guidance entries are expressly outside the inclusion and exclusion justification exercise."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.3",
+      "support": "The Annex A controls are not exhaustive and additional control objectives and controls can be needed.",
+      "why_wrong": "The reference list is stated not to be exhaustive, so additional controls can be designed by the organization."
+     }
+    ]
+   },
+   "revision_of": "6984516f",
+   "revision_fields": [
+    "explanation"
+   ]
+  }
+ ]
+}

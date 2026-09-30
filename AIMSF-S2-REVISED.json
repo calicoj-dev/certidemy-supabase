@@ -1,0 +1,768 @@
+{
+ "certification": "AIMS-F",
+ "model": "claude-opus-5",
+ "standard": "ISO/IEC 42001",
+ "edition": "2023",
+ "spend": {
+  "calls": 10,
+  "input_tokens": 33117,
+  "output_tokens": 3024,
+  "usd": 0.7236,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {
+   "solver": {
+    "calls": 6,
+    "input": 30094,
+    "output": 1174
+   },
+   "options-probe": {
+    "calls": 3,
+    "input": 1826,
+    "output": 729
+   },
+   "de-cue": {
+    "calls": 1,
+    "input": 1197,
+    "output": 1121
+   }
+  }
+ },
+ "attempted": 40,
+ "generated": 3,
+ "survivors": 3,
+ "generation_note": null,
+ "reject_counts": {},
+ "tasks_mapped": 35,
+ "tasks_total": 35,
+ "unmapped_tasks": [],
+ "held_tasks": [],
+ "paraphrase_retry": {
+  "fixed": 0,
+  "still_failing": 0
+ },
+ "de_cue_retry": {
+  "attempted": 1,
+  "applied": 0,
+  "reverted_by_rewrite_check": 1,
+  "reverted_by_solver": 0,
+  "reverted_by_gates": 0,
+  "malformed": 0,
+  "could_not_run": 0
+ },
+ "key_pick_before": {
+  "n": 3,
+  "hit": 3,
+  "pct": 100
+ },
+ "key_pick_after": {
+  "n": 3,
+  "hit": 3,
+  "pct": 100
+ },
+ "shape_cues_before": {
+  "clang": 2,
+  "only-hedged": 1
+ },
+ "shape_cues_after": {
+  "clang": 2,
+  "only-hedged": 1
+ },
+ "anchor_clusters": [],
+ "options_probe_flags": 3,
+ "options_probe_unrun": 0,
+ "longest_served_run_max": 7,
+ "items": [
+  {
+   "task_code": "3.7",
+   "domain": "D3",
+   "item": {
+    "question_text": "An auditor reviews an inherited ISMS communication plan that is to serve the AI management system. The plan fixes what will be communicated, when, and to whom. Which set of determinations must the organization make about its internal and external communications?",
+    "options": [
+     {
+      "text": "The AI policy, individual contributions to effectiveness, and implications of nonconformity.",
+      "is_correct": false
+     },
+     {
+      "text": "The message, the timing, the audience, and the retention and disposal arrangements.",
+      "is_correct": false
+     },
+     {
+      "text": "The message, the timing, the audience, and the method of communication.",
+      "is_correct": true
+     },
+     {
+      "text": "The message, the timing, the audience, and the person designated to communicate.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause 7.4 sets out four determinations for communications relevant to the AI management system: \"— what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.\" A plan carried over from an ISMS should be checked against exactly this set.",
+    "key_support_clause": "7.4",
+    "key_support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "7.3",
+      "support": "Persons doing work under the organization’s control shall be aware of: — the AI policy (see 5.2); — their contribution to the effectiveness of the AI management system, including the benefits of improved AI performance; — the implications of not conforming with the AI management system requirements.",
+      "why_wrong": "This lists the matters persons are to be aware of, which is the awareness provision rather than communication planning."
+     },
+     {
+      "index": 1,
+      "clause": "7.5.3",
+      "support": "— retention and disposition.",
+      "why_wrong": "Retention and disposition are activities addressed for control of documented information, not determinations about communication."
+     },
+     {
+      "index": 3,
+      "clause": "7.4",
+      "support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.",
+      "why_wrong": "Designating who performs the communication is not among the four determinations listed in this clause."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a recommendation; anchor is a requirement by the anchor sentence (clause classed shall)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 20%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 10,
+     "reason": "the key anchors in 7.4, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 7 words in explanation, plus one 18-word attributed quotation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 7,
+   "longest_served_in": "explanation",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 18
+   },
+   "grounding_family": "7.4",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "C",
+     "answer_reason": "Clause 7.4 requires determining what it will communicate, when to communicate, with whom to communicate, and how to communicate — so the missing determination is the method of communication.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "Three options (B, C, D) share the stem 'The message, the timing, the audience, and...'; within that trio C's final element ('the method of communication') is the generic, category-level completion while B's and D's are narrow specifics.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): Three options (B, C, D) share the stem 'The message, the timing, the audience, and...'; within that trio C's final element ('the method of communication') is the generic, category-level completion while B's and D's are narrow specifics."
+   },
+   "verdict": "survivor",
+   "item_id": "9e9fafd4",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"communication\" from the stem and no distractor does"
+    }
+   ],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "C",
+    "cue": "Three options (B, C, D) share the stem 'The message, the timing, the audience, and...'; within that trio C's final element ('the method of communication') is the generic, category-level completion while B's and D's are narrow specifics.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): Three options (B, C, D) share the stem 'The message, the timing, the audience, and...'; within that trio C's final element ('the method of communication') is the generic, category-level completion while B's and D's are narrow specifics."
+   },
+   "item_before_decue": {
+    "question_text": "An auditor reviews an inherited ISMS communication plan that is to serve the AI management system. The plan fixes what will be communicated, when, and to whom. Which set of determinations must the organization make about its internal and external communications?",
+    "options": [
+     {
+      "text": "The AI policy, individual contributions to effectiveness, and implications of nonconformity.",
+      "is_correct": false
+     },
+     {
+      "text": "The message, the timing, the audience, and the retention and disposal arrangements.",
+      "is_correct": false
+     },
+     {
+      "text": "The message, the timing, the audience, and the method of communication.",
+      "is_correct": true
+     },
+     {
+      "text": "The message, the timing, the audience, and the person designated to communicate.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 2,
+    "explanation": "Clause 7.4 sets out four determinations for communications relevant to the AI management system: \"— what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.\" A plan carried over from an ISMS should be checked against exactly this set.",
+    "key_support_clause": "7.4",
+    "key_support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.",
+    "distractor_support": [
+     {
+      "index": 0,
+      "clause": "7.3",
+      "support": "Persons doing work under the organization’s control shall be aware of: — the AI policy (see 5.2); — their contribution to the effectiveness of the AI management system, including the benefits of improved AI performance; — the implications of not conforming with the AI management system requirements.",
+      "why_wrong": "This lists the matters persons are to be aware of, which is the awareness provision rather than communication planning."
+     },
+     {
+      "index": 1,
+      "clause": "7.5.3",
+      "support": "— retention and disposition.",
+      "why_wrong": "Retention and disposition are activities addressed for control of documented information, not determinations about communication."
+     },
+     {
+      "index": 3,
+      "clause": "7.4",
+      "support": "The organization shall determine the internal and external communications relevant to the AI management system including: — what it will communicate; — when to communicate; — with whom to communicate; — how to communicate.",
+      "why_wrong": "Designating who performs the communication is not among the four determinations listed in this clause."
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"communication\" from the stem and no distractor does"
+    }
+   ]
+  },
+  {
+   "task_code": "5.1",
+   "domain": "D5",
+   "item": {
+    "question_text": "The terminology section carries a note explaining how the word \"performance\" is to be read throughout the AI management system document. What does the term cover there?",
+    "options": [
+     {
+      "text": "Outcomes obtained from putting AI systems to use together with outcomes of the management system itself.",
+      "is_correct": true
+     },
+     {
+      "text": "Measurable results about the managing of activities and processes, with products and services outside the term.",
+      "is_correct": false
+     },
+     {
+      "text": "Quantitative findings about AI systems, with qualitative judgements handled separately as audit criteria.",
+      "is_correct": false
+     },
+     {
+      "text": "Outcomes of the management system alone, since AI system results are treated as technical criteria.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.11's third note to the definition of performance explains that, for the purposes of this document, the word takes in both the results that come from using AI systems and the results associated with the AI management system, with context showing which reading applies. The term therefore spans both at once. The option restricting the term to the managing of activities and processes contradicts Note 2, which extends performance to products, services, systems and organizations as well; and the remaining options each discard part of what Note 3 includes.",
+    "key_support_clause": "3.11",
+    "key_support": "Note 3 to entry: In the context of this document, performance refers both to results achieved by using AI systems and results related to the AI management system (3.4).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.13",
+      "support": "effectiveness extent to which planned activities are realized and planned results are achieved",
+      "why_wrong": "This wording defines effectiveness, a separate term, not performance."
+     },
+     {
+      "index": 2,
+      "clause": "3.11",
+      "support": "Note 1 to entry: Performance can relate either to quantitative or qualitative findings.",
+      "why_wrong": "The note allows performance to relate to qualitative findings as well as quantitative ones."
+     },
+     {
+      "index": 3,
+      "clause": "3.11",
+      "support": "Note 3 to entry: In the context of this document, performance refers both to results achieved by using AI systems and results related to the AI management system (3.4).",
+      "why_wrong": "It drops the AI systems' own results, which the note expressly includes."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a none; anchor is a none by the passage class (clause classed informative)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 19,
+     "reason": "closest live item on this task shares 25%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 7,
+     "reason": "the key anchors in 3.11, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 7 words in explanation"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 7,
+   "longest_served_in": "explanation",
+   "attributed_quotation": null,
+   "grounding_family": "3.11",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause 3.11 Note 3 states that in the context of this document performance refers both to results achieved by using AI systems and results related to the AI management system.",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each contain an exclusion clause ('outside the term', 'handled separately', 'alone, since ... treated as'), while A is the only option that combines both elements without excluding anything.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D each contain an exclusion clause ('outside the term', 'handled separately', 'alone, since ... treated as'), while A is the only option that combines both elements without excluding anything."
+   },
+   "verdict": "survivor",
+   "item_id": "b25f378f",
+   "shape_cues_before": [],
+   "decue_trigger": [],
+   "decue_non_trigger_cues": [],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B, C and D each contain an exclusion clause ('outside the term', 'handled separately', 'alone, since ... treated as'), while A is the only option that combines both elements without excluding anything.",
+    "cue_kind": "shared-phrase",
+    "reason": "picked the key from the options alone and named a cue (shared-phrase): B, C and D each contain an exclusion clause ('outside the term', 'handled separately', 'alone, since ... treated as'), while A is the only option that combines both elements without excluding anything."
+   },
+   "item_before_decue": {
+    "question_text": "The terminology section carries a note explaining how the word \"performance\" is to be read throughout the AI management system document. What does the term cover there?",
+    "options": [
+     {
+      "text": "Outcomes obtained from putting AI systems to use together with outcomes of the management system itself.",
+      "is_correct": true
+     },
+     {
+      "text": "Measurable results about the managing of activities and processes, with products and services outside the term.",
+      "is_correct": false
+     },
+     {
+      "text": "Quantitative findings about AI systems, with qualitative judgements handled separately as audit criteria.",
+      "is_correct": false
+     },
+     {
+      "text": "Outcomes of the management system alone, since AI system results are treated as technical criteria.",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause 3.11's third note to the definition of performance explains that, for the purposes of this document, the word takes in both the results that come from using AI systems and the results associated with the AI management system, with context showing which reading applies. The term therefore spans both at once. The option restricting the term to the managing of activities and processes contradicts Note 2, which extends performance to products, services, systems and organizations as well; and the remaining options each discard part of what Note 3 includes.",
+    "key_support_clause": "3.11",
+    "key_support": "Note 3 to entry: In the context of this document, performance refers both to results achieved by using AI systems and results related to the AI management system (3.4).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "3.13",
+      "support": "effectiveness extent to which planned activities are realized and planned results are achieved",
+      "why_wrong": "This wording defines effectiveness, a separate term, not performance."
+     },
+     {
+      "index": 2,
+      "clause": "3.11",
+      "support": "Note 1 to entry: Performance can relate either to quantitative or qualitative findings.",
+      "why_wrong": "The note allows performance to relate to qualitative findings as well as quantitative ones."
+     },
+     {
+      "index": 3,
+      "clause": "3.11",
+      "support": "Note 3 to entry: In the context of this document, performance refers both to results achieved by using AI systems and results related to the AI management system (3.4).",
+      "why_wrong": "It drops the AI systems' own results, which the note expressly includes."
+     }
+    ]
+   },
+   "shape_cues_after": []
+  },
+  {
+   "task_code": "1.6",
+   "domain": "D1",
+   "item": {
+    "question_text": "An assessor tells a client that certification depends on implementing every control in the reference table in Annex A. How is that position best corrected?",
+    "options": [
+     {
+      "text": "The table serves as a reference, and an organization can devise and apply controls it designs itself",
+      "is_correct": true
+     },
+     {
+      "text": "Each tabled control applies, and any omission is recorded within the risk treatment plan instead",
+      "is_correct": false
+     },
+     {
+      "text": "Entries in the implementation guidance annex also need inclusion or exclusion reasons recorded",
+      "is_correct": false
+     },
+     {
+      "text": "The tabled set covers everything needed, so further controls are drawn from other standards",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.1 presents Table A.1 as a reference set rather than a compulsory checklist: the organization need not adopt every listed control objective and control, and it may also 'design and implement their own controls' (A.1), working through the risk treatment process in 6.1.3.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "6.1.3",
+      "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+      "why_wrong": "Inclusion and exclusion reasons belong in the statement of applicability, and the tabled controls are not all required in the first place."
+     },
+     {
+      "index": 2,
+      "clause": "B.1",
+      "support": "organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3)",
+      "why_wrong": "Guidance entries are expressly outside the inclusion and exclusion justification exercise."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.3",
+      "support": "The Annex A controls are not exhaustive and additional control objectives and controls can be needed.",
+      "why_wrong": "The reference list is stated not to be exhaustive, so additional controls can be designed by the organization."
+     }
+    ]
+   },
+   "gates": [
+    {
+     "id": "clause-exists",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 clause(s) resolve"
+    },
+    {
+     "id": "verbatim",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 anchor(s) verbatim in their named passage"
+    },
+    {
+     "id": "modal-fidelity",
+     "pass": true,
+     "examined": 1,
+     "reason": "item asserts a permission; anchor is a requirement by the anchor sentence (clause classed can)"
+    },
+    {
+     "id": "superseded-wording",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 field(s) carry no retired wording"
+    },
+    {
+     "id": "structure",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 options, no structural tell"
+    },
+    {
+     "id": "near-duplicate",
+     "pass": true,
+     "examined": 18,
+     "reason": "closest live item on this task shares 25%"
+    },
+    {
+     "id": "shared-distractor-phrase",
+     "pass": true,
+     "examined": 3,
+     "reason": "3 distractors share no run of 4+ words the key lacks"
+    },
+    {
+     "id": "anchor-is-primary",
+     "pass": true,
+     "examined": 12,
+     "reason": "the key anchors in A.1, a primary passage of this task"
+    },
+    {
+     "id": "reproduction",
+     "pass": true,
+     "examined": 6,
+     "reason": "6 served field(s), longest run 5 words in option b"
+    },
+    {
+     "id": "no-27000",
+     "pass": true,
+     "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    }
+   ],
+   "code_passed": true,
+   "failed": [],
+   "unasserted": [],
+   "longest_served_run": 5,
+   "longest_served_in": "option b",
+   "attributed_quotation": null,
+   "grounding_family": "A.1",
+   "solver": {
+    "state": "accepted",
+    "reason": "solved to the key from the passages, no second defensible option",
+    "runs": 2,
+    "second": {
+     "state": "accepted",
+     "reason": "solved to the key from the passages, no second defensible option"
+    },
+    "raw": {
+     "answer": "A",
+     "answer_reason": "Clause A.1 states that not all control objectives and controls in Table A.1 are required to be used and that the organization can design and implement its own controls (see 6.1.3).",
+     "second_defensible": null,
+     "second_defensible_reason": null,
+     "settled_by_passages": true
+    }
+   },
+   "options_probe": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and D make absolute claims (\"Each tabled control applies\", \"covers everything needed\") and C adds a further requirement, while A is the only permissive/flexible option (\"serves as a reference\", \"can devise\")",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B and D make absolute claims (\"Each tabled control applies\", \"covers everything needed\") and C adds a further requirement, while A is the only permissive/flexible option (\"serves as a reference\", \"can devise\")"
+   },
+   "verdict": "survivor",
+   "item_id": "6984516f",
+   "shape_cues_before": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"table\", \"reference\" from the stem and no distractor does"
+    },
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "decue_trigger": [
+    "only-hedged"
+   ],
+   "decue_non_trigger_cues": [
+    "clang"
+   ],
+   "options_probe_before": {
+    "state": "flag",
+    "pick": "A",
+    "cue": "B and D make absolute claims (\"Each tabled control applies\", \"covers everything needed\") and C adds a further requirement, while A is the only permissive/flexible option (\"serves as a reference\", \"can devise\")",
+    "cue_kind": "only-hedged",
+    "reason": "picked the key from the options alone and named a cue (only-hedged): B and D make absolute claims (\"Each tabled control applies\", \"covers everything needed\") and C adds a further requirement, while A is the only permissive/flexible option (\"serves as a reference\", \"can devise\")"
+   },
+   "item_before_decue": {
+    "question_text": "An assessor tells a client that certification depends on implementing every control in the reference table in Annex A. How is that position best corrected?",
+    "options": [
+     {
+      "text": "The table serves as a reference, and an organization can devise and apply controls it designs itself",
+      "is_correct": true
+     },
+     {
+      "text": "Each tabled control applies, and any omission is recorded within the risk treatment plan instead",
+      "is_correct": false
+     },
+     {
+      "text": "Entries in the implementation guidance annex also need inclusion or exclusion reasons recorded",
+      "is_correct": false
+     },
+     {
+      "text": "The tabled set covers everything needed, so further controls are drawn from other standards",
+      "is_correct": false
+     }
+    ],
+    "correct_index": 0,
+    "explanation": "Clause A.1 presents Table A.1 as a reference set rather than a compulsory checklist: the organization need not adopt every listed control objective and control, and it may also 'design and implement their own controls' (A.1), working through the risk treatment process in 6.1.3.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+    "distractor_support": [
+     {
+      "index": 1,
+      "clause": "6.1.3",
+      "support": "f) produce a statement of applicability that contains the necessary controls [see b), c) and d)] and provide justification for inclusion and exclusion of controls.",
+      "why_wrong": "Inclusion and exclusion reasons belong in the statement of applicability, and the tabled controls are not all required in the first place."
+     },
+     {
+      "index": 2,
+      "clause": "B.1",
+      "support": "organizations do not have to document or justify inclusion or exclusion of implementation guidance in the statement of applicability (see 6.1.3)",
+      "why_wrong": "Guidance entries are expressly outside the inclusion and exclusion justification exercise."
+     },
+     {
+      "index": 3,
+      "clause": "6.1.3",
+      "support": "The Annex A controls are not exhaustive and additional control objectives and controls can be needed.",
+      "why_wrong": "The reference list is stated not to be exhaustive, so additional controls can be designed by the organization."
+     }
+    ]
+   },
+   "de_cue_rewrite_check": {
+    "revert": false,
+    "new_absolutes": [],
+    "changed_references": [],
+    "reason": null,
+    "new_code_cue": [],
+    "trigger_cleared": {
+     "cleared": true,
+     "remaining": []
+    },
+    "limiter_dropped": [
+     {
+      "index": 0,
+      "limiter": "instead",
+      "kept": null
+     }
+    ]
+   },
+   "shape_cues_after": [
+    {
+     "id": "clang",
+     "cue": "the key echoes \"table\", \"reference\" from the stem and no distractor does"
+    },
+    {
+     "id": "only-hedged",
+     "cue": "the key is the only hedged option (can)"
+    }
+   ],
+   "de_cue": {
+    "state": "reverted",
+    "reason": "check 5: limiter dropped -- option 1 lost \"instead\""
+   }
+  }
+ ]
+}

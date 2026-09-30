@@ -64,10 +64,18 @@ for (const c of certs) {
   /* `correct_answer` is the key, as an ARRAY OF OPTION IDS -- the options themselves carry only
    * {id, text}. My first version looked for `is_correct` on each option, found none anywhere, and
    * printed an empty table that read as "no skew" rather than as "no measurement". */
-  const qs = await getAll(KEY, "quiz_questions?select=id,options,question_type,correct_answer" +
+  const qs = await getAll(KEY, "quiz_questions?select=id,options,question_type,correct_answer,item_origin" +
     "&certification_id=eq." + c.id + "&language=eq.en&pool=eq.secure&retired_at=is.null" +
     "&status=in.(approved,pending_review)&order=id");
   if (!qs.length) continue;
+  /* ============ THE GROUNDED SUBSET IS COUNTED SEPARATELY, BECAUSE IT IS THE POPULATION AT ISSUE ============
+   *
+   * The defect was never the bank: it was the GROUNDED GENERATOR'S output, 78 percent A inside an authored
+   * remainder sitting at chance. A whole-bank figure dilutes it by the size of the remainder, so a whole-bank
+   * figure alone is a number measured over a set nobody asked about -- the mean-over-the-wrong-population
+   * defect this repository records four times. Both are printed, and the grounded one is the one the fix
+   * is answerable for. */
+  const groundedTally = {}; let gN = 0, gChance = 0;
   const tally = {}; let n = 0, chanceSum = 0, malformed = 0;
   for (const q of qs) {
     const opts = Array.isArray(q.options) ? q.options : null;
@@ -80,6 +88,9 @@ for (const c of certs) {
     const lab = idx < 4 ? L(idx) : "E+";
     tally[lab] = (tally[lab] || 0) + 1;
     chanceSum += 1 / opts.length;
+    if (q.item_origin === "generated") {
+      gN++; groundedTally[lab] = (groundedTally[lab] || 0) + 1; gChance += 1 / opts.length;
+    }
   }
   /* THE PROBE MUST PROVE IT COULD HAVE FOUND SOMETHING. A certification where nothing resolves is
    * UNRESOLVABLE and is printed as that -- never skipped, because a skipped row and a uniform row look
@@ -103,6 +114,23 @@ for (const c of certs) {
     ("  " + Math.round(chance * 100) + "%").padStart(9) +
     ("  " + (alwaysA > chance ? "+" : "") + Math.round((alwaysA - chance) * 100) + "pt").padStart(9) +
     (malformed ? "   (" + malformed + " with no marked key, excluded)" : ""));
+  /* the grounded line, indented under its certification, and printed ONLY where grounded rows exist --
+   * a zero-denominator line would read as "grounded items are uniform here" when there are none */
+  if (gN) {
+    const gA = (groundedTally.A || 0) / gN, gCh = gChance / gN;
+    const gcell = (k) => {
+      const v = groundedTally[k] || 0;
+      return (v + " " + Math.round((v / gN) * 100) + "%").padStart(7);
+    };
+    console.log("    grounded ".padEnd(11) + String(gN).padStart(4) +
+      gcell("A") + gcell("B") + gcell("C") + gcell("D") + gcell("E+") +
+      ("  " + Math.round(gA * 100) + "%").padStart(11) +
+      ("  " + Math.round(gCh * 100) + "%").padStart(9) +
+      ("  " + (gA > gCh ? "+" : "") + Math.round((gA - gCh) * 100) + "pt").padStart(9) +
+      "   <- the population the balanced insert is answerable for");
+  }
+  rows[rows.length - 1].grounded = gN ? { n: gN, alwaysA: (groundedTally.A || 0) / gN, chance: gChance / gN }
+    : null;
 }
 console.log("");
 console.log("  always-A  what a candidate scores by answering A on every item, with no knowledge");
