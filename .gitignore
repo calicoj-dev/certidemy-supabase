@@ -81,3 +81,18 @@ PILOT-*-raw.json
 # to `.done`; both spellings are ignored.
 *.partial.jsonl
 *.partial.jsonl.done
+
+# THE GENERATED OVERRIDE FILE AND THE RE-EXTRACTION DIFF HOLD LICENSED CLAUSE TEXT, so they follow
+# SOURCE-PASSAGES.json out of git. The standing rule is that licensed text stays gitignored and the
+# GENERATOR lives in git -- source-overrides-42001-annex.generated.json is 37 ISO/IEC 42001 Annex A
+# control statements cut from the PDF, and REEXTRACT-DIFF.md prints every changed passage BEFORE and
+# AFTER, so it is two copies of each. Both regenerate in one command:
+#   node --dns-result-order=ipv4first scripts/make-42001-annex-column-overrides.mjs --apply
+#   node --dns-result-order=ipv4first scripts/extract-source-passages.mjs
+#   node --dns-result-order=ipv4first scripts/diff-passage-reextract.mjs
+# NOTE, for a decision that is not mine: source-overrides-27001.json and source-overrides-42001.json
+# are TRACKED and hold four hand-reviewed statements between them. They predate this line and cannot be
+# regenerated (they were copied from the PDFs with page numbers), so they are left alone and flagged
+# rather than deleted.
+source-overrides-*.generated.json
+REEXTRACT-DIFF.md

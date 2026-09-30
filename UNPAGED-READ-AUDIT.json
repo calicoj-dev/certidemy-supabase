@@ -1,17 +1,17 @@
 {
   "measured": "2026-09-21",
-  "files_scanned": 381,
-  "reads_found": 459,
+  "files_scanned": 495,
+  "reads_found": 717,
   "counts": {
-    "UNSAFE": 47,
-    "CAPPED": 12,
+    "UNSAFE": 262,
+    "CAPPED": 14,
     "PAGED-NO-ASSERT": 0,
     "DYNAMIC": 1,
-    "SAFE-SCALAR": 97,
+    "SAFE-SCALAR": 240,
     "SAFE-COUNT": 7,
-    "SAFE-PAGED": 295
+    "SAFE-PAGED": 193
   },
-  "unsafe_against_big_table": 12,
+  "unsafe_against_big_table": 36,
   "capped_against_big_table": 5,
   "limits": [
     "Static analysis of string literals. A query assembled at runtime from variables is not seen.",
@@ -19,9 +19,54 @@
   ],
   "rows": [
     {
+      "file": "anchor-existing-items.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq."
+    },
+    {
+      "file": "anchor-existing-items.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "anchor-existing-items.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id"
+    },
+    {
+      "file": "anchor-existing-items.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title,text,normative&order=id"
+    },
+    {
+      "file": "anchor-existing-items.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,question_text,options,correct_answer,explanation,status,retired"
+    },
+    {
       "file": "annotate-aie-i-attempt.mjs",
       "table": "exam_attempts",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -30,7 +75,7 @@
     {
       "file": "annotate-aie-i-attempt.mjs",
       "table": "profiles",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -39,7 +84,7 @@
     {
       "file": "annotate-aie-i-attempt.mjs",
       "table": "admin_actions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -48,7 +93,7 @@
     {
       "file": "annotate-aie-i-attempt.mjs",
       "table": "exam_attempts",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -57,7 +102,7 @@
     {
       "file": "annotate-aie-i-attempt.mjs",
       "table": "vouchers",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -66,7 +111,7 @@
     {
       "file": "annotate-aie-i-attempt.mjs",
       "table": "credentials",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "COUNT-ONLY",
@@ -75,7 +120,7 @@
     {
       "file": "apply-0501-english.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -84,7 +129,7 @@
     {
       "file": "apply-0501-english.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -93,7 +138,7 @@
     {
       "file": "apply-0501-translations.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -102,7 +147,7 @@
     {
       "file": "apply-0501-translations.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -262,6 +307,42 @@
       "query": "task_translations?select=language,knowledge,review_status,is_provisional&task_id=eq."
     },
     {
+      "file": "apply-concept-clearance-22.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "apply-concept-clearance-22.mjs",
+      "table": "concepts",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at&order=id"
+    },
+    {
+      "file": "apply-concept-clearance-22.mjs",
+      "table": "concept_translations",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,name,description,en_hash,tr_hash,is_provisional&"
+    },
+    {
+      "file": "apply-concept-clearance-22.mjs",
+      "table": "concept_translations",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,name,description,en_hash,tr_hash,is_provisional&"
+    },
+    {
       "file": "apply-hand-edits.mjs",
       "table": "lessons",
       "klass": "SAFE-SCALAR",
@@ -424,6 +505,51 @@
       "query": "concept_translations?select=concept_id,language,en_hash,is_provisional"
     },
     {
+      "file": "apply-leak-rewrites.mjs",
+      "table": "certifications",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "apply-leak-rewrites.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-leak-rewrites.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,en_hash,is_provisional"
+    },
+    {
+      "file": "apply-leak-rewrites.mjs",
+      "table": "concepts",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "apply-leak-rewrites.mjs",
+      "table": "concept_translations",
+      "klass": "SAFE-PAGED",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,en_hash,is_provisional"
+    },
+    {
       "file": "apply-marking-spec.mjs",
       "table": "lessons",
       "klass": "SAFE-SCALAR",
@@ -568,6 +694,24 @@
       "query": "concept_translations?select=concept_id,language,en_hash,name,description&concept_id=in.("
     },
     {
+      "file": "apply-prompt84-b-items.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,certification_id,language,status,visibility,is_exam_scope,pool,"
+    },
+    {
+      "file": "apply-prompt84-b-items.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
       "file": "apply-queue-edits.mjs",
       "table": "lessons",
       "klass": "SAFE-SCALAR",
@@ -696,7 +840,7 @@
     {
       "file": "apply-tier-c-es.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -705,7 +849,7 @@
     {
       "file": "apply-tier-c-pt.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -739,9 +883,63 @@
       "query": "lessons?select=id,slug,language,module_id,lesson_group_id,content_md,mcp_servable,mcp_translatio"
     },
     {
+      "file": "backfill-13-grounding.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "backfill-13-grounding.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_text,task_id"
+    },
+    {
+      "file": "backfill-13-grounding.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id&order=question_id"
+    },
+    {
+      "file": "backfill-13-grounding.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support_clause,source_id,grounding_family&order=question_i"
+    },
+    {
+      "file": "backfill-13-grounding.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code&order=code"
+    },
+    {
+      "file": "backfill-13-grounding.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id&certification_id=eq."
+    },
+    {
       "file": "build-480-queues.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -750,7 +948,7 @@
     {
       "file": "build-480-queues.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -759,7 +957,7 @@
     {
       "file": "build-480-queues.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -768,7 +966,7 @@
     {
       "file": "build-audit-sample.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -777,7 +975,7 @@
     {
       "file": "build-audit-sample.mjs",
       "table": "domains",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -786,7 +984,7 @@
     {
       "file": "build-audit-sample.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -795,7 +993,7 @@
     {
       "file": "build-audit-sample.mjs",
       "table": "exam_session_items",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -804,7 +1002,7 @@
     {
       "file": "build-audit-sample.mjs",
       "table": "exam_attempts",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -813,7 +1011,7 @@
     {
       "file": "build-audit-sample.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -831,7 +1029,7 @@
     {
       "file": "build-exposed-items.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -840,7 +1038,7 @@
     {
       "file": "build-exposed-items.mjs",
       "table": "exam_session_items",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -849,7 +1047,7 @@
     {
       "file": "build-exposed-items.mjs",
       "table": "exam_attempts",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -858,13 +1056,40 @@
     {
       "file": "build-splice-file.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=slug,language,content_md&language=eq.en&slug=in.("
     },
     {
+      "file": "census-22989-role-terms.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "census-22989-role-terms.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=question_text,options,explanation"
+    },
+    {
+      "file": "census-22989-role-terms.mjs",
+      "table": "concept_translations",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=language,name,description&order=id"
+    },
+    {
       "file": "census-attributed-quotation.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -899,15 +1124,96 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "census-served-explanation-letters.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "census-served-explanation-letters.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,explanation,pool,status,language"
+    },
+    {
+      "file": "census-shuffle-hostile-items.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "census-shuffle-hostile-items.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_text,options,pool,status,language"
+    },
+    {
+      "file": "check-384-and-live-sessions.mjs",
+      "table": "quiz_sessions",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_sessions?select=id,user_id,certification_id,kind,started_at,completed_at,closed_reason"
     },
     {
       "file": "check-anchor-sample.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=slug,language,content_md,updated_at&language=eq.en&slug=in.("
+    },
+    {
+      "file": "check-annex-misattachment.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support_clause,source_id&order=question_id"
+    },
+    {
+      "file": "check-annex-misattachment.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "COUNT-ONLY",
+      "query": "task_sources?select=task_id,passage_id&order=task_id"
+    },
+    {
+      "file": "check-annex-misattachment.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,clause&order=id"
+    },
+    {
+      "file": "check-annex-misattachment.mjs",
+      "table": "quiz_questions",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,status,pool,language&order=id"
     },
     {
       "file": "check-attribution-parity.mjs",
@@ -1011,7 +1317,7 @@
     {
       "file": "check-cited-clauses-resolve.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1020,7 +1326,7 @@
     {
       "file": "check-cited-clauses-resolve.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1063,6 +1369,51 @@
       "query": "quiz_questions?select=id,certification_id,question_text,options,correct_answer,explanation,langu"
     },
     {
+      "file": "check-explanation-option-refs.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id&order=question_id"
+    },
+    {
+      "file": "check-explanation-option-refs.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code&order=code"
+    },
+    {
+      "file": "check-form-clause-spread.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,num_questions&order=code"
+    },
+    {
+      "file": "check-form-clause-spread.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code,domain_id&order=code"
+    },
+    {
+      "file": "check-form-clause-spread.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support_clause,source_id&order=question_id"
+    },
+    {
       "file": "check-hash-writers.mjs",
       "table": "concept_translations",
       "klass": "UNSAFE",
@@ -1070,6 +1421,24 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concept_translations?select=id,en_hash,tr_hash"
+    },
+    {
+      "file": "check-key-position.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,status&order=code"
+    },
+    {
+      "file": "check-key-position.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,options,question_type,correct_answer"
     },
     {
       "file": "check-migration-state.mjs",
@@ -1279,9 +1648,63 @@
       "query": "item_grounding?select=question_id&limit=1"
     },
     {
+      "file": "check-migration-state.mjs",
+      "table": "item_grounding",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=grounding_family&question_id=eq."
+    },
+    {
+      "file": "check-migration-state.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,grounding_family"
+    },
+    {
+      "file": "check-migration-state.mjs",
+      "table": "item_grounding",
+      "klass": "CAPPED",
+      "limit": 1,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=reviewed_by,review_verdict&limit=1"
+    },
+    {
+      "file": "check-migration-state.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,review_verdict,reviewed_by"
+    },
+    {
+      "file": "check-migration-state.mjs",
+      "table": "source_passage_translations",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passage_translations?select=passage_id,language,aligned_by"
+    },
+    {
+      "file": "check-migration-state.mjs",
+      "table": "source_passage_translations",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passage_translations?select=language,aligned_by"
+    },
+    {
       "file": "check-near-duplicate-pairs.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1290,7 +1713,7 @@
     {
       "file": "check-near-duplicate-pairs.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1299,7 +1722,7 @@
     {
       "file": "check-near-duplicate-pairs.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1308,7 +1731,7 @@
     {
       "file": "check-near-duplicate-pairs.mjs",
       "table": "domains",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1396,6 +1819,51 @@
       "query": "certifications?select=id,code"
     },
     {
+      "file": "check-option-id-pairing.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "check-option-id-pairing.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,question_group_id,options,correct_answer"
+    },
+    {
+      "file": "check-quote-noise-grounded.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=source_id,clause,title&order=clause"
+    },
+    {
+      "file": "check-quote-noise-grounded.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support,key_support_clause&order=question_id"
+    },
+    {
+      "file": "check-quote-noise-grounded.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code&order=code"
+    },
+    {
       "file": "check-repair-translation-parity.mjs",
       "table": "lessons",
       "klass": "SAFE-PAGED",
@@ -1407,7 +1875,7 @@
     {
       "file": "check-retire-feasibility.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1416,7 +1884,7 @@
     {
       "file": "check-retire-feasibility.mjs",
       "table": "domains",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1425,7 +1893,7 @@
     {
       "file": "check-retire-feasibility.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1434,7 +1902,7 @@
     {
       "file": "check-retire-feasibility.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1452,7 +1920,7 @@
     {
       "file": "check-tier-c-pt-siblings.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1461,7 +1929,7 @@
     {
       "file": "check-tier-c-pt-siblings.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -1578,7 +2046,7 @@
     {
       "file": "confirm-stem-dedupe.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1587,7 +2055,7 @@
     {
       "file": "confirm-stem-dedupe.mjs",
       "table": "domains",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1596,7 +2064,7 @@
     {
       "file": "confirm-stem-dedupe.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1605,7 +2073,7 @@
     {
       "file": "confirm-stem-dedupe.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1614,7 +2082,7 @@
     {
       "file": "confirm-stem-dedupe.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1646,6 +2114,51 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concept_translations?select=concept_id,language,name,is_provisional"
+    },
+    {
+      "file": "count-shape-cues-bank.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "count-shape-cues-bank.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code&order=id"
+    },
+    {
+      "file": "count-shape-cues-bank.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,certification_id,task_id,question_text,"
+    },
+    {
+      "file": "count-source-citations.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code"
+    },
+    {
+      "file": "count-source-citations.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_text,explanation,options,correct_answer"
     },
     {
       "file": "delete-aimsf-concept-translations.mjs",
@@ -1695,7 +2208,7 @@
     {
       "file": "diagnose-0501-gate.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1704,11 +2217,38 @@
     {
       "file": "diagnose-0501-gate.mjs",
       "table": "lesson_translation_reviews",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
       "query": "lesson_translation_reviews?select=reviewed_at,verdict,en_hash,tr_hash,tr_hash_basis,reviewed_by&"
+    },
+    {
+      "file": "diagnose-practice-locale.mjs",
+      "table": "fsrs_cards",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "fsrs_cards?select=question_id,user_id,due&order=question_id"
+    },
+    {
+      "file": "diagnose-practice-locale.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "diagnose-practice-locale.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,status,question_group_id"
     },
     {
       "file": "diff-english-checkpoint.mjs",
@@ -1722,7 +2262,7 @@
     {
       "file": "draft-aimsf-task-sources.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -1731,7 +2271,7 @@
     {
       "file": "draft-aimsf-task-sources.mjs",
       "table": "domains",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1740,7 +2280,7 @@
     {
       "file": "draft-aimsf-task-sources.mjs",
       "table": "domains",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1749,16 +2289,52 @@
     {
       "file": "draft-aimsf-task-sources.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
       "query": "tasks?select=id,certification_id,domain_id,code,statement,knowledge,skills,abilities,bloom_level"
     },
     {
+      "file": "draft-iso-task-sources.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "draft-iso-task-sources.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,domain_id,code,statement,knowledge,skills,abilities&order=code"
+    },
+    {
+      "file": "draft-iso-task-sources.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id"
+    },
+    {
+      "file": "draft-iso-task-sources.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,clause&order=id"
+    },
+    {
       "file": "dump-0501-spans.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1776,7 +2352,7 @@
     {
       "file": "dump-tier-c.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1785,7 +2361,7 @@
     {
       "file": "emit-audit-decision.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1794,7 +2370,7 @@
     {
       "file": "emit-audit-decision.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -1873,6 +2449,42 @@
       "query": "lessons?select=id,slug,language,content_md,module_id,lesson_group_id,mcp_servable,mcp_iso_longes"
     },
     {
+      "file": "explain-remaining-thin-tasks.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "explain-remaining-thin-tasks.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "explain-remaining-thin-tasks.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title,text&order=id"
+    },
+    {
+      "file": "explain-remaining-thin-tasks.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
       "file": "fix-0103-seam.mjs",
       "table": "lessons",
       "klass": "SAFE-SCALAR",
@@ -1882,6 +2494,33 @@
       "query": "lessons?select=id,slug,language,content_md,mcp_servable,mcp_scanned_at,"
     },
     {
+      "file": "fix-89a7d2ef-padrao.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.SD-AI-I"
+    },
+    {
+      "file": "fix-89a7d2ef-padrao.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,question_group_id,question_text,"
+    },
+    {
+      "file": "fix-89a7d2ef-padrao.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,explanation,status,visibility,is_exam_scope"
+    },
+    {
       "file": "fix-english-template-sentences.mjs",
       "table": "lessons",
       "klass": "SAFE-SCALAR",
@@ -1889,6 +2528,15 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=id,slug,content_md&language=eq.en&slug=eq."
+    },
+    {
+      "file": "fix-explanation-option-refs.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id&order=question_id"
     },
     {
       "file": "fix-missing-accents.mjs",
@@ -1934,6 +2582,33 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=id,slug,language,content_md&slug=in.("
+    },
+    {
+      "file": "fix-translation-doublings.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "fix-translation-doublings.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,question_group_id,question_text,"
+    },
+    {
+      "file": "fix-translation-doublings.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,question_group_id,question_text,"
     },
     {
       "file": "gate-concept-descriptions.mjs",
@@ -2118,7 +2793,7 @@
     {
       "file": "gen-grounded-items.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -2127,7 +2802,7 @@
     {
       "file": "gen-grounded-items.mjs",
       "table": "domains",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2136,7 +2811,7 @@
     {
       "file": "gen-grounded-items.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2145,7 +2820,7 @@
     {
       "file": "gen-grounded-items.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -2153,12 +2828,30 @@
     },
     {
       "file": "gen-grounded-items.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id,passage_id"
+    },
+    {
+      "file": "gen-grounded-items.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause&order=id"
+    },
+    {
+      "file": "gen-grounded-items.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
-      "purpose": "COUNT-ONLY",
-      "query": "quiz_questions?select=id,status,is_exam_scope&certification_id=eq."
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,status,pool,visibility,is_exam_scope,item_origin,language"
     },
     {
       "file": "gen-iso-repair-spec.mjs",
@@ -2332,6 +3025,51 @@
       "query": "concept_translation_reviews?select=certification,language,verdict"
     },
     {
+      "file": "gen-task-source-read-sample.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "gen-task-source-read-sample.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "gen-translation-sample.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,name&order=code"
+    },
+    {
+      "file": "gen-translation-sample.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select="
+    },
+    {
+      "file": "gen-translation-sample.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code&order=id"
+    },
+    {
       "file": "gen-union-fires.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -2348,6 +3086,42 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "insert-pilot-drafts.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "insert-pilot-drafts.mjs",
+      "table": "tasks",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "tasks?select=id,code,bloom_level&certification_id=eq."
+    },
+    {
+      "file": "insert-pilot-drafts.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,status,pool,visibility,is_exam_scope,item_origin,language,correct_answe"
+    },
+    {
+      "file": "insert-pilot-drafts.mjs",
+      "table": "item_grounding",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,grounding_family,review_verdict,reviewed_by&question_id=in.("
     },
     {
       "file": "iso-passage-census.mjs",
@@ -2375,6 +3149,204 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=id,slug,content_md&language=eq."
+    },
+    {
+      "file": "judge-b103-cluster.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "judge-b103-cluster.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_text,options,correct_answer,explanation"
+    },
+    {
+      "file": "judge-task-sources.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq."
+    },
+    {
+      "file": "judge-task-sources.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement,knowledge,skills,abilities&order=code"
+    },
+    {
+      "file": "judge-task-sources.mjs",
+      "table": "task_concepts",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_concepts?select=task_id,concept_id&order=task_id"
+    },
+    {
+      "file": "judge-task-sources.mjs",
+      "table": "concepts",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,name&order=id"
+    },
+    {
+      "file": "judge-task-sources.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id"
+    },
+    {
+      "file": "judge-task-sources.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,clause&order=id"
+    },
+    {
+      "file": "judge-task-sources2.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq."
+    },
+    {
+      "file": "judge-task-sources2.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement,knowledge,skills,abilities&order=code"
+    },
+    {
+      "file": "judge-task-sources2.mjs",
+      "table": "task_concepts",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_concepts?select=task_id,concept_id&order=task_id"
+    },
+    {
+      "file": "judge-task-sources2.mjs",
+      "table": "concepts",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,name&order=id"
+    },
+    {
+      "file": "judge-task-sources2.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id"
+    },
+    {
+      "file": "judge-task-sources2.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,clause&order=id"
+    },
+    {
+      "file": "link-52-to-task-16.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "link-52-to-task-16.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "link-52-to-task-16.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title&order=id"
+    },
+    {
+      "file": "link-52-to-task-16.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
+      "file": "link-52-to-task-16.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
+      "file": "lint-translation-terms.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "lint-translation-terms.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select="
+    },
+    {
+      "file": "lint-translation-terms.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select="
     },
     {
       "file": "list-authoring-candidates.mjs",
@@ -2433,25 +3405,43 @@
     {
       "file": "load-source-passages.mjs",
       "table": "source_passages",
-      "klass": "SAFE-PAGED",
-      "limit": 1,
+      "klass": "SAFE-SCALAR",
+      "limit": null,
       "dynamic": false,
       "purpose": "rows",
-      "query": "source_passages?select=source_id&limit=1"
+      "query": "source_passages?select=source_id&source_id=eq.__probe_no_such_source__"
     },
     {
       "file": "load-source-passages.mjs",
       "table": "source_passages",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
-      "query": "source_passages?select=source_id,edition,clause,normative"
+      "query": "source_passages?select=source_id,edition,clause&order=id"
+    },
+    {
+      "file": "load-source-passages.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=source_id,edition,clause,normative&order=id"
+    },
+    {
+      "file": "load-source-passages.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=source_id,edition,clause&order=id"
     },
     {
       "file": "locate-0501-run.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2474,6 +3464,33 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "measure-aimsf-audit-scope.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "measure-aimsf-audit-scope.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code"
+    },
+    {
+      "file": "measure-aimsf-audit-scope.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id,passage_id"
     },
     {
       "file": "measure-attribution-exemption.mjs",
@@ -2566,6 +3583,42 @@
       "query": "lessons?select=id,slug,mcp_servable,content_md&language=eq.en&module_id=in.("
     },
     {
+      "file": "measure-clang-narrowing.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "measure-clang-narrowing.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code,statement&order=id"
+    },
+    {
+      "file": "measure-clang-narrowing.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,certification_id,task_id,question_text,"
+    },
+    {
+      "file": "measure-clang-narrowing.mjs",
+      "table": "question_concepts",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "question_concepts?select=question_id,concept_id&order=question_id"
+    },
+    {
       "file": "measure-concept-leak-sensitivity.mjs",
       "table": "certifications",
       "klass": "UNSAFE",
@@ -2595,7 +3648,7 @@
     {
       "file": "measure-concept-slug-drift.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2640,7 +3693,7 @@
     {
       "file": "measure-cue-expansion.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2649,7 +3702,7 @@
     {
       "file": "measure-cue-expansion.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2658,7 +3711,7 @@
     {
       "file": "measure-frontmatter-concepts.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2667,7 +3720,7 @@
     {
       "file": "measure-frontmatter-concepts.mjs",
       "table": "lesson_concepts",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2676,7 +3729,7 @@
     {
       "file": "measure-frontmatter-concepts.mjs",
       "table": "concepts",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2782,6 +3835,24 @@
       "query": "lesson_translation_reviews?select=lesson_id&limit=1"
     },
     {
+      "file": "measure-options-probe-baseline.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,question_text,options,correct_answer,status,pool,language"
+    },
+    {
+      "file": "measure-options-probe-baseline.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id&code=eq."
+    },
+    {
       "file": "measure-quotation-denominator.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -2865,7 +3936,7 @@
     {
       "file": "measure-tier-a-outcomes.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2874,7 +3945,7 @@
     {
       "file": "measure-tier-a-outcomes.mjs",
       "table": "exam_session_items",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2883,7 +3954,7 @@
     {
       "file": "measure-tier-a-outcomes.mjs",
       "table": "exam_attempts",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -2935,6 +4006,33 @@
       "query": "lessons?select=id,slug,language,content_md&language=eq.en"
     },
     {
+      "file": "pick-generation-task.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "pick-generation-task.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "pick-generation-task.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id,passage_id"
+    },
+    {
       "file": "pin-evaluacion.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -2969,6 +4067,51 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash"
+    },
+    {
+      "file": "pin-glossary-autofix.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "pin-glossary-autofix.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select="
+    },
+    {
+      "file": "pin-glossary-autofix.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select="
+    },
+    {
+      "file": "pin-glossary-autofix.mjs",
+      "table": "item_translation_reviews",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_translation_reviews?select=question_id,verdict&order=question_id"
+    },
+    {
+      "file": "pin-glossary-autofix.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select="
     },
     {
       "file": "pin-initialism-case.mjs",
@@ -3034,6 +4177,96 @@
       "query": "concept_translations?select=id,concept_id,language,name,description,is_provisional,tr_hash"
     },
     {
+      "file": "promote-13-lifecycle-controls.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "promote-13-lifecycle-controls.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "promote-13-lifecycle-controls.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title&order=id"
+    },
+    {
+      "file": "promote-13-lifecycle-controls.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
+      "file": "promote-13-lifecycle-controls.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
+      "file": "promote-thin-maps-93.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq."
+    },
+    {
+      "file": "promote-thin-maps-93.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "promote-thin-maps-93.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title,text&order=id"
+    },
+    {
+      "file": "promote-thin-maps-93.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
+      "file": "promote-thin-maps-93.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
       "file": "propose-ismsf-dispositions.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -3054,7 +4287,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3063,7 +4296,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "domains",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3072,7 +4305,7 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3081,11 +4314,47 @@
     {
       "file": "propose-match-terms.mjs",
       "table": "concepts",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
       "query": "concepts?select=id,slug,name,match_terms&certification_id=eq.${cert.id}&order=slug"
+    },
+    {
+      "file": "read-back-grounded-rows.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support_clause,source_id,edition,generator,model,created_a"
+    },
+    {
+      "file": "read-back-grounded-rows.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code&order=code"
+    },
+    {
+      "file": "rebalance-inserted-key-order.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id&order=question_id"
+    },
+    {
+      "file": "rebalance-inserted-key-order.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code&order=code"
     },
     {
       "file": "record-batch1-review.mjs",
@@ -3104,6 +4373,105 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,content_md"
+    },
+    {
+      "file": "redecue-pilot.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq."
+    },
+    {
+      "file": "redecue-pilot.mjs",
+      "table": "tasks",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "tasks?select=id,code&certification_id=eq."
+    },
+    {
+      "file": "redecue-pilot.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id"
+    },
+    {
+      "file": "redecue-pilot.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,clause&order=id"
+    },
+    {
+      "file": "redecue-pilot.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,question_text&certification_id=eq."
+    },
+    {
+      "file": "regate-pilot.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq."
+    },
+    {
+      "file": "regate-pilot.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code&order=code"
+    },
+    {
+      "file": "regate-pilot.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,exam_blueprint&code=eq."
+    },
+    {
+      "file": "regate-pilot.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id"
+    },
+    {
+      "file": "regate-pilot.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,clause&order=id"
+    },
+    {
+      "file": "regate-pilot.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,question_text&certification_id=eq."
     },
     {
       "file": "regenerate-moved-english.mjs",
@@ -3171,7 +4539,7 @@
     {
       "file": "regress-render-gates.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -3180,7 +4548,7 @@
     {
       "file": "regress-render-gates.mjs",
       "table": "task_translations",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -3189,7 +4557,7 @@
     {
       "file": "regress-render-gates.mjs",
       "table": "concepts",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -3198,7 +4566,7 @@
     {
       "file": "regress-render-gates.mjs",
       "table": "concept_translations",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -3207,7 +4575,7 @@
     {
       "file": "regress-render-gates.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -3295,6 +4663,186 @@
       "query": "concept_translation_reviews?select=language,verdict,seed,source_gate_ran,superseded_at&certifica"
     },
     {
+      "file": "report-aimsf-completion.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "report-aimsf-completion.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "report-aimsf-completion.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id&order=question_id"
+    },
+    {
+      "file": "report-aimsf-survivors.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "report-aimsf-survivors.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "report-aimsf-survivors.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,question_text,options,correct_answer,"
+    },
+    {
+      "file": "report-anchor-cap.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "report-anchor-cap.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code&order=code"
+    },
+    {
+      "file": "report-anchor-cap.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,pool,status,visibility,retired_at"
+    },
+    {
+      "file": "report-anchor-cap.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support_clause,source_id&order=question_id"
+    },
+    {
+      "file": "report-effective-primaries.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "report-effective-primaries.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "report-effective-primaries.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title,text&order=id"
+    },
+    {
+      "file": "report-effective-primaries.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id,passage_id"
+    },
+    {
+      "file": "report-grounding-orphans.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "report-grounding-orphans.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code&order=code"
+    },
+    {
+      "file": "report-grounding-orphans.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause&order=id"
+    },
+    {
+      "file": "report-grounding-orphans.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id,passage_id"
+    },
+    {
+      "file": "report-grounding-orphans.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support_clause,source_id,edition,generator&order=question_"
+    },
+    {
+      "file": "report-grounding-orphans.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,pool,status,item_origin,language,"
+    },
+    {
       "file": "report-harmonised-pairing.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -3311,6 +4859,51 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
+    },
+    {
+      "file": "report-iso-task-coverage.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code,name&order=code"
+    },
+    {
+      "file": "report-iso-task-coverage.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code,certification_id,statement,domain_id&order=id"
+    },
+    {
+      "file": "report-iso-task-coverage.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id"
+    },
+    {
+      "file": "report-iso-task-coverage.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title&order=id"
+    },
+    {
+      "file": "report-iso-task-coverage.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,pool,language,status,retired_at"
     },
     {
       "file": "report-missing-accents.mjs",
@@ -3412,6 +5005,42 @@
       "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
     },
     {
+      "file": "rerole-aimsf-judge-additions.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq."
+    },
+    {
+      "file": "rerole-aimsf-judge-additions.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "rerole-aimsf-judge-additions.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
+      "file": "rerole-aimsf-judge-additions.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
       "file": "rescore-concepts.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -3459,7 +5088,7 @@
     {
       "file": "retire-audit-480-tier-a.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3468,7 +5097,7 @@
     {
       "file": "retire-audit-480-tier-a.mjs",
       "table": "domains",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3477,7 +5106,7 @@
     {
       "file": "retire-audit-480-tier-a.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3486,7 +5115,7 @@
     {
       "file": "retire-audit-480-tier-a.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3495,7 +5124,7 @@
     {
       "file": "retire-audit-480-tier-a.mjs",
       "table": "exam_attempts",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3504,7 +5133,7 @@
     {
       "file": "retire-audit-480-tier-a.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "COUNT-ONLY",
@@ -3513,7 +5142,7 @@
     {
       "file": "retire-audit-480-tier-a.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3522,7 +5151,7 @@
     {
       "file": "retire-audit-480-tier-a.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3531,7 +5160,7 @@
     {
       "file": "retire-tier-a.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3540,7 +5169,7 @@
     {
       "file": "retire-tier-a.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "COUNT-ONLY",
@@ -3549,7 +5178,7 @@
     {
       "file": "retire-tier-a.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3558,7 +5187,7 @@
     {
       "file": "retire-tier-a.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3646,6 +5275,60 @@
       "query": "lessons?select=content_md,mcp_servable&id=eq."
     },
     {
+      "file": "rollout-shortfall.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "rollout-shortfall.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "rollout-shortfall.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause&order=id"
+    },
+    {
+      "file": "rollout-shortfall.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id,passage_id"
+    },
+    {
+      "file": "rollout-shortfall.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id&certification_id=eq."
+    },
+    {
+      "file": "rollout-shortfall.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support_clause,source_id&order=question_id"
+    },
+    {
       "file": "run-render-gates.mjs",
       "table": "lessons",
       "klass": "SAFE-SCALAR",
@@ -3657,7 +5340,7 @@
     {
       "file": "scan-2017-guide-markers.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3666,7 +5349,7 @@
     {
       "file": "scan-2017-guide-markers.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3675,7 +5358,7 @@
     {
       "file": "scan-2017-guide-markers.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -3763,9 +5446,81 @@
       "query": "mcp_leak_policy?select=threshold_words"
     },
     {
+      "file": "scope-13-candidates.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "scope-13-candidates.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement,knowledge,skills,abilities&order=code"
+    },
+    {
+      "file": "scope-13-candidates.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title,text,normative&order=id"
+    },
+    {
+      "file": "scope-13-candidates.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id,passage_id"
+    },
+    {
+      "file": "scope-damaged-primaries.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "scope-damaged-primaries.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code&order=code"
+    },
+    {
+      "file": "scope-damaged-primaries.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title&order=id"
+    },
+    {
+      "file": "scope-damaged-primaries.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id,passage_id"
+    },
+    {
       "file": "score-0501-drafts.mjs",
       "table": "lessons",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3799,6 +5554,33 @@
       "query": "lessons?select=slug,language,content_md,module_id,title,mcp_servable,mcp_iso_longest_run"
     },
     {
+      "file": "scrum-gloss-first-use.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "scrum-gloss-first-use.mjs",
+      "table": "modules",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id&order=id"
+    },
+    {
+      "file": "scrum-gloss-first-use.mjs",
+      "table": "lessons",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "lessons?select=id,module_id,slug,title,language,content_md&order=id"
+    },
+    {
       "file": "scrum-terminology-pass.mjs",
       "table": "certifications",
       "klass": "UNSAFE",
@@ -3826,6 +5608,42 @@
       "query": "lessons?select=id,slug,language,content_md&module_id=in.("
     },
     {
+      "file": "shortfall-13.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "shortfall-13.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code&order=code"
+    },
+    {
+      "file": "shortfall-13.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,status,pool&certification_id=eq."
+    },
+    {
+      "file": "shortfall-13.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support_clause,source_id&order=question_id"
+    },
+    {
       "file": "size-reemit.mjs",
       "table": "lessons",
       "klass": "SAFE-SCALAR",
@@ -3835,9 +5653,45 @@
       "query": "lessons?select=slug,content_md&language=eq.en&slug=eq."
     },
     {
+      "file": "smoke-quiz-answer-status.mjs",
+      "table": "quiz_questions",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,status,pool,retired_at,language,certification_id,correct_answer"
+    },
+    {
+      "file": "smoke-quiz-answer-status.mjs",
+      "table": "quiz_sessions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_sessions?select=id,user_id,kind&kind=in.(practice,review)"
+    },
+    {
+      "file": "smoke-quiz-answer-status.mjs",
+      "table": "quiz_sessions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_sessions?select=id,user_id,kind&kind=in.(certification_exam,mock_exam)"
+    },
+    {
+      "file": "smoke-quiz-answer-status.mjs",
+      "table": "quiz_attempts",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_attempts?select=id&user_id=eq."
+    },
+    {
       "file": "solve-audit-sample.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -3846,7 +5700,7 @@
     {
       "file": "solve-audit-sample.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
@@ -3855,7 +5709,7 @@
     {
       "file": "solve-audit-sample.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3925,6 +5779,78 @@
       "query": "concepts?select=slug,description,retired_at"
     },
     {
+      "file": "sweep-42006-extension-claim.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "sweep-42006-extension-claim.mjs",
+      "table": "quiz_questions",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,certification_id,language,question_text,"
+    },
+    {
+      "file": "sweep-42006-extension-claim.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code&order=id"
+    },
+    {
+      "file": "sweep-42006-extension-claim.mjs",
+      "table": "task_concepts",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_concepts?select=task_id,concept_id&order=task_id,concept_id"
+    },
+    {
+      "file": "sweep-42006-extension-claim.mjs",
+      "table": "concepts",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concepts?select=id,slug,name,description&order=id"
+    },
+    {
+      "file": "sweep-42006-extension-claim.mjs",
+      "table": "concept_translations",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "concept_translations?select=concept_id,language,name,description&order=concept_id,language"
+    },
+    {
+      "file": "sweep-42006-extension-claim.mjs",
+      "table": "modules",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "modules?select=id,certification_id&order=id"
+    },
+    {
+      "file": "sweep-42006-extension-claim.mjs",
+      "table": "lessons",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "lessons?select=id,module_id,language,slug,title,content_md&module_id=in.("
+    },
+    {
       "file": "sweep-clausula.mjs",
       "table": "certifications",
       "klass": "SAFE-PAGED",
@@ -3945,7 +5871,7 @@
     {
       "file": "sweep-item-translations.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -3954,11 +5880,74 @@
     {
       "file": "sweep-item-translations.mjs",
       "table": "quiz_questions",
-      "klass": "SAFE-PAGED",
+      "klass": "SAFE-SCALAR",
       "limit": null,
       "dynamic": true,
       "purpose": "rows",
       "query": "quiz_questions?select="
+    },
+    {
+      "file": "sweep-key-exposure.mjs",
+      "table": "quiz_questions",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,pool,status,visibility,retired_at"
+    },
+    {
+      "file": "sweep-key-exposure.mjs",
+      "table": "certifications",
+      "klass": "CAPPED",
+      "limit": 1,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=code&limit=1"
+    },
+    {
+      "file": "sweep-key-exposure.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=question_text&id=eq."
+    },
+    {
+      "file": "sweep-key-exposure.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=correct_answer&id=eq."
+    },
+    {
+      "file": "sweep-key-exposure.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=question_text&id=eq."
+    },
+    {
+      "file": "sweep-key-exposure.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=explanation&id=eq."
+    },
+    {
+      "file": "sweep-key-exposure.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=explanation&id=eq."
     },
     {
       "file": "sweep-modal-inflation.mjs",
@@ -4006,6 +5995,60 @@
       "query": "concepts?select=id,slug,name,description,certification_id,retired_at"
     },
     {
+      "file": "sweep-served-noise.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "sweep-served-noise.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,language,question_text,options,explanation,"
+    },
+    {
+      "file": "thin-map-proposals.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "thin-map-proposals.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement,knowledge,skills,abilities&order=code"
+    },
+    {
+      "file": "thin-map-proposals.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title&order=id"
+    },
+    {
+      "file": "thin-map-proposals.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role&order=task_id,passage_id"
+    },
+    {
       "file": "triage-held-paragraphs.mjs",
       "table": "lessons",
       "klass": "SAFE-PAGED",
@@ -4022,6 +6065,51 @@
       "dynamic": true,
       "purpose": "rows",
       "query": "lessons?select=id,slug,content_md,lesson_group_id&language=eq.en&lesson_group_id=eq."
+    },
+    {
+      "file": "verify-13-inserted.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "verify-13-inserted.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code&order=code"
+    },
+    {
+      "file": "verify-13-inserted.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,language,question_text,options,"
+    },
+    {
+      "file": "verify-13-inserted.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support_clause,key_support,source_id,edition&order=questio"
+    },
+    {
+      "file": "verify-13-inserted.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,status,pool,retired_at,task_id"
     },
     {
       "file": "verify-367.mjs",
@@ -4051,6 +6139,51 @@
       "query": "lessons?select=mcp_servable&id=eq."
     },
     {
+      "file": "verify-382-cap.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id&created_by=eq."
+    },
+    {
+      "file": "verify-382-cap.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,created_by&created_by=eq."
+    },
+    {
+      "file": "verify-382-cap.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIE-I"
+    },
+    {
+      "file": "verify-382-cap.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code&order=code"
+    },
+    {
+      "file": "verify-382-cap.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "COUNT-ONLY",
+      "query": "quiz_questions?select=id&created_by=eq."
+    },
+    {
       "file": "verify-aimsf-translations.mjs",
       "table": "certifications",
       "klass": "SAFE-SCALAR",
@@ -4078,9 +6211,54 @@
       "query": "concept_translations?select=concept_id,language,name,description,en_hash,is_provisional,review_s"
     },
     {
+      "file": "verify-drafts-unreachable.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "verify-drafts-unreachable.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id&certification_id=eq."
+    },
+    {
+      "file": "verify-en-defects-sample.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "verify-en-defects-sample.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,code&order=id"
+    },
+    {
+      "file": "verify-en-defects-sample.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,certification_id,task_id,question_group_id,language&language=in.(es-419"
+    },
+    {
       "file": "verify-invariants.mjs",
       "table": "certifications",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -4089,7 +6267,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "concepts",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -4098,7 +6276,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "tasks",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -4107,7 +6285,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "domains",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -4116,7 +6294,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "task_concepts",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -4125,7 +6303,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "lesson_concepts",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -4134,7 +6312,7 @@
     {
       "file": "verify-invariants.mjs",
       "table": "drift_rules",
-      "klass": "SAFE-PAGED",
+      "klass": "UNSAFE",
       "limit": null,
       "dynamic": false,
       "purpose": "rows",
@@ -4148,6 +6326,150 @@
       "dynamic": false,
       "purpose": "rows",
       "query": "lessons?select=id,slug,language,lesson_group_id,mcp_translation_review_required"
+    },
+    {
+      "file": "write-412-hand-link.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq."
+    },
+    {
+      "file": "write-412-hand-link.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "write-412-hand-link.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title&order=id"
+    },
+    {
+      "file": "write-412-hand-link.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
+      "file": "write-412-hand-link.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id,passage_id"
+    },
+    {
+      "file": "write-explanation-backlog.mjs",
+      "table": "certifications",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&code=eq.AIMS-F"
+    },
+    {
+      "file": "write-explanation-backlog.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "write-explanation-backlog.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id,question_text,options,correct_answer,"
+    },
+    {
+      "file": "write-task-sources.mjs",
+      "table": "certifications",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "certifications?select=id,code&order=code"
+    },
+    {
+      "file": "write-task-sources.mjs",
+      "table": "tasks",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "tasks?select=id,certification_id,code,statement&order=code"
+    },
+    {
+      "file": "write-task-sources.mjs",
+      "table": "source_passages",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "source_passages?select=id,source_id,edition,clause,title&order=id"
+    },
+    {
+      "file": "write-task-sources.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id"
+    },
+    {
+      "file": "write-task-sources.mjs",
+      "table": "task_sources",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "task_sources?select=task_id,passage_id,role,added_by&order=task_id"
+    },
+    {
+      "file": "_pg.mjs",
+      "table": "quiz_questions",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "quiz_questions?select=status"
+    },
+    {
+      "file": "anchor-cap-census.mjs",
+      "table": "item_grounding",
+      "klass": "UNSAFE",
+      "limit": null,
+      "dynamic": false,
+      "purpose": "rows",
+      "query": "item_grounding?select=question_id,key_support_clause,source_id&order=question_id"
+    },
+    {
+      "file": "anchor-cap-census.mjs",
+      "table": "quiz_questions",
+      "klass": "SAFE-SCALAR",
+      "limit": null,
+      "dynamic": true,
+      "purpose": "rows",
+      "query": "quiz_questions?select=id,task_id&certification_id=eq."
     }
   ]
 }

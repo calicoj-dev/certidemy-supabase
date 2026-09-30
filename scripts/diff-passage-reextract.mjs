@@ -16,11 +16,30 @@
  * removing a doubled word (NO -- a doubling changes it, so doublings are reported separately), and moving
  * the title out of the statement (also a real change, reported separately).
  *
- * So there are THREE verdicts, not two:
- *   pure-join    the invariant form is identical: only spaces and hyphens moved. Safe by construction.
+ * So there are FOUR verdicts, not two:
+ *   pure-join    the invariant SEQUENCE is identical: only spaces and hyphens moved. Safe by construction.
+ *   de-columned  the sequence differs and the MULTISET of letters and digits does not. Characters were
+ *                reordered and none was invented. Reported under its own name, never folded into pure-join.
  *   text-moved   the form differs, and the difference is accounted for by a removed prefix (title bleed)
  *                or a removed duplicate span. Shown in full for a human.
  *   WORDING      the form differs and nothing accounts for it. A FAILURE by the ruling.
+ *
+ * ============ WHY THE FOURTH VERDICT EXISTS, AND WHY IT IS NOT A LOOSENING ============
+ *
+ * Added 2026-09-30, PROMPT-95 follow-up 2, when nine de-columned ISO/IEC 42001 Annex A controls came through
+ * here and SIX were reported WORDING. They are not rewordings. A three-column table row read line by line
+ * interleaves the control's NAME with its STATEMENT, so repairing it means moving characters from the middle
+ * of the string to the end -- which changes the SEQUENCE by construction while creating nothing.
+ *
+ * The harness had three states for a property with four, and the missing one is the state a correct repair
+ * lands in. That is this repository's own recurring defect arriving inside the instrument built to check a
+ * repair: folding it into WORDING blocks the right fix, and folding it into pure-join would claim a sequence
+ * check that was never run.
+ *
+ * IT IS A REAL CHECK AND NOT A CONCESSION: a genuine reword changes which letters are present, so the
+ * multiset catches it. What the multiset cannot see is two words SWAPPED -- so `de-columned` is shown in full
+ * for a human every time, with no cap, and is counted separately in the summary. A verdict that needs a human
+ * read must not be able to hide in a count.
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -42,6 +61,13 @@ const mapA = new Map(after.passages.map((p) => [key(p), p]));
 
 /* the noise-invariant form: letters and digits only */
 const inv = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+/* the same characters as an order-free MULTISET, for the de-columned verdict */
+const bag = (s) => [...inv(s)].sort().join("");
+/* page furniture a repair is allowed to drop, DECLARED with the reason it is furniture rather than text */
+const DECLARED_NOISE = [
+  ["Table A.1 (continued)", "the continued-table caption"],
+  ["Table A.1", "the table caption"],
+];
 
 const changed = [], added = [], removed = [];
 for (const [k, a] of mapA) {
@@ -55,6 +81,33 @@ for (const [k, b] of mapB) if (!mapA.has(k)) removed.push({ k, b });
 const classify = (c) => {
   const ib = inv(c.b.text), ia = inv(c.a.text);
   if (ib === ia) return { verdict: "pure-join", why: "only spaces and hyphens moved" };
+  /* SAME CHARACTERS, DIFFERENT ORDER: a de-columning. Checked before the removal tests, because a de-columned
+   * row often ALSO drops a caption and would otherwise be filed under the weaker verdict.
+   *
+   * THE PAIRING MATTERS AND THE FIRST VERSION GOT IT WRONG. An interleaved row's whole content -- name AND
+   * statement -- sat in the `text` field, and de-columning moves the name OUT of text and INTO title. So
+   * comparing text against text reports every one of them as a loss. The comparison is `before.text` against
+   * `after.title + after.text`, and each arm tried is NAMED in the verdict, because "the multiset matched"
+   * means nothing without saying which two things were compared. */
+  const arms = [
+    ["before.text vs after.title+text", String(c.b.text), String(c.a.title) + " " + String(c.a.text)],
+    ["text vs text", String(c.b.text), String(c.a.text)],
+    ["title+text vs title+text", String(c.b.title) + " " + String(c.b.text),
+      String(c.a.title) + " " + String(c.a.text)],
+  ];
+  for (const [armName, lhs, rhs] of arms) {
+    if (bag(lhs) === bag(rhs)) {
+      return { verdict: "de-columned", why: "the letter multiset is identical (" + armName +
+        "): characters moved, none invented" };
+    }
+    for (const [span, why] of DECLARED_NOISE) {
+      if (!lhs.includes(span)) continue;
+      if (bag(lhs.split(span).join(" ")) === bag(rhs)) {
+        return { verdict: "de-columned", why: "the letter multiset is identical (" + armName + ") once " +
+          JSON.stringify(span) + " is removed (" + why + "): characters moved, none invented" };
+      }
+    }
+  }
   /* a removed title prefix accounts for the difference */
   const tb = inv(c.b.title);
   if (tb && ib.startsWith(tb) && ib.slice(tb.length) === ia) {
@@ -85,6 +138,7 @@ p("");
 p("| verdict | passages | meaning |");
 p("|---|---|---|");
 p("| `pure-join` | " + (byVerdict["pure-join"] || 0) + " | only spaces and hyphens moved; safe by construction |");
+p("| `de-columned` | " + (byVerdict["de-columned"] || 0) + " | the letter MULTISET is identical: characters moved, none invented. **Every one is shown in full below, uncapped, because a multiset cannot see two words swapped** |");
 p("| `text-moved` | " + (byVerdict["text-moved"] || 0) + " | a title prefix or column tail moved; shown for a human |");
 p("| **`WORDING`** | **" + (byVerdict.WORDING || 0) + "** | **the letter sequence differs with nothing to account for it -- a FAILURE** |");
 p("");
@@ -94,12 +148,15 @@ if (added.length || removed.length) {
   for (const x of removed.slice(0, 20)) p("- REMOVED `" + x.k + "`");
   p("");
 }
-for (const v of ["WORDING", "text-moved", "pure-join"]) {
+for (const v of ["WORDING", "de-columned", "text-moved", "pure-join"]) {
   const mine = changed.filter((c) => c.verdict === v);
-  p("## `" + v + "` -- " + mine.length + ", first 10");
+  /* a de-columned row needs a HUMAN READ, so it is never capped: a cap on the one verdict that defers to a
+   * reader is a cap on the reading, and the count would then stand in for it. */
+  const cap = v === "de-columned" ? mine.length : 10;
+  p("## `" + v + "` -- " + mine.length + (cap >= mine.length ? ", all shown" : ", first " + cap));
   p("");
   if (!mine.length) { p("_none_"); p(""); continue; }
-  for (const c of mine.slice(0, 10)) {
+  for (const c of mine.slice(0, cap)) {
     p("### `" + c.k + "`   (" + c.why + ")");
     p("");
     if (String(c.b.title) !== String(c.a.title)) {
@@ -107,8 +164,11 @@ for (const v of ["WORDING", "text-moved", "pure-join"]) {
       p("- title AFTER : " + JSON.stringify(String(c.a.title)));
     }
     if (String(c.b.text) !== String(c.a.text)) {
-      p("- text BEFORE: " + JSON.stringify(String(c.b.text).slice(0, 300)));
-      p("- text AFTER : " + JSON.stringify(String(c.a.text).slice(0, 300)));
+      /* a de-columned row is shown WHOLE. A 300-character window on the one verdict that asks for a read
+       * would hide the tail, which is precisely where a column rejoins. */
+      const lim = v === "de-columned" ? Infinity : 300;
+      p("- text BEFORE: " + JSON.stringify(String(c.b.text).slice(0, lim)));
+      p("- text AFTER : " + JSON.stringify(String(c.a.text).slice(0, lim)));
     }
     p("");
   }

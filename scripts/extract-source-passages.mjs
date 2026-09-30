@@ -2300,7 +2300,14 @@ for (const p of passages) delete p.textAlt;
       p.text = o.statement;
       p.chars = o.statement.length;
       if (o.title) p.title = o.title;
-      p.provenance = "reviewed override, 27001 PDF page " + o.page;
+      /* THE PROVENANCE NAMES THE SOURCE IT CAME FROM, DERIVED, NOT TYPED. This read `"27001 PDF page"` as a
+       * literal while the loop had already been generalised to every `source-overrides-*.json` file -- so
+       * every ISO/IEC 42001 override recorded its provenance as 27001. A provenance line that names the wrong
+       * document is worse than none: it is the one field a reader consults to go back and check. And `page`
+       * is absent on overrides produced by a cut rather than from a page, so it is reported as its own state
+       * rather than printed as `undefined`. */
+      p.provenance = "reviewed override, " + spec.source_id + ":" + spec.edition +
+        (o.page ? " PDF page " + o.page : " (" + (o.kind || "cut from the extracted text") + ", no page cited)");
       applied.push(o.clause);
     }
     console.log("  " + ovFile + "  applied " + applied.length +
