@@ -5657,7 +5657,7 @@
      }
     ],
     "correct_index": 0,
-    "explanation": "Clause 3.11's third note to the definition of performance explains that, for the purposes of this document, the word takes in both the results that come from using AI systems and the results associated with the AI management system, with context showing which reading applies. The term therefore spans both at once; the second option restates the separate definition of effectiveness in 3.13, and the remaining options each discard part of what the note includes.",
+    "explanation": "Clause 3.11's third note to the definition of performance explains that, for the purposes of this document, the word takes in both the results that come from using AI systems and the results associated with the AI management system, with context showing which reading applies. The term therefore spans both at once; the description about planned activities being carried out and intended results reached restates the separate definition of effectiveness in 3.13, and the remaining options each discard part of what the note includes.",
     "key_support_clause": "3.11",
     "key_support": "Note 3 to entry: In the context of this document, performance refers both to results achieved by using AI systems and results related to the AI management system (3.4).",
     "distractor_support": [
