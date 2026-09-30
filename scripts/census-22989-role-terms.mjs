@@ -125,6 +125,7 @@ for (const r of ROLES) {
 /* ---- the collision with the existing eu_ai_act family ---- */
 const g = JSON.parse(readFileSync(join(ROOT, "scripts/lib/translation-glossary.json"), "utf8"));
 const eu = g.families.eu_ai_act;
+const iso = g.families.iso_22989_roles || { terms: [] };
 console.log("COLLISION CHECK against the existing eu_ai_act family");
 console.log("  its scope: " + JSON.stringify(eu.scope));
 for (const t of eu.terms || []) {
@@ -145,10 +146,40 @@ for (const t of eu.terms || []) {
       }
     }
   }
-  console.log("  `" + t.key + "` vs " + mine.en + "   " + (clash.length ? "CLASH" : "consistent"));
+  /* ============ A CLASH CAN BE DECLARED AND CONTAINED, WHICH IS A THIRD STATE ============
+   *
+   * PROMPT-95 s4 decided the pt form of 22989's AI provider, knowing it contradicts `eu_ai_act`. So this
+   * check would go on printing CLASH about a resolved question forever -- and a check that keeps crying wolf
+   * about a decision already taken is one the next reader learns to skip, taking the real alarm with it.
+   *
+   * THE DECLARATION IS NOT TAKEN ON TRUST. It counts as containment only if the `iso_22989_roles` side
+   * carries a `clash_declared` note AND the `eu_ai_act` side is actually `regulation_scoped`, which is the
+   * mechanism the containment rests on. A declaration claiming a containment that is not in the code is
+   * worse than an open alarm. */
+  const mineTerm = (iso.terms || []).find((x) => String(x.en).toLowerCase() === String(mine.en).toLowerCase() &&
+    x.clash_declared);
+  const contained = clash.length && mineTerm && t.regulation_scoped === true;
+  const declaredNoMechanism = clash.length && mineTerm && t.regulation_scoped !== true;
+  console.log("  `" + t.key + "` vs " + mine.en + "   " +
+    (!clash.length ? "consistent"
+      : contained ? "CLASH, DECLARED AND CONTAINED"
+        : declaredNoMechanism ? "CLASH, DECLARED WITHOUT A MECHANISM -- the declaration claims containment " +
+          "that `regulation_scoped` does not provide"
+          : "CLASH"));
   for (const c of clash) console.log("      " + c);
+  if (contained) {
+    console.log("      contained by: eu_ai_act `" + t.key + "` is regulation_scoped, so it downgrades to a " +
+      "flag in a row that is not about the Regulation");
+    console.log("      declared in:  iso_22989_roles `" + mineTerm.key + "`.clash_declared");
+    console.log("      STILL A FAILURE where a pt row IS about the Regulation and uses the 22989 form. A row " +
+      "about both framings has to pick one.");
+  }
 }
 console.log("");
 console.log("A term whose corpus form contradicts an existing family is NOT written silently. Two families");
 console.log("scoped to one certification giving opposite verdicts on one word is the same defect as two");
 console.log("certifications asserting opposite things about a standard -- it just fits inside one lint.");
+console.log("");
+console.log("THREE STATES, not two: consistent, CLASH, and CLASH DECLARED AND CONTAINED. The third needs a");
+console.log("`clash_declared` note on the 22989 side AND `regulation_scoped` on the eu_ai_act side, because a");
+console.log("declaration claiming a containment the code does not provide is worse than an open alarm.");

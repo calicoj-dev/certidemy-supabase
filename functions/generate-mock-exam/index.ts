@@ -50,6 +50,10 @@ import { normStem, stemIdentity } from "../_shared/item-rules/stem-identity.mjs"
 // of (session_id, question_id), so a resumed session renders the same order rather than moving under the
 // candidate. get-active-exam-session imports the same function for exactly that reason.
 import { orderOptionsForAttempt } from "../_shared/item-rules/option-order.mjs";
+/* PROMPT-95 s3. ONE implementation of the enemy rule, so the rule this assembler enforces is the rule
+ * `scripts/test-enemy-rule.mjs` exercises -- a second copy of the option normalisation would surface as an
+ * item dropped for an option it does not share, which nobody could reproduce. */
+import { enemyKeyOf, enemyReason, markEnemy } from "../_shared/item-rules/enemy-rule.mjs";
 
 const SUPPORTED_LANGUAGES = ["en", "es-419", "pt-BR"] as const;
 type Language = (typeof SUPPORTED_LANGUAGES)[number];
@@ -80,6 +84,16 @@ interface QuestionRow {
   domain_id: string | null;
   /** Identity for the one-variant-per-stem rule. See `stemIdentity`. */
   dedupe_key: string;
+  /**
+   * PROMPT-95 s3, the ENEMY KEY: `source|edition|clause` for a grounded item, and `null` for an authored one.
+   *
+   * REQUIRED for the same reason `options_fixed_order` is. A field the `candidates` mapping forgets to carry
+   * reads as `undefined` at the use site, `undefined` is falsy, and the rule silently becomes "nothing is an
+   * enemy" -- a guard that cannot fire, which this repository records as indistinguishable from a guard that
+   * fired and found nothing. Required means `deno check` refuses the mapping rather than a candidate
+   * discovering it.
+   */
+  enemy_key: string | null;
 }
 
 // ============ THE DUPLICATE RULE IS ABOUT IDENTITY, NOT TEXT ============
@@ -372,11 +386,45 @@ serve(async (req) => {
       }
     }
 
+    // ============ THE ENEMY KEY: (source, clause) FOR A GROUNDED ITEM ==================
+    //
+    // Ruled PROMPT-95 s3. The generator caps items at 2 per clause PER TASK, so one sentence of the standard
+    // is examined from several tasks and a single form can carry it three or four times. Measured on AIMS-F:
+    // 67 distinct grounded clauses, 26 of them carrying more than one item, 20 of those 26 spanning MORE THAN
+    // ONE DOMAIN. That last figure is why this cannot live inside `pickAcrossTasksBalanced`, which sees one
+    // domain: a per-domain rule is blind to exactly the case that motivated the rule.
+    //
+    // So the enemy set is FORM-WIDE, threaded through the per-domain picks below.
+    //
+    // A MISSING GROUNDING ROW MEANS "NOT GROUNDED", WHICH IS CORRECT AND IS ALSO THE FAILURE MODE. An
+    // authored item has no grounding row and is unconstrained, which is the ruling. But a FAILED read would
+    // produce the same empty map and degrade the rule to "nothing is an enemy" -- the silent-success shape
+    // this repository is built around. So the error is thrown, never swallowed.
+    const enemyKeyById = new Map<string, string>();
+    {
+      const ids = question_rows.map((q: any) => q.id);
+      // chunked, because a PostgREST `in.()` list of several hundred uuids is a URL, and a URL has a length
+      for (let i = 0; i < ids.length; i += 200) {
+        const slice = ids.slice(i, i + 200);
+        const { data: gRows, error: gErr } = await svc
+          .from("item_grounding")
+          .select("question_id, source_id, edition, key_support_clause")
+          .in("question_id", slice);
+        if (gErr) throw new HttpError(500, "could not read item_grounding for the enemy rule");
+        for (const r of gRows ?? []) {
+          const k = enemyKeyOf(r);
+          if (r.question_id && k) enemyKeyById.set(r.question_id, k);
+        }
+      }
+    }
+
     const candidates: QuestionRow[] = question_rows.map((q: any) => ({
       id: q.id,
       question_text: q.question_text,
       question_type: q.question_type,
       options: q.options,
+      // null for an authored item, which is unconstrained by the enemy rule
+      enemy_key: enemyKeyById.get(q.id) ?? null,
       // Carried through, because the serve site reads it. Dropping it here would make the fixed-order
       // marker silently inert -- the flag set, the code reading it, and `undefined` every time.
       options_fixed_order: q.options_fixed_order === true,
@@ -401,12 +449,25 @@ serve(async (req) => {
     const selected: QuestionRow[] = [];
     const chosen = new Set<string>();
     const shortfalls: { code: string; need: number; have: number }[] = [];
+    // ============ FORM-WIDE ENEMY SETS, MUTATED ACROSS THE DOMAIN LOOP ============
+    //
+    // Deliberately declared OUT here rather than inside `pickAcrossTasksBalanced`: 20 of AIMS-F's 26
+    // multi-item clauses span more than one domain, so a set scoped to one domain would be blind to the
+    // exact case the rule exists for.
+    //
+    // A DOMAIN PROCESSED EARLY CONSUMES CLAUSES THE NEXT ONE MIGHT HAVE WANTED, and that is accepted rather
+    // than solved with a matching algorithm, for a measured reason: on AIMS-F every domain can supply 55 to
+    // 84 items against a quota of 6 to 10, so the constraint is nowhere near binding. Where it ever does
+    // bind, step 8 REFUSES the exam by name -- loud and total, which is the failure this system wants.
+    const usedEnemy = new Set<string>();
+    const usedOptionText = new Set<string>();
 
     for (const d of domains) {
       const quota = allocation.get(d.id) ?? 0;
       if (quota === 0) continue;
       const poolForDomain = (byDomain.get(d.id) ?? []).filter((q) => !chosen.has(q.id));
-      const picked = pickAcrossTasksBalanced(poolForDomain, quota, difficulty_mix);
+      const picked = pickAcrossTasksBalanced(poolForDomain, quota, difficulty_mix,
+        usedEnemy, usedOptionText);
       for (const q of picked) {
         chosen.add(q.id);
         selected.push(q);
@@ -559,6 +620,14 @@ function pickAcrossTasksBalanced(
   pool: QuestionRow[],
   quota: number,
   mix: Record<string, number> | null = null,
+  /**
+   * PROMPT-95 s3. FORM-WIDE sets, owned by the caller and MUTATED here, so a clause consumed by one domain
+   * is unavailable to the next. Both default to a fresh set, which makes the rule inert -- deliberately, so
+   * the existing unit tests of this function keep testing what they were written to test, and so a caller
+   * that forgets them fails OPEN rather than silently dropping items. The one real caller passes them.
+   */
+  usedEnemy: Set<string> = new Set(),
+  usedOptionText: Set<string> = new Set(),
 ): QuestionRow[] {
   if (pool.length === 0 || quota === 0) return [];
 
@@ -586,10 +655,38 @@ function pickAcrossTasksBalanced(
   const stemShuffled = [...pool];
   shuffle(stemShuffled);
   const seenStem = new Set<string>();
+  const local = { enemy: new Set<string>(), optionText: new Set<string>() };
   const deduped: QuestionRow[] = [];
   for (const q of stemShuffled) {
     if (seenStem.has(q.dedupe_key)) continue;
+    // ============ THE ENEMY RULE, APPLIED IN THE SAME PLACE AND FOR THE SAME REASON ============
+    //
+    // Ruled PROMPT-95 s3. Two enemies, filtered here rather than after selection for exactly the reason the
+    // stem dedupe gives above: filtering afterwards leaves the quota short and trips the integrity gate on a
+    // pool that could have filled it.
+    //
+    //   (source, clause)   at most ONE grounded item per clause on a form. The cap of 2 in the generator is
+    //                      per TASK, and a clause examined from three tasks reaches one form three times,
+    //                      teaching one sentence three times and over-weighting it against the blueprint.
+    //   option text        at most one item per shared option text. `b25f378f`'s option B was character-
+    //                      identical to `dfc8a1bf`'s KEY, in the same task: on one form, one item hands the
+    //                      other's answer over. Measured on AIMS-F: 3 shared option texts today.
+    //
+    // THE 12-CHARACTER FLOOR ON AN OPTION TEXT IS A THRESHOLD AND IS STATED WITH WHAT IT EXCLUDES: short
+    // options are boilerplate ("None of the above", "Both A and B"), and two items sharing one of those hand
+    // nothing over. Measured at this floor the corpus has 3 collisions; with no floor it would also catch
+    // every pair that happens to share a stock phrase, which is a guard firing on the normal case.
+    // THE DEDUPE PASS READS THE FORM-WIDE SETS AND DOES NOT WRITE TO THEM, and getting that backwards was a
+    // real defect in the first version: this loop walks the WHOLE domain pool, so marking here would have
+    // consumed 80 clauses for a quota of 6 and starved every later domain -- turning a constraint with
+    // enormous headroom into an integrity-gate refusal. The form-wide sets are written from the items
+    // ACTUALLY RETURNED, at the bottom of this function. A local copy carries the intra-domain half, which
+    // is sound because at most one per FORM implies at most one per DOMAIN.
+    if (enemyReason(q, { enemy: usedEnemy, optionText: usedOptionText })) continue;
+    if (enemyReason(q, local)) continue;
+
     seenStem.add(q.dedupe_key);
+    markEnemy(q, local);
     deduped.push(q);
   }
   pool = deduped;
@@ -623,8 +720,13 @@ function pickAcrossTasksBalanced(
   // Now balance difficulty across the round-robin-ordered list. A cert with an
   // exam_blueprint stratifies to ITS declared mix; everything else keeps 30/50/20.
   const n = Math.min(quota, roundRobin.length);
-  return mix ? pickByMix(roundRobin, n, mix) : pickBalancedDifficulty(roundRobin, n);
+  const out = mix ? pickByMix(roundRobin, n, mix) : pickBalancedDifficulty(roundRobin, n);
+  // THE FORM-WIDE SETS ARE WRITTEN HERE, FROM WHAT IS ACTUALLY RETURNED, and nowhere earlier. See the note
+  // in the dedupe loop: marking during the dedupe consumed the whole domain pool for a quota of six.
+  for (const q of out) markEnemy(q, { enemy: usedEnemy, optionText: usedOptionText });
+  return out;
 }
+
 
 function pickBalancedDifficulty(pool: QuestionRow[], quota: number): QuestionRow[] {
   const mix = { easy: 0.3, medium: 0.5, hard: 0.2 };

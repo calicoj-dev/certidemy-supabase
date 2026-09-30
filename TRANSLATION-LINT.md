@@ -7,12 +7,12 @@ Nothing was written.
 |---|---|
 | rows examined | 18453 (approved, not retired, es-419 + pt-BR, pool=all) |
 | rows with no English sibling | 5 |
-| findings | 3669 |
+| findings | 3689 |
 | FORBIDDEN (gate failure) | 139 |
-| MIXED (flag) | 2662 |
+| MIXED (flag) | 2682 |
 | UNTRANSLATED (flag) | 868 |
 | UNCHECKED (could not run) | 0 |
-| distinct rows involved | 1807 |
+| distinct rows involved | 1810 |
 
 **UNCHECKED is a third state, not a pass.** It is a row carrying `deveria` whose English sibling is
 missing, so the relative modal rule could not run. A rule that cannot see its source abstains.
@@ -29,15 +29,16 @@ held, so `apresentação justa` is a house form and is only ever a flag.
 
 | certification | language | forbidden | mixed | untranslated | unchecked | rows |
 |---|---|---|---|---|---|---|
-| AIE-I | pt-BR | 0 | 92 | 0 | 0 | 55 |
+| AIE-I | pt-BR | 0 | 94 | 0 | 0 | 55 |
 | AIGRM-I | es-419 | 2 | 32 | 80 | 0 | 40 |
 | AIGRM-I | pt-BR | 127 | 490 | 82 | 0 | 250 |
 | AIHR-I | es-419 | 0 | 2 | 0 | 0 | 2 |
 | AIHR-I | pt-BR | 0 | 421 | 0 | 0 | 160 |
 | AIMS-F | es-419 | 0 | 5 | 232 | 0 | 106 |
-| AIMS-F | pt-BR | 0 | 356 | 219 | 0 | 231 |
+| AIMS-F | pt-BR | 0 | 371 | 219 | 0 | 231 |
 | AIMS-IA | es-419 | 0 | 4 | 131 | 0 | 93 |
 | AIMS-IA | pt-BR | 0 | 394 | 124 | 0 | 291 |
+| AISM-I | pt-BR | 0 | 3 | 0 | 0 | 3 |
 | ISMS-F | pt-BR | 2 | 132 | 0 | 0 | 93 |
 | ISMS-IA | es-419 | 0 | 2 | 0 | 0 | 2 |
 | ISMS-IA | pt-BR | 0 | 158 | 0 | 0 | 116 |
@@ -70,6 +71,7 @@ held, so `apresentação justa` is a house form and is only ever a flag.
 | eu_ai_act.deployer `desplegador` | mixed | 39 |
 | scrum_2020.scrum-team `Time Scrum` | mixed | 28 |
 | eu_ai_act.deployer `implantadores` | mixed | 24 |
+| iso_22989_roles.ai_provider-provedor `provedor de IA` | mixed | 20 |
 | eu_ai_act.deployer `deployer` | mixed | 16 |
 | text_quality.doubled-word | mixed | 10 |
 | scrum_2020.development-team-retired `Equipo de Desarrollo` | forbidden | 6 |

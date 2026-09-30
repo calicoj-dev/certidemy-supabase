@@ -510,11 +510,6 @@
         "AISM-I"
       ],
       "severity_rule": "failure where one form is UNANIMOUS (no competing form attested) and appears at least 10 times; flag otherwise. A failure blocks a row, and blocking on a term seen twice would be a rule built on two observations.",
-      "provider_is_absent_deliberately": {
-        "why": "The eu_ai_act family says pt `prestador` and FORBIDS `fornecedor`. The corpus renders 22989's AI provider as `fornecedor de IA` 65 times, `provedor de IA` 21, and `prestador de IA` ZERO. Both families scope AIMS-F, so an entry here would put two families in contradiction about one word.",
-        "contained_today": "`regulation_scoped` in eu_ai_act downgrades `fornecedor` to a FLAG in a row that is not about the Regulation. 983 lint findings mention it; none is a failure. Nothing is broken.",
-        "open_decision": "Does 22989's AI provider render as `fornecedor de IA` (the corpus, 65) or `prestador de IA` (eu_ai_act's expected, 0 occurrences)? Director's call. Until it is made, no 22989 entry claims the word, and `provider` keeps its single existing rule."
-      },
       "terms": [
         {
           "key": "ai_producer",
@@ -707,6 +702,70 @@
           "autofix_note": "Not auto-fixable. A role name is the subject of the item it appears in, so a bulk substitution may only run over a read sample, with the non-role senses excluded by id.",
           "enforceable": false,
           "enforceable_note": "NO forbidden variant, so this entry CANNOT FIRE and is a RECORD of the house form rather than a rule. Attested 1/2 times, which is too thin to pin a confusable on -- that would be a rule built on two observations."
+        },
+        {
+          "key": "ai_provider",
+          "en": "AI provider",
+          "es": "proveedor de IA",
+          "pt": "fornecedor de IA",
+          "forbidden": {
+            "es": [
+              "suministrador de IA"
+            ],
+            "pt": []
+          },
+          "severity": "failure",
+          "attested": {
+            "es-419": 93,
+            "pt-BR": 65
+          },
+          "note": "DECIDED PROMPT-95 s4. Spanish is UNANIMOUS at 93 occurrences with `suministrador de IA` attested zero times, so the family's own severity rule makes it a failure. Portuguese is the ruled form at 65 -- but `provedor de IA` is attested 21 times, so pt carries NO forbidden variant at this severity and its competitor is handled by the `flag` entry below. Writing pt as a failure would break the rule this family states about itself.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "Not auto-fixable. A role name is the subject of the item it appears in, so a bulk substitution may only run over a read sample, with the non-role senses excluded by id.",
+          "enforceable": true,
+          "forbidden_why": {
+            "es": [
+              "suministrador de IA -- the COMMERCIAL VENDOR sense. `eu_ai_act`'s vendor entry reserves `suministrador` for exactly that, so using it for 22989's role collapses the two."
+            ],
+            "pt": []
+          },
+          "forbidden_attested": 0,
+          "forbidden_note": "PREVENTIVE on the Spanish side and catches nothing today by design: `suministrador de IA` appears ZERO times. A quiet lint here is NOT evidence the rule worked.",
+          "clash_declared": "eu_ai_act `provider` forbids pt `fornecedor` at severity failure, and this entry requires `fornecedor de IA`. The two do not collide in practice because eu_ai_act's entry is `regulation_scoped`: in a row that is not about the Regulation it downgrades to a flag. A pt row that IS about the Regulation and uses `fornecedor de IA` still fails there, correctly -- the Regulation's role is `prestador`. A row about both framings has to pick one, and that is a content decision, not something a lint can resolve."
+        },
+        {
+          "key": "ai_provider-provedor",
+          "en": "AI provider",
+          "es": "proveedor de IA",
+          "pt": "fornecedor de IA",
+          "forbidden": {
+            "es": [],
+            "pt": [
+              "provedor de IA"
+            ]
+          },
+          "severity": "flag",
+          "attested": {
+            "pt-BR": 21
+          },
+          "note": "The ATTESTED Portuguese competitor, 21 occurrences against the ruled form's 65. A FLAG rather than a failure because the family's severity rule requires unanimity for a failure, and 21 is not noise -- blocking a row on a form a quarter of the corpus uses would refuse correct work while the displacement is carried out. Same two-entry shape `eu_ai_act` uses for its own `provedor` split.",
+          "autofix": {
+            "es": false,
+            "pt": false
+          },
+          "autofix_note": "Not auto-fixable. A role name is the subject of the item it appears in, so a bulk substitution may only run over a read sample, with the non-role senses excluded by id. Here the sample matters more than usual: 21 rows is the population, and a substitution over them is a readable pass rather than a sweep.",
+          "enforceable": true,
+          "forbidden_why": {
+            "es": [],
+            "pt": [
+              "provedor de IA -- an attested but non-house rendering. Displaced by the s4 ruling in favour of `fornecedor de IA`, which the corpus uses three times as often."
+            ]
+          },
+          "forbidden_attested": 21,
+          "forbidden_note": "CORRECTIVE, not preventive: this one has 21 live occurrences and will fire. That is the point, and it is a flag so it reports them rather than blocking them."
         }
       ],
       "unattested_and_therefore_absent": [
@@ -731,6 +790,22 @@
         ],
         "firing_count_today": 0,
         "firing_count_note": "Zero, and expected to be zero: no competing form is attested anywhere in 6.5M characters of es-419 or 6.2M of pt-BR. The controls in translation-term-lint.mjs are what prove the enforceable terms CAN fire."
+      },
+      "provider_decided_prompt_95_s4": {
+        "ruled": "2026-09-30, PROMPT-95 s4. 22989's AI provider renders as `fornecedor de IA` in pt-BR and `proveedor de IA` in es-419. The EU AI Act term stays as it is and is enforced only in rows about the Regulation, which `regulation_scoped` already does.",
+        "measured_at_the_time": {
+          "es-419": {
+            "proveedor de IA": 93,
+            "suministrador de IA": 0
+          },
+          "pt-BR": {
+            "fornecedor de IA": 65,
+            "provedor de IA": 21,
+            "prestador de IA": 0
+          }
+        },
+        "one_correction": "The ruling said `65 uses and zero of the alternatives`. That is right about `prestador de IA` (zero) and not about `provedor de IA`, which the census counts 21 times -- so pt is a FLAG under this family's own severity rule rather than a failure, and the competitor gets its own entry. The ruling is applied; the severity is the one the stated rule produces.",
+        "prestador_not_forbidden_here": "It is `eu_ai_act`'s required pt form. Forbidding it in this family would put two families scoped to the same certifications in direct contradiction about one word, which is what this block's predecessor refused to do and what the census's collision check exists to catch."
       }
     }
   }
