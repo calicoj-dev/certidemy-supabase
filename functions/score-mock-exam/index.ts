@@ -285,6 +285,60 @@ serve(async (req) => {
       .select("id, correct_answer, difficulty, task_id, question_concepts(concept_id, concepts(slug, name))")
       .in("id", [...form_ids]);
     if (!questions) throw new Error("failed to load questions");
+
+    // ====================================================================
+    // 4b. LOCALIZED CONCEPT NAMES, from the FORM'S language.
+    //
+    // Ruled PROMPT-99 s2. `concept_breakdown` is rendered row by row under a
+    // heading that is already translated, so a Spanish results page carried a
+    // Spanish title above a list of English concept names. The names existed
+    // the whole time: 1,730 concepts, 3,460 translation rows, zero missing in
+    // either language on all twelve certifications.
+    //
+    // THE LANGUAGE COMES FROM `exam_session_items.language`, NEVER FROM THE
+    // CLIENT. `telemetry_language` above is already derived that way, and its
+    // own comment calls it a server fact. A results page that localized from a
+    // body field would be localizing by what the caller claims rather than by
+    // what the candidate was actually served -- and the form's language is the
+    // only correct answer, because that is the text they read.
+    //
+    // THE REVIEW GATE IS DELIBERATELY NOT APPLIED, and the number is stated
+    // rather than left implicit: 440 of 3,460 translated names are
+    // `is_provisional` (es-419 197, pt-BR 243). The ruling is to fall back only
+    // when the name is MISSING, and that is also the better answer here -- the
+    // concept review gate governs DESCRIPTIONS served to partners through MCP,
+    // a name is a short label on the learner's own results page, and an
+    // unreviewed Spanish label beats a reviewed English one on a Spanish page,
+    // which is the defect being fixed. If that trade is wrong it is one
+    // predicate, here.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const conceptIds = [...new Set((questions as any[]).flatMap((q) =>
+      (q.question_concepts ?? []).map((qc: { concept_id: string }) => qc.concept_id)))].filter(Boolean);
+    const localizedName = new Map<string, string>();
+    let nameFallbacks = 0;
+    if (conceptIds.length > 0 && telemetry_language !== "en") {
+      // ONE unbroken select literal: a concatenated one collapses the row type.
+      const { data: trRows, error: trErr } = await svc
+        .from("concept_translations")
+        .select("concept_id, language, name")
+        .eq("language", telemetry_language)
+        .in("concept_id", conceptIds);
+      if (trErr) {
+        // A DROPPED READ MUST NOT BECOME AN ANSWER. An errored read here would
+        // leave the map empty and every name would silently fall back to
+        // English -- indistinguishable from "no translations exist". Logged
+        // loudly and counted, so the fallback total says which it was.
+        console.warn("concept name translation read FAILED: " + JSON.stringify({
+          language: telemetry_language, concepts: conceptIds.length, error: trErr.message,
+        }));
+      } else {
+        for (const r of (trRows ?? [])) {
+          if (r?.concept_id && r.name && String(r.name).trim()) {
+            localizedName.set(r.concept_id, String(r.name));
+          }
+        }
+      }
+    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const q_by_id = new Map((questions as any[]).map((q) => [q.id, q]));
 
@@ -332,7 +386,13 @@ serve(async (req) => {
     for (const g of graded) {
       for (const qc of g.q.question_concepts ?? []) {
         const slug = qc.concepts?.slug ?? qc.concept_id;
-        const name = qc.concepts?.name ?? slug;
+        /* the localized name when the form's language has one, the English name otherwise. The fallback is
+         * COUNTED, because "every name came back English" and "this language has no names" are different
+         * facts and only the count distinguishes them. */
+        const en = qc.concepts?.name ?? slug;
+        const loc = localizedName.get(qc.concept_id);
+        if (!loc && telemetry_language !== "en") nameFallbacks++;
+        const name = loc ?? en;
         if (!per_concept.has(slug)) per_concept.set(slug, { name, slug, attempted: 0, correct: 0 });
         const bucket = per_concept.get(slug)!;
         bucket.attempted += 1;
@@ -496,6 +556,15 @@ serve(async (req) => {
       }))
       .sort((a, b) => a.difficulty - b.difficulty);
     const weakest_concepts = concept_breakdown.slice(0, 3).map((c) => c.slug);
+    /* LOGGED, with its denominator. A fallback count of 0 on a Spanish form is the evidence that the
+     * localization is working; a count equal to the concept count is the evidence that it is not, and the two
+     * are indistinguishable without the pair. */
+    if (telemetry_language !== "en") {
+      console.log("concept names: " + JSON.stringify({
+        language: telemetry_language, concepts: per_concept.size,
+        localized: per_concept.size - nameFallbacks, fell_back_to_english: nameFallbacks,
+      }));
+    }
 
     // 8. Close the session.
     //
