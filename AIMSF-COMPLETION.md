@@ -71,51 +71,51 @@ carrying `review_verdict = 'accept'` on their `item_grounding` row -- a human re
 accepted them. **`read` is not counted**: migration 379 keeps the two apart because a read with
 findings is not an acceptance.
 
-- verdict `accept` recorded on **0** row(s)
-- the PROMPT-97 ruling accepted **46**, whose verdict is PENDING migration 385
-  (the vocabulary has no `accept` until it runs, so the column below is a claim about the ruling,
-  not yet about the record)
+- verdict `accept` recorded on **46** row(s)
+- of the PROMPT-97 ruling's accepted set, **0** still carry no recorded verdict
+  (migration 385 widened the vocabulary and the 46 were written on 2026-10-01, so this reads 0;
+  it is non-zero only when a ruling outruns its recorder, which is exactly when you want to see it)
 
-| task | floor | accepted (recorded) | + pending 385 | at floor on accepted? |
+| task | floor | accepted (recorded) | + unrecorded | at floor on accepted? |
 |---|---|---|---|---|
 | 1.1 | 8 | 0 | 0 | **no** -- short 8 |
-| 1.2 | 8 | 0 | 4 | **no** -- short 4 |
-| 1.3 | 8 | 0 | 1 | **no** -- short 7 |
+| 1.2 | 8 | 4 | 4 | **no** -- short 4 |
+| 1.3 | 8 | 1 | 1 | **no** -- short 7 |
 | 1.4 | 8 | 0 | 0 | **no** -- short 8 |
-| 1.5 | 8 | 0 | 2 | **no** -- short 6 |
-| 1.6 | 8 | 0 | 2 | **no** -- short 6 |
+| 1.5 | 8 | 2 | 2 | **no** -- short 6 |
+| 1.6 | 8 | 2 | 2 | **no** -- short 6 |
 | 2.1 | 6 | 0 | 0 | **no** -- short 6 |
-| 2.2 | 8 | 0 | 1 | **no** -- short 7 |
+| 2.2 | 8 | 1 | 1 | **no** -- short 7 |
 | 2.3 | 8 | 0 | 0 | **no** -- short 8 |
-| 2.4 | 8 | 0 | 1 | **no** -- short 7 |
-| 2.5 | 8 | 0 | 4 | **no** -- short 4 |
+| 2.4 | 8 | 1 | 1 | **no** -- short 7 |
+| 2.5 | 8 | 4 | 4 | **no** -- short 4 |
 | 2.6 | 8 | 0 | 0 | **no** -- short 8 |
-| 2.7 | 8 | 0 | 1 | **no** -- short 7 |
-| 2.8 | 8 | 0 | 2 | **no** -- short 6 |
-| 3.1 | 8 | 0 | 6 | **no** -- short 2 |
+| 2.7 | 8 | 1 | 1 | **no** -- short 7 |
+| 2.8 | 8 | 2 | 2 | **no** -- short 6 |
+| 3.1 | 8 | 6 | 6 | **no** -- short 2 |
 | 3.2 | 8 | 0 | 0 | **no** -- short 8 |
 | 3.3 | 8 | 0 | 0 | **no** -- short 8 |
-| 3.4 | 8 | 0 | 3 | **no** -- short 5 |
+| 3.4 | 8 | 3 | 3 | **no** -- short 5 |
 | 3.5 | 8 | 0 | 0 | **no** -- short 8 |
 | 3.6 | 8 | 0 | 0 | **no** -- short 8 |
-| 3.7 | 8 | 0 | 2 | **no** -- short 6 |
+| 3.7 | 8 | 2 | 2 | **no** -- short 6 |
 | 3.8 | 8 | 0 | 0 | **no** -- short 8 |
 | 4.1 | 8 | 0 | 0 | **no** -- short 8 |
-| 4.2 | 6 | 0 | 1 | **no** -- short 5 |
-| 4.3 | 8 | 0 | 1 | **no** -- short 7 |
-| 4.4 | 8 | 0 | 3 | **no** -- short 5 |
-| 4.5 | 8 | 0 | 3 | **no** -- short 5 |
-| 4.6 | 8 | 0 | 2 | **no** -- short 6 |
-| 4.7 | 8 | 0 | 5 | **no** -- short 3 |
-| 5.1 | 8 | 0 | 2 | **no** -- short 6 |
+| 4.2 | 6 | 1 | 1 | **no** -- short 5 |
+| 4.3 | 8 | 1 | 1 | **no** -- short 7 |
+| 4.4 | 8 | 3 | 3 | **no** -- short 5 |
+| 4.5 | 8 | 3 | 3 | **no** -- short 5 |
+| 4.6 | 8 | 2 | 2 | **no** -- short 6 |
+| 4.7 | 8 | 5 | 5 | **no** -- short 3 |
+| 5.1 | 8 | 2 | 2 | **no** -- short 6 |
 | 5.2 | 6 | 0 | 0 | **no** -- short 6 |
 | 5.3 | 8 | 0 | 0 | **no** -- short 8 |
 | 5.4 | 6 | 0 | 0 | **no** -- short 6 |
 | 5.5 | 8 | 0 | 0 | **no** -- short 8 |
 | 5.6 | 8 | 0 | 0 | **no** -- short 8 |
 
-**0 of 35 tasks would be at their floor on accepted items** once
-385 lands and the verdicts are recorded. On the record as it stands today the figure is 0.
+**0 of 35 tasks are at their floor on ACCEPTED items.**
+Counting only rows whose `item_grounding.review_verdict` is `accept` -- 46 row(s) recorded, 0 of the ruling still unrecorded.
 
 **Neither number says an item is servable.** A verdict is a record, never a gate:
 `quiz_questions.status` is `pending_review` on every one of these rows and

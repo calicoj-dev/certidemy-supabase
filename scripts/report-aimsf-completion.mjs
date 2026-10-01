@@ -274,6 +274,10 @@ md.push("(source, clause). They were reported and not dropped, per PROMPT-87.");
   const taskRows = (await getAll(KEY, "tasks?select=id,code,certification_id&order=code"))
     .filter((t) => t.certification_id === certRow.id);
   const codeOfTaskId = new Map(taskRows.map((t) => [t.id, t.code]));
+  /* stem id per question, so a ruling entry (keyed by stem) can be matched to a recorded verdict */
+  const stemOfQuestion = new Map((await getAll(KEY,
+    "quiz_questions?select=id,question_text&certification_id=eq." + certRow.id + "&language=eq.en&order=id"))
+    .map((q) => [q.id, idOf(q.question_text)]));
   const taskOfQuestion = new Map((await getAll(KEY,
     "quiz_questions?select=id,task_id&certification_id=eq." + certRow.id + "&language=eq.en&order=id"))
     .map((q) => [q.id, q.task_id]));
@@ -285,10 +289,31 @@ md.push("(source, clause). They were reported and not dropped, per PROMPT-87.");
     accByTask.set(code, (accByTask.get(code) || 0) + 1);
   }
   /* the ruling's own accepted set, for the PENDING column: the rows whose verdict 385 will make writable */
+  /* ============ PENDING MEANS *NOT YET RECORDED*, NOT *IN THE RULING* ============
+   *
+   * This column was written while migration 385 was unapplied, so no verdict COULD be recorded and "in the
+   * ruling" and "not yet recorded" were the same set. 385 landed and the 46 verdicts were written -- and the
+   * two meanings came apart: `recorded + pending` counted the same 46 rows twice and reported 4 tasks at their
+   * floor when the true figure is 0.
+   *
+   * A stale definition in a report is this repository's oldest defect class, and it was introduced by the
+   * commit that said the column was a claim about the ruling rather than about the record. The fix is to make
+   * the column mean the gap: rows the ruling accepted whose verdict is NOT yet on the row. It reads 0 now, and
+   * it will read 0 for ever unless a future ruling outruns its recorder again -- which is exactly when
+   * somebody would want to see it.
+   */
   let pendingByTask = new Map(), pendingTotal = 0;
   const vp = join(ROOT, "AIMSF-97-VERDICTS.json");
   if (existsSync(vp)) {
+    /* which of the ruling's accepted items already carry the verdict, by stem id */
+    const acceptedStems = new Set();
+    for (const g of igAll) {
+      if (g.review_verdict !== "accept") continue;
+      const q = stemOfQuestion.get(g.question_id);
+      if (q) acceptedStems.add(q);
+    }
     for (const a of (JSON.parse(readFileSync(vp, "utf8")).accept || [])) {
+      if (acceptedStems.has(a.id)) continue;          /* already recorded: not pending */
       pendingByTask.set(a.task, (pendingByTask.get(a.task) || 0) + 1);
       pendingTotal++;
     }
@@ -305,11 +330,11 @@ md.push("(source, clause). They were reported and not dropped, per PROMPT-87.");
   md.push("findings is not an acceptance.");
   md.push("");
   md.push("- verdict `accept` recorded on **" + accTotal + "** row(s)");
-  md.push("- the PROMPT-97 ruling accepted **" + pendingTotal + "**, whose verdict is PENDING migration 385");
-  md.push("  (the vocabulary has no `accept` until it runs, so the column below is a claim about the ruling,");
-  md.push("  not yet about the record)");
+  md.push("- of the PROMPT-97 ruling's accepted set, **" + pendingTotal + "** still carry no recorded verdict");
+  md.push("  (migration 385 widened the vocabulary and the 46 were written on 2026-10-01, so this reads 0;");
+  md.push("  it is non-zero only when a ruling outruns its recorder, which is exactly when you want to see it)");
   md.push("");
-  md.push("| task | floor | accepted (recorded) | + pending 385 | at floor on accepted? |");
+  md.push("| task | floor | accepted (recorded) | + unrecorded | at floor on accepted? |");
   md.push("|---|---|---|---|---|");
   let atFloorAcc = 0;
   for (const r of rows) {
@@ -321,9 +346,9 @@ md.push("(source, clause). They were reported and not dropped, per PROMPT-87.");
       (ok ? "yes" : "**no** -- short " + (r.floor - rec - pend)) + " |");
   }
   md.push("");
-  md.push("**" + atFloorAcc + " of " + rows.length + " tasks would be at their floor on accepted items** once");
-  md.push("385 lands and the verdicts are recorded. On the record as it stands today the figure is " +
-    rows.filter((r) => (accByTask.get(r.code) || 0) >= r.floor).length + ".");
+  md.push("**" + atFloorAcc + " of " + rows.length + " tasks are at their floor on ACCEPTED items.**");
+  md.push("Counting only rows whose `item_grounding.review_verdict` is `accept` -- " + accTotal +
+    " row(s) recorded, " + pendingTotal + " of the ruling still unrecorded.");
   md.push("");
   md.push("**Neither number says an item is servable.** A verdict is a record, never a gate:");
   md.push("`quiz_questions.status` is `pending_review` on every one of these rows and");
