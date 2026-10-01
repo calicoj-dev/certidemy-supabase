@@ -1,0 +1,136 @@
+{
+ "identical": {
+  "explanation": 0,
+  "stem": 0,
+  "options": 6
+ },
+ "markers": {
+  "explanation": 0,
+  "stem": 0,
+  "options": 5
+ },
+ "uncomparable": {
+  "explanation": 5,
+  "stem": 5,
+  "options": 5
+ },
+ "examined": 18453,
+ "per_cert": {
+  "SPO-AI-I|es-419|practice|approved|options": 1,
+  "SD-AI-I|es-419|secure|approved|options": 1,
+  "SPO-AI-I|pt-BR|practice|approved|options": 1,
+  "SM-AI-I|es-419|secure|approved|options": 1,
+  "SD-AI-I|pt-BR|secure|approved|options": 1,
+  "SM-AI-I|pt-BR|secure|approved|options": 1
+ },
+ "members": {
+  "identical": [
+   {
+    "id": "1480a816-18fc-4694-a573-7ca632af5e33",
+    "cert": "SPO-AI-I",
+    "language": "es-419",
+    "pool": "practice",
+    "status": "approved",
+    "field": "options",
+    "head": "Product Backlog → Definition of Done; Sprint Backlog → Sprint Goal; Increment → Product Go"
+   },
+   {
+    "id": "329be18e-33ed-4313-b64a-95e3c21500f0",
+    "cert": "SD-AI-I",
+    "language": "es-419",
+    "pool": "secure",
+    "status": "approved",
+    "field": "options",
+    "head": "Product Backlog → Product Goal; Sprint Backlog → Product Goal; Increment → Definition of D"
+   },
+   {
+    "id": "5419c892-52d0-47a4-bae9-fa999f42db80",
+    "cert": "SPO-AI-I",
+    "language": "pt-BR",
+    "pool": "practice",
+    "status": "approved",
+    "field": "options",
+    "head": "Product Backlog → Definition of Done; Sprint Backlog → Sprint Goal; Increment → Product Go"
+   },
+   {
+    "id": "6d9cfda7-6b19-4dc4-837e-11a7bbadceb8",
+    "cert": "SM-AI-I",
+    "language": "es-419",
+    "pool": "secure",
+    "status": "approved",
+    "field": "options",
+    "head": "Product Backlog → Definition of Done; Sprint Backlog → Sprint Goal; Increment → Product Go"
+   },
+   {
+    "id": "aee50595-8e01-40de-af33-b1e0a8fc7343",
+    "cert": "SD-AI-I",
+    "language": "pt-BR",
+    "pool": "secure",
+    "status": "approved",
+    "field": "options",
+    "head": "Product Backlog → Product Goal; Sprint Backlog → Product Goal; Increment → Definition of D"
+   },
+   {
+    "id": "f912f066-a771-4046-b050-426759928685",
+    "cert": "SM-AI-I",
+    "language": "pt-BR",
+    "pool": "secure",
+    "status": "approved",
+    "field": "options",
+    "head": "Product Backlog → Definition of Done; Sprint Backlog → Sprint Goal; Increment → Product Go"
+   }
+  ],
+  "markers": [
+   {
+    "id": "0e199218-d45a-4d79-aa8f-c34ddfc4a544",
+    "cert": "SM-AI-I",
+    "language": "pt-BR",
+    "pool": "practice",
+    "status": "approved",
+    "field": "options",
+    "markers": "of,is,be",
+    "head": "A Definition of Done: múltiplos Product Owners produzem padrões de qualidade inconsistente"
+   },
+   {
+    "id": "55139663-2639-4c90-97d4-57b3e03748af",
+    "cert": "SPO-AI-I",
+    "language": "pt-BR",
+    "pool": "secure",
+    "status": "approved",
+    "field": "options",
+    "markers": "of,when,then",
+    "head": "Ela reestrutura o texto da story no formato Gherkin Given-When-Then, fornecendo aos agente"
+   },
+   {
+    "id": "8bcb7bce-6ba7-47e6-b9ca-edc8dd25a618",
+    "cert": "SPO-AI-I",
+    "language": "es-419",
+    "pool": "secure",
+    "status": "approved",
+    "field": "options",
+    "markers": "of,when,then",
+    "head": "Reestructura el texto de la historia en sintaxis Gherkin Given-When-Then, lo que proporcio"
+   },
+   {
+    "id": "dd1471ac-ca30-47c3-a296-c2c40497a8eb",
+    "cert": "SPO-AI-I",
+    "language": "es-419",
+    "pool": "secure",
+    "status": "approved",
+    "field": "options",
+    "markers": "of,when,then",
+    "head": "Tiene una intención sin ambigüedades y una semántica precisa, lo que permite al agente act"
+   },
+   {
+    "id": "e90cdf79-9bce-4b54-a11c-bcf44d6eaa4d",
+    "cert": "SPO-AI-I",
+    "language": "pt-BR",
+    "pool": "secure",
+    "status": "approved",
+    "field": "options",
+    "markers": "of,when,then",
+    "head": "Ele possui intenção inequívoca e semântica precisa, permitindo que o agente aja sobre o re"
+   }
+  ]
+ }
+}
