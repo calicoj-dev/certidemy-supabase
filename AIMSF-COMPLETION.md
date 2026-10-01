@@ -76,46 +76,48 @@ findings is not an acceptance.
   (migration 385 widened the vocabulary and the 46 were written on 2026-10-01, so this reads 0;
   it is non-zero only when a ruling outruns its recorder, which is exactly when you want to see it)
 
-| task | floor | accepted (recorded) | + unrecorded | at floor on accepted? |
-|---|---|---|---|---|
-| 1.1 | 8 | 4 | 4 | **no** -- short 4 |
-| 1.2 | 8 | 4 | 4 | **no** -- short 4 |
-| 1.3 | 8 | 4 | 4 | **no** -- short 4 |
-| 1.4 | 8 | 5 | 5 | **no** -- short 3 |
-| 1.5 | 8 | 7 | 7 | **no** -- short 1 |
-| 1.6 | 8 | 6 | 6 | **no** -- short 2 |
-| 2.1 | 6 | 4 | 4 | **no** -- short 2 |
-| 2.2 | 8 | 6 | 6 | **no** -- short 2 |
-| 2.3 | 8 | 3 | 3 | **no** -- short 5 |
-| 2.4 | 8 | 4 | 4 | **no** -- short 4 |
-| 2.5 | 8 | 6 | 6 | **no** -- short 2 |
-| 2.6 | 8 | 5 | 5 | **no** -- short 3 |
-| 2.7 | 8 | 6 | 6 | **no** -- short 2 |
-| 2.8 | 8 | 7 | 7 | **no** -- short 1 |
-| 3.1 | 8 | 9 | 9 | yes |
-| 3.2 | 8 | 4 | 4 | **no** -- short 4 |
-| 3.3 | 8 | 4 | 4 | **no** -- short 4 |
-| 3.4 | 8 | 7 | 7 | **no** -- short 1 |
-| 3.5 | 8 | 6 | 6 | **no** -- short 2 |
-| 3.6 | 8 | 5 | 5 | **no** -- short 3 |
-| 3.7 | 8 | 6 | 6 | **no** -- short 2 |
-| 3.8 | 8 | 3 | 3 | **no** -- short 5 |
-| 4.1 | 8 | 0 | 0 | **no** -- short 8 |
-| 4.2 | 6 | 3 | 3 | **no** -- short 3 |
-| 4.3 | 8 | 1 | 1 | **no** -- short 7 |
-| 4.4 | 8 | 4 | 4 | **no** -- short 4 |
-| 4.5 | 8 | 3 | 3 | **no** -- short 5 |
-| 4.6 | 8 | 3 | 3 | **no** -- short 5 |
-| 4.7 | 8 | 9 | 9 | yes |
-| 5.1 | 8 | 6 | 6 | **no** -- short 2 |
-| 5.2 | 6 | 2 | 2 | **no** -- short 4 |
-| 5.3 | 8 | 2 | 2 | **no** -- short 6 |
-| 5.4 | 6 | 3 | 3 | **no** -- short 3 |
-| 5.5 | 8 | 0 | 0 | **no** -- short 8 |
-| 5.6 | 8 | 5 | 5 | **no** -- short 3 |
+| task | floor | accepted | kept | accepted + kept | at floor? | on accepted alone? |
+|---|---|---|---|---|---|---|
+| 1.1 | 8 | 4 | 3 | 7 | **no** -- short 1 | no |
+| 1.2 | 8 | 4 | 1 | 5 | **no** -- short 3 | no |
+| 1.3 | 8 | 4 | 1 | 5 | **no** -- short 3 | no |
+| 1.4 | 8 | 5 | 2 | 7 | **no** -- short 1 | no |
+| 1.5 | 8 | 7 | 2 | 9 | yes | no |
+| 1.6 | 8 | 6 | 3 | 9 | yes | no |
+| 2.1 | 6 | 4 | 1 | 5 | **no** -- short 1 | no |
+| 2.2 | 8 | 6 | 1 | 7 | **no** -- short 1 | no |
+| 2.3 | 8 | 3 | 5 | 8 | yes | no |
+| 2.4 | 8 | 4 | 2 | 6 | **no** -- short 2 | no |
+| 2.5 | 8 | 6 | 3 | 9 | yes | no |
+| 2.6 | 8 | 5 | 1 | 6 | **no** -- short 2 | no |
+| 2.7 | 8 | 6 | 1 | 7 | **no** -- short 1 | no |
+| 2.8 | 8 | 7 | 1 | 8 | yes | no |
+| 3.1 | 8 | 9 | 1 | 10 | yes | yes |
+| 3.2 | 8 | 4 | 3 | 7 | **no** -- short 1 | no |
+| 3.3 | 8 | 4 | 3 | 7 | **no** -- short 1 | no |
+| 3.4 | 8 | 7 | 1 | 8 | yes | no |
+| 3.5 | 8 | 6 | 1 | 7 | **no** -- short 1 | no |
+| 3.6 | 8 | 5 | 2 | 7 | **no** -- short 1 | no |
+| 3.7 | 8 | 6 | 2 | 8 | yes | no |
+| 3.8 | 8 | 3 | 4 | 7 | **no** -- short 1 | no |
+| 4.1 | 8 | 0 | 4 | 4 | **no** -- short 4 | no |
+| 4.2 | 6 | 3 | 2 | 5 | **no** -- short 1 | no |
+| 4.3 | 8 | 1 | 5 | 6 | **no** -- short 2 | no |
+| 4.4 | 8 | 4 | 3 | 7 | **no** -- short 1 | no |
+| 4.5 | 8 | 3 | 4 | 7 | **no** -- short 1 | no |
+| 4.6 | 8 | 3 | 4 | 7 | **no** -- short 1 | no |
+| 4.7 | 8 | 9 | 1 | 10 | yes | yes |
+| 5.1 | 8 | 6 | 2 | 8 | yes | no |
+| 5.2 | 6 | 2 | 2 | 4 | **no** -- short 2 | no |
+| 5.3 | 8 | 2 | 4 | 6 | **no** -- short 2 | no |
+| 5.4 | 6 | 3 | 2 | 5 | **no** -- short 1 | no |
+| 5.5 | 8 | 0 | 3 | 3 | **no** -- short 5 | no |
+| 5.6 | 8 | 5 | 3 | 8 | yes | no |
 
-**2 of 35 tasks are at their floor on ACCEPTED items.**
-Counting only rows whose `item_grounding.review_verdict` is `accept` -- 156 row(s) recorded, 0 of the ruling still unrecorded.
+**11 of 35 tasks are at their floor on REVIEWED items** -- 156 accepted grounded plus 83 kept authored.
+On accepted grounded rows alone the figure is **2 of 35**.
+
+`read` counts toward neither: see AIMSF-PILOT-READ.md for the 34 rows awaiting a verdict.
 
 **Neither number says an item is servable.** A verdict is a record, never a gate:
 `quiz_questions.status` is `pending_review` on every one of these rows and

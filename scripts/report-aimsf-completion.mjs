@@ -334,21 +334,45 @@ md.push("(source, clause). They were reported and not dropped, per PROMPT-87.");
   md.push("  (migration 385 widened the vocabulary and the 46 were written on 2026-10-01, so this reads 0;");
   md.push("  it is non-zero only when a ruling outruns its recorder, which is exactly when you want to see it)");
   md.push("");
-  md.push("| task | floor | accepted (recorded) | + unrecorded | at floor on accepted? |");
-  md.push("|---|---|---|---|---|");
-  let atFloorAcc = 0;
+  /* ============ THE HEADLINE IS ACCEPTED + KEPT. RULED PROMPT-100 s1a ============
+   *
+   * *"A kept authored item was ruled 'keep' in an earlier prompt, which is a director verdict in its own
+   * right."* So the two reviewed populations are counted together, and they reach the floor together.
+   *
+   * They CANNOT be counted the same way, and that is the whole reason this needed a ruling rather than a fix:
+   *
+   *   accepted grounded   `item_grounding.review_verdict = 'accept'`, a verdict ON THE ROW
+   *   kept authored       ruled keep in the survivor audit, recorded in AUDIT-FINDINGS-480.md. These rows have
+   *                       NO item_grounding row at all -- that table is grounded-items-only -- so no column on
+   *                       them can ever carry a verdict. `keptUsable` from the shortfall is the record.
+   *
+   * `read` counts toward NEITHER until the director converts it: 379 keeps `read` and `accept` apart because a
+   * read with findings is not an acceptance, and 34 rows sit on that distinction.
+   *
+   * Accepted-only stays as its own column, because it is the stricter claim and the only one made entirely of
+   * per-row verdicts.
+   */
+  md.push("| task | floor | accepted | kept | accepted + kept | at floor? | on accepted alone? |");
+  md.push("|---|---|---|---|---|---|---|");
+  let atFloorAcc = 0, atFloorBoth = 0, keptTotal = 0;
   for (const r of rows) {
     const rec = accByTask.get(r.code) || 0;
-    const pend = pendingByTask.get(r.code) || 0;
-    const ok = rec + pend >= r.floor;
-    if (ok) atFloorAcc++;
-    md.push("| " + r.code + " | " + r.floor + " | " + rec + " | " + (rec + pend) + " | " +
-      (ok ? "yes" : "**no** -- short " + (r.floor - rec - pend)) + " |");
+    const kept = (sfOf.get(r.code) || {}).keptUsable || 0;
+    keptTotal += kept;
+    const both = rec + kept;
+    const okBoth = both >= r.floor;
+    const okAcc = rec >= r.floor;
+    if (okBoth) atFloorBoth++;
+    if (okAcc) atFloorAcc++;
+    md.push("| " + r.code + " | " + r.floor + " | " + rec + " | " + kept + " | " + both + " | " +
+      (okBoth ? "yes" : "**no** -- short " + (r.floor - both)) + " | " + (okAcc ? "yes" : "no") + " |");
   }
   md.push("");
-  md.push("**" + atFloorAcc + " of " + rows.length + " tasks are at their floor on ACCEPTED items.**");
-  md.push("Counting only rows whose `item_grounding.review_verdict` is `accept` -- " + accTotal +
-    " row(s) recorded, " + pendingTotal + " of the ruling still unrecorded.");
+  md.push("**" + atFloorBoth + " of " + rows.length + " tasks are at their floor on REVIEWED items** -- " +
+    accTotal + " accepted grounded plus " + keptTotal + " kept authored.");
+  md.push("On accepted grounded rows alone the figure is **" + atFloorAcc + " of " + rows.length + "**.");
+  md.push("");
+  md.push("`read` counts toward neither: " + "see AIMSF-PILOT-READ.md for the 34 rows awaiting a verdict.");
   md.push("");
   md.push("**Neither number says an item is servable.** A verdict is a record, never a gate:");
   md.push("`quiz_questions.status` is `pending_review` on every one of these rows and");

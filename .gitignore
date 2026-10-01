@@ -92,6 +92,28 @@ AIMSF-*-raw.json
 A54-DECOLUMNED.json
 *-DECOLUMNED.json
 
+# ============ FROM R6 ON, THE GATED ARTIFACTS AND THEIR REPORTS ARE GITIGNORED TOO ============
+#
+# Ruled PROMPT-100 s1e. A gated artifact carries `key_support` for every survivor -- the standard's own sentence,
+# verbatim -- and the rollout report quotes it back. That is licensed text, by the same rule as the raw files and
+# the override files, arriving through the artifact everybody actually reads.
+#
+# EXISTING TRACKED ARTIFACTS STAY, under the 1d history ruling: the repo is private, history stays, and the rule
+# applies from now on. So this is deliberately NOT `AIMSF-R*.json` -- that would untrack R2, R3 and R4 and make
+# the next `git add -A` look like a deletion of the record. It names the rounds from R6 forward.
+#
+# Juan attaches them from disk, so a read does not depend on git.
+AIMSF-R6*.json
+AIMSF-R6*.md
+AIMSF-ROLLOUT-R6*.json
+AIMSF-ROLLOUT-R6*.md
+AIMSF-R[7-9]*.json
+AIMSF-R[7-9]*.md
+AIMSF-ROLLOUT-R[7-9]*.json
+AIMSF-ROLLOUT-R[7-9]*.md
+AIMSF-TRANSLATION-*.json
+AIMSF-TRANSLATION-*.md
+
 # The gating CHECKPOINT is a crash-recovery file, not an artifact. It carries the same records the gated
 # artifact does (plus a per-item spend and rejection delta), so committing it would be a second copy of
 # every verdict -- and a second copy of the licensed key_support with them. A completed run renames it
