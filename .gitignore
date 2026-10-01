@@ -114,6 +114,18 @@ AIMSF-ROLLOUT-R[7-9]*.md
 AIMSF-TRANSLATION-*.json
 AIMSF-TRANSLATION-*.md
 
+# AND THE PILOT-READ DOCUMENT, for the same reason and found the same way: I committed it, then noticed it
+# prints every item's ANCHOR TITLE (an ISO heading) and, for the one verbatim failure, both the stored
+# `key_support` and the library's clean A.9.3 sentence. All licensed text.
+#
+# **THAT IS THE SECOND TIME IN TWO ROUNDS.** `A54-DECOLUMNED.json` went in the same way. The pattern is not
+# "add another line": a .gitignore matches NAMES and the rule is about CONTENT, so every new document that
+# quotes the library escapes until someone notices. The durable fix is a CHECK that greps tracked files for
+# library text -- named here as an open item rather than pretended to be solved by this line.
+#
+# The ruling says Juan attaches this one from disk, so ignoring it costs nothing.
+AIMSF-PILOT-READ.md
+
 # The gating CHECKPOINT is a crash-recovery file, not an artifact. It carries the same records the gated
 # artifact does (plus a per-item spend and rejection delta), so committing it would be a second copy of
 # every verdict -- and a second copy of the licensed key_support with them. A completed run renames it
