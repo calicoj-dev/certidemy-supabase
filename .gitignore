@@ -81,6 +81,17 @@ PILOT-*-raw.json
 # six is the director's. New ones stop here.
 AIMSF-*-raw.json
 
+# THE COORDINATE DE-COLUMNING OUTPUT IS LICENSED CLAUSE TEXT. `A54-DECOLUMNED.json` carries ISO/IEC 42001's
+# A.5.4 title and statement verbatim -- the same content as the override file two lines down, arriving by a
+# different route. I committed it once before adding this line, which is exactly the failure the raw-file
+# pattern exists to prevent: a new file name escapes a pattern written for the names that existed.
+#
+# It is untracked now. **The commit that added it is still in history**, like the six AIMSF-R*-raw files and
+# source-overrides-27001/42001.json -- one short clause, and whether to rewrite history for it is the
+# director's decision, not mine.
+A54-DECOLUMNED.json
+*-DECOLUMNED.json
+
 # The gating CHECKPOINT is a crash-recovery file, not an artifact. It carries the same records the gated
 # artifact does (plus a per-item spend and rejection delta), so committing it would be a second copy of
 # every verdict -- and a second copy of the licensed key_support with them. A completed run renames it

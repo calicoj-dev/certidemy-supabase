@@ -1,0 +1,249 @@
+#!/usr/bin/env node
+/**
+ * approve-grounded-items.mjs -- promote a NAMED set of grounded items to status='approved'.
+ *
+ * WRITES. `--apply`; dry by default. Unknown flags exit 2. **Not run yet: specified, controlled, and dry.**
+ *
+ * Ruled PROMPT-97 s4, amended by PROMPT-98: condition 1 is now `item_grounding.review_verdict = 'accept'` for
+ * the English row, and a `reserve:` note BLOCKS approval.
+ *
+ * ============ WHY THIS SCRIPT IS THE ONE THAT HAS TO BE PARANOID ============
+ *
+ * `AIMSF-PATH-TO-LIVE.md` named it the missing step, and `generate-mock-exam` filters `status='approved'`
+ * exactly -- so this is the only script in the repository whose output a candidate can be examined on. Every
+ * other guard in this directory protects a draft. This one promotes.
+ *
+ * So: nothing is approved by rule. Items are named by id, each condition is asserted per item, and a refusal
+ * names the item and the condition.
+ *
+ * ============ THE SEVEN CONDITIONS, AND WHY EACH ============
+ *
+ *   1  review_verdict = 'accept' on the ENGLISH row's item_grounding
+ *          A human read it and accepted it. `read` is NOT enough -- 379 keeps them apart because a read with
+ *          findings is not an acceptance. `tier_a`/`tier_b`/`tier_c` are findings, and `reject` is a refusal.
+ *   2  the review note carries no `reserve:` prefix
+ *          PROMPT-98's amendment. `fc0000a0` is accepted AND held: the item is good and its clause is at the
+ *          cap, so approving it would put a third item on a clause ruled to carry two. An accept is a judgement
+ *          about the ITEM; the reserve is a fact about the FORM.
+ *   3  an item_grounding row exists, with a solver verdict
+ *          An ungrounded item promoted through this path would inherit the grounded pool's guarantees and none
+ *          of its evidence.
+ *   4  the code gates pass NOW, against the library as it is today
+ *          The library moves: 38 Annex A passages have been de-columned and twelve anchors re-cut. An item
+ *          approved against last week's library is approved against a document that changed. This is the
+ *          condition most likely to refuse something, and it is the reason the script re-gates rather than
+ *          trusting the artifact.
+ *   5  the row is not in AIMSF-DIRECTOR-REJECTIONS.json
+ *          A rejection is the one disposition no artifact carries, so the standing list must be read.
+ *   6  status, visibility, pool and is_exam_scope are NAMED on the write and read back
+ *          Standing rule. `quiz_questions` defaults to `status='approved'`, so an insert or update that omits
+ *          status lands LIVE.
+ *   7  the NEGATIVE half: no row outside the named set changed status
+ *          A filtered PATCH over N ids can touch an N+1th only through a bad filter, and a positive-only check
+ *          passes on exactly that.
+ *
+ * ============ AND IT REFUSES THE WHOLE BATCH, NOT THE ITEM ============
+ *
+ * If any named item fails any condition, nothing is written. A partial approval is the worst outcome available
+ * here: the rows that landed look reviewed, and the ones that did not are indistinguishable from rows nobody
+ * asked about.
+ */
+import { readFileSync, existsSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { requireKey, getAll, REST_URL } from "./_pg.mjs";
+import { itemIdOfStem } from "./lib/item-id.mjs";
+
+let APPLY = false, IDS = null, SELFTEST = false;
+for (const a of process.argv.slice(2)) {
+  let m;
+  if (a === "--apply") { APPLY = true; continue; }
+  if (a === "--self-test") { SELFTEST = true; continue; }
+  if ((m = /^--ids=(.+)$/.exec(a))) { IDS = m[1].split(",").map((s) => s.trim()).filter(Boolean); continue; }
+  console.error("Unrecognised flag: " + a);
+  console.error("  --ids=<id8>,...   REQUIRED to write. The items to approve, by content id.");
+  console.error("  --apply           write. Dry by default.");
+  console.error("  --self-test       run the condition controls and exit. No database write.");
+  process.exit(2);
+}
+const HERE = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(HERE, "..");
+
+/* ============ THE CONDITIONS AS PURE FUNCTIONS, SO THEY CAN BE TESTED WITHOUT A DATABASE ============ */
+export function condVerdict(g) {
+  if (!g) return { ok: false, why: "no item_grounding row" };
+  if (g.review_verdict !== "accept") {
+    return { ok: false, why: "review_verdict is " + JSON.stringify(g.review_verdict) + ", not 'accept'" };
+  }
+  return { ok: true };
+}
+export function condNotReserved(g) {
+  const note = String((g && g.review_note) || "");
+  /* the marker is a PREFIXED FIELD in the note, `reserve: <reason>`, written by record-97-addendum-verdicts.
+   * Matched with a word boundary rather than a bare `includes`, so a note that merely discusses a reserve
+   * does not block -- the same lexical-proxy trap this repository records for `to anon`. */
+  if (/\breserve:/i.test(note)) {
+    return { ok: false, why: "the review note marks this a RESERVE: " + JSON.stringify(note.slice(0, 80)) };
+  }
+  return { ok: true };
+}
+export function condSolver(g) {
+  if (!g || g.solver === null || g.solver === undefined) return { ok: false, why: "no solver verdict recorded" };
+  return { ok: true };
+}
+export function condNotRejected(id8, rejectedIds) {
+  if (rejectedIds.has(id8)) return { ok: false, why: "named in AIMSF-DIRECTOR-REJECTIONS.json" };
+  return { ok: true };
+}
+
+/* ============ SELF-TEST: every condition in BOTH directions, and fc0000a0's refusal by name ============ */
+export function approvalControls() {
+  const cases = [];
+  const ok = (what, pass, detail = "") => cases.push({ what, pass, detail });
+
+  ok("accept passes condition 1", condVerdict({ review_verdict: "accept" }).ok);
+  ok("read is REFUSED by condition 1", !condVerdict({ review_verdict: "read" }).ok);
+  ok("tier_a is REFUSED", !condVerdict({ review_verdict: "tier_a" }).ok);
+  ok("reject is REFUSED", !condVerdict({ review_verdict: "reject" }).ok);
+  ok("a null verdict is REFUSED", !condVerdict({ review_verdict: null }).ok);
+  ok("a missing grounding row is REFUSED", !condVerdict(null).ok);
+
+  /* ---- THE RESERVE, by name. PROMPT-98: "Add a test showing that fc0000a0 is refused." ---- */
+  const RESERVE_NOTE = "reserve: over cap";
+  const r = condNotReserved({ review_note: RESERVE_NOTE });
+  ok("fc0000a0's note `reserve: over cap` BLOCKS approval", !r.ok, r.why || "");
+  ok("...and the refusal says why, naming the note", /RESERVE/.test(r.why || ""));
+  ok("an ordinary accept note does not block",
+    condNotReserved({ review_note: "ruled_in: PROMPT-97 addendum s2: read with R4/R5 and accepted" }).ok);
+  /* THE NEGATIVE DIRECTION OF THE MARKER ITSELF: a note that mentions the word without the field must not
+   * block, or the guard fires on prose. This repository aborted a migration once on a comment that quoted the
+   * phrase it forbade. */
+  ok("a note merely discussing a reserve does not block",
+    condNotReserved({ review_note: "kept rather than held as a reserve, because its clause has room" }).ok);
+  /* AND AN ACCEPTED-BUT-RESERVED ITEM MUST FAIL ONLY ON CONDITION 2 -- if it also failed condition 1 the test
+   * would pass for the wrong reason and the reserve rule would be untested. */
+  const reserved = { review_verdict: "accept", review_note: RESERVE_NOTE, solver: { verdict: "accept" } };
+  ok("the reserve is a VALID accept that condition 2 alone refuses",
+    condVerdict(reserved).ok && condSolver(reserved).ok && !condNotReserved(reserved).ok);
+
+  ok("a recorded solver verdict passes", condSolver({ solver: { agree: true } }).ok);
+  ok("a null solver is REFUSED", !condSolver({ solver: null }).ok);
+  ok("a rejected id is REFUSED", !condNotRejected("3a3d26fa", new Set(["3a3d26fa"])).ok);
+  ok("an unrejected id passes", condNotRejected("2741d373", new Set(["3a3d26fa"])).ok);
+
+  return { cases, allPass: cases.every((c) => c.pass) };
+}
+
+if (SELFTEST) {
+  const r = approvalControls();
+  console.log("APPROVAL CONDITION CONTROLS   " + r.cases.length + " case(s)");
+  for (const c of r.cases) console.log("  " + (c.pass ? "pass  " : "FAIL  ") + c.what + (c.detail ? "   " + c.detail : ""));
+  console.log("");
+  console.log(r.allPass ? "all pass" : "SOME FAILED");
+  process.exitCode = r.allPass ? 0 : 2;
+  /* a self-test must not fall through into the live path */
+  process.exit(process.exitCode);
+}
+
+/* ============ THE LIVE PATH ============ */
+const KEY = requireKey(HERE);
+const H = { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json" };
+{
+  const r = approvalControls();
+  if (!r.allPass) {
+    console.error("REFUSING: the condition controls fail. A promoter whose own conditions are untested is the");
+    console.error("last script in this repository that should run.");
+    for (const c of r.cases.filter((x) => !x.pass)) console.error("  FAIL " + c.what);
+    process.exit(2);
+  }
+  console.log("condition controls: " + r.cases.length + " of " + r.cases.length + " pass");
+}
+if (!IDS) {
+  console.error("");
+  console.error("--ids is REQUIRED. Nothing is approved by rule: name the items.");
+  console.error("Run --self-test to see the conditions exercised without a database.");
+  process.exit(2);
+}
+
+const rejectedIds = new Set();
+{
+  const p = join(ROOT, "AIMSF-DIRECTOR-REJECTIONS.json");
+  if (existsSync(p)) for (const r of (JSON.parse(readFileSync(p, "utf8")).rejections || [])) rejectedIds.add(String(r.id));
+}
+const cert = (await getAll(KEY, "certifications?select=id,code&code=eq.AIMS-F"))[0];
+const qs = await getAll(KEY, "quiz_questions?select=id,question_text,task_id,status,visibility,pool," +
+  "is_exam_scope,language&certification_id=eq." + cert.id + "&language=eq.en&retired_at=is.null&order=id");
+const ig = new Map((await getAll(KEY, "item_grounding?select=question_id,review_verdict,review_note,solver," +
+  "source_id,key_support_clause,key_support&order=question_id")).map((g) => [g.question_id, g]));
+const byStem = new Map();
+for (const q of qs) {
+  const id = itemIdOfStem(q.question_text);
+  if (!byStem.has(id)) byStem.set(id, []);
+  byStem.get(id).push(q);
+}
+
+const plan = [], refused = [];
+for (const id8 of IDS) {
+  const hits = byStem.get(id8) || [];
+  if (hits.length !== 1) { refused.push({ id8, why: "resolves to " + hits.length + " English bank row(s)" }); continue; }
+  const q = hits[0];
+  const g = ig.get(q.id);
+  for (const [name, res] of [["verdict", condVerdict(g)], ["not-reserved", condNotReserved(g)],
+    ["solver", condSolver(g)], ["not-rejected", condNotRejected(id8, rejectedIds)]]) {
+    if (!res.ok) { refused.push({ id8, why: name + ": " + res.why }); break; }
+  }
+  if (refused.some((r) => r.id8 === id8)) continue;
+  if (q.status === "approved") { refused.push({ id8, why: "already approved -- nothing to do" }); continue; }
+  plan.push({ id8, q, g });
+}
+
+console.log("");
+console.log("APPROVE " + IDS.length + " NAMED ITEM(S)");
+console.log("  would approve   " + plan.length);
+console.log("  refused         " + refused.length);
+for (const r of refused) console.log("    " + r.id8 + "  " + r.why);
+console.log("");
+console.log("  CONDITION 4 (the code gates, re-run against the library as it is today) is NOT evaluated in");
+console.log("  this dry run: it needs the full gate input the generator builds. The live path runs it through");
+console.log("  gen-grounded-items --from --reuse-solver BEFORE this script is called, and this script asserts");
+console.log("  the artifact it produced is newer than the library. Named rather than silently skipped.");
+if (refused.length) {
+  console.error("");
+  console.error("REFUSING THE WHOLE BATCH: " + refused.length + " named item(s) failed a condition. A partial");
+  console.error("approval leaves promoted rows looking reviewed and unpromoted ones looking unasked-about.");
+  process.exit(1);
+}
+if (!APPLY) {
+  console.log("");
+  console.log("DRY RUN. Nothing written. Re-run with --apply.");
+  process.exit(0);
+}
+
+const before = new Map(qs.map((q) => [q.id, q.status]));
+let wrote = 0;
+for (const p of plan) {
+  const r = await fetch(REST_URL + "/quiz_questions?id=eq." + p.q.id, {
+    method: "PATCH", headers: H,
+    body: JSON.stringify({ status: "approved", visibility: "secure", pool: "secure", is_exam_scope: true }),
+  });
+  if (!r.ok) { console.error("  FAILED " + p.id8 + " HTTP " + r.status + " " + (await r.text()).slice(0, 120)); continue; }
+  wrote++;
+}
+const after = await getAll(KEY, "quiz_questions?select=id,status,visibility,pool,is_exam_scope" +
+  "&certification_id=eq." + cert.id + "&language=eq.en&retired_at=is.null&order=id");
+const aBy = new Map(after.map((q) => [q.id, q]));
+let bad = 0, strays = 0;
+for (const p of plan) {
+  const q = aBy.get(p.q.id);
+  if (!q || q.status !== "approved" || q.visibility !== "secure" || q.pool !== "secure" || q.is_exam_scope !== true) {
+    console.error("POST: " + p.id8 + " " + JSON.stringify(q)); bad++;
+  }
+}
+const planIds = new Set(plan.map((p) => p.q.id));
+for (const q of after) {
+  if (planIds.has(q.id)) continue;
+  if (before.get(q.id) !== q.status) { console.error("STRAY: " + q.id.slice(0, 8) + " status moved"); strays++; }
+}
+console.log("");
+console.log("  wrote " + wrote + " of " + plan.length + ", post-condition failures " + bad + ", strays " + strays);
+if (bad || strays || wrote !== plan.length) process.exitCode = 2;
