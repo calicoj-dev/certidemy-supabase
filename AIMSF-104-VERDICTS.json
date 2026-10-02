@@ -1,0 +1,55 @@
+{
+ "_what": "PROMPT-104 s1: the 5 ACCEPTS. The 2 rejects were never inserted and are recorded in AIMSF-DIRECTOR-REJECTIONS.json instead -- a verdict needs a row.",
+ "cert": "AIMS-F",
+ "ruled_on": "2026-10-02T00:00:00Z",
+ "reviewed_by": "director",
+ "note": "ruled_in: PROMPT-104 s1 -- R7 survivors read item by item.",
+ "artifact": "AIMSF-R7-ALL.json",
+ "items": [
+  {
+   "id": "6a25f22d",
+   "task": "1.2",
+   "source_id": "ISO/IEC 22989",
+   "edition": "2022",
+   "clause": "5.19.2.1",
+   "verdict": "accept",
+   "reason": "AI provider, platform and product."
+  },
+  {
+   "id": "c1fa43e8",
+   "task": "1.2",
+   "source_id": "ISO/IEC 22989",
+   "edition": "2022",
+   "clause": "5.19.5.1",
+   "verdict": "accept",
+   "reason": "AI partner, integration and evaluation."
+  },
+  {
+   "id": "12d58742",
+   "task": "2.4",
+   "source_id": "ISO/IEC 42001",
+   "edition": "2023",
+   "clause": "A.3.3",
+   "verdict": "accept",
+   "reason": "A process for concerns across the life cycle."
+  },
+  {
+   "id": "d4195d9e",
+   "task": "5.4",
+   "source_id": "ISO/IEC 42001",
+   "edition": "2023",
+   "clause": "10.1",
+   "verdict": "accept",
+   "reason": "Continual improvement after a closed case."
+  },
+  {
+   "id": "ec8d1211",
+   "task": "5.5",
+   "source_id": "ISO/IEC 42006",
+   "edition": "2025",
+   "clause": "9.6.2.2",
+   "verdict": "accept",
+   "reason": "Surveillance programme adapted to AI risk."
+  }
+ ]
+}

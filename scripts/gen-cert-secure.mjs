@@ -62,6 +62,7 @@ import { buildCleanItems, sourceMisconceptions } from "../functions/_shared/item
 import { bloomForTask } from "../functions/_shared/item-rules/item-task-context.mjs";
 import { cueConfigFor } from "./lib/item-cue-guard.mjs";
 import { SCRUM_NOUNS, translateSystem as sharedTranslateSystem } from "./lib/item-translation.mjs";
+import { graftTranslation, translateUser } from "./lib/translate-item.mjs";
 const translateSystem = (langName) => sharedTranslateSystem(langName, "secure");
 void SCRUM_NOUNS;
 
@@ -205,27 +206,8 @@ function parseJsonArray(text) {
 // ---------------------------------------------------------------------------
 // Translation graft (the English skeleton is authoritative)
 // ---------------------------------------------------------------------------
-function graftTranslation(enQ, tr) {
-  if (!tr || typeof tr !== "object") return null;
-  if (typeof tr.question_text !== "string" || tr.question_text.length < 5) return null;
-  if (typeof tr.explanation !== "string" || tr.explanation.length < 3) return null;
-  if (!Array.isArray(tr.options)) return null;
-  const trById = new Map(tr.options.filter((o) => o && o.id).map((o) => [o.id, o.text]));
-  const options = [];
-  for (const o of enQ.options) {
-    const text = trById.get(o.id);
-    if (typeof text !== "string" || text.length === 0) return null;
-    options.push({ id: o.id, text });
-  }
-  return {
-    question_text: tr.question_text,
-    question_type: enQ.question_type,
-    options,
-    correct_answer: enQ.correct_answer,
-    explanation: tr.explanation,
-    difficulty: enQ.difficulty,
-  };
-}
+/* graftTranslation moved to ./lib/translate-item.mjs (PROMPT-104 s3a); proven a no-op
+ * byte for byte by scripts/prove-translate-item-noop.mjs. */
 
 // ---------------------------------------------------------------------------
 // Translation
@@ -235,14 +217,8 @@ function graftTranslation(enQ, tr) {
 // translation prompt had nothing, so a term the English got right was reintroduced
 // downstream where no English-language check could see it.
 
-function translateUser(enQuestions) {
-  const payload = enQuestions.map((q) => ({
-    question_text: q.question_text,
-    options: q.options.map((o) => ({ id: o.id, text: o.text })),
-    explanation: q.explanation,
-  }));
-  return `Translate these ${payload.length} questions:\n\n${JSON.stringify(payload, null, 2)}\n\nReturn the JSON array now.`;
-}
+/* translateUser moved to ./lib/translate-item.mjs (PROMPT-104 s3a); proven a no-op
+ * byte for byte by scripts/prove-translate-item-noop.mjs. */
 
 // ---------------------------------------------------------------------------
 // Data gathering

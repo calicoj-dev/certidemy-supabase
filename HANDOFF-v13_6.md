@@ -202,6 +202,13 @@ By name, the things that must change:
 - R6 spend this session: ~$10.8 of the $15 ceiling, across one invalidated 7-item run, the 13-item run,
   an 8-item top-up and a 1-item probe. **R6 is NOT closed: 5 survivors of 13 floors, nothing inserted.**
 
+## 4c. Logged for ISMS-F onward (PROMPT-104 s4, not done)
+
+- The writer anchors on **container clauses** of ISO/IEC 17021-1 (9.3.1.2, 9.6.3.1, 9.6.3.2) when its
+  quotation sits verbatim in exactly one child; `verbatim` refuses, correctly, and it cost ~5 of R7's
+  items. Fix: resolve a container citation to the single child holding the quote verbatim, or refuse
+  when more than one child matches.
+
 ## 5. Open backlogs
 
 | backlog | size | where |

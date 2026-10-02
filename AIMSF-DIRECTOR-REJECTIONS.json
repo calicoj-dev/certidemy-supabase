@@ -84,6 +84,18 @@
    "task": "4.5",
    "ruled": "PROMPT-97 addendum s2",
    "why": "near-duplicate of 5d0353c2 (same imputation/scaling/encoding scenario on A.7.6)"
+  },
+  {
+   "id": "f0fc9c25",
+   "task": "1.2",
+   "ruled": "PROMPT-104 s1",
+   "why": "near-duplicate of the accepted 9cbef19e (1.2, \"It can hold several of the listed roles\") -- same task, same fact, a DIFFERENT anchor, so the enemy rule cannot keep them off one form. The near-duplicate gate compares stems and cannot see this."
+  },
+  {
+   "id": "262b5be7",
+   "task": "5.5",
+   "ruled": "PROMPT-104 s1",
+   "why": "too obscure for a Foundation candidate: ISO/IEC 17021-1 9.1.3.5 shift working is a procedural detail of the certification body's audit planning, not the certification route the task describes. We do not want impossible exams."
   }
  ]
 }

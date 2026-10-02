@@ -65,7 +65,11 @@ const MIN_EFFECTIVE_TO_GENERATE = 3;
  * mean the next person adds an `if` somewhere instead. */
 const MIN_PRIMARY = 4, EXCLUDE = new Set();
 /* min(default, 2 x effective): three primaries at the cap of 2 is six items, which is the ruling. */
-const floorFor = (effective) => Math.min(FLOOR, CAP * effective);
+/* A PER-TASK OVERRIDE BEATS THE DERIVATION, and is NAMED rather than applied quietly: a lowered floor
+ * that reads as a met floor is the whole reason the derivation exists. PROMPT-104 s2. */
+const OVERRIDE = Object.fromEntries(Object.entries(FLOORS.per_task_overrides || {})
+  .filter(([k]) => !k.startsWith("_")).map(([k, v]) => [k, v]));
+const floorFor = (effective, code) => (OVERRIDE[code] ? OVERRIDE[code].floor : Math.min(FLOOR, CAP * effective));
 
 const surv = JSON.parse(readFileSync(join(ROOT, "AIMSF-SURVIVORS.json"), "utf8"));
 const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));
@@ -109,7 +113,7 @@ const taskOfQ = new Map(qs.map((r) => [r.id, r.task_id]));
  * tasks 3.6 and 5.5 -- and the self-reconciling `have = keptUsable + inserted` could not see it. */
 const servable = new Set(qs.filter((r) => r.status !== "rejected" && r.retired_at == null).map((r) => r.id));
 const ig = await getAll(KEY,
-  "item_grounding?select=question_id,key_support_clause,source_id&order=question_id");
+  "item_grounding?select=question_id,key_support_clause,source_id,edition&order=question_id");
 
 const rows = [];
 for (const t of tasks) {
@@ -128,7 +132,7 @@ for (const t of tasks) {
   for (const g of ig) {
     if (codeOf.get(taskOfQ.get(g.question_id)) !== t.code) continue;
     if (!servable.has(g.question_id)) continue;
-    const k = anchorKey(g.source_id, g.key_support_clause);
+    const k = anchorKey(g.source_id, g.edition, g.key_support_clause);
     running.set(k, (running.get(k) || 0) + 1);
     inserted++;
   }
@@ -143,7 +147,7 @@ for (const t of tasks) {
     keptUsable++;
   }
   const have = keptUsable + inserted;
-  const floor = floorFor(effective);
+  const floor = floorFor(effective, t.code);
   const shortfall = Math.max(0, floor - have);
   /* THREE STATES, not two. `too_thin` is a MAP question addressed to the director; `at_floor` is
    * finished; `eligible` is work. Folding the first into the second would hide it beside tasks that
@@ -161,6 +165,18 @@ const md = [];
 const p = (s = "") => md.push(s);
 p("# AIMS-F rollout: the per-task shortfall");
 p("");
+/* OVERRIDES ARE NAMED. A floor lowered by ruling must not read as a floor that was met. */
+if (Object.keys(OVERRIDE).length) {
+  p("");
+  p("**PER-TASK FLOOR OVERRIDES** -- these floors are RULED, not derived:");
+  p("");
+  for (const [code, o] of Object.entries(OVERRIDE)) {
+    p("- **" + code + ": floor " + o.floor + "** (" + o.ruled_in + ") -- " + o.reason);
+  }
+  p("");
+  console.log("  FLOOR OVERRIDES (ruled, not derived): " +
+    Object.entries(OVERRIDE).map(([c, o]) => c + "->" + o.floor + " " + o.ruled_in).join(", "));
+}
 p("**The floor is PER TASK**, derived as `min(" + FLOOR + ", " + CAP + " x effective primaries)`. Ruled");
 p("PROMPT-94 s4: a task with three effective primaries gets a floor of 6, because three clauses at the");
 p("cap of " + CAP + " is six items. The rule lives in TASK-FLOORS-AIMSF.json; the number is derived, so a");
