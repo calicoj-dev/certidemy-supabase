@@ -6971,3 +6971,35 @@ recreated. Verify against `pg_catalog`, or leave it unverified and say so.
 
 **`git status --short` before every commit.** Build and commit are separate
 steps.
+
+---
+
+## YOU RUN EVERY BUILD. JUAN ONLY PUSHES AND DEPLOYS.
+
+**Standing rule, from Juan, effective 2026-10-01 (PROMPT-101).**
+
+- **Before any web commit reported as ready-to-push, run `npm run build` in `certidemy-web` yourself.** That
+  includes `i18n:check`, which is control bytes, then the learner-string audit, then the message catalogue.
+- **If it fails, fix it and run it again until it is green.** Never hand Juan a build to run.
+- **Edge functions you changed get `deno check --node-modules-dir=auto functions/<name>/index.ts`**, the same
+  way, before the commit is reported.
+- **The deploy table gains a column: build green at HEAD — yes/no, and when.**
+
+Juan's PowerShell from now on is only:
+
+```
+git push
+supabase functions deploy <name> --dns-resolver https
+```
+
+plus SQL pasted into the editor.
+
+**WHY THIS IS A RULE AND NOT A COURTESY.** The failure it replaces is already in this file twice. A local
+commit is not a deploy, and `x-certidemy-build` is the only thing that answers which commit is serving -- but
+the half nobody had covered is the step *before* that: a commit reported as ready-to-push whose build has never
+been run is a commit whose readiness is a guess. The i18n gate is now IN `npm run build`, so a hard-coded string
+or an untranslated catalogue value fails the build rather than reaching a learner, and the only person who finds
+that out is whoever runs it. That has to be the author.
+
+**It also removes the one thing a human running a build is for.** A failed build handed over costs a round trip
+and arrives with no diagnosis; a failed build caught here costs an edit.

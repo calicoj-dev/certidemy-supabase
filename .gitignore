@@ -147,3 +147,8 @@ AIMSF-PILOT-READ.md
 # rather than deleted.
 source-overrides-*.generated.json
 REEXTRACT-DIFF.md
+
+# The content check own diagnostic output carries gram SAMPLES, so it reproduces the passages it found.
+# It flagged itself on its first run, which is the check working. Its BASELINE is safe and stays tracked: that
+# file records only file name, run count and which passage -- no quoted text.
+LICENSED-TEXT-SCAN.json

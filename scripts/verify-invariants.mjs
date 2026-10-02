@@ -408,6 +408,47 @@ Object.assign(fetched, {
 }
 
 // ---------------------------------------------------------------------------
+// 12b. No tracked file reproduces a held library passage.
+//
+// Ruled PROMPT-101 r3, after the same escape twice in two rounds: A54-DECOLUMNED.json and
+// AIMSF-PILOT-READ.md were both committed, noticed, untracked, and given a .gitignore line.
+// A .gitignore matches NAMES and the rule is about CONTENT, so the next document that quotes
+// the library escapes until somebody reads a diff.
+//
+// The denominator is FILES EXAMINED, not findings, so a run that could not read the library
+// reports vacuous rather than clean -- the script exits 2 in that case and this records it.
+// ---------------------------------------------------------------------------
+{
+  const failures = [];
+  let examined = 0;
+  /* its own, block-scoped: the one above is local to a different invariant. Built from char codes, which is
+   * this file own convention for a pattern carrying a backslash. */
+  const NEWLINE_RE = new RegExp(String.fromCharCode(92) + "r?" + String.fromCharCode(92) + "n");
+  const read = (out) => {
+    const m = out.match(/files examined\s+(\d+)/);
+    examined = m ? Number(m[1]) : 0;
+    for (const line of out.split(NEWLINE_RE)) {
+      // a NEW finding is printed as "  <n> run(s)  <file>" under NEW FINDINGS; the known-debt
+      // block uses the same shape, so only lines after the NEW FINDINGS header count.
+      if (/^FAILING: \d+ tracked file/.test(line.trim())) failures.push(line.trim());
+    }
+    return out;
+  };
+  try {
+    read(execFileSync(process.execPath, [join(HERE, "check-licensed-text.mjs")], {
+      encoding: "utf8", stdio: ["ignore", "pipe", "pipe"],
+    }));
+  } catch (err) {
+    const out = read(String(err.stdout || "") + String(err.stderr || ""));
+    if (!failures.length) {
+      failures.push("check-licensed-text.mjs exited non-zero: " + out.split(NEWLINE_RE).slice(-3).join(" | "));
+    }
+  }
+  record("no licensed text newly tracked", failures,
+         "tracked files vs the held library, 12+ consecutive words; 285 known-debt files baselined", examined);
+}
+
+// ---------------------------------------------------------------------------
 // 13. No word-boundary regex that cannot fire.
 //
 // A word-boundary escape is ASCII-only, so it is not a boundary next to an
