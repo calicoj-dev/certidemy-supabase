@@ -56,7 +56,7 @@ const sfOf = new Map(SF.per_task.map((r) => [r.code, r]));
 /* the generator's own view: this standard and edition only */
 const inRun = new Map(lib.passages.filter((p) => p.source_id === STANDARD && p.edition === EDITION)
   .map((p) => [p.clause, p]));
-const libByKey = new Map(lib.passages.map((p) => [p.source_id + "|" + p.clause, p]));
+const libByKey = new Map(lib.passages.map((p) => [p.source_id + "|" + p.edition + "|" + p.clause, p]));
 const clausesBySource = new Map();
 for (const p of lib.passages) {
   if (!clausesBySource.has(p.source_id)) clausesBySource.set(p.source_id, []);
@@ -98,13 +98,15 @@ for (const t of tasks) {
   let effAnySource = 0, effInRun = 0, binding = 0;
   for (const p of ps) {
     bySource[p.source_id] = (bySource[p.source_id] || 0) + 1;
-    const full = libByKey.get(p.source_id + "|" + p.clause);
+    const full = libByKey.get(p.source_id + "|" + p.edition + "|" + p.clause);
     const [one] = classifyPrimaries([p.clause], () => full, clausesBySource.get(p.source_id) || []);
     if (!one.effective) continue;
     effAnySource++;
-    if (p.source_id === STANDARD && p.edition === EDITION && inRun.has(p.clause)) {
+    /* PROMPT-102 s2: ANCHORABLE now means HELD, in any mapped source. The generator's single-standard
+     * filter is gone, so "in run" is every effective primary whose passage the library holds. */
+    if (full) {
       effInRun++;
-      binding += Math.max(0, CAP - (cen.get(anchorKey(p.source_id, p.clause)) || 0));
+      binding += Math.max(0, CAP - (cen.get(anchorKey(p.source_id, p.edition, p.clause)) || 0));
     }
   }
   const sf = sfOf.get(t.code) || {};
@@ -139,12 +141,16 @@ for (const r of rows) {
 console.log("");
 const mixed = rows.filter((r) => Object.keys(r.bySource).length > 1 ||
   !Object.keys(r.bySource).every((s) => s === STANDARD));
-console.log("TASKS LINKING A PRIMARY FROM A SOURCE THIS RUN CANNOT ANCHOR IN: " + mixed.length + " of " +
-  rows.length);
+/* Since the PROMPT-102 re-key these are ANCHORABLE, not excluded: the generator keys passages on
+ * (source, edition, clause) and scopes per item, so a cross-source primary resolves in its own document.
+ * Reported because it is where the items will come from, and `eff any == eff in run` is the proof. */
+console.log("TASKS LINKING A PRIMARY FROM ANOTHER SOURCE (anchorable since the re-key): " + mixed.length +
+  " of " + rows.length);
 for (const r of mixed) {
   const others = Object.entries(r.bySource).filter(([s]) => s !== STANDARD);
   console.log("  " + r.code.padEnd(6) + others.map(([s, n]) => s + " " + n).join(", ") +
-    "   (eff any " + r.effAnySource + " -> eff in run " + r.effInRun + ")");
+    "   (eff any " + r.effAnySource + ", anchorable " + r.effInRun +
+    (r.effAnySource === r.effInRun ? " -- all reachable)" : " -- " + (r.effAnySource - r.effInRun) + " NOT held)"));
 }
 console.log("");
 if (unreachable.length) {

@@ -27,6 +27,8 @@ import { gateAnchorAssignment } from "./anchor-assignment.mjs";
  * words and one column-interleaved span reached survivor status, and the reporter printed "quote-noise: 0"
  * three times because a gate that is never called cannot reject. */
 import { gateQuoteNoise } from "./quote-noise.mjs";
+import { makePassageIndex } from "./passage-index.mjs";
+import { passageKey, labelOf } from "./passage-key.mjs";
 
 /* ============ NORMALISATION, AND WHY IT IS THE RISKY PART ============
  *
@@ -248,7 +250,7 @@ const LICENSES = {
  * This is the gate the whole design rests on: it is what makes "the pointing is checked by
  * code" true rather than aspirational.
  */
-export function gateVerbatim(item, passagesByKey) {
+export function gateVerbatim(item, passagesByKey, resolveAnchor = null) {
   const anchors = [
     { role: "key", clause: item.key_support_clause, text: item.key_support },
     ...(item.distractor_support || []).map((d, i) => ({ role: "distractor " + i, clause: d.clause, text: d.support })),
@@ -262,7 +264,7 @@ export function gateVerbatim(item, passagesByKey) {
   for (const a of anchors) {
     if (!a.clause) { bad.push(a.role + ": no clause named"); continue; }
     if (!a.text || !String(a.text).trim()) { bad.push(a.role + ": no support sentence"); continue; }
-    const p = passagesByKey.get(normClause(a.clause));
+    const p = resolveAnchor ? resolveAnchor(a) : passagesByKey.get(normClause(a.clause));
     if (!p) { bad.push(a.role + ": clause " + normClause(a.clause) + " is not in the library"); continue; }
     const hay = normForVerbatim(p.text + " " + (p.title || ""));
     const needle = normForVerbatim(a.text);
@@ -812,17 +814,29 @@ export function gateReproduction(item, sources, leak) {
  * measures, and the task says what that is.
  */
 export function gateAnchorIsPrimary(item, primaryClauses, supportingClauses) {
-  const prim = new Set(primaryClauses || []);
-  const supp = new Set(supportingClauses || []);
+  /* PROMPT-102 s2: the map carries FULL passage keys, because task 5.5 maps ISO/IEC 17021-1 3.4 and a
+   * bare-clause compare resolved it against 42001's 3.4. A bare list is refused, not coerced. */
+  const asKey = (x) => (x && typeof x === "object")
+    ? passageKey(x.source_id, x.edition, normClause(x.clause))
+    : String(x);
+  const prim = new Set([...(primaryClauses || [])].map(asKey));
+  const supp = new Set([...(supportingClauses || [])].map(asKey));
+  const bare = [...prim, ...supp].filter((k) => !String(k).includes("|"));
+  if (bare.length) {
+    throw new TypeError("gateAnchorIsPrimary: primary/supporting must be (source, edition, clause) keys, " +
+      "got bare clause(s) [" + bare.slice(0, 3).join(", ") + "] -- a bare compare is the 3.4 collision");
+  }
   if (!prim.size) {
     return { id: "anchor-is-primary", pass: null, examined: 0,
       reason: "the task has no primary passages -- UNASSERTED. A task mapped to nothing cannot " +
         "clear an item, and that is a fact about the MAP, not the item" };
   }
-  const key = normClause(item.key_support_clause);
+  const clause = normClause(item.key_support_clause);
+  const key = passageKey(item.source_id, item.edition, clause);
   if (prim.has(key)) {
     return { id: "anchor-is-primary", pass: true, examined: prim.size,
-      reason: "the key anchors in " + key + ", a primary passage of this task" };
+      reason: "the key anchors in " + labelOf(item.source_id, item.edition, clause) +
+        ", a primary passage of this task" };
   }
 
   /* ============ ANNEX B GUIDANCE COUNTS WITH ITS ANNEX A CONTROL ============
@@ -837,15 +851,16 @@ export function gateAnchorIsPrimary(item, primaryClauses, supportingClauses) {
    *
    * And it still refuses the case it was ruled for: task 1.3's key on B.6.2.6 fails, because
    * A.6.2.6 is not primary for 1.3. The pairing is with the CONTROL, not with the annex. */
-  const paired = /^B\.(.+)$/.exec(key);
-  if (paired && prim.has("A." + paired[1])) {
+  /* The pairing is WITHIN one source and edition: B.x.y is guidance for A.x.y of the SAME document. */
+  const paired = /^B\.(.+)$/.exec(clause);
+  if (paired && prim.has(passageKey(item.source_id, item.edition, "A." + paired[1]))) {
     return { id: "anchor-is-primary", pass: true, examined: prim.size,
-      reason: "the key anchors in " + key + ", the implementation guidance for A." + paired[1] +
+      reason: "the key anchors in " + clause + ", the implementation guidance for A." + paired[1] +
         ", which IS primary for this task" };
   }
   return {
     id: "anchor-is-primary", pass: false, examined: prim.size,
-    reason: "the key anchors in " + key + ", which is " +
+    reason: "the key anchors in " + labelOf(item.source_id, item.edition, clause) + ", which is " +
       (supp.has(key) ? "SUPPORTING for this task, not primary -- a distractor's reason may use it, a key may not"
         : "not mapped to this task at all") +
       ". Primary: " + [...prim].slice(0, 12).join(", ") + (prim.size > 12 ? " ..." : ""),
@@ -914,9 +929,28 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
    * that `reporterGateParity` can see it: a gate the reporter names must be one this function produces,
    * and a gate added beside this function is invisible to that check. */
   assignedAnchor = null }) {
+  /* PROMPT-102 s2: passagesByKey is a SCOPED VIEW from lib/passage-index.mjs, bounded to this item's own
+   * (source_id, edition). A bare Map is refused -- an unscoped lookup is the 3.4 collision. */
+  let index = null;
+  if (!passagesByKey || passagesByKey.scoped !== true) {
+    const scope = passagesByKey && typeof passagesByKey.forItem === "function"
+      ? passagesByKey.forItem(item) : null;
+    if (!scope) {
+      throw new TypeError("runCodeGates: passagesByKey must be a scoped view " +
+        "(makePassageIndex(lib.passages).forItem(item)), not a clause-keyed Map");
+    }
+    index = passagesByKey;
+    passagesByKey = scope;
+  }
+  /* PER-ANCHOR resolution. A DISTRACTOR may cite a different standard from the key -- task 5.5 maps
+   * 42006 and 17021-1 together -- so an anchor carrying its own source resolves there, not in the
+   * item's scope. Without the index we can only use the item's scope, which is the old behaviour. */
+  const resolveAnchor = (a) => (index && a && a.source_id && a.edition)
+    ? index.get(a.source_id, a.edition, normClause(a.clause))
+    : passagesByKey.get(normClause(a.clause));
   const gates = [
     gateClauseExists(item, passagesByKey, annexGaps, sequenceGaps),
-    gateVerbatim(item, passagesByKey),
+    gateVerbatim(item, passagesByKey, resolveAnchor),
     gateModalFidelity(item, passagesByKey),
     gateSuperseded(item, cert),
     gateStructure(item, cueCfg),
@@ -930,8 +964,10 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
     gateClauseNumberRecall(item),
     /* the passage title comes from passagesByKey, so the title-bleed arm is given what it needs rather
      * than guessing at title shape -- the shape test is what excused a real reproduction of `availability`. */
-    gateQuoteNoise(item, (clause) => {
-      const p = passagesByKey && passagesByKey.get ? passagesByKey.get(String(clause)) : null;
+    /* titleOf now takes the full key; the view is already scoped, so src/ed are asserted not re-looked-up. */
+    gateQuoteNoise(item, (src, ed, clause) => {
+      if (src && ed && (String(src) !== String(passagesByKey.source_id) || String(ed) !== String(passagesByKey.edition))) return null;
+      const p = passagesByKey.get(String(clause));
       return p ? p.title : null;
     }),
     gateAnchorAssignment(item, assignedAnchor),
@@ -968,18 +1004,26 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
  * fail -- and a gate that refuses everything looks like rigour.
  */
 export function groundedGateControls() {
+  const SRC = "ISO/IEC 42001", ED = "2023";
+  /* a primary-map entry and an item, both carrying the source and edition the re-key requires */
+  const P42 = (clause) => ({ source_id: SRC, edition: ED, clause });
+  const I42 = (o) => ({ source_id: SRC, edition: ED, ...o });
   const passage = {
+    source_id: SRC, edition: ED,
     clause: "9.2.2", title: "Internal audit programme", normative: "shall",
     text: "The organization shall plan, establish, implement and maintain an audit programme " +
       "including the frequency, methods, responsibilities, planning requirements and reporting.",
   };
   const soft = {
+    source_id: SRC, edition: ED,
     clause: "B.9.2", title: "Internal audit guidance", normative: "should",
     text: "The organization should consider the competence of the auditors when planning an audit.",
   };
-  const byKey = new Map([[passage.clause, passage], [soft.clause, soft]]);
+  /* A SCOPED VIEW, not a clause-keyed Map: runCodeGates refuses the latter since PROMPT-102 s2. */
+  const byKey = makePassageIndex([passage, soft]).for(SRC, ED);
 
   const good = {
+    source_id: SRC, edition: ED,
     question_text: "An organization is planning its AI management system internal audits. What does ISO/IEC 42001:2023 require the organization to establish?",
     options: [
       { text: "An audit programme covering frequency, methods, responsibilities and reporting", is_correct: true },
@@ -1002,7 +1046,7 @@ export function groundedGateControls() {
     ["accepts a sound grounded item", () => runCodeGates(good, {
       passagesByKey: byKey,
       liveStemsForTask: [{ id: "x", stem: "Completely unrelated stem about data quality and provenance records." }],
-      primaryClauses: ["9.2.2"], supportingClauses: ["3.18"],
+      primaryClauses: [P42("9.2.2")], supportingClauses: [P42("3.18")],
       sources: { stub: true },
       leak: {
         ITEM_MAX_RUN: 9,
@@ -1366,11 +1410,11 @@ export function groundedGateControls() {
     }).pass, true],
 
     ["#3 and #30: a key anchored in a SUPPORTING passage is refused", () =>
-      gateAnchorIsPrimary({ key_support_clause: "B.6.2.6" }, ["A.6.1", "A.6.2"], ["B.6.2.6"]).pass, false],
+      gateAnchorIsPrimary(I42({ key_support_clause: "B.6.2.6" }), [P42("A.6.1"), P42("A.6.2")], [P42("B.6.2.6")]).pass, false],
     ["a key anchored in a primary passage passes", () =>
-      gateAnchorIsPrimary({ key_support_clause: "9.2.2" }, ["9.2.1", "9.2.2"], ["3.18"]).pass, true],
+      gateAnchorIsPrimary(I42({ key_support_clause: "9.2.2" }), [P42("9.2.1"), P42("9.2.2")], [P42("3.18")]).pass, true],
     ["a task with no primary map is UNASSERTED, not a refusal", () =>
-      gateAnchorIsPrimary({ key_support_clause: "9.2.2" }, [], []).pass, null],
+      gateAnchorIsPrimary(I42({ key_support_clause: "9.2.2" }), [], []).pass, null],
 
     ["reproduction is UNASSERTED without the leak index, never clean", () =>
       gateReproduction({ question_text: "x", options: [{ text: "y", is_correct: true }] }, null, null).pass, null],
@@ -1452,9 +1496,9 @@ export function groundedGateControls() {
     }, false],
 
     ["B.x.y guidance counts as primary when A.x.y is primary", () =>
-      gateAnchorIsPrimary({ key_support_clause: "B.2.3" }, ["A.2.2", "A.2.3", "A.2.4"], ["B.2.x"]).pass, true],
+      gateAnchorIsPrimary(I42({ key_support_clause: "B.2.3" }), ["A.2.2", "A.2.3", "A.2.4"].map(P42), [P42("B.2.x")]).pass, true],
     ["but only for ITS OWN control: B.6.2.6 fails where A.6.2.6 is not primary", () =>
-      gateAnchorIsPrimary({ key_support_clause: "B.6.2.6" }, ["A.6.1", "A.6.2", "B.6.2.1"], ["B.6.2.6"]).pass, false],
+      gateAnchorIsPrimary(I42({ key_support_clause: "B.6.2.6" }), ["A.6.1", "A.6.2", "B.6.2.1"].map(P42), [P42("B.6.2.6")]).pass, false],
 
     /* ============ THREE MORE FROM THE 40-ITEM PILOT ============ */
     ["a distractor pointer may be short; the key's anchor may not", () => {
@@ -1545,29 +1589,75 @@ export function groundedGateControls() {
       key_support_clause: "3.2",
       key_support: "ISO/IEC 27000:2018, 3.2: asset -- anything that has value to the organization",
     }).pass, true],
+    /* ============ THE 3.4 COLLISION, THROUGH runCodeGates ============
+     * PROMPT-102 s2 acceptance test 2. Two standards carry clause 3.4. An item anchored in 17021-1's
+     * must not resolve against 42001's, and must fail anchor-is-primary for a 42001-only task. */
+    ["the 3.4 collision: a 17021-1 anchor does not resolve in a 42001 view", () => {
+      const ix = makePassageIndex([
+        { source_id: "ISO/IEC 42001", edition: "2023", clause: "3.4", title: "management system",
+          normative: "shall", text: "A management system is a set of interrelated elements of an organization." },
+        { source_id: "ISO/IEC 17021-1", edition: "2015", clause: "3.4", title: "certification audit",
+          normative: "shall", text: "A certification audit shall be carried out by a certification body." },
+      ]);
+      const item = { source_id: "ISO/IEC 17021-1", edition: "2015",
+        question_text: "Who carries out a certification audit?",
+        options: [{ text: "A certification body", is_correct: true }, { text: "The organization itself" }],
+        explanation: "A certification audit shall be carried out by a certification body.",
+        key_support_clause: "3.4",
+        key_support: "A certification audit shall be carried out by a certification body." };
+      const r = runCodeGates(item, { passagesByKey: ix, primaryClauses: [{ source_id: "ISO/IEC 42001", edition: "2023", clause: "9.2.2" }], supportingClauses: [],
+        sources: { stub: true }, leak: { ITEM_MAX_RUN: 9, score: () => ({ unionRun: 3, source: "stub" }), splitOneAttributedQuotation: (t) => ({ remainder: t, quotation: null, ok: true, reason: "stub" }) } });
+      /* verbatim PASSES (it is 17021-1's own sentence, found in the 17021-1 view) and
+       * anchor-is-primary REFUSES (3.4 is not among this task's primaries). */
+      return !r.failed.includes("verbatim") && r.failed.includes("anchor-is-primary");
+    }, true],
+    ["the same anchor DOES clear anchor-is-primary when 3.4 is the task's primary", () => {
+      const ix = makePassageIndex([
+        { source_id: "ISO/IEC 17021-1", edition: "2015", clause: "3.4", title: "certification audit",
+          normative: "shall", text: "A certification audit shall be carried out by a certification body." },
+      ]);
+      const item = { source_id: "ISO/IEC 17021-1", edition: "2015",
+        question_text: "Who carries out a certification audit?",
+        options: [{ text: "A certification body", is_correct: true }, { text: "The organization itself" }],
+        explanation: "A certification audit shall be carried out by a certification body.",
+        key_support_clause: "3.4",
+        key_support: "A certification audit shall be carried out by a certification body." };
+      const r = runCodeGates(item, { passagesByKey: ix, primaryClauses: [{ source_id: "ISO/IEC 17021-1", edition: "2015", clause: "3.4" }], supportingClauses: [],
+        sources: { stub: true }, leak: { ITEM_MAX_RUN: 9, score: () => ({ unionRun: 3, source: "stub" }), splitOneAttributedQuotation: (t) => ({ remainder: t, quotation: null, ok: true, reason: "stub" }) } });
+      return !r.failed.includes("anchor-is-primary") && !r.failed.includes("verbatim");
+    }, true],
+    ["a bare clause-keyed Map is REFUSED, so an unscoped lookup cannot happen", () => {
+      try {
+        runCodeGates({ source_id: "x", edition: "y", key_support_clause: "3.4", key_support: "t",
+          question_text: "q", options: [{ text: "a", is_correct: true }, { text: "b" }] },
+          { passagesByKey: new Map([["3.4", { clause: "3.4", text: "t" }]]) });
+        return false;
+      } catch (e) { return /scoped view/.test(String(e.message)); }
+    }, true],
+
     ["refuses a clause-number recall stem", () => {
       const recall = { ...good, question_text: "Improvement in ISO/IEC 42001 is split between " +
         "clauses 10.1 and 10.2. Which obligation belongs to 10.1?" };
-      return runCodeGates(recall, { passagesByKey: byKey, primaryClauses: new Set(["9.2.2"]),
-        supportingClauses: new Set(["B.9.2"]), sources: [], leak: null })
+      return runCodeGates(recall, { passagesByKey: byKey, primaryClauses: [P42("9.2.2")],
+        supportingClauses: [P42("B.9.2")], sources: [], leak: null })
         .failed.includes("clause-number-recall");
     }, true],
     ["does NOT refuse a stem citing a clause as authority", () => {
       const auth = { ...good, question_text: "Top management is drafting the AI policy. Which of the " +
         "following must the policy contain according to clause 5.2?" };
-      return runCodeGates(auth, { passagesByKey: byKey, primaryClauses: new Set(["9.2.2"]),
-        supportingClauses: new Set(["B.9.2"]), sources: [], leak: null })
+      return runCodeGates(auth, { passagesByKey: byKey, primaryClauses: [P42("9.2.2")],
+        supportingClauses: [P42("B.9.2")], sources: [], leak: null })
         .failed.includes("clause-number-recall");
     }, false],
     ["refuses a hyphen-split word in key_support THROUGH runCodeGates", () => {
       const noisy = { ...good, key_support: "The organization shall plan, establish, implement and maintain an audit" +
         " programme including the frequency, methods, responsibi- lities and reporting" };
-      return runCodeGates(noisy, { passagesByKey: byKey, primaryClauses: new Set(["9.2.2"]),
-        supportingClauses: new Set(["B.9.2"]), sources: [], leak: null }).failed.includes("quote-noise");
+      return runCodeGates(noisy, { passagesByKey: byKey, primaryClauses: [P42("9.2.2")],
+        supportingClauses: [P42("B.9.2")], sources: [], leak: null }).failed.includes("quote-noise");
     }, true],
     ["does NOT refuse a clean key_support through runCodeGates", () => {
-      return runCodeGates(good, { passagesByKey: byKey, primaryClauses: new Set(["9.2.2"]),
-        supportingClauses: new Set(["B.9.2"]), sources: [], leak: null }).failed.includes("quote-noise");
+      return runCodeGates(good, { passagesByKey: byKey, primaryClauses: [P42("9.2.2")],
+        supportingClauses: [P42("B.9.2")], sources: [], leak: null }).failed.includes("quote-noise");
     }, false],
   ];
 

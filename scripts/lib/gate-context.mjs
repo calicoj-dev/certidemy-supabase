@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 import { getAll } from "../_pg.mjs";
 import { runCodeGates } from "./grounded-gates.mjs";
 import { gateItemOf, id8 } from "./stored-item.mjs";
+import { makePassageIndex } from "./passage-index.mjs";
 import { cueConfigFor } from "../../functions/_shared/item-rules/item-cue-guard.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -49,7 +50,8 @@ export async function buildGateContext(key, certCode, opts = {}) {
     const p = pById.get(r.passage_id);
     if (!p) continue;
     if (!mapByTask.has(r.task_id)) mapByTask.set(r.task_id, { primary: [], supporting: [] });
-    mapByTask.get(r.task_id)[r.role].push(p.clause);
+    /* FULL KEY per role, not a clause string: task 5.5 maps 17021-1 3.4 and 42001 has a 3.4 too. */
+    mapByTask.get(r.task_id)[r.role].push({ source_id: p.source_id, edition: p.edition, clause: p.clause });
     const k = p.source_id + "|" + p.edition;
     stdSeen.set(k, (stdSeen.get(k) || 0) + 1);
   }
@@ -65,8 +67,10 @@ export async function buildGateContext(key, certCode, opts = {}) {
     }
     [standard, edition] = ranked[0][0].split("|");
   }
-  const passagesByKey = new Map(lib.passages
-    .filter((p) => p.source_id === standard && p.edition === edition).map((p) => [p.clause, p]));
+  /* THE WHOLE LIBRARY, indexed on (source, edition, clause). The single-standard pre-filter is GONE:
+   * it is what made the 3.4 collision reachable. Scoping is now per ITEM, by its own grounding. */
+  const index = makePassageIndex(lib.passages);
+  const passagesByKey = index.for(standard, edition);
   if (!passagesByKey.size) throw new Error("buildGateContext: no library passages for " + standard + " " + edition);
 
   const leak = await import("./leak-score.mjs");
@@ -89,13 +93,18 @@ export async function buildGateContext(key, certCode, opts = {}) {
     if (!g) throw new Error("gateRow: " + id8(row) + " has no item_grounding row");
     const base = gateItemOf({ ...row, ...overrides });
     const code = codeOfTask.get(row.task_id);
+    /* The view is scoped to THE ROW'S OWN (source, edition), from item_grounding -- not to the run's.
+     * A row whose grounding names 17021-1 is looked up in 17021-1, whatever the certification's standard is. */
+    const scoped = index.for(g.source_id ?? standard, g.edition ?? edition);
     return runCodeGates({
       ...base,
+      source_id: g.source_id ?? standard,
+      edition: g.edition ?? edition,
       key_support: overrides.key_support ?? g.key_support,
       key_support_clause: overrides.key_support_clause ?? g.key_support_clause,
       explanation: overrides.explanation ?? row.explanation,
     }, {
-      passagesByKey, annexGaps, sequenceGaps: [...sequenceGaps, ...declaredGaps],
+      passagesByKey: scoped, annexGaps, sequenceGaps: [...sequenceGaps, ...declaredGaps],
       cert: certCode, cueCfg,
       primaryClauses: (mapByTask.get(row.task_id) || {}).primary || null,
       supportingClauses: (mapByTask.get(row.task_id) || {}).supporting || null,
@@ -104,6 +113,6 @@ export async function buildGateContext(key, certCode, opts = {}) {
     });
   };
 
-  return { cert, standard, edition, passagesByKey, annexGaps, sequenceGaps, declaredGaps, cueCfg,
+  return { cert, standard, edition, index, passagesByKey, annexGaps, sequenceGaps, declaredGaps, cueCfg,
     tasks, codeOfTask, taskIdOfCode, mapByTask, rows, grounding, liveByTask, sources, leak, gateRow };
 }

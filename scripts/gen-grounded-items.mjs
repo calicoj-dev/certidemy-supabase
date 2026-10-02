@@ -45,10 +45,12 @@ import { readFileSync, writeFileSync, existsSync, appendFileSync, renameSync } f
 import { dirname, join, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
-import { runCodeGates } from "./lib/grounded-gates.mjs";
+import { runCodeGates, normClause } from "./lib/grounded-gates.mjs";
 import { blindPayload, assertBlind, solverUser, solverVerdict, SOLVER_SYSTEM, blindSolverControls } from "./lib/blind-solver.mjs";
 import { createHash } from "node:crypto";
 import { CAP, atCap, applyCap, anchorCapControls } from "./lib/anchor-cap.mjs";
+import { passageKey, keyOfPassage, labelOf, passageKeyControls } from "./lib/passage-key.mjs";
+import { makePassageIndex, passageIndexControls } from "./lib/passage-index.mjs";
 /* PROMPT-96 s2. ONE implementation of the assignment, imported by the writer prompt AND by the gate, so the
  * clause the writer is told to use is exactly the clause the gate checks for. */
 import { itemDispositionControls } from "./lib/item-disposition.mjs";
@@ -370,9 +372,10 @@ const controlTitles = [...new Set(lib.passages
   .map((p) => String(p.title || "").trim())
   .filter((t) => t.length >= 12))];
 
-const passagesByKey = new Map(lib.passages
-  .filter((p) => p.source_id === mapping.standard && p.edition === mapping.edition)
-  .map((p) => [p.clause, p]));
+/* The WHOLE library, keyed on (source, edition, clause); `passagesByKey` is this run's scoped view and
+ * `passageIndex` is what a cross-source primary resolves through. */
+const passageIndex = makePassageIndex(lib.passages);
+const passagesByKey = passageIndex.for(mapping.standard, mapping.edition);
 const annexGaps = lib.annex_gaps || [];
 const sequenceGaps = lib.sequence_gaps || [];
 
@@ -471,22 +474,19 @@ const clauseOfPassage = new Map(
  * ISO/IEC 42001 primary is clause 1, which is not effective, so 5.5 now has NO anchorable primary and drops
  * out of generation. That is the honest state and it matches the original hold reasoning -- 5.5 needs 42006
  * and 17021-1, and this run can anchor in neither. */
+/* PROMPT-102 s2: THE SINGLE-STANDARD FILTER IS GONE. It is what made the 3.4 collision reachable, and it
+ * silently dropped task 5.5's real ISO/IEC 17021-1 primary. Every row is kept with its FULL key; the
+ * library is indexed on (source, edition, clause) so a foreign source resolves in its own document. */
 const mapByTask = new Map();
-const phantomPrimaries = [];
+const crossSource = [];
 for (const r of tsRows) {
   if (!mapByTask.has(r.task_id)) mapByTask.set(r.task_id, { primary: [], supporting: [] });
   const p = clauseOfPassage.get(r.passage_id);
   if (!p) continue;
   if (p.source_id !== mapping.standard || p.edition !== mapping.edition) {
-    /* a foreign-source row. Recorded when its number ALSO exists in this run's standard, because that is the
-     * subset that used to be misread -- the rest were harmlessly dropped by `passagesByKey` returning
-     * undefined. */
-    if (r.role === "primary" && passagesByKey.has(p.clause)) {
-      phantomPrimaries.push({ task_id: r.task_id, source_id: p.source_id, clause: p.clause });
-    }
-    continue;
+    if (r.role === "primary") crossSource.push({ task_id: r.task_id, source_id: p.source_id, edition: p.edition, clause: p.clause });
   }
-  mapByTask.get(r.task_id)[r.role].push(p.clause);
+  mapByTask.get(r.task_id)[r.role].push({ source_id: p.source_id, edition: p.edition, clause: p.clause });
 }
 const taskIdOfCode = new Map(tasks.map((t) => [t.code, t.id]));
 const primaryOf = (code) => (mapByTask.get(taskIdOfCode.get(code)) || {}).primary || [];
@@ -496,35 +496,53 @@ const supportingOf = (code) => (mapByTask.get(taskIdOfCode.get(code)) || {}).sup
  * `primaryOf(code).length` counted ANY primary row. Task 1.3 had six of which TWO were containers
  * (A.6.1, A.6.2) whose text is their children's text run together -- long enough to pass any word
  * floor, and useless to anchor in, because a quotation from one can span several controls. */
-const libClauses = [...passagesByKey.keys()];
-const passageOfClause = (c) => passagesByKey.get(c);
-const effectivePrimariesOf = (code) =>
-  classifyPrimaries(primaryOf(code), passageOfClause, libClauses).filter((r) => r.effective)
-    .map((r) => r.clause);
-const effectiveCountOf = (code) => effectivePrimaryCount(primaryOf(code), passageOfClause, libClauses);
+/* Classified PER (source, edition): the container test is a clause-number prefix test, and a prefix only
+ * means anything inside one document. effective-primary.mjs stays unchanged and keeps its own controls. */
+const classifyFor = (code) => {
+  const groups = new Map();
+  for (const p of primaryOf(code)) {
+    const se = String(p.source_id) + "|" + String(p.edition);
+    if (!groups.has(se)) groups.set(se, []);
+    groups.get(se).push(p);
+  }
+  const out = [];
+  for (const [se, members] of groups) {
+    const i = se.indexOf("|");
+    const src = se.slice(0, i), ed = se.slice(i + 1);
+    const view = passageIndex.for(src, ed);
+    const clauses = [...view.keys()];
+    for (const r of classifyPrimaries(members.map((m) => m.clause), (c) => view.get(c), clauses)) {
+      out.push({ ...r, source_id: src, edition: ed });
+    }
+  }
+  return out;
+};
+const effectivePrimariesOf = (code) => classifyFor(code).filter((r) => r.effective)
+  .map((r) => ({ source_id: r.source_id, edition: r.edition, clause: r.clause }));
+const effectiveCountOf = (code) => classifyFor(code).filter((r) => r.effective).length;
 const mappedFromTable = tasks.filter((t) => effectiveCountOf(t.code));
-/* PRINTED, not merely filtered. A row silently dropped is a row nobody knows was there, and this one changes
- * which tasks can generate at all. */
-if (phantomPrimaries.length) {
+/* PRINTED, and no longer EXCLUDED: since the re-key a cross-source primary resolves in its own document.
+ * It is reported because it changes which tasks can generate, and 5.5 is the case. */
+if (crossSource.length) {
   const codeOfId = new Map(tasks.map((t) => [t.id, t.code]));
   const byTask = new Map();
-  for (const f of phantomPrimaries) {
+  for (const f of crossSource) {
     const code = codeOfId.get(f.task_id);
     if (!code) continue;                  /* another certification's task */
     if (!byTask.has(code)) byTask.set(code, []);
-    byTask.get(code).push(f.source_id + " " + f.clause);
+    byTask.get(code).push(labelOf(f.source_id, f.edition, f.clause));
   }
   if (byTask.size) {
     /* THE COUNT AND THE ENUMERATION MUST BE OVER THE SAME POPULATION. My first version printed
-     * `phantomPrimaries.length` -- 362, every certification's task_sources rows, since that table is read
+     * the whole table, 362 rows, beside an enumeration filtered to THIS certification -- a count over one
      * whole -- beside an enumeration filtered to THIS certification's 2 tasks. A count over one population
      * next to a list over another is the defect this repository records against every mean it has measured. */
     const rowsHere = [...byTask.values()].reduce((s, l) => s + l.length, 0);
-    console.log("  foreign-source primaries " + rowsHere + " row(s) on " + byTask.size +
-      " task(s) of " + CERT + " whose clause NUMBER also exists in " + mapping.standard + ", excluded:");
+    console.log("  cross-source primaries " + rowsHere + " row(s) on " + byTask.size +
+      " task(s) of " + CERT + ", now RESOLVED in their own document rather than excluded:");
     for (const [code, list] of byTask) console.log("    " + code + "  " + list.join(", "));
-    console.log("    These used to resolve to " + mapping.standard + "'s clause of the same number. The map is");
-    console.log("    right; this run can only anchor in one standard.");
+    console.log("    Before the re-key these resolved to " + mapping.standard + " at the same number, or were dropped.");
+    console.log("    The map is right and the library holds them, so a key may anchor there.");
   }
 }
 console.log("  task_sources        " + tsRows.length + " link(s); " + mappedFromTable.length +
@@ -614,7 +632,7 @@ if (capInfo.awaitingDetail && capInfo.awaitingDetail.counts) {
 }
 
 const HELD_TASKS = tasks.filter((t) => !effectiveCountOf(t.code)).map((t) => t.code);
-const mappedTasks = tasks.filter((t) => primaryOf(t.code).length);
+const mappedTasks = tasks.filter((t) => primaryOf(t.code).length);  /* any primary row, any source */
 const unmapped = tasks.filter((t) => !mappedTasks.includes(t));
 if (HELD_TASKS.length) {
   console.log("  tasks with no primary passage, generating nothing: " + HELD_TASKS.join(" "));
@@ -697,10 +715,11 @@ function passagesFor(t) {
   const prim = primaryOf(t.code), supp = supportingOf(t.code);
   const out = [];
   const seen = new Set();
-  for (const c of [...prim, ...supp]) {
-    if (seen.has(c)) continue;
-    seen.add(c);
-    const p = passagesByKey.get(c);
+  for (const r of [...prim, ...supp]) {
+    const k = passageKey(r.source_id, r.edition, r.clause);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    const p = passageIndex.get(r.source_id, r.edition, r.clause);
     if (p) out.push(p);
   }
   return out;
@@ -769,20 +788,23 @@ RULES
  * six writer calls were spent discovering a rule nobody had given it. A distractor's reason may still
  * use a supporting passage -- that is the gate's own contract, so prompt and gate cannot drift. */
 function writerUser(task, domain, passages, k, assignments) {
-  const prim = new Set(primaryOf(task.code));
+  /* Keyed on (source, edition, clause): the writer is shown passages from more than one standard now, so
+   * a clause number alone cannot say whether THIS passage is primary. */
+  const prim = new Set(primaryOf(task.code).map((r) => passageKey(r.source_id, r.edition, r.clause)));
   /* clauses already at the cap for THIS task. The writer is told AND the gate refuses, so a model that
    * ignores the instruction costs a rejection rather than a bad insert. */
   const full = atCapFor(task.code);
-  const fullSet = new Set(full.map((f) => f.clause));
+  const fullSet = new Set(full.map((f) => passageKey(f.source_id, f.edition, f.clause)));
+  const isPrim = (p) => prim.has(keyOfPassage(p));
   const fmt = (p) =>
-    "--- clause " + p.clause + (p.title ? " (" + p.title + ")" : "") +
+    "--- " + p.source_id + ":" + p.edition + " clause " + p.clause + (p.title ? " (" + p.title + ")" : "") +
     "  [this clause is " + p.normative + "; " +
-    (prim.has(p.clause) ? (fullSet.has(p.clause)
+    (isPrim(p) ? (fullSet.has(keyOfPassage(p))
       ? "PRIMARY but ALREADY AT THE ANCHOR CAP -- DO NOT anchor a key here"
       : "PRIMARY for this task -- a KEY MAY anchor here") :
       "SUPPORTING -- a distractor's reason may use it, a KEY MAY NOT anchor here") + "] ---\n" + p.text;
-  const primaries = passages.filter((p) => prim.has(p.clause));
-  const others = passages.filter((p) => !prim.has(p.clause));
+  const primaries = passages.filter(isPrim);
+  const others = passages.filter((p) => !isPrim(p));
   const src = [...primaries.map(fmt), ...others.map(fmt)].join("\n\n");
   return "CERTIFICATION: " + CERT + "\nDOMAIN: " + domain.code + " " + domain.title +
     "\nTASK " + task.code + ": " + task.statement +
@@ -989,10 +1011,10 @@ if (FROM) {
      * is both correct and self-limiting: a clause with no passage cannot produce one, and the assertion
      * below refuses rather than guessing. */
     const primariesForAssignment = [];
-    for (const clause of effectivePrimariesOf(t.code)) {
-      const p = passagesByKey.get(clause);
-      if (!p || !p.source_id) continue;   /* not in this run's library: never anchorable, never assignable */
-      primariesForAssignment.push({ source_id: p.source_id, clause });
+    for (const r of effectivePrimariesOf(t.code)) {
+      const p = passageIndex.get(r.source_id, r.edition, r.clause);
+      if (!p || !p.source_id) continue;   /* not held: never anchorable, never assignable */
+      primariesForAssignment.push({ source_id: p.source_id, edition: p.edition, clause: p.clause });
     }
     const asg = assignAnchors({
       taskCode: t.code, runId: RUN_ID,
@@ -1004,10 +1026,10 @@ if (FROM) {
      * told to anchor where `clause-exists` will refuse it. This is the check that would have caught the
      * 22989 assignment before a call was paid for. */
     {
-      const unheld = asg.assignments.filter((a) => !passagesByKey.has(a.clause));
+      const unheld = asg.assignments.filter((a) => !passageIndex.has(a.source_id, a.edition, a.clause));
       if (unheld.length) {
-        console.error("  " + t.code + "  REFUSING: " + unheld.length + " assigned clause(s) are not in this " +
-          "run's library -- " + unheld.map((a) => a.clause).join(", ") + ". Telling the writer to anchor " +
+        console.error("  " + t.code + "  REFUSING: " + unheld.length + " assigned clause(s) are not in the " +
+          "library -- " + unheld.map((a) => labelOf(a.source_id, a.edition, a.clause)).join(", ") + ". Telling the writer to anchor " +
           "there spends a call to manufacture a rejection.");
         process.exitCode = 2; process.exit();
       }
@@ -1127,9 +1149,54 @@ for (const g of generated) {
   const t = g.task;
   let item = g.item;
   const ps = passagesFor(t);
+  /* ============ THE ITEM'S OWN (source, edition), WITHOUT WHICH EVERY KEY IS "undefined|undefined" ====
+   *
+   * Since the re-key the gates key on the ITEM's source, and a generated item has none: the run no longer
+   * has a single standard to assume. Resolve from the assignment when the item anchored where it was told,
+   * otherwise from the task's own map -- and REFUSE when two mapped sources both hold the clause, because
+   * that ambiguity is the collision asking to be guessed at. */
+  /* One anchor's source, by UNIQUE match in the task's map. Null when absent or ambiguous. */
+  const sourceOfClause = (c) => {
+    const clause = normClause(c);
+    const distinct = [...new Set([...primaryOf(t.code), ...supportingOf(t.code)]
+      .filter((r) => normClause(r.clause) === clause)
+      .map((r) => r.source_id + "|" + r.edition))];
+    if (distinct.length !== 1) return null;
+    const i = distinct[0].indexOf("|");
+    return { source_id: distinct[0].slice(0, i), edition: distinct[0].slice(i + 1) };
+  };
+  const stampSource = (it, assigned) => {
+    const clause = normClause(it && it.key_support_clause);
+    /* every distractor anchor gets its OWN source, so one citing another mapped standard resolves there */
+    const ds = Array.isArray(it && it.distractor_support)
+      ? it.distractor_support.map((d) => {
+        const s = d && d.clause ? sourceOfClause(d.clause) : null;
+        return s ? { ...d, ...s } : d;
+      })
+      : (it && it.distractor_support);
+    it = ds === undefined ? it : { ...it, distractor_support: ds };
+    if (assigned && assigned.clause && normClause(assigned.clause) === clause) {
+      return { ...it, source_id: assigned.source_id, edition: assigned.edition };
+    }
+    const mapped = [...primaryOf(t.code), ...supportingOf(t.code)]
+      .filter((r) => normClause(r.clause) === clause);
+    const distinct = [...new Set(mapped.map((r) => r.source_id + "|" + r.edition))];
+    if (distinct.length === 1) {
+      const [src, ed] = distinct[0].split("|");
+      return { ...it, source_id: src, edition: ed };
+    }
+    /* 0 -> not mapped at all; >1 -> ambiguous. Fall back to the RUN's standard so clause-exists and
+     * verbatim still evaluate in a real document and anchor-is-primary refuses by name -- an unset
+     * source would make runCodeGates throw and cost the run instead of the item. */
+    return { ...it, source_id: mapping.standard, edition: mapping.edition,
+      source_ambiguous: distinct.length > 1 ? distinct : undefined };
+  };
   const gateInput = () => ({
-    passagesByKey, annexGaps, sequenceGaps: [...sequenceGaps, ...declaredGaps], cert: CERT,
+    /* THE INDEX, not the run's scoped view: runCodeGates scopes per ITEM, so a 42006 anchor on an
+     * AIMS-F task resolves in 42006 rather than missing in 42001. */
+    passagesByKey: passageIndex, annexGaps, sequenceGaps: [...sequenceGaps, ...declaredGaps], cert: CERT,
     liveStemsForTask: liveByTask.get(t.id) || [], cueCfg,
+    /* full-key objects; gateAnchorIsPrimary refuses a bare clause list since the re-key */
     primaryClauses: primaryOf(t.code), supportingClauses: supportingOf(t.code),
     sources: leakSources, leak: leakMod,
     /* PROMPT-96 s2. The clause assigned to THIS item, by POSITION, carried on the generated record --
@@ -1138,6 +1205,7 @@ for (const g of generated) {
      * reports as UNASSERTED without blocking. */
     assignedAnchor: g.assigned || (g.prior && g.prior.assigned) || null,
   });
+  item = stampSource(item, g.assigned || (g.prior && g.prior.assigned) || null);
   let code = runCodeGates(item, gateInput());
   /* counted here rather than inside the gate, because the gate is pure and this is a run statistic. An
    * unassigned population that GROWS means the assignment stopped happening. */
@@ -1177,7 +1245,7 @@ for (const g of generated) {
       /* The key must still be the same option, or this is a different item wearing a retry. */
       const keyMoved = opts.findIndex((o) => o.is_correct) !== item.options.findIndex((o) => o.is_correct);
       const candidate = { ...item, ...cand, options: opts };
-      const recoded = keyMoved ? null : runCodeGates(candidate, gateInput());
+      const recoded = keyMoved ? null : runCodeGates(stampSource(candidate, g.assigned || null), gateInput());
       if (recoded && recoded.passed) {
         item = candidate; code = recoded; retriedOk++;
       } else {
@@ -1474,7 +1542,7 @@ for (const g of generated) {
           }
 
           /* Everything the distractors can affect, in order of cost. */
-          const recoded = runCodeGates(cand, gateInput());
+          const recoded = runCodeGates(stampSource(cand, g.assigned || null), gateInput());
           let reSolver = null, reProbe = null, keptIt = false;
           if (!recoded.passed) {
             record.de_cue = { state: "reverted", reason: "the rewritten distractors failed " + recoded.failed.join(", ") };

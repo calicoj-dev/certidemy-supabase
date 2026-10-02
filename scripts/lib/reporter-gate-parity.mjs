@@ -1,3 +1,4 @@
+import { makePassageIndex } from "./passage-index.mjs";
 /**
  * reporter-gate-parity.mjs -- every gate the reporter names must actually run in runCodeGates.
  *
@@ -38,6 +39,7 @@ export const NOT_A_CODE_GATE = {
  * @param runCodeGates the real function
  * @param reporterSrc  the reporter's source text, to find the gate names it can print
  * @returns { fails: string[], ran: string[], named: string[] }
+
  */
 export function reporterGateParity(runCodeGates, reporterSrc) {
   const fails = [];
@@ -47,7 +49,7 @@ export function reporterGateParity(runCodeGates, reporterSrc) {
     clause: "9.2.2", title: "Internal audit programme", normative: "shall",
     text: "The organization shall plan, establish, implement and maintain an audit programme.",
   };
-  const item = {
+  const item = { source_id: "ISO/IEC 42001", edition: "2023",
     question_text: "An organization is planning its AI management system internal audits. What does " +
       "ISO/IEC 42001:2023 require the organization to establish?",
     options: [
@@ -63,8 +65,8 @@ export function reporterGateParity(runCodeGates, reporterSrc) {
   let ran = [];
   try {
     const r = runCodeGates(item, {
-      passagesByKey: new Map([[passage.clause, passage]]),
-      primaryClauses: new Set(["9.2.2"]), supportingClauses: new Set(),
+      passagesByKey: makePassageIndex([{ ...passage, source_id: "ISO/IEC 42001", edition: "2023" }]),
+      primaryClauses: [{ source_id: "ISO/IEC 42001", edition: "2023", clause: "9.2.2" }], supportingClauses: [],
       sources: [], leak: null,
     });
     ran = (r.gates || []).map((g) => g.id);

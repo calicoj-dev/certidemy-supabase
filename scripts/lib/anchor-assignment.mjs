@@ -56,7 +56,7 @@ function h32(s) {
 /**
  * @param opts.taskCode     the task, part of the tie-break seed
  * @param opts.runId        the run, the other part -- so a re-run re-orders
- * @param opts.primaries    [{source_id, clause}] the task's EFFECTIVE primaries
+ * @param opts.primaries    [{source_id, edition, clause}] the task's EFFECTIVE primaries
  * @param opts.censusMap    Map anchorKey -> count, everything already counted against this task
  * @param opts.want         how many items are being generated for this task
  * @param opts.cap          the per-(source, clause) cap
@@ -64,7 +64,7 @@ function h32(s) {
  *            order: [string], why: string }}
  */
 export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap = CAP }) {
-  const held = (p) => censusMap.get(anchorKey(p.source_id, p.clause)) || 0;
+  const held = (p) => censusMap.get(anchorKey(p.source_id, p.edition, p.clause)) || 0;
   const eligible = (primaries || []).filter((p) => held(p) < cap);
 
   /* room left on each eligible clause, which is what bounds the whole assignment */
@@ -76,19 +76,19 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
   const seeded = eligible.map((p) => ({
     ...p,
     held: held(p),
-    tie: h32(String(taskCode) + "|" + String(runId) + "|" + p.source_id + "|" + p.clause),
+    tie: h32(String(taskCode) + "|" + String(runId) + "|" + p.source_id + "|" + p.edition + "|" + p.clause),
   }));
   seeded.sort((a, b) => a.held - b.held || a.tie - b.tie);
 
   const assignments = [];
-  const room = new Map(seeded.map((p) => [anchorKey(p.source_id, p.clause), cap - p.held]));
+  const room = new Map(seeded.map((p) => [anchorKey(p.source_id, p.edition, p.clause), cap - p.held]));
   let i = 0;
   while (assignments.length < want && seeded.length) {
     const p = seeded[i % seeded.length];
-    const k = anchorKey(p.source_id, p.clause);
+    const k = anchorKey(p.source_id, p.edition, p.clause);
     if ((room.get(k) || 0) > 0) {
       room.set(k, room.get(k) - 1);
-      assignments.push({ index: assignments.length, source_id: p.source_id, clause: p.clause });
+      assignments.push({ index: assignments.length, source_id: p.source_id, edition: p.edition, clause: p.clause });
     }
     i++;
     /* every clause exhausted: capacity is the bound, and the caller is told rather than handed a clause the
@@ -157,8 +157,8 @@ export function gateAnchorAssignment(item, assigned) {
 export function anchorAssignmentControls({ quiet = false } = {}) {
   const out = [];
   const ok = (what, cond, detail) => out.push({ what, pass: !!cond, detail: cond ? null : detail });
-  const P = (clause) => ({ source_id: "ISO/IEC 42001", clause });
-  const cens = (pairs) => new Map(pairs.map(([c, n]) => [anchorKey("ISO/IEC 42001", c), n]));
+  const P = (clause) => ({ source_id: "ISO/IEC 42001", edition: "2023", clause });
+  const cens = (pairs) => new Map(pairs.map(([c, n]) => [anchorKey("ISO/IEC 42001", "2023", c), n]));
 
   /* ---- the 5.5 case: four items, many eligible clauses, four DISTINCT anchors ---- */
   {

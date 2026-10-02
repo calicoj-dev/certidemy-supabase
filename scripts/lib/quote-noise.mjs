@@ -135,7 +135,8 @@ export function gateQuoteNoise(item, titleOf = null) {
      * clause is unknown is reported below rather than silently cleared. */
     if (typeof titleOf === "function") {
       const clause = s.what === "key_support" ? (item && item.key_support_clause) : null;
-      const title = clause ? titleOf(clause) : null;
+      /* titleOf takes the FULL passage key. A bare clause resolved 42001 3.4 for a 17021-1 item. */
+      const title = clause ? titleOf(item && item.source_id, item && item.edition, clause) : null;
       const tb = title ? titleBleed(s.text, title) : null;
       if (tb) {
         bad.push(s.what + " opens with its passage TITLE (" + JSON.stringify(tb.title) +
@@ -234,23 +235,23 @@ export function quoteNoiseControls({ quiet = false } = {}) {
     () => gateQuoteNoise({ key_support_clause: "A.10.3",
       key_support: "Suppliers The organization shall establish a process to ensure that its usage of " +
         "services, products or materials provided by suppliers aligns with its approach" },
-    (c) => (c === "A.10.3" ? "Suppliers" : null)).pass);
+    (_s, _e, c) => (c === "A.10.3" ? "Suppliers" : null)).pass);
   add("972b8caa: the same, with a two-word title", false,
     () => gateQuoteNoise({ key_support_clause: "A.10.2",
       key_support: "Allocating responsibilities The organization shall ensure that responsibilities " +
         "within their AI system life cycle are allocated" },
-    (c) => (c === "A.10.2" ? "Allocating responsibilities" : null)).pass);
+    (_s, _e, c) => (c === "A.10.2" ? "Allocating responsibilities" : null)).pass);
   /* BOTH DIRECTIONS on title bleed: a span that merely CONTAINS its title, or is separated from it by
    * punctuation, is legitimate quotation and must pass. */
   add("a span whose title is followed by punctuation PASSES", true,
     () => gateQuoteNoise({ key_support_clause: "A.10.3",
       key_support: "Suppliers. The organization shall establish a process to ensure that its usage of " +
         "services aligns with its approach" },
-    (c) => (c === "A.10.3" ? "Suppliers" : null)).pass);
+    (_s, _e, c) => (c === "A.10.3" ? "Suppliers" : null)).pass);
   add("a span that does not START with its title PASSES", true,
     () => gateQuoteNoise({ key_support_clause: "A.10.3",
       key_support: "The organization shall establish a process for Suppliers That deliver AI components" },
-    (c) => (c === "A.10.3" ? "Suppliers" : null)).pass);
+    (_s, _e, c) => (c === "A.10.3" ? "Suppliers" : null)).pass);
   add("no title lookup means the bleed arm does not run, and the span still passes on its other merits", true,
     () => gateQuoteNoise({ key_support_clause: "A.10.3",
       key_support: "Suppliers The organization shall establish a process" }).pass);
