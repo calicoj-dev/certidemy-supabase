@@ -3,10 +3,10 @@
 Postgres migrations and Deno edge functions for Certidemy, an ISO/IEC 17024-aligned certification
 platform issuing Open Badges 3.0 credentials.
 
-> **THE REASONS ARE IN `docs/CLAUDE-HISTORY.md`** — 390k chars, ~620 rule paragraphs with the
-> measurements and instrument failures behind them; `[H:x]` names the section. **Read it before arguing
-> with a rule here**: nearly every one exists because an instrument reported success while being wrong.
-> `docs/CLAUDE-METHOD.md` holds 103 method rules; `docs/CLAUDE-RULE-MAP.md` maps every rule to its home.
+> **THE REASONS ARE IN `docs/CLAUDE-HISTORY.md`** — 390k chars, ~620 rule paragraphs with their
+> measurements; `[H:x]` names the section. **Read it before arguing with a rule here**: nearly every one
+> exists because an instrument reported success while being wrong. `docs/CLAUDE-METHOD.md` holds 103
+> method rules; `docs/CLAUDE-RULE-MAP.md` maps every rule to its home.
 
 ## 1. Layout
 
@@ -19,7 +19,6 @@ platform issuing Open Badges 3.0 credentials.
 | `migrations/` | record of what ran. **Not a buildable sequence** |
 | `functions/` | Deno edge functions; `_shared/` is the shared half |
 | `scripts/` | Node ESM; conventions differ per script |
-| `docs/` | `CLAUDE-HISTORY.md`, `CLAUDE-RULE-MAP.md`, BOK + terminology |
 | licensed PDFs | `iso-corpus/` (outside repo), `sources/incoming/` (inside, gitignored) |
 
 ## 2. Standing rules `[H:working style]`
@@ -33,12 +32,20 @@ platform issuing Open Badges 3.0 credentials.
 7. Commit messages go through the file tool.
 8. End every report with the deploy table.
 
+## 2b. Write less
+
+- **Code comments: 3 lines max.** What and why, not how it was found.
+- **Commit messages: 10 lines max.** What changed, the counts, what's next.
+- **Reports: one screen.** Counts table, then decisions needed, then the deploy table.
+- **A mistake you fixed gets ONE line**: what it was, what now prevents it.
+- **No new standalone `.md`** unless a prompt asks. Use the handoff.
+- **Don't re-explain a rule that is already here. Cite it.**
+
 ## 3. Build, deploy, push `[H:build rule]`
 
 Juan runs only `git push`, `supabase functions deploy <name> --dns-resolver https`, and SQL in the editor.
 
-- Web commit reported ready-to-push ⇒ `npm run build` in `certidemy-web` first. It runs `i18n:check`
-  (control bytes → learner-string audit → message catalogue) then `next build`.
+- Web commit ready-to-push ⇒ `npm run build` in `certidemy-web` first (runs `i18n:check`, then `next build`).
 - Changed edge function ⇒ `deno check --node-modules-dir=auto functions/<name>/index.ts`. Two
   fontkit/QRCode import errors are pre-existing in anything importing `_shared/certificate.ts`.
 - Fix and re-run until green. Never hand Juan a build to run.
@@ -60,7 +67,7 @@ node --dns-result-order=ipv4first scripts/check-migration-state.mjs
 Next free number from the folder; has-it-run from the DB and the deployed function. Fingerprint a new
 migration in the same commit; no fingerprint reports "no probe", not "not run".
 
-- Never describe current schema from the folder. Ask `pg_catalog`: `pg_constraint`, `pg_attribute`, `pg_proc.prosrc`.
+- Never describe schema from the folder. Ask `pg_catalog`: `pg_constraint`, `pg_attribute`, `pg_proc.prosrc`.
 - Base schema is not in this repo; replay from zero never worked. **Never `supabase db reset`.**
 - Editor-first: SQL runs in the browser editor first; the file records what already ran.
 - ASCII only (CERT-SCHEMA-GUIDE §8). Accented content goes through an API loader.
@@ -111,11 +118,9 @@ migration in the same commit; no fingerprint reports "no probe", not "not run".
 - A role filter in a privilege check is a coverage gap that reports clean. Report HARD GAP and INERT apart.
 - Never grant `USAGE ON SCHEMA public` to `mcp_reader`; use thin `mcp.` wrappers that delegate.
 
-**Reads that feed a number.** `[8 more in METHOD]`
-
-- **An unpaged PostgREST read is a FLOOR, not a total** — the cap is 1,000 rows at HTTP 200, whatever
-  `limit` says. Mechanism: `Prefer: count=exact`, terminate on REACHING THE TOTAL, throw on mismatch.
-- **Copy `_pg.mjs` (`getAll` / `countWhere`)** rather than writing a fifth; to count, never fetch rows.
+**Reads that feed a number.** An unpaged PostgREST read is a FLOOR: the cap is 1,000 rows at HTTP 200.
+`Prefer: count=exact`, terminate on REACHING THE TOTAL, throw on mismatch. Copy `_pg.mjs`
+(`getAll` / `countWhere`); to count, never fetch rows. `[8 more in METHOD]`
 
 ## 6. Edge functions `[H:Edge functions]`
 
@@ -212,9 +217,9 @@ Migration 243: `email_queue`, `email_suppressions`, `claim_email_sends`, `comple
 - `generate-mock-exam` excludes `item_origin = 'generated'` on both modes; on `exam` it changes nothing
   today, because a guarantee resting on a second column staying true is not a guarantee.
 - The simulator is a PROXY for the examination and inherits its evidentiary bar.
-- `certidemy-web/lib/console/readiness.ts` is a progress signal and does not; generated items reach it
+  `certidemy-web/lib/console/readiness.ts` is a progress signal and does not; generated items reach it
   through `user_concept_mastery`, by design, and that stays.
-- Test for the next surface showing a number against `passing_score_pct`: proxy, or progress report?
+- Next surface showing a number against `passing_score_pct`: proxy, or progress report?
 
 ## 13. The item pipeline and its gates `[H:grounded generator]`
 
@@ -235,13 +240,12 @@ Migration 243: `email_queue`, `email_suppressions`, `claim_email_sends`, `comple
 | `gateNearDuplicate` | similarity **relative to the shorter stem's** distinctive terms, floor two |
 
 - The solver is blind by allowlist and the blindness is asserted: no key, explanation or context.
-- `assertBlind` walks PROPERTY NAMES against an allowlist; VALUES compare against the item's own text.
-- A guard matches code shapes, never English words.
+  `assertBlind` walks PROPERTY NAMES against an allowlist; VALUES compare against the item's own text.
 - A leak is loud and per item, not fatal to the run.
 - The solver's failure is structural: recall vs the director's read of 40 was solver 5–7 of 14,
   **anchor-or-flag 7 of 14**.
 - The item's claim needs a deontic VERB; the anchor's force needs a modal VERB. A noun never counts.
-- A lettered sub-item inherits its list's modal, found upstream IN THE PASSAGE, and only when the anchor
+- A lettered sub-item inherits its list's modal, found upstream IN THE PASSAGE, only when the anchor
   BEGINS a list item. A full stop inside a list item does not close the list. 42001 uses em dashes.
 - A definition imposes nothing whatever its notes contain: `informative` by POSITION.
 - The five-word anchor floor is on the KEY only; distractors stay verbatim.
@@ -249,6 +253,8 @@ Migration 243: `email_queue`, `email_suppressions`, `claim_email_sends`, `comple
 - `gateNearDuplicate` compares STEMS; same answer with a different stem is invisible to it.
 - Reproduction in served fields: stem and options at most a 9-word run shared with any source;
   explanation 9 unquoted plus ONE attributed quotation; `key_support` exempt. The reason is QUALITY.
+- Cue flags: a length cue outside 60–160% of the median distractor. Odd-one-out by category is NOT a
+  code gate — a lexical version fired 23/192 and missed its own case.
 - One implementation: runs come from `lib/leak-score.mjs`; the quotation allowance is a MODE, not a copy.
   The index is wider than the task map, deliberately.
 - A word list carries a SUBJECT; an unrecognised certification gets **no** rules, not all of them.
@@ -263,7 +269,6 @@ Migration 243: `email_queue`, `email_suppressions`, `claim_email_sends`, `comple
   run of a generator is a SAMPLE, not a preview; the grounded path persists first.
 - The gates are necessary, not sufficient; a contested distractor needs an SME.
 - An options-only cue is not fixed by a harder exam; **rewrite the cue out.** Difficulty is the cut score.
-- A findings loader verifies its own work: every declared prefix comes back attached or the run stops.
 
 ## 14. The source library `[H:source library]`
 
@@ -307,7 +312,7 @@ Node ESM under `scripts/`. **Conventions differ between them — read before run
 |---|---|
 | `check-migration-state` | next free number; has-it-run from DB + deployed function |
 | `verify-invariants` | the invariant suite; pass / **vacuous** / fail with examined counts |
-| `verify-cert` | conformance gate, 56–59 checks/cert. **Run from anywhere.** Twelve real certs pass with 2–6 WARNs; **ZZ-TEST-I fails, expected.** Green is not the bar |
+| `verify-cert` | conformance gate, 56–59 checks/cert. **Run from anywhere.** Twelve certs pass with 2–6 WARNs; **ZZ-TEST-I fails, expected** |
 | `check-licensed-text` | tracked files vs library text. Baseline 285 — may shrink, never grow |
 | `check-control-bytes` | invariant 10; tracked **plus** `--others --exclude-standard` |
 | `check-model-refusals` | invariant 11; operator-directed second person, 3 languages |
@@ -324,7 +329,7 @@ Node ESM under `scripts/`. **Conventions differ between them — read before run
 | `deploy-courseware-read` | typecheck → reachability gate → deploy → smoke; prints the ROLLBACK |
 | `gen-grounded-items` | the grounded item path (§13) |
 | `extract-source-passages` | builds the source library (§14) |
-| `lti-mint-key` | mints the platform RSA-2048 key; RFC 7638 `kid`; refuses when a non-retired key exists. **Pair with `functions/lti-mint-tool-key`** |
+| `lti-mint-key` | mints the platform RSA-2048 key; RFC 7638 `kid`; refuses if a non-retired key exists. **Pair with `functions/lti-mint-tool-key`** |
 | `verify-367` | net-zero, NOT read-only. Writes a recovery file first; refuses if one exists |
 | `propose-match-terms` | `match_terms` is deliberately EMPTY — read `MATCH-TERMS-DECISION.md` |
 | `analyze-local` | **DEAD since 2026-09-01.** Do NOT re-derive its baseline from the engine |
@@ -343,19 +348,19 @@ sets `mcp_servable = false` on ANY `content_md` change, so every lesson-body edi
 
 ## 16. Instrument discipline → `docs/CLAUDE-METHOD.md` `[H:method]`
 
-The failure mode of this system is **silent success**. 103 rules in `docs/CLAUDE-METHOD.md` — **read it
-before building any check, gate, probe or report, or before editing a claim.** The four that bite most:
+**Silent success** is this system's failure mode. 103 rules in `docs/CLAUDE-METHOD.md` — **read it before
+building any check, gate, probe or report.** The ones that bite most:
 
 - A green result carries no information unless something proves the check ran. POSITIVE CONTROL, always.
-- A check that passes over an empty input is VACUOUS; a coverage gap reads as a PASS.
-- Three outcomes, never two: yes, no, or COULD NOT ANSWER. Name the third.
-- A count is READ before it is reported; two instruments disagreeing is a STOP CONDITION.
+- A check passing over an empty input is VACUOUS; a coverage gap reads as a PASS; name COULD-NOT-ANSWER.
+- A count is READ before reporting; two instruments disagreeing is a STOP CONDITION.
+- Gates on a STORED row need `lib/stored-item.mjs`, or key-relative arms are silently skipped.
 
 ## 17. Working style `[H:Working style]`
 
 - **Complete files or fully scripted edits.** Never snippets.
-- **Read a file before editing it.** Never reconstruct from a paste, a similar file, or **a diff** — a diff
-  is evidence about a CHANGE, not a STATE. Grep the file.
+- **Read a file before editing it.** Never reconstruct from a paste or **a diff** — a diff is evidence
+  about a CHANGE, not a STATE. Grep the file.
 - `--dry` first, always; a dry run reporting `ok` has changed nothing.
 - Validate before writing, so ABORT means nothing was written.
 - A quietly altered artifact is worse than two pastes; a different subject gets its own migration.
@@ -375,6 +380,5 @@ before building any check, gate, probe or report, or before editing a claim.** T
 
 ## 18. State
 
-**Current handoff: `HANDOFF-v13_6.md`** — bank state, what is ruled, what is pending, and §5's open
-backlogs with their sizes and baseline files. Incidents with durations: `INCIDENTS.md`. Rebuild order:
-AIMS-F (the worked example) → ISMS-F → ISMS-IA → AIMS-IA → Scrum → AI-general.
+**Handoff: `HANDOFF-v13_6.md`** — bank state, rulings, pending work, open backlogs. Incidents:
+`INCIDENTS.md`. Order: AIMS-F → ISMS-F → ISMS-IA → AIMS-IA → Scrum → AI-general.

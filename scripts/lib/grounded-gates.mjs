@@ -606,6 +606,25 @@ export function gateStructure(item, cfg = CUE_CFG) {
     }
   }
 
+  /* LENGTH CUE (PROMPT-102). The key's word count against the MEDIAN distractor's, flag outside
+   * 60-160%. Median not mean: one long distractor should not licence a short key.
+   * Refused nothing -- the existing longest-option arm above is the rejection. */
+  if (ki >= 0 && distractors.length) {
+    const wc = (t) => (String(t).trim().match(/\S+/g) || []).length;
+    const ds = distractors.map(wc).sort((a, b) => a - b);
+    const med = ds.length % 2 ? ds[(ds.length - 1) / 2] : (ds[ds.length / 2 - 1] + ds[ds.length / 2]) / 2;
+    const k = wc(opts[ki]);
+    if (med > 0 && (k < med * 0.6 || k > med * 1.6)) {
+      notes.push("length cue: key " + k + " words against median distractor " + med +
+        " (" + Math.round((k / med) * 100) + "%)");
+    }
+  }
+
+  /* ODD-ONE-OUT BY CATEGORY (PROMPT-102) IS NOT HERE, AND THAT IS MEASURED, NOT ASSUMED.
+   * A shared-term version fired on 23 of 192 ordinary items and MISSED cdde7e6b, whose distractors
+   * are confidentiality/integrity/availability in words that name none of them. It lives in the
+   * options-only probe, which reads shapes rather than matching words. */
+
   return { id: "structure", pass: problems.length === 0, examined: opts.length,
     notes,
     reason: problems.length ? problems.join("; ")
@@ -1306,6 +1325,27 @@ export function groundedGateControls() {
       ],
     }).pass, false],
 
+    /* PROMPT-102's two cues are FLAGS, so a control asserting `pass` proves nothing about them.
+     * These assert the NOTE, and the negative cases assert no note -- a flag that always fires is
+     * the same object as one that never does. */
+    ["102: a short key against long distractors FLAGS on length", () => gateStructure({
+      question_text: "Which action is consistent with the guidance?",
+      options: [
+        { text: "Obtain adequate documentation from the vendor", is_correct: true },
+        { text: "Skip documenting how the model is integrated into the platform, because the vendor documents its own product in full" },
+        { text: "Apply one identical monitoring regime to every supplier, irrespective of what is supplied or the risk that it poses" },
+        { text: "Treat replacement as the only response when outputs are misaligned, since corrective action cannot be pursued at all" },
+      ],
+    }).notes.some((n) => /length cue/.test(n)), true],
+    ["102: options of a like length do NOT flag on length", () => gateStructure({
+      question_text: "Which action is consistent with the guidance?",
+      options: [
+        { text: "Obtain adequate documentation from the vendor", is_correct: true },
+        { text: "Skip documenting the integration, because the vendor documents it" },
+        { text: "Apply one monitoring regime to every supplier regardless of risk" },
+        { text: "Replace the model, since corrective action is unavailable" },
+      ],
+    }).notes.some((n) => /length cue/.test(n)), false],
     ["#15: a phrase every distractor shares and the key lacks", () => gateSharedDistractorPhrase({
       question_text: "Which property is NOT preserved by the definition?",
       options: [

@@ -364,17 +364,16 @@
    "keep": 2,
    "keptUsable": 2,
    "keptOverCap": 0,
-   "inserted": 6,
+   "inserted": 5,
    "provisional": 5,
-   "have": 8,
-   "shortfall": 0,
+   "have": 7,
+   "shortfall": 1,
    "effective": 11,
-   "eligible": false,
+   "eligible": true,
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.7.4",
-    "ISO/IEC 42001 B.7.2"
+    "ISO/IEC 42001 A.7.4"
    ]
   },
   {
@@ -623,10 +622,10 @@
    "keep": 3,
    "keptUsable": 3,
    "keptOverCap": 0,
-   "inserted": 1,
+   "inserted": 0,
    "provisional": 0,
-   "have": 4,
-   "shortfall": 4,
+   "have": 3,
+   "shortfall": 5,
    "effective": 34,
    "eligible": true,
    "floor": 8,
@@ -664,6 +663,10 @@
    "shortfall": 1
   },
   {
+   "task": "3.6",
+   "shortfall": 1
+  },
+  {
    "task": "4.1",
    "shortfall": 2
   },
@@ -677,8 +680,8 @@
   },
   {
    "task": "5.5",
-   "shortfall": 4
+   "shortfall": 5
   }
  ],
- "total_to_generate": 11
+ "total_to_generate": 13
 }

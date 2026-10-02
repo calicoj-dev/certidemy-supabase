@@ -101,9 +101,13 @@ for (const r of ts) {
   if (!primaryOf.has(r.task_id)) primaryOf.set(r.task_id, []);
   primaryOf.get(r.task_id).push(p);
 }
-const qs = await getAll(KEY, "quiz_questions?select=id,task_id&certification_id=eq." + certs[0].id +
+const qs = await getAll(KEY, "quiz_questions?select=id,task_id,status,retired_at&certification_id=eq." + certs[0].id +
   "&language=eq.en&order=id");
 const taskOfQ = new Map(qs.map((r) => [r.id, r.task_id]));
+/* A REJECTED OR RETIRED ROW IS NOT AVAILABLE TO A FLOOR. Counting item_grounding alone made
+ * `inserted` include both rejects, so this report and report-aimsf-completion disagreed by one on
+ * tasks 3.6 and 5.5 -- and the self-reconciling `have = keptUsable + inserted` could not see it. */
+const servable = new Set(qs.filter((r) => r.status !== "rejected" && r.retired_at == null).map((r) => r.id));
 const ig = await getAll(KEY,
   "item_grounding?select=question_id,key_support_clause,source_id&order=question_id");
 
@@ -123,6 +127,7 @@ for (const t of tasks) {
   let inserted = 0;
   for (const g of ig) {
     if (codeOf.get(taskOfQ.get(g.question_id)) !== t.code) continue;
+    if (!servable.has(g.question_id)) continue;
     const k = anchorKey(g.source_id, g.key_support_clause);
     running.set(k, (running.get(k) || 0) + 1);
     inserted++;

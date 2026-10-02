@@ -31,7 +31,7 @@ with no task excluded.
 | 3.3 | 7 | 3 | 4 | 5 | 0 | 8 | **0** | 17 | no |
 | 3.4 | 6 | 1 | 5 | 8 | 0 | 9 | **0** | 5 | no |
 | 3.5 | 5 | 1 | 4 | 7 | 0 | 8 | **0** | 9 | no |
-| 3.6 | 2 | 2 | 0 | 6 | 5 | 8 | **0** | 11 | no |
+| 3.6 | 2 | 2 | 0 | 5 | 5 | 7 | **1** | 11 | **yes** |
 | 3.7 | 2 | 2 | 0 | 7 | 0 | 9 | **0** | 10 | no |
 | 3.8 | 7 | 4 | 3 | 4 | 0 | 8 | **0** | 4 | no |
 | 4.1 | 5 | 4 | 1 | 2 | 0 | 6 | **2** | 4 | **yes** |
@@ -45,8 +45,8 @@ with no task excluded.
 | 5.2 | 5 | 2 | 3 | 4 | 0 | 6 | **0** | 3 | no |
 | 5.3 | 7 | 4 | 3 | 3 | 0 | 7 | **1** | 4 | **yes** |
 | 5.4 | 7 | 2 | 5 | 3 | 0 | 5 | **1** | 3 | **yes** |
-| 5.5 | 3 | 3 | 0 | 1 | 0 | 4 | **4** | 34 | **yes** |
+| 5.5 | 3 | 3 | 0 | 0 | 0 | 3 | **5** | 34 | **yes** |
 | 5.6 | 3 | 3 | 0 | 5 | 0 | 8 | **0** | 10 | no |
 
-**6 task(s) in scope, 11 item(s) to generate.** 0 task(s) have a shortfall but fewer than 4 effective primaries and wait for a map ruling.
+**7 task(s) in scope, 13 item(s) to generate.** 0 task(s) have a shortfall but fewer than 4 effective primaries and wait for a map ruling.
 
