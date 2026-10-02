@@ -188,6 +188,20 @@ By name, the things that must change:
 
 ---
 
+## 4b. Logged in passing, PROMPT-102 s2 (one line each, nothing inserted)
+
+- The cap census omitted `edition`, so its keys could not match the assignment's and `assignAnchors`
+  handed out clauses already at the cap. Fixed; `buildCapCensus` now takes `{standard, edition}`.
+- Naming the standard in the writer's passage header made the writer copy it into
+  `key_support_clause` ("9.6.3 (ISO/IEC 42006:2025)"). Forbidden in the prompt and stripped on ingest.
+- A distractor citing a 42001 clause on a task anchored in 22989 resolved only in the item's scope and
+  failed `clause-exists`. `sourceOfClause` now falls back to the passages shown, then the run's standard.
+- **Task 5.5's primary map includes clause `1` (Scope) of both ISO/IEC 17021-1 and 42006.** Those are
+  poor anchors and the writer mis-quotes them; a map decision, not a code defect.
+- `rollout-shortfall` counted REJECTED rows toward floors (PROMPT-102 s1). Fixed.
+- R6 spend this session: ~$10.8 of the $15 ceiling, across one invalidated 7-item run, the 13-item run,
+  an 8-item top-up and a 1-item probe. **R6 is NOT closed: 5 survivors of 13 floors, nothing inserted.**
+
 ## 5. Open backlogs
 
 | backlog | size | where |

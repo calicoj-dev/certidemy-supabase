@@ -57,6 +57,7 @@ import { CAP } from "./lib/anchor-cap.mjs";
 import { buildCapCensus } from "./lib/anchor-cap-census.mjs";
 import { assignAnchors } from "./lib/anchor-assignment.mjs";
 import { classifyPrimaries } from "./lib/effective-primary.mjs";
+import { makePassageIndex } from "./lib/passage-index.mjs";
 
 let MEASURED = null, TASKS = null, CEILING = null, RUN_ID = "PROJECTION";
 for (const a of process.argv.slice(2)) {
@@ -118,10 +119,9 @@ for (const part of TASKS.split(",").map((s) => s.trim()).filter(Boolean)) {
 /* ---- the generator's own view of the library and the map ---- */
 const MAP = JSON.parse(readFileSync(join(ROOT, CERT + "-TASK-SOURCES.json"), "utf8"));
 const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));
-const passagesByKey = new Map(lib.passages
-  .filter((p) => p.source_id === MAP.standard && p.edition === MAP.edition)
-  .map((p) => [p.clause, p]));
-const libClauses = [...passagesByKey.keys()];
+/* PROMPT-102 s2: the whole library, keyed on (source, edition, clause) -- the generator's
+ * single-standard filter is gone, so a cross-source primary is anchorable and must be counted. */
+const passageIndex = makePassageIndex(lib.passages);
 
 const certs = await getAll(KEY, "certifications?select=id,code&code=eq." + CERT);
 const cert = certs[0];
@@ -145,13 +145,25 @@ for (const t of tasks) {
   if (!want.has(t.code)) continue;
   /* EXACTLY the generator's filter: this standard and edition, effective primaries only, source read off
    * the PASSAGE. Stamping the certification's standard onto a raw primary is the R5 probe-1 defect. */
-  const clauses = classifyPrimaries((primOf.get(t.id) || []).map((p) => p.clause),
-    (c) => passagesByKey.get(c), libClauses).filter((r) => r.effective).map((r) => r.clause);
+  /* classified PER (source, edition), because the container test is a clause-number prefix test */
+  const groups = new Map();
+  for (const p of primOf.get(t.id) || []) {
+    const se = p.source_id + "|" + p.edition;
+    if (!groups.has(se)) groups.set(se, []);
+    groups.get(se).push(p);
+  }
   const primaries = [];
-  for (const clause of clauses) {
-    const p = passagesByKey.get(clause);
-    if (!p || !p.source_id) continue;
-    primaries.push({ source_id: p.source_id, clause });
+  for (const [se, members] of groups) {
+    const i = se.indexOf("|");
+    const src = se.slice(0, i), ed = se.slice(i + 1);
+    const view = passageIndex.for(src, ed);
+    const cl = [...view.keys()];
+    for (const r of classifyPrimaries(members.map((m) => m.clause), (c) => view.get(c), cl)) {
+      if (!r.effective) continue;
+      const p = view.get(r.clause);
+      if (!p || !p.source_id) continue;
+      primaries.push({ source_id: p.source_id, edition: p.edition, clause: p.clause });
+    }
   }
   const asked = want.get(t.code);
   const asg = assignAnchors({ taskCode: t.code, runId: RUN_ID, primaries,

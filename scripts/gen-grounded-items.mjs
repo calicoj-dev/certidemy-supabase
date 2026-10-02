@@ -746,6 +746,7 @@ Return a JSON array. Each element:
   "correct_index": 0,
   "explanation": "why the key is right, naming the clause",
   "key_support_clause": "9.2.2",
+  "_note": "key_support_clause is the CLAUSE NUMBER ONLY. Never add the standard's name or edition to it -- the passage header shows the standard, the field does not carry it.",
   "key_support": "an exact sentence or clause fragment copied from that passage",
   "distractor_support": [
     {"index": 1, "clause": "9.2.2", "support": "exact text", "why_wrong": "one sentence"}
@@ -1155,23 +1156,43 @@ for (const g of generated) {
    * has a single standard to assume. Resolve from the assignment when the item anchored where it was told,
    * otherwise from the task's own map -- and REFUSE when two mapped sources both hold the clause, because
    * that ambiguity is the collision asking to be guessed at. */
-  /* One anchor's source, by UNIQUE match in the task's map. Null when absent or ambiguous. */
+  /* THE WRITER'S CLAUSE FIELD IS A NUMBER, and since the passage header now names the standard the
+   * writer started copying it in ("9.6.3 (ISO/IEC 42006:2025)"), which made anchor-assignment report a
+   * clause mismatched against itself. Stripped on ingest as well as forbidden in the prompt. */
+  const cleanClause = (c) => String(c == null ? "" : c).replace(/\s*\([^)]*\)\s*$/, "").trim();
+
+  /* One anchor's source. The task map first, then THE PASSAGES THE WRITER WAS SHOWN -- a distractor may
+   * cite a clause from any of those, and resolving it only in the item's own scope refused good items
+   * for a task anchored in a second standard. Null when absent or ambiguous. */
   const sourceOfClause = (c) => {
-    const clause = normClause(c);
-    const distinct = [...new Set([...primaryOf(t.code), ...supportingOf(t.code)]
-      .filter((r) => normClause(r.clause) === clause)
-      .map((r) => r.source_id + "|" + r.edition))];
-    if (distinct.length !== 1) return null;
-    const i = distinct[0].indexOf("|");
-    return { source_id: distinct[0].slice(0, i), edition: distinct[0].slice(i + 1) };
+    const clause = normClause(cleanClause(c));
+    const pick = (pairs) => {
+      const distinct = [...new Set(pairs)];
+      if (distinct.length !== 1) return null;
+      const i = distinct[0].indexOf("|");
+      return { source_id: distinct[0].slice(0, i), edition: distinct[0].slice(i + 1) };
+    };
+    const fromMap = pick([...primaryOf(t.code), ...supportingOf(t.code)]
+      .filter((r) => normClause(r.clause) === clause).map((r) => r.source_id + "|" + r.edition));
+    if (fromMap) return fromMap;
+    const fromShown = pick(ps.filter((p) => normClause(p.clause) === clause)
+      .map((p) => p.source_id + "|" + p.edition));
+    if (fromShown) return fromShown;
+    /* last resort: the run's own standard, which is where a 42001 clause lives */
+    return passageIndex.has(mapping.standard, mapping.edition, clause)
+      ? { source_id: mapping.standard, edition: mapping.edition } : null;
   };
   const stampSource = (it, assigned) => {
+    /* strip the source suffix off every clause field BEFORE anything keys on it */
+    if (it && it.key_support_clause != null) it = { ...it, key_support_clause: cleanClause(it.key_support_clause) };
     const clause = normClause(it && it.key_support_clause);
     /* every distractor anchor gets its OWN source, so one citing another mapped standard resolves there */
     const ds = Array.isArray(it && it.distractor_support)
       ? it.distractor_support.map((d) => {
-        const s = d && d.clause ? sourceOfClause(d.clause) : null;
-        return s ? { ...d, ...s } : d;
+        if (!d) return d;
+        const dd = d.clause != null ? { ...d, clause: cleanClause(d.clause) } : d;
+        const s = dd.clause ? sourceOfClause(dd.clause) : null;
+        return s ? { ...dd, ...s } : dd;
       })
       : (it && it.distractor_support);
     it = ds === undefined ? it : { ...it, distractor_support: ds };

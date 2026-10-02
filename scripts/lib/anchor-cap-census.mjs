@@ -70,17 +70,22 @@ import { anchorLayers } from "./anchor-layers.mjs";
  * So the caller passes the artifact it is inserting FROM, and this layer skips it. Generation passes nothing,
  * because a run's own survivors are not in any artifact yet.
  */
-export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert, excludeArtifacts = [] }) {
+export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert, excludeArtifacts = [],
+  standard = "ISO/IEC 42001", edition = "2023" }) {
+  /* standard/edition are the KEPT and AWAITING layers' source: those artifacts record a clause and no
+   * source. Parameters rather than literals so a second certification needs no edit here. */
   const entriesByTask = new Map();
-  const add = (code, source, clause) => {
+  /* EDITION IS PART OF THE KEY since the PROMPT-102 re-key. Omitting it built keys the assignment
+   * could not match, so assignAnchors saw an empty census and assigned clauses already at the cap. */
+  const add = (code, source, edition, clause) => {
     if (!code || !clause) return;
     if (!entriesByTask.has(code)) entriesByTask.set(code, []);
-    entriesByTask.get(code).push({ source_id: source, clause });
+    entriesByTask.get(code).push({ source_id: source, edition, clause });
   };
 
   /* ---- inserted rows: item_grounding is authoritative ---- */
   const ig = await getAll(KEY,
-    "item_grounding?select=question_id,key_support_clause,source_id&order=question_id");
+    "item_grounding?select=question_id,key_support_clause,source_id,edition&order=question_id");
   /* `question_text` is selected for the AWAITING layer below: the artifact-to-bank link is the stem id, and
    * without it every artifact survivor would look un-inserted. ONE unbroken select literal -- a concatenated
    * one collapses the row type. */
@@ -92,7 +97,7 @@ export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert, e
   for (const g of ig) {
     const code = codeOfTaskId.get(taskOfQuestion.get(g.question_id));
     if (!code) continue;               /* another certification's row */
-    add(code, g.source_id, g.key_support_clause);
+    add(code, g.source_id, g.edition, g.key_support_clause);
     fromInserted++;
   }
 
@@ -113,7 +118,7 @@ export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert, e
     for (const pre of (surv.keep_ids || [])) {
       const cl = anchorOf.get(pre);
       if (!cl) { unknownAnchor.push(pre); continue; }
-      add(taskOfPrefix.get(pre), "ISO/IEC 42001", cl);
+      add(taskOfPrefix.get(pre), standard, edition, cl);
       fromKept++;
     }
   }
@@ -131,7 +136,7 @@ export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert, e
     for (const a of awaiting) {
       if (skip.has(a.file)) continue;           /* the caller adds these at gate time */
       if (!a.task || !a.clause) continue;       /* no anchor recorded: nothing to count it against */
-      add(a.task, "ISO/IEC 42001", a.clause);
+      add(a.task, standard, edition, a.clause);
       fromAwaiting++;
       awaitingDetail.push(a.task + " " + a.clause + " " + a.id.slice(0, 8) + " (" + a.file + ")");
     }
