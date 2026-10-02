@@ -251,9 +251,13 @@ const LICENSES = {
  * code" true rather than aspirational.
  */
 export function gateVerbatim(item, passagesByKey, resolveAnchor = null) {
+  /* source_id/edition TRAVEL WITH THE ANCHOR. Dropping them here made every per-anchor resolution fall
+   * back to the item's scope, so a distractor citing another held standard read as "not in the library". */
   const anchors = [
-    { role: "key", clause: item.key_support_clause, text: item.key_support },
-    ...(item.distractor_support || []).map((d, i) => ({ role: "distractor " + i, clause: d.clause, text: d.support })),
+    { role: "key", clause: item.key_support_clause, text: item.key_support,
+      source_id: item.source_id, edition: item.edition },
+    ...(item.distractor_support || []).map((d, i) => ({ role: "distractor " + i, clause: d.clause, text: d.support,
+      source_id: d.source_id ?? item.source_id, edition: d.edition ?? item.edition })),
   ].filter((a) => a.text != null || a.clause != null);
 
   if (!anchors.length) {
@@ -341,13 +345,20 @@ export function normClause(c) {
  * a numbered sequence -- returns `pass: null`. The item is not cleared, because nothing can
  * check it; it is also not blamed. Anything else absent is a real refusal.
  */
-export function gateClauseExists(item, passagesByKey, annexGaps = [], sequenceGaps = []) {
+export function gateClauseExists(item, passagesByKey, annexGaps = [], sequenceGaps = [], resolveAnchor = null) {
   const known = new Set([
     ...annexGaps.flatMap((g) => g.missing || []),
     ...sequenceGaps.flatMap((g) => g.holes || []),
   ]);
-  const named = [item.key_support_clause, ...(item.distractor_support || []).map((d) => d.clause)]
-    .filter(Boolean).map(normClause);
+  /* Each named clause keeps its OWN source, so a distractor citing another held standard is not
+   * reported absent just because the ITEM is scoped elsewhere. */
+  const namedAnchors = [
+    { clause: item.key_support_clause, source_id: item.source_id, edition: item.edition },
+    ...(item.distractor_support || []).map((d) => ({ clause: d.clause,
+      source_id: d.source_id ?? item.source_id, edition: d.edition ?? item.edition })),
+  ].filter((a) => a.clause);
+  const srcOf = new Map(namedAnchors.map((a) => [normClause(a.clause), a]));
+  const named = namedAnchors.map((a) => normClause(a.clause));
   if (!named.length) {
     return { id: "clause-exists", pass: false, examined: 0, reason: "no clause named" };
   }
@@ -375,6 +386,7 @@ export function gateClauseExists(item, passagesByKey, annexGaps = [], sequenceGa
   };
   const bad = [], unheld = [], viaChildren = [];
   for (const c of named) {
+    if (resolveAnchor && resolveAnchor(srcOf.get(c) || { clause: c })) continue;
     if (passagesByKey.has(c)) continue;
     const kids = childrenOf(c);
     if (kids.length) { viaChildren.push(c + " -> " + kids.sort().join(", ")); continue; }
@@ -949,7 +961,7 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
     ? index.get(a.source_id, a.edition, normClause(a.clause))
     : passagesByKey.get(normClause(a.clause));
   const gates = [
-    gateClauseExists(item, passagesByKey, annexGaps, sequenceGaps),
+    gateClauseExists(item, passagesByKey, annexGaps, sequenceGaps, resolveAnchor),
     gateVerbatim(item, passagesByKey, resolveAnchor),
     gateModalFidelity(item, passagesByKey),
     gateSuperseded(item, cert),
@@ -1626,6 +1638,46 @@ export function groundedGateControls() {
         sources: { stub: true }, leak: { ITEM_MAX_RUN: 9, score: () => ({ unionRun: 3, source: "stub" }), splitOneAttributedQuotation: (t) => ({ remainder: t, quotation: null, ok: true, reason: "stub" }) } });
       return !r.failed.includes("anchor-is-primary") && !r.failed.includes("verbatim");
     }, true],
+    /* PROMPT-103: a DISTRACTOR may cite another held standard. Dropping source_id from the anchor
+     * objects made every such citation read "not in the library" and cost 12 of R7's 15 items. */
+    ["a distractor citing another held standard resolves there, not in the item's scope", () => {
+      const ix = makePassageIndex([
+        { source_id: "ISO/IEC 22989", edition: "2022", clause: "5.19.2.1", title: "t", normative: "shall",
+          text: "An AI system life cycle model shall define the stages an organization applies to its systems." },
+        { source_id: "ISO/IEC 42001", edition: "2023", clause: "4.1", title: "Context", normative: "shall",
+          text: "The organization shall determine external and internal issues relevant to its purpose and the AI management system." },
+      ]);
+      const item = { source_id: "ISO/IEC 22989", edition: "2022",
+        question_text: "Which statement about the life cycle model is accurate?",
+        options: [{ text: "It defines the stages the organization applies", is_correct: true }, { text: "It lists external issues" }],
+        explanation: "The life cycle model defines the stages.",
+        key_support_clause: "5.19.2.1",
+        key_support: "An AI system life cycle model shall define the stages an organization applies to its systems.",
+        distractor_support: [{ index: 1, clause: "4.1", source_id: "ISO/IEC 42001", edition: "2023",
+          support: "The organization shall determine external and internal issues relevant to its purpose and the AI management system." }] };
+      const r = runCodeGates(item, { passagesByKey: ix,
+        primaryClauses: [{ source_id: "ISO/IEC 22989", edition: "2022", clause: "5.19.2.1" }], supportingClauses: [],
+        sources: { stub: true }, leak: { ITEM_MAX_RUN: 9, score: () => ({ unionRun: 3, source: "stub" }), splitOneAttributedQuotation: (t) => ({ remainder: t, quotation: null, ok: true, reason: "stub" }) } });
+      return !r.failed.includes("clause-exists") && !r.failed.includes("verbatim");
+    }, true],
+    ["...and a distractor citing a clause NO held source has is still refused", () => {
+      const ix = makePassageIndex([
+        { source_id: "ISO/IEC 22989", edition: "2022", clause: "5.19.2.1", title: "t", normative: "shall",
+          text: "An AI system life cycle model shall define the stages an organization applies to its systems." },
+      ]);
+      const item = { source_id: "ISO/IEC 22989", edition: "2022",
+        question_text: "Which statement about the life cycle model is accurate?",
+        options: [{ text: "It defines the stages the organization applies", is_correct: true }, { text: "It lists external issues" }],
+        explanation: "The life cycle model defines the stages.",
+        key_support_clause: "5.19.2.1",
+        key_support: "An AI system life cycle model shall define the stages an organization applies to its systems.",
+        distractor_support: [{ index: 1, clause: "99.99", source_id: "ISO/IEC 42001", edition: "2023", support: "invented" }] };
+      const r = runCodeGates(item, { passagesByKey: ix,
+        primaryClauses: [{ source_id: "ISO/IEC 22989", edition: "2022", clause: "5.19.2.1" }], supportingClauses: [],
+        sources: { stub: true }, leak: { ITEM_MAX_RUN: 9, score: () => ({ unionRun: 3, source: "stub" }), splitOneAttributedQuotation: (t) => ({ remainder: t, quotation: null, ok: true, reason: "stub" }) } });
+      return r.failed.includes("clause-exists");
+    }, true],
+
     ["a bare clause-keyed Map is REFUSED, so an unscoped lookup cannot happen", () => {
       try {
         runCodeGates({ source_id: "x", edition: "y", key_support_clause: "3.4", key_support: "t",

@@ -18,9 +18,9 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 3.4",
-    "ISO/IEC 42001 4.4",
-    "ISO/IEC 42001 1"
+    "ISO/IEC 42001 3.4|?",
+    "ISO/IEC 42001 4.4|?",
+    "ISO/IEC 42001 1|?"
    ]
   },
   {
@@ -37,9 +37,9 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.10.2",
-    "ISO/IEC 42001 A.3.2",
-    "ISO/IEC 42001 4.1"
+    "ISO/IEC 42001 A.10.2|?",
+    "ISO/IEC 42001 A.3.2|?",
+    "ISO/IEC 42001 4.1|?"
    ]
   },
   {
@@ -56,7 +56,7 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 C.3.6"
+    "ISO/IEC 42001 C.3.6|?"
    ]
   },
   {
@@ -73,8 +73,8 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 D.2",
-    "ISO/IEC 42001 4.1"
+    "ISO/IEC 42001 D.2|?",
+    "ISO/IEC 42001 4.1|?"
    ]
   },
   {
@@ -91,9 +91,9 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 5.2",
-    "ISO/IEC 42001 4.2",
-    "ISO/IEC 42001 1"
+    "ISO/IEC 42001 5.2|?",
+    "ISO/IEC 42001 4.2|?",
+    "ISO/IEC 42001 1|?"
    ]
   },
   {
@@ -110,8 +110,8 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.1",
-    "ISO/IEC 42001 6.1.3"
+    "ISO/IEC 42001 A.1|?",
+    "ISO/IEC 42001 6.1.3|?"
    ]
   },
   {
@@ -128,9 +128,9 @@
    "floor": 6,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 4.1",
-    "ISO/IEC 42001 3.2",
-    "ISO/IEC 42001 4.2"
+    "ISO/IEC 42001 4.1|?",
+    "ISO/IEC 42001 3.2|?",
+    "ISO/IEC 42001 4.2|?"
    ]
   },
   {
@@ -147,9 +147,9 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 4.1",
-    "ISO/IEC 42001 4.2",
-    "ISO/IEC 42001 4.3"
+    "ISO/IEC 42001 4.1|?",
+    "ISO/IEC 42001 4.2|?",
+    "ISO/IEC 42001 4.3|?"
    ]
   },
   {
@@ -166,9 +166,9 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 5.1",
-    "ISO/IEC 42001 5.2",
-    "ISO/IEC 42001 6.3"
+    "ISO/IEC 42001 5.1|?",
+    "ISO/IEC 42001 5.2|?",
+    "ISO/IEC 42001 6.3|?"
    ]
   },
   {
@@ -185,9 +185,9 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.3.2",
-    "ISO/IEC 42001 5.3",
-    "ISO/IEC 42001 A.10.2"
+    "ISO/IEC 42001 A.3.2|?",
+    "ISO/IEC 42001 5.3|?",
+    "ISO/IEC 42001 A.10.2|?"
    ]
   },
   {
@@ -204,10 +204,10 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 C.3.2",
-    "ISO/IEC 42001 6.1.2",
-    "ISO/IEC 42001 C.3.4",
-    "ISO/IEC 42001 6.1.1"
+    "ISO/IEC 42001 C.3.2|?",
+    "ISO/IEC 42001 6.1.2|?",
+    "ISO/IEC 42001 C.3.4|?",
+    "ISO/IEC 42001 6.1.1|?"
    ]
   },
   {
@@ -224,8 +224,8 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 6.1.4",
-    "ISO/IEC 42001 8.4"
+    "ISO/IEC 42001 6.1.4|?",
+    "ISO/IEC 42001 8.4|?"
    ]
   },
   {
@@ -242,8 +242,8 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 6.1.2",
-    "ISO/IEC 42001 6.1.4"
+    "ISO/IEC 42001 6.1.2|?",
+    "ISO/IEC 42001 6.1.4|?"
    ]
   },
   {
@@ -260,10 +260,10 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 3.26",
-    "ISO/IEC 42001 6.1.3",
-    "ISO/IEC 42001 A.1",
-    "ISO/IEC 42001 8.3"
+    "ISO/IEC 42001 3.26|?",
+    "ISO/IEC 42001 6.1.3|?",
+    "ISO/IEC 42001 A.1|?",
+    "ISO/IEC 42001 8.3|?"
    ]
   },
   {
@@ -280,9 +280,9 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.4.6",
-    "ISO/IEC 42001 A.4.2",
-    "ISO/IEC 42001 7.2"
+    "ISO/IEC 42001 A.4.6|?",
+    "ISO/IEC 42001 A.4.2|?",
+    "ISO/IEC 42001 7.2|?"
    ]
   },
   {
@@ -299,9 +299,9 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 7.3",
-    "ISO/IEC 42001 7.2",
-    "ISO/IEC 42001 7.4"
+    "ISO/IEC 42001 7.3|?",
+    "ISO/IEC 42001 7.2|?",
+    "ISO/IEC 42001 7.4|?"
    ]
   },
   {
@@ -318,8 +318,8 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 7.5.2",
-    "ISO/IEC 42001 7.5.3"
+    "ISO/IEC 42001 7.5.2|?",
+    "ISO/IEC 42001 7.5.3|?"
    ]
   },
   {
@@ -336,10 +336,10 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 6.3",
-    "ISO/IEC 42001 A.10.3",
-    "ISO/IEC 42001 8.1",
-    "ISO/IEC 42001 6.1.3"
+    "ISO/IEC 42001 6.3|?",
+    "ISO/IEC 42001 A.10.3|?",
+    "ISO/IEC 42001 8.1|?",
+    "ISO/IEC 42001 6.1.3|?"
    ]
   },
   {
@@ -356,7 +356,7 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 B.10.3"
+    "ISO/IEC 42001 B.10.3|?"
    ]
   },
   {
@@ -364,16 +364,16 @@
    "keep": 2,
    "keptUsable": 2,
    "keptOverCap": 0,
-   "inserted": 5,
+   "inserted": 6,
    "provisional": 5,
-   "have": 7,
-   "shortfall": 1,
+   "have": 8,
+   "shortfall": 0,
    "effective": 11,
-   "eligible": true,
+   "eligible": false,
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.7.4"
+    "ISO/IEC 42001 A.7.4|?"
    ]
   },
   {
@@ -390,8 +390,8 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 7.5.3",
-    "ISO/IEC 42001 7.2"
+    "ISO/IEC 42001 7.5.3|?",
+    "ISO/IEC 42001 7.2|?"
    ]
   },
   {
@@ -408,10 +408,10 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 8.4",
-    "ISO/IEC 42001 8.1",
-    "ISO/IEC 42001 8.2",
-    "ISO/IEC 42001 8.3"
+    "ISO/IEC 42001 8.4|?",
+    "ISO/IEC 42001 8.1|?",
+    "ISO/IEC 42001 8.2|?",
+    "ISO/IEC 42001 8.3|?"
    ]
   },
   {
@@ -419,18 +419,18 @@
    "keep": 5,
    "keptUsable": 4,
    "keptOverCap": 1,
-   "inserted": 2,
+   "inserted": 3,
    "provisional": 0,
-   "have": 6,
-   "shortfall": 2,
+   "have": 7,
+   "shortfall": 1,
    "effective": 4,
    "eligible": true,
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.1",
-    "ISO/IEC 42001 B.1",
-    "ISO/IEC 42001 6.1.3"
+    "ISO/IEC 42001 A.1|?",
+    "ISO/IEC 42001 B.1|?",
+    "ISO/IEC 42001 6.1.3|?"
    ]
   },
   {
@@ -447,9 +447,9 @@
    "floor": 6,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 3.26",
-    "ISO/IEC 42001 A.1",
-    "ISO/IEC 42001 6.1.3"
+    "ISO/IEC 42001 3.26|?",
+    "ISO/IEC 42001 A.1|?",
+    "ISO/IEC 42001 6.1.3|?"
    ]
   },
   {
@@ -466,7 +466,7 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.3.3"
+    "ISO/IEC 42001 A.3.3|?"
    ]
   },
   {
@@ -483,7 +483,7 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.6.2.5"
+    "ISO/IEC 42001 A.6.2.5|?"
    ]
   },
   {
@@ -500,8 +500,8 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.8.3",
-    "ISO/IEC 42001 A.8.2"
+    "ISO/IEC 42001 A.8.3|?",
+    "ISO/IEC 42001 A.8.2|?"
    ]
   },
   {
@@ -518,9 +518,9 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 A.10.3",
-    "ISO/IEC 42001 6.1.3",
-    "ISO/IEC 42001 A.10.2"
+    "ISO/IEC 42001 A.10.3|?",
+    "ISO/IEC 42001 6.1.3|?",
+    "ISO/IEC 42001 A.10.2|?"
    ]
   },
   {
@@ -537,10 +537,10 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 3.26",
-    "ISO/IEC 42001 D.2",
-    "ISO/IEC 42001 C.2.10",
-    "ISO/IEC 42001 6.1.3"
+    "ISO/IEC 42001 3.26|?",
+    "ISO/IEC 42001 D.2|?",
+    "ISO/IEC 42001 C.2.10|?",
+    "ISO/IEC 42001 6.1.3|?"
    ]
   },
   {
@@ -557,9 +557,9 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 3.13",
-    "ISO/IEC 42001 3.11",
-    "ISO/IEC 42001 9.1"
+    "ISO/IEC 42001 3.13|?",
+    "ISO/IEC 42001 3.11|?",
+    "ISO/IEC 42001 9.1|?"
    ]
   },
   {
@@ -576,9 +576,9 @@
    "floor": 6,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 9.2.2",
-    "ISO/IEC 42001 3.18",
-    "ISO/IEC 42001 9.2.1"
+    "ISO/IEC 42001 9.2.2|?",
+    "ISO/IEC 42001 3.18|?",
+    "ISO/IEC 42001 9.2.1|?"
    ]
   },
   {
@@ -586,18 +586,19 @@
    "keep": 7,
    "keptUsable": 4,
    "keptOverCap": 3,
-   "inserted": 3,
+   "inserted": 4,
    "provisional": 0,
-   "have": 7,
-   "shortfall": 1,
+   "have": 8,
+   "shortfall": 0,
    "effective": 4,
-   "eligible": true,
+   "eligible": false,
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 9.3.2",
-    "ISO/IEC 42001 9.3.3",
-    "ISO/IEC 42001 9.3.1"
+    "ISO/IEC 42001 10.1|?",
+    "ISO/IEC 42001 9.3.2|?",
+    "ISO/IEC 42001 9.3.3|?",
+    "ISO/IEC 42001 9.3.1|?"
    ]
   },
   {
@@ -614,7 +615,7 @@
    "floor": 6,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 10.2"
+    "ISO/IEC 42001 10.2|?"
    ]
   },
   {
@@ -622,16 +623,16 @@
    "keep": 3,
    "keptUsable": 3,
    "keptOverCap": 0,
-   "inserted": 0,
+   "inserted": 2,
    "provisional": 0,
-   "have": 3,
-   "shortfall": 5,
+   "have": 5,
+   "shortfall": 3,
    "effective": 34,
    "eligible": true,
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 1"
+    "ISO/IEC 42001 1|?"
    ]
   },
   {
@@ -648,8 +649,8 @@
    "floor": 8,
    "tooThin": false,
    "atCap": [
-    "ISO/IEC 42001 9.3.2",
-    "ISO/IEC 42001 6.1.2"
+    "ISO/IEC 42001 9.3.2|?",
+    "ISO/IEC 42001 6.1.2|?"
    ]
   }
  ],
@@ -663,15 +664,7 @@
    "shortfall": 1
   },
   {
-   "task": "3.6",
-   "shortfall": 1
-  },
-  {
    "task": "4.1",
-   "shortfall": 2
-  },
-  {
-   "task": "5.3",
    "shortfall": 1
   },
   {
@@ -680,8 +673,8 @@
   },
   {
    "task": "5.5",
-   "shortfall": 5
+   "shortfall": 3
   }
  ],
- "total_to_generate": 13
+ "total_to_generate": 8
 }

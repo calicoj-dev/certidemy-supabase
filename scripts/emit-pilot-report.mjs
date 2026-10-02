@@ -266,7 +266,10 @@ for (const r of survivors) {
   L("");
   L("*explanation:* " + (r.item.explanation || "_none_"));
   L("");
-  L("*`key_support` — " + j.standard + " clause " + r.item.key_support_clause + ":*");
+  /* THE ITEM'S OWN SOURCE, not the run's. Since the re-key an AIMS-F run anchors in 17021-1 and 42006
+   * too, and labelling those "ISO/IEC 42001" misattributes the quotation in the document the director reads. */
+  L("*`key_support` — " + (r.item.source_id || j.standard) + ":" + (r.item.edition || j.edition) +
+    " clause " + r.item.key_support_clause + ":*");
   L("");
   L("> " + String(r.item.key_support).replace(/\s+/g, " ").trim());
   L("");

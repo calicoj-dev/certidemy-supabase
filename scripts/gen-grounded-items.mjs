@@ -764,6 +764,12 @@ RULES
   exceptions, entirely) or a justification tail (because..., since..., so..., which...) to an
   otherwise true statement. IF A DISTRACTOR MINUS ITS QUALIFIER WOULD BE TRUE, IT IS NOT A
   DISTRACTOR.
+  MAKE EACH DISTRACTOR WRONG IN ITS CONTENT, NOT BY ADDING A QUALIFYING CLAUSE TO A TRUE
+  STATEMENT. "rather than...", "instead of...", "since...", "because..." bolted onto a true
+  sentence is the shape a candidate spots without knowing the subject.
+  NO THREE OPTIONS MAY SHARE AN OPENING FRAME OR A CONNECTIVE. If three options begin the same
+  way and the key does not, the key is findable as the odd one out. Give each option its own
+  sentence shape, and keep all four about the same length.
   Write the four options in the same grammatical form and similar length. If the key carries a
   hedge the standard uses (can), phrase at least one distractor with similar care.
 
@@ -1243,16 +1249,25 @@ for (const g of generated) {
    * pilot's lesson was that a rewrite written to remove a reproduction can introduce another. */
   const reproFailed = code.gates.find((x) => x.id === "reproduction" && x.pass === false);
   const onlyRepro = code.failed.length === 1 && code.failed[0] === "reproduction" && !code.unasserted.length;
+  /* PROMPT-103 s3b: "the quotation names no clause" is a FORMATTING fault on the same gate -- the
+   * quotation is allowed, it just has to say what it quotes. The one-shot retry covers it; nothing
+   * else about the retry changes. */
+  const unnamedQuote = reproFailed && /quotation names no clause/i.test(String(reproFailed.reason));
   if (reproFailed && onlyRepro) {
     let revised = null;
     try {
       CALL_ROLE = "paraphrase";
       revised = parseArray(await claude(WRITER_SYSTEM,
         writerUser(t, domById.get(t.domain_id) || {}, ps, 1) +
-        "\n\nREWRITE THE ITEM BELOW. It is sound except that it reproduces the standard in a served" +
+        (unnamedQuote
+          ? "\n\nFIX THE ITEM BELOW. It is sound and its quotation is allowed; the quotation simply does" +
+            "\nnot say what it is quoting. " + reproFailed.reason +
+            "\n\nName the clause beside the quotation in the explanation -- e.g. 'Clause 10.1 states: \"...\"'." +
+            "\nChange NOTHING else: same stem, same options, same key, same key_support, same clause."
+          : "\n\nREWRITE THE ITEM BELOW. It is sound except that it reproduces the standard in a served" +
         "\nfield. " + reproFailed.reason +
         "\n\nParaphrase ONLY the offending run, in our own words. Keep the same claim, the same key," +
-        "\nthe same key_support and the same clause. Do not change what the item measures." +
+        "\nthe same key_support and the same clause. Do not change what the item measures.") +
         "\n\n" + JSON.stringify({ ...item, options: item.options.map((o) => ({ text: o.text })) }, null, 1),
         6000));
     } catch (e) {
@@ -1638,7 +1653,9 @@ for (const g of generated) {
  * Earlier items in the artifact win, which is stated because an order nobody states is irreproducible. */
 for (const code of new Set(results.map((r) => r.task_code))) {
   const mine = results.filter((r) => r.verdict === "survivor" && r.task_code === code);
-  const decided = applyCap(mine.map((r) => ({ ref: r, source_id: "ISO/IEC 42001",
+  /* the ITEM's source and edition, not a literal: the cap key is (source, edition, clause) */
+  const decided = applyCap(mine.map((r) => ({ ref: r,
+    source_id: r.item.source_id || mapping.standard, edition: r.item.edition || mapping.edition,
     clause: r.item.key_support_clause })), capCensus.get(code) || new Map(), CAP);
   for (const d of decided) {
     if (!d.over_cap) continue;
@@ -1943,8 +1960,9 @@ if (!APPLY) {
           question_id: id,
           key_support_clause: r.item.key_support_clause,
           key_support: r.item.key_support,
-          source_id: STANDARD_OF[CERT] || "ISO/IEC 42001",
-          edition: EDITION_OF[CERT] || "2023",
+          /* THE ITEM OWN SOURCE. Stamping the run standard put 42001 on a 17021-1 anchor (PROMPT-103 s1). */
+          source_id: r.item.source_id || STANDARD_OF[CERT] || "ISO/IEC 42001",
+          edition: r.item.edition || EDITION_OF[CERT] || "2023",
           gates: r.gates ?? [],
           solver: r.solver ?? null,
           generator: "gen-grounded-items.mjs",
