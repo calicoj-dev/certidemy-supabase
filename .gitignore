@@ -152,3 +152,14 @@ REEXTRACT-DIFF.md
 # It flagged itself on its first run, which is the check working. Its BASELINE is safe and stays tracked: that
 # file records only file name, run count and which passage -- no quoted text.
 LICENSED-TEXT-SCAN.json
+
+# one-off probes (ruled PROMPT-111 s5)
+scratch/
+
+# Audit artifacts quote held passages verbatim in key_support (ruled: licensed text stays out of
+# git, enforced by content not by name). The AIMS-F ones predate this and are in the 285 baseline.
+ANCHOR-OR-FLAG-*.json
+ANCHOR-PARSE-*.json
+ANCHOR-CKPT-*.json
+*-SURVIVORS.md
+*-SURVIVORS.json

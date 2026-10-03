@@ -6,9 +6,9 @@
  * The lint proves zero glossary pins. It does NOT prove the sibling tracks the CURRENT English -- a
  * faithful translation of text that no longer exists passes every pin.
  */
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { requireKey, getAll } from "./_pg.mjs";
+import { requireKey, getAll } from "../scripts/_pg.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 let CERT = "AIMS-F";
@@ -19,7 +19,7 @@ for (const a of process.argv.slice(2)) {
   if (a.startsWith("--")) { console.error("Unrecognised flag: " + a); process.exit(2); }
   WANT.push(a);
 }
-const KEY = requireKey(HERE);
+const KEY = requireKey(join(HERE, "..", "scripts"));
 const cert = (await getAll(KEY, "certifications?select=id&code=eq." + CERT))[0];
 const all = await getAll(KEY, "quiz_questions?select=id,language,question_group_id,options," +
   "correct_answer,status,pool,visibility,is_exam_scope,retired_at&certification_id=eq." + cert.id + "&order=id");

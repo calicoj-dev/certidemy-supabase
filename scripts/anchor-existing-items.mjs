@@ -51,7 +51,7 @@ import { AUDIT480_TIER_A, AUDIT480_TIER_B, AUDIT480_TIER_C, AUDIT480_TIER_D,
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false, ONLY = null, TAG = "", REUSE_SOLVER = null, INCLUDE_PENDING = false;
+let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false, ONLY = null, TAG = "", REUSE_SOLVER = null, INCLUDE_PENDING = false, LIMIT = 0;
 for (const a of process.argv.slice(2)) {
   const m = /^--cert=(.+)$/.exec(a);
   if (m) { CERT = m[1]; continue; }
@@ -65,6 +65,9 @@ for (const a of process.argv.slice(2)) {
   if (g) { TAG = "-" + g[1]; continue; }
   const rs = /^--reuse-solver=(.+)$/.exec(a);
   if (rs) { REUSE_SOLVER = rs[1]; continue; }
+  /* --limit stops after N NEW items (PROMPT-111 s3), so a run can be projected before it is finished */
+  const lm = /^--limit=([0-9]+)$/.exec(a);
+  if (lm) { LIMIT = Number(lm[1]); continue; }
   console.error("unknown flag " + JSON.stringify(a) + " -- READ-ONLY and MEASURE-ONLY.");
   console.error("There is no --apply: an instrument that disagrees with an item must not be able");
   console.error("to change it.");
@@ -126,6 +129,15 @@ const ANTHROPIC_API_KEY = env("ANTHROPIC_API_KEY");
 if (!ANTHROPIC_API_KEY) { console.error("ANTHROPIC_API_KEY not found"); process.exitCode = 2; process.exit(); }
 const MODEL = process.env.GROUNDED_MODEL || "claude-opus-5";
 
+/* ============ METERING (ruled PROMPT-111 s3) ============
+ *
+ * This script had none, which is why PROMPT-110 could not project the ISMS-F audit and stopped. Spend
+ * is accumulated per call and divided by items examined, so a run can be stopped at 40 and projected
+ * against the high end rather than guessed at. */
+const PRICE = { input: 15, output: 75 };   /* USD per 1M tokens, claude-opus-5 */
+let IN_TOK = 0, OUT_TOK = 0, CALLS = 0;
+const usd = () => (IN_TOK / 1e6) * PRICE.input + (OUT_TOK / 1e6) * PRICE.output;
+
 async function claude(system, user, maxTokens = 1800) {
   for (let attempt = 1; ; attempt++) {
     try {
@@ -136,6 +148,9 @@ async function claude(system, user, maxTokens = 1800) {
       });
       if (!res.ok) throw new Error("Anthropic " + res.status + ": " + (await res.text()).slice(0, 200));
       const d = await res.json();
+      CALLS++;
+      IN_TOK += (d.usage && d.usage.input_tokens) || 0;
+      OUT_TOK += (d.usage && d.usage.output_tokens) || 0;
       return (d.content || []).filter((b) => b.type === "text").map((b) => b.text).join("\n");
     } catch (e) {
       if (attempt >= 3) throw e;
@@ -367,9 +382,31 @@ function anchorUser(item, keyLabel, primary, supporting) {
 /* ---------------------------------------------------------------- run */
 const out = [];
 console.log("");
+/* ============ CHECKPOINT (ruled PROMPT-111 s3): a crash must not pay twice ============
+ *
+ * Every item's verdict is appended to a checkpoint file as it is decided. A re-run reads it and skips
+ * what is already measured, so the spend already made is never repeated. `--limit` stops after N NEW
+ * items, which is what makes a 40-item projection possible before committing to the rest. */
+const CKPT = join(ROOT, "ANCHOR-CKPT-" + CERT + ".json");
+const done = new Map();
+if (existsSync(CKPT)) {
+  try {
+    for (const it of (JSON.parse(readFileSync(CKPT, "utf8")).items || [])) done.set(it.prefix, it);
+  } catch { console.error("  checkpoint unreadable; starting fresh (nothing is overwritten until a write)"); }
+}
+const flush = () => writeFileSync(CKPT, JSON.stringify({ cert: CERT, model: MODEL,
+  spend_usd: Number(usd().toFixed(4)), calls: CALLS, items: [...done.values()] }, null, 2) + "\n");
+
 console.log("ANCHOR OR FLAG  --  " + CERT + ", " + sampled.length + " items, measure only");
+if (done.size) console.log("  checkpoint: " + done.size + " item(s) already measured, skipped");
+if (LIMIT) console.log("  --limit " + LIMIT + ": stopping after " + LIMIT + " NEW item(s)");
 console.log("");
+let fresh = 0;
 for (const s of sampled) {
+  /* already measured -> reuse, no spend */
+  if (done.has(s.prefix)) { out.push(done.get(s.prefix)); continue; }
+  if (LIMIT && fresh >= LIMIT) continue;
+  fresh++;
   const hits = rows.filter((r) => String(r.id).startsWith(s.prefix));
   const base = { n: s.n, prefix: s.prefix, director_tier: tierOf.get(s.prefix) || null, task: s.task };
   if (hits.length !== 1) {
@@ -498,8 +535,11 @@ for (const s of sampled) {
    * one it means. So a bare address resolves against the sources this task links to, in the order
    * they appear in its map, and a resolution through more than one candidate is RECORDED rather than
    * silently taking the first -- an ambiguity nobody is told about is how the old collisions hid. */
-  const primaryClauses = map.primary.map((p) => p.clause);
-  const supportingClauses = map.supporting.map((p) => p.clause);
+  /* FULL KEYS, not bare clauses. This script predates the PROMPT-100 re-key and passed clause strings,
+   * which `gateAnchorIsPrimary` now refuses outright -- a bare compare is the 42001/17021-1 3.4
+   * collision. Mapping the passage rows straight through keeps the source and edition with the clause. */
+  const primaryClauses = map.primary.map((p) => ({ source_id: p.source_id, edition: p.edition, clause: p.clause }));
+  const supportingClauses = map.supporting.map((p) => ({ source_id: p.source_id, edition: p.edition, clause: p.clause }));
   const taskSources = [...new Set([...map.primary, ...map.supporting].map((p) => p.source_id))];
   const byKeyForSource = new Map();
   for (const p of [...map.primary, ...map.supporting]) {
@@ -554,7 +594,21 @@ for (const s of sampled) {
     }
   }
   void taskSources;
-  const candidate = { ...item, key_support: parsed.key_support, key_support_clause: parsed.key_support_clause };
+  /* ============ THE ANCHOR CARRIES ITS SOURCE AND EDITION ============
+   *
+   * Without these the gate formed the key `undefined:undefined <clause>` and reported EVERY item as
+   * "not mapped to this task" -- 33 of 33 flagged on the first ISMS-F sample, none of them really.
+   * Same defect class as PROMPT-104's, where the generator's anchor objects lost `source_id`.
+   *
+   * The clause is resolved against THIS TASK'S OWN mapped passages, so the source is the one the task
+   * is examined against. A clause that is in no mapped passage keeps the task's dominant source, which
+   * lets `anchor-is-primary` say "not mapped to this task" truthfully rather than "undefined". */
+  const anchorAddr = normClause(parsed.key_support_clause);
+  const fromMap = [...map.primary, ...map.supporting].find((p) => normClause(p.clause) === anchorAddr);
+  const fallback = map.primary[0] || map.supporting[0] || null;
+  const src = fromMap || fallback;
+  const candidate = { ...item, key_support: parsed.key_support, key_support_clause: parsed.key_support_clause,
+    source_id: src ? src.source_id : undefined, edition: src ? src.edition : undefined };
   const gates = [
     gateClauseExists(candidate, byKeyForSource, annexGaps, [...seqGaps, ...declaredGaps]),
     gateVerbatim(candidate, byKeyForSource),
@@ -637,8 +691,31 @@ for (const s of sampled) {
       : "anchored in " + normClause(parsed.key_support_clause) + ", verbatim, modal consistent",
   };
   out.push(rec);
+  /* CHECKPOINT PER ITEM, so a crash never pays for the same item twice */
+  done.set(rec.prefix, rec);
+  flush();
   console.log("  #" + String(rec.n).padEnd(4) + rec.prefix + "  " + (rec.director_tier || "-") + "  " +
-    rec.state.padEnd(18) + (rec.kind ? rec.kind + " -- " : "") + String(rec.reason).slice(0, 72));
+    rec.state.padEnd(18) + (rec.kind ? rec.kind + " -- " : "") + String(rec.reason).slice(0, 72) +
+    "   $" + usd().toFixed(3));
+}
+
+/* ============ SPEND, AND THE PROJECTION (PROMPT-111 s3) ============ */
+{
+  const measured = fresh;
+  const remaining = sampled.length - done.size;
+  const perItem = measured ? usd() / measured : 0;
+  console.log("");
+  console.log("SPEND   $" + usd().toFixed(4) + " over " + CALLS + " call(s), " + measured + " new item(s)");
+  console.log("  per item          $" + perItem.toFixed(4));
+  console.log("  measured so far   " + done.size + " of " + sampled.length);
+  console.log("  remaining         " + remaining);
+  if (remaining > 0 && measured > 0) {
+    /* the HIGH END, not the mean: a projection that under-reports is how a ceiling gets passed */
+    const hi = perItem * 1.25;
+    console.log("  PROJECTION to finish: $" + (perItem * remaining).toFixed(2) +
+      " at the measured rate, $" + (hi * remaining).toFixed(2) + " at +25% (the high end)");
+    console.log("  TOTAL for the full run: $" + (usd() + hi * remaining).toFixed(2) + " at the high end");
+  }
 }
 
 /* ---------------------------------------------------------------- compare */

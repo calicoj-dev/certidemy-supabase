@@ -3,10 +3,10 @@
  * READ-ONLY. For named uuid prefixes: would retiring each one's GROUP leave its task at floor?
  * Reads the ruled floors via lib/task-floors.mjs. No --apply exists.
  */
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { requireKey, getAll } from "./_pg.mjs";
-import { loadTaskFloors, floorFor } from "./lib/task-floors.mjs";
+import { requireKey, getAll } from "../scripts/_pg.mjs";
+import { loadTaskFloors, floorFor } from "../scripts/lib/task-floors.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 let CERT = "AIMS-F";
@@ -18,7 +18,7 @@ for (const a of process.argv.slice(2)) {
   WANT.push(a);
 }
 const LANGS = ["en", "es-419", "pt-BR"];
-const KEY = requireKey(HERE);
+const KEY = requireKey(join(HERE, "..", "scripts"));
 const cert = (await getAll(KEY, "certifications?select=id,code&code=eq." + CERT))[0];
 const all = await getAll(KEY, "quiz_questions?select=id,language,status,pool,is_exam_scope,retired_at," +
   "question_group_id,task_id&certification_id=eq." + cert.id + "&order=id");

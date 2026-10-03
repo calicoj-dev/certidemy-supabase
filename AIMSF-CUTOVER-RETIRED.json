@@ -3,7 +3,7 @@
   "ruled_in": "PROMPT-107 s3",
   "retired_at": "2026-10-03T20:24:47.948Z",
   "rollback": "node --dns-result-order=ipv4first scripts/rollback-cutover.mjs --apply",
-  "count": 359,
+  "count": 356,
   "ids": [
     {
       "id": "077629d1-b3cc-4f7e-89f2-acf94ac4b2df",
@@ -1789,24 +1789,6 @@
       "language": "en",
       "why": "PROMPT-109 s5: director-rejected items, never retired; the rejected verdict stays as the record",
       "group": "f92232b5"
-    },
-    {
-      "id": "4552918e-152a-44b9-b28c-d43e97961e4a",
-      "language": "es-419",
-      "why": "PROMPT-110 s1: re-translated, so the human translation approval (en_hash 65e7942a) is STALE against the new English 02f43d84; needs a director re-read of the es-419/pt-BR siblings before it is served",
-      "group": "87c740c9"
-    },
-    {
-      "id": "87c740c9-68b0-4e0e-ab17-236a81425e34",
-      "language": "en",
-      "why": "PROMPT-110 s1: re-translated, so the human translation approval (en_hash 65e7942a) is STALE against the new English 02f43d84; needs a director re-read of the es-419/pt-BR siblings before it is served",
-      "group": "87c740c9"
-    },
-    {
-      "id": "925d5acf-8bb4-4c05-8e19-7766af434c0f",
-      "language": "pt-BR",
-      "why": "PROMPT-110 s1: re-translated, so the human translation approval (en_hash 65e7942a) is STALE against the new English 02f43d84; needs a director re-read of the es-419/pt-BR siblings before it is served",
-      "group": "87c740c9"
     }
   ],
   "appended": [
@@ -1845,6 +1827,14 @@
         "f75f5026"
       ],
       "rows": 9
+    },
+    {
+      "at": "2026-10-03T21:47:34.163Z",
+      "ruled_in": "PROMPT-110 s1",
+      "groups": [
+        "87c740c9"
+      ],
+      "rows": 3
     }
   ]
 }

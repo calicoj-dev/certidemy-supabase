@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 /* Read-only. Prints the full gate verdict and the item for each refused id. */
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { requireKey, getAll } from "./_pg.mjs";
-import { itemIdOfStem } from "./lib/item-id.mjs";
-import { buildGateContext } from "./lib/gate-context.mjs";
+import { requireKey, getAll } from "../scripts/_pg.mjs";
+import { itemIdOfStem } from "../scripts/lib/item-id.mjs";
+import { buildGateContext } from "../scripts/lib/gate-context.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const WANT = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 if (!WANT.length) { console.error("usage: diagnose-approval-refusals.mjs <id8>..."); process.exit(2); }
-const KEY = requireKey(HERE);
+const KEY = requireKey(join(HERE, "..", "scripts"));
 const ctx = await buildGateContext(KEY, "AIMS-F");
 const ig = new Map((await getAll(KEY, "item_grounding?select=question_id,key_support_clause,source_id,edition" +
   "&order=question_id")).map((g) => [g.question_id, g]));

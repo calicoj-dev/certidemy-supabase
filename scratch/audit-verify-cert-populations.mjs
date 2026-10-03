@@ -8,9 +8,9 @@
  * filter `retired_at is null` -- the gap is that 8.1's population is "secure + English + 3 options",
  * which includes secure rows that are not SERVED.
  */
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { requireKey, getAll } from "./_pg.mjs";
+import { requireKey, getAll } from "../scripts/_pg.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 let CERT = "AIMS-F";
@@ -19,7 +19,7 @@ for (const a of process.argv.slice(2)) {
   if (m) { CERT = m[1]; continue; }
   console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE>. READ-ONLY."); process.exit(2);
 }
-const KEY = requireKey(HERE);
+const KEY = requireKey(join(HERE, "..", "scripts"));
 const cert = (await getAll(KEY, "certifications?select=id,code&code=eq." + CERT))[0];
 const all = await getAll(KEY, "quiz_questions?select=id,language,pool,status,is_exam_scope,retired_at," +
   "item_origin,options,correct_answer,question_group_id&certification_id=eq." + cert.id + "&order=id");

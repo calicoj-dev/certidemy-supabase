@@ -10,12 +10,12 @@
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { requireKey, getAll } from "./_pg.mjs";
+import { requireKey, getAll } from "../scripts/_pg.mjs";
 import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-const KEY = requireKey(HERE);
+const KEY = requireKey(join(HERE, "..", "scripts"));
 const rec = JSON.parse(readFileSync(join(ROOT, "AIMSF-CUTOVER-RETIRED.json"), "utf8"));
 const retired = new Set(rec.ids.map((x) => x.id));
 

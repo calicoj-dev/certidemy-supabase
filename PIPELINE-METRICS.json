@@ -68,6 +68,24 @@
       "sent_back": 16,
       "note": "verify-cert 8.1 found 16 cue escapes; 13 grounded revised, 1 retired on a solver split, 3 authored revised and held retired",
       "recorded_at": "2026-10-03T21:07:31.454Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 2,
+      "stage_name": "existing-bank audit",
+      "applied": false,
+      "exit": 0,
+      "seconds": 1,
+      "note": null,
+      "recorded_at": "2026-10-03T22:05:14.843Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 2,
+      "stage_name": "existing-bank audit",
+      "sent_back": 0,
+      "note": "audit sample only: 37 of 391 measured, stopped on the $30 ceiling",
+      "recorded_at": "2026-10-03T22:07:37.054Z"
     }
   ],
   "costs_usd": [
@@ -99,6 +117,16 @@
         }
       ],
       "note": "R1 reports 23.55 because it is the FIRST PASS only. The metrics total is cumulative across repair rounds. Both are correct and measure different things."
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 2,
+      "stage_name": "existing-bank audit",
+      "usd": 8.6031,
+      "items_measured": 37,
+      "per_item": 0.2607,
+      "calls": 73,
+      "note": "SAMPLE ONLY, 37 of 391. Projection to finish 354 more: $92 at the measured rate, $115 at +25%. Total $101-124, over the $30 ceiling -> stopped (PROMPT-111 s3)."
     }
   ],
   "not_instrumented": [

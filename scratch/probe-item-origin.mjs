@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /* Read-only. What item_origin do the grounded rows carry, and what does the column allow? */
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { requireKey, getAll } from "./_pg.mjs";
+import { requireKey, getAll } from "../scripts/_pg.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const KEY = requireKey(HERE);
+const KEY = requireKey(join(HERE, "..", "scripts"));
 const cert = (await getAll(KEY, "certifications?select=id&code=eq.AIMS-F"))[0];
 const all = await getAll(KEY, "quiz_questions?select=id,language,status,pool,is_exam_scope,retired_at," +
   "item_origin,question_group_id&certification_id=eq." + cert.id + "&order=id");

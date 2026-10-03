@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /* Read-only. Prints each flagged field beside its English so the hit can be judged. */
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { requireKey, getAll } from "./_pg.mjs";
-import { checkPins } from "./lib/pin-compliance.mjs";
+import { requireKey, getAll } from "../scripts/_pg.mjs";
+import { checkPins } from "../scripts/lib/pin-compliance.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 let PREFIXES = [], LANG = "es-419";
@@ -13,7 +13,7 @@ for (const a of process.argv.slice(2)) {
   if (a.startsWith("--")) { console.error("Unrecognised flag: " + a); process.exit(2); }
   PREFIXES.push(a);
 }
-const KEY = requireKey(HERE);
+const KEY = requireKey(join(HERE, "..", "scripts"));
 const SEL = "id,question_group_id,language,question_text,options,explanation";
 const rows = await getAll(KEY, "quiz_questions?select=" + SEL + "&retired_at=is.null&order=id");
 const byGroup = new Map();

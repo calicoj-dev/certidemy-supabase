@@ -963,7 +963,7 @@ async function verify(cert) {
   const VERB_RANK = {
     recall: 1, list: 1, state: 1, name: 1,
     explain: 2, describe: 2, summarize: 2, articulate: 2,
-    apply: 3, select: 3, choose: 3, match: 3, implement: 3, calculate: 3,
+    apply: 3, select: 3, choose: 3, match: 3, implement: 3, calculate: 3, assign: 3, /* assign: ruled PROMPT-111 s1.3, at apply */
     analyze: 4, analyse: 4, diagnose: 4, trace: 4, deconstruct: 4,
     evaluate: 5, judge: 5, critique: 5, justify: 5,
     create: 6, write: 6, build: 6, design: 6, construct: 6, compose: 6, formulate: 6, draft: 6,

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /* Read-only. For each uuid prefix: the cue arithmetic and every option with its length. */
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { requireKey, getAll } from "./_pg.mjs";
-import { gateItemOf } from "./lib/stored-item.mjs";
-import { cueConfigFor, keyLengthEscape } from "./lib/item-cue-guard.mjs";
+import { requireKey, getAll } from "../scripts/_pg.mjs";
+import { gateItemOf } from "../scripts/lib/stored-item.mjs";
+import { cueConfigFor, keyLengthEscape } from "../scripts/lib/item-cue-guard.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 let CERT = "AIMS-F";
@@ -15,7 +15,7 @@ for (const a of process.argv.slice(2)) {
   if (a.startsWith("--")) { console.error("Unrecognised flag: " + a); process.exit(2); }
   WANT.push(a);
 }
-const KEY = requireKey(HERE);
+const KEY = requireKey(join(HERE, "..", "scripts"));
 const cert = (await getAll(KEY, "certifications?select=id,exam_blueprint&code=eq." + CERT))[0];
 const cfg = cueConfigFor(cert.exam_blueprint);
 const rows = await getAll(KEY, "quiz_questions?select=id,question_text,options,correct_answer,explanation," +

@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 /* Read-only. Exact current state of the three PROMPT-107 revision targets. */
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { requireKey, getAll } from "./_pg.mjs";
-import { itemIdOfStem } from "./lib/item-id.mjs";
-import { gateItemOf } from "./lib/stored-item.mjs";
+import { requireKey, getAll } from "../scripts/_pg.mjs";
+import { itemIdOfStem } from "../scripts/lib/item-id.mjs";
+import { gateItemOf } from "../scripts/lib/stored-item.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const WANT = ["3973e1ff", "182229d1", "1d659dfc", "a3841bda"];
-const KEY = requireKey(HERE);
+const KEY = requireKey(join(HERE, "..", "scripts"));
 const cert = (await getAll(KEY, "certifications?select=id&code=eq.AIMS-F"))[0];
 const rows = await getAll(KEY, "quiz_questions?select=id,question_text,options,correct_answer,explanation," +
   "task_id,status&certification_id=eq." + cert.id + "&language=eq.en&retired_at=is.null&order=id");

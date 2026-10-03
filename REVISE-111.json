@@ -1,0 +1,12 @@
+{
+  "_what": "PROMPT-111 s1.2: option d of the task 5.1 item carried 'each sprint', out-of-domain agile vocabulary. The option was already wrong for the right reason (it measures AI SYSTEM performance, not AIMS effectiveness); only the cadence needed replacing, with ISO's own 'at planned intervals'.",
+  "note_suffix": " | revised: PROMPT-111",
+  "items": [
+    {
+      "uuid": "ae79092c", "id8": "ae79092c", "task": "5.1",
+      "gate": "out-of-domain vocabulary -- 'each sprint' in distractor d (verify-cert s10 WARN)",
+      "why": "'each sprint' becomes 'at planned intervals', the phrase 42001 9.1 and 27001 9.1 use. The option still asserts a model-performance metric, so it stays wrong for the same reason, and it is no longer eliminable by noticing this is not a Scrum exam.",
+      "options": { "d": "Calculating precision and recall scores of the natural-language classification model at planned intervals." }
+    }
+  ]
+}

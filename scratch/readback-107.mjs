@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /* Read-only. Prints a group in every language so a sibling can be checked against its English. */
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { requireKey, getAll } from "./_pg.mjs";
+import { requireKey, getAll } from "../scripts/_pg.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const WANT = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 if (!WANT.length) { console.error("usage: readback-107.mjs <uuid-prefix>..."); process.exit(2); }
-const KEY = requireKey(HERE);
+const KEY = requireKey(join(HERE, "..", "scripts"));
 const cert = (await getAll(KEY, "certifications?select=id&code=eq.AIMS-F"))[0];
 const rows = await getAll(KEY, "quiz_questions?select=id,question_group_id,language,question_text,options," +
   "correct_answer,explanation,status,pool,visibility,is_exam_scope&certification_id=eq." + cert.id +

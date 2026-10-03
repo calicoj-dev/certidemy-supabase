@@ -279,7 +279,11 @@ table, service_role only; 2,386 passages / 14 (source, edition) pairs; `check-li
 audits it. **The 23 extractor rules are in `docs/CLAUDE-METHOD.md` § Source extraction.** The three
 facts, as against method:
 
-- **Never fill 27001's missing Annex A controls from 27002** — *should* against *shall*.
+- **FOUNDATION (`-F`): guidance anchors are valid** — 27002, 42001 Annex B/D, NIST AI RMF, EU AI Act
+  (recitals too), ITIL. One rule: an item never says 27001/42001 **requires** what guidance only
+  recommends. **Internal Auditor (`-IA`) keeps the stricter standard: normative anchors only.**
+- **Only `key_support` is verbatim.** Served text is paraphrase, and paraphrase is preferred. Don't add
+  a gate for a wording nuance — report it in one line and let it through `[H:PROMPT-111 s0]`.
 - **One shared locator, `lib/iso-locator.mjs`**; a new one inherits its defences or says why not.
 - **The leak index is ENGLISH-ONLY**: a score of 0 means "no reproduction of the INDEXED documents".
   `CITATION_SOURCES` is still three; widening it is a content decision.
