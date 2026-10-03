@@ -18,6 +18,33 @@
  * mostly noise and gets ignored.
  */
 
+/* ============ THE ISO SENSES OF "ROLE", ruled PROMPT-107 ============
+ *
+ * One pattern, referenced by BOTH roles rules rather than written twice.
+ *
+ * The first version keyed on the bare word and fired on 573 pre-existing pt-BR rows -- 6.1%. Reading
+ * the members showed the count was MIXED: the management-system sense is a defect, but "a non-technical
+ * office role" -> `funcao de escritorio` is idiomatic and `papeis` would be worse. A guard that fires on
+ * correct text gets deleted by the first person it inconveniences, so the pin is now scoped to the
+ * senses the glossary ruling is actually about. The OCCUPATIONAL sense is deliberately out.
+ *
+ * NOT WIDENED BEYOND THE RULED LIST: two rows repaired in PROMPT-106 ("Roles and authorities", "its role
+ * is required") fall outside it and would no longer fire. Named in the report rather than patched in. */
+const ISO_ROLE_SENSE = new RegExp([
+  "\\broles?\\s*,\\s*responsibilit(?:y|ies)\\s+and\\s+authorit(?:y|ies)\\b",
+  "\\broles?\\s+and\\s+responsibilit(?:y|ies)\\b",
+  "\\brole\\s+categor(?:y|ies)\\b",
+  "\\bits\\s+roles?\\s+with\\s+respect\\s+to\\b",
+  "\\bAI\\s+(?:provider|producer|customer|partner|subject)s?\\b",
+  "\\brelevant\\s+authorit(?:y|ies)\\b",
+  /* TWO BEYOND THE RULED LIST, and flagged in the report for a veto. Both are clause 4.1's
+   * role-CATEGORY sense in the phrasing the bank actually uses, and a control already encoded one of
+   * them from a row that really was defective: "can hold several of the listed roles at once". Dropping
+   * them would have meant relaxing a control to match a narrowed rule, which is tuning the test. */
+  "\\blisted\\s+roles?\\b",
+  "\\borgani[sz]ation(?:'s|\u2019s)?\\s+roles?\\b",
+].join("|"), "i");
+
 /**
  * The four pins, each as {id, langs, re, why}. `langs` is the set the rule
  * applies to - the rest are not merely tolerated, they are NOT TESTED, because
@@ -33,7 +60,7 @@ export const PIN_RULES = [
   {
     id: "roles-in-pt",
     langs: ["pt-BR"],
-    enRe: /\brole(s)?\b/i,
+    enRe: ISO_ROLE_SENSE,
     /* `funcao/funcoes` added PROMPT-106: it slipped past the first version entirely -- read-back 4 said
      * "as funcoes e responsabilidades atribuidas" for "roles and responsibilities". */
     re: /\batribui[çc][ãa]o\b|\batribui[çc][õo]es\b|\bfun[çc][ãa]o\b|\bfun[çc][õo]es\b|\broles\b/iu,
@@ -50,7 +77,7 @@ export const PIN_RULES = [
      * 9cbef19e says `funciones`. Same source term, same certification, two words. */
     id: "roles-in-es",
     langs: ["es-419"],
-    enRe: /\brole(s)?\b/i,
+    enRe: ISO_ROLE_SENSE,
     re: /\bfunci[óo]n\b|\bfunciones\b/iu,
     /* `rol(es)?`, NOT `roles?` -- the latter is rol+e+s? and never matches the bare Spanish `rol`.
      * Its own control caught that before the rule touched a row. */
@@ -245,6 +272,41 @@ const CASES = [
   ["funcoes with NO role in the English must NOT flag", "pt-BR",
     "A função de auditoria interna permanece independente da área auditada.", null,
     "The internal audit function remains independent of the area audited."],
+  /* ============ PROMPT-107: THE ISO SENSES ONLY. Both directions, both languages. ============
+   * The OCCUPATIONAL sense is the whole point of the narrowing: these two are verbatim from
+   * pre-existing approved rows the first version flagged, and `funcao` is right in both. */
+  ["occupational role, an office role, must NOT flag, pt-BR", "pt-BR",
+    "O que significa 'análise de dados assistida por IA' para uma função de escritório não técnica?", null,
+    "What does 'AI-assisted data analysis' mean for a non-technical office role?"],
+  ["occupational role, high-risk roles, must NOT flag, pt-BR", "pt-BR",
+    "Os funcionários em funções de alto risco são aprovados em uma avaliação anual.", null,
+    "Staff in high-risk roles pass an annual AI competency assessment."],
+  ["occupational role must NOT flag, es-419", "es-419",
+    "El personal en funciones de alto riesgo aprueba una evaluación anual.", null,
+    "Staff in high-risk roles pass an annual assessment."],
+  /* ...and every ISO sense on the ruled list still fires. */
+  ["ISO sense, roles and responsibilities, still flags, pt-BR", "pt-BR",
+    "As funções e responsabilidades são definidas pela alta direção.", "roles-in-pt",
+    "The roles and responsibilities are defined by top management."],
+  ["ISO sense, role categories, still flags, es-419", "es-419",
+    "La cláusula 4.1 enumera categorías de funciones que una organización puede ocupar.", "roles-in-es",
+    "Clause 4.1 lists role categories that an organization may occupy."],
+  ["ISO sense, an AI-role name, still flags, pt-BR", "pt-BR",
+    "A função de fornecedor de IA acarreta obrigações distintas.", "roles-in-pt",
+    "The AI provider role carries distinct obligations."],
+  ["ISO sense, its role with respect to, still flags, es-419", "es-419",
+    "Determinar su función respecto de sus sistemas de IA es una práctica recomendada.", "roles-in-es",
+    "Deciding its role with respect to its AI systems is recommended practice."],
+  ["ISO sense, relevant authority, still flags, pt-BR", "pt-BR",
+    "A função de autoridade competente é exercida por um terceiro.", "roles-in-pt",
+    "The relevant authority role is held by a third party."],
+  /* AND THE ISO SENSE RENDERED CORRECTLY IS STILL ACQUITTED -- the narrowing must not break `unless`. */
+  ["ISO sense rendered papeis is still acquitted, pt-BR", "pt-BR",
+    "Os papéis e responsabilidades são definidos pela alta direção.", null,
+    "The roles and responsibilities are defined by top management."],
+  ["ISO sense rendered roles is still acquitted, es-419", "es-419",
+    "La organización puede ocupar varios de los roles enumerados.", null,
+    "The organization can hold several of the listed roles at once."],
   ["funciones where the English says roles, es-419", "es-419",
     "La organización puede ocupar varias de las funciones enumeradas al mismo tiempo.", "roles-in-es",
     "The organization can hold several of the listed roles at once."],

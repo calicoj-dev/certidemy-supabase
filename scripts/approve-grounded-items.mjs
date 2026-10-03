@@ -103,6 +103,10 @@ export function condNotRejected(id8, rejectedIds) {
   if (rejectedIds.has(id8)) return { ok: false, why: "named in AIMSF-DIRECTOR-REJECTIONS.json" };
   return { ok: true };
 }
+/** Is this refusal reason a RECORDED DISPOSITION (tolerated in --cert mode) or a real failure? */
+export function isRecordedDisposition(why) {
+  return /^verdict: review_verdict is |^not-rejected: named in /.test(String(why || ""));
+}
 
 /* ============ SELF-TEST: every condition in BOTH directions, and fc0000a0's refusal by name ============ */
 export function approvalControls() {
@@ -138,6 +142,24 @@ export function approvalControls() {
   ok("a null solver is REFUSED", !condSolver({ solver: null }).ok);
   ok("a rejected id is REFUSED", !condNotRejected("3a3d26fa", new Set(["3a3d26fa"])).ok);
   ok("an unrejected id passes", condNotRejected("2741d373", new Set(["3a3d26fa"])).ok);
+
+  /* ---- THE --cert TOLERANCE, both directions. A gate failure must NEVER read as a disposition. ---- */
+  ok("a reject verdict IS a recorded disposition",
+    isRecordedDisposition("verdict: review_verdict is \"reject\", not 'accept'"));
+  ok("a named rejection IS a recorded disposition",
+    isRecordedDisposition("not-rejected: named in AIMSF-DIRECTOR-REJECTIONS.json"));
+  ok("a GATE failure is NOT a disposition and must stop the batch",
+    !isRecordedDisposition("gates: FAILED [structure]"));
+  ok("a missing sibling is NOT a disposition",
+    !isRecordedDisposition("siblings: missing pt-BR"));
+  ok("a glossary pin is NOT a disposition",
+    !isRecordedDisposition("siblings: glossary pins pt-BR option a roles-in-pt"));
+  ok("an already-approved row is NOT a disposition",
+    !isRecordedDisposition("already approved -- nothing to do"));
+  ok("an unresolvable id is NOT a disposition",
+    !isRecordedDisposition("resolves to 2 English bank row(s)"));
+  ok("a reserve is NOT a disposition tolerated here (it blocks and must be seen)",
+    !isRecordedDisposition("not-reserved: the review note marks this a RESERVE: ..."));
 
   return { cases, allPass: cases.every((c) => c.pass) };
 }
@@ -285,11 +307,29 @@ for (const r of refused) console.log("    " + r.id8 + "  " + r.why);
   for (const p of un) for (const g of p.unasserted) tally[g] = (tally[g] || 0) + 1;
   if (un.length) console.log("    " + JSON.stringify(tally));
 }
-if (refused.length) {
+/* ============ BATCH REFUSAL, AND THE ONE DISTINCTION `--cert` MODE NEEDS ============
+ *
+ * With `--ids`, naming an item ASSERTS it should be approved, so any failure is a failed assertion and
+ * the whole batch stops. With `--cert` the candidate set is DERIVED and deliberately includes the
+ * director's rejects so they are reported by name -- there a `reject` verdict is the recorded
+ * disposition working, not a surprise.
+ *
+ * So only the recorded dispositions are tolerated, and ONLY in --cert mode. A gate failure, a missing
+ * sibling, an unresolvable id or an already-approved row still stops everything: those are the ones
+ * that mean the caller's picture of the bank is wrong. */
+const unexpected = refused.filter((r) => !(CERT && isRecordedDisposition(r.why)));
+if (unexpected.length) {
   console.error("");
-  console.error("REFUSING THE WHOLE BATCH: " + refused.length + " named item(s) failed a condition. A partial");
-  console.error("approval leaves promoted rows looking reviewed and unpromoted ones looking unasked-about.");
+  console.error("REFUSING THE WHOLE BATCH: " + unexpected.length + " item(s) failed a condition that is not a");
+  console.error("recorded disposition. A partial approval leaves promoted rows looking reviewed and unpromoted");
+  console.error("ones looking unasked-about.");
+  for (const r of unexpected) console.error("  " + r.id8 + "  " + r.why);
   process.exit(1);
+}
+if (refused.length) {
+  console.log("");
+  console.log("  " + refused.length + " refusal(s), all recorded dispositions (reject / named rejection).");
+  console.log("  Those are the disposition working, not a surprise, so the batch proceeds.");
 }
 if (!APPLY) {
   console.log("");

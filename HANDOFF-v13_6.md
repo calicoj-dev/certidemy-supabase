@@ -241,4 +241,19 @@ By name, the things that must change:
 - **`item_grounding` has NO assigned-clause column**, so `anchor-assignment` is UNASSERTED for every stored
   row — a context gap, not a row property. The assignment exists only in the generation artifact.
 - **`generate-mock-exam` filters `item_origin <> 'generated'`, which is NULL-propagating**: a row with
-  `item_origin IS NULL` is excluded from every form. Latent on AIMS-F (0 NULL rows today), not fixed.
+  `item_origin IS NULL` is excluded from every form. Use `is distinct from`. Function change, next deploy
+  round (ruled PROMPT-107 s5). Latent on AIMS-F (0 NULL rows today).
+- **`item_grounding` has no assigned-clause column.** Add it at the next migration so `anchor-assignment`
+  becomes assertable on a stored row instead of UNASSERTED on all 200 (ruled PROMPT-107 s5).
+- **`scripts/rollout-shortfall.mjs:144` calls `anchorKey("ISO/IEC 42001", cl)` with TWO arguments** where
+  the passage key is `(source, edition, clause)`. The edition lands in the clause slot, so kept-item cap
+  accounting keys on a different string than the generator does. Reporting only; found PROMPT-107.
+
+## PROMPT-107: the cutover is BLOCKED on one ruling
+
+The 200 grounded rows are approved, `pool='secure'`, `is_exam_scope=true`, live — and carry
+**`item_origin='generated'`**, which `generate-mock-exam` excludes on BOTH modes (CLAUDE.md s12). So the
+target pool is not servable: retiring the 117 not-kept authored rows would leave forms drawn from the
+remaining 161 and the new bank served to nobody. `cutover-aimsf.mjs` asserts this (step 2b) and stops
+before any write. Two ways out, both rulings: change `item_origin` on reviewed grounded rows, or change
+the function's filter. Nothing written.

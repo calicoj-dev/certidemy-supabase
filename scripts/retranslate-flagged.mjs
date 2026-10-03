@@ -20,21 +20,24 @@ import { checkPins, PIN_RULES } from "./lib/pin-compliance.mjs";
 const ALL_LANGS = [{ code: "es-419", name: "Latin American Spanish" },
   { code: "pt-BR", name: "Brazilian Portuguese" }];
 const MAX_ROUNDS = 3;
-let CERT = "AIMS-F", APPLY = false, ART = "AIMSF-TRANSLATION-R1.json", LANGS = ALL_LANGS;
+let CERT = "AIMS-F", APPLY = false, ART = "AIMSF-TRANSLATION-R1.json", LANGS = ALL_LANGS, FORCE = null;
 const argv = process.argv.slice(2);
 for (let i = 0; i < argv.length; i++) {
   if (argv[i] === "--apply") { APPLY = true; continue; }
-  const m = argv[i].match(/^--(cert|in|lang)=(.+)$/);
+  const m = argv[i].match(/^--(cert|in|lang|ids)=(.+)$/);
   if (m) {
     if (m[1] === "cert") CERT = m[2];
     else if (m[1] === "in") ART = m[2];
+    /* FORCED: the English changed, so the sibling is stale whatever the lint says. Pins cannot see a
+     * translation that is faithful to text that no longer exists. */
+    else if (m[1] === "ids") FORCE = new Set(m[2].split(",").map((s) => s.trim()).filter(Boolean));
     else {
       LANGS = ALL_LANGS.filter((l) => l.code === m[2]);
       if (!LANGS.length) { console.error("--lang must be es-419 or pt-BR"); process.exit(2); }
     }
     continue;
   }
-  console.error("Unrecognised flag: " + argv[i] + ". Known: --cert=<CODE>, --in=<artifact>, --lang=<code>, --apply.");
+  console.error("Unrecognised flag: " + argv[i] + ". Known: --cert=<CODE>, --in=<artifact>, --lang=<code>, --ids=<uuid8>,..., --apply.");
   process.exit(2);
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -94,7 +97,9 @@ const pinsOn = (tr, en, lang) => {
   }
   return hits;
 };
-const lintLang = (all, LANG) => {
+/* `force` is honoured on the FIRST pass only: the loop's re-lint must be pins-only or a forced item
+ * would re-queue itself every round and the run would never converge. */
+const lintLang = (all, LANG, force = null) => {
   const byGroup = new Map();
   for (const r of all) {
     if (!r.question_group_id) continue;
@@ -106,7 +111,9 @@ const lintLang = (all, LANG) => {
   for (const g of byGroup.values()) {
     if (!g.en || !isRoundEn(g.en) || !g[LANG.code]) continue;
     checked++;
+    const forced = !!force && [...force].some((p) => String(g.en.id).startsWith(p));
     const hits = pinsOn(g[LANG.code], g.en, LANG.code);
+    if (forced && !hits.length) hits.push({ what: "(forced)", rule: "english-revised", hit: "" });
     if (hits.length) out.push({ en: g.en, tr: g[LANG.code], hits });
   }
   return { checked, flagged: out };
@@ -137,7 +144,7 @@ let totalFlagged = 0, totalHeldFlagged = 0;
 console.log("");
 console.log("THIS ROUND   " + CERT + (APPLY ? "   --apply" : "   dry run (default)"));
 for (const LANG of LANGS) {
-  const first = lintLang(rows, LANG);
+  const first = lintLang(rows, LANG, FORCE);
   const held = heldFlaggedFor(LANG, rows);
   const byRule = {};
   for (const f of first.flagged) for (const h of f.hits) byRule[h.rule] = (byRule[h.rule] || 0) + 1;
