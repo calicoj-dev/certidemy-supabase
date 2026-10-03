@@ -9,7 +9,7 @@
  *
  * ============ WHY THIS SCRIPT IS THE ONE THAT HAS TO BE PARANOID ============
  *
- * `AIMSF-PATH-TO-LIVE.md` named it the missing step, and `generate-mock-exam` filters `status='approved'`
+ * `docs/CERT-PIPELINE.md` stage 6 (was `AIMSF-PATH-TO-LIVE.md`, deleted PROMPT-109) names it the missing step, and `generate-mock-exam` filters `status='approved'`
  * exactly -- so this is the only script in the repository whose output a candidate can be examined on. Every
  * other guard in this directory protects a draft. This one promotes.
  *

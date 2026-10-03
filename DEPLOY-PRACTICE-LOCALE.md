@@ -281,4 +281,4 @@ grounded item is approved.
 - **The 41 letter-referencing explanations in the live bank.** Queued, per PROMPT-96 s3: practice does not
   shuffle option order, so their letters are still correct today.
 - **The `item_origin='generated'` rows stay `pending_review`.** Nothing in this deploy approves anything; see
-  `AIMSF-PATH-TO-LIVE.md`.
+  `docs/CERT-PIPELINE.md` (superseded `AIMSF-PATH-TO-LIVE.md`).

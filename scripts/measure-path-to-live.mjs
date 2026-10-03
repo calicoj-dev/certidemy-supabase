@@ -4,7 +4,7 @@
  *
  * READ-ONLY. No writes, no model calls. Unknown flags exit 2.
  *
- * Ruled PROMPT-96 s6: *"tell me what's left, don't do it."* Every number in `AIMSF-PATH-TO-LIVE.md` comes
+ * Ruled PROMPT-96 s6: *"tell me what's left, don't do it."* Every number in the path-to-live report (superseded by `docs/CERT-PIPELINE.md`) comes
  * from here, so the document can be regenerated rather than re-typed.
  *
  * ============ A STEP THAT HAS NO SCRIPT IS ITS OWN STATE ============
@@ -40,7 +40,7 @@ const qs = await getAll(KEY, "quiz_questions?select=id,task_id,language,pool,sta
   "&retired_at=is.null&order=id");
 /* ============ THE REVIEW COLUMNS ARE SELECTED, AND THE FIRST VERSION DID NOT SELECT THEM ============
  *
- * This script's first run reported that NO ROW RECORDS A DIRECTOR READ, and `AIMSF-PATH-TO-LIVE.md` carried
+ * This script's first run reported that NO ROW RECORDS A DIRECTOR READ, and the path-to-live report carried
  * that as its binding constraint. Migration 379 added `reviewed_by`, `reviewed_at`, `review_verdict` and
  * `review_note` to this table on 2026-09-27 -- THREE DAYS BEFORE -- and 34 rows already carried `read`.
  *

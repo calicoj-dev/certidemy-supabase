@@ -3,10 +3,10 @@
 Postgres migrations and Deno edge functions for Certidemy, an ISO/IEC 17024-aligned certification
 platform issuing Open Badges 3.0 credentials.
 
-> **THE REASONS ARE IN `docs/CLAUDE-HISTORY.md`** — 390k chars, ~620 rule paragraphs with their
-> measurements; `[H:x]` names the section. **Read it before arguing with a rule here**: nearly every one
-> exists because an instrument reported success while being wrong. `docs/CLAUDE-METHOD.md` holds 103
-> method rules; `docs/CLAUDE-RULE-MAP.md` maps every rule to its home.
+> **THE REASONS ARE IN `docs/CLAUDE-HISTORY.md`** — ~620 rule paragraphs with their measurements; `[H:x]`
+> names the section. **Read it before arguing with a rule here**: nearly every one exists because an
+> instrument reported success while being wrong. `docs/CLAUDE-METHOD.md` holds 103 method rules;
+> `docs/CLAUDE-RULE-MAP.md` maps every rule to its home.
 
 ## 1. Layout
 
@@ -45,7 +45,7 @@ platform issuing Open Badges 3.0 credentials.
 
 Juan runs only `git push`, `supabase functions deploy <name> --dns-resolver https`, and SQL in the editor.
 
-- Web commit ready-to-push ⇒ `npm run build` in `certidemy-web` first (runs `i18n:check`, then `next build`).
+- Web commit ready-to-push ⇒ `npm run build` in `certidemy-web` first (`i18n:check`, then `next build`).
 - Changed edge function ⇒ `deno check --node-modules-dir=auto functions/<name>/index.ts`. Two
   fontkit/QRCode import errors are pre-existing in anything importing `_shared/certificate.ts`.
 - Fix and re-run until green. Never hand Juan a build to run.
@@ -68,16 +68,16 @@ Next free number from the folder; has-it-run from the DB and the deployed functi
 migration in the same commit; no fingerprint reports "no probe", not "not run".
 
 - Never describe schema from the folder. Ask `pg_catalog`: `pg_constraint`, `pg_attribute`, `pg_proc.prosrc`.
-- Base schema is not in this repo; replay from zero never worked. **Never `supabase db reset`.**
-- Editor-first: SQL runs in the browser editor first; the file records what already ran.
+- Base schema is not in this repo; replay from zero never worked. **Never `db reset`.**
+- Editor-first: SQL runs in the browser first; the file records what ran.
 - ASCII only (CERT-SCHEMA-GUIDE §8). Accented content goes through an API loader.
-- One statement at a time when handing SQL to a human, each block independently copyable.
+- One statement at a time to a human, each block independently copyable.
 - Keep single-quoted plpgsql strings short; split across `message` / `detail` / `hint`.
-- If the human edits the SQL, the file records THEIR version — read back `pg_proc.prosrc`, md5 CRs stripped.
+- If the human edits the SQL, the file records THEIR version — read back `pg_proc.prosrc`, md5 CRs off.
 - `cron.schedule` is not transactional: outside `begin/commit`, commented, run separately.
-- A migration that must be atomic is ONE statement — one `DO` block, state in a variable, never a temp table.
-- A NOT NULL column must NAME EVERY WRITER in its header: grep `from("<table>")` in **both** repos, state
-  per site whether it writes the column, name the rare path nothing exercises.
+- A migration that must be atomic is ONE statement — one `DO` block, state in a variable, no temp table.
+- A NOT NULL column must NAME EVERY WRITER in its header: grep `from("<table>")` in **both** repos,
+  state per site whether it writes the column, name the rare path nothing exercises.
 - BEFORE INSERT triggers fire ahead of the constraint, so the error may not be `23502`.
 
 **Post-conditions.**
@@ -86,7 +86,7 @@ migration in the same commit; no fingerprint reports "no probe", not "not run".
 - Assert BOTH directions — the columns that must stay ungranted, the rows a backfill must not touch.
 - An assertion about a count must not contain a count: capture before, compare after, assert unchanged.
 - Strongest form is a checksum of rows the migration may not change; a count passes on a swap.
-- A post-condition guards a WRITE; a check script watches a PROPERTY (`scripts/sql/check-*.sql`).
+- A post-condition guards a WRITE; a check script watches a PROPERTY (`sql/check-*.sql`).
 - A post-condition sees its own writes; a query after an abort sees none.
 - Emit the offending set via `string_agg`, not its cardinality.
 - A grant migration enumerates every role that held the privilege, derived from the outgoing grant list.
@@ -94,13 +94,13 @@ migration in the same commit; no fingerprint reports "no probe", not "not run".
 
 ## 5. Database rules `[H:database rules]`
 
-- A dropped read must not become an answer. `READ-FAILURE-AUDIT.md` — **read §4–§5 before "fixing" a site.**
+- A dropped read must not become an answer. `READ-FAILURE-AUDIT.md` §4–§5 before "fixing" a site.
 - RLS is not a grant: RLS+no grant = closed; grant+no policies = open.
-- Column-scoped `GRANT SELECT` must list columns; table-wide overrides a column-level revoke.
+- Column-scoped `GRANT SELECT` must list columns; table-wide overrides a column revoke.
 - `security_invoker` is stored as `on`, not `true`.
 - PostgREST types to-one embeds as ARRAYS unless FK uniqueness is provable. Use `firstOf()`.
 - Keep every PostgREST select one unbroken literal; concatenation gives `GenericStringError`.
-- `count(*)` / `row_number()` return bigint and `JSON.stringify` throws. Cast `::int` at the source.
+- `count(*)`/`row_number()` return bigint and `JSON.stringify` throws. Cast `::int` at the source.
 - Translation tables, two conventions: `module_/domain_/task_translations` → `language`;
   `certification_i18n`, `cert_categories_i18n` → **`lang`**. `concepts` has neither.
 - The `mcp` schema is not PostgREST-exposed; reach it via base tables or a declared RPC.
@@ -110,13 +110,13 @@ migration in the same commit; no fingerprint reports "no probe", not "not run".
 
 **Privileges.**
 
-- Every privilege assertion uses `has_*_privilege`, passed the OID; `aclexplode` misses `pg_read_all_data`.
+- Every privilege assertion uses `has_*_privilege` with the OID; `aclexplode` misses `pg_read_all_data`.
 - Never build an identifier inside a WHERE clause.
-- A view's grant list must not be wider than the function it calls — `sql/check-view-function-grant-gap.sql`.
-- A SECURITY INVOKER function is only as reachable as everything its body touches.
+- A view grant list must not be wider than the function it calls — `sql/check-view-function-grant-gap.sql`.
+- A SECURITY INVOKER function is only as reachable as all its body touches.
 - Report EXECUTE as the hard gap, SECURITY INVOKER separately as an advisory.
-- A role filter in a privilege check is a coverage gap that reports clean. Report HARD GAP and INERT apart.
-- Never grant `USAGE ON SCHEMA public` to `mcp_reader`; use thin `mcp.` wrappers that delegate.
+- A role filter in a privilege check is a coverage gap that reports clean. HARD GAP and INERT apart.
+- Never grant `USAGE ON SCHEMA public` to `mcp_reader`; use thin `mcp.` wrappers.
 
 **Reads that feed a number.** An unpaged PostgREST read is a FLOOR: the cap is 1,000 rows at HTTP 200.
 `Prefer: count=exact`, terminate on REACHING THE TOTAL, throw on mismatch. Copy `_pg.mjs`
@@ -125,9 +125,10 @@ migration in the same commit; no fingerprint reports "no probe", not "not run".
 ## 6. Edge functions `[H:Edge functions]`
 
 - `verify_jwt` must be pinned in `config.toml` for every public function; a redeploy drops a CLI flag.
-- `config.toml` is applied for `[functions.*]` and nothing else.
+- `config.toml` applies to `[functions.*]` and nothing else.
 - **Never run `supabase config push`** — no dry run. Change auth in the dashboard, then re-read the file.
-- Three Management API fields are polarity-inverted: `disable_signup`, `mailer_autoconfirm`, `sms_autoconfirm`.
+- Three Management API fields are polarity-inverted: `disable_signup`, `mailer_autoconfirm`,
+  `sms_autoconfirm`.
 - Annotate `Uint8Array<ArrayBuffer>` on helpers returning bytes for `crypto.subtle` (TS2769).
 - Use `arrayBuffer()`, never `.text()`, in any pass-through proxy.
 - Set `autoRefreshToken: false` on service-role clients in scripts.
@@ -217,9 +218,9 @@ Migration 243: `email_queue`, `email_suppressions`, `claim_email_sends`, `comple
 - **Exam bank = authored + `item_origin='grounded'` with a recorded director `accept` (386, invariant 14).**
 - `generate-mock-exam` excludes `generated` on both modes; a guarantee resting on a second column
   staying true is not a guarantee.
-- The simulator is a PROXY for the examination and inherits its evidentiary bar.
-  `certidemy-web/lib/console/readiness.ts` is a progress signal and does not; generated items reach it
-  through `user_concept_mastery`, by design, and that stays.
+- The simulator is a PROXY for the examination and inherits its bar. `certidemy-web/lib/console/
+  readiness.ts` is a progress signal and does not; generated items reach it via `user_concept_mastery`,
+  by design.
 - Next surface showing a number against `passing_score_pct`: proxy, or progress report?
 
 ## 13. The item pipeline and its gates `[H:grounded generator]`
@@ -254,9 +255,8 @@ Migration 243: `email_queue`, `email_suppressions`, `claim_email_sends`, `comple
 - `gateNearDuplicate` compares STEMS; same answer with a different stem is invisible to it.
 - Reproduction in served fields: stem and options at most a 9-word run shared with any source;
   explanation 9 unquoted plus ONE attributed quotation; `key_support` exempt. The reason is QUALITY.
-- **ONE length-cue rule: `keyLengthEscape`/`cueConfigFor`** — key vs the LONGEST rival, allowance
-  `max(KEY_LEN_MARGIN, KEY_LEN_PCT%)`. Never restate it. Odd-one-out by category is NOT a code gate —
-  a lexical version fired 23/192 and missed its own case.
+- **ONE length-cue rule: `keyLengthEscape`/`cueConfigFor`** — key vs LONGEST rival, allowance
+  `max(KEY_LEN_MARGIN, KEY_LEN_PCT%)`. Never restate it. Odd-one-out by category is NOT a code gate.
 - One implementation: runs come from `lib/leak-score.mjs`; the quotation allowance is a MODE, not a copy.
   The index is wider than the task map, deliberately.
 - A word list carries a SUBJECT; an unrecognised certification gets **no** rules, not all of them.
@@ -290,8 +290,8 @@ Node ESM under `scripts/`. **Conventions differ between them — read before run
 
 - `node --dns-result-order=ipv4first scripts/<x>.mjs` — `db.<ref>.supabase.co` is AAAA-only and undici
   does not fall back; the 10s timeout reads as the host being down while `curl` succeeds.
-- The pooler `aws-0-<region>.pooler.supabase.com` has A records and wants `<role>.<ref>`; a dedicated
-  pooler and a direct connection want the bare role.
+- Pooler `aws-0-<region>.pooler.supabase.com` has A records, wants `<role>.<ref>`; a dedicated pooler
+  and a direct connection want the bare role.
 - `supabase <cmd> --dns-resolver https` — a GLOBAL CLI flag, and NOT the Node one.
 - Every Supabase API call needs BOTH `apikey` and `Authorization`, same value. One-off `curl` drops it.
 - `lib/fn-auth.mjs`'s retry is OPT-IN, default OFF; its callers are WRITES.
@@ -314,7 +314,7 @@ Node ESM under `scripts/`. **Conventions differ between them — read before run
 |---|---|
 | `check-migration-state` | next free number; has-it-run from DB + deployed function |
 | `verify-invariants` | the invariant suite; pass / **vacuous** / fail with examined counts |
-| `verify-cert` | conformance gate, 56–59 checks/cert. **Run from anywhere.** 12 certs pass, 2–6 WARNs; **ZZ-TEST-I fails, expected** |
+| `verify-cert` | conformance gate, 56–59 checks/cert. **Run from anywhere.** AIMS-F 0 fail; **ZZ-TEST-I fails, expected** |
 | `check-licensed-text` | tracked files vs library text. Baseline 285 — may shrink, never grow |
 | `check-control-bytes` | invariant 10; tracked **plus** `--others --exclude-standard` |
 | `check-model-refusals` | invariant 11; operator-directed second person, 3 languages |
@@ -337,8 +337,8 @@ Node ESM under `scripts/`. **Conventions differ between them — read before run
 | `analyze-local` | **DEAD since 2026-09-01.** Do NOT re-derive its baseline from the engine |
 
 **`pdftotext` here is Xpdf, not poppler** — v4.00, no `-bbox`/`-tsv`/`-xml`/`-html`; run
-`check-pdftotext-options` before using a flag. Coordinates come from `pdfplumber`, which reads zero
-pages of `iso-iec-42001-2023.pdf` where **`pypdfium2` reads all 62**.
+`check-pdftotext-options` first. Coordinates come from `pdfplumber`, which reads zero pages of
+`iso-iec-42001-2023.pdf` where **`pypdfium2` reads all 62**.
 
 **The MCP scan is fail-closed and silent.** `trg_lessons_clear_mcp_servable` nulls `mcp_scanned_at` and
 sets `mcp_servable = false` on ANY `content_md` change, so every lesson-body edit withholds it until
@@ -384,3 +384,6 @@ building any check, gate, probe or report.** The ones that bite most:
 
 **Handoff: `HANDOFF-v13_6.md`** — bank state, rulings, pending work, open backlogs. Incidents:
 `INCIDENTS.md`. Order: AIMS-F → ISMS-F → ISMS-IA → AIMS-IA → Scrum → AI-general.
+
+**Eight pipeline stages, gates and scripts: `docs/CERT-PIPELINE.md`** — run one with
+`run-cert-bank.mjs --cert <C> --stage <n>`, dry. Metrics: `PIPELINE-METRICS.json`.

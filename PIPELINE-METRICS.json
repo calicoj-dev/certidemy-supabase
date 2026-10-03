@@ -1,0 +1,92 @@
+{
+  "_what": "Cost in USD, session time and director send-backs per pipeline stage. Ruled PROMPT-109 s7. Starts this round: earlier stages were not instrumented and are NOT back-filled from memory.",
+  "runs": [
+    {
+      "cert": "ISMS-F",
+      "stage": 1,
+      "stage_name": "library completeness",
+      "applied": false,
+      "exit": 0,
+      "seconds": 4,
+      "note": null,
+      "recorded_at": "2026-10-03T21:05:18.579Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 1,
+      "stage_name": "library completeness",
+      "applied": false,
+      "exit": 0,
+      "seconds": 4,
+      "note": null,
+      "recorded_at": "2026-10-03T21:05:28.245Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 2,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 2,
+      "seconds": 0,
+      "note": null,
+      "recorded_at": "2026-10-03T21:05:33.046Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 2,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 1,
+      "seconds": 1,
+      "note": null,
+      "recorded_at": "2026-10-03T21:06:31.647Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 2,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 1,
+      "seconds": 4,
+      "note": null,
+      "recorded_at": "2026-10-03T21:06:47.286Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 2,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 1,
+      "seconds": 2,
+      "note": null,
+      "recorded_at": "2026-10-03T21:07:02.723Z"
+    },
+    {
+      "cert": "AIMS-F",
+      "stage": 8,
+      "stage_name": "verify-cert",
+      "sent_back": 16,
+      "note": "verify-cert 8.1 found 16 cue escapes; 13 grounded revised, 1 retired on a solver split, 3 authored revised and held retired",
+      "recorded_at": "2026-10-03T21:07:31.454Z"
+    }
+  ],
+  "costs_usd": [
+    {
+      "cert": "AIMS-F",
+      "stage": 5,
+      "stage_name": "translation",
+      "usd": 26.61,
+      "note": "23.55 first pass (PROMPT-105) + 1.13 + 0.43 + 1.50 repair rounds"
+    },
+    {
+      "cert": "AIMS-F",
+      "stage": 4,
+      "stage_name": "the director read",
+      "usd": null,
+      "note": "solver reruns only; not separately metered before this round"
+    }
+  ],
+  "not_instrumented": [
+    "AIMS-F stages 1-3 and 6-7 predate PIPELINE-METRICS.json; their cost is not recoverable and is left null rather than estimated."
+  ]
+}
