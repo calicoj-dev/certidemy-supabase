@@ -353,12 +353,24 @@ function parseArray(text) {
 
 /* ---------------------------------------------------------------- inputs */
 const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));
+/* ============ THE MAP IS THE DATABASE, NOT A FILE (ruled PROMPT-113 s3) ============
+ *
+ * `task_sources` is the map the director ruled, and `mapByTask` below already reads it with full
+ * (source, edition, clause) keys across every source. The file's `tasks` array was never read for
+ * generation -- `mapByCode` was built from it and never consulted -- so the only thing the file
+ * supplied was ONE `(standard, edition)` pair.
+ *
+ * That pair is now DERIVED from the map: the (source, edition) the certification examines most. It
+ * is a FALLBACK for an item that names no source of its own, and nothing else. A single pair could
+ * not describe ISMS-F, whose map spans 27001, 27002, NIST AI RMF, the EU AI Act and 42001 after the
+ * PROMPT-111 s0 ruling -- and `draft-iso-task-sources` cannot write its file anyway, because its
+ * ranker fails its own 27001 5.2 exemplar.
+ *
+ * The file is still read when present, so AIMS-F's recorded standard stays authoritative for it and
+ * the no-op proof has something to compare against. */
 const mapPath = join(ROOT, CERT + "-TASK-SOURCES.json");
-if (!existsSync(mapPath)) {
-  console.error("no mapping at " + mapPath + " -- run draft-" + CERT.toLowerCase() + "-task-sources.mjs first");
-  process.exitCode = 3; process.exit();
-}
-const mapping = JSON.parse(readFileSync(mapPath, "utf8"));
+const mappingFile = existsSync(mapPath) ? JSON.parse(readFileSync(mapPath, "utf8")) : null;
+const mapping = mappingFile || { certification: CERT, standard: null, edition: null, tasks: [] };
 /* ============ ANNEX CONTROL TITLES, RESOLVED FROM THE LIBRARY ============
  *
  * The changed-reference check needs to know what a real control is CALLED, so it can see when a
@@ -375,7 +387,9 @@ const controlTitles = [...new Set(lib.passages
 /* The WHOLE library, keyed on (source, edition, clause); `passagesByKey` is this run's scoped view and
  * `passageIndex` is what a cross-source primary resolves through. */
 const passageIndex = makePassageIndex(lib.passages);
-const passagesByKey = passageIndex.for(mapping.standard, mapping.edition);
+/* assigned once the DB map has been read and the dominant pair derived; `runCodeGates` is given the
+ * WHOLE index (line ~1224) and scopes per item, so this view is only the fallback's own view. */
+let passagesByKey = null;
 const annexGaps = lib.annex_gaps || [];
 const sequenceGaps = lib.sequence_gaps || [];
 
@@ -394,11 +408,12 @@ let declaredGaps = [];
 const complPath = join(ROOT, "LIBRARY-COMPLETENESS.json");
 if (existsSync(complPath)) {
   const compl = JSON.parse(readFileSync(complPath, "utf8"));
-  declaredGaps = (compl.sources || [])
-    .filter((s) => s.source_id === mapping.standard && s.edition === mapping.edition)
-    .map((s) => ({ holes: s.missing || [] }));
+  /* EVERY SOURCE, not just the dominant one: a declared-but-unheld clause in 27002 is as much a gap
+   * for a Foundation item anchored there as one in 27001. Filtering to a single standard made every
+   * other source's declared holes invisible, which reads as "no gap" rather than "not asked". */
+  declaredGaps = (compl.sources || []).map((s) => ({ holes: s.missing || [] }));
   const n = declaredGaps.reduce((a, g) => a + g.holes.length, 0);
-  console.log("  declared gaps       " + n + " id(s) the standard declares and the library does not hold");
+  console.log("  declared gaps       " + n + " id(s) declared across every held source and not held");
 } else {
   console.log("  declared gaps       UNKNOWN -- LIBRARY-COMPLETENESS.json is absent.");
   console.log("                      Run check-library-completeness.mjs, or a real-but-unheld");
@@ -487,6 +502,52 @@ for (const r of tsRows) {
     if (r.role === "primary") crossSource.push({ task_id: r.task_id, source_id: p.source_id, edition: p.edition, clause: p.clause });
   }
   mapByTask.get(r.task_id)[r.role].push({ source_id: p.source_id, edition: p.edition, clause: p.clause });
+}
+/* ============ THE DOMINANT (source, edition), DERIVED FROM THE MAP ============
+ *
+ * The (source, edition) this certification examines MOST. Used only where an item names no source of
+ * its own. A tie or an empty map is an error rather than a silent default -- the same rule
+ * `gate-context.mjs` applies, because a wrong fallback resolves a clause in the wrong standard.
+ *
+ * Where the file recorded a pair, the DERIVED pair must AGREE with it. Disagreement means the file
+ * and the ruled map describe different certifications, and that is not something to pick a winner for. */
+{
+  /* THIS CERTIFICATION'S TASKS ONLY. `tsRows` is every task_sources row in the database, so counting
+   * over `mapByTask` wholesale derived ISO/IEC 42001 as the fallback for an ISO/IEC 27001 Foundation
+   * certification -- AIMS-F and AIMS-IA simply map more passages. The set is restricted to the tasks
+   * of `cert` before anything is counted. */
+  const mine = new Set(tasks.map((t) => t.id));
+  const seen = new Map();
+  for (const [taskId, m] of mapByTask.entries()) {
+    if (!mine.has(taskId)) continue;
+    for (const p of [...m.primary, ...m.supporting]) {
+      const k = p.source_id + "|" + p.edition;
+      seen.set(k, (seen.get(k) || 0) + 1);
+    }
+  }
+  const ranked = [...seen.entries()].sort((a, b) => b[1] - a[1]);
+  if (!ranked.length) {
+    console.error("REFUSING: " + CERT + " has no task_sources rows, so no fallback source could be derived.");
+    process.exitCode = 3; process.exit();
+  }
+  if (ranked.length > 1 && ranked[0][1] === ranked[1][1]) {
+    console.error("REFUSING: " + CERT + " maps two sources equally (" + ranked[0][0] + " / " + ranked[1][0] +
+      "); the fallback would be arbitrary.");
+    process.exitCode = 3; process.exit();
+  }
+  const [dSrc, dEd] = ranked[0][0].split("|");
+  if (mappingFile && mappingFile.standard && (mappingFile.standard !== dSrc || String(mappingFile.edition) !== dEd)) {
+    console.error("REFUSING: " + CERT + "-TASK-SOURCES.json records " + mappingFile.standard + ":" +
+      mappingFile.edition + " but the ruled map is dominated by " + dSrc + ":" + dEd + ".");
+    process.exitCode = 3; process.exit();
+  }
+  mapping.standard = dSrc;
+  mapping.edition = dEd;
+  passagesByKey = passageIndex.for(dSrc, dEd);
+  const nSrc = ranked.length;
+  console.log("  map sources         " + nSrc + " (source, edition) pair(s) from task_sources; fallback " +
+    dSrc + ":" + dEd + (mappingFile ? "   [agrees with " + CERT + "-TASK-SOURCES.json]" : "   [no file, derived]"));
+  for (const [k, n] of ranked) console.log("                      " + String(n).padStart(4) + "  " + k.replace("|", " "));
 }
 const taskIdOfCode = new Map(tasks.map((t) => [t.code, t.id]));
 const primaryOf = (code) => (mapByTask.get(taskIdOfCode.get(code)) || {}).primary || [];

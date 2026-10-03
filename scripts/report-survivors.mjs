@@ -73,6 +73,16 @@ const MODAL = join(ROOT, "ANCHOR-OR-FLAG-" + CERT + "-all-secure-modal.json");
 const RULINGS = join(ROOT, "DIRECTOR-RULINGS-" + SLUG + ".json");
 const OUT_MD = SLUG + "-SURVIVORS.md";
 const OUT_JSON = SLUG + "-SURVIVORS.json";
+/* the inflation re-anchor overlay, if it has been computed (PROMPT-113 s2). Absent is fine: then
+ * every modal-fidelity flag stays a drop, which is the stricter reading. */
+const LICENSED = new Map();
+{
+  const p = join(ROOT, SLUG + "-INFLATION-RECHECK.json");
+  if (existsSync(p)) {
+    for (const l of (JSON.parse(readFileSync(p, "utf8")).licensed || [])) LICENSED.set(l.prefix, l.to);
+    console.log("inflation re-anchor: " + LICENSED.size + " drop(s) licensed by a held normative twin");
+  }
+}
 if (!existsSync(BASE)) {
   console.error("missing " + BASE);
   console.error("Run: node scripts/anchor-existing-items.mjs --cert=" + CERT + " --all-secure");
@@ -184,6 +194,15 @@ const verdict = (it) => {
    * than left as a branch nothing can take. */
   if (f.length && f.every((x) => x === "modal-fidelity")) {
     if (FOUNDATION) {
+      /* RE-ANCHORED (PROMPT-113 s2): the auditor anchored a control item to the GUIDANCE copy of a
+       * control that 27001 Annex A states normatively. The requirement claim is licensed by the
+       * standard, so this is not an inflation -- it is an anchor choice. `recheck-inflation.mjs`
+       * computes the twin from the standards' own numbering, with no model call. */
+      if (LICENSED.has(it.prefix)) {
+        return { v: "keep", tag: "re-anchored",
+          why: "modal-fidelity against the guidance copy, but " + LICENSED.get(it.prefix) +
+            " states the same control normatively -- the requirement claim is licensed (PROMPT-113 s2)" };
+      }
       return { v: "drop",
         why: "modal-fidelity: the item asserts a requirement its anchor does not carry -- an INFLATION, " +
           "which is the one correctness rule (PROMPT-111 s0)" };

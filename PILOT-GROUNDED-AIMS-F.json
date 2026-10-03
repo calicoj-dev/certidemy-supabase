@@ -3,20 +3,38 @@
  "model": "claude-opus-5",
  "standard": "ISO/IEC 42001",
  "edition": "2023",
+ "spend": {
+  "calls": 1,
+  "input_tokens": 5953,
+  "output_tokens": 1916,
+  "usd": 0.233,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  },
+  "by_role": {
+   "writer": {
+    "calls": 1,
+    "input": 5953,
+    "output": 1916
+   }
+  }
+ },
  "attempted": 1,
  "generated": 1,
  "survivors": 0,
  "generation_note": null,
  "reject_counts": {
-  "solver: solver-split": 1,
-  "solver: passages do not settle it": 1
+  "code: verbatim": 1,
+  "code: near-duplicate": 1,
+  "code: reproduction": 1
  },
  "tasks_mapped": 35,
  "tasks_total": 35,
  "unmapped_tasks": [],
  "held_tasks": [],
  "paraphrase_retry": {
-  "fixed": 1,
+  "fixed": 0,
   "still_failing": 0
  },
  "de_cue_retry": {
@@ -46,52 +64,60 @@
  "longest_served_run_max": null,
  "items": [
   {
-   "task_code": "4.3",
-   "domain": "D4",
+   "task_code": "1.1",
+   "domain": "D1",
    "item": {
-    "question_text": "A deployer's resource records list the data sets, the modelling tools and the cloud hosting used by its AI system. An internal audit finds nothing recorded about which specialists, and with what skills, carry out maintenance, transfer and retirement of the system. Which Annex A control category best closes this specific gap?",
+    "question_text": "An organization building an AI management system is reviewing the table of control objectives and controls in Annex A of ISO/IEC 42001. How does that table relate to the controls the organization ends up applying?",
     "options": [
      {
-      "text": "The human resources control within resources for AI systems",
+      "text": "The table serves as a reference, and the organization can design and apply controls of its own to meet its objectives.",
       "is_correct": true
      },
      {
-      "text": "The AI roles and responsibilities control within internal organization",
+      "text": "The table is a complete compliance checklist, so every control objective listed in it is adopted by the organization.",
       "is_correct": false
      },
      {
-      "text": "The tooling resources control within resources for AI systems",
+      "text": "The table carries the implementation guidance, while the separate annex of guidance holds the controls that can be selected.",
       "is_correct": false
      },
      {
-      "text": "The resource documentation control within resources for AI systems",
+      "text": "The table is addressed to bodies auditing the system, since ISO/IEC 42001 sets out how certificates are granted.",
       "is_correct": false
      }
     ],
     "correct_index": 0,
-    "explanation": "Clause A.4.6 is the resource-identification control aimed at people: it calls for recorded detail on the personnel used for the AI system and the competences they bring, spanning the stages from build and operation through to maintenance, transfer and retirement. The audit finding concerns exactly that missing record of who does the work and with what skills, so A.4.6 is the category that closes it.",
-    "key_support_clause": "A.4.6",
-    "key_support": "As part of resource identification, the organization shall document information about the human resources and their competences utilized for the development, deployment, operation, change management, maintenance, transfer and decommissioning, as well as verification and integration of the AI system.",
+    "explanation": "Clause A.1 states that \"Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).\" The controls are a reference for addressing risks related to the design and operation of AI systems, not a mandatory list.",
+    "key_support_clause": "A.1",
+    "key_support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
     "distractor_support": [
      {
       "index": 1,
-      "clause": "A.3.2",
-      "support": "Roles and responsibilities for AI shall be defined and allocated according to the needs of the organization.",
-      "why_wrong": "This control is about defining and allocating accountability inside the organization, not about documenting the people and competences counted as an AI system resource."
+      "clause": "A.1",
+      "support": "Not all the control objectives and controls listed in Table A.1 are required to be used, and the organization can design and implement their own controls (see 6.1.3).",
+      "why_wrong": "The passage says the listed control objectives and controls do not all have to be used, so treating the table as a mandatory checklist misstates its role.",
+      "source_id": "ISO/IEC 42001",
+      "edition": "2023"
      },
      {
       "index": 2,
-      "clause": "A.4.4",
-      "support": "As part of resource identification, the organization shall document information about the tooling resources utilized for the AI system.",
-      "why_wrong": "Tooling is already documented in the scenario, so this control addresses a resource category that is not the gap."
+      "clause": "A.1",
+      "support": "Annex B provides implementation guidance for all the controls listed in Table A.1.",
+      "why_wrong": "It reverses the two: the table holds the control objectives and controls, and the guidance annex explains how to implement them.",
+      "source_id": "ISO/IEC 42001",
+      "edition": "2023"
      },
      {
       "index": 3,
-      "clause": "A.4.2",
-      "support": "The organization shall identify and document relevant resources required for the activities at given AI system life cycle stages and other AI-related activities relevant for the organization.",
-      "why_wrong": "This is the umbrella identification control, whereas the gap concerns the specific resource category for people and their competences."
+      "clause": "1",
+      "support": "This document specifies additional requirements to ISO/IEC 17021-1. The requirements contained in this document, when implemented, support the demonstration of competence, consistency and reliability by the bodies performing auditing and certification of an artificial intelligence management system (AIMS) according to ISO/IEC 42001 for organizations that provide, develop or use AI systems.",
+      "why_wrong": "Requirements for bodies auditing and certifying an AIMS sit in ISO/IEC 42006, not in the control table of ISO/IEC 42001.",
+      "source_id": "ISO/IEC 42001",
+      "edition": "2023"
      }
-    ]
+    ],
+    "source_id": "ISO/IEC 42001",
+    "edition": "2023"
    },
    "gates": [
     {
@@ -102,15 +128,15 @@
     },
     {
      "id": "verbatim",
-     "pass": true,
+     "pass": false,
      "examined": 4,
-     "reason": "4 anchor(s) verbatim in their named passage"
+     "reason": "distractor 2: not verbatim in 1"
     },
     {
      "id": "modal-fidelity",
      "pass": true,
      "examined": 1,
-     "reason": "item asserts a none; anchor is a requirement by the anchor sentence (clause classed shall)"
+     "reason": "item asserts a requirement; anchor is a requirement by the anchor sentence (clause classed can)"
     },
     {
      "id": "superseded-wording",
@@ -126,9 +152,9 @@
     },
     {
      "id": "near-duplicate",
-     "pass": true,
-     "examined": 20,
-     "reason": "closest live item on this task shares 44%"
+     "pass": false,
+     "examined": 18,
+     "reason": "shares 70% of the shorter stem's distinctive terms with 3a2cc9b2"
     },
     {
      "id": "shared-distractor-phrase",
@@ -139,50 +165,63 @@
     {
      "id": "anchor-is-primary",
      "pass": true,
-     "examined": 10,
-     "reason": "the key anchors in A.4.6, a primary passage of this task"
+     "examined": 5,
+     "reason": "the key anchors in ISO/IEC 42001:2023 A.1, a primary passage of this task"
     },
     {
      "id": "reproduction",
-     "pass": true,
+     "pass": false,
      "examined": 6,
-     "reason": "6 served field(s), longest run 5 words in option b"
+     "reason": "explanation: a 12-word run shared with 42001:2023 -- the ceiling is 9"
     },
     {
      "id": "no-27000",
      "pass": true,
      "examined": 6
+    },
+    {
+     "id": "clause-number-recall",
+     "pass": true,
+     "examined": 1,
+     "reason": null
+    },
+    {
+     "id": "quote-noise",
+     "pass": true,
+     "examined": 4,
+     "reason": "4 support span(s) carry no extraction noise"
+    },
+    {
+     "id": "anchor-assignment",
+     "pass": true,
+     "examined": 1,
+     "reason": "anchored in its assigned clause A.1"
     }
    ],
-   "code_passed": true,
-   "failed": [],
+   "code_passed": false,
+   "failed": [
+    "verbatim",
+    "near-duplicate",
+    "reproduction"
+   ],
    "unasserted": [],
-   "longest_served_run": 5,
-   "longest_served_in": "option b",
-   "attributed_quotation": null,
-   "grounding_family": "A.4.6",
-   "solver": {
-    "state": "split",
-    "runs": 2,
-    "first": {
-     "state": "rejected",
-     "reason": "the solver picked the key but calls D defensible: A.4.2/B.4.2 is the umbrella resource documentation control and expressly lists human resources (people with necessary expertise) among the resources to identify and document, so a candidate could defend it as covering the gap, though it is less specific than A.4.6."
-    },
-    "second": {
-     "state": "could-not-run",
-     "reason": "BLIND SOLVER PAYLOAD IS NOT BLIND: the payload is not byte-identical to the item's own question and options"
-    },
-    "reason": "solver-split: run 1 rejected, run 2 could-not-run with options shuffled -- BLIND SOLVER PAYLOAD IS NOT BLIND: the payload is not byte-identical to the item's own question and options",
-    "raw": {
-     "answer": "A",
-     "answer_reason": "A.4.6 requires the organization to document information about the human resources and their competences utilized for development, deployment, operation, change management, maintenance, transfer and decommissioning of the AI system — exactly the missing specialist/skills records.",
-     "second_defensible": "D",
-     "second_defensible_reason": "A.4.2/B.4.2 is the umbrella resource documentation control and expressly lists human resources (people with necessary expertise) among the resources to identify and document, so a candidate could defend it as covering the gap, though it is less specific than A.4.6.",
-     "settled_by_passages": true
-    }
+   "longest_served_run": 12,
+   "longest_served_in": "explanation",
+   "attributed_quotation": {
+    "field": "explanation",
+    "words": 28
    },
+   "grounding_family": "A.1",
+   "solver": null,
    "options_probe": null,
-   "verdict": "rejected by solver"
+   "verdict": "rejected by code",
+   "item_id": "7e20f71e",
+   "assigned": {
+    "index": 0,
+    "source_id": "ISO/IEC 42001",
+    "edition": "2023",
+    "clause": "A.1"
+   }
   }
  ]
 }
