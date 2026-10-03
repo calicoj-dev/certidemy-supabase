@@ -134,7 +134,15 @@ const MODEL = process.env.GROUNDED_MODEL || "claude-opus-5";
  * This script had none, which is why PROMPT-110 could not project the ISMS-F audit and stopped. Spend
  * is accumulated per call and divided by items examined, so a run can be stopped at 40 and projected
  * against the high end rather than guessed at. */
-const PRICE = { input: 15, output: 75 };   /* USD per 1M tokens, claude-opus-5 */
+/* PER MODEL, because one hard-coded pair silently prices every model as Opus. The rate is an INPUT
+ * to every projection, so the run prints the rate and the raw token counts: the arithmetic has to be
+ * checkable against the console rather than trusted. */
+const PRICES = {
+  "claude-opus-5": { input: 15, output: 75 },
+  "claude-sonnet-5": { input: 3, output: 15 },
+  "claude-haiku-4-5-20251001": { input: 1, output: 5 },
+};
+const PRICE = PRICES[MODEL] || { input: 15, output: 75, assumed: true };
 let IN_TOK = 0, OUT_TOK = 0, CALLS = 0;
 const usd = () => (IN_TOK / 1e6) * PRICE.input + (OUT_TOK / 1e6) * PRICE.output;
 
@@ -387,7 +395,13 @@ console.log("");
  * Every item's verdict is appended to a checkpoint file as it is decided. A re-run reads it and skips
  * what is already measured, so the spend already made is never repeated. `--limit` stops after N NEW
  * items, which is what makes a 40-item projection possible before committing to the rest. */
-const CKPT = join(ROOT, "ANCHOR-CKPT-" + CERT + ".json");
+/* THE CHECKPOINT IS SCOPED BY MODEL AND TAG, not by certification alone.
+ *
+ * Keyed on the cert only, a `claude-sonnet-5` run read the `claude-opus-5` verdicts straight out of
+ * the checkpoint and reported success having made 4 calls: the model comparison it was run to perform
+ * would have compared Opus against itself. A cache that crosses the variable under test is worse than
+ * no cache. */
+const CKPT = join(ROOT, "ANCHOR-CKPT-" + CERT + "-" + MODEL + TAG + ".json");
 const done = new Map();
 if (existsSync(CKPT)) {
   try {
@@ -706,6 +720,9 @@ for (const s of sampled) {
   const perItem = measured ? usd() / measured : 0;
   console.log("");
   console.log("SPEND   $" + usd().toFixed(4) + " over " + CALLS + " call(s), " + measured + " new item(s)");
+  console.log("  model " + MODEL + "   rate $" + PRICE.input + "/$" + PRICE.output + " per 1M in/out" +
+    (PRICE.assumed ? "   [ASSUMED -- no rate on file for this model]" : ""));
+  console.log("  tokens in " + IN_TOK + "   out " + OUT_TOK + "   (check this against the console)");
   console.log("  per item          $" + perItem.toFixed(4));
   console.log("  measured so far   " + done.size + " of " + sampled.length);
   console.log("  remaining         " + remaining);

@@ -59,6 +59,9 @@ let N_READ = 20, SEED = 11, N_MODAL = 5, CERT = "AIMS-F";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const FLOOR = 8;
+/* Foundation certifications carry the looser audit rules (PROMPT-111 s0, PROMPT-112 s2). Keyed on the
+ * code suffix, which is how the catalogue already distinguishes them: -F Foundation, -IA Internal Auditor. */
+const FOUNDATION = /-F$/.test(CERT);
 
 /* DERIVED FROM --cert. `anchor-existing-items.mjs` already names its artifact from the same code, so
  * the two halves of the audit agree without either restating the other's filename. The SURVIVORS and
@@ -142,6 +145,19 @@ const verdict = (it) => {
     return { v: "keep", why: "anchored, and the solver picked the key" };
   }
   if (it.state === "anchored") {
+    /* ============ FOUNDATION: THE SOLVER IS A SIGNAL, NOT THE VERDICT (ruled PROMPT-112 s2) ============
+     *
+     * An existing item that anchors cleanly has a key tied to a passage. The blind solver missing it is
+     * evidence about the SOLVER as much as the item -- its measured recall against the director's read
+     * of 40 was 5 of 14, and it missed a Tier A. So on a Foundation certification the item is KEPT and
+     * TAGGED, and the director spot-reads ten of them. Generation is unaffected: a NEW item still needs
+     * the solver to agree, because that is what filters a round.
+     *
+     * Internal Auditor keeps the stricter rule: there, a solver miss still drops. */
+    if (FOUNDATION) {
+      return { v: "keep", tag: "solver-miss",
+        why: "anchored; the blind solver missed the key -- kept and tagged for a spot-read (PROMPT-112 s2)" };
+    }
     return { v: "drop", why: "it anchors and the blind solver did not pick the key" };
   }
   const f = failedGates(it);
@@ -159,8 +175,19 @@ const verdict = (it) => {
     }
     return { v: "drop", why: "the item's own text carries the " + quoteGates.join("/") + " defect" };
   }
-  /* ---- modal-fidelity stands PROVISIONALLY by ruling ---- */
+  /* ---- modal-fidelity ----
+   *
+   * FOUNDATION (PROMPT-112 s2): a modal-fidelity FAILURE is by construction an INFLATION -- the gate
+   * "refuses only inflation", so an item that merely deflates (says `should` where the source says
+   * `shall`, or says less) never reaches here. Inflation is s0's one correctness rule, so it DROPS.
+   * The deflation half of the ruling is therefore vacuous against this gate, and that is stated rather
+   * than left as a branch nothing can take. */
   if (f.length && f.every((x) => x === "modal-fidelity")) {
+    if (FOUNDATION) {
+      return { v: "drop",
+        why: "modal-fidelity: the item asserts a requirement its anchor does not carry -- an INFLATION, " +
+          "which is the one correctness rule (PROMPT-111 s0)" };
+    }
     return { v: "provisional", why: "modal-fidelity, standing provisionally pending the director's read" };
   }
   if (f.length) return { v: "drop", why: "a code gate refused it: " + f.join(", ") };

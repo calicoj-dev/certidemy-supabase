@@ -122,11 +122,43 @@
       "cert": "ISMS-F",
       "stage": 2,
       "stage_name": "existing-bank audit",
-      "usd": 8.6031,
-      "items_measured": 37,
-      "per_item": 0.2607,
-      "calls": 73,
-      "note": "SAMPLE ONLY, 37 of 391. Projection to finish 354 more: $92 at the measured rate, $115 at +25%. Total $101-124, over the $30 ceiling -> stopped (PROMPT-111 s3)."
+      "usd": 48.7129,
+      "items_measured": 190,
+      "of": 391,
+      "per_item": 0.2564,
+      "per_keep": 0.473,
+      "keeps": 103,
+      "drops": 78,
+      "unexamined": 210,
+      "batches": [
+        {
+          "model": "claude-opus-5",
+          "items": 33,
+          "usd": 8.6031,
+          "note": "first sample; re-gated free after the source/edition fix"
+        },
+        {
+          "model": "claude-sonnet-5",
+          "items": 37,
+          "usd": 1.4308,
+          "note": "model comparison: 62.2% verdict / 83.8% keep-drop agreement, below the 90% bar -> stayed on Opus"
+        },
+        {
+          "model": "claude-opus-5",
+          "items": 153,
+          "usd": 38.679,
+          "note": "prioritised by task shortfall, capped to the remaining ceiling"
+        }
+      ],
+      "ceiling": 60,
+      "note": "Under ceiling. 210 items unaudited and count as 0 in stage 3, which is the existing rule."
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 4,
+      "stage_name": "generation R1",
+      "usd": 0,
+      "note": "NOT RUN. Two blockers: the generator scopes passagesByKey to ONE (standard, edition) and ISMS-F now spans five sources after PROMPT-111 s0; and draft-iso-task-sources refuses to write because its ranker failed its own 27001 5.2 exemplar."
     }
   ],
   "not_instrumented": [

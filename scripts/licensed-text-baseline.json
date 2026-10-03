@@ -1,1439 +1,1369 @@
 {
- "_what": "Tracked files that reproduce a held library passage at 12+ consecutive words. DEBT under the PROMPT-100 1d history ruling: the repo is private, history stays, and the rule applies from now on.",
- "_rules": [
-  "It must SHRINK and must never grow. There is deliberately no flag that adds to it.",
-  "A file that stops matching is reported as CLEARED and should be pruned.",
-  "A file NOT listed here that reproduces a passage FAILS the check. That is the whole mechanism."
- ],
- "_recorded_on": "2026-10-01",
- "_recorded_by": "PROMPT-101 r3, when the content check was built",
- "_count_when_recorded": 285,
- "_note": "285 files, not the two that were noticed. The two escapes were the ones a human happened to read in a diff; the artifacts, task-source maps and batch files have carried clause text all along.",
- "known": [
-  {
-   "file": "A62-EXTRACTION-QUALITY.json",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "A62-EXTRACTION-QUALITY.md",
-   "runs": 306,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "ABSOLUTE-FLOOR-MEASUREMENT.json",
-   "runs": 578,
-   "passage": "ISO 19011 A.6.1"
-  },
-  {
-   "file": "AIMS-F-TASK-SOURCES.json",
-   "runs": 42,
-   "passage": "ISO/IEC 42001 A.2"
-  },
-  {
-   "file": "AIMS-F-TASK-SOURCES.md",
-   "runs": 138,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "AIMS-IA-4-12-FOR-HAND-LINK.md",
-   "runs": 16,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "AIMS-IA-REWRITE-BATCH-A.json",
-   "runs": 216,
-   "passage": "ISO/IEC 42001 6.1.4"
-  },
-  {
-   "file": "AIMSF-97-INS-R4P.json",
-   "runs": 146,
-   "passage": "ISO/IEC 42001 A.10"
-  },
-  {
-   "file": "AIMSF-97-INS-R4R.json",
-   "runs": 1205,
-   "passage": "ISO/IEC 42001 A.6.2.4"
-  },
-  {
-   "file": "AIMSF-97-INS-R5.json",
-   "runs": 1454,
-   "passage": "ISO/IEC 42001 A.10"
-  },
-  {
-   "file": "AIMSF-B1-REVISED-raw.json",
-   "runs": 276,
-   "passage": "ISO/IEC 42001 A.1"
-  },
-  {
-   "file": "AIMSF-B1-REVISED.json",
-   "runs": 558,
-   "passage": "ISO/IEC 42001 A.1"
-  },
-  {
-   "file": "AIMSF-DIRECTOR-REJECTIONS.json",
-   "runs": 4,
-   "passage": "ISO/IEC 42001 A.5"
-  },
-  {
-   "file": "AIMSF-R2-PROBE.json",
-   "runs": 810,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "AIMSF-R2-REST.json",
-   "runs": 3030,
-   "passage": "ISO/IEC 42001 6.1.2"
-  },
-  {
-   "file": "AIMSF-R3-PROBE.json",
-   "runs": 295,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "AIMSF-R3-REST.json",
-   "runs": 748,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "AIMSF-R4-PROBE.json",
-   "runs": 565,
-   "passage": "ISO/IEC 42001 B.10.2"
-  },
-  {
-   "file": "AIMSF-R4-REST.json",
-   "runs": 3321,
-   "passage": "ISO/IEC 42001 A.6.2.4"
-  },
-  {
-   "file": "AIMSF-R5-PROBE.json",
-   "runs": 247,
-   "passage": "ISO/IEC 42001 B.10.2"
-  },
-  {
-   "file": "AIMSF-R5.json",
-   "runs": 3996,
-   "passage": "ISO/IEC 42001 A.10"
-  },
-  {
-   "file": "AIMSF-ROLLOUT-B1-raw.json",
-   "runs": 664,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "AIMSF-ROLLOUT-B1.json",
-   "runs": 1319,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "AIMSF-ROLLOUT-B2-raw.json",
-   "runs": 4017,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "AIMSF-ROLLOUT-B2.json",
-   "runs": 6737,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "AIMSF-ROLLOUT-R1.md",
-   "runs": 1101,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "AIMSF-ROLLOUT-R2.md",
-   "runs": 647,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "AIMSF-ROLLOUT-R3.md",
-   "runs": 140,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "AIMSF-ROLLOUT-R4.md",
-   "runs": 447,
-   "passage": "ISO/IEC 42001 A.3"
-  },
-  {
-   "file": "AIMSF-ROLLOUT-R5.md",
-   "runs": 642,
-   "passage": "ISO/IEC 42001 A.10"
-  },
-  {
-   "file": "AIMSF-S2-INSERT.json",
-   "runs": 9408,
-   "passage": "ISO/IEC 42001 6.1.4"
-  },
-  {
-   "file": "AIMSF-S2-INSERTED.json",
-   "runs": 4877,
-   "passage": "ISO/IEC 42001 6.1.4"
-  },
-  {
-   "file": "AIMSF-S2-REVISED-raw.json",
-   "runs": 169,
-   "passage": "ISO/IEC 42001 7.4"
-  },
-  {
-   "file": "AIMSF-S2-REVISED.json",
-   "runs": 351,
-   "passage": "ISO/IEC 42001 7.4"
-  },
-  {
-   "file": "AIMSF-SURVIVORS.md",
-   "runs": 433,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "ANCHOR-OR-FLAG-AIMS-F-all-secure-director-87.json",
-   "runs": 16,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "ANCHOR-OR-FLAG-AIMS-F-all-secure-director-91.json",
-   "runs": 25,
-   "passage": "ISO/IEC 42001 A.2"
-  },
-  {
-   "file": "ANCHOR-OR-FLAG-AIMS-F-all-secure-modal.json",
-   "runs": 723,
-   "passage": "ISO/IEC 42001 B.10.3"
-  },
-  {
-   "file": "ANCHOR-OR-FLAG-AIMS-F-all-secure-rerun.json",
-   "runs": 1419,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "ANCHOR-OR-FLAG-AIMS-F-all-secure.json",
-   "runs": 3125,
-   "passage": "ISO/IEC 42001 9.2.1"
-  },
-  {
-   "file": "ANCHOR-OR-FLAG-AIMS-F-legacy.json",
-   "runs": 435,
-   "passage": "ISO/IEC 42001 5.2"
-  },
-  {
-   "file": "ANCHOR-OR-FLAG-AIMS-F-merged.json",
-   "runs": 4235,
-   "passage": "ISO/IEC 42001 9.2.1"
-  },
-  {
-   "file": "ANCHOR-OR-FLAG-AIMS-F.json",
-   "runs": 435,
-   "passage": "ISO/IEC 42001 5.2"
-  },
-  {
-   "file": "ANCHOR-PARSE-AIMS-F-all-secure-director-87.json",
-   "runs": 16,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "ANCHOR-PARSE-AIMS-F-all-secure-director-91.json",
-   "runs": 25,
-   "passage": "ISO/IEC 42001 A.2"
-  },
-  {
-   "file": "ANCHOR-PARSE-AIMS-F-all-secure-modal.json",
-   "runs": 4541,
-   "passage": "ISO/IEC 42001 8.2"
-  },
-  {
-   "file": "ANCHOR-PARSE-AIMS-F-all-secure-rerun.json",
-   "runs": 1645,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "ANCHOR-PARSE-AIMS-F-all-secure.json",
-   "runs": 3844,
-   "passage": "ISO/IEC 42001 8.2"
-  },
-  {
-   "file": "ANCHOR-PARSE-AIMS-F.json",
-   "runs": 560,
-   "passage": "ISO/IEC 42001 9.3.3"
-  },
-  {
-   "file": "ANCHOR-SAMPLE.md",
-   "runs": 6,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "APPLY-0501.json",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "ATTRIBUTED-QUOTATION-CENSUS.json",
-   "runs": 557,
-   "passage": "ISO/IEC 42001 6.1.4"
-  },
-  {
-   "file": "ATTRIBUTED-QUOTATIONS.md",
-   "runs": 496,
-   "passage": "ISO 19011 4.7"
-  },
-  {
-   "file": "ATTRIBUTION-MOVEMENT.json",
-   "runs": 722,
-   "passage": "ISO 19011 4.7"
-  },
-  {
-   "file": "ATTRIBUTION-MOVEMENT.md",
-   "runs": 220,
-   "passage": "ISO 19011 4.7"
-  },
-  {
-   "file": "AUDIT-SAMPLE.md",
-   "runs": 11,
-   "passage": "ISO/IEC 42001 9.3.3"
-  },
-  {
-   "file": "BACKLOG-LETTER-EXPLANATIONS.md",
-   "runs": 1,
-   "passage": "Scrum Guide Scrum Team"
-  },
-  {
-   "file": "BATCH-MOVED-ENGLISH.json",
-   "runs": 12,
-   "passage": "ISO 19011 6.4.6"
-  },
-  {
-   "file": "BILINGUAL-QUEUE-blueprint.json",
-   "runs": 50,
-   "passage": "ISO/IEC 42001 6.1.4"
-  },
-  {
-   "file": "CEILING-BREACHES.md",
-   "runs": 555,
-   "passage": "ISO 19011 4.7"
-  },
-  {
-   "file": "CITATION-CORRESPONDENCE.json",
-   "runs": 250,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "CLAIM-VERIFICATION.json",
-   "runs": 4,
-   "passage": "ISO/IEC 27001 9.2.2"
-  },
-  {
-   "file": "docs/CLAUDE-HISTORY.md",
-   "runs": 101,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "CONCEPT-LEAK-CALIBRATION.json",
-   "runs": 50,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "CONCEPT-REPAIR-QUEUE.json",
-   "runs": 617,
-   "passage": "ISO/IEC 42001 9.2.2"
-  },
-  {
-   "file": "CONCEPT-RETRANSLATION-REVIEWED.json",
-   "runs": 7,
-   "passage": "ISO 19011 7.2.3.2"
-  },
-  {
-   "file": "CONCEPT-RETRANSLATION.json",
-   "runs": 7,
-   "passage": "ISO 19011 7.2.3.2"
-  },
-  {
-   "file": "CONCEPT-SAMPLE-REVIEWED.json",
-   "runs": 108,
-   "passage": "ISO/IEC 42001 6.1.4"
-  },
-  {
-   "file": "CONCEPT-SAMPLE.json",
-   "runs": 108,
-   "passage": "ISO/IEC 42001 6.1.4"
-  },
-  {
-   "file": "CONCEPT-SIBLING-CHECK-REVIEWED.json",
-   "runs": 8,
-   "passage": "ISO/IEC 42001 5.2"
-  },
-  {
-   "file": "CONCEPT-SIBLING-CHECK.json",
-   "runs": 8,
-   "passage": "ISO/IEC 42001 5.2"
-  },
-  {
-   "file": "CONCEPT-UNION-FIRES.json",
-   "runs": 28,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "CONTIGUOUS-EXTENSION.json",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "DAMAGED-PRIMARIES.json",
-   "runs": 7,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "DEFINED-TERM-GLOSS-CANDIDATES.json",
-   "runs": 156,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "DEFINITIONAL-CITATIONS.json",
-   "runs": 5,
-   "passage": "ISO/IEC 27002 3.1"
-  },
-  {
-   "file": "DIRECTOR-RULINGS-AIMSF.json",
-   "runs": 3,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "DRAFT-05-01.md",
-   "runs": 36,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "EFFECTIVE-PRIMARY-MAP.json",
-   "runs": 54,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "EN-DEFECTS-SAMPLE.md",
-   "runs": 54,
-   "passage": "EU AI Act Art. 25(1)"
-  },
-  {
-   "file": "EXTRACTION-BACKLOG.md",
-   "runs": 6,
-   "passage": "ISO/IEC 42001 A.6.2.2"
-  },
-  {
-   "file": "EXTRACTION-NOISE-CENSUS.md",
-   "runs": 78,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "HANDOFF-v5_5.md",
-   "runs": 4,
-   "passage": "ISO/IEC 27001 9.2.2"
-  },
-  {
-   "file": "HANDOFF-v6_2.md",
-   "runs": 31,
-   "passage": "ISO 19011 4.6"
-  },
-  {
-   "file": "HANDOFF-v6_9.md",
-   "runs": 6,
-   "passage": "ISO/IEC 42001 A.1"
-  },
-  {
-   "file": "HANDOFF-v9_4.md",
-   "runs": 4,
-   "passage": "Scrum Guide Scrum Definition"
-  },
-  {
-   "file": "HANDOFF-v9_5.md",
-   "runs": 4,
-   "passage": "Scrum Guide Scrum Definition"
-  },
-  {
-   "file": "HARMONISED-PAIRING.json",
-   "runs": 335,
-   "passage": "ISO/IEC 42001 9.2.2"
-  },
-  {
-   "file": "INDEX-WIDENING-DELTA.json",
-   "runs": 4,
-   "passage": "ITIL 4 Foundation 4.7"
-  },
-  {
-   "file": "ISMS-F-REWRITE-BATCH-1-REVIEWED.json",
-   "runs": 4,
-   "passage": "ISO/IEC 27000 3"
-  },
-  {
-   "file": "ISMS-F-REWRITE-BATCH-1-REVISED.json",
-   "runs": 16,
-   "passage": "ISO/IEC 27001 5.2"
-  },
-  {
-   "file": "ISMS-F-REWRITE-BATCH-2-REVIEWED.json",
-   "runs": 6,
-   "passage": "ISO 19011 4.6"
-  },
-  {
-   "file": "ISMS-F-REWRITE-BATCH-2.json",
-   "runs": 4,
-   "passage": "ISO/IEC 27001 5.2"
-  },
-  {
-   "file": "ISO-TASK-SOURCES-DRAFT.json",
-   "runs": 95,
-   "passage": "ISO/IEC 42001 A.6.1"
-  },
-  {
-   "file": "ISO-TASK-SOURCES-DRAFT.md",
-   "runs": 226,
-   "passage": "ISO/IEC 42001 A.6.1"
-  },
-  {
-   "file": "ITEM-TRANSLATION-REVIEW-2026-09-13.md",
-   "runs": 1,
-   "passage": "ISO/IEC 27001 8.2"
-  },
-  {
-   "file": "LEAK-REWRITE-DRAFTS.json",
-   "runs": 2,
-   "passage": "ITIL 4 Foundation 4.7"
-  },
-  {
-   "file": "LEAK-REWRITES-DRAFT.md",
-   "runs": 4,
-   "passage": "ITIL 4 Foundation 4.7"
-  },
-  {
-   "file": "NEITHER-SPANS.md",
-   "runs": 156,
-   "passage": "Scrum Guide Product Backlog"
-  },
-  {
-   "file": "NORMATIVE-DRIFT-CANDIDATES.md",
-   "runs": 103,
-   "passage": "ISO/IEC 27001 8.2"
-  },
-  {
-   "file": "NORMATIVE-DRIFT.json",
-   "runs": 526,
-   "passage": "ISO/IEC 27001 8.2"
-  },
-  {
-   "file": "PAIRED-SAMPLE-BATCH.md",
-   "runs": 6,
-   "passage": "ISO 19011 6.4.6"
-  },
-  {
-   "file": "PILOT-AIMSF-TASK-1-3-R2.json",
-   "runs": 304,
-   "passage": "ISO/IEC 42001 A.6.2.8"
-  },
-  {
-   "file": "PILOT-AIMSF-TASK-1-3.json",
-   "runs": 589,
-   "passage": "ISO/IEC 42001 C.3.6"
-  },
-  {
-   "file": "PILOT-GROUNDED-AIMS-F.json",
-   "runs": 59,
-   "passage": "ISO/IEC 42001 A.4"
-  },
-  {
-   "file": "PILOT-GROUNDED-AIMSF-2.json",
-   "runs": 2069,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "PILOT-GROUNDED-AIMSF-2.md",
-   "runs": 676,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "PILOT-GROUNDED-AIMSF-3.json",
-   "runs": 2249,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "PILOT-GROUNDED-AIMSF-3.md",
-   "runs": 804,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "PILOT-GROUNDED-AIMSF-4.json",
-   "runs": 2363,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "PILOT-GROUNDED-AIMSF.json",
-   "runs": 2212,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "PILOT-GROUNDED-AIMSF.md",
-   "runs": 867,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "PROMPT-10.md",
-   "runs": 6,
-   "passage": "ISO 19011 A.6.1"
-  },
-  {
-   "file": "QUOTATION-DENOMINATOR.json",
-   "runs": 477,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "QUOTED-WORD-SURPLUS.md",
-   "runs": 8,
-   "passage": "ISO/IEC 27001 6.1.3"
-  },
-  {
-   "file": "RECOVERED-27001-CONTROLS.md",
-   "runs": 1874,
-   "passage": "ISO/IEC 27001 A.5.1"
-  },
-  {
-   "file": "REPAIR-TRANSLATION-PARITY.json",
-   "runs": 1256,
-   "passage": "Scrum Guide Scrum Team"
-  },
-  {
-   "file": "REQUIREMENT-CONTRADICTION-CANDIDATES.json",
-   "runs": 8,
-   "passage": "ISO/IEC 42001 9.2.2"
-  },
-  {
-   "file": "REWRITE-DRAFT-SCORES.json",
-   "runs": 53,
-   "passage": "ISO/IEC 27001 8.2"
-  },
-  {
-   "file": "REWRITES-BATCH-1.md",
-   "runs": 12,
-   "passage": "ISO/IEC 42001 7.4"
-  },
-  {
-   "file": "RUN-ALIGNMENT.json",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "RUN-DISTRIBUTION.json",
-   "runs": 494,
-   "passage": "ISO 19011 4.7"
-  },
-  {
-   "file": "SCHEME-ISMS-IA.md",
-   "runs": 7,
-   "passage": "ISO 19011 7.2.3.2"
-  },
-  {
-   "file": "SCHEME-SM-AI-II.md",
-   "runs": 4,
-   "passage": "Scrum Guide Scrum Definition"
-  },
-  {
-   "file": "SCRUM-2017-REPORT.md",
-   "runs": 1,
-   "passage": "Scrum Guide Sprint Retrospective"
-  },
-  {
-   "file": "SOLVER-TWICE-PROOF-raw.json",
-   "runs": 56,
-   "passage": "ISO/IEC 42001 A.2"
-  },
-  {
-   "file": "SOLVER-TWICE-PROOF.json",
-   "runs": 68,
-   "passage": "ISO/IEC 42001 A.2"
-  },
-  {
-   "file": "SOLVER-VS-READ-AIMS-F.json",
-   "runs": 58,
-   "passage": "ISO/IEC 42001 4.4"
-  },
-  {
-   "file": "SOURCES-LOADED.md",
-   "runs": 4,
-   "passage": "ISO/IEC 42006 7.4"
-  },
-  {
-   "file": "SPLICES.md",
-   "runs": 6,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "STYLE-GUIDE-SM-AI-II.md",
-   "runs": 66,
-   "passage": "Scrum Guide The Sprint"
-  },
-  {
-   "file": "TASK-13-KEEPERS.md",
-   "runs": 28,
-   "passage": "ISO/IEC 42001 C.3.6"
-  },
-  {
-   "file": "TASK-13-R2-HELD.md",
-   "runs": 102,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "TASK-13-SCOPE-VERDICTS.md",
-   "runs": 114,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "TASK-SOURCE-PROPOSALS-AIMS-F-raw.json",
-   "runs": 10,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "TASK-SOURCE-PROPOSALS-AIMS-F.json",
-   "runs": 10,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "TASK-SOURCE-PROPOSALS2-AIMS-F-raw.json",
-   "runs": 1,
-   "passage": "ISO/IEC 42006 9.1.6.1"
-  },
-  {
-   "file": "TASK-SOURCE-PROPOSALS2-AIMS-F.json",
-   "runs": 1,
-   "passage": "ISO/IEC 42006 9.1.6.1"
-  },
-  {
-   "file": "TASK-SOURCE-PROPOSALS2-ISMS-F-raw.json",
-   "runs": 1,
-   "passage": "ISO/IEC 27000 3"
-  },
-  {
-   "file": "TASK-SOURCE-PROPOSALS2-ISMS-F.json",
-   "runs": 1,
-   "passage": "ISO/IEC 27000 3"
-  },
-  {
-   "file": "TASK-SOURCE-PROPOSALS2-ISMS-IA-raw.json",
-   "runs": 4,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "TASK-SOURCE-PROPOSALS2-ISMS-IA.json",
-   "runs": 4,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "TASK-SOURCE-READ-SAMPLE.md",
-   "runs": 1,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "THIN-MAP-22989-PROPOSAL.md",
-   "runs": 2,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "TWENTY-SPANS.md",
-   "runs": 315,
-   "passage": "ISO/IEC 42001 A.1"
-  },
-  {
-   "file": "TWENTY-SPANS.tmp.json",
-   "runs": 317,
-   "passage": "ISO/IEC 42001 A.1"
-  },
-  {
-   "file": "UNCOVERED-REPAIRS-CLASSIFIED.json",
-   "runs": 1139,
-   "passage": "ISO/IEC 42001 4.3"
-  },
-  {
-   "file": "UNCOVERED-REPRODUCTION-AIMS-F.md",
-   "runs": 304,
-   "passage": "ISO/IEC 42001 A.4"
-  },
-  {
-   "file": "_archive/TUTOR-README.md",
-   "runs": 38,
-   "passage": "Scrum Guide Scrum Definition"
-  },
-  {
-   "file": "aimsia-m2-spec.json",
-   "runs": 71,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "aimsia-m3-spec.json",
-   "runs": 109,
-   "passage": "ISO 19011 6.2.3"
-  },
-  {
-   "file": "aimsia-m4a-spec.json",
-   "runs": 107,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "aimsia-m4b-spec.json",
-   "runs": 204,
-   "passage": "ISO/IEC 42001 6.1.3"
-  },
-  {
-   "file": "aimsia-m4c-spec.json",
-   "runs": 133,
-   "passage": "ISO/IEC 42001 A.2"
-  },
-  {
-   "file": "aimsia-m5-spec.json",
-   "runs": 166,
-   "passage": "ISO 19011 6.4.8"
-  },
-  {
-   "file": "attrib-parity.json",
-   "runs": 23,
-   "passage": "ISO 19011 4.8"
-  },
-  {
-   "file": "functions/_shared/item-rules/item-grounding.mjs",
-   "runs": 116,
-   "passage": "Scrum Guide Daily Scrum"
-  },
-  {
-   "file": "isms-ia-exemption.json",
-   "runs": 278,
-   "passage": "ISO/IEC 27001 10.2"
-  },
-  {
-   "file": "ismsia-m1-spec.json",
-   "runs": 15,
-   "passage": "ISO 19011 4.6"
-  },
-  {
-   "file": "ismsia-m2-spec.json",
-   "runs": 34,
-   "passage": "ISO/IEC 42001 9.2.2"
-  },
-  {
-   "file": "ismsia-m3-spec.json",
-   "runs": 12,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "ismsia-m4a-spec.json",
-   "runs": 26,
-   "passage": "ISO/IEC 27001 1"
-  },
-  {
-   "file": "ismsia-m4b-spec.json",
-   "runs": 10,
-   "passage": "ISO/IEC 42001 7.2"
-  },
-  {
-   "file": "ismsia-m4c-spec.json",
-   "runs": 19,
-   "passage": "ISO/IEC 27001 8.2"
-  },
-  {
-   "file": "ismsia-m5-spec.json",
-   "runs": 3,
-   "passage": "ISO 19011 4.3"
-  },
-  {
-   "file": "iso-corpus-manifest.json",
-   "runs": 9,
-   "passage": "ISO 19011 A.18.4"
-  },
-  {
-   "file": "jta/AIMS-F_JTA_generated.md",
-   "runs": 27,
-   "passage": "ISO/IEC 42001 6.1.4"
-  },
-  {
-   "file": "jta/AIMS-F_JTA_v2.0.md",
-   "runs": 6,
-   "passage": "ISO/IEC 42001 6.1.4"
-  },
-  {
-   "file": "jta/AIMS-IA_JTA_generated.md",
-   "runs": 4,
-   "passage": "ISO/IEC 42001 9.2.2"
-  },
-  {
-   "file": "jta/AIMS-IA_JTA_v2.0.md",
-   "runs": 18,
-   "passage": "ISO/IEC 42001 B.1"
-  },
-  {
-   "file": "jta/ISMS-F_JTA_v2.0.md",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 B.2.2"
-  },
-  {
-   "file": "jta/ISMS-IA_CONCEPTS_v2.0.md",
-   "runs": 75,
-   "passage": "ISO/IEC 27001 9.2.2"
-  },
-  {
-   "file": "jta/ISMS-IA_JTA_generated.md",
-   "runs": 43,
-   "passage": "ISO/IEC 27001 9.2.2"
-  },
-  {
-   "file": "jta/ISMS-IA_JTA_v2.0.md",
-   "runs": 44,
-   "passage": "ISO/IEC 27001 9.2.2"
-  },
-  {
-   "file": "jta/SM-AI-II_BoK_v2.0.md",
-   "runs": 64,
-   "passage": "Scrum Guide Scrum Definition"
-  },
-  {
-   "file": "jta/SM-AI-II_JTA_generated.md",
-   "runs": 34,
-   "passage": "Scrum Guide Product Backlog"
-  },
-  {
-   "file": "jta/SM-AI-II_JTA_v1.4.md",
-   "runs": 80,
-   "passage": "Scrum Guide Product Backlog"
-  },
-  {
-   "file": "jta/SPO-AI-I_JTA_generated.md",
-   "runs": 1,
-   "passage": "Scrum Guide Product Owner"
-  },
-  {
-   "file": "jta/SPO-AI-I_JTA_v2.0.md",
-   "runs": 1,
-   "passage": "Scrum Guide Product Owner"
-  },
-  {
-   "file": "jta/_archive/AIMS-F_JTA_v1.2.md",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 8.2"
-  },
-  {
-   "file": "jta/_archive/AISM-I_JTA_v1_superseded.md",
-   "runs": 3,
-   "passage": "ITIL 4 Foundation 5.3.3"
-  },
-  {
-   "file": "migrations/019_seed_module6_lesson01.sql",
-   "runs": 1,
-   "passage": "Scrum Guide Product Owner"
-  },
-  {
-   "file": "migrations/021_seed_lesson06_02.sql",
-   "runs": 4,
-   "passage": "Scrum Guide Commitment: Definition of Done"
-  },
-  {
-   "file": "migrations/045_seed_spo_i.sql",
-   "runs": 1,
-   "passage": "Scrum Guide Product Owner"
-  },
-  {
-   "file": "migrations/102_seed_aism_i.sql",
-   "runs": 3,
-   "passage": "ITIL 4 Foundation 5.3.3"
-  },
-  {
-   "file": "migrations/171_seed_isms_f.sql",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 B.2.2"
-  },
-  {
-   "file": "migrations/176_seed_aims_f.sql",
-   "runs": 27,
-   "passage": "ISO/IEC 42001 6.1.4"
-  },
-  {
-   "file": "migrations/188_seed_isms_ia_spine.sql",
-   "runs": 43,
-   "passage": "ISO/IEC 27001 9.2.2"
-  },
-  {
-   "file": "migrations/189_seed_isms_ia_concepts.sql",
-   "runs": 74,
-   "passage": "ISO/IEC 27001 9.2.2"
-  },
-  {
-   "file": "migrations/205_aims_ia_scaffold.sql",
-   "runs": 4,
-   "passage": "ISO/IEC 42001 9.2.2"
-  },
-  {
-   "file": "migrations/206_aims_ia_concepts.sql",
-   "runs": 243,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "migrations/220_seed_scrum_guide_drift_rules_en.sql",
-   "runs": 20,
-   "passage": "Scrum Guide Scrum Team"
-  },
-  {
-   "file": "migrations/221_widen_scrum_roles_drift_rule.sql",
-   "runs": 26,
-   "passage": "Scrum Guide Scrum Team"
-  },
-  {
-   "file": "migrations/222_scrum_roles_exclude_section_numbers.sql",
-   "runs": 24,
-   "passage": "Scrum Guide Scrum Team"
-  },
-  {
-   "file": "migrations/277_sm_ai_ii_cert_row.sql",
-   "runs": 2,
-   "passage": "Scrum Guide Scrum Definition"
-  },
-  {
-   "file": "migrations/285_d3_knowledge_lines.sql",
-   "runs": 52,
-   "passage": "Scrum Guide Scrum Team"
-  },
-  {
-   "file": "migrations/287_task_3_8_knowledge.sql",
-   "runs": 35,
-   "passage": "Scrum Guide Scrum Team"
-  },
-  {
-   "file": "migrations/288_d4_knowledge_lines.sql",
-   "runs": 36,
-   "passage": "Scrum Guide The Sprint"
-  },
-  {
-   "file": "migrations/289_d5_increment_accountability.sql",
-   "runs": 35,
-   "passage": "Scrum Guide Scrum Team"
-  },
-  {
-   "file": "migrations/291_grounding_note_entry_count.sql",
-   "runs": 4,
-   "passage": "Scrum Guide Scrum Team"
-  },
-  {
-   "file": "migrations/303_isms_ia_19011_edition.sql",
-   "runs": 13,
-   "passage": "ISO 19011 4.7"
-  },
-  {
-   "file": "migrations/304_citation_address_defects.sql",
-   "runs": 8,
-   "passage": "ISO 19011 6.7"
-  },
-  {
-   "file": "migrations/307_isms_f_false_attributions.sql",
-   "runs": 3,
-   "passage": "ISO/IEC 27001 6.1.3"
-  },
-  {
-   "file": "migrations/308_retire_aims_f_annex_b_item.sql",
-   "runs": 8,
-   "passage": "ISO/IEC 42001 B.1"
-  },
-  {
-   "file": "migrations/358_english_concept_repair.sql",
-   "runs": 7,
-   "passage": "ISO 19011 7.2.3.2"
-  },
-  {
-   "file": "modal-sweep-2.json",
-   "runs": 80,
-   "passage": "ISO 19011 4.8"
-  },
-  {
-   "file": "modal-sweep-postfix.json",
-   "runs": 228,
-   "passage": "ISO 19011 4.6"
-  },
-  {
-   "file": "reference/README.md",
-   "runs": 73,
-   "passage": "Scrum Guide Purpose of the Scrum Guide"
-  },
-  {
-   "file": "reference/scrum-guide-2020.txt",
-   "runs": 3805,
-   "passage": "Scrum Guide Purpose of the Scrum Guide"
-  },
-  {
-   "file": "rewrites/pin-fix.json",
-   "runs": 1,
-   "passage": "ISO/IEC 27001 8.2"
-  },
-  {
-   "file": "rewrites/prose-defects.json",
-   "runs": 1,
-   "passage": "ISO/IEC 27001 8.2"
-  },
-  {
-   "file": "scripts/aims-ia-concepts.json",
-   "runs": 243,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "scripts/apply-0501-english.mjs",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "scripts/apply-audit-sentence-rewrite.mjs",
-   "runs": 42,
-   "passage": "ISO/IEC 27000 3"
-  },
-  {
-   "file": "scripts/apply-batch-a.mjs",
-   "runs": 4,
-   "passage": "ISO/IEC 27001 9.2.2"
-  },
-  {
-   "file": "scripts/apply-director-93-revisions.mjs",
-   "runs": 7,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/apply-own-work-drafts.mjs",
-   "runs": 4,
-   "passage": "ISO/IEC 27001 9.2.2"
-  },
-  {
-   "file": "scripts/blueprint-repairs.mjs",
-   "runs": 26,
-   "passage": "ISO/IEC 42001 B.2.2"
-  },
-  {
-   "file": "scripts/build-iso-manifest.mjs",
-   "runs": 9,
-   "passage": "ISO/IEC 27000 5.4.3"
-  },
-  {
-   "file": "scripts/build-splice-file.mjs",
-   "runs": 2,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "scripts/census-hyphen-interleave.mjs",
-   "runs": 2,
-   "passage": "EU AI Act Recital 2"
-  },
-  {
-   "file": "scripts/check-a62-extraction.mjs",
-   "runs": 5,
-   "passage": "ISO/IEC 42001 A.6.2"
-  },
-  {
-   "file": "scripts/check-anchor-sample.mjs",
-   "runs": 18,
-   "passage": "ISO/IEC 27000 3"
-  },
-  {
-   "file": "scripts/check-blind-fidelity.mjs",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 5.2"
-  },
-  {
-   "file": "scripts/check-citation-correspondence.mjs",
-   "runs": 6,
-   "passage": "ISO/IEC 27000 3"
-  },
-  {
-   "file": "scripts/convert-ceiling-breaches.mjs",
-   "runs": 22,
-   "passage": "ISO 19011 6.4.6"
-  },
-  {
-   "file": "scripts/decolumn-a54.py",
-   "runs": 15,
-   "passage": "ISO/IEC 42001 A.5"
-  },
-  {
-   "file": "scripts/diagnose-run-splitting.mjs",
-   "runs": 4,
-   "passage": "ISO/IEC 27000 3"
-  },
-  {
-   "file": "scripts/extract-source-passages.mjs",
-   "runs": 25,
-   "passage": "ISO/IEC 27001 10.2"
-  },
-  {
-   "file": "scripts/fix-aia-interested-party.mjs",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 7.4"
-  },
-  {
-   "file": "scripts/fix-smaiii-retired-vocabulary.mjs",
-   "runs": 4,
-   "passage": "Scrum Guide Scrum Team"
-  },
-  {
-   "file": "scripts/gate-concept-descriptions.mjs",
-   "runs": 3,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/gen-iso-repair-spec.mjs",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 10.1"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsf-b2.mjs",
-   "runs": 23,
-   "passage": "ISO/IEC 42001 4.3"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsf-m1.mjs",
-   "runs": 19,
-   "passage": "ISO/IEC 42001 A.4"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsf-m2.mjs",
-   "runs": 70,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsf-m3.mjs",
-   "runs": 112,
-   "passage": "ISO/IEC 42001 B.4.2"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsf-m4.mjs",
-   "runs": 45,
-   "passage": "ISO/IEC 42001 6.1.3"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsf-m5.mjs",
-   "runs": 39,
-   "passage": "ISO/IEC 42001 9.1"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsf.mjs",
-   "runs": 5,
-   "passage": "ISO/IEC 42001 8.4"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsia-m1.mjs",
-   "runs": 51,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsia-m2.mjs",
-   "runs": 69,
-   "passage": "ISO/IEC 42001 9.2.2"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsia-m3.mjs",
-   "runs": 115,
-   "passage": "ISO 19011 6.4.6"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsia-m4a.mjs",
-   "runs": 99,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsia-m4b.mjs",
-   "runs": 204,
-   "passage": "ISO/IEC 42001 6.1.3"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsia-m4c.mjs",
-   "runs": 140,
-   "passage": "ISO/IEC 42001 A.2"
-  },
-  {
-   "file": "scripts/lesson-repairs-aimsia-m5.mjs",
-   "runs": 164,
-   "passage": "ISO 19011 6.5.1"
-  },
-  {
-   "file": "scripts/lesson-repairs-ismsia-m1.mjs",
-   "runs": 15,
-   "passage": "ISO 19011 4.6"
-  },
-  {
-   "file": "scripts/lesson-repairs-ismsia-m2.mjs",
-   "runs": 25,
-   "passage": "ISO/IEC 42001 9.2.2"
-  },
-  {
-   "file": "scripts/lesson-repairs-ismsia-m3.mjs",
-   "runs": 9,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "scripts/lesson-repairs-ismsia-m4a.mjs",
-   "runs": 28,
-   "passage": "ISO/IEC 27001 1"
-  },
-  {
-   "file": "scripts/lesson-repairs-ismsia-m4b.mjs",
-   "runs": 10,
-   "passage": "ISO/IEC 42001 7.2"
-  },
-  {
-   "file": "scripts/lesson-repairs-ismsia-m4c.mjs",
-   "runs": 23,
-   "passage": "ISO/IEC 27001 9.1"
-  },
-  {
-   "file": "scripts/lesson-repairs-ismsia-m5.mjs",
-   "runs": 3,
-   "passage": "ISO 19011 4.3"
-  },
-  {
-   "file": "scripts/lib/citation-index.mjs",
-   "runs": 4,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "scripts/lib/declared-english-edits.mjs",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "scripts/lib/definition-boundary.mjs",
-   "runs": 63,
-   "passage": "ISO/IEC 42001 3"
-  },
-  {
-   "file": "scripts/lib/effective-primary.mjs",
-   "runs": 33,
-   "passage": "ISO/IEC 42001 A.6.1"
-  },
-  {
-   "file": "scripts/lib/grounded-gates.mjs",
-   "runs": 391,
-   "passage": "ISO/IEC 27001 7.2"
-  },
-  {
-   "file": "scripts/lib/iso-locator.mjs",
-   "runs": 1,
-   "passage": "ISO/IEC 27000 3"
-  },
-  {
-   "file": "scripts/lib/leak-score.mjs",
-   "runs": 3,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/lib/obligation-guard.mjs",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 10.1"
-  },
-  {
-   "file": "scripts/lib/quote-noise.mjs",
-   "runs": 51,
-   "passage": "ISO/IEC 42001 A.6.2.5"
-  },
-  {
-   "file": "scripts/lib/superseded-wording.mjs",
-   "runs": 1,
-   "passage": "Scrum Guide Product Backlog"
-  },
-  {
-   "file": "scripts/measure-concept-leak-sensitivity.mjs",
-   "runs": 19,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/measure-contiguous-extension.mjs",
-   "runs": 3,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/measure-ksa-review-cost.mjs",
-   "runs": 20,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/measure-run-distribution.mjs",
-   "runs": 3,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/probe-0501-clause.mjs",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "scripts/record-director-rejection.mjs",
-   "runs": 4,
-   "passage": "ISO/IEC 42001 A.5"
-  },
-  {
-   "file": "scripts/report-repeated-runs.mjs",
-   "runs": 3,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/retranslate-audit-sentence.mjs",
-   "runs": 6,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "scripts/revert-ismsia-citation.mjs",
-   "runs": 10,
-   "passage": "ISO 19011 3"
-  },
-  {
-   "file": "scripts/scan-concept-iso.mjs",
-   "runs": 3,
-   "passage": "ISO/IEC 42001 4.1"
-  },
-  {
-   "file": "scripts/scan-iso-leaks.mjs",
-   "runs": 47,
-   "passage": "ISO 19011 4.8"
-  },
-  {
-   "file": "scripts/score-0501-drafts.mjs",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 B.6.2.6"
-  },
-  {
-   "file": "scripts/score-rewrites.mjs",
-   "runs": 53,
-   "passage": "ISO/IEC 27001 8.2"
-  },
-  {
-   "file": "scripts/survey-mss-frames.mjs",
-   "runs": 1,
-   "passage": "ISO/IEC 42001 7.4"
-  },
-  {
-   "file": "scripts/sweep-requirement-contradictions.mjs",
-   "runs": 15,
-   "passage": "ISO 19011 4.6"
-  },
-  {
-   "file": "scripts/verify-audit-note-attribution.mjs",
-   "runs": 6,
-   "passage": "ISO/IEC 27000 3"
-  },
-  {
-   "file": "scripts/verify-claim-content.mjs",
-   "runs": 12,
-   "passage": "ISO/IEC 27000 3"
-  },
-  {
-   "file": "scripts/verify-claims.mjs",
-   "runs": 4,
-   "passage": "ISO/IEC 27001 9.2.2"
-  },
-  {
-   "file": "scripts/verify-en-defects-sample.mjs",
-   "runs": 1,
-   "passage": "Scrum Guide Sprint Retrospective"
-  },
-  {
-   "file": "source-overrides-27001.json",
-   "runs": 2,
-   "passage": "ISO/IEC 27001 A.5.17"
-  },
-  {
-   "file": "source-overrides-42001.json",
-   "runs": 80,
-   "passage": "ISO/IEC 42001 3"
-  }
- ]
+  "_what": "Tracked files that reproduce a held library passage at 12+ consecutive words. DEBT under the PROMPT-100 1d history ruling: the repo is private, history stays, and the rule applies from now on.",
+  "_rules": [
+    "It must SHRINK and must never grow. There is deliberately no flag that adds to it.",
+    "A file that stops matching is reported as CLEARED and should be pruned.",
+    "A file NOT listed here that reproduces a passage FAILS the check. That is the whole mechanism."
+  ],
+  "_recorded_on": "2026-10-01",
+  "_recorded_by": "PROMPT-101 r3, when the content check was built",
+  "_count_when_recorded": 285,
+  "_note": "285 files, not the two that were noticed. The two escapes were the ones a human happened to read in a diff; the artifacts, task-source maps and batch files have carried clause text all along.",
+  "known": [
+    {
+      "file": "A62-EXTRACTION-QUALITY.json",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "A62-EXTRACTION-QUALITY.md",
+      "runs": 306,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "ABSOLUTE-FLOOR-MEASUREMENT.json",
+      "runs": 578,
+      "passage": "ISO 19011 A.6.1"
+    },
+    {
+      "file": "AIMS-F-TASK-SOURCES.json",
+      "runs": 42,
+      "passage": "ISO/IEC 42001 A.2"
+    },
+    {
+      "file": "AIMS-F-TASK-SOURCES.md",
+      "runs": 138,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "AIMS-IA-4-12-FOR-HAND-LINK.md",
+      "runs": 16,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "AIMS-IA-REWRITE-BATCH-A.json",
+      "runs": 216,
+      "passage": "ISO/IEC 42001 6.1.4"
+    },
+    {
+      "file": "AIMSF-97-INS-R4P.json",
+      "runs": 146,
+      "passage": "ISO/IEC 42001 A.10"
+    },
+    {
+      "file": "AIMSF-97-INS-R4R.json",
+      "runs": 1205,
+      "passage": "ISO/IEC 42001 A.6.2.4"
+    },
+    {
+      "file": "AIMSF-97-INS-R5.json",
+      "runs": 1454,
+      "passage": "ISO/IEC 42001 A.10"
+    },
+    {
+      "file": "AIMSF-B1-REVISED-raw.json",
+      "runs": 276,
+      "passage": "ISO/IEC 42001 A.1"
+    },
+    {
+      "file": "AIMSF-B1-REVISED.json",
+      "runs": 558,
+      "passage": "ISO/IEC 42001 A.1"
+    },
+    {
+      "file": "AIMSF-DIRECTOR-REJECTIONS.json",
+      "runs": 4,
+      "passage": "ISO/IEC 42001 A.5"
+    },
+    {
+      "file": "AIMSF-R2-PROBE.json",
+      "runs": 810,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "AIMSF-R2-REST.json",
+      "runs": 3030,
+      "passage": "ISO/IEC 42001 6.1.2"
+    },
+    {
+      "file": "AIMSF-R3-PROBE.json",
+      "runs": 295,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "AIMSF-R3-REST.json",
+      "runs": 748,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "AIMSF-R4-PROBE.json",
+      "runs": 565,
+      "passage": "ISO/IEC 42001 B.10.2"
+    },
+    {
+      "file": "AIMSF-R4-REST.json",
+      "runs": 3321,
+      "passage": "ISO/IEC 42001 A.6.2.4"
+    },
+    {
+      "file": "AIMSF-R5-PROBE.json",
+      "runs": 247,
+      "passage": "ISO/IEC 42001 B.10.2"
+    },
+    {
+      "file": "AIMSF-R5.json",
+      "runs": 3996,
+      "passage": "ISO/IEC 42001 A.10"
+    },
+    {
+      "file": "AIMSF-ROLLOUT-B1-raw.json",
+      "runs": 664,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "AIMSF-ROLLOUT-B1.json",
+      "runs": 1319,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "AIMSF-ROLLOUT-B2-raw.json",
+      "runs": 4017,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "AIMSF-ROLLOUT-B2.json",
+      "runs": 6737,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "AIMSF-ROLLOUT-R1.md",
+      "runs": 1101,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "AIMSF-ROLLOUT-R2.md",
+      "runs": 647,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "AIMSF-ROLLOUT-R3.md",
+      "runs": 140,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "AIMSF-ROLLOUT-R4.md",
+      "runs": 447,
+      "passage": "ISO/IEC 42001 A.3"
+    },
+    {
+      "file": "AIMSF-ROLLOUT-R5.md",
+      "runs": 642,
+      "passage": "ISO/IEC 42001 A.10"
+    },
+    {
+      "file": "AIMSF-S2-INSERT.json",
+      "runs": 9408,
+      "passage": "ISO/IEC 42001 6.1.4"
+    },
+    {
+      "file": "AIMSF-S2-INSERTED.json",
+      "runs": 4877,
+      "passage": "ISO/IEC 42001 6.1.4"
+    },
+    {
+      "file": "AIMSF-S2-REVISED-raw.json",
+      "runs": 169,
+      "passage": "ISO/IEC 42001 7.4"
+    },
+    {
+      "file": "AIMSF-S2-REVISED.json",
+      "runs": 351,
+      "passage": "ISO/IEC 42001 7.4"
+    },
+    {
+      "file": "APPLY-0501.json",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 B.6.2.6"
+    },
+    {
+      "file": "ATTRIBUTED-QUOTATION-CENSUS.json",
+      "runs": 557,
+      "passage": "ISO/IEC 42001 6.1.4"
+    },
+    {
+      "file": "ATTRIBUTED-QUOTATIONS.md",
+      "runs": 496,
+      "passage": "ISO 19011 4.7"
+    },
+    {
+      "file": "ATTRIBUTION-MOVEMENT.json",
+      "runs": 722,
+      "passage": "ISO 19011 4.7"
+    },
+    {
+      "file": "ATTRIBUTION-MOVEMENT.md",
+      "runs": 220,
+      "passage": "ISO 19011 4.7"
+    },
+    {
+      "file": "AUDIT-SAMPLE.md",
+      "runs": 11,
+      "passage": "ISO/IEC 42001 9.3.3"
+    },
+    {
+      "file": "BACKLOG-LETTER-EXPLANATIONS.md",
+      "runs": 1,
+      "passage": "Scrum Guide Scrum Team"
+    },
+    {
+      "file": "BATCH-MOVED-ENGLISH.json",
+      "runs": 12,
+      "passage": "ISO 19011 6.4.6"
+    },
+    {
+      "file": "BILINGUAL-QUEUE-blueprint.json",
+      "runs": 50,
+      "passage": "ISO/IEC 42001 6.1.4"
+    },
+    {
+      "file": "CEILING-BREACHES.md",
+      "runs": 555,
+      "passage": "ISO 19011 4.7"
+    },
+    {
+      "file": "CITATION-CORRESPONDENCE.json",
+      "runs": 250,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "CLAIM-VERIFICATION.json",
+      "runs": 4,
+      "passage": "ISO/IEC 27001 9.2.2"
+    },
+    {
+      "file": "docs/CLAUDE-HISTORY.md",
+      "runs": 101,
+      "passage": "ISO/IEC 42001 B.6.2.6"
+    },
+    {
+      "file": "CONCEPT-LEAK-CALIBRATION.json",
+      "runs": 50,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "CONCEPT-REPAIR-QUEUE.json",
+      "runs": 617,
+      "passage": "ISO/IEC 42001 9.2.2"
+    },
+    {
+      "file": "CONCEPT-RETRANSLATION-REVIEWED.json",
+      "runs": 7,
+      "passage": "ISO 19011 7.2.3.2"
+    },
+    {
+      "file": "CONCEPT-RETRANSLATION.json",
+      "runs": 7,
+      "passage": "ISO 19011 7.2.3.2"
+    },
+    {
+      "file": "CONCEPT-SAMPLE-REVIEWED.json",
+      "runs": 108,
+      "passage": "ISO/IEC 42001 6.1.4"
+    },
+    {
+      "file": "CONCEPT-SAMPLE.json",
+      "runs": 108,
+      "passage": "ISO/IEC 42001 6.1.4"
+    },
+    {
+      "file": "CONCEPT-SIBLING-CHECK-REVIEWED.json",
+      "runs": 8,
+      "passage": "ISO/IEC 42001 5.2"
+    },
+    {
+      "file": "CONCEPT-SIBLING-CHECK.json",
+      "runs": 8,
+      "passage": "ISO/IEC 42001 5.2"
+    },
+    {
+      "file": "CONCEPT-UNION-FIRES.json",
+      "runs": 28,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "CONTIGUOUS-EXTENSION.json",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 B.6.2.6"
+    },
+    {
+      "file": "DAMAGED-PRIMARIES.json",
+      "runs": 7,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "DEFINED-TERM-GLOSS-CANDIDATES.json",
+      "runs": 156,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "DEFINITIONAL-CITATIONS.json",
+      "runs": 5,
+      "passage": "ISO/IEC 27002 3.1"
+    },
+    {
+      "file": "DIRECTOR-RULINGS-AIMSF.json",
+      "runs": 3,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "DRAFT-05-01.md",
+      "runs": 36,
+      "passage": "ISO/IEC 42001 B.6.2.6"
+    },
+    {
+      "file": "EFFECTIVE-PRIMARY-MAP.json",
+      "runs": 54,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "EN-DEFECTS-SAMPLE.md",
+      "runs": 54,
+      "passage": "EU AI Act Art. 25(1)"
+    },
+    {
+      "file": "EXTRACTION-BACKLOG.md",
+      "runs": 6,
+      "passage": "ISO/IEC 42001 A.6.2.2"
+    },
+    {
+      "file": "EXTRACTION-NOISE-CENSUS.md",
+      "runs": 78,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "HANDOFF-v5_5.md",
+      "runs": 4,
+      "passage": "ISO/IEC 27001 9.2.2"
+    },
+    {
+      "file": "HANDOFF-v6_2.md",
+      "runs": 31,
+      "passage": "ISO 19011 4.6"
+    },
+    {
+      "file": "HANDOFF-v6_9.md",
+      "runs": 6,
+      "passage": "ISO/IEC 42001 A.1"
+    },
+    {
+      "file": "HANDOFF-v9_4.md",
+      "runs": 4,
+      "passage": "Scrum Guide Scrum Definition"
+    },
+    {
+      "file": "HANDOFF-v9_5.md",
+      "runs": 4,
+      "passage": "Scrum Guide Scrum Definition"
+    },
+    {
+      "file": "HARMONISED-PAIRING.json",
+      "runs": 335,
+      "passage": "ISO/IEC 42001 9.2.2"
+    },
+    {
+      "file": "INDEX-WIDENING-DELTA.json",
+      "runs": 4,
+      "passage": "ITIL 4 Foundation 4.7"
+    },
+    {
+      "file": "ISMS-F-REWRITE-BATCH-1-REVIEWED.json",
+      "runs": 4,
+      "passage": "ISO/IEC 27000 3"
+    },
+    {
+      "file": "ISMS-F-REWRITE-BATCH-1-REVISED.json",
+      "runs": 16,
+      "passage": "ISO/IEC 27001 5.2"
+    },
+    {
+      "file": "ISMS-F-REWRITE-BATCH-2-REVIEWED.json",
+      "runs": 6,
+      "passage": "ISO 19011 4.6"
+    },
+    {
+      "file": "ISMS-F-REWRITE-BATCH-2.json",
+      "runs": 4,
+      "passage": "ISO/IEC 27001 5.2"
+    },
+    {
+      "file": "ISO-TASK-SOURCES-DRAFT.json",
+      "runs": 95,
+      "passage": "ISO/IEC 42001 A.6.1"
+    },
+    {
+      "file": "ISO-TASK-SOURCES-DRAFT.md",
+      "runs": 226,
+      "passage": "ISO/IEC 42001 A.6.1"
+    },
+    {
+      "file": "ITEM-TRANSLATION-REVIEW-2026-09-13.md",
+      "runs": 1,
+      "passage": "ISO/IEC 27001 8.2"
+    },
+    {
+      "file": "LEAK-REWRITE-DRAFTS.json",
+      "runs": 2,
+      "passage": "ITIL 4 Foundation 4.7"
+    },
+    {
+      "file": "LEAK-REWRITES-DRAFT.md",
+      "runs": 4,
+      "passage": "ITIL 4 Foundation 4.7"
+    },
+    {
+      "file": "NEITHER-SPANS.md",
+      "runs": 156,
+      "passage": "Scrum Guide Product Backlog"
+    },
+    {
+      "file": "NORMATIVE-DRIFT-CANDIDATES.md",
+      "runs": 103,
+      "passage": "ISO/IEC 27001 8.2"
+    },
+    {
+      "file": "NORMATIVE-DRIFT.json",
+      "runs": 526,
+      "passage": "ISO/IEC 27001 8.2"
+    },
+    {
+      "file": "PAIRED-SAMPLE-BATCH.md",
+      "runs": 6,
+      "passage": "ISO 19011 6.4.6"
+    },
+    {
+      "file": "PILOT-AIMSF-TASK-1-3-R2.json",
+      "runs": 304,
+      "passage": "ISO/IEC 42001 A.6.2.8"
+    },
+    {
+      "file": "PILOT-AIMSF-TASK-1-3.json",
+      "runs": 589,
+      "passage": "ISO/IEC 42001 C.3.6"
+    },
+    {
+      "file": "PILOT-GROUNDED-AIMS-F.json",
+      "runs": 59,
+      "passage": "ISO/IEC 42001 A.4"
+    },
+    {
+      "file": "PILOT-GROUNDED-AIMSF-2.json",
+      "runs": 2069,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "PILOT-GROUNDED-AIMSF-2.md",
+      "runs": 676,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "PILOT-GROUNDED-AIMSF-3.json",
+      "runs": 2249,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "PILOT-GROUNDED-AIMSF-3.md",
+      "runs": 804,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "PILOT-GROUNDED-AIMSF-4.json",
+      "runs": 2363,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "PILOT-GROUNDED-AIMSF.json",
+      "runs": 2212,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "PILOT-GROUNDED-AIMSF.md",
+      "runs": 867,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "PROMPT-10.md",
+      "runs": 6,
+      "passage": "ISO 19011 A.6.1"
+    },
+    {
+      "file": "QUOTATION-DENOMINATOR.json",
+      "runs": 477,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "QUOTED-WORD-SURPLUS.md",
+      "runs": 8,
+      "passage": "ISO/IEC 27001 6.1.3"
+    },
+    {
+      "file": "RECOVERED-27001-CONTROLS.md",
+      "runs": 1874,
+      "passage": "ISO/IEC 27001 A.5.1"
+    },
+    {
+      "file": "REPAIR-TRANSLATION-PARITY.json",
+      "runs": 1256,
+      "passage": "Scrum Guide Scrum Team"
+    },
+    {
+      "file": "REQUIREMENT-CONTRADICTION-CANDIDATES.json",
+      "runs": 8,
+      "passage": "ISO/IEC 42001 9.2.2"
+    },
+    {
+      "file": "REWRITE-DRAFT-SCORES.json",
+      "runs": 53,
+      "passage": "ISO/IEC 27001 8.2"
+    },
+    {
+      "file": "REWRITES-BATCH-1.md",
+      "runs": 12,
+      "passage": "ISO/IEC 42001 7.4"
+    },
+    {
+      "file": "RUN-ALIGNMENT.json",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 B.6.2.6"
+    },
+    {
+      "file": "RUN-DISTRIBUTION.json",
+      "runs": 494,
+      "passage": "ISO 19011 4.7"
+    },
+    {
+      "file": "SCHEME-ISMS-IA.md",
+      "runs": 7,
+      "passage": "ISO 19011 7.2.3.2"
+    },
+    {
+      "file": "SCHEME-SM-AI-II.md",
+      "runs": 4,
+      "passage": "Scrum Guide Scrum Definition"
+    },
+    {
+      "file": "SCRUM-2017-REPORT.md",
+      "runs": 1,
+      "passage": "Scrum Guide Sprint Retrospective"
+    },
+    {
+      "file": "SOLVER-TWICE-PROOF-raw.json",
+      "runs": 56,
+      "passage": "ISO/IEC 42001 A.2"
+    },
+    {
+      "file": "SOLVER-TWICE-PROOF.json",
+      "runs": 68,
+      "passage": "ISO/IEC 42001 A.2"
+    },
+    {
+      "file": "SOLVER-VS-READ-AIMS-F.json",
+      "runs": 58,
+      "passage": "ISO/IEC 42001 4.4"
+    },
+    {
+      "file": "SOURCES-LOADED.md",
+      "runs": 4,
+      "passage": "ISO/IEC 42006 7.4"
+    },
+    {
+      "file": "SPLICES.md",
+      "runs": 6,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "STYLE-GUIDE-SM-AI-II.md",
+      "runs": 66,
+      "passage": "Scrum Guide The Sprint"
+    },
+    {
+      "file": "TASK-13-KEEPERS.md",
+      "runs": 28,
+      "passage": "ISO/IEC 42001 C.3.6"
+    },
+    {
+      "file": "TASK-13-R2-HELD.md",
+      "runs": 102,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "TASK-13-SCOPE-VERDICTS.md",
+      "runs": 114,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "TASK-SOURCE-PROPOSALS-AIMS-F-raw.json",
+      "runs": 10,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "TASK-SOURCE-PROPOSALS-AIMS-F.json",
+      "runs": 10,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "TASK-SOURCE-PROPOSALS2-AIMS-F-raw.json",
+      "runs": 1,
+      "passage": "ISO/IEC 42006 9.1.6.1"
+    },
+    {
+      "file": "TASK-SOURCE-PROPOSALS2-AIMS-F.json",
+      "runs": 1,
+      "passage": "ISO/IEC 42006 9.1.6.1"
+    },
+    {
+      "file": "TASK-SOURCE-PROPOSALS2-ISMS-F-raw.json",
+      "runs": 1,
+      "passage": "ISO/IEC 27000 3"
+    },
+    {
+      "file": "TASK-SOURCE-PROPOSALS2-ISMS-F.json",
+      "runs": 1,
+      "passage": "ISO/IEC 27000 3"
+    },
+    {
+      "file": "TASK-SOURCE-PROPOSALS2-ISMS-IA-raw.json",
+      "runs": 4,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "TASK-SOURCE-PROPOSALS2-ISMS-IA.json",
+      "runs": 4,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "TASK-SOURCE-READ-SAMPLE.md",
+      "runs": 1,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "THIN-MAP-22989-PROPOSAL.md",
+      "runs": 2,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "TWENTY-SPANS.md",
+      "runs": 315,
+      "passage": "ISO/IEC 42001 A.1"
+    },
+    {
+      "file": "TWENTY-SPANS.tmp.json",
+      "runs": 317,
+      "passage": "ISO/IEC 42001 A.1"
+    },
+    {
+      "file": "UNCOVERED-REPAIRS-CLASSIFIED.json",
+      "runs": 1139,
+      "passage": "ISO/IEC 42001 4.3"
+    },
+    {
+      "file": "UNCOVERED-REPRODUCTION-AIMS-F.md",
+      "runs": 304,
+      "passage": "ISO/IEC 42001 A.4"
+    },
+    {
+      "file": "_archive/TUTOR-README.md",
+      "runs": 38,
+      "passage": "Scrum Guide Scrum Definition"
+    },
+    {
+      "file": "aimsia-m2-spec.json",
+      "runs": 71,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "aimsia-m3-spec.json",
+      "runs": 109,
+      "passage": "ISO 19011 6.2.3"
+    },
+    {
+      "file": "aimsia-m4a-spec.json",
+      "runs": 107,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "aimsia-m4b-spec.json",
+      "runs": 204,
+      "passage": "ISO/IEC 42001 6.1.3"
+    },
+    {
+      "file": "aimsia-m4c-spec.json",
+      "runs": 133,
+      "passage": "ISO/IEC 42001 A.2"
+    },
+    {
+      "file": "aimsia-m5-spec.json",
+      "runs": 166,
+      "passage": "ISO 19011 6.4.8"
+    },
+    {
+      "file": "attrib-parity.json",
+      "runs": 23,
+      "passage": "ISO 19011 4.8"
+    },
+    {
+      "file": "functions/_shared/item-rules/item-grounding.mjs",
+      "runs": 116,
+      "passage": "Scrum Guide Daily Scrum"
+    },
+    {
+      "file": "isms-ia-exemption.json",
+      "runs": 278,
+      "passage": "ISO/IEC 27001 10.2"
+    },
+    {
+      "file": "ismsia-m1-spec.json",
+      "runs": 15,
+      "passage": "ISO 19011 4.6"
+    },
+    {
+      "file": "ismsia-m2-spec.json",
+      "runs": 34,
+      "passage": "ISO/IEC 42001 9.2.2"
+    },
+    {
+      "file": "ismsia-m3-spec.json",
+      "runs": 12,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "ismsia-m4a-spec.json",
+      "runs": 26,
+      "passage": "ISO/IEC 27001 1"
+    },
+    {
+      "file": "ismsia-m4b-spec.json",
+      "runs": 10,
+      "passage": "ISO/IEC 42001 7.2"
+    },
+    {
+      "file": "ismsia-m4c-spec.json",
+      "runs": 19,
+      "passage": "ISO/IEC 27001 8.2"
+    },
+    {
+      "file": "ismsia-m5-spec.json",
+      "runs": 3,
+      "passage": "ISO 19011 4.3"
+    },
+    {
+      "file": "iso-corpus-manifest.json",
+      "runs": 9,
+      "passage": "ISO 19011 A.18.4"
+    },
+    {
+      "file": "jta/AIMS-F_JTA_generated.md",
+      "runs": 27,
+      "passage": "ISO/IEC 42001 6.1.4"
+    },
+    {
+      "file": "jta/AIMS-F_JTA_v2.0.md",
+      "runs": 6,
+      "passage": "ISO/IEC 42001 6.1.4"
+    },
+    {
+      "file": "jta/AIMS-IA_JTA_generated.md",
+      "runs": 4,
+      "passage": "ISO/IEC 42001 9.2.2"
+    },
+    {
+      "file": "jta/AIMS-IA_JTA_v2.0.md",
+      "runs": 18,
+      "passage": "ISO/IEC 42001 B.1"
+    },
+    {
+      "file": "jta/ISMS-F_JTA_v2.0.md",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 B.2.2"
+    },
+    {
+      "file": "jta/ISMS-IA_CONCEPTS_v2.0.md",
+      "runs": 75,
+      "passage": "ISO/IEC 27001 9.2.2"
+    },
+    {
+      "file": "jta/ISMS-IA_JTA_generated.md",
+      "runs": 43,
+      "passage": "ISO/IEC 27001 9.2.2"
+    },
+    {
+      "file": "jta/ISMS-IA_JTA_v2.0.md",
+      "runs": 44,
+      "passage": "ISO/IEC 27001 9.2.2"
+    },
+    {
+      "file": "jta/SM-AI-II_BoK_v2.0.md",
+      "runs": 64,
+      "passage": "Scrum Guide Scrum Definition"
+    },
+    {
+      "file": "jta/SM-AI-II_JTA_generated.md",
+      "runs": 34,
+      "passage": "Scrum Guide Product Backlog"
+    },
+    {
+      "file": "jta/SM-AI-II_JTA_v1.4.md",
+      "runs": 80,
+      "passage": "Scrum Guide Product Backlog"
+    },
+    {
+      "file": "jta/SPO-AI-I_JTA_generated.md",
+      "runs": 1,
+      "passage": "Scrum Guide Product Owner"
+    },
+    {
+      "file": "jta/SPO-AI-I_JTA_v2.0.md",
+      "runs": 1,
+      "passage": "Scrum Guide Product Owner"
+    },
+    {
+      "file": "jta/_archive/AIMS-F_JTA_v1.2.md",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 8.2"
+    },
+    {
+      "file": "jta/_archive/AISM-I_JTA_v1_superseded.md",
+      "runs": 3,
+      "passage": "ITIL 4 Foundation 5.3.3"
+    },
+    {
+      "file": "migrations/019_seed_module6_lesson01.sql",
+      "runs": 1,
+      "passage": "Scrum Guide Product Owner"
+    },
+    {
+      "file": "migrations/021_seed_lesson06_02.sql",
+      "runs": 4,
+      "passage": "Scrum Guide Commitment: Definition of Done"
+    },
+    {
+      "file": "migrations/045_seed_spo_i.sql",
+      "runs": 1,
+      "passage": "Scrum Guide Product Owner"
+    },
+    {
+      "file": "migrations/102_seed_aism_i.sql",
+      "runs": 3,
+      "passage": "ITIL 4 Foundation 5.3.3"
+    },
+    {
+      "file": "migrations/171_seed_isms_f.sql",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 B.2.2"
+    },
+    {
+      "file": "migrations/176_seed_aims_f.sql",
+      "runs": 27,
+      "passage": "ISO/IEC 42001 6.1.4"
+    },
+    {
+      "file": "migrations/188_seed_isms_ia_spine.sql",
+      "runs": 43,
+      "passage": "ISO/IEC 27001 9.2.2"
+    },
+    {
+      "file": "migrations/189_seed_isms_ia_concepts.sql",
+      "runs": 74,
+      "passage": "ISO/IEC 27001 9.2.2"
+    },
+    {
+      "file": "migrations/205_aims_ia_scaffold.sql",
+      "runs": 4,
+      "passage": "ISO/IEC 42001 9.2.2"
+    },
+    {
+      "file": "migrations/206_aims_ia_concepts.sql",
+      "runs": 243,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "migrations/220_seed_scrum_guide_drift_rules_en.sql",
+      "runs": 20,
+      "passage": "Scrum Guide Scrum Team"
+    },
+    {
+      "file": "migrations/221_widen_scrum_roles_drift_rule.sql",
+      "runs": 26,
+      "passage": "Scrum Guide Scrum Team"
+    },
+    {
+      "file": "migrations/222_scrum_roles_exclude_section_numbers.sql",
+      "runs": 24,
+      "passage": "Scrum Guide Scrum Team"
+    },
+    {
+      "file": "migrations/277_sm_ai_ii_cert_row.sql",
+      "runs": 2,
+      "passage": "Scrum Guide Scrum Definition"
+    },
+    {
+      "file": "migrations/285_d3_knowledge_lines.sql",
+      "runs": 52,
+      "passage": "Scrum Guide Scrum Team"
+    },
+    {
+      "file": "migrations/287_task_3_8_knowledge.sql",
+      "runs": 35,
+      "passage": "Scrum Guide Scrum Team"
+    },
+    {
+      "file": "migrations/288_d4_knowledge_lines.sql",
+      "runs": 36,
+      "passage": "Scrum Guide The Sprint"
+    },
+    {
+      "file": "migrations/289_d5_increment_accountability.sql",
+      "runs": 35,
+      "passage": "Scrum Guide Scrum Team"
+    },
+    {
+      "file": "migrations/291_grounding_note_entry_count.sql",
+      "runs": 4,
+      "passage": "Scrum Guide Scrum Team"
+    },
+    {
+      "file": "migrations/303_isms_ia_19011_edition.sql",
+      "runs": 13,
+      "passage": "ISO 19011 4.7"
+    },
+    {
+      "file": "migrations/304_citation_address_defects.sql",
+      "runs": 8,
+      "passage": "ISO 19011 6.7"
+    },
+    {
+      "file": "migrations/307_isms_f_false_attributions.sql",
+      "runs": 3,
+      "passage": "ISO/IEC 27001 6.1.3"
+    },
+    {
+      "file": "migrations/308_retire_aims_f_annex_b_item.sql",
+      "runs": 8,
+      "passage": "ISO/IEC 42001 B.1"
+    },
+    {
+      "file": "migrations/358_english_concept_repair.sql",
+      "runs": 7,
+      "passage": "ISO 19011 7.2.3.2"
+    },
+    {
+      "file": "modal-sweep-2.json",
+      "runs": 80,
+      "passage": "ISO 19011 4.8"
+    },
+    {
+      "file": "modal-sweep-postfix.json",
+      "runs": 228,
+      "passage": "ISO 19011 4.6"
+    },
+    {
+      "file": "reference/README.md",
+      "runs": 73,
+      "passage": "Scrum Guide Purpose of the Scrum Guide"
+    },
+    {
+      "file": "reference/scrum-guide-2020.txt",
+      "runs": 3805,
+      "passage": "Scrum Guide Purpose of the Scrum Guide"
+    },
+    {
+      "file": "rewrites/pin-fix.json",
+      "runs": 1,
+      "passage": "ISO/IEC 27001 8.2"
+    },
+    {
+      "file": "rewrites/prose-defects.json",
+      "runs": 1,
+      "passage": "ISO/IEC 27001 8.2"
+    },
+    {
+      "file": "scripts/aims-ia-concepts.json",
+      "runs": 243,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "scripts/apply-0501-english.mjs",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 B.6.2.6"
+    },
+    {
+      "file": "scripts/apply-audit-sentence-rewrite.mjs",
+      "runs": 42,
+      "passage": "ISO/IEC 27000 3"
+    },
+    {
+      "file": "scripts/apply-batch-a.mjs",
+      "runs": 4,
+      "passage": "ISO/IEC 27001 9.2.2"
+    },
+    {
+      "file": "scripts/apply-director-93-revisions.mjs",
+      "runs": 7,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/apply-own-work-drafts.mjs",
+      "runs": 4,
+      "passage": "ISO/IEC 27001 9.2.2"
+    },
+    {
+      "file": "scripts/blueprint-repairs.mjs",
+      "runs": 26,
+      "passage": "ISO/IEC 42001 B.2.2"
+    },
+    {
+      "file": "scripts/build-iso-manifest.mjs",
+      "runs": 9,
+      "passage": "ISO/IEC 27000 5.4.3"
+    },
+    {
+      "file": "scripts/build-splice-file.mjs",
+      "runs": 2,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "scripts/census-hyphen-interleave.mjs",
+      "runs": 2,
+      "passage": "EU AI Act Recital 2"
+    },
+    {
+      "file": "scripts/check-a62-extraction.mjs",
+      "runs": 5,
+      "passage": "ISO/IEC 42001 A.6.2"
+    },
+    {
+      "file": "scripts/check-anchor-sample.mjs",
+      "runs": 18,
+      "passage": "ISO/IEC 27000 3"
+    },
+    {
+      "file": "scripts/check-blind-fidelity.mjs",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 5.2"
+    },
+    {
+      "file": "scripts/check-citation-correspondence.mjs",
+      "runs": 6,
+      "passage": "ISO/IEC 27000 3"
+    },
+    {
+      "file": "scripts/convert-ceiling-breaches.mjs",
+      "runs": 22,
+      "passage": "ISO 19011 6.4.6"
+    },
+    {
+      "file": "scripts/decolumn-a54.py",
+      "runs": 15,
+      "passage": "ISO/IEC 42001 A.5"
+    },
+    {
+      "file": "scripts/diagnose-run-splitting.mjs",
+      "runs": 4,
+      "passage": "ISO/IEC 27000 3"
+    },
+    {
+      "file": "scripts/extract-source-passages.mjs",
+      "runs": 25,
+      "passage": "ISO/IEC 27001 10.2"
+    },
+    {
+      "file": "scripts/fix-aia-interested-party.mjs",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 7.4"
+    },
+    {
+      "file": "scripts/fix-smaiii-retired-vocabulary.mjs",
+      "runs": 4,
+      "passage": "Scrum Guide Scrum Team"
+    },
+    {
+      "file": "scripts/gate-concept-descriptions.mjs",
+      "runs": 3,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/gen-iso-repair-spec.mjs",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 10.1"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsf-b2.mjs",
+      "runs": 23,
+      "passage": "ISO/IEC 42001 4.3"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsf-m1.mjs",
+      "runs": 19,
+      "passage": "ISO/IEC 42001 A.4"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsf-m2.mjs",
+      "runs": 70,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsf-m3.mjs",
+      "runs": 112,
+      "passage": "ISO/IEC 42001 B.4.2"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsf-m4.mjs",
+      "runs": 45,
+      "passage": "ISO/IEC 42001 6.1.3"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsf-m5.mjs",
+      "runs": 39,
+      "passage": "ISO/IEC 42001 9.1"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsf.mjs",
+      "runs": 5,
+      "passage": "ISO/IEC 42001 8.4"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsia-m1.mjs",
+      "runs": 51,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsia-m2.mjs",
+      "runs": 69,
+      "passage": "ISO/IEC 42001 9.2.2"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsia-m3.mjs",
+      "runs": 115,
+      "passage": "ISO 19011 6.4.6"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsia-m4a.mjs",
+      "runs": 99,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsia-m4b.mjs",
+      "runs": 204,
+      "passage": "ISO/IEC 42001 6.1.3"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsia-m4c.mjs",
+      "runs": 140,
+      "passage": "ISO/IEC 42001 A.2"
+    },
+    {
+      "file": "scripts/lesson-repairs-aimsia-m5.mjs",
+      "runs": 164,
+      "passage": "ISO 19011 6.5.1"
+    },
+    {
+      "file": "scripts/lesson-repairs-ismsia-m1.mjs",
+      "runs": 15,
+      "passage": "ISO 19011 4.6"
+    },
+    {
+      "file": "scripts/lesson-repairs-ismsia-m2.mjs",
+      "runs": 25,
+      "passage": "ISO/IEC 42001 9.2.2"
+    },
+    {
+      "file": "scripts/lesson-repairs-ismsia-m3.mjs",
+      "runs": 9,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "scripts/lesson-repairs-ismsia-m4a.mjs",
+      "runs": 28,
+      "passage": "ISO/IEC 27001 1"
+    },
+    {
+      "file": "scripts/lesson-repairs-ismsia-m4b.mjs",
+      "runs": 10,
+      "passage": "ISO/IEC 42001 7.2"
+    },
+    {
+      "file": "scripts/lesson-repairs-ismsia-m4c.mjs",
+      "runs": 23,
+      "passage": "ISO/IEC 27001 9.1"
+    },
+    {
+      "file": "scripts/lesson-repairs-ismsia-m5.mjs",
+      "runs": 3,
+      "passage": "ISO 19011 4.3"
+    },
+    {
+      "file": "scripts/lib/citation-index.mjs",
+      "runs": 4,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "scripts/lib/declared-english-edits.mjs",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 B.6.2.6"
+    },
+    {
+      "file": "scripts/lib/definition-boundary.mjs",
+      "runs": 63,
+      "passage": "ISO/IEC 42001 3"
+    },
+    {
+      "file": "scripts/lib/effective-primary.mjs",
+      "runs": 33,
+      "passage": "ISO/IEC 42001 A.6.1"
+    },
+    {
+      "file": "scripts/lib/grounded-gates.mjs",
+      "runs": 391,
+      "passage": "ISO/IEC 27001 7.2"
+    },
+    {
+      "file": "scripts/lib/iso-locator.mjs",
+      "runs": 1,
+      "passage": "ISO/IEC 27000 3"
+    },
+    {
+      "file": "scripts/lib/leak-score.mjs",
+      "runs": 3,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/lib/obligation-guard.mjs",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 10.1"
+    },
+    {
+      "file": "scripts/lib/quote-noise.mjs",
+      "runs": 51,
+      "passage": "ISO/IEC 42001 A.6.2.5"
+    },
+    {
+      "file": "scripts/lib/superseded-wording.mjs",
+      "runs": 1,
+      "passage": "Scrum Guide Product Backlog"
+    },
+    {
+      "file": "scripts/measure-concept-leak-sensitivity.mjs",
+      "runs": 19,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/measure-contiguous-extension.mjs",
+      "runs": 3,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/measure-ksa-review-cost.mjs",
+      "runs": 20,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/measure-run-distribution.mjs",
+      "runs": 3,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/probe-0501-clause.mjs",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 B.6.2.6"
+    },
+    {
+      "file": "scripts/record-director-rejection.mjs",
+      "runs": 4,
+      "passage": "ISO/IEC 42001 A.5"
+    },
+    {
+      "file": "scripts/report-repeated-runs.mjs",
+      "runs": 3,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/retranslate-audit-sentence.mjs",
+      "runs": 6,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "scripts/revert-ismsia-citation.mjs",
+      "runs": 10,
+      "passage": "ISO 19011 3"
+    },
+    {
+      "file": "scripts/scan-concept-iso.mjs",
+      "runs": 3,
+      "passage": "ISO/IEC 42001 4.1"
+    },
+    {
+      "file": "scripts/scan-iso-leaks.mjs",
+      "runs": 47,
+      "passage": "ISO 19011 4.8"
+    },
+    {
+      "file": "scripts/score-0501-drafts.mjs",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 B.6.2.6"
+    },
+    {
+      "file": "scripts/score-rewrites.mjs",
+      "runs": 53,
+      "passage": "ISO/IEC 27001 8.2"
+    },
+    {
+      "file": "scripts/survey-mss-frames.mjs",
+      "runs": 1,
+      "passage": "ISO/IEC 42001 7.4"
+    },
+    {
+      "file": "scripts/sweep-requirement-contradictions.mjs",
+      "runs": 15,
+      "passage": "ISO 19011 4.6"
+    },
+    {
+      "file": "scripts/verify-audit-note-attribution.mjs",
+      "runs": 6,
+      "passage": "ISO/IEC 27000 3"
+    },
+    {
+      "file": "scripts/verify-claim-content.mjs",
+      "runs": 12,
+      "passage": "ISO/IEC 27000 3"
+    },
+    {
+      "file": "scripts/verify-claims.mjs",
+      "runs": 4,
+      "passage": "ISO/IEC 27001 9.2.2"
+    },
+    {
+      "file": "scripts/verify-en-defects-sample.mjs",
+      "runs": 1,
+      "passage": "Scrum Guide Sprint Retrospective"
+    },
+    {
+      "file": "source-overrides-27001.json",
+      "runs": 2,
+      "passage": "ISO/IEC 27001 A.5.17"
+    },
+    {
+      "file": "source-overrides-42001.json",
+      "runs": 80,
+      "passage": "ISO/IEC 42001 3"
+    }
+  ],
+  "_pruned": [
+    {
+      "on": "2026-10-03",
+      "ruled_in": "PROMPT-112 s5",
+      "from": 285,
+      "to": 269,
+      "why": "audit artifacts untracked and gitignored; they quote key_support verbatim"
+    }
+  ],
+  "_count_now": 269
 }
