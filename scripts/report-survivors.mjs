@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * report-aimsf-survivors.mjs -- which live AIMS-F secure English items survive, per task.
+ * report-survivors.mjs -- which live secure English items of a certification survive, per task.
+ * PIPELINE STAGE 2 (ruled PROMPT-110 s4). `--cert` selects the certification; AIMS-F is the default.
  *
  * READ-ONLY. No `--apply`, nothing is retired, nothing is generated. Unknown flags exit 2.
  *
@@ -38,26 +39,40 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
 
-let N_READ = 20, SEED = 11, N_MODAL = 5;
-for (const a of process.argv.slice(2)) {
-  let m;
-  if ((m = /^--read=(\d+)$/.exec(a))) { N_READ = Number(m[1]); continue; }
-  if ((m = /^--seed=(\d+)$/.exec(a))) { SEED = Number(m[1]); continue; }
-  if ((m = /^--modal=(\d+)$/.exec(a))) { N_MODAL = Number(m[1]); continue; }
-  console.error("Unrecognised flag: " + a + ". Known: --read=, --seed=, --modal=. READ-ONLY.");
-  process.exit(2);
+/* `--cert` added PROMPT-110 s4: this is pipeline stage 2 for ANY certification, and the artifact
+ * paths are derived from the code rather than written out. No second copy of the audit. */
+let N_READ = 20, SEED = 11, N_MODAL = 5, CERT = "AIMS-F";
+{
+  const av = process.argv.slice(2);
+  for (let i = 0; i < av.length; i++) {
+    const a = av[i];
+    let m;
+    if ((m = /^--read=(\d+)$/.exec(a))) { N_READ = Number(m[1]); continue; }
+    if ((m = /^--seed=(\d+)$/.exec(a))) { SEED = Number(m[1]); continue; }
+    if ((m = /^--modal=(\d+)$/.exec(a))) { N_MODAL = Number(m[1]); continue; }
+    if ((m = /^--cert(?:=(.+))?$/.exec(a))) { CERT = m[1] || av[++i]; continue; }
+    console.error("Unrecognised flag: " + a + ". Known: --cert=, --read=, --seed=, --modal=. READ-ONLY.");
+    process.exit(2);
+  }
+  if (!CERT) { console.error("--cert needs a code"); process.exit(2); }
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const FLOOR = 8;
 
-const BASE = join(ROOT, "ANCHOR-OR-FLAG-AIMS-F-all-secure.json");
-const RERUN = join(ROOT, "ANCHOR-OR-FLAG-AIMS-F-all-secure-rerun.json");
-const MODAL = join(ROOT, "ANCHOR-OR-FLAG-AIMS-F-all-secure-modal.json");
-const RULINGS = join(ROOT, "DIRECTOR-RULINGS-AIMSF.json");
+/* DERIVED FROM --cert. `anchor-existing-items.mjs` already names its artifact from the same code, so
+ * the two halves of the audit agree without either restating the other's filename. The SURVIVORS and
+ * RULINGS names drop the hyphen, matching the existing TASK-FLOORS-AIMSF.json convention. */
+const SLUG = CERT.replace(/-/g, "");
+const BASE = join(ROOT, "ANCHOR-OR-FLAG-" + CERT + "-all-secure.json");
+const RERUN = join(ROOT, "ANCHOR-OR-FLAG-" + CERT + "-all-secure-rerun.json");
+const MODAL = join(ROOT, "ANCHOR-OR-FLAG-" + CERT + "-all-secure-modal.json");
+const RULINGS = join(ROOT, "DIRECTOR-RULINGS-" + SLUG + ".json");
+const OUT_MD = SLUG + "-SURVIVORS.md";
+const OUT_JSON = SLUG + "-SURVIVORS.json";
 if (!existsSync(BASE)) {
   console.error("missing " + BASE);
-  console.error("Run: node scripts/anchor-existing-items.mjs --cert=AIMS-F --all-secure");
+  console.error("Run: node scripts/anchor-existing-items.mjs --cert=" + CERT + " --all-secure");
   process.exit(2);
 }
 const baseJ = JSON.parse(readFileSync(BASE, "utf8"));
@@ -104,7 +119,7 @@ if (items.length !== baseItems.length) {
 }
 
 const KEY = requireKey(HERE);
-const certs = await getAll(KEY, "certifications?select=id,code&code=eq.AIMS-F");
+const certs = await getAll(KEY, "certifications?select=id,code&code=eq." + CERT);
 const tasks = (await getAll(KEY, "tasks?select=id,certification_id,code,statement&order=code"))
   .filter((t) => t.certification_id === certs[0].id);
 const stmt = new Map(tasks.map((t) => [t.code, t.statement]));
@@ -432,8 +447,8 @@ p("| why it could not be examined | items |");
 p("|---|---|");
 for (const [k, v] of Object.entries(uw).sort((a, b) => b[1] - a[1])) p("| " + k + " | " + v + " |");
 
-writeFileSync(join(ROOT, "AIMSF-SURVIVORS.md"), md.join("\n") + "\n", "utf8");
-writeFileSync(join(ROOT, "AIMSF-SURVIVORS.json"), JSON.stringify({
+writeFileSync(join(ROOT, OUT_MD), md.join("\n") + "\n", "utf8");
+writeFileSync(join(ROOT, OUT_JSON), JSON.stringify({
   items: rows.length, keep: K, drop: D, provisional: PR, unexamined: U, floor: FLOOR, to_generate: need,
   rerun_items: rows.filter((r) => r.decided_by === "re-run").length, moved: moved.length,
   per_task: Object.fromEntries([...byTask.entries()].map(([k, v]) =>
@@ -448,4 +463,4 @@ console.log("items " + rows.length + "   keep " + K + "   drop " + D + "   provi
 console.log("re-run decided " + rows.filter((r) => r.decided_by === "re-run").length + ", " +
   moved.length + " changed verdict");
 console.log("to generate to reach the floor of " + FLOOR + ": " + need);
-console.log("wrote AIMSF-SURVIVORS.md and AIMSF-SURVIVORS.json");
+console.log("wrote " + OUT_MD + " and " + OUT_JSON);

@@ -33,7 +33,7 @@ for (let i = 0; i < argv.length; i++) {
   m = a.match(/^--sent-back=(.+)$/);
   if (m) { SENTBACK = Number(m[1]); continue; }
   console.error("Unrecognised flag: " + a);
-  console.error("  --cert <CODE> --stage <n>   the stage to run (1-8). Dry by default.");
+  console.error("  --cert <CODE> --stage <n>   the stage to run (1-9). Dry by default.");
   console.error("  --apply                     pass --apply through to the stage script.");
   console.error("  --list                      print the stages and exit.");
   console.error("  --sent-back=<n> --note=<t>  record the director's send-back count for this stage.");
@@ -41,22 +41,27 @@ for (let i = 0; i < argv.length; i++) {
 }
 
 /* ============ THE STAGES. `script` is spawned; `writes` is what it may change. ============ */
+/* STAGE 2 IS THE EXISTING-BANK AUDIT, inserted PROMPT-110 s4. Without it stage 3's "held" counts the
+ * old unrebuilt bank, which told us nothing: ISMS-F reported "42 at floor, 0 to generate" over items
+ * nothing had audited. AIMS-F only got a trustworthy count after its survivor audit. */
 const STAGES = {
   1: { name: "library completeness", writes: "nothing",
        script: "check-library-completeness.mjs", args: () => [] },
-  2: { name: "task map and floors", writes: "nothing",
+  2: { name: "existing-bank audit", writes: "nothing (writes a keep list artifact)",
+       script: "report-survivors.mjs", args: (c) => ["--cert=" + c] },
+  3: { name: "task map and floors", writes: "nothing",
        script: "check-task-map.mjs", args: (c) => ["--cert", c] },
-  3: { name: "generation rounds", writes: "drafts",
+  4: { name: "generation rounds", writes: "drafts",
        script: "gen-grounded-items.mjs", args: (c) => ["--cert", c] },
-  4: { name: "the director's read", writes: "verdicts only",
+  5: { name: "the director's read", writes: "verdicts only",
        script: "emit-pilot-report.mjs", args: (c) => ["--cert", c] },
-  5: { name: "translation", writes: "pending_review siblings",
+  6: { name: "translation", writes: "pending_review siblings",
        script: "translate-grounded-items.mjs", args: (c) => ["--cert", c] },
-  6: { name: "approval", writes: "status=approved, item_origin=grounded",
+  7: { name: "approval", writes: "status=approved, item_origin=grounded",
        script: "approve-grounded-items.mjs", args: (c) => ["--cert", c] },
-  7: { name: "cutover", writes: "retired_at on not-kept items",
+  8: { name: "cutover", writes: "retired_at on not-kept items",
        script: "cutover-aimsf.mjs", args: (c) => ["--cert=" + c] },
-  8: { name: "verify-cert", writes: "nothing",
+  9: { name: "verify-cert", writes: "nothing",
        script: "verify-cert.mjs", args: (c) => ["--cert", c] },
 };
 
@@ -74,7 +79,7 @@ if (!CERT || !Number.isFinite(STAGE)) {
   process.exit(2);
 }
 const stage = STAGES[STAGE];
-if (!stage) { console.error("No stage " + STAGE + ". Stages are 1-8; --list shows them."); process.exit(2); }
+if (!stage) { console.error("No stage " + STAGE + ". Stages are 1-9; --list shows them."); process.exit(2); }
 const scriptPath = join(HERE, stage.script);
 if (!existsSync(scriptPath)) {
   console.error("Stage " + STAGE + " (" + stage.name + ") maps to " + stage.script + ", which does not exist.");

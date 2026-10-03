@@ -56,7 +56,10 @@ const inScope = tasks.filter((t) => t.is_exam_scope);
 const tsRows = await getAll(KEY, "task_sources?select=task_id,passage_id,role&order=task_id");
 const passRows = await getAll(KEY, "source_passages?select=id,clause,source_id,edition&order=id");
 const pById = new Map(passRows.map((r) => [r.id, r]));
-const rows = await getAll(KEY, "quiz_questions?select=id,language,pool,status,task_id,retired_at" +
+/* question_group_id IS SELECTED: `enOf` needs it to find a sibling.s English row, and without it every
+ * non-English row counted 0 and reported AIMS-F -- a bank known to be at floor -- as 35 tasks short.
+ * Second instance this round of a predicate that cannot see the column it tests. */
+const rows = await getAll(KEY, "quiz_questions?select=id,language,pool,status,task_id,retired_at,question_group_id" +
   "&certification_id=eq." + cert.id + "&order=id");
 const floors = loadTaskFloors(cert.code);
 if (floors.errors.length) {
@@ -73,8 +76,74 @@ for (const p of lib.passages) {
   bySrc.get(k).set(String(p.clause), p);
 }
 
+/* ============ WHAT COUNTS AS "HELD" (ruled PROMPT-110 s4.2) ============
+ *
+ * KEPT items (named by the stage-2 audit) plus ACCEPTED GROUNDED items. An old item nothing has
+ * audited counts as ZERO.
+ *
+ * The first version counted every live secure row, and reported ISMS-F as "42 tasks at floor, 0 to
+ * generate" over a bank no instrument had looked at. That number was not optimistic, it was empty.
+ * AIMS-F only became countable once its survivor audit produced a keep list. */
+const SLUG = CERT.replace(/-/g, "");
+const keepPath = join(ROOT, SLUG + "-SURVIVORS.json");
+const haveAudit = existsSync(keepPath);
+const keepPrefixes = haveAudit
+  ? new Set((JSON.parse(readFileSync(keepPath, "utf8")).keep_ids || []))
+  : new Set();
+const ig = new Map((await getAll(KEY, "item_grounding?select=question_id,review_verdict&order=question_id"))
+  .map((g) => [g.question_id, g]));
+const enOf = (r) => r.language === "en" ? r
+  : (r.question_group_id ? rows.find((x) => x.question_group_id === r.question_group_id && x.language === "en") : null);
+
+/** Both directions, and the case PROMPT-110 s4.2 names: an unaudited item is not counted. */
+function heldControls() {
+  const cases = [];
+  const ok = (what, pass) => cases.push({ what, pass });
+  const base = { pool: "secure", retired_at: null, status: "approved" };
+  ok("an UNAUDITED old item is NOT counted",
+    !countsAsHeld(base, { acceptedGrounded: false, auditKept: false }));
+  ok("an audit-KEPT item IS counted", countsAsHeld(base, { acceptedGrounded: false, auditKept: true }));
+  ok("an ACCEPTED GROUNDED item IS counted", countsAsHeld(base, { acceptedGrounded: true, auditKept: false }));
+  ok("a RETIRED kept item is NOT counted",
+    !countsAsHeld({ ...base, retired_at: "2026-10-03T00:00:00Z" }, { acceptedGrounded: true, auditKept: true }));
+  ok("a PRACTICE kept item is NOT counted (this floor is the secure pool)",
+    !countsAsHeld({ ...base, pool: "practice" }, { acceptedGrounded: true, auditKept: true }));
+  ok("a REJECTED item is NOT counted even if the audit kept it",
+    !countsAsHeld({ ...base, status: "rejected" }, { acceptedGrounded: true, auditKept: true }));
+  ok("a pending_review grounded sibling IS counted (it is stock, pre-approval)",
+    countsAsHeld({ ...base, status: "pending_review" }, { acceptedGrounded: true, auditKept: false }));
+  return { examined: cases.length, fails: cases.filter((c) => !c.pass).map((c) => c.what) };
+}
+
+export function countsAsHeld(row, opts) {
+  if (!row || row.pool !== "secure" || row.retired_at !== null) return false;
+  if (row.status !== "approved" && row.status !== "pending_review") return false;
+  /* accepted grounded: its English row carries review_verdict = 'accept' */
+  if (opts.acceptedGrounded) return true;
+  /* kept by the audit: its English row's uuid prefix is on the keep list */
+  if (opts.auditKept) return true;
+  return false;
+}
+
+const countHeld = (taskId, lang) => rows.filter((r) => {
+  if (r.task_id !== taskId || r.language !== lang) return false;
+  const en = enOf(r);
+  const g = en ? ig.get(en.id) : null;
+  const acceptedGrounded = !!g && g.review_verdict === "accept";
+  const auditKept = !!en && [...keepPrefixes].some((p) => String(en.id).startsWith(p));
+  return countsAsHeld(r, { acceptedGrounded, auditKept });
+}).length;
+
 console.log("");
-console.log("STAGE 2  TASK MAP AND FLOORS   " + CERT);
+console.log("STAGE 3  TASK MAP AND FLOORS   " + CERT);
+console.log("  held counts KEPT + ACCEPTED GROUNDED only. Unaudited old items count as 0.");
+{
+  const hc = heldControls();
+  if (hc.fails.length) { console.error("REFUSING: held controls fail: " + hc.fails.join("; ")); process.exit(2); }
+  console.log("  held controls: " + hc.examined + " case(s), all pass");
+}
+console.log("  keep list: " + (haveAudit ? keepPath.split(/[\\/]/).pop() + "   " + keepPrefixes.size + " id(s)"
+  : "ABSENT -- run stage 2 (report-survivors.mjs --cert=" + CERT + "). Every old item counts as 0."));
 console.log("  floors: " + floors.source + "   default " + floors.defaultFloor +
   "   " + floors.overrides.size + " override(s)");
 console.log("  in-scope tasks: " + inScope.length + " of " + tasks.length);
@@ -102,8 +171,7 @@ for (const t of inScope) {
     effective += res.filter((r) => r.effective).length;
   }
   const f = floorFor(t.code, floors, effective);
-  const held = Object.fromEntries(LANGS.map((l) => [l,
-    rows.filter((r) => r.task_id === t.id && r.language === l && r.pool === "secure" && r.retired_at === null).length]));
+  const held = Object.fromEntries(LANGS.map((l) => [l, countHeld(t.id, l)]));
   const minHeld = Math.min(...LANGS.map((l) => held[l]));
   const tooThin = effective < MIN_EFFECTIVE;
   const state = tooThin ? "too_thin" : (minHeld >= f.floor ? "at_floor" : "short");
@@ -130,7 +198,7 @@ const toGenerate = detail.filter((d) => d.state === "short")
 console.log("  items to generate to reach every floor (English): " + toGenerate);
 if (summary.no_map) {
   console.log("");
-  console.log("  STAGE 2 IS NOT DONE: " + summary.no_map + " in-scope task(s) have no primary passage.");
+  console.log("  STAGE 3 IS NOT DONE: " + summary.no_map + " in-scope task(s) have no primary passage.");
   console.log("  A task with no map cannot be generated against and cannot be floored.");
 }
 process.exitCode = summary.no_map ? 1 : 0;

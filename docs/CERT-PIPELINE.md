@@ -1,6 +1,6 @@
 # The certification bank pipeline
 
-Eight stages, in order. Each has ONE gate that decides whether the stage is done, and ONE script that
+Nine stages, in order. Each has ONE gate that decides whether the stage is done, and ONE script that
 runs it. `scripts/run-cert-bank.mjs --cert <CODE> --stage <n>` wraps them; it is dry by default and
 adds no logic of its own.
 
@@ -10,19 +10,21 @@ stale once the work it planned was done). Rules live in `CLAUDE.md` §13–§14;
 | # | stage | the gate — done means | script |
 |---|---|---|---|
 | 1 | **library completeness** | every source the task map cites is held, and the declared population per source matches what is extracted. A clause the library DECLARES missing is `pass: null`, not a failure | `check-library-completeness.mjs` |
-| 2 | **task map and floors** | every in-scope task has primary passages; each task's floor is `min(default_floor, 2 × effective primaries)` or a `ruled_in` override. A task below three effective primaries is `too_thin` — a map question for the director, not work | `rollout-shortfall.mjs`, floors via `lib/task-floors.mjs` |
-| 3 | **generation rounds** | survivors of six code gates plus a blind solver, landing `status='draft'`. Raw writer output is persisted BEFORE any gate (`*-raw.json`), so `--from` re-gates free | `gen-grounded-items.mjs` |
-| 4 | **the director's read** | every item carries `item_grounding.review_verdict` — `accept`, `reject`, or a tier finding. A `read` is not an acceptance. Rejections go in `<CERT>-DIRECTOR-REJECTIONS.json` | `emit-pilot-report.mjs` → `record-grounded-verdicts.mjs` |
-| 5 | **translation** | every accepted English item has an es-419 and a pt-BR sibling sharing its group, option ids, key, pool, visibility and scope; zero glossary pins | `translate-grounded-items.mjs`, repair with `retranslate-flagged.mjs` |
-| 6 | **approval** | all conditions per item, re-gated against TODAY's library, promoted as a GROUP with `item_origin='grounded'` in the same write. Nothing is approved by rule | `approve-grounded-items.mjs --cert <C>` |
-| 7 | **cutover** | the target pool is SERVABLE (step 2b), zero duplicate stems, and 20 forms per language fill to `num_questions` under the domain weights and the enemy rule — checked BEFORE any write. Not-kept items leave via `retired_at`, recorded for one-command rollback | `cutover-aimsf.mjs`, undo `rollback-cutover.mjs` |
-| 8 | **verify-cert** | 0 fails. Floors read from `TASK-FLOORS-<CERT>.json`; the length cue is `keyLengthEscape`/`cueConfigFor` and nothing else | `verify-cert.mjs --cert <C>` |
+| 2 | **existing-bank audit** | every existing secure item is classified **keep / drop / provisional / unexamined, with a reason**, and the keep list is written by id. Keep = anchors cleanly AND the blind solver picks the key | `report-survivors.mjs --cert <C>` (needs `anchor-existing-items.mjs --cert=<C> --all-secure` first) |
+| 3 | **task map and floors** | every in-scope task has primary passages; floor is `min(default_floor, 2 × effective primaries)` or a `ruled_in` override. **"Held" = audit-KEPT + ACCEPTED GROUNDED only; an unaudited old item counts 0.** Below three effective primaries is `too_thin` — a map question, not work | `check-task-map.mjs --cert <C>`, floors via `lib/task-floors.mjs` |
+| 4 | **generation rounds** | survivors of six code gates plus a blind solver, landing `status='draft'`. Raw writer output is persisted BEFORE any gate (`*-raw.json`), so `--from` re-gates free | `gen-grounded-items.mjs` |
+| 5 | **the director's read** | every item carries `item_grounding.review_verdict` — `accept`, `reject`, or a tier finding. A `read` is not an acceptance. Rejections go in `<CERT>-DIRECTOR-REJECTIONS.json` | `emit-pilot-report.mjs` → `record-grounded-verdicts.mjs` |
+| 6 | **translation** | every accepted English item has an es-419 and a pt-BR sibling sharing its group, option ids, key, pool, visibility and scope; zero glossary pins | `translate-grounded-items.mjs`, repair with `retranslate-flagged.mjs` |
+| 7 | **approval** | all conditions per item, re-gated against TODAY's library, promoted as a GROUP with `item_origin='grounded'` in the same write. Nothing is approved by rule | `approve-grounded-items.mjs --cert <C>` |
+| 8 | **cutover** | the target pool is SERVABLE (step 2b), zero duplicate stems, and 20 forms per language fill to `num_questions` under the domain weights and the enemy rule — checked BEFORE any write. Not-kept items leave via `retired_at`, recorded for one-command rollback | `cutover-aimsf.mjs`, undo `rollback-cutover.mjs` |
+| 9 | **verify-cert** | 0 fails. Floors read from `TASK-FLOORS-<CERT>.json`; the length cue is `keyLengthEscape`/`cueConfigFor`; every check measures the **served** pool (`lib/verify-cert-population.mjs`) unless its label says history | `verify-cert.mjs --cert <C>` |
 
 ## What each stage may write
 
-Stages 1–2 write **nothing**. Stage 3 writes drafts. Stage 4 writes verdicts only. Stage 5 writes
-siblings as `pending_review`. Stage 6 is the first stage whose output a candidate can be examined on.
-Stage 7 is the only stage that removes anything from circulation, and it never deletes.
+Stages 1–3 write **nothing** to the item tables (stage 2 writes a keep-list artifact). Stage 4 writes
+drafts. Stage 5 writes verdicts only. Stage 6 writes siblings as `pending_review`. Stage 7 is the first
+stage whose output a candidate can be examined on. Stage 8 is the only stage that removes anything from
+circulation, and it never deletes.
 
 ## The three measurements kept per stage
 

@@ -20,10 +20,12 @@ import { checkPins, PIN_RULES } from "./lib/pin-compliance.mjs";
 const ALL_LANGS = [{ code: "es-419", name: "Latin American Spanish" },
   { code: "pt-BR", name: "Brazilian Portuguese" }];
 const MAX_ROUNDS = 3;
-let CERT = "AIMS-F", APPLY = false, ART = "AIMSF-TRANSLATION-R1.json", LANGS = ALL_LANGS, FORCE = null;
+let CERT = "AIMS-F", APPLY = false, ART = "AIMSF-TRANSLATION-R1.json", LANGS = ALL_LANGS, FORCE = null,
+  INCLUDE_RETIRED = false;
 const argv = process.argv.slice(2);
 for (let i = 0; i < argv.length; i++) {
   if (argv[i] === "--apply") { APPLY = true; continue; }
+  if (argv[i] === "--include-retired") { INCLUDE_RETIRED = true; continue; }
   const m = argv[i].match(/^--(cert|in|lang|ids)=(.+)$/);
   if (m) {
     if (m[1] === "cert") CERT = m[2];
@@ -75,14 +77,20 @@ const H = { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "applic
 const cert = (await getAll(KEY, "certifications?select=id&code=eq." + CERT))[0];
 const SEL = "id,question_group_id,language,question_text,question_type,options,correct_answer,explanation," +
   "task_id,status,pool,visibility,is_exam_scope,bloom_level,difficulty";
+/* `--include-retired` is the smallest change that lets this reach a retired group (PROMPT-110 s1):
+ * the 3 authored rewrites are retired until read, and their siblings still hold the old English. */
 const fetchRows = () => getAll(KEY, "quiz_questions?select=" + SEL + "&certification_id=eq." + cert.id +
-  "&retired_at=is.null&order=id");
+  (INCLUDE_RETIRED ? "" : "&retired_at=is.null") + "&order=id");
 let rows = await fetchRows();
 const grounding = new Map((await getAll(KEY,
   "item_grounding?select=question_id,review_verdict,review_note&order=question_id")).map((g) => [g.question_id, g]));
 
 const isRoundEn = (r) => {
   if (r.language !== "en") return false;
+  /* AN EXPLICITLY NAMED id is in scope whatever its grounding: the 3 PROMPT-109 s3 rewrites are
+   * AUTHORED items with no item_grounding row at all, so the accept test can never pass for them.
+   * Naming an id is the caller asserting the row is in scope; the default path is unchanged. */
+  if (FORCE && [...FORCE].some((p) => String(r.id).startsWith(p))) return true;
   const g = grounding.get(r.id);
   return !!g && g.review_verdict === "accept" && !/\breserve:/i.test(String(g.review_note || ""));
 };

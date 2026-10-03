@@ -47,6 +47,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { cueConfigFor, keyLengthEscape } from "./lib/item-cue-guard.mjs";
 import { loadTaskFloors, floorFor, taskFloorControls } from "./lib/task-floors.mjs";
+import { isServed, isCueJudgeable, populationControls } from "./lib/verify-cert-population.mjs";
 import { RETIRED_HARD, RETIRED_SOFT } from "./lib/item-translation.mjs";
 import { buildIndex, analyseText, newSink, sourcesAvailable, loadExemptions } from "./lib/citation-index.mjs";
 import { itemHash8 } from "./lib/item-hash.mjs";
@@ -234,7 +235,10 @@ async function verify(cert) {
     // `!data` below used to mean BOTH "no more pages" and "the query failed".
     // Conflating them is what let one dropped page report an empty bank.
     const { data } = await must(`quiz_questions[${from}]`, db.from("quiz_questions")
-      .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text, explanation, retired_vocabulary_intent, item_origin")
+      // `retired_at` IS SELECTED even though the query filters on it: `isServed` tests the column,
+      // and an absent column read as `undefined` made every row fail the test -- 8.1 skipped with
+      // "no secure en items" over a bank of 2,127. A predicate must be able to see what it asserts.
+      .select("id, pool, language, task_id, difficulty, bloom_level, options, correct_answer, status, question_group_id, question_text, explanation, retired_vocabulary_intent, item_origin, is_exam_scope, retired_at")
       .eq("certification_id", id)
       .is("retired_at", null)   // the verifier verifies what the cert SHIPS. Retired items are not served; they are audited via v_retired_items_evidence.
       .order("id")
@@ -643,7 +647,14 @@ async function verify(cert) {
   }
 
   // === 8. CUE NEUTRALITY ====================================================
-  const en = questions.filter((q) => q.pool === "secure" && q.language === "en" && Array.isArray(q.options) && q.options.length >= 3);
+  //
+  // THE POPULATION IS THE SERVED POOL, not every secure row (ruled PROMPT-110 s2).
+  //
+  // `questions` is already live (`retired_at is null`), so retirement was never the gap. The gap was
+  // STATUS: "secure + en + 3 options" also matched two `status='rejected'` rows, so 8.1 reported a
+  // denominator of 363 against a served pool of 357 and counted cues in items no candidate can see.
+  // The predicates below are generate-mock-exam's own, so the check measures what ships.
+  const en = questions.filter((q) => isCueJudgeable(q, "en"));
   if (en.length === 0) {
     R.skip("cue", "§8.1", "Answer-cue neutrality", "no secure en items");
   } else {
@@ -693,10 +704,11 @@ async function verify(cert) {
      * calls the same function through `auditItem`. This used to restate the arithmetic here, which
      * is how a third form in grounded-gates went unnoticed until it disagreed on 13 live items. */
     let escapes = 0, marginPctSum = 0;
+    const escapeIds = [];
     for (const q of en) {
       const esc = keyLengthEscape(q, cueCfg);
       if (!esc || esc.over <= 0) continue;
-      if (esc.escaped) escapes++;
+      if (esc.escaped) { escapes++; escapeIds.push(q.id.slice(0, 8) + " over+" + (esc.over - esc.allowed)); }
       marginPctSum += (100 * esc.over) / esc.maxRival;
     }
     const avgMargin = longest ? Math.round((10 * marginSum) / longest) / 10 : 0;
@@ -721,9 +733,9 @@ async function verify(cert) {
     //
     // The FIRST clause below is the one that matters and it IS tier-aware, because
     // the tolerance it reads comes from the blueprint. Keep it first.
-    if (escapeRate > 2.0) R.fail("cue.length", "§8.1", "Length cue non-diagnostic", `${detail} - items escaped the cue-guard tolerance`);
+    if (escapeRate > 2.0) R.fail("cue.length", "§8.1", "Length cue non-diagnostic", `${detail} - items escaped the cue-guard tolerance`, escapeIds.slice(0, 20));
     else if (strictPct > 50) R.fail("cue.length", "§8.1", "Length cue non-diagnostic", `${detail} - 'pick the longest' beats chance too reliably`);
-    else R.pass("cue.length", "§8.1", "Length cue non-diagnostic", detail);
+    else R.pass("cue.length", "§8.1", "Length cue non-diagnostic", detail + (escapeIds.length ? "   escaping ids: " + escapeIds.join(", ") : "   escaping ids: none"));
   }
 
   // === 9. TRILINGUAL INTEGRITY ==============================================

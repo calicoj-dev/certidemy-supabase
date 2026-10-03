@@ -75,15 +75,30 @@
       "cert": "AIMS-F",
       "stage": 5,
       "stage_name": "translation",
-      "usd": 26.61,
-      "note": "23.55 first pass (PROMPT-105) + 1.13 + 0.43 + 1.50 repair rounds"
-    },
-    {
-      "cert": "AIMS-F",
-      "stage": 4,
-      "stage_name": "the director read",
-      "usd": null,
-      "note": "solver reruns only; not separately metered before this round"
+      "usd": 27.07,
+      "breakdown": [
+        {
+          "usd": 23.55,
+          "where": "PROMPT-105 first pass, 200 items x2 languages (AIMSF-TRANSLATION-R1.md)"
+        },
+        {
+          "usd": 1.13,
+          "where": "PROMPT-106 roles/funcoes repair, 17 rows"
+        },
+        {
+          "usd": 0.43,
+          "where": "PROMPT-107 3 revised siblings"
+        },
+        {
+          "usd": 1.5,
+          "where": "PROMPT-109 12 revised siblings"
+        },
+        {
+          "usd": 0.46,
+          "where": "PROMPT-110 3 authored siblings"
+        }
+      ],
+      "note": "R1 reports 23.55 because it is the FIRST PASS only. The metrics total is cumulative across repair rounds. Both are correct and measure different things."
     }
   ],
   "not_instrumented": [
