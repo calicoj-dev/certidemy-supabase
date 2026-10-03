@@ -212,10 +212,11 @@ Migration 243: `email_queue`, `email_suppressions`, `claim_email_sends`, `comple
 
 ## 12. Generated items `[H:generated items]`
 
-> Generated items are practice, reviewed by architecture. The examination bank is authored and reviewed by people.
+> Everything in the examination bank was read by a person. `generated` is practice, architecture-only.
 
-- `generate-mock-exam` excludes `item_origin = 'generated'` on both modes; on `exam` it changes nothing
-  today, because a guarantee resting on a second column staying true is not a guarantee.
+- **Exam bank = authored + `item_origin='grounded'` with a recorded director `accept` (386, invariant 14).**
+- `generate-mock-exam` excludes `generated` on both modes; a guarantee resting on a second column
+  staying true is not a guarantee.
 - The simulator is a PROXY for the examination and inherits its evidentiary bar.
   `certidemy-web/lib/console/readiness.ts` is a progress signal and does not; generated items reach it
   through `user_concept_mastery`, by design, and that stays.
@@ -232,7 +233,7 @@ Migration 243: `email_queue`, `email_suppressions`, `claim_email_sends`, `comple
 
 | gate | rule |
 |---|---|
-| `gateClauseExists` | address resolves; **`pass: null`** where the library DECLARES it missing — not cleared, not blamed |
+| `gateClauseExists` | address resolves; **`pass: null`** where the library DECLARES it missing — not cleared |
 | `gateVerbatim` | the anchor is quoted verbatim from a held passage |
 | `gateAnchorIsPrimary` | **the anchor is a primary passage of the TASK**, not merely a real clause |
 | `gateQuoteNoise` | the quoted span carries no extraction furniture |
@@ -312,7 +313,7 @@ Node ESM under `scripts/`. **Conventions differ between them — read before run
 |---|---|
 | `check-migration-state` | next free number; has-it-run from DB + deployed function |
 | `verify-invariants` | the invariant suite; pass / **vacuous** / fail with examined counts |
-| `verify-cert` | conformance gate, 56–59 checks/cert. **Run from anywhere.** Twelve certs pass with 2–6 WARNs; **ZZ-TEST-I fails, expected** |
+| `verify-cert` | conformance gate, 56–59 checks/cert. **Run from anywhere.** 12 certs pass, 2–6 WARNs; **ZZ-TEST-I fails, expected** |
 | `check-licensed-text` | tracked files vs library text. Baseline 285 — may shrink, never grow |
 | `check-control-bytes` | invariant 10; tracked **plus** `--others --exclude-standard` |
 | `check-model-refusals` | invariant 11; operator-directed second person, 3 languages |
@@ -329,7 +330,7 @@ Node ESM under `scripts/`. **Conventions differ between them — read before run
 | `deploy-courseware-read` | typecheck → reachability gate → deploy → smoke; prints the ROLLBACK |
 | `gen-grounded-items` | the grounded item path (§13) |
 | `extract-source-passages` | builds the source library (§14) |
-| `lti-mint-key` | mints the platform RSA-2048 key; RFC 7638 `kid`; refuses if a non-retired key exists. **Pair with `functions/lti-mint-tool-key`** |
+| `lti-mint-key` | platform RSA-2048 key; RFC 7638 `kid`; refuses if a non-retired key exists. **Pair with `functions/lti-mint-tool-key`** |
 | `verify-367` | net-zero, NOT read-only. Writes a recovery file first; refuses if one exists |
 | `propose-match-terms` | `match_terms` is deliberately EMPTY — read `MATCH-TERMS-DECISION.md` |
 | `analyze-local` | **DEAD since 2026-09-01.** Do NOT re-derive its baseline from the engine |

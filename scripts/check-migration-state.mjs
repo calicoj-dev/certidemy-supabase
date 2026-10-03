@@ -966,6 +966,40 @@ const FINGERPRINTS = {
     };
   },
 
+  386: async () => {
+    /* 386 widens the item_origin CHECK to accept a fourth value, 'grounded'.
+     *
+     * A CHECK IS NOT VISIBLE TO POSTGREST, and the only write that would test it directly is one
+     * this repository forbids: proposing a statement whose failure IS the evidence. So the probe
+     * asks the sound question instead -- does a row carrying 'grounded' EXIST? A row cannot exist
+     * unless the constraint admits it, so one row proves the widen. Zero rows is UNASSERTED, not
+     * "not run": the migration may have landed with the retag still to come. */
+    const rows = await rest("quiz_questions?select=id,status,pool,is_exam_scope,retired_at,language" +
+      "&item_origin=eq.grounded&order=id");
+    if (!Array.isArray(rows)) {
+      return { ran: false, why: "quiz_questions is not selectable -- cannot ask about item_origin" };
+    }
+    if (rows.length === 0) {
+      return { ran: false,
+        why: "no row carries item_origin='grounded', so whether the CHECK accepts it is UNASSERTED " +
+          "(386 may have run with the retag still outstanding -- this is not a claim that it has not)" };
+    }
+    const servable = rows.filter((r) => r.status === "approved" && r.pool === "secure" &&
+      r.is_exam_scope === true && r.retired_at === null);
+    const byLang = {};
+    for (const r of servable) byLang[r.language] = (byLang[r.language] || 0) + 1;
+    return {
+      ran: true,
+      why: rows.length + " row(s) carry item_origin='grounded', which the CHECK could not have " +
+        "accepted before 386",
+      effective: servable.length > 0,
+      effectiveWhy: servable.length > 0
+        ? servable.length + " of them are approved+secure+exam-scope and live " + JSON.stringify(byLang) +
+          " -- generate-mock-exam's `item_origin <> 'generated'` admits 'grounded', so these reach a form"
+        : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
+    };
+  },
+
   379: async () => {
     /* 379 gives a human's read of an ENGLISH item somewhere to live: four columns on
      * item_grounding, which is already the per-item provenance record.

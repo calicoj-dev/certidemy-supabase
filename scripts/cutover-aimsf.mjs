@@ -331,10 +331,13 @@ if (gateFail || dupProblem) {
 
 /* ============ the checksum over every row the batch may NOT touch ============ */
 const retireIds = new Set(retire.map((x) => x.r.id));
+/* JSON PER ROW rather than a delimiter. The first version joined the fields with literal 0x01/0x02
+ * bytes: the checksum worked perfectly, so nothing but invariant 10 could see them. JSON escaping is
+ * unambiguous without needing a separator byte that cannot occur in the data. */
 const canon = (rows) => createHash("sha256").update(rows.filter((r) => !retireIds.has(r.id))
-  .map((r) => [r.id, r.status, r.pool, r.visibility, r.is_exam_scope, r.retired_at,
-    r.question_text, JSON.stringify(r.options), JSON.stringify(r.correct_answer)].join(""))
-  .sort().join("")).digest("hex");
+  .map((r) => JSON.stringify([r.id, r.status, r.pool, r.visibility, r.is_exam_scope, r.retired_at,
+    r.question_text, r.options, r.correct_answer]))
+  .sort().join(String.fromCharCode(10))).digest("hex");
 const practiceBefore = Object.fromEntries(LANGS.map((l) => [l,
   all.filter((r) => r.language === l && r.pool === "practice" && r.status === "approved" && r.retired_at === null).length]));
 const sumBefore = canon(all);

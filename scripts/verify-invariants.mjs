@@ -568,6 +568,85 @@ Object.assign(fetched, {
 }
 
 // ---------------------------------------------------------------------------
+// 14. NO APPROVED `grounded` ROW WITHOUT A RECORDED DIRECTOR ACCEPT.
+//
+// Ruled PROMPT-108 s1.4. `item_origin = 'grounded'` is the fourth origin value
+// (migration 386), and it is the one that REACHES AN EXAM: generate-mock-exam
+// excludes 'generated' and admits everything else, so tagging a row 'grounded'
+// is enough to put it in front of a candidate.
+//
+// What earns that tag is not the generator and not the gates -- it is a human
+// read, recorded as item_grounding.review_verdict = 'accept' on the group's
+// ENGLISH row. Without this invariant, 'grounded' is a one-word bypass of the
+// only step in the pipeline a model cannot perform.
+//
+// THE ENGLISH ROW IS THE SUBJECT because that is where the verdict lives: a
+// sibling is a translation of an item that was read, not a second reading.
+// ---------------------------------------------------------------------------
+{
+  const failures = [];
+  let examined = 0;
+
+  /* A PURE FUNCTION, so the positive control below exercises the real check and
+   * not a copy of it. Returns the reason it fails, or null. */
+  const reasonUnaccepted = (row, enByGroup, verdictOf) => {
+    if (row.status !== "approved") return null;
+    const g = row.question_group_id;
+    if (!g) return "no question_group_id, so no English row can carry a verdict";
+    const en = enByGroup.get(g);
+    if (!en) return "group has no English member to carry a verdict";
+    const v = verdictOf.get(en.id);
+    if (v === undefined) return "English row " + String(en.id).slice(0, 8) + " has no item_grounding row";
+    if (v !== "accept") return "English row " + String(en.id).slice(0, 8) + " verdict is " + JSON.stringify(v);
+    return null;
+  };
+
+  const grounded = await get("quiz_questions?select=id,language,status,question_group_id" +
+    "&item_origin=eq.grounded&order=id");
+  fetched.grounded_rows = grounded.length;
+
+  /* POSITIVE CONTROL FIRST, so a green line below cannot mean "the check cannot fire".
+   * Four fixtures: the accepted case must pass and each way of lacking an accept must fail. */
+  {
+    const enByGroup = new Map([["g-ok", { id: "en-ok" }], ["g-read", { id: "en-read" }], ["g-none", { id: "en-none" }]]);
+    const verdictOf = new Map([["en-ok", "accept"], ["en-read", "read"]]);
+    const ctl = [
+      ["an accepted group passes", { status: "approved", question_group_id: "g-ok" }, false],
+      ["a `read` verdict FAILS", { status: "approved", question_group_id: "g-read" }, true],
+      ["no grounding row FAILS", { status: "approved", question_group_id: "g-none" }, true],
+      ["no group at all FAILS", { status: "approved", question_group_id: null }, true],
+      ["a non-approved row is out of scope", { status: "draft", question_group_id: "g-read" }, false],
+    ];
+    for (const [what, row, shouldFail] of ctl) {
+      const got = reasonUnaccepted(row, enByGroup, verdictOf) !== null;
+      if (got !== shouldFail) failures.push("POSITIVE CONTROL BROKEN -- " + what);
+    }
+  }
+
+  if (grounded.length === 0) {
+    /* Vacuous, and that is the honest state until 386 has run and the retag has landed. */
+    record("grounded rows carry an accept", failures,
+           "no row carries item_origin='grounded' yet (migration 386 and the retag are what create them); " +
+           "the 5 positive controls ran and the check can fail", 0);
+  } else {
+    const enRows = await get("quiz_questions?select=id,question_group_id&language=eq.en&order=id");
+    const ig = await get("item_grounding?select=question_id,review_verdict&order=question_id");
+    const enByGroup = new Map();
+    for (const r of enRows) if (r.question_group_id) enByGroup.set(r.question_group_id, r);
+    const verdictOf = new Map(ig.map((g) => [g.question_id, g.review_verdict]));
+    for (const row of grounded) {
+      if (row.status !== "approved") continue;
+      examined++;
+      const why = reasonUnaccepted(row, enByGroup, verdictOf);
+      if (why) failures.push(String(row.id).slice(0, 8) + " (" + row.language + "): " + why);
+    }
+    record("grounded rows carry an accept", failures,
+           "every approved item_origin='grounded' row has an English group member with " +
+           "review_verdict='accept'; " + grounded.length + " grounded row(s) seen", examined);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // MIGRATION TIP MATCHES THE DISK -- DELETED 2026-09-22. SUCCEEDED, NOT DROPPED.
 //
 // This asserted that CLAUDE.md carried a parseable

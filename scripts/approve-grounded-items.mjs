@@ -342,20 +342,25 @@ const targets = [];
 for (const p of plan) { targets.push(p.q); for (const s of p.sibs) targets.push(s); }
 let wrote = 0;
 for (const t of targets) {
+  /* item_origin='grounded' IN THE SAME WRITE as the approval (ruled PROMPT-108 s5, migration 386).
+   * Approving without it lands a row that is approved, secure and in scope, and that
+   * generate-mock-exam excludes because 'generated' is filtered on both modes -- the new bank served
+   * to nobody. Separating the two writes is what made PROMPT-107's cutover stop at step 2b. */
   const r = await fetch(REST_URL + "/quiz_questions?id=eq." + t.id, {
     method: "PATCH", headers: H,
-    body: JSON.stringify({ status: "approved", visibility: "secure", pool: "secure", is_exam_scope: true }),
+    body: JSON.stringify({ status: "approved", visibility: "secure", pool: "secure", is_exam_scope: true,
+      item_origin: "grounded" }),
   });
   if (!r.ok) { console.error("  FAILED " + t.id.slice(0, 8) + " HTTP " + r.status + " " + (await r.text()).slice(0, 120)); continue; }
   wrote++;
 }
-const after = await getAll(KEY, "quiz_questions?select=id,language,status,visibility,pool,is_exam_scope" +
-  "&certification_id=eq." + cert.id + "&retired_at=is.null&order=id");
+const after = await getAll(KEY, "quiz_questions?select=id,language,status,visibility,pool,is_exam_scope," +
+  "item_origin&certification_id=eq." + cert.id + "&retired_at=is.null&order=id");
 const aBy = new Map(after.map((q) => [q.id, q]));
 let bad = 0, strays = 0;
 for (const t of targets) {
   const q = aBy.get(t.id);
-  if (!q || q.status !== "approved" || q.visibility !== "secure" || q.pool !== "secure" || q.is_exam_scope !== true) {
+  if (!q || q.status !== "approved" || q.visibility !== "secure" || q.pool !== "secure" || q.is_exam_scope !== true || q.item_origin !== "grounded") {
     console.error("POST: " + t.id.slice(0, 8) + " " + JSON.stringify(q)); bad++;
   }
 }
