@@ -10,25 +10,29 @@
  * The solver is NOT run here: `solve-one-item.mjs` already runs it twice over a stored row, so this
  * writes first and that is run after, against what actually landed.
  */
-import { dirname } from "node:path";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { gateItemOf, storedItemControls } from "./lib/stored-item.mjs";
+import { cueConfigFor, keyLengthEscape } from "./lib/item-cue-guard.mjs";
 import { buildGateContext } from "./lib/gate-context.mjs";
 
-let APPLY = false, CERT = "AIMS-F";
+let APPLY = false, CERT = "AIMS-F", SPECFILE = null;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
-  const m = a.match(/^--cert=(.+)$/);
+  let m = a.match(/^--cert=(.+)$/);
   if (m) { CERT = m[1]; continue; }
-  console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE>, --apply (dry by default).");
+  m = a.match(/^--spec=(.+)$/);
+  if (m) { SPECFILE = m[1]; continue; }
+  console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE>, --spec=<file.json>, --apply (dry by default).");
   process.exit(2);
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
-const NOTE_SUFFIX = " | revised: PROMPT-107";
+let NOTE_SUFFIX = " | revised: PROMPT-107";
 
-/* ============ THE SPEC ============ */
-const SPEC = [
+/* ============ THE DEFAULT SPEC (PROMPT-107 s1), overridden by --spec ============ */
+let SPEC = [
   {
     uuid: "99524730", id8: "3973e1ff", task: "5.2",
     gate: "structure -- key was longest at 1.42x the distractor mean",
@@ -64,6 +68,15 @@ const SPEC = [
   },
 ];
 
+if (SPECFILE) {
+  const loaded = JSON.parse(readFileSync(join(HERE, "..", SPECFILE), "utf8"));
+  SPEC = loaded.items || loaded;
+  if (loaded.note_suffix) NOTE_SUFFIX = loaded.note_suffix;
+  console.log("spec: " + SPECFILE + "   " + SPEC.length + " item(s)   marker " + JSON.stringify(NOTE_SUFFIX));
+}
+/* the marker is DERIVED from the suffix, so a new round cannot mark one string and test for another */
+const MARKER = NOTE_SUFFIX.replace(/^[\s|]+/, "").trim();
+
 for (const [label, c] of [["adapter", storedItemControls()]]) {
   if (c.fails.length) { console.error("REFUSING: " + label + " controls fail"); process.exit(2); }
   console.log(label + " controls: " + c.examined + " cases, all pass");
@@ -75,11 +88,14 @@ const ctx = await buildGateContext(KEY, CERT);
 const ig = new Map((await getAll(KEY, "item_grounding?select=question_id,review_verdict,review_note&order=question_id"))
   .map((g) => [g.question_id, g]));
 
-const lenStats = (item) => {
-  const key = item.options.find((o) => o.is_correct);
-  const ds = item.options.filter((o) => !o.is_correct).map((o) => o.text.length);
-  const mean = ds.reduce((a, b) => a + b, 0) / Math.max(1, ds.length);
-  return { key: key ? key.text.length : -1, mean, ratio: key ? key.text.length / mean : -1, ds };
+/* THE CUE ARITHMETIC, from `keyLengthEscape` -- the one rule (PROMPT-109 s1). The mean-based ratio
+ * this used to print came from the deleted second implementation and would now mislead. */
+const cfg = cueConfigFor(ctx.cert.exam_blueprint);
+const cueOf = (row) => {
+  const e = keyLengthEscape(row, cfg);
+  if (!e) return "no single key / no rival -- UNJUDGED";
+  return "key " + e.keyLen + " vs rival " + e.maxRival + ", allowed +" + e.allowed +
+    "  -> " + (e.escaped ? "ESCAPES by " + (e.over - e.allowed) : "inside by " + (e.allowed - e.over));
 };
 
 const plan = [];
@@ -94,17 +110,29 @@ for (const s of SPEC) {
     overrides.options = (row.options || []).map((o) =>
       Object.prototype.hasOwnProperty.call(s.options, o.id) ? { ...o, text: s.options[o.id] } : o);
   }
-  const before = lenStats(gateItemOf(row));
-  const after = lenStats(gateItemOf({ ...row, ...overrides }));
+  /* AN AUTHORED ITEM HAS NO item_grounding ROW, so the grounded gates and the blind solver cannot
+   * run on it: there is no anchor to check a quote against and no key_support to give the solver.
+   * The CUE check needs none of that, so it still applies and is the one that matters here. Named in
+   * the output rather than skipped quietly -- a gate that could not run is not a gate that passed. */
+  const grounded = ctx.grounding.has(row.id);
+  console.log("");
+  console.log("  " + (s.id8 || s.uuid) + "   task " + s.task + "   answering: " + s.gate);
+  console.log("    " + s.why);
+  console.log("    cue BEFORE  " + cueOf(row));
+  console.log("    cue AFTER   " + cueOf({ ...row, ...overrides }));
+  if (!grounded) {
+    const escAfter = keyLengthEscape({ ...row, ...overrides }, cfg);
+    console.log("    gates        NOT APPLICABLE -- no item_grounding row (authored item): no anchor to");
+    console.log("                 re-gate and no key_support for the blind solver. Cue check only.");
+    if (escAfter && escAfter.escaped) {
+      console.log("    -> STILL ESCAPING THE CUE ALLOWANCE. Left out.");
+      continue;
+    }
+    plan.push({ s, row, overrides });
+    continue;
+  }
   const vb = ctx.gateRow(row);
   const va = ctx.gateRow(row, overrides);
-  console.log("");
-  console.log("  " + s.id8 + "   task " + s.task + "   answering: " + s.gate);
-  console.log("    " + s.why);
-  console.log("    key/mean BEFORE  " + before.key + " / " + before.mean.toFixed(1) +
-    "  ratio " + before.ratio.toFixed(2) + "   distractors " + before.ds.join(","));
-  console.log("    key/mean AFTER   " + after.key + " / " + after.mean.toFixed(1) +
-    "  ratio " + after.ratio.toFixed(2) + "   distractors " + after.ds.join(","));
   console.log("    gates BEFORE  passed=" + vb.passed + (vb.failed.length ? " FAILED[" + vb.failed.join(",") + "]" : ""));
   console.log("    gates AFTER   passed=" + va.passed + (va.failed.length ? " FAILED[" + va.failed.join(",") + "]" : ""));
   if (!va.passed) {
@@ -130,7 +158,7 @@ for (const p of plan) {
   /* the verdict STAYS `accept`; only the note gains the marker */
   const g = ig.get(p.row.id) || {};
   const note = String(g.review_note || "");
-  if (!note.includes("revised: PROMPT-107")) {
+  if (!note.includes(MARKER)) {
     const r2 = await fetch(REST_URL + "/item_grounding?question_id=eq." + p.row.id, { method: "PATCH", headers: H,
       body: JSON.stringify({ review_note: note + NOTE_SUFFIX }) });
     if (!r2.ok) console.error("  NOTE PATCH FAILED " + p.s.id8 + "  " + (await r2.text()).slice(0, 160));
@@ -147,15 +175,21 @@ console.log("  wrote " + wrote + " of " + plan.length);
 let bad = 0;
 for (const p of plan) {
   const row = ctx2.rows.find((r) => r.id === p.row.id);
-  const v = ctx2.gateRow(row);
   const g = ig2.get(p.row.id) || {};
-  const st = lenStats(gateItemOf(row));
-  const ok = v.passed && g.review_verdict === "accept" && String(g.review_note || "").includes("revised: PROMPT-107");
+  const esc = keyLengthEscape(row, cfg);
+  const isGrounded = ctx2.grounding.has(p.row.id);
+  /* An authored row has no verdict and no marker to carry: the condition for it is the cue only.
+   * Asserting `verdict === "accept"` on it would fail a row that was never meant to have one. */
+  const v = isGrounded ? ctx2.gateRow(row) : null;
+  const ok = isGrounded
+    ? (v.passed && g.review_verdict === "accept" && String(g.review_note || "").includes(MARKER))
+    : !!esc && !esc.escaped;
   if (!ok) bad++;
-  console.log("    " + p.s.id8 + "  gates passed=" + v.passed +
-    (v.failed.length ? " FAILED[" + v.failed.join(",") + "]" : "") +
-    "  ratio " + st.ratio.toFixed(2) + "  verdict=" + g.review_verdict +
-    "  note has marker=" + String(g.review_note || "").includes("revised: PROMPT-107"));
+  console.log("    " + p.s.id8 + "  " + (isGrounded
+    ? "gates passed=" + v.passed + (v.failed.length ? " FAILED[" + v.failed.join(",") + "]" : "") +
+      "  verdict=" + g.review_verdict + "  note has marker=" + String(g.review_note || "").includes(MARKER)
+    : "gates n/a (authored, ungrounded)") +
+    "  cue " + (esc && esc.escaped ? "ESCAPES" : "inside"));
 }
 /* the NEGATIVE half: no other row's text moved */
 const planIds = new Set(plan.map((p) => p.row.id));

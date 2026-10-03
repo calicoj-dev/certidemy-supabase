@@ -45,7 +45,8 @@
  * this script never writes.
  */
 import { createClient } from "@supabase/supabase-js";
-import { cueConfigFor } from "./lib/item-cue-guard.mjs";
+import { cueConfigFor, keyLengthEscape } from "./lib/item-cue-guard.mjs";
+import { loadTaskFloors, floorFor, taskFloorControls } from "./lib/task-floors.mjs";
 import { RETIRED_HARD, RETIRED_SOFT } from "./lib/item-translation.mjs";
 import { buildIndex, analyseText, newSink, sourcesAvailable, loadExemptions } from "./lib/citation-index.mjs";
 import { itemHash8 } from "./lib/item-hash.mjs";
@@ -389,19 +390,34 @@ async function verify(cert) {
   // Only IN-SCOPE tasks carry a floor. A task the JTA excludes from the exam
   // (is_exam_scope = false) is REQUIRED to hold no items - failing it for an empty
   // pool would punish the correct state.
+  // THE SECURE FLOOR IS PER TASK AND IS RULED, NOT HARD-CODED (PROMPT-109 s4).
+  // This read 8 for every task and so reported AIMS-F 5.5 "below floor" at 6 -- when 6 IS 5.5's
+  // floor, lowered in PROMPT-104 with the measurement behind it. A checker blind to the ruling
+  // reports a conforming bank as failing. `lib/task-floors.mjs` is the one reader.
   const inScopeTasks = (tasks ?? []).filter((t) => t.is_exam_scope);
-  for (const [pool, floor] of [["secure", 8], ["practice", 10]]) {
+  const floors = loadTaskFloors(cert.code);
+  if (floors.errors.length) {
+    R.fail("floors.config", "§8", "Task floors file is well-formed",
+      `${floors.errors.length} problem(s) in ${floors.source}`, floors.errors.slice(0, 6));
+  }
+  for (const [pool, poolFloor] of [["secure", null], ["practice", 10]]) {
     const short = [];
+    const used = new Set();
     for (const t of inScopeTasks) {
+      const f = poolFloor == null ? floorFor(t.code, floors) : { floor: poolFloor, why: "practice floor" };
+      used.add(f.floor);
       for (const lang of LANGS) {
         const n = questions.filter((q) => q.pool === pool && q.language === lang && q.task_id === t.id).length;
-        if (n < floor) short.push(`${t.code}/${lang}=${n}`);
+        if (n < f.floor) short.push(`${t.code}/${lang}=${n} (floor ${f.floor}, ${f.why})`);
       }
     }
     const total = questions.filter((q) => q.pool === pool).length;
+    const label = poolFloor == null
+      ? `${pool} floor per task (${floors.source}, default ${floors.defaultFloor}, ${floors.overrides.size} override(s))`
+      : `${pool} floor >= ${poolFloor}/task/lang`;
     short.length === 0
-      ? R.pass(`floors.${pool}`, "§8", `${pool} floor >= ${floor}/task/lang`, `${total} items, all ${inScopeTasks.length} in-scope tasks x3 langs at floor`)
-      : R.fail(`floors.${pool}`, "§8", `${pool} floor >= ${floor}/task/lang`, `${short.length} below floor`, short.slice(0, 12));
+      ? R.pass(`floors.${pool}`, "§8", label, `${total} items, all ${inScopeTasks.length} in-scope tasks x3 langs at floor; floors used {${[...used].sort((a, b) => a - b).join(",")}}`)
+      : R.fail(`floors.${pool}`, "§8", label, `${short.length} below floor`, short.slice(0, 12));
   }
 
   // ==========================================================================
@@ -673,15 +689,15 @@ async function verify(cert) {
     // has to read the same declaration the generator did or the two silently diverge.
     const cueCfg = cueConfigFor(cert.exam_blueprint);
     const KEY_LEN_MARGIN = cueCfg.KEY_LEN_MARGIN, KEY_LEN_PCT = cueCfg.KEY_LEN_PCT;
+    /* ONE IMPLEMENTATION (PROMPT-109 s1): `keyLengthEscape` is the rule, and the generator's gate
+     * calls the same function through `auditItem`. This used to restate the arithmetic here, which
+     * is how a third form in grounded-gates went unnoticed until it disagreed on 13 live items. */
     let escapes = 0, marginPctSum = 0;
     for (const q of en) {
-      const keyId = Array.isArray(q.correct_answer) ? q.correct_answer[0] : q.correct_answer;
-      const keyLen = (q.options.find((o) => o.id === keyId)?.text || "").length;
-      const maxRival = Math.max(0, ...q.options.filter((o) => o.id !== keyId).map((o) => (o.text || "").length));
-      if (keyLen <= maxRival || !maxRival) continue;
-      const allowed = Math.max(KEY_LEN_MARGIN, Math.round((KEY_LEN_PCT / 100) * maxRival));
-      if (keyLen - maxRival > allowed) escapes++;
-      marginPctSum += (100 * (keyLen - maxRival)) / maxRival;
+      const esc = keyLengthEscape(q, cueCfg);
+      if (!esc || esc.over <= 0) continue;
+      if (esc.escaped) escapes++;
+      marginPctSum += (100 * esc.over) / esc.maxRival;
     }
     const avgMargin = longest ? Math.round((10 * marginSum) / longest) / 10 : 0;
     const avgMarginPct = longest ? Math.round((10 * marginPctSum) / longest) / 10 : 0;

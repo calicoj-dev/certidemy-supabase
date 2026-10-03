@@ -254,8 +254,9 @@ Migration 243: `email_queue`, `email_suppressions`, `claim_email_sends`, `comple
 - `gateNearDuplicate` compares STEMS; same answer with a different stem is invisible to it.
 - Reproduction in served fields: stem and options at most a 9-word run shared with any source;
   explanation 9 unquoted plus ONE attributed quotation; `key_support` exempt. The reason is QUALITY.
-- Cue flags: a length cue outside 60–160% of the median distractor. Odd-one-out by category is NOT a
-  code gate — a lexical version fired 23/192 and missed its own case.
+- **ONE length-cue rule: `keyLengthEscape`/`cueConfigFor`** — key vs the LONGEST rival, allowance
+  `max(KEY_LEN_MARGIN, KEY_LEN_PCT%)`. Never restate it. Odd-one-out by category is NOT a code gate —
+  a lexical version fired 23/192 and missed its own case.
 - One implementation: runs come from `lib/leak-score.mjs`; the quotation allowance is a MODE, not a copy.
   The index is wider than the task map, deliberately.
 - A word list carries a SUBJECT; an unrecognised certification gets **no** rules, not all of them.

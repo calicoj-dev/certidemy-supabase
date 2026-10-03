@@ -1,0 +1,24 @@
+{
+  "_what": "PROMPT-109 s3: the 3 KEPT AUTHORED items whose key escaped by 47-76 characters. Keys shortened only. These groups are retired immediately after this revision and stay retired until the director reads the before/after.",
+  "note_suffix": " | revised: PROMPT-109",
+  "items": [
+    {
+      "uuid": "87c740c9", "id8": "87c740c9", "task": "4.1",
+      "gate": "cue guard -- key 198 vs rival 111, allowed +11 (over by 76)",
+      "why": "Same two claims in fewer words: Annex B is normative but phrased with 'should', and 6.1.3 e) asks the organization to CONSIDER its guidance rather than implement all of it. The clause reference is kept.",
+      "options": { "d": "Annex B is normative but written in 'should': 6.1.3 e) has the organization consider its guidance, not implement it all." }
+    },
+    {
+      "uuid": "88ef5543", "id8": "88ef5543", "task": "3.1",
+      "gate": "cue guard -- key 174 vs rival 113, allowed +11 (over by 50)",
+      "why": "'all persons doing work under the organization's control that affects AI performance' becomes 'anyone under the organization's control whose work affects AI performance'; 'managerial decision-making is such work' becomes 'managers included'. Both claims stand.",
+      "options": { "a": "Incorrect: competence covers anyone under the organization's control whose work affects AI performance, managers included." }
+    },
+    {
+      "uuid": "f75f5026", "id8": "f75f5026", "task": "3.1",
+      "gate": "cue guard -- key 178 vs rival 119, allowed +12 (over by 47)",
+      "why": "'competence must be determined for persons' becomes 'competence covers persons'; the procurement half keeps its reason (procurement decides which systems are adopted).",
+      "options": { "d": "She is incorrect: competence covers persons whose work affects AI performance, and procurement decides which systems are adopted." }
+    }
+  ]
+}

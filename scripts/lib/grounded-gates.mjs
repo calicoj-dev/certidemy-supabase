@@ -17,7 +17,7 @@
  * looked at, and a gate that examined nothing reports VACUOUS rather than pass -- a pass
  * over an empty input claims something was checked and held. Three states, never two.
  */
-import { auditItem, keyIsStrictLongest, CUE_CFG } from "../../functions/_shared/item-rules/item-cue-guard.mjs";
+import { auditItem, CUE_CFG } from "../../functions/_shared/item-rules/item-cue-guard.mjs";
 import { supersededIn } from "./superseded-wording.mjs";
 import { clauseNumberRecall } from "./clause-number-recall.mjs";
 /* PROMPT-96 s2. ONE implementation of the assigned-anchor gate, shared with the assignment itself. */
@@ -556,19 +556,21 @@ export function gateStructure(item, cfg = CUE_CFG) {
    * about a correct item -- and the second is how a guard gets deleted. */
   const notes = [];
 
-  /* the existing cue guard, unchanged */
+  /* ============ THE CUE GUARD, AND THE READ THAT THREW ITS ANSWER AWAY ============
+   *
+   * `auditItem` returns `{ok: false, reason}`. This read `audit.fail` and `audit.reasons` -- NEITHER
+   * OF WHICH IT HAS EVER RETURNED -- so every cue verdict it produced was discarded by the gate that
+   * asked for it. Measured PROMPT-109: auditItem flags 13 of the 13 escapes verify-cert found, and
+   * gateStructure had reported all 13 clean.
+   *
+   * A second, mean-based length arm used to sit below this. It was added in PROMPT-102 BECAUSE the
+   * cue guard looked silent, and it disagreed with the scheme: it compared the key to the MEAN of the
+   * distractors at 1.25x, where `cueConfigFor` declares the key against the MAX RIVAL plus
+   * max(KEY_LEN_MARGIN, KEY_LEN_PCT%). It is deleted, not left beside this one: ruled PROMPT-109 s1,
+   * there is ONE cue rule and it is `cueConfigFor`. */
   const audit = auditItem(item, cfg);
-  if (audit && audit.fail) problems.push("cue guard: " + (audit.reasons || [audit.reason]).join(", "));
-  else if (audit && Array.isArray(audit.reasons) && audit.reasons.length) {
-    problems.push("cue guard: " + audit.reasons.join(", "));
-  }
-
-  /* key as the only long option: strictly longest AND well clear of the field */
-  if (ki >= 0 && keyIsStrictLongest(item)) {
-    const mean = distractors.reduce((a, t) => a + t.length, 0) / Math.max(1, distractors.length);
-    if (mean > 0 && opts[ki].length > mean * 1.25) {
-      problems.push("the key is the longest option and exceeds the mean distractor length by more than a quarter");
-    }
+  if (audit && audit.ok === false) {
+    problems.push("cue guard: " + (Array.isArray(audit.reasons) ? audit.reasons.join(", ") : audit.reason));
   }
 
   /* ODD-ONE-OUT, NEGATION FORM -- AND A SCOPE MARKER IS NOT A VERDICT NEGATION.
@@ -1711,6 +1713,51 @@ export function groundedGateControls() {
       return runCodeGates(good, { passagesByKey: byKey, primaryClauses: [P42("9.2.2")],
         supportingClauses: [P42("B.9.2")], sources: [], leak: null }).failed.includes("quote-noise");
     }, false],
+
+    /* ============ THE CUE ALLOWANCE, ONE CHARACTER EITHER SIDE (PROMPT-109 s1) ============
+     *
+     * The allowance is `max(KEY_LEN_MARGIN, round(KEY_LEN_PCT% of the longest rival))` from
+     * `cueConfigFor`. These two cases are built FROM that arithmetic rather than from a fixed string
+     * length, so a scheme that declares a different tolerance moves the fixture with it.
+     *
+     * They exist because the gate read `audit.fail`, a key auditItem never returns, and reported 13
+     * real cues as clean. A control that only ever ran on a clean item could not see that. */
+    ...(() => {
+      const RIVAL = 100;
+      const allowed = Math.max(CUE_CFG.KEY_LEN_MARGIN, Math.round((CUE_CFG.KEY_LEN_PCT / 100) * RIVAL));
+      /* DISTINCT first words and no repeated adjacent word: the first version padded all four options
+       * with one repeated character, which tripped the repeated-opening-word arm instead and made the
+       * "under the allowance" case fail for a reason that had nothing to do with length. */
+      const FILL = ["frequency", "methods", "planning", "reporting", "records", "evidence",
+        "criteria", "scope", "findings", "auditors", "intervals", "programme"];
+      const textOf = (first, len) => {
+        let s = first, i = 0;
+        while (s.length < len) { s += " " + FILL[i % FILL.length]; i++; }
+        return s.slice(0, len);
+      };
+      /* three rivals at exactly RIVAL, so maxOther is RIVAL and the spread arm cannot fire first */
+      const itemWithKey = (keyLen) => I42({
+        question_text: "Which requirement does clause 9.2.2 state for the audit programme?",
+        options: [{ id: "a", text: textOf("Maintaining", keyLen), is_correct: true },
+          { id: "b", text: textOf("Recording", RIVAL) },
+          { id: "c", text: textOf("Scheduling", RIVAL) },
+          { id: "d", text: textOf("Reviewing", RIVAL) }],
+        correct_answer: ["a"],
+        explanation: "Clause 9.2.2 requires the organization to maintain an audit programme.",
+        key_support: passage.text, key_support_clause: "9.2.2",
+      });
+      const cueFailed = (keyLen) => runCodeGates(itemWithKey(keyLen), { passagesByKey: byKey,
+        primaryClauses: [P42("9.2.2")], supportingClauses: [P42("B.9.2")], sources: [], leak: null })
+        .failed.includes("structure");
+      return [
+        ["cue: key ONE CHAR OVER the cueConfigFor allowance FAILS, through runCodeGates",
+          () => cueFailed(RIVAL + allowed + 1), true],
+        ["cue: key ONE CHAR UNDER the allowance passes, through runCodeGates",
+          () => cueFailed(RIVAL + allowed - 1), false],
+        ["cue: key EXACTLY AT the allowance passes (the bar is `>`, not `>=`)",
+          () => cueFailed(RIVAL + allowed), false],
+      ];
+    })(),
   ];
 
   const fails = [];

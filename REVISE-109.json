@@ -1,0 +1,84 @@
+{
+  "_what": "PROMPT-109 s2: the 13 grounded items whose key escaped the cueConfigFor allowance. Each change SHORTENS THE KEY ONLY, keeping what the option asserts. Distractors are untouched, because a distractor may be quoted from a passage and lengthening one risks its own support gate.",
+  "note_suffix": " | revised: PROMPT-109",
+  "items": [
+    {
+      "uuid": "ce86479f", "id8": "ce86479f", "task": "2.2",
+      "gate": "cue guard -- key 180 vs rival 159, allowed +16",
+      "why": "Drops the redundant 'already' before 'identified'. The issues and requirements are the ones determined under 4.1/4.2; the word added nothing.",
+      "options": { "c": "Fix the boundary and its applicability using the internal and external issues and the relevant party requirements identified, and hold the result as documented information." }
+    },
+    {
+      "uuid": "d6fc4d00", "id8": "d6fc4d00", "task": "2.7",
+      "gate": "cue guard -- key 137 vs rival 117, allowed +12",
+      "why": "'arising from the system across its life cycle' becomes 'across the system's life cycle'. Same scope: consequences for people and societies, across the life cycle.",
+      "options": { "d": "Broaden the procedure so that potential consequences for people and societies across the system's life cycle are assessed." }
+    },
+    {
+      "uuid": "1ea0ea64", "id8": "1ea0ea64", "task": "3.2",
+      "gate": "cue guard -- key 161 vs rival 144, allowed +14",
+      "why": "'the effect of departing from its rules' becomes 'the effect of not conforming', which is closer to clause 7.3's own wording and shorter.",
+      "options": { "a": "People working under the organization's direction are to be aware of the AI policy, how they help the system succeed, and the effect of not conforming." }
+    },
+    {
+      "uuid": "c38d0298", "id8": "c38d0298", "task": "2.2",
+      "gate": "cue guard -- key 138 vs rival 121, allowed +12",
+      "why": "'a process that checks' becomes 'a process checking' and 'the retailer's own approach' becomes 'the retailer's approach'. Needed a second draft: the first trim left it 2 chars over. The process requirement and both of 'development and use' stay.",
+      "options": { "a": "Run a process checking vendor-provided services and products against the retailer's approach to responsible AI development and use." }
+    },
+    {
+      "uuid": "bb2fcc40", "id8": "bb2fcc40", "task": "4.7",
+      "gate": "cue guard -- key 161 vs rival 145, allowed +15",
+      "why": "'in addition to' becomes 'beyond'. The claim is still additive, not substitutive.",
+      "options": { "b": "Security questions arising specifically from machine learning approaches merit consideration beyond conventional information and system security matters." }
+    },
+    {
+      "uuid": "00c565c9", "id8": "00c565c9", "task": "3.8",
+      "gate": "cue guard -- key 123 vs rival 108, allowed +11",
+      "why": "Drops 'now'. The stem already asks what is indicated; the obligation and the record both stay.",
+      "options": { "d": "Carry out an impact assessment under the organization's defined process, and keep its result as documented information." }
+    },
+    {
+      "uuid": "6cbb6cdf", "id8": "6cbb6cdf", "task": "5.5",
+      "gate": "cue guard -- key 131 vs rival 116, allowed +12",
+      "why": "'dealing with' becomes 'covering'. The three attributes and the 17021-1 relationship stay.",
+      "options": { "d": "It builds on ISO/IEC 17021-1, covering how bodies auditing and certifying an AIMS show competence, consistency and reliability." }
+    },
+    {
+      "uuid": "139c011a", "id8": "139c011a", "task": "3.1",
+      "gate": "cue guard -- key 108 vs rival 94, allowed +9",
+      "why": "'together with their competences' becomes 'with their competences'.",
+      "options": { "b": "The people used across build, run, change, maintenance and retirement work, with their competences." }
+    },
+    {
+      "uuid": "3ca45f4c", "id8": "3ca45f4c", "task": "3.1",
+      "gate": "cue guard -- key 94 vs rival 80, allowed +8",
+      "why": "'judge whether it worked' becomes 'judge the effect'. Still the evaluation step, not its outcome.",
+      "options": { "b": "Arrange training, mentoring or hiring for the missing expertise, then judge the effect." }
+    },
+    {
+      "uuid": "46a860d2", "id8": "46a860d2", "task": "3.1",
+      "gate": "cue guard -- key 116 vs rival 102, allowed +10",
+      "why": "'the mix of dedicated specialists' becomes 'the dedicated specialists'; 'combined skills' already carries the mix.",
+      "options": { "b": "It lacks the dedicated specialists whose combined skills cover evaluating, building and releasing AI systems." }
+    },
+    {
+      "uuid": "c55b92ae", "id8": "c55b92ae", "task": "3.5",
+      "gate": "cue guard -- key 116 vs rival 103, allowed +10",
+      "why": "'apportioned' becomes 'shared'. Same apportionment across the same five party types.",
+      "options": { "a": "Life cycle duties are shared among the manufacturer, its partners, vendors, customers and other outside parties" }
+    },
+    {
+      "uuid": "d7e85bb2", "id8": "d7e85bb2", "task": "3.7",
+      "gate": "cue guard -- key 119 vs rival 107, allowed +11",
+      "why": "'Controls that partly relate to' becomes 'Controls partly relating to'.",
+      "options": { "c": "Controls partly relating to information security can be implemented through the existing ISO/IEC 27001 arrangements." }
+    },
+    {
+      "uuid": "9f905f3e", "id8": "9f905f3e", "task": "1.5",
+      "gate": "cue guard -- key 111 vs rival 100, allowed +10",
+      "why": "'requirements that apply to it' becomes 'applicable requirements'.",
+      "options": { "d": "Support it in developing, providing or using AI systems responsibly while meeting applicable requirements" }
+    }
+  ]
+}

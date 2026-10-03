@@ -44,6 +44,7 @@ export {
   shuffleOptions,
   remapGroupOrder,
   keyIsStrictLongest,
+  keyLengthEscape,
 } from "../../functions/_shared/item-rules/item-cue-guard.mjs";
 
 function int(v, d) {

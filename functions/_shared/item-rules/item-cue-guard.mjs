@@ -218,6 +218,33 @@ export function cueConfigFor(examBlueprint) {
   return base;
 }
 
+/**
+ * THE ONE KEY-LENGTH CUE RULE (ruled PROMPT-109 s1). `auditItem` and `verify-cert` 8.1 both call this;
+ * neither restates the arithmetic. A third form -- the key against the MEAN of the distractors at
+ * 1.25x -- lived in `grounded-gates` from PROMPT-102 until it disagreed with this one on 13 live items.
+ *
+ * The allowance is max(KEY_LEN_MARGIN, KEY_LEN_PCT% of the LONGEST RIVAL), and the bar is `>`: a key
+ * exactly at the allowance is inside it.
+ *
+ * @returns null when the question cannot be judged (no single key, fewer than 3 options, no rival),
+ *          otherwise {escaped, keyLen, maxRival, allowed, over}.
+ */
+export function keyLengthEscape(q, cfg = CUE_CFG) {
+  if (!q || !Array.isArray(q.options) || q.options.length < 3) return null;
+  const ca = Array.isArray(q.correct_answer) ? q.correct_answer : (q.correct_answer == null ? [] : [q.correct_answer]);
+  if (ca.length !== 1) return null;
+  const correctId = ca[0];
+  const texts = q.options.map((o) => ({ id: o && o.id, text: String((o && o.text) || "").trim() }));
+  const key = texts.find((o) => o.id === correctId);
+  if (!key) return null;
+  const rivals = texts.filter((o) => o.id !== correctId).map((o) => o.text.length);
+  const maxRival = Math.max(0, ...rivals);
+  if (!maxRival) return null;
+  const allowed = Math.max(cfg.KEY_LEN_MARGIN, Math.round((cfg.KEY_LEN_PCT / 100) * maxRival));
+  const over = key.text.length - maxRival;
+  return { escaped: over > allowed, keyLen: key.text.length, maxRival, allowed, over };
+}
+
 export function auditItem(q, cfg = CUE_CFG) {
   if (!q || !Array.isArray(q.options) || q.options.length < 3) return { ok: true };
   if (!Array.isArray(q.correct_answer) || q.correct_answer.length !== 1) return { ok: true };
@@ -234,13 +261,9 @@ export function auditItem(q, cfg = CUE_CFG) {
     return { ok: false, reason: `length spread ${max - min} > ${cfg.LEN_SPREAD_MAX} (min ${min}, max ${max})` };
   }
 
-  const others = [...byId.entries()]
-    .filter(([id]) => id !== correctId)
-    .map(([, t]) => t.length);
-  const maxOther = Math.max(...others);
-  const allowed = Math.max(cfg.KEY_LEN_MARGIN, Math.round((cfg.KEY_LEN_PCT / 100) * maxOther));
-  if (correct.length - maxOther > allowed) {
-    return { ok: false, reason: `key dominates on length (key ${correct.length} vs rival ${maxOther}, allowed +${allowed})` };
+  const esc = keyLengthEscape(q, cfg);
+  if (esc && esc.escaped) {
+    return { ok: false, reason: `key dominates on length (key ${esc.keyLen} vs rival ${esc.maxRival}, allowed +${esc.allowed})` };
   }
 
   // Absolute-word tell: every distractor uses an absolute, the key does not.

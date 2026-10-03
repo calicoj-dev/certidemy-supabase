@@ -3,7 +3,7 @@
   "ruled_in": "PROMPT-107 s3",
   "retired_at": "2026-10-03T20:24:47.948Z",
   "rollback": "node --dns-result-order=ipv4first scripts/rollback-cutover.mjs --apply",
-  "count": 351,
+  "count": 365,
   "ids": [
     {
       "id": "077629d1-b3cc-4f7e-89f2-acf94ac4b2df",
@@ -1759,6 +1759,110 @@
       "id": "ff893e04-023a-4b32-ac3f-fce33ff71a37",
       "language": "pt-BR",
       "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "312a44c2-5b6e-45d7-89ae-0c752cde7ba8",
+      "language": "es-419",
+      "why": "PROMPT-109 s2: blind solver SPLIT after one revision attempt (run 1 rejected, run 2 accepted); a split is not a pass",
+      "group": "46a860d2"
+    },
+    {
+      "id": "46a860d2-1ce5-4663-8ad2-cf17f90b2cc2",
+      "language": "en",
+      "why": "PROMPT-109 s2: blind solver SPLIT after one revision attempt (run 1 rejected, run 2 accepted); a split is not a pass",
+      "group": "46a860d2"
+    },
+    {
+      "id": "b4b2aded-50f9-4009-b632-ea81b5f675b0",
+      "language": "pt-BR",
+      "why": "PROMPT-109 s2: blind solver SPLIT after one revision attempt (run 1 rejected, run 2 accepted); a split is not a pass",
+      "group": "46a860d2"
+    },
+    {
+      "id": "4552918e-152a-44b9-b28c-d43e97961e4a",
+      "language": "es-419",
+      "why": "PROMPT-109 s3: authored items whose key escaped by 47-76 chars; revised, and held retired until the director reads the before/after",
+      "group": "87c740c9"
+    },
+    {
+      "id": "87c740c9-68b0-4e0e-ab17-236a81425e34",
+      "language": "en",
+      "why": "PROMPT-109 s3: authored items whose key escaped by 47-76 chars; revised, and held retired until the director reads the before/after",
+      "group": "87c740c9"
+    },
+    {
+      "id": "925d5acf-8bb4-4c05-8e19-7766af434c0f",
+      "language": "pt-BR",
+      "why": "PROMPT-109 s3: authored items whose key escaped by 47-76 chars; revised, and held retired until the director reads the before/after",
+      "group": "87c740c9"
+    },
+    {
+      "id": "88ef5543-1260-4898-8aab-2ef1926cce4f",
+      "language": "en",
+      "why": "PROMPT-109 s3: authored items whose key escaped by 47-76 chars; revised, and held retired until the director reads the before/after",
+      "group": "88ef5543"
+    },
+    {
+      "id": "915445c4-5781-4d6c-b5ed-b270bc23f167",
+      "language": "es-419",
+      "why": "PROMPT-109 s3: authored items whose key escaped by 47-76 chars; revised, and held retired until the director reads the before/after",
+      "group": "88ef5543"
+    },
+    {
+      "id": "c6b0c966-9306-4cc6-9b78-4d57c2124d78",
+      "language": "pt-BR",
+      "why": "PROMPT-109 s3: authored items whose key escaped by 47-76 chars; revised, and held retired until the director reads the before/after",
+      "group": "88ef5543"
+    },
+    {
+      "id": "399993b5-3703-4cc1-b7c6-1a35ec8c7490",
+      "language": "pt-BR",
+      "why": "PROMPT-109 s3: authored items whose key escaped by 47-76 chars; revised, and held retired until the director reads the before/after",
+      "group": "f75f5026"
+    },
+    {
+      "id": "6a5bcc75-35a6-409d-bae0-a5dbc19cec28",
+      "language": "es-419",
+      "why": "PROMPT-109 s3: authored items whose key escaped by 47-76 chars; revised, and held retired until the director reads the before/after",
+      "group": "f75f5026"
+    },
+    {
+      "id": "f75f5026-0c78-49d0-91f7-940f54c27981",
+      "language": "en",
+      "why": "PROMPT-109 s3: authored items whose key escaped by 47-76 chars; revised, and held retired until the director reads the before/after",
+      "group": "f75f5026"
+    },
+    {
+      "id": "cdde7e6b-2349-448c-b3db-eb962875acfe",
+      "language": "en",
+      "why": "PROMPT-109 s5: director-rejected items, never retired; the rejected verdict stays as the record",
+      "group": "cdde7e6b"
+    },
+    {
+      "id": "f92232b5-f273-4841-a79c-5880fcaf96a4",
+      "language": "en",
+      "why": "PROMPT-109 s5: director-rejected items, never retired; the rejected verdict stays as the record",
+      "group": "f92232b5"
+    }
+  ],
+  "appended": [
+    {
+      "at": "2026-10-03T20:56:50.536Z",
+      "reason": "PROMPT-109 s2: blind solver SPLIT after one revision attempt (run 1 rejected, run 2 accepted); a split is not a pass",
+      "ruled_in": "PROMPT-109",
+      "count": 3
+    },
+    {
+      "at": "2026-10-03T20:59:48.046Z",
+      "reason": "PROMPT-109 s3: authored items whose key escaped by 47-76 chars; revised, and held retired until the director reads the before/after",
+      "ruled_in": "PROMPT-109",
+      "count": 9
+    },
+    {
+      "at": "2026-10-03T21:02:28.700Z",
+      "reason": "PROMPT-109 s5: director-rejected items, never retired; the rejected verdict stays as the record",
+      "ruled_in": "PROMPT-109",
+      "count": 2
     }
   ]
 }

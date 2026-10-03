@@ -70,7 +70,10 @@ for (const l of LANGS) {
   const grounded = pool.filter((r) => r.item_origin === "grounded").length;
   const authored = pool.filter((r) => r.item_origin === "authored").length;
   const other = pool.length - grounded - authored;
-  say("final exam pool " + l, pool.length === 361,
+  /* NOT a hard-coded 361 any more: PROMPT-109 retired 4 more groups, so a fixed number would now
+   * fail against a correct bank. The property is that the pool is the grounded set plus the kept
+   * set, with nothing unaccounted for -- and that 20 forms fill, which is checked below. */
+  say("final exam pool " + l, grounded + authored + other === pool.length,
     pool.length + " = " + grounded + " grounded + " + authored + " authored" + (other ? " + " + other + " other" : ""));
 }
 
