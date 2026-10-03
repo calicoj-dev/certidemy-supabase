@@ -86,6 +86,14 @@
       "sent_back": 0,
       "note": "audit sample only: 37 of 391 measured, stopped on the $30 ceiling",
       "recorded_at": "2026-10-03T22:07:37.054Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 4,
+      "stage_name": "generation rounds",
+      "sent_back": 0,
+      "note": "R1 generated, awaiting the director's read",
+      "recorded_at": "2026-10-03T23:37:43.254Z"
     }
   ],
   "costs_usd": [
@@ -157,8 +165,29 @@
       "cert": "ISMS-F",
       "stage": 4,
       "stage_name": "generation R1",
-      "usd": 0,
-      "note": "NOT RUN. Two blockers: the generator scopes passagesByKey to ONE (standard, edition) and ISMS-F now spans five sources after PROMPT-111 s0; and draft-iso-task-sources refuses to write because its ranker failed its own 27001 5.2 exemplar."
+      "usd": 12.3256,
+      "ceiling": 25,
+      "probe": {
+        "items": 4,
+        "survivors": 4,
+        "usd": 2.3252,
+        "note": "exposed that --tasks=a,b,c is ONE item per task; counts need code:count"
+      },
+      "round": {
+        "tasks": [
+          "4.5:16",
+          "4.4:16"
+        ],
+        "attempted": 32,
+        "generated": 24,
+        "survivors": 23,
+        "usd": 10.0004,
+        "calls": 83
+      },
+      "survival_rate_of_generated": 0.958,
+      "survival_rate_of_attempted": 0.719,
+      "per_survivor": 0.536,
+      "note": "2x shortfall on the two largest gaps only: all four tasks at 2x projected ~$37, over the $25 ceiling. 24 of 32 generated -- the anchor cap of 2 per (source, edition, clause) per task bounds what a task can produce. Nothing inserted."
     }
   ],
   "not_instrumented": [
