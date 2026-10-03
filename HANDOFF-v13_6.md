@@ -228,3 +228,17 @@ By name, the things that must change:
   `check-licensed-text.mjs` exists: two documents escaped by name in two rounds, and the 285-file baseline it
   found on its first run is the real scale — the two that were noticed were the two a human happened to read in
   a diff.
+
+## PROMPT-106, open items
+
+- **`roles-in-pt` fires on 573 pre-existing APPROVED pt-BR rows (6.1%), and the count is MIXED.** Read the
+  members: the ISO sense (clause 5.3 "papéis, responsabilidades e autoridades", role categories) is a real
+  defect, but "a non-technical office role" → `função de escritório` is idiomatic and `papéis` would be worse.
+  So 573 is a candidate list, not a defect list. es-419 is 21. Untouched, awaiting a ruling.
+- **Two live APPROVED English AIMS-F rows share one stem** — content id `ce40b907`, uuids `0be22fbf` and
+  `dfe1788a`, "Which statement best describes what ISO/IEC 42001 specifies?". Ungrounded, so outside the
+  grounded set and invisible to the approval path. One duplicate pair in 830 live English rows.
+- **`item_grounding` has NO assigned-clause column**, so `anchor-assignment` is UNASSERTED for every stored
+  row — a context gap, not a row property. The assignment exists only in the generation artifact.
+- **`generate-mock-exam` filters `item_origin <> 'generated'`, which is NULL-propagating**: a row with
+  `item_origin IS NULL` is excluded from every form. Latent on AIMS-F (0 NULL rows today), not fixed.

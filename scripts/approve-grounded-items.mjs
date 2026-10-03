@@ -54,17 +54,25 @@ import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { itemIdOfStem } from "./lib/item-id.mjs";
 
-let APPLY = false, IDS = null, SELFTEST = false;
-for (const a of process.argv.slice(2)) {
-  let m;
-  if (a === "--apply") { APPLY = true; continue; }
-  if (a === "--self-test") { SELFTEST = true; continue; }
-  if ((m = /^--ids=(.+)$/.exec(a))) { IDS = m[1].split(",").map((s) => s.trim()).filter(Boolean); continue; }
-  console.error("Unrecognised flag: " + a);
-  console.error("  --ids=<id8>,...   REQUIRED to write. The items to approve, by content id.");
-  console.error("  --apply           write. Dry by default.");
-  console.error("  --self-test       run the condition controls and exit. No database write.");
-  process.exit(2);
+let APPLY = false, IDS = null, SELFTEST = false, CERT = null;
+{
+  const av = process.argv.slice(2);
+  for (let i = 0; i < av.length; i++) {
+    const a = av[i];
+    let m;
+    if (a === "--apply") { APPLY = true; continue; }
+    if (a === "--self-test") { SELFTEST = true; continue; }
+    if ((m = /^--ids=(.+)$/.exec(a))) { IDS = m[1].split(",").map((s) => s.trim()).filter(Boolean); continue; }
+    /* `--cert CODE` and `--cert=CODE`. It does NOT approve by rule: it DERIVES the candidate id list from
+     * the certification's grounded English rows and then puts every one through the same conditions. */
+    if ((m = /^--cert(?:=(.+))?$/.exec(a))) { CERT = m[1] || av[++i]; if (!CERT) { console.error("--cert needs a code"); process.exit(2); } continue; }
+    console.error("Unrecognised flag: " + a);
+    console.error("  --ids=<id8>,...   the items to approve, by content id.");
+    console.error("  --cert <CODE>     derive the candidate set from that certification's grounded rows.");
+    console.error("  --apply           write. Dry by default.");
+    console.error("  --self-test       run the condition controls and exit. No database write.");
+    process.exit(2);
+  }
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
@@ -158,9 +166,10 @@ const H = { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "applic
   }
   console.log("condition controls: " + r.cases.length + " of " + r.cases.length + " pass");
 }
-if (!IDS) {
+if (!IDS && !CERT) {
   console.error("");
-  console.error("--ids is REQUIRED. Nothing is approved by rule: name the items.");
+  console.error("--ids or --cert is REQUIRED. Nothing is approved by rule: name the items, or name the");
+  console.error("certification whose grounded rows become the candidate set.");
   console.error("Run --self-test to see the conditions exercised without a database.");
   process.exit(2);
 }
@@ -170,9 +179,12 @@ const rejectedIds = new Set();
   const p = join(ROOT, "AIMSF-DIRECTOR-REJECTIONS.json");
   if (existsSync(p)) for (const r of (JSON.parse(readFileSync(p, "utf8")).rejections || [])) rejectedIds.add(String(r.id));
 }
-const cert = (await getAll(KEY, "certifications?select=id,code&code=eq.AIMS-F"))[0];
-const qs = await getAll(KEY, "quiz_questions?select=id,question_text,task_id,status,visibility,pool," +
-  "is_exam_scope,language&certification_id=eq." + cert.id + "&language=eq.en&retired_at=is.null&order=id");
+const CERT_CODE = CERT || "AIMS-F";
+const cert = (await getAll(KEY, "certifications?select=id,code&code=eq." + CERT_CODE))[0];
+if (!cert) { console.error("No certification " + CERT_CODE); process.exit(2); }
+const qs = await getAll(KEY, "quiz_questions?select=id,question_group_id,question_text,task_id,status," +
+  "visibility,pool,is_exam_scope,language&certification_id=eq." + cert.id +
+  "&language=eq.en&retired_at=is.null&order=id");
 const ig = new Map((await getAll(KEY, "item_grounding?select=question_id,review_verdict,review_note,solver," +
   "source_id,key_support_clause,key_support&order=question_id")).map((g) => [g.question_id, g]));
 const byStem = new Map();
@@ -180,6 +192,17 @@ for (const q of qs) {
   const id = itemIdOfStem(q.question_text);
   if (!byStem.has(id)) byStem.set(id, []);
   byStem.get(id).push(q);
+}
+
+/* CANDIDATE SET in --cert mode: every grounded English row. Rejected and reserved rows are INCLUDED so
+ * they appear in the refusal list by name -- a candidate set filtered to the ones that will pass cannot
+ * report what it skipped. */
+if (!IDS) {
+  IDS = [];
+  for (const q of qs) if (ig.has(q.id)) IDS.push(itemIdOfStem(q.question_text));
+  console.log("");
+  console.log("CANDIDATE SET derived from " + CERT_CODE + ": " + IDS.length + " grounded English row(s) of " +
+    qs.length + " live English row(s).");
 }
 
 const plan = [], refused = [];
@@ -197,16 +220,71 @@ for (const id8 of IDS) {
   plan.push({ id8, q, g });
 }
 
+/* ---- CONDITION 4, now EVALUATED rather than named as skipped. `gate-context` builds the input this
+ * script could not build when it was written; re-gating against today's library is the condition most
+ * likely to refuse, so skipping it was the weakest part of the promoter. ---- */
+{
+  const { buildGateContext } = await import("./lib/gate-context.mjs");
+  const ctx = await buildGateContext(KEY, CERT_CODE);
+  let clean = 0;
+  for (const p of [...plan]) {
+    const row = ctx.rows.find((r) => r.id === p.q.id);
+    if (!row) { refused.push({ id8: p.id8, why: "gates: no live English row to re-gate" }); continue; }
+    const v = ctx.gateRow(row);
+    p.unasserted = v.unasserted;
+    if (!v.passed) refused.push({ id8: p.id8, why: "gates: FAILED [" + v.failed.join(",") + "]" });
+    else clean++;
+  }
+  for (const r of refused) { const i = plan.findIndex((p) => p.id8 === r.id8); if (i >= 0) plan.splice(i, 1); }
+  console.log("  condition 4 (code gates, today's library)   " + clean + " clean of " +
+    (clean + refused.filter((r) => /^gates:/.test(r.why)).length));
+}
+
+/* ---- THE SIBLINGS. A group is the unit: approving English alone makes the exam available in one
+ * language and leaves the other two looking unasked-about, and the per-language post-conditions have
+ * nothing to measure. Each sibling must exist and carry zero glossary pins. ---- */
+const SIB_LANGS = ["es-419", "pt-BR"];
+const sibs = await getAll(KEY, "quiz_questions?select=id,question_group_id,language,question_text,options," +
+  "explanation,correct_answer,status,visibility,pool,is_exam_scope&certification_id=eq." + cert.id +
+  "&language=neq.en&retired_at=is.null&order=id");
+{
+  const { checkPins } = await import("./lib/pin-compliance.mjs");
+  const enById = new Map(qs.map((q) => [q.id, q]));
+  for (const p of [...plan]) {
+    const en = enById.get(p.q.id);
+    const mine = sibs.filter((s) => s.question_group_id && s.question_group_id === en.question_group_id);
+    const missing = SIB_LANGS.filter((l) => !mine.some((s) => s.language === l));
+    if (missing.length) { refused.push({ id8: p.id8, why: "siblings: missing " + missing.join(",") }); continue; }
+    const pins = [];
+    for (const s of mine) {
+      const fields = [["question_text", s.question_text, en.question_text],
+        ["explanation", s.explanation, en.explanation],
+        ...(s.options || []).map((o) => ["option " + o.id, o.text,
+          ((en.options || []).find((x) => x.id === o.id) || {}).text])];
+      for (const [what, text, enText] of fields) {
+        for (const h of checkPins(text, s.language, enText) || []) pins.push(s.language + " " + what + " " + h.id);
+      }
+    }
+    if (pins.length) { refused.push({ id8: p.id8, why: "siblings: glossary pins " + pins.slice(0, 3).join("; ") }); continue; }
+    p.sibs = mine;
+  }
+  for (const r of refused) { const i = plan.findIndex((p) => p.id8 === r.id8); if (i >= 0) plan.splice(i, 1); }
+}
+
 console.log("");
-console.log("APPROVE " + IDS.length + " NAMED ITEM(S)");
-console.log("  would approve   " + plan.length);
+console.log("APPROVE " + IDS.length + " CANDIDATE ITEM(S)   " + CERT_CODE);
+console.log("  would approve   " + plan.length + " group(s) = " + plan.length * 3 + " row(s) across 3 language(s)");
 console.log("  refused         " + refused.length);
 for (const r of refused) console.log("    " + r.id8 + "  " + r.why);
-console.log("");
-console.log("  CONDITION 4 (the code gates, re-run against the library as it is today) is NOT evaluated in");
-console.log("  this dry run: it needs the full gate input the generator builds. The live path runs it through");
-console.log("  gen-grounded-items --from --reuse-solver BEFORE this script is called, and this script asserts");
-console.log("  the artifact it produced is newer than the library. Named rather than silently skipped.");
+{
+  const un = plan.filter((p) => (p.unasserted || []).length);
+  console.log("");
+  console.log("  gates UNASSERTED on " + un.length + " of " + plan.length +
+    " (a gate that could not answer is not a pass; reported, not counted as clean)");
+  const tally = {};
+  for (const p of un) for (const g of p.unasserted) tally[g] = (tally[g] || 0) + 1;
+  if (un.length) console.log("    " + JSON.stringify(tally));
+}
 if (refused.length) {
   console.error("");
   console.error("REFUSING THE WHOLE BATCH: " + refused.length + " named item(s) failed a condition. A partial");
@@ -219,31 +297,39 @@ if (!APPLY) {
   process.exit(0);
 }
 
-const before = new Map(qs.map((q) => [q.id, q.status]));
+const before = new Map([...qs, ...sibs].map((q) => [q.id, q.status]));
+const targets = [];
+for (const p of plan) { targets.push(p.q); for (const s of p.sibs) targets.push(s); }
 let wrote = 0;
-for (const p of plan) {
-  const r = await fetch(REST_URL + "/quiz_questions?id=eq." + p.q.id, {
+for (const t of targets) {
+  const r = await fetch(REST_URL + "/quiz_questions?id=eq." + t.id, {
     method: "PATCH", headers: H,
     body: JSON.stringify({ status: "approved", visibility: "secure", pool: "secure", is_exam_scope: true }),
   });
-  if (!r.ok) { console.error("  FAILED " + p.id8 + " HTTP " + r.status + " " + (await r.text()).slice(0, 120)); continue; }
+  if (!r.ok) { console.error("  FAILED " + t.id.slice(0, 8) + " HTTP " + r.status + " " + (await r.text()).slice(0, 120)); continue; }
   wrote++;
 }
-const after = await getAll(KEY, "quiz_questions?select=id,status,visibility,pool,is_exam_scope" +
-  "&certification_id=eq." + cert.id + "&language=eq.en&retired_at=is.null&order=id");
+const after = await getAll(KEY, "quiz_questions?select=id,language,status,visibility,pool,is_exam_scope" +
+  "&certification_id=eq." + cert.id + "&retired_at=is.null&order=id");
 const aBy = new Map(after.map((q) => [q.id, q]));
 let bad = 0, strays = 0;
-for (const p of plan) {
-  const q = aBy.get(p.q.id);
+for (const t of targets) {
+  const q = aBy.get(t.id);
   if (!q || q.status !== "approved" || q.visibility !== "secure" || q.pool !== "secure" || q.is_exam_scope !== true) {
-    console.error("POST: " + p.id8 + " " + JSON.stringify(q)); bad++;
+    console.error("POST: " + t.id.slice(0, 8) + " " + JSON.stringify(q)); bad++;
   }
 }
-const planIds = new Set(plan.map((p) => p.q.id));
+const targetIds = new Set(targets.map((t) => t.id));
 for (const q of after) {
-  if (planIds.has(q.id)) continue;
-  if (before.get(q.id) !== q.status) { console.error("STRAY: " + q.id.slice(0, 8) + " status moved"); strays++; }
+  if (targetIds.has(q.id)) continue;
+  if (before.has(q.id) && before.get(q.id) !== q.status) {
+    console.error("STRAY: " + q.id.slice(0, 8) + " " + q.language + " status moved"); strays++;
+  }
 }
 console.log("");
-console.log("  wrote " + wrote + " of " + plan.length + ", post-condition failures " + bad + ", strays " + strays);
-if (bad || strays || wrote !== plan.length) process.exitCode = 2;
+console.log("  wrote " + wrote + " of " + targets.length + ", post-condition failures " + bad + ", strays " + strays);
+for (const l of ["en", ...SIB_LANGS]) {
+  const n = after.filter((q) => q.language === l && q.status === "approved").length;
+  console.log("    approved now, " + l.padEnd(7) + " " + n);
+}
+if (bad || strays || wrote !== targets.length) process.exitCode = 2;

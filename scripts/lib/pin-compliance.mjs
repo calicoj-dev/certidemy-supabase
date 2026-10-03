@@ -34,7 +34,9 @@ export const PIN_RULES = [
     id: "roles-in-pt",
     langs: ["pt-BR"],
     enRe: /\brole(s)?\b/i,
-    re: /\batribui[çc][ãa]o\b|\batribui[çc][õo]es\b|\broles\b/iu,
+    /* `funcao/funcoes` added PROMPT-106: it slipped past the first version entirely -- read-back 4 said
+     * "as funcoes e responsabilidades atribuidas" for "roles and responsibilities". */
+    re: /\batribui[çc][ãa]o\b|\batribui[çc][õo]es\b|\bfun[çc][ãa]o\b|\bfun[çc][õo]es\b|\broles\b/iu,
     /* NARROWED AFTER READING THE MEMBERS. The first version fired on four rows that were all CORRECT:
      * each rendered roles as papeis AND used atribuicao for ASSIGNMENT, which is what the English said
      * ("earlier life-cycle roles left unassigned" -> "deixando sem atribuicao os papeis"). The field
@@ -42,6 +44,18 @@ export const PIN_RULES = [
      * A field that already says papel/papeis has translated roles correctly, whatever else it says. */
     unless: /\bpap[eé]is\b|\bpap[eé]l\b/iu,
     why: "ABNT usage is papeis (papeis, responsabilidades e autoridades) where the English says roles. Never atribuicoes INSTEAD of papeis, and never the bare English word. atribuicao for ASSIGNMENT is correct and is not caught once the field also says papel/papeis. es-419 'roles' is correct and this rule is pt-BR only.",
+  },
+  {
+    /* THE es-419 HALF, PROMPT-106. One bank rendered "roles" two ways: 017478b5 says `roles` and
+     * 9cbef19e says `funciones`. Same source term, same certification, two words. */
+    id: "roles-in-es",
+    langs: ["es-419"],
+    enRe: /\brole(s)?\b/i,
+    re: /\bfunci[óo]n\b|\bfunciones\b/iu,
+    /* `rol(es)?`, NOT `roles?` -- the latter is rol+e+s? and never matches the bare Spanish `rol`.
+     * Its own control caught that before the rule touched a row. */
+    unless: /\brol(es)?\b/iu,
+    why: "es-419 keeps rol/roles where the English says roles. funcion/funciones is the FUNCTION of a thing, not a role someone holds, and one AIMS-F bank used both for the same term. funciones for an actual function is not caught once the field also says rol/roles.",
   },
   {
     id: "governing-body-in-pt",
@@ -221,6 +235,32 @@ const CASES = [
   /* THE FOUR FALSE POSITIVES THE FIRST VERSION OF THIS RULE PRODUCED, verbatim from the rows it
    * flagged. Every one renders roles as papeis AND uses atribuicao for ASSIGNMENT, which is what the
    * English says. They cost three re-translation rounds before I read them. */
+  /* PROMPT-106: funcoes/funciones for ROLES, both languages, both directions. */
+  ["funcoes where the English says roles, pt-BR", "pt-BR",
+    "As funções e responsabilidades atribuídas são revisadas pela alta direção.", "roles-in-pt",
+    "The roles and responsibilities assigned are reviewed by top management."],
+  ["papeis plus funcoes for an actual FUNCTION must NOT flag", "pt-BR",
+    "Os papéis são definidos e a função de auditoria interna permanece independente.", null,
+    "The roles are defined and the internal audit function remains independent."],
+  ["funcoes with NO role in the English must NOT flag", "pt-BR",
+    "A função de auditoria interna permanece independente da área auditada.", null,
+    "The internal audit function remains independent of the area audited."],
+  ["funciones where the English says roles, es-419", "es-419",
+    "La organización puede ocupar varias de las funciones enumeradas al mismo tiempo.", "roles-in-es",
+    "The organization can hold several of the listed roles at once."],
+  ["roles is CORRECT in es-419 and must not flag", "es-419",
+    "La organización puede ocupar varios de los roles enumerados al mismo tiempo.", null,
+    "The organization can hold several of the listed roles at once."],
+  ["rol plus funciones for an actual FUNCTION must NOT flag, es-419", "es-419",
+    "El rol de la organización se define y la función de auditoría interna es independiente.", null,
+    "The organization's role is defined and the internal audit function is independent."],
+  ["funciones with NO role in the English must NOT flag", "es-419",
+    "La función de auditoría interna es independiente del área auditada.", null,
+    "The internal audit function is independent of the area audited."],
+  ["roles-in-es does not run on pt-BR", "pt-BR",
+    "O papel da organização e a função de auditoria.", null,
+    "The organization's role and the audit function."],
+
   ["papeis plus atribuicao for ASSIGNMENT must NOT flag", "pt-BR",
     "Os papéis e deveres de IA são recomendados nesse porte e sua atribuição pode ser postergada.", null,
     "AI roles and duties are recommended at that size and their assignment can be deferred."],
