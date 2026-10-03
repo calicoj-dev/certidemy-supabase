@@ -1,0 +1,1764 @@
+{
+  "cert": "AIMS-F",
+  "ruled_in": "PROMPT-107 s3",
+  "retired_at": "2026-10-03T20:24:47.948Z",
+  "rollback": "node --dns-result-order=ipv4first scripts/rollback-cutover.mjs --apply",
+  "count": 351,
+  "ids": [
+    {
+      "id": "077629d1-b3cc-4f7e-89f2-acf94ac4b2df",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "07a2e32c-0f91-42bb-978e-315dcb4f99b1",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "07feee65-2cd3-4772-a88e-c04037a2aa83",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "097d1896-d00d-4155-a942-2a4c67586cf8",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "09ae6e83-b3b9-47b4-a1a4-955078590264",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "09db140e-a655-4cb0-9d86-5d49be4f1852",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "0be22fbf-1148-4c39-b41f-7bedd5d8b962",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "0cbb853c-247f-4f6b-9501-911a1c8664c9",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "0e74fc58-908c-48cf-a136-e49bec1306ea",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "121f8e71-75c5-4a05-8d46-a6249832aa0b",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "152a64ac-8775-4e7f-a280-30da2f55e6f5",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "15cb90ee-c0fd-4209-bfd5-2e0f8171a1b6",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "1ac02db3-98f2-43c7-89f9-afa99426e6b0",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "24172f5a-dc6d-48b5-beb6-9e461be9dab4",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "24177d84-7d61-47c8-b6d4-596b77a4f294",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "25b70532-1913-43d8-964f-bc021a17263a",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "27f32165-a4aa-4e82-966b-87358f9f157c",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "2a6b35ac-1e3c-4776-a25d-b0162b343b72",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "2e37975a-ca98-4ad7-ab03-9bd004be7db5",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "31b6119c-5c98-4d80-88ef-ec6c32393ff2",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3996f5d4-f085-4eaa-afb1-0f2f2ccbdbb8",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3dc72015-e258-4813-bdd1-4e4d610fb038",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3e8a2825-2544-47f9-b192-47788e494a22",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "40820cfe-419a-480c-bdf6-1a9e394d7cf2",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "423162b7-ebcd-4358-b67f-49a056ccb38c",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "42c1833c-bb26-44f1-b8b9-eb6d9140896f",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "48a7beb0-4f11-4d20-b480-7d5d76258260",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "48fdee0b-c150-487d-aa30-f2808775e23f",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4a264b42-0913-45e9-b2eb-35fa1857b9ac",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4a4d28a9-f66e-41b1-b545-06fcfb9f40a4",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4b399a1c-f072-4012-9005-509ff36c5651",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4b696645-390d-484a-9fb0-b2af2551cdf7",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4ba46161-3ebf-41d7-9b1d-bb6b5d31caf9",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "52004aae-7a61-4d9a-b2d0-fb2f61ba7204",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "581ba042-118b-48f3-9e7f-91dedf67627d",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "591b9767-95d8-425c-82bc-92c73b4e7ff1",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5b0c446a-5dc1-43a2-b07e-7b9b68d7e5a2",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5d7e244d-a8aa-4180-977e-113c73858b8d",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6049af73-01b0-46c9-ab40-586aba47b794",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "604f24b0-9ea7-45ce-bc04-0dc81fccbfa6",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "612ee9f8-900f-48a8-963c-ea2fe806d9b2",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "613b4472-70e7-4860-8e79-bb20f92b0c25",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "63751a65-c22a-4eb6-b35d-60a8eabf867a",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "65ee65c8-2ea8-4442-90bd-b05969727bf8",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "66fea350-2d34-4c38-ae9a-d13821d9678b",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "678ea96a-d37d-4032-977e-3f1811b2c4c1",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "67fc34d2-9df5-4ccd-8de8-25dedaaa5d4a",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "69d22eee-4972-4d59-ab0c-7d8d9c083e11",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6ad4b9f6-7773-49e9-b2b5-60ce277dc85d",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6b82f779-2e67-4e70-af0e-d57c174ae46a",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6e8d4de1-9452-47b9-998d-2cc207c42685",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6f91ddcf-f8a3-41aa-98ab-e51ab222f70b",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6f98000e-6abe-42dc-bc83-697da99599f0",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "773a881f-5780-4e9d-96fb-8bb9a057d9e8",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "78bd9315-e5f7-4b7c-a122-80050d8abbd2",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7ab203dc-2a92-4269-90ae-e90912274568",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7bb55d38-9cbe-427e-8fff-858ab19b256b",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7cc1139c-cb4f-4b9d-b96e-a072d299cc80",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "820a495c-6ab5-41f3-b000-345ae3a5e687",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "83f159c4-a0b3-42a9-bb8f-3f58b90b2fdb",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8754e40a-ce4d-4413-b0e1-7e37839ce8c1",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8a12811b-abdd-46b0-8392-06691efc51cd",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8d880a2b-668d-4ae4-8eb0-43d167f2b439",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8e1b6d45-9206-45a7-85ae-26384191feff",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8ead2551-8ed9-447c-9c2f-e9c9a05c24b6",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8eba15da-fbb3-4565-8cf7-c06e264ca769",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8ed82895-9463-4ac5-be20-d9328ea78595",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "945178e9-75a6-4a51-8555-af5f812d1931",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "98c385f7-5a06-42f2-825f-102774d2d42d",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "98fced09-b678-4212-8e14-fba1c8d8f86d",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "9f9c2248-b028-48bb-ab27-4e79d2a644ed",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a0772e2c-965f-4240-80f1-a1b9a848df3d",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a3c24544-7cc8-42b5-bbfd-94679c2c464c",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a4cf6455-02be-4318-8409-42855123a7f6",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a521a131-4302-41eb-8152-677dd4177e75",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a617eb77-0780-4fec-b9ad-d3c810f1b2bc",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "aa74ddac-5623-43a5-b498-d9ad37a326f7",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ab6263f0-72a6-4761-ba23-156d9411be93",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ad956ac4-a53e-423a-9a21-9bf3c882178a",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b04ef1ff-c50c-40fc-b28a-1a55b85c5952",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b0bd4e87-a2e9-4e7c-b0e0-fc61e272d569",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b22eddf7-2e80-4a6e-b240-9c9eb6acfd9f",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b30e8ad2-2dd3-44f2-b689-5f364394ba94",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b6394ff5-f8ce-42e1-8cfe-3fc6f3959191",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b8c389a5-d22d-4d6a-939d-b1b42b1f14b6",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b965acf2-6bd0-4ae0-a12a-99b3ab4cc73c",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b97b25ea-3917-44c5-98b9-0bc7b4d82cf6",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b97f41d1-1622-427f-8774-948bf94e6263",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ba7c3dc1-d45b-4c76-a89d-6fccd05a0bb4",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "be876cdf-896a-45f3-ba05-d3653fec39ca",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c0674bb3-2d11-4658-8623-3516a3ade245",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c14985dd-67df-47b3-b56c-8806065ad122",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c1ac959d-4c9c-4268-92ae-0ee8aef17320",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c277cf64-9436-4e8b-9fd3-2fe09dcf9c41",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c318ef8f-1ccf-48f3-b6db-5e672510a2ab",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c46f310e-f851-484c-9209-71c38ba026d6",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c83283e2-c784-40c4-a0dc-4edb8a3d640b",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c8868392-74d0-4364-808d-1a153b9839bc",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "d286957e-68fd-42e0-bbf9-a55929f65c99",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "d2932c8c-37cf-4a19-8eba-7d34a5296616",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "d3217d0b-6ca1-441a-a1f1-bbc59a75a12d",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "d5f290be-a980-47f3-8688-9ee2106bcc12",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "d713d3f2-27b3-4d03-8178-cbf2a86f33fa",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "dd09940d-0fd5-4292-a901-fc03726bf578",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "df391eef-c03e-4a9a-9f48-b857d5077de8",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "dfe1cb56-fa4d-42f8-8552-bb848ff06782",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "e390a8e5-e8ed-43f5-89b8-59065bd30da8",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "e68f9a8d-af37-4904-b425-9ee167de37a4",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ea7c3ae6-96d9-4ff5-9090-1d6b3ad6b74b",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ed3dbc84-d625-4c23-bd19-c55322e7e2de",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "edb3330c-d3c8-452e-a7a3-1edc69e6a697",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ee7e18ea-97c9-4a0e-b04d-66bb113f64c5",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f1f9cc78-dda3-41d7-aa63-6260d5f34f30",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f34d03f6-a87a-479e-8ae3-0ec1df219a5c",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f582abc4-86f8-4d94-a8d4-0a3447890f1e",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f7eb23b7-3340-4648-84d2-8dba2c3ad8ce",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "fd29a029-d120-48ae-9653-6485d7802085",
+      "language": "en",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "048485e5-5714-41e6-bcc9-00e0de8e89b4",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "04d4e7a6-3d5f-4458-9fc2-cc8338272a95",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "06e6393f-35bf-4d7f-bfcc-ef588fadbf98",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "07ee95fc-e541-4fbd-9983-fa00934e3d38",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "085aa961-f22b-4b19-8aa9-30ed14c29b09",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "098d6378-f4ed-46b8-a907-26b9bd05da01",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "0d272901-1f94-4246-8944-6608ab585ac5",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "170ff487-77e5-4ee2-9448-2f26c371d65e",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "17dcd4f5-0ba5-46b7-b0ae-fb1ccdf6e314",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "181d352c-b525-4c92-ab2e-5e99b49711ac",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "1834ca8e-139e-4003-a3c5-0f2e4cb6f41c",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "18bd0a5c-e5bf-4bf2-82e8-a9d29652a66d",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "1af906c6-927b-4890-bb2b-718aae207950",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "1c7b48de-3704-40c2-867a-f301a9544743",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "1ff944ce-a09d-4459-9728-2bb9ebfa0c2e",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "2084f317-081f-4c3b-a295-5e8ecc7b0149",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "238e616f-e260-41cb-9ba1-47b59901e58b",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "23c0c690-f48a-4cc2-a581-ee0d16ec117d",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "24e546df-0e07-459f-add9-4dcbbf5ee228",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "28e1f954-93d2-4c78-b5c4-056719320a5a",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "2a73532a-6ba6-4d00-a881-8553ed49f7bc",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "2c55f377-9ab1-4314-bfe4-d2cd9c332b71",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "30ae614b-bc57-466d-8fbe-88f8bb259a58",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "35658d57-8209-47da-8c85-56359437ae5a",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "384e6103-abdd-47c5-8b0d-58dc8bf010d8",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "38c5535b-c763-41f7-9297-80d4f4c34912",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "38e7dce9-1e69-4807-986b-4c9214a7a73b",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3bf728be-6dc1-44a9-ab21-5f241fa566f8",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3c39a766-0015-49c4-ae4e-99b69508690c",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3cc6b674-9c09-429e-a4c7-6823bf109b17",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3d2ed8e6-9e1e-4102-acb6-e3dd02345b93",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "424f768d-7aab-42de-9b51-d27e3496e4ff",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4455ac10-58a8-44b7-911e-b113cca5d7c7",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "446b1d78-7fce-4978-b442-d20c81425dd0",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "46842a88-27b3-4cff-b8af-d2982903b174",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4769bb18-cf5c-40c8-bfff-5410e80ac931",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "47f5dd13-5eb0-4e85-9cb7-0bcbbdbb12c7",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "49e855c8-3664-4a42-ada5-2742e5206f29",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "49f31161-12b5-4752-ab17-9c9a25781c89",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4b091c8d-ef15-4268-a787-81cefeab4a13",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4b34a4b2-2c66-464b-9829-8d51412f6760",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4cbe8338-0d03-45a5-a700-3a0b90032dfa",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "53c4007b-f139-4fb0-89fe-7a8e6bdba424",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "54e4e716-a0a9-4c2a-ab7c-8df6929c8fad",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5747415b-d7d7-4110-ac40-de351ebf991e",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5766c945-37ec-413d-8c04-4847da529e0f",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5aa78b57-08cc-43fa-aa7f-833b36dfbb0b",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5b2b064c-289a-4a1c-af78-505a9f9dd76a",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5ba2b100-4263-4b58-b3b1-f5f774fdd850",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "606b4d7d-2a22-44f5-9818-3906184b7943",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "62205227-a8ec-4395-ace3-1d8a3d225ab8",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "656deefb-f268-4efa-93d4-323457f63b67",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "672a3e9a-3ba4-48d4-9d63-9cff38100cb7",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "687836bf-c7aa-4cc6-97de-dd40925cb67d",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "68a2fbf8-4258-476b-b9e0-4bb26133a3d3",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "69de03cf-64ef-47f5-a021-b9f9414cc007",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6a35ca20-2d28-4637-985d-7a079ec6458d",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6cdcf583-3248-4ce5-8e1d-8a20e32ddfb0",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "70ecc3b5-fd64-4673-9532-1610d0667e06",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "73499a24-54eb-436d-a3ab-f6ac913ebb0f",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7375fcdf-cadc-4258-9e12-4160a498bcc1",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "738ad48d-2b35-40a0-b24d-cd044e614792",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "73c8411b-b46f-4630-9890-521809a27830",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "73ed9da7-0a4d-48ff-af83-c528f59e3c03",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "78e593dd-ea5b-425d-9fac-475e3957f15c",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7989b5d2-0eb5-44ab-9faa-41753457777d",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7a3dfe6e-2d00-447b-9380-d46cb6afc1cd",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7a9e53a3-3e81-4c73-b01f-1ea1ab759c6f",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8290f89b-7977-440c-9519-29d9f9c1828f",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "84b3fd72-4b96-4730-84db-378e804ac69d",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8784f571-26d0-435e-becc-e750be8a113e",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "881a1ef5-fbbe-4972-beb3-143acb642082",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8938d6d3-de0b-432f-a43d-37a35432f91a",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8cb1f11f-1fe6-4ef4-bb3b-b649d3258db3",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "91620dc1-2f46-48f8-8839-c664caa184e5",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "91c3bb03-6873-4c81-b2ef-813c09f368f3",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "91cf3878-1ea6-428f-8df4-00dd551a53f6",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "93d8115e-2a9a-49b5-8c45-dcf46c7d8fab",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "94dc22f2-0c61-481d-af27-1c699bd05387",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "984eb2f6-3eae-4bc5-8afa-dce4a8f60770",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "9fb148df-142f-4869-aae2-37164c9d70e5",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a1379c8f-44c2-4dc6-ba27-76b9a9c8390d",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a34b9f10-5db0-44a8-b052-5cc5c7ff40dd",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a4a5e7e1-5d59-4579-8051-60adf0876225",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a9a07b8c-b786-402d-9ff5-d2e51617eb94",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "acf22c6a-1ec2-43ce-84a1-1c15c9a33ac6",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ae860e6c-19c1-4e92-a0e0-d311fe65a34e",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b0e87300-55a8-432f-982c-2007c7ae5c31",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b1d1bf8b-4c42-42c0-a2a6-6ba60005f9ad",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b281e170-2646-452f-8fbc-f4ab633b9b59",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b3f3f714-b4f4-4004-8e23-1b2ec620e487",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b6e7f7be-2394-47cc-92a1-220d3260fd38",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "be85fa0a-0678-4329-ac11-a70cbbd15e35",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c2f479eb-a0c1-4faa-9468-8f139e37446d",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c6a281e7-3e32-476a-a292-49e6d24dfc47",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c8a1480e-cd68-4cd7-9fbd-061fa943fc71",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "cafbadbe-5b4e-4313-976c-8d95a351a305",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "cb36f99f-a409-46cb-8829-ca8cbf654c2e",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "d2c0a406-93b0-4e9b-8cc5-b3869020579c",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "d5150166-dfe9-47d0-8980-a6f1183128b9",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "d6d7159a-e09c-4287-97dd-fcfd0963e1eb",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "d9c659d3-797c-4e80-a522-715f86cb4853",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "da44de18-66e9-4691-80e5-521ac8dff708",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "dbd064d7-26ce-4dff-b467-9d37566aa732",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "dddc12c0-4a6a-4236-9f74-c2f4730f7726",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "e3d7229b-47a5-4cb1-b149-b1e467c6c41a",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "e4c7a8bc-e9e1-41ba-bdff-62500d5ec6cf",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "e4fa4a22-a84d-4992-ab47-850ffb3339ba",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "e5d28515-6b9b-4046-8076-f7e6d15206ac",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "e722bf27-691b-45f7-b4f5-2437c90bb463",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "e9d37747-967d-405f-b81d-1454c01f7885",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f174b3d3-c72e-411c-a149-d201fd21df3a",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f2cfa34a-1171-4782-b4c8-55f9b7cb324d",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f37b051f-71d2-49ef-920d-a46f3cc6876b",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f7a78451-c790-45db-ab3f-16a7f8eb1c5e",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "fb32b81e-739a-4d0c-82a1-775b0666031d",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "fcc8ecd8-6d2b-418a-a1fe-e93491f98f6a",
+      "language": "es-419",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "02b43701-ec5c-4a18-8fe4-736796ee3d51",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "0411a7b4-d50c-4573-92b0-40d6c091f7a1",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "06395c2d-7657-48ed-993a-582a417376ea",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "0a20b199-79ed-446c-af70-53ad095e93bf",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "0ab948e3-41f3-4ac8-b63f-0dbebe701579",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "1024e1a3-edf8-4618-8687-ed4e7689f623",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "15276937-86af-46a8-a568-7579ead7736b",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "206ae409-16ab-4022-9af7-557c95407b40",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "22fd2d8d-3581-4464-8c34-0e3fb21b3bd1",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "23b3bb76-1cd1-489c-9fef-2465cd744917",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "23d63d3f-dc07-41ad-890a-fe51e87b69c4",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "25434340-40da-4dfb-8d56-9328a39f1b21",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "2555c4ba-de22-4d91-8dc2-0eb492ac2444",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "269a24aa-66f6-43c3-9a13-0b1d197edd24",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "26ae3324-2a9c-48a6-8c06-b77d326c47af",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "27326fd7-6eb9-46e5-b2af-8328f3a01e6e",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "277c26f9-fbe7-4162-ab8e-8039bad67857",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "28bf7a7b-9690-4bb2-8a8d-d87c37f16c42",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "2b93f46e-2a52-4122-8c92-d01fd98c9236",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "2b9ff032-a09b-4886-9f18-b056b7e395b2",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "2d18ae46-09b9-49d2-a8df-37d1aa75e91a",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "2d575954-da3c-477f-83bb-1a09742feeb6",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "31bbd4a5-f428-4967-98df-329f4e308893",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "31f6e8e0-6bb7-4688-a83a-14bb13d269a0",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "32bd6218-f14d-4cd6-8e9b-ea39d1a5896c",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "33ac6ceb-ed3f-41de-9cfe-19cffc41a3d8",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "34250069-9a90-42b3-abf8-752c645ae76d",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "37701a2d-7e32-4058-86e6-67674ba7b175",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3970591f-3d85-4bcf-8589-0c861cca0810",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3afeb02d-1140-4f75-b689-ba2eb0c8ae44",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3d442e3e-d85e-48cd-8a1b-b46442f1b773",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3de46d6e-de58-4885-a292-3e22d708900f",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3df1806a-4442-458d-a1cf-b628a319bf32",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "3fe1bb9d-ab55-44f4-a59e-ef89c2b304e0",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "41bfb4fa-fef2-465e-915d-e2d29446a58e",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "433d1794-34a2-4e50-9369-38f4c68fd861",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "466b60a2-36dc-4951-8bd6-e5996360fd15",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "46735c41-2db2-4ad1-a121-b0968487b5e0",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "46864b08-c022-47c0-96f6-d11c204a4213",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "482c7d71-3d7b-4963-a3b4-5026f6dc9aa8",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "493c58ff-5625-4377-8ef9-c23494c0e507",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "49d8ed78-a363-4491-9386-65d19bf2ec4a",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4b608f3a-e4ce-449b-b041-b469a2dcff48",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4ba80c5d-e8d8-435f-8fe1-b3d1bdec3da8",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4d990619-b524-41c0-9eca-420919267542",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4e63918d-7ec1-4b9f-9791-5fba7af85862",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4fc1e013-bbda-4a2d-894b-c3fb61421c9c",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "4ff72aa2-54eb-431d-aeae-561cc1894a71",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "544924d8-dec5-440f-a7b9-bee05740ff53",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5727dd76-2567-4689-a712-17c16bec86e4",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "58353dc6-8598-4bd4-9145-ec008fdd42f2",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "58e05b86-9ea0-4191-90f1-5b39f29108e1",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5ac8435b-a304-4c95-b8f1-b6443307f194",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5c36852d-10e1-4323-a3ea-dc9d726b6bd8",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "5c9a4d63-8872-496e-835f-99f344859a8f",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "626ef6b8-5f89-4957-ac2c-6c5dab9c6a4d",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "63ae9ded-bd97-4b35-8764-a3265a7e8042",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "64c5cfd5-9605-4682-b2fc-ef8e27c5642b",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "67bf71b1-ce99-479f-913e-16efa0a5cec7",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "698b2a67-a27d-4943-93ee-d86298c1c38a",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6b46c66e-ffbc-48ac-83b3-5beaf4770177",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6bed54b0-6818-45ae-b34d-a59468169aea",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6c163f00-fac4-435e-8a15-2a13665d177d",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6d2047b2-000c-4adc-ac2d-58e18be46502",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6e1522ed-a2f8-46aa-af02-137a42388c21",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "6ebe2db3-422e-44e2-91eb-f02165bdc055",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "730de7fa-e6cf-4de3-942c-4f3389061dc6",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "755f0a08-f507-4eec-ba80-0cfb0087b188",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "76f2b604-ba05-4cf8-af8b-555996262389",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7a586674-a460-427e-bd8f-6c44f34292ec",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7bd65201-5b9f-42b4-841b-b30672e8b8d5",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7cea1357-39c7-4a8e-9d0d-1090802a572f",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7f3e6567-7ba5-4d2f-9908-6beb6136e3ea",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "7fcf400c-b974-4668-b08a-f0fbe1e2c608",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "85414d49-a240-4cfb-9fe5-755b747c48fa",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8795a52d-e98a-40d4-abc4-1f88bda1f472",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "87e9495e-afcc-49a3-ad50-844664fcd933",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "890966b0-2fef-481b-a5d2-41639a2ae6ab",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "8a7baadd-b470-4f34-a280-807f19df4877",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "91b5a6ab-77a2-4468-acba-63b11d3096d9",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "93a64c42-f9af-4061-a980-1c3dd044df37",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "96d28f83-8573-4568-ba16-3437a392c89c",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "9d93cc09-a3ef-43c4-bb0f-68baf7322f27",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "9dd3fca5-b536-42f2-89fd-35ffb1b6cf63",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "9e53b45d-7352-4a7d-a563-4b110592fd02",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a2bb7e38-f44d-4a2d-a46a-45ff787b5bbc",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a72b8eb4-c0e0-48b2-9821-0eb0ffce8bb1",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "a9436a16-4b6b-4232-a51b-0e3c96f49464",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ab926553-b85c-4161-bf5d-3c765d4e0f6a",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "add2ad65-398a-44c1-adfb-95159d77afc6",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "add7136d-c01a-49e8-8572-8010f6ef7e7d",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b110a00f-902c-4ed8-a668-6adde3af8865",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b3233fc4-b2a2-4d92-bf11-0b278618264e",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "b63b2d8e-f47a-4c0c-8059-af256f7056d7",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "bb26fecc-209d-4b06-923b-27ec61f3f4d2",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c10bacbc-2373-4e19-85e8-c957c41d5b8a",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c118e331-1981-4718-a12d-380fbf2e7246",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c59cec1c-be80-4a3c-b8ff-c10130ab5ffe",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c7ae6e6a-ac38-49c4-9838-b6ec7e08b2a9",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "c8df3868-50ad-4ba6-b5e8-0a2a2e6aec0f",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "cbae0baf-a130-4ed8-9f34-6741f3304aad",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "cd193dd3-77ca-4b13-b88e-58b68f9d7f12",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "cd200606-b11d-4868-9f30-c03f285529fc",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "cdfd2ce1-7e36-4fc9-b225-e1e099c19379",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ce74c8e3-442c-4efa-915c-83c387974eed",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "d094f2f2-0b26-468f-96fd-1464859e0032",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "dac6005b-4d5d-4957-9e4a-0ef5144cd408",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "db0235db-75ae-43b8-a2c0-9969ec8fbfd0",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "e26ab68b-79bf-4634-900d-9d9661f17a1d",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "e6b881f2-2024-47ba-9d67-b1e78016157b",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ee814121-cb74-4bd8-9465-bd94a4673cc4",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f227c93d-2858-4a4b-884b-4de11d059295",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f458da12-c747-4b87-bf50-e39bbc2f9c97",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f7202072-9e43-4577-89b6-e8f8f05411f0",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "f7dc7efd-7bf6-41ff-a786-67720fe7c6a4",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "fe956ee1-def6-4681-9867-32c98a1402e8",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    },
+    {
+      "id": "ff893e04-023a-4b32-ac3f-fce33ff71a37",
+      "language": "pt-BR",
+      "why": "not grounded-approved and not kept"
+    }
+  ]
+}

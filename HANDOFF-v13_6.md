@@ -249,11 +249,40 @@ By name, the things that must change:
   the passage key is `(source, edition, clause)`. The edition lands in the clause slot, so kept-item cap
   accounting keys on a different string than the generator does. Reporting only; found PROMPT-107.
 
-## PROMPT-107: the cutover is BLOCKED on one ruling
+## PROMPT-108: AIMS-F IS LIVE
 
-The 200 grounded rows are approved, `pool='secure'`, `is_exam_scope=true`, live — and carry
-**`item_origin='generated'`**, which `generate-mock-exam` excludes on BOTH modes (CLAUDE.md s12). So the
-target pool is not servable: retiring the 117 not-kept authored rows would leave forms drawn from the
-remaining 161 and the new bank served to nobody. `cutover-aimsf.mjs` asserts this (step 2b) and stops
-before any write. Two ways out, both rulings: change `item_origin` on reviewed grounded rows, or change
-the function's filter. Nothing written.
+Migration 386 added `item_origin='grounded'` (ruled PROMPT-108 s1; the CHECK read from `pg_catalog`
+first, four values, 9 quote-segments). 600 rows retagged by group. Cutover applied 2026-10-03:
+**361 per language = 200 grounded + 161 kept**, 351 rows retired, practice unchanged at 350/language,
+20/20 forms assemble in all three languages. Invariant 14 guards the new origin and examines 600.
+
+- **Rollback is one command** while `AIMSF-CUTOVER-RETIRED.json` stands:
+  `node --dns-result-order=ipv4first scripts/rollback-cutover.mjs --apply` (351 ids, dry-verified).
+- **Two origin conventions now coexist inside a group.** Authored groups are `en='authored'` +
+  siblings `'translated'`; grounded groups are `'grounded'` in all three languages (ruled s1.2). Both
+  are admitted by the filter, but anyone counting origins per language will see the asymmetry.
+- The `generated` exclusion is now load-bearing for a reason it was not written for: it is what keeps
+  `gen-grounded-items`' own drafts out of the pool until a human accepts them and the approver retags.
+
+### OPEN, AND IT NEEDS A RULING: `verify-cert` AIMS-F now FAILS 8.1
+
+`verify-cert --cert AIMS-F` = 53 pass, **4 fail**, 3 warn. Measured, not guessed:
+
+| failure | caused by this work? |
+|---|---|
+| 8.1 length cue, escapes 4.4% (16/361) vs a >2.0% bar | **YES.** pre-PROMPT-107 the pool was 278 with 4 escapes = **1.4%, passing**. 13 of the 16 escapes are grounded items. |
+| 8 secure floor >= 8/task/lang, 5.5 at 6 | partly: the cutover took 5.5 from 11 to 6. 6 IS the floor ruled in PROMPT-104; `verify-cert` hard-codes 8 and does not read `TASK-FLOORS-AIMSF.json`. |
+| 8 all items approved (2) | no. `cdde7e6b` and `f92232b5`, both `status='rejected'`, never retired. |
+| 8 every item belongs to a group (2) | no. the same two rows. |
+
+**The cause of 8.1 is a gate of mine using the wrong comparand.** The length-cue arm added in PROMPT-102
+tests the key against the **mean** of the distractors at 1.25x. The scheme's declared tolerance -- which
+`item-cue-guard`'s `cueConfigFor` publishes and `verify-cert` reads -- is the key against the **max rival**
+plus `max(KEY_LEN_MARGIN, KEY_LEN_PCT% of max rival)` (5ch/10% here). Items pass one and breach the other.
+CLAUDE.md s13 records a THIRD form ("outside 60-160% of the median distractor"). One declaration exists and
+the gate did not read it.
+
+The 13 live grounded escapes, by uuid prefix, over-allowance in chars: `ce86479f` 21, `d6fc4d00` 20,
+`1ea0ea64` 17, `c38d0298` 17, `bb2fcc40` 16, `00c565c9` 15, `6cbb6cdf` 15, `139c011a` 14, `3ca45f4c` 14,
+`46a860d2` 14, `c55b92ae` 13, `d7e85bb2` 12, `9f905f3e` 11. The 3 authored ones are worse (87, 61, 59) and
+are KEPT items that pre-date all of this.
