@@ -169,3 +169,9 @@ ISMSF-AUDIT-SAMPLE37.txt
 ISMSF-AUDIT-BATCH2.txt
 *-SPOTREAD.md
 *-INFLATION-RECHECK.json
+
+# Generator output quotes key_support verbatim (ruled: licensed text stays out of git)
+*-raw.json
+ISMSF-R1
+AIMSF-B1-REVISED.json
+ANCHOR-SAMPLE.md

@@ -61,16 +61,6 @@
       "passage": "ISO/IEC 42001 A.10"
     },
     {
-      "file": "AIMSF-B1-REVISED-raw.json",
-      "runs": 276,
-      "passage": "ISO/IEC 42001 A.1"
-    },
-    {
-      "file": "AIMSF-B1-REVISED.json",
-      "runs": 558,
-      "passage": "ISO/IEC 42001 A.1"
-    },
-    {
       "file": "AIMSF-DIRECTOR-REJECTIONS.json",
       "runs": 4,
       "passage": "ISO/IEC 42001 A.5"
@@ -1363,7 +1353,14 @@
       "from": 285,
       "to": 269,
       "why": "audit artifacts untracked and gitignored; they quote key_support verbatim"
+    },
+    {
+      "on": "2026-10-03",
+      "ruled_in": "PROMPT-112 s5",
+      "from": 269,
+      "to": 267,
+      "why": "audit artifacts untracked and gitignored; they quote key_support verbatim"
     }
   ],
-  "_count_now": 269
+  "_count_now": 267
 }
