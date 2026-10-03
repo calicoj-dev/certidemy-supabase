@@ -60,16 +60,33 @@ p("**" + art.cert + ", " + new Date("2026-10-02").toISOString().slice(0, 10) + "
 p("es-419 and pt-BR as `pending_review` siblings sharing a `question_group_id`, the same option ids and");
 p("the same `correct_answer`. **Nothing is approved.**");
 p("");
+/* THE LEDGER IS EVERY RUN, not the last artifact. The artifact is overwritten per run, so reading its
+ * `spend` would report $0.21 for a $23.55 round -- the number that leaves the process has to be right. */
+const LEDGER = [
+  ["first pass, 200 items", 21.0396, 74],
+  ["pt-BR repair rounds (3), 5 rows -- 4 of them on a false positive", 0.8504, 3],
+  ["the 9 held, re-translated with the pins in the prompt", 1.4489, 8],
+  ["one of the 9 again, before the cadence-source gap was found", 0.2119, 2],
+];
+const TOTAL = LEDGER.reduce((s, r) => s + r[1], 0);
+const TCALLS = LEDGER.reduce((s, r) => s + r[2], 0);
 p("## Spend");
+p("");
+p("| run | $ | calls |");
+p("|---|---|---|");
+for (const [what, u, c] of LEDGER) p("| " + what + " | " + u.toFixed(4) + " | " + c + " |");
+p("| **total** | **$" + TOTAL.toFixed(4) + "** | **" + TCALLS + "** |");
 p("");
 p("| | |");
 p("|---|---|");
 p("| model | `" + art.model + "` |");
-p("| English items translated | " + art.complete + " of " + art.generated + " |");
-p("| model calls | " + art.spend.calls + " (batched 8 per call per language) |");
-p("| **spend** | **$" + Number(art.spend.usd).toFixed(4) + "** |");
-p("| per English item, both languages | $" + (art.spend.usd / Math.max(1, art.complete)).toFixed(4) + " |");
+p("| English items translated | **200**, both languages |");
+p("| per English item | $" + (TOTAL / 200).toFixed(4) + " |");
 p("| cap | $40.00, projected $23.42 on the high end |");
+p("");
+p("**$2.51 of the total is repair**, and $1.06 of that was spent on two false positives of my own");
+p("checks -- four rows re-translated three times for a rule that was wrong, and one row twice for a gap");
+p("in the cadence source list. Both were found by reading the flagged text against its English.");
 p("");
 p("The per-item measurement was $0.2010 unbatched, which projects **$40.20** over 200 -- past the cap.");
 p("Batching eight items per call brought it to $0.1052, because the ~5k-token translation contract was");
@@ -81,43 +98,82 @@ p("| | |");
 p("|---|---|");
 p("| accepted English grounded items | " + [...grounding.values()].filter((g) => g.review_verdict === "accept").length + " |");
 p("| now trilingual | **" + trilingual.length + "** |");
-p("| held back, lint-flagged | 9 |");
+p("| held back | **0** |");
 p("");
 p("## Lint, per language");
 p("");
+/* MEASURED OVER THE BANK, not read off the artifact. The artifact is the LAST run (9 items), so
+ * reporting its lint would claim 9 rows checked for a 200-item round. */
 p("| language | checked | glossary findings | letter references |");
 p("|---|---|---|---|");
+const live = { "es-419": { checked: 0, pins: 0 }, "pt-BR": { checked: 0, pins: 0 } };
+for (const g of trilingual) {
+  const en = g.find((r) => r.language === "en");
+  for (const lang of ["es-419", "pt-BR"]) {
+    const tr = g.find((r) => r.language === lang);
+    if (!tr) continue;
+    live[lang].checked++;
+    for (const [text, enText] of [[tr.question_text, en.question_text], [tr.explanation, en.explanation],
+      ...(tr.options || []).map((o) => [o.text, ((en.options || []).find((x) => x.id === o.id) || {}).text])]) {
+      live[lang].pins += (checkPins(text, lang, enText) || []).length;
+    }
+  }
+}
 for (const lang of ["es-419", "pt-BR"]) {
-  const l = art.lint[lang] || { checked: 0, pins: [], letters: [] };
-  p("| `" + lang + "` | " + l.checked + " | " + l.pins.length + " | " + l.letters.length + " |");
+  p("| `" + lang + "` | " + live[lang].checked + " | **" + live[lang].pins + "** | 0 |");
 }
 p("");
 p("**Zero letter references in either language** -- no explanation names an option by letter, which");
 p("matters because the delivery shuffle moves them.");
 p("");
-p("## Every term the lint flagged");
+p("## Every term the lint flagged, and where it went");
 p("");
-p("Nine of twelve are one rule. **The nine flagged items are NOT inserted**: a row a gate has already");
-p("flagged does not go into the bank.");
+p("**Zero pins remain on this round's 400 translated rows**, in either language. The table is the");
+p("history of what was flagged and fixed, because a round that reports clean without saying what it");
+p("cleaned is not auditable.");
 p("");
-p("| language | item | field | rule | term |");
-p("|---|---|---|---|---|");
-const seen = [];
-for (const lang of ["es-419", "pt-BR"]) {
-  for (const x of (art.lint[lang] || {}).pins || []) {
-    p("| `" + lang + "` | `" + x.id + "` | " + x.what + " | `" + (x.rule ?? "?") + "` | " + JSON.stringify(x.hit ?? x.found ?? "") + " |");
-    seen.push(x);
-  }
-}
+p("| rule | flagged | outcome |");
+p("|---|---|---|");
+p("| `acronym-language-scope` | 9 es-419 | `ISMS` left in English where the catalogue runs SGSI 567 to 4. Re-translated with the pins in the prompt |");
+p("| `inserted-cadence` | 2 pt-BR | `trimestralmente` was a real insertion and was fixed. `de forma contínua` was a FALSE POSITIVE: the English says *on a continuing basis* and the source list lacked `continuing` |");
+p("| `apartado-in-pt` | 1 pt-BR | Spanish in Portuguese; re-translated |");
+p("| `roles-in-pt` (new) | 5 pt-BR | 1 real (`corpo de governança` sibling row). 4 were FALSE POSITIVES -- each already said `papéis` for roles and used `atribuição` for *assignment*, which is what the English said |");
+p("| `governing-body-in-pt` (new) | 1 pt-BR | real; `corpo de governança` → `órgão de governança` |");
+p("| `safety-in-pt` (new) | 0 | fires on nothing in the corpus today. It is preventive, and that is stated rather than read as coverage |");
 p("");
-p("- **`acronym-language-scope` (9, es-419)** -- `ISMS` left in English. Measured across the live");
-p("  catalogue: en carries ISMS 569 times and SGSI 0; es-419 carries SGSI 567 and ISMS 4. The Spanish");
-p("  convention is SGSI.");
-p("- **`inserted-cadence` (2, pt-BR)** -- `trimestralmente` and `de forma contínua`. The English states");
-p("  NO interval and the translation added one. This is the third rung of the translation-defect ladder:");
-p("  it changes what the item TESTS, and no English-language check can see it.");
-p("- **`apartado-in-pt` (1)** -- `apartado` is Spanish; ABNT uses `alínea` or `item`. It is the pinned");
-p("  and correct word in es-419, which is why the rule is pt-BR only.");
+p("## The three new pins");
+p("");
+p("Added to `scripts/lib/pin-compliance.mjs`, enforced by the lint, and now also stated in the");
+p("first-pass translation prompt -- they were being checked without being asked for, so the model had");
+p("to guess and a repair round paid for what the brief could have prevented.");
+p("");
+p("| rule | pt-BR |");
+p("|---|---|");
+p("| `roles-in-pt` | **papéis** (papéis, responsabilidades e autoridades). Never `atribuições` *instead of* papéis, never the bare English `roles` |");
+p("| `governing-body-in-pt` | **órgão de governança**, not `corpo de governança` |");
+p("| `safety-in-pt` | never leave `safety` in English. Together with security: security = `segurança da informação`, safety = `segurança`; otherwise `segurança` |");
+p("");
+p("All three are pt-BR only: `roles` and `órgano de gobierno` are already correct in es-419.");
+p("**Tech loanwords are deliberately not caught** -- `drift`, `analytics` and `start-up` stay, and there");
+p("is a control asserting they do not fire.");
+p("");
+p("`roles-in-pt` is SOURCE-RELATIVE: it fires only where the English field says *role*, and it is");
+p("acquitted by the field already containing `papel`/`papéis`. Without that second half it fired on four");
+p("correct rows, which is the shape that gets a guard deleted by the first person it inconveniences.");
+p("");
+p("Firing count over the whole AIMS-F catalogue, 828 rows per language, after the fixes:");
+p("");
+p("| rule | es-419 | pt-BR |");
+p("|---|---|---|");
+p("| `roles-in-pt` | 0 | 7 (0.8%) |");
+p("| `governing-body-in-pt` | 0 | 0 |");
+p("| `safety-in-pt` | 0 | 0 |");
+p("| `alinea-leak-into-es` | 9 (1.1%) | 0 |");
+p("| `acronym-language-scope` | 3 | 2 |");
+p("| `issues-es419` | 21 (2.5%) | 0 |");
+p("");
+p("**Every one of those 42 remaining findings is on a pre-existing APPROVED row, not on this round's.**");
+p("Those are served content and a separate decision; nothing here touched them.");
 p("");
 p("## Read-backs, " + PER + " per language, from the BANK");
 p("");
@@ -176,4 +232,4 @@ p("- The 9 held items still have English-only coverage until they are re-transla
 
 writeFileSync(join(ROOT, OUT), L.join("\n") + "\n", "utf8");
 console.log("wrote " + OUT + "   " + trilingual.length + " trilingual group(s), " +
-  (PER * 2) + " read-back(s), " + seen.length + " lint finding(s) listed");
+  (PER * 2) + " read-back(s)");

@@ -24,6 +24,38 @@
  * in those languages the same string can be correct.
  */
 export const PIN_RULES = [
+  /* ============ PROMPT-105: THREE pt-BR PINS, RULED FROM THE 2.4 SAMPLE ============
+   *
+   * Two of the three are SOURCE-RELATIVE via `enRe`: they fire only when the ENGLISH field carries the
+   * term being mistranslated. `atribuicoes` is a perfectly good Portuguese word for duties, so a bare
+   * lexical rule would fire on correct text -- the defect is using it WHERE THE ENGLISH SAYS ROLES.
+   * Same shape as `inserted-cadence`, which already needed the source to mean anything. */
+  {
+    id: "roles-in-pt",
+    langs: ["pt-BR"],
+    enRe: /\brole(s)?\b/i,
+    re: /\batribui[çc][ãa]o\b|\batribui[çc][õo]es\b|\broles\b/iu,
+    /* NARROWED AFTER READING THE MEMBERS. The first version fired on four rows that were all CORRECT:
+     * each rendered roles as papeis AND used atribuicao for ASSIGNMENT, which is what the English said
+     * ("earlier life-cycle roles left unassigned" -> "deixando sem atribuicao os papeis"). The field
+     * carries both words, so keying on the English having "role" fires on the normal case.
+     * A field that already says papel/papeis has translated roles correctly, whatever else it says. */
+    unless: /\bpap[eé]is\b|\bpap[eé]l\b/iu,
+    why: "ABNT usage is papeis (papeis, responsabilidades e autoridades) where the English says roles. Never atribuicoes INSTEAD of papeis, and never the bare English word. atribuicao for ASSIGNMENT is correct and is not caught once the field also says papel/papeis. es-419 'roles' is correct and this rule is pt-BR only.",
+  },
+  {
+    id: "governing-body-in-pt",
+    langs: ["pt-BR"],
+    re: /\bcorpos?\s+de\s+governan[çc]a\b/iu,
+    why: "pt-BR is orgao de governanca, not corpo de governanca. es-419 'organo de gobierno' is already correct.",
+  },
+  {
+    id: "safety-in-pt",
+    langs: ["pt-BR"],
+    enRe: /\bsafety\b/i,
+    re: /\bsafety\b/i,
+    why: "safety is not left in English in pt-BR. Where security and safety appear together, security is 'seguranca da informacao' and safety is 'seguranca'; otherwise 'seguranca'. Tech loanwords (drift, analytics, start-up) are deliberately NOT caught by this rule.",
+  },
   {
     id: "apartado-in-pt",
     langs: ["pt-BR"],
@@ -111,7 +143,10 @@ export const PIN_RULES = [
  * is RELATIVE, and needs the source.
  */
 const CADENCE_TARGET = /\b(peri[\u00f3o]dicamente|regularmente|continuamente|de forma cont[\u00ed i]nua|de forma peri[\u00f3o]dica|anualmente|mensalmente|mensualmente|trimestralmente)\b/i;
-const CADENCE_SOURCE = /\b(planned intervals?|at intervals?|periodic(?:ally)?|regular(?:ly)?|annual(?:ly)?|monthly|quarterly|ongoing|continual(?:ly)?|continuous(?:ly)?|each year|every year)\b/i;
+/* `continuing` and `on a continuing basis` were MISSING, so a faithful "de forma continua" rendering of
+ * "Improving, on a continuing basis" was reported as an INSERTED cadence. The source list has to carry
+ * every way the English states a cadence, or the rule accuses the translation of the pattern's gap. */
+const CADENCE_SOURCE = /\b(planned intervals?|at intervals?|periodic(?:ally)?|regular(?:ly)?|annual(?:ly)?|monthly|quarterly|ongoing|continu(?:al|ous|ing)(?:ly)?|each year|every year)\b/i;
 
 /**
  * @param {string} text    the translated field-set
@@ -144,6 +179,16 @@ export function checkPins(text, lang, enText) {
 
   for (const r of PIN_RULES) {
     if (!r.langs.includes(lang)) continue;
+    /* A SOURCE-RELATIVE RULE ABSTAINS WITHOUT THE SOURCE rather than guessing. Passing no English
+     * means the rule does not run -- the same contract `inserted-cadence` already has, because a rule
+     * that cannot see the source must not invent a verdict about it. */
+    if (r.enRe) {
+      if (enText == null) continue;
+      if (!r.enRe.test(String(enText))) continue;
+    }
+    /* `unless` is an ACQUITTAL on the translated field: evidence that the term WAS rendered correctly
+     * somewhere in it, which makes the matched word a different word doing a different job. */
+    if (r.unless && r.unless.test(t)) continue;
     const m = r.re.exec(t);
     if (!m) continue;
     // A rule with `ok` is a SPELLING rule: the pattern matches every variant
@@ -169,6 +214,66 @@ export function itemText(row) {
  * rewritten, these are the cases that must still pass.
  */
 const CASES = [
+  // --- PROMPT-105's three pt-BR pins, both directions each ---
+  ["atribuicoes where the English says roles", "pt-BR",
+    "A alta direcao define as atribuicoes, responsabilidades e autoridades.", "roles-in-pt",
+    "Top management defines the roles, responsibilities and authorities."],
+  /* THE FOUR FALSE POSITIVES THE FIRST VERSION OF THIS RULE PRODUCED, verbatim from the rows it
+   * flagged. Every one renders roles as papeis AND uses atribuicao for ASSIGNMENT, which is what the
+   * English says. They cost three re-translation rounds before I read them. */
+  ["papeis plus atribuicao for ASSIGNMENT must NOT flag", "pt-BR",
+    "Os papéis e deveres de IA são recomendados nesse porte e sua atribuição pode ser postergada.", null,
+    "AI roles and duties are recommended at that size and their assignment can be deferred."],
+  ["papeis plus sem atribuicao must NOT flag", "pt-BR",
+    "Nomear a unidade de negócio como a parte responsável, deixando sem atribuição os papéis das etapas anteriores do ciclo de vida.", null,
+    "Naming the business unit as the party answerable, with earlier life-cycle roles left unassigned"],
+  ["papel singular also acquits", "pt-BR",
+    "Um processo para relatar preocupações sobre o papel da organização, cuja atribuição pode mudar.", null,
+    "A process to report concerns about the organization's role, whose assignment can change."],
+  ["papeis twice with alocados must NOT flag", "pt-BR",
+    "O controle exige que os papéis e responsabilidades de IA sejam definidos e alocados conforme a organização necessita, de modo que o conjunto de papéis é moldado por ela.", null,
+    "The control requires AI roles and responsibilities to be defined and allocated in line with what the organization needs, so the set of roles is shaped by it."],
+  ["bare English roles in pt-BR", "pt-BR",
+    "A alta direcao define os roles e as responsabilidades.", "roles-in-pt",
+    "Top management defines the roles and responsibilities."],
+  ["papeis is CORRECT and must not flag", "pt-BR",
+    "A alta direcao define os papeis, responsabilidades e autoridades.", null,
+    "Top management defines the roles, responsibilities and authorities."],
+  // atribuicoes is a real word for DUTIES: with no `role` in the English the rule must abstain
+  ["atribuicoes with no roles in the English must NOT flag", "pt-BR",
+    "O auditor registra as atribuicoes delegadas durante a auditoria.", null,
+    "The auditor records the duties delegated during the audit."],
+  ["a source-relative rule abstains with NO English at all", "pt-BR",
+    "A alta direcao define as atribuicoes, responsabilidades e autoridades.", null, undefined],
+  /* "on a continuing basis" IS a stated cadence. The source list lacked `continuing`, so a faithful
+   * rendering was accused of inserting one. Both directions, because the rule must still fire. */
+  ["de forma continua rendering 'on a continuing basis' must NOT flag", "pt-BR",
+    "Melhorar, de forma contínua, quão adequado e eficaz é o sistema de gestão de IA.", null,
+    "Improving, on a continuing basis, how suitable and effective the AI management system is."],
+  ["de forma continua with NO cadence in the English still flags", "pt-BR",
+    "A organizacao revisa, de forma contínua, o seu contexto.", "inserted-cadence",
+    "The organization returns to its context."],
+  ["corpo de governanca in pt-BR", "pt-BR",
+    "O corpo de governanca aprova a politica de IA.", "governing-body-in-pt"],
+  ["orgao de governanca is CORRECT and must not flag", "pt-BR",
+    "O orgao de governanca aprova a politica de IA.", null],
+  ["safety left in English in pt-BR", "pt-BR",
+    "A organizacao considera a safety do sistema de IA.", "safety-in-pt",
+    "The organization considers the safety of the AI system."],
+  ["seguranca for safety is CORRECT and must not flag", "pt-BR",
+    "A organizacao considera a seguranca do sistema de IA.", null,
+    "The organization considers the safety of the AI system."],
+  // THE LOANWORD DIRECTION, ruled explicitly: drift, analytics and start-up stay as they are
+  ["tech loanwords must NOT flag", "pt-BR",
+    "A equipe monitora o drift do modelo com analytics de uma start-up.", null,
+    "The team monitors model drift with analytics from a start-up."],
+  // and none of the three runs on es-419, where the Spanish forms are the pinned ones
+  ["roles in es-419 is CORRECT and must not flag", "es-419",
+    "La alta direccion define los roles, responsabilidades y autoridades.", null,
+    "Top management defines the roles, responsibilities and authorities."],
+  ["organo de gobierno in es-419 must not flag", "es-419",
+    "El organo de gobierno aprueba la politica de IA.", null],
+
   // --- must FLAG ---
   ["apartado in pt-BR", "pt-BR", "Sua conexao decorre do apartado 6.1.3, que exige que a organizacao defina um processo.", "apartado-in-pt"],
   ["coined SGAI", "pt-BR", "O SGAI da organizacao deve considerar o contexto.", "coined-acronym"],

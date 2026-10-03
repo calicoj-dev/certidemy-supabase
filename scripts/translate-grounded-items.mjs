@@ -20,7 +20,7 @@ import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { translateSystem } from "./lib/item-translation.mjs";
 import { graftTranslation, translateUser, translateItemControls } from "./lib/translate-item.mjs";
-import { checkPins } from "./lib/pin-compliance.mjs";
+import { checkPins, PIN_RULES } from "./lib/pin-compliance.mjs";
 import { explanationOptionRef, explanationOptionRefControls } from "./lib/explanation-option-ref.mjs";
 
 const LANGS = [{ code: "es-419", name: "Latin American Spanish" }, { code: "pt-BR", name: "Brazilian Portuguese" }];
@@ -167,7 +167,19 @@ for (const [code, taskRows] of [...byTask.entries()].sort()) {
     const recs = fresh.map((row) => ({ en_id: row.id, task: code, group_id: row.question_group_id, langs: {}, errors: [] }));
     for (const lang of LANGS) {
       try {
-        const raw = parseArray(await claude(translateSystem(lang.name, "secure"), translateUser(fresh)));
+        /* THE GLOSSARY PINS GO IN THE FIRST-PASS PROMPT, not only in the repair prompt. The pins were
+         * enforced by the lint and absent from the instruction, so the model had to guess and a repair
+         * round paid for what the brief could have prevented. */
+        /* `inserted-cadence` is checked by checkPins but lives OUTSIDE PIN_RULES, so building the
+         * brief from PIN_RULES alone left the one rule that changes what the item REQUIRES unstated. */
+        const brief = PIN_RULES.filter((r) => r.langs.includes(lang.code))
+          .map((r) => "- " + r.id + ": " + r.why).join("\n") +
+          "\n- inserted-cadence: NEVER add a periodicity the English does not state. If the English gives" +
+          "\n  no interval, the translation gives none -- no 'periodicamente', 'continuamente', 'de forma" +
+          "\n  continua', 'trimestralmente' or 'regularmente'. Adding one changes what the item REQUIRES.";
+        const sys = translateSystem(lang.name, "secure") +
+          (brief ? "\n\nGLOSSARY PINS -- CORRECTNESS RULES for " + lang.name + ", not preferences:\n" + brief : "");
+        const raw = parseArray(await claude(sys, translateUser(fresh)));
         /* THE COUNT IS ASSERTED. graft pairs BY POSITION inside a batch, so a short array would
          * silently translate item 2 as item 1 -- the whole batch is refused instead. */
         if (!Array.isArray(raw) || raw.length !== fresh.length) {
