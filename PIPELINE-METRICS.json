@@ -302,6 +302,26 @@
       "seconds": 3,
       "note": null,
       "recorded_at": "2026-10-04T20:10:38.353Z"
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 2,
+      "note": null,
+      "recorded_at": "2026-10-04T21:54:31.696Z"
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 2,
+      "note": null,
+      "recorded_at": "2026-10-04T21:54:51.575Z"
     }
   ],
   "costs_usd": [
@@ -656,7 +676,64 @@
           "retries": 0
         }
       },
-      "note": "FIRST test of claude-sonnet-5-5 as writer. Survival 54 vs 79 percent -- 25 points apart, outside the ~10-point band PROMPT-119 set for keeping a cheaper writer -- but cost per survivor is HALF. The director reads both sets blind to these totals and gives a reject rate per model before anything is settled. 0 of 32 survivors rest on a support-only source."
+      "note": "FIRST test of claude-sonnet-5-5 as writer. Survival 54 vs 79 percent -- 25 points apart, outside the ~10-point band PROMPT-119 set for keeping a cheaper writer -- but cost per survivor is HALF. The director reads both sets blind to these totals and gives a reject rate per model before anything is settled. 0 of 32 survivors rest on a support-only source.",
+      "director_verdicts": {
+        "claude-opus-5": {
+          "read": 19,
+          "accepted": 19,
+          "rejected": 0,
+          "reject_rate": 0.0,
+          "usd_per_accepted": 0.459
+        },
+        "claude-sonnet-5-5": {
+          "read": 13,
+          "accepted": 10,
+          "rejected": 3,
+          "reject_rate": 0.231,
+          "usd_per_accepted": 0.296,
+          "why_rejected": "all three for IMPLAUSIBLE DISTRACTORS, not a wrong anchor: options rejectable on common sense, a strawman, a repeated key"
+        }
+      },
+      "verdict_note": "RULED PROMPT-127 s2: NOT DECIDED. Sonnet is about 35 percent cheaper per ACCEPTED item even after the rejects, but the two sides wrote DIFFERENT tasks and Sonnet drew the easier ones to write shallowly (1.1, 1.5, 5.7 -- definitions and the audit-to-review chain). R1 cannot separate the model from the task. R2 is a same-task crossover.",
+      "accepted_and_inserted": 29
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 4,
+      "stage_name": "generation R2",
+      "usd": 8.7186,
+      "ceiling": 35,
+      "attempted": 40,
+      "generated": 40,
+      "survivors": 26,
+      "design": "SAME-TASK CROSSOVER, ruled PROMPT-127 s5: both writers wrote the SAME 10 tasks, 2 items each, solver Opus for both. This is what removes R1 confound of model against task.",
+      "by_writer": {
+        "claude-opus-5": {
+          "tasks": 10,
+          "asked": 20,
+          "generated": 20,
+          "survivors": 13,
+          "survival_of_generated": 0.65,
+          "usd": 6.4926,
+          "writer_role_usd": 4.6709,
+          "writer_usd_per_item": 0.2335,
+          "usd_per_survivor": 0.4994,
+          "retries": 0
+        },
+        "claude-sonnet-5-5": {
+          "tasks": 10,
+          "asked": 20,
+          "generated": 20,
+          "survivors": 13,
+          "survival_of_generated": 0.65,
+          "usd": 2.226,
+          "writer_role_usd": 0.5579,
+          "writer_usd_per_item": 0.0279,
+          "usd_per_survivor": 0.1712,
+          "retries": 0
+        }
+      },
+      "note": "SURVIVAL IS IDENTICAL AT 65 PERCENT ON THE SAME TASKS -- R1 25-point gap was the task mix, not the model. Cost per survivor is 2.9x apart. Per-task survival differs by at most one item either way on 10 tasks. The director reads both sets before the writer is settled; the reject rate per model on the SAME tasks is the number that decides it."
     }
   ],
   "not_instrumented": [

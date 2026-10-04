@@ -1,0 +1,53 @@
+{
+  "_what": "Items the director read and refused on ISMS-IA. A rejection is the one disposition no generated artifact carries, so the standing list must be read by anything that promotes. approve-grounded-items.mjs reads this file by content id.",
+  "_every_entry_names_its_artifact_and_its_id": "A REPORT NUMBER IS NOT AN IDENTITY -- see the ISMS-F file for the incident that established this. Every entry carries an `artifact` and an `item_id`.",
+  "rounds": [
+    {
+      "artifact": "ISMSIA-R1-opus.json",
+      "report": "ISMSIA-ROLLOUT-R1.md",
+      "ruled": "2026-10-04, PROMPT-127 s1",
+      "read": 19,
+      "accepted": 19,
+      "rejected": 0,
+      "note": "Writer claude-opus-5. All 19 accepted. The director notes the items are consistently scenario judgements, which is what an Internal Auditor exam should test."
+    },
+    {
+      "artifact": "ISMSIA-R1-sonnet55.json",
+      "report": "ISMSIA-ROLLOUT-R1.md",
+      "ruled": "2026-10-04, PROMPT-127 s1",
+      "read": 13,
+      "accepted": 10,
+      "rejected": 3,
+      "note": "Writer claude-sonnet-5-5. 3 of 13 rejected, all for IMPLAUSIBLE DISTRACTORS rather than a wrong anchor: options rejectable on common sense, a strawman, a repeated key. The PROMPT-127 s4 writer note addresses exactly this and applies to BOTH models."
+    }
+  ],
+  "rejections": [
+    {
+      "item_id": "17ac31b1",
+      "artifact": "ISMSIA-R1-sonnet55.json",
+      "task": "1.1",
+      "anchor": "ISO/IEC 27001 9.2.2",
+      "writer_model": "claude-sonnet-5-5",
+      "why": "RULED reject (PROMPT-127 s1): two of the three distractors are not answers anyone would pick (\"visit calendar the certification body sets\", \"headcount\"). That is recall with filler.",
+      "ruled_in": "PROMPT-127 s1"
+    },
+    {
+      "item_id": "d2afc15d",
+      "artifact": "ISMSIA-R1-sonnet55.json",
+      "task": "5.7",
+      "anchor": "ISO/IEC 27001 9.2.1",
+      "writer_model": "claude-sonnet-5-5",
+      "why": "RULED reject (PROMPT-127 s1): same key text as 95bc0088, which the solver rejected. One distractor (\"the cheapest controls available\") is not a plausible answer.",
+      "ruled_in": "PROMPT-127 s1"
+    },
+    {
+      "item_id": "11d7d55d",
+      "artifact": "ISMSIA-R1-sonnet55.json",
+      "task": "5.7",
+      "anchor": "ISO/IEC 27001 9.3.1",
+      "writer_model": "claude-sonnet-5-5",
+      "why": "RULED reject (PROMPT-127 s1): two options both name top management, and the fourth (\"only after a certification body issued major nonconformities\") is a strawman. The item is answered by eliminating the strawman, not by knowing 9.3.",
+      "ruled_in": "PROMPT-127 s1"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "_what": "PROMPT-127 s1: ALL 19 Opus survivors accepted, 0 rejected. The director notes they are consistently scenario judgements, which is what an Internal Auditor exam should test.",
+  "_writer_model": "claude-opus-5",
+  "accepts": [
+    {
+      "item_id": "5deb4e84",
+      "report_number": 1,
+      "task": "4.5",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO/IEC 27001 7.3 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "76e663a7",
+      "report_number": 2,
+      "task": "4.5",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO/IEC 27001 7.5.2 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "d4bc1d99",
+      "report_number": 3,
+      "task": "4.5",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO/IEC 27001 7.5.1 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "3deecf15",
+      "report_number": 4,
+      "task": "4.5",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO/IEC 27001 7.5.3 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "e4456bbd",
+      "report_number": 5,
+      "task": "1.2",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 4.6 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "a01e5a70",
+      "report_number": 6,
+      "task": "1.2",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 4.7 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "13b9a554",
+      "report_number": 7,
+      "task": "1.2",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 4.5 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "d509a957",
+      "report_number": 8,
+      "task": "4.7",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO/IEC 27001 4.2 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "af670af2",
+      "report_number": 9,
+      "task": "4.7",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO/IEC 27001 4.2 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "091a60ae",
+      "report_number": 10,
+      "task": "1.4",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 5.5.4 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "92dcd7a9",
+      "report_number": 11,
+      "task": "1.4",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 7.2.3.1 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "796d94a1",
+      "report_number": 12,
+      "task": "1.4",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 3.15 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "9b5b3db2",
+      "report_number": 13,
+      "task": "2.2",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 4.8 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "b0777ff8",
+      "report_number": 14,
+      "task": "2.2",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 5.3 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "88f1579b",
+      "report_number": 15,
+      "task": "2.2",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 6.3.2.1 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "eb1ab5db",
+      "report_number": 16,
+      "task": "2.2",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO/IEC 27001 9.2.2 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "dd6288af",
+      "report_number": 17,
+      "task": "2.4",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 A.16 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "fa058c8a",
+      "report_number": 18,
+      "task": "2.4",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 5.5.3 | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "ae831776",
+      "report_number": 19,
+      "task": "2.4",
+      "ruled_in": "PROMPT-127 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-127 s1 | writer claude-opus-5 | ISO 19011 A.1 | solver accepted/accepted, options reordered on run two"
+    }
+  ]
+}
