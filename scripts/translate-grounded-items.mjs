@@ -402,7 +402,13 @@ if (!APPLY) {
     console.log("");
     console.log("  group ids assigned          " + groups);
     console.log("  sibling rows inserted       " + inserted);
-    console.log("  READ BACK: English rows with exactly 2 siblings, every named column matching: " + good + " of " + want.size);
+    /* THE DENOMINATOR IS `want`, WHICH IS THE CLEAN SET -- so "40 of 40" is true of what was
+     * inserted and silent about what was withheld. The in-scope total goes on the same line, or a
+     * reader has to join it to the lint block above by hand. */
+    console.log("  READ BACK: English rows with exactly 2 siblings, every named column matching: " +
+      good + " of " + want.size + " inserted" +
+      (held.length ? "   (" + (want.size + held.length) + " in scope; " + held.length +
+        " withheld by the lint and NOT inserted)" : ""));
     for (const b of bad.slice(0, 8)) console.log("      " + b);
     if (good !== want.size) { console.error("POST-CONDITION FAILED."); process.exitCode = 2; }
     else {

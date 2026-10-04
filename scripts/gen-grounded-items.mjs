@@ -52,7 +52,7 @@ import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { runCodeGates, normClause } from "./lib/grounded-gates.mjs";
 import { blindPayload, assertBlind, solverUser, solverVerdict, SOLVER_SYSTEM, blindSolverControls } from "./lib/blind-solver.mjs";
 import { createHash } from "node:crypto";
-import { CAP, atCap, applyCap, anchorCapControls } from "./lib/anchor-cap.mjs";
+import { CAP, atCap, applyCap, anchorKey, anchorCapControls } from "./lib/anchor-cap.mjs";
 import { passageKey, keyOfPassage, labelOf, passageKeyControls } from "./lib/passage-key.mjs";
 import { makePassageIndex, passageIndexControls } from "./lib/passage-index.mjs";
 /* PROMPT-96 s2. ONE implementation of the assignment, imported by the writer prompt AND by the gate, so the
@@ -855,6 +855,44 @@ const capInfo = await buildCapCensus({ KEY, getAll, certId: cert.id, tasks, ROOT
   excludeArtifacts: FROM ? [FROM] : [] });
 const capCensus = capInfo.byTask;
 const atCapFor = (code) => atCap(capCensus.get(code) || new Map(), CAP);
+
+/* ============ WHAT THE CERTIFICATION ALREADY TESTS ON EACH ANCHOR (PROMPT-129 s2/s3) ============
+ *
+ * `capCensus` is per TASK, so neither the assignment nor the writer could see that another task
+ * already tests the same passage. 14 of the director's 17 duplicate calls on R3 were that: two
+ * tasks on one anchor, or a new item repeating one already live. `4f4e9379` duplicated `5a5e1d83`
+ * on 27001 9.2.2 across tasks.
+ *
+ * So: one census of ANCHOR -> the keys already live or accepted on it, certification-wide. It feeds
+ * two things -- the assignment's tie-break (prefer the least-used passage) and the prompt block
+ * that tells the writer what has already been asked there. */
+const CERT_ANCHOR_KEYS = new Map();   /* anchorKey -> [{ task, key }] */
+const CERT_ANCHOR_USE = new Map();    /* anchorKey -> count, for the assignment */
+{
+  const ig = new Map((await getAll(KEY, "item_grounding?select=question_id,source_id,edition," +
+    "key_support_clause,review_verdict&order=question_id")).map((g) => [g.question_id, g]));
+  const rows = await getAll(KEY, "quiz_questions?select=id,task_id,language,options,correct_answer," +
+    "item_origin,retired_at,status&certification_id=eq." + cert.id + "&language=eq.en&order=id");
+  const codeOfTask = new Map(tasks.map((t) => [t.id, t.code]));
+  let counted = 0, noAnchor = 0;
+  for (const r of rows) {
+    if (r.retired_at || r.item_origin !== "grounded") continue;
+    const g = ig.get(r.id);
+    if (!g) { noAnchor++; continue; }
+    const k = anchorKey(g.source_id, g.edition, g.key_support_clause);
+    const ki = Array.isArray(r.correct_answer) ? r.correct_answer[0] : null;
+    const hit = (r.options || []).find((o) => o && (ki ? o.id === ki : o.is_correct === true));
+    const key = String((hit && hit.text) || "").replace(/\s+/g, " ").trim();
+    if (!key) { noAnchor++; continue; }
+    if (!CERT_ANCHOR_KEYS.has(k)) CERT_ANCHOR_KEYS.set(k, []);
+    CERT_ANCHOR_KEYS.get(k).push({ task: codeOfTask.get(r.task_id) || "?", key });
+    CERT_ANCHOR_USE.set(k, (CERT_ANCHOR_USE.get(k) || 0) + 1);
+    counted++;
+  }
+  console.log("  already-tested census  " + counted + " live/accepted grounded item(s) over " +
+    CERT_ANCHOR_USE.size + " anchor(s)" +
+    (noAnchor ? "; " + noAnchor + " row(s) with no anchor or no key, NOT counted" : ""));
+}
 console.log("  anchor cap          " + CAP + " per (source, clause) per task; " +
   [...capCensus.values()].reduce((s, m) => s + [...m.values()].filter((n) => n >= CAP).length, 0) +
   " clause(s) at the cap (from " + capInfo.fromKept + " kept + " + capInfo.fromInserted +
@@ -1114,6 +1152,33 @@ function writerUser(task, domain, passages, k, assignments) {
   const primaries = passages.filter(isPrim);
   const others = passages.filter((p) => !isPrim(p));
   const src = [...primaries.map(fmt), ...others.map(fmt)].join("\n\n");
+  /* ============ WHAT HAS ALREADY BEEN ASKED ON THE ASSIGNED PASSAGES (PROMPT-129 s2) ============
+   *
+   * The writer was never shown what the bank already tests on an anchor, so it rewrote points that
+   * were already live -- 7 of R3's 60 survivors duplicated a live item and 7 more were twins of
+   * each other. Opus wrote `6b73a816` and Sonnet wrote its twin a round later; neither could have
+   * known. Capped at 6 lines (ruled): the block is a warning, not a reading list. */
+  const alreadyBlock = (() => {
+    if (!assignments || !assignments.length) return "";
+    const seen = new Set();
+    const lines = [];
+    for (const a of assignments) {
+      const k = anchorKey(a.source_id, a.edition, a.clause);
+      for (const e of (CERT_ANCHOR_KEYS.get(k) || [])) {
+        const line = "- " + labelOf(a.source_id, a.edition, a.clause) + " (task " + e.task + "): " +
+          e.key.slice(0, 150);
+        if (seen.has(line)) continue;
+        seen.add(line);
+        lines.push(line);
+      }
+    }
+    if (!lines.length) return "";
+    const shown = lines.slice(0, 6);
+    const more = lines.length - shown.length;
+    return "\n\nALREADY TESTED ON THIS PASSAGE: test a different point or decline.\n" +
+      shown.join("\n") + (more ? "\n- ...and " + more + " more on these passages." : "");
+  })();
+
   /* the ruled note for THIS task, if any. Placed last so it is the final instruction read. */
   const taskNote = TASK_NOTES.notes[task.code];
   const noteBlock = taskNote
@@ -1156,6 +1221,7 @@ function writerUser(task, domain, passages, k, assignments) {
     " 'in' or 'under' clause X, which obligation 'belongs to' X, or which option 'matches' X --" +
     " those test memory of ISO's numbering rather than understanding of the requirement. Citing a clause" +
     " as the AUTHORITY for a question whose subject the stem names is fine." +
+    alreadyBlock +
     noteBlock +
     "\n\nWrite " + k + " item(s). Return the JSON array only.";
 }
@@ -1334,6 +1400,8 @@ if (FROM) {
       taskCode: t.code, runId: RUN_ID,
       primaries: primariesForAssignment,
       censusMap: capCensus.get(t.code) || new Map(),
+      /* PROMPT-129 s3: prefer the passage the CERTIFICATION has used least, after the task's own count */
+      certCensus: CERT_ANCHOR_USE,
       want: k,
     });
     /* ASSERTED, not assumed: every assigned clause must be one the library holds, or the writer is being

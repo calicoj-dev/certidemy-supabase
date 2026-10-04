@@ -1,0 +1,95 @@
+{
+  "_what": "A THIRD DISPOSITION: items that are neither approved nor director-rejected. Read by approve-grounded-items.mjs before the seven conditions. An entry can only ever WITHHOLD.",
+  "_why_this_file_exists": "PROMPT-129 s1. R3 produced SEVEN twin pairs -- two items on the same anchor making the same point, both sound. The director keeps one of each and withholds the other: they are good items that may serve later, so a rejection would be the wrong word.",
+  "_the_cause": "A writer is not shown what the bank already tests on an anchor, and the anchor assignment prefers an unused clause only WITHIN a task. PROMPT-129 s2 addresses both.",
+  "withheld": [
+    {
+      "item_id": "6cbb37e3",
+      "artifact": "ISMSIA-R3.json",
+      "ruled_in": "PROMPT-129 s1",
+      "kind": "twin-within-round",
+      "twin_of": "68037836",
+      "anchor": "ISO 19011 5.1",
+      "reason": "twin of 68037836 on ISO 19011 5.1 (risk-weighted allocation): same anchor, same key, same point. The director keeps 68037836 and withholds this one. Sound item, may serve later."
+    },
+    {
+      "item_id": "1fcd8f53",
+      "artifact": "ISMSIA-R3.json",
+      "ruled_in": "PROMPT-129 s1",
+      "kind": "twin-within-round",
+      "twin_of": "4a9fba74",
+      "anchor": "ISO 19011 4.7",
+      "reason": "twin of 4a9fba74 on ISO 19011 4.7 (small sample of ~400 change records): same anchor, same key, same point. The director keeps 4a9fba74 and withholds this one. Sound item, may serve later."
+    },
+    {
+      "item_id": "daa27099",
+      "artifact": "ISMSIA-R3.json",
+      "ruled_in": "PROMPT-129 s1",
+      "kind": "twin-within-round",
+      "twin_of": "0f7709e7",
+      "anchor": "ISO 19011 A.5",
+      "reason": "twin of 0f7709e7 on ISO 19011 A.5 (integrity of evidence arriving by an unusual route): same anchor, same key, same point. The director keeps 0f7709e7 and withholds this one. Sound item, may serve later."
+    },
+    {
+      "item_id": "31c5c679",
+      "artifact": "ISMSIA-R3.json",
+      "ruled_in": "PROMPT-129 s1",
+      "kind": "twin-within-round",
+      "twin_of": "4428d26d",
+      "anchor": "ISO/IEC 27001 6.1.2",
+      "reason": "twin of 4428d26d on ISO/IEC 27001 6.1.2 (consistent, comparable results): same anchor, same key, same point. The director keeps 4428d26d and withholds this one. Sound item, may serve later."
+    },
+    {
+      "item_id": "c935a095",
+      "artifact": "ISMSIA-R3.json",
+      "ruled_in": "PROMPT-129 s1",
+      "kind": "twin-within-round",
+      "twin_of": "41987c68",
+      "anchor": "ISO 19011 6.4.8",
+      "reason": "twin of 41987c68 on ISO 19011 6.4.8 (review the nonconformity with the auditee): same anchor, same key, same point. The director keeps 41987c68 and withholds this one. Sound item, may serve later."
+    },
+    {
+      "item_id": "c2ede142",
+      "artifact": "ISMSIA-R3.json",
+      "ruled_in": "PROMPT-129 s1",
+      "kind": "twin-within-round",
+      "twin_of": "a41dec11",
+      "anchor": "ISO 19011 6.7",
+      "reason": "twin of a41dec11 on ISO 19011 6.7 (verify completed and effective): same anchor, same key, same point. The director keeps a41dec11 and withholds this one. Sound item, may serve later."
+    },
+    {
+      "item_id": "b3d7170f",
+      "artifact": "ISMSIA-R3.json",
+      "ruled_in": "PROMPT-129 s1",
+      "kind": "twin-within-round",
+      "twin_of": "a09604bd",
+      "anchor": "ISO 19011 6.4.7",
+      "reason": "twin of a09604bd on ISO 19011 6.4.7 (judge reliance on weakly verified evidence): same anchor, same key, same point. The director keeps a09604bd and withholds this one. Sound item, may serve later."
+    },
+    {
+      "item_id": "427e8f1b",
+      "row_uuid_prefix": "1fc979bb",
+      "artifact": "ISMSIA-R3.json",
+      "ruled_in": "PROMPT-129 s1 (lint)",
+      "kind": "translation-lint",
+      "reason": "WITHHELD FROM APPROVAL, not rejected: the English item is sound and its gates pass, but its siblings cannot be produced clean. es-419 option b renders a sub-item as \"alinea\", which is PINNED for pt-BR; es-419 uses \"apartado\". Two independent rolls produced the same word. It has NO siblings, so approving it would put an untranslated item in the pool."
+    },
+    {
+      "item_id": "20ee9bc7",
+      "row_uuid_prefix": "3d74b082",
+      "artifact": "ISMSIA-R3.json",
+      "ruled_in": "PROMPT-129 s1 (lint)",
+      "kind": "translation-lint",
+      "reason": "WITHHELD FROM APPROVAL, not rejected: the English item is sound and its gates pass, but its siblings cannot be produced clean. es-419 option c, same alinea-leak-into-es pin. Two independent rolls produced the same word. It has NO siblings, so approving it would put an untranslated item in the pool."
+    },
+    {
+      "item_id": "b0d976bb",
+      "row_uuid_prefix": "d12295cc",
+      "artifact": "ISMSIA-R3.json",
+      "ruled_in": "PROMPT-129 s1 (lint)",
+      "kind": "translation-lint",
+      "reason": "WITHHELD FROM APPROVAL, not rejected: the English item is sound and its gates pass, but its siblings cannot be produced clean. both siblings name an option by its LETTER (\"opcion A\" / \"opcao A\"). The ENGLISH explanation names no letter, so the translator introduced it; options_fixed_order is false, so the letter points at a different option after any reshuffle. It has NO siblings, so approving it would put an untranslated item in the pool."
+    }
+  ],
+  "_translation_lint_note": "Three R3 items are withheld for a TRANSLATION defect rather than an item defect. The English explanations were checked and name no option by letter, so the letter reference is the translator introducing one. Re-rolling reproduced both problems identically, so no further spend was made. They become approvable the moment a clean sibling pair exists."
+}

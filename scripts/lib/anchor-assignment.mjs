@@ -63,7 +63,8 @@ function h32(s) {
  * @returns {{ assignments: [{index, source_id, clause}], eligible: n, capacity: n, shortfall: n,
  *            order: [string], why: string }}
  */
-export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap = CAP }) {
+export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap = CAP,
+  certCensus = null }) {
   const held = (p) => censusMap.get(anchorKey(p.source_id, p.edition, p.clause)) || 0;
   const eligible = (primaries || []).filter((p) => held(p) < cap);
 
@@ -73,12 +74,28 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
   /* fewest-held first; ties by a hash of (task, run, clause) so the order differs between runs and is
    * reproducible within one. The clause is IN the hash so two clauses with the same count do not have to
    * share a bucket order. */
+  /* ============ AND THEN BY USE ACROSS THE WHOLE CERTIFICATION (PROMPT-129 s3) ============
+   *
+   * `held` counts what THIS TASK carries on a clause. It cannot see that another task already tests
+   * the same passage, and 14 of the director's 17 duplicate calls on R3 were exactly that: two tasks
+   * on one anchor. `4f4e9379` duplicated `5a5e1d83` on 27001 9.2.2 from a different task entirely.
+   * An anchor is a passage; a passage is shared; so the preference has to be certification-wide.
+   *
+   * It sorts AFTER the task-local count, which still leads: the cap is per task and a clause this
+   * task already holds an item on is still the worse home. `certHeld` only breaks those ties, and
+   * defaults to 0 when the caller passes no census -- so every existing caller behaves as before. */
+  const certHeldOf = (p) => {
+    if (!certCensus) return 0;
+    const k = anchorKey(p.source_id, p.edition, p.clause);
+    return Number(certCensus.get(k) || 0);
+  };
   const seeded = eligible.map((p) => ({
     ...p,
     held: held(p),
+    certHeld: certHeldOf(p),
     tie: h32(String(taskCode) + "|" + String(runId) + "|" + p.source_id + "|" + p.edition + "|" + p.clause),
   }));
-  seeded.sort((a, b) => a.held - b.held || a.tie - b.tie);
+  seeded.sort((a, b) => a.held - b.held || a.certHeld - b.certHeld || a.tie - b.tie);
 
   const assignments = [];
   const room = new Map(seeded.map((p) => [anchorKey(p.source_id, p.edition, p.clause), cap - p.held]));
@@ -210,6 +227,37 @@ export function anchorAssignmentControls({ quiet = false } = {}) {
   const ok = (what, cond, detail) => out.push({ what, pass: !!cond, detail: cond ? null : detail });
   const P = (clause) => ({ source_id: "ISO/IEC 42001", edition: "2023", clause });
   const cens = (pairs) => new Map(pairs.map(([c, n]) => [anchorKey("ISO/IEC 42001", "2023", c), n]));
+
+  /* ---- CERTIFICATION-WIDE PREFERENCE (PROMPT-129 s3), both directions ---- */
+  {
+    /* two clauses, both untouched BY THIS TASK, but 9.1 is already tested by another task */
+    const primaries = ["9.1", "9.2"].map(P);
+    const certBusy = cens([["9.1", 3]]);
+    const r = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]),
+      want: 1, certCensus: certBusy });
+    ok("a clause used elsewhere in the certification loses to an unused one",
+      r.assignments[0] && r.assignments[0].clause === "9.2",
+      "picked " + (r.assignments[0] || {}).clause);
+    /* the other direction: swap which one is busy and the pick must swap too */
+    const r2 = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]),
+      want: 1, certCensus: cens([["9.2", 3]]) });
+    ok("...and the preference follows the census, not the clause name",
+      r2.assignments[0] && r2.assignments[0].clause === "9.1",
+      "picked " + (r2.assignments[0] || {}).clause);
+    /* the TASK-LOCAL count still leads: a clause this task already holds is worse even if the
+     * certification has never used it */
+    const r3 = assignAnchors({ taskCode: "x.1", runId: "r1", primaries,
+      censusMap: cens([["9.2", 1]]), want: 1, certCensus: cens([["9.1", 5]]) });
+    ok("the task's own count still outranks the certification-wide one",
+      r3.assignments[0] && r3.assignments[0].clause === "9.1",
+      "picked " + (r3.assignments[0] || {}).clause);
+    /* and with NO certCensus every existing caller is unchanged */
+    const a = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]), want: 2 });
+    const b = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]), want: 2,
+      certCensus: null });
+    ok("omitting certCensus changes nothing",
+      JSON.stringify(a.assignments) === JSON.stringify(b.assignments));
+  }
 
   /* ---- the 5.5 case: four items, many eligible clauses, four DISTINCT anchors ---- */
   {

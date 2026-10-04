@@ -37,6 +37,16 @@
       "accepted": 12,
       "rejected": 1,
       "note": "Writer claude-sonnet-5-5. One reject, and it is a CROSS-WRITER duplicate the in-run gate could not see: both writers wrote the same tasks from the same prompt and neither artifact could see the other. check-cross-artifact-duplicates.mjs now exists and independently flags this pair at 67 percent key-word share."
+    },
+    {
+      "artifact": "ISMSIA-R3.json",
+      "report": "ISMSIA-ROLLOUT-R3.md",
+      "ruled": "2026-10-04, PROMPT-129 s1",
+      "read": 60,
+      "accepted": 43,
+      "rejected": 10,
+      "withheld": 7,
+      "note": "Writer claude-sonnet-5-5. THREE dispositions, and the distinction is the point: 3 rejects are the writer's fault, 7 are duplicates of items already live, and 7 are twins within the round. The director ruled the tripwire NOT tripped because only the first 3 are a writer defect -- 5% of 60 -- and a writer is never shown what the bank already tests on its anchor."
     }
   ],
   "rejections": [
@@ -75,6 +85,113 @@
       "writer_model": "claude-sonnet-5-5",
       "why": "RULED reject (PROMPT-128 s1): it tests the same 9.3.3 point, with the same key, as Opus 22090360, and it is the plain-recall version of it. Stem overlap is 41 percent so no stem rule sees it; the anchor-and-key signal added in PROMPT-128 s2 measures 67 percent and flags it.",
       "ruled_in": "PROMPT-128 s1"
+    },
+    {
+      "item_id": "ad3da8d3",
+      "artifact": "ISMSIA-R3.json",
+      "task": "3.1",
+      "anchor": "ISO 19011 3.1",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "quality",
+      "why": "RULED reject (PROMPT-129 s1): Terminology trap: it turns on \"audit evidence\" against \"objective evidence\" inside the definition. That is pedantry, not audit skill.",
+      "ruled_in": "PROMPT-129 s1"
+    },
+    {
+      "item_id": "453a5333",
+      "artifact": "ISMSIA-R3.json",
+      "task": "4.10",
+      "anchor": "ISO/IEC 27001 9.2.2",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "quality",
+      "why": "RULED reject (PROMPT-129 s1): Plain recall (\"relevant management\") with a \"combined audit\" veneer. Nothing in it tests a combined audit.",
+      "ruled_in": "PROMPT-129 s1"
+    },
+    {
+      "item_id": "3f9a949a",
+      "artifact": "ISMSIA-R3.json",
+      "task": "1.1",
+      "anchor": "ISO/IEC 27001 9.2.2",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "quality",
+      "why": "RULED reject (PROMPT-129 s1): Its key (\"not acceptable; someone else should audit\") contradicts what the bank already teaches on independence (6b73a816, df1baea4: proceed with measures against bias when no one else is available). The stem does not say whether anyone else is available, so a learner cannot tell which lesson applies.",
+      "ruled_in": "PROMPT-129 s1"
+    },
+    {
+      "item_id": "5a766530",
+      "artifact": "ISMSIA-R3.json",
+      "task": "4.1",
+      "anchor": "ISO 19011 A.8",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "79687a7a",
+      "why": "RULED reject (PROMPT-129 s1): duplicates the live item 79687a7a on ISO 19011 A.8 -- near-identical key. NOT a writer defect: no writer is shown what the bank already tests on its anchor.",
+      "ruled_in": "PROMPT-129 s1"
+    },
+    {
+      "item_id": "237256ee",
+      "artifact": "ISMSIA-R3.json",
+      "task": "4.8",
+      "anchor": "ISO/IEC 27001 A.5.9",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "058c46cf",
+      "why": "RULED reject (PROMPT-129 s1): duplicates the live item 058c46cf on ISO/IEC 27001 A.5.9 -- AI artefacts missing from the register, no owners. NOT a writer defect: no writer is shown what the bank already tests on its anchor.",
+      "ruled_in": "PROMPT-129 s1"
+    },
+    {
+      "item_id": "54fd74d5",
+      "artifact": "ISMSIA-R3.json",
+      "task": "1.1",
+      "anchor": "ISO 19011 3.13",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "8ba52401",
+      "why": "RULED reject (PROMPT-129 s1): duplicates the live item 8ba52401 on ISO 19011 3.13 -- audit client. NOT a writer defect: no writer is shown what the bank already tests on its anchor.",
+      "ruled_in": "PROMPT-129 s1"
+    },
+    {
+      "item_id": "45220642",
+      "artifact": "ISMSIA-R3.json",
+      "task": "1.1",
+      "anchor": "ISO/IEC 27001 A.5.35",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "3abae3c4",
+      "why": "RULED reject (PROMPT-129 s1): duplicates the live item 3abae3c4 on ISO/IEC 27001 A.5.35 -- change triggers independent review. NOT a writer defect: no writer is shown what the bank already tests on its anchor.",
+      "ruled_in": "PROMPT-129 s1"
+    },
+    {
+      "item_id": "03c453a4",
+      "artifact": "ISMSIA-R3.json",
+      "task": "1.3",
+      "anchor": "ISO 19011 3.1",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "d107e62b",
+      "why": "RULED reject (PROMPT-129 s1): duplicates the live item d107e62b on ISO 19011 3.1 -- consultancy-run audit stays internal. NOT a writer defect: no writer is shown what the bank already tests on its anchor.",
+      "ruled_in": "PROMPT-129 s1"
+    },
+    {
+      "item_id": "740d9999",
+      "artifact": "ISMSIA-R3.json",
+      "task": "1.3",
+      "anchor": "ISO 19011 4.6",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "6b73a816",
+      "why": "RULED reject (PROMPT-129 s1): duplicates the live item 6b73a816 on ISO 19011 4.6 -- sole competent auditor, mitigate bias. NOT a writer defect: no writer is shown what the bank already tests on its anchor.",
+      "ruled_in": "PROMPT-129 s1"
+    },
+    {
+      "item_id": "4f4e9379",
+      "artifact": "ISMSIA-R3.json",
+      "task": "2.1",
+      "anchor": "ISO/IEC 27001 9.2.2",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "5a5e1d83",
+      "why": "RULED reject (PROMPT-129 s1): duplicates the live item 5a5e1d83 on ISO/IEC 27001 9.2.2 -- equal treatment is neutral programme -- DIFFERENT TASK, same item. NOT a writer defect: no writer is shown what the bank already tests on its anchor.",
+      "ruled_in": "PROMPT-129 s1"
     }
   ]
 }

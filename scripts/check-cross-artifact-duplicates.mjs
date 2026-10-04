@@ -30,6 +30,10 @@ import { nearDuplicateOf } from "./lib/grounded-gates.mjs";
 import { itemIdOfStem } from "./lib/item-id.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+/* the key normaliser, declared HERE because the live-bank index below needs it and the candidate
+ * comparison further down needs the same one -- two spellings of this would be two rules. */
+const normKeyEarly = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ")
+  .replace(/\s+/g, " ").trim();
 let CERT = null, ARTS = [], ACCEPTS = [], OUT = null;
 const AV = process.argv.slice(2);
 for (let i = 0; i < AV.length; i++) {
@@ -86,6 +90,38 @@ for (const r of live) {
   liveByTask.get(code).push({ id: r.id, stem: r.question_text, where: "LIVE (" + r.status + ")" });
 }
 
+/* ============ THE LIVE BANK INDEXED BY ANCHOR, WITH ITS KEY TEXT (PROMPT-129 s2) ============
+ *
+ * `item_grounding` carries the anchor per ITEM (on its English row), so the anchor comes from there
+ * and the key text from the row's own options. A row with no grounding has no anchor and cannot
+ * take part -- counted and reported, never silently treated as "no match". */
+const liveByAnchor = new Map();
+let liveNoGrounding = 0, liveNoKey = 0;
+{
+  const ig = new Map((await getAll(KEY, "item_grounding?select=question_id,source_id,edition," +
+    "key_support_clause&order=question_id")).map((g) => [g.question_id, g]));
+  /* `question_text` IS SELECTED: the live row's identity has to be its STEM HASH, not its uuid
+   * prefix. The director names items by stem hash, and a uuid prefix is a different identifier
+   * entirely -- the control reported 1 of 14 purely because the two could never match. */
+  const full = await getAll(KEY, "quiz_questions?select=id,task_id,language,question_text,options," +
+    "correct_answer,item_origin,retired_at,status&certification_id=eq." + cert.id +
+    "&language=eq.en&order=id");
+  for (const r of full) {
+    if (r.retired_at || r.item_origin !== "grounded") continue;
+    const g = ig.get(r.id);
+    if (!g) { liveNoGrounding++; continue; }
+    const anchor = (g.source_id || "?") + " " + (g.key_support_clause || "?");
+    const ki = Array.isArray(r.correct_answer) ? r.correct_answer[0] : null;
+    const opts = r.options || [];
+    const hit = ki ? opts.find((o) => o && o.id === ki) : opts.find((o) => o && o.is_correct === true);
+    const key = normKeyEarly(hit ? hit.text : "");
+    if (!key) { liveNoKey++; continue; }
+    if (!liveByAnchor.has(anchor)) liveByAnchor.set(anchor, []);
+    liveByAnchor.get(anchor).push({ item_id: itemIdOfStem(r.question_text), row: String(r.id).slice(0, 8), key,
+      task: codeOf.get(r.task_id) || "?", status: r.status });
+  }
+}
+
 /* ---- the candidates: survivors of each artifact, optionally narrowed to its accept list ---- */
 const cand = [];
 ARTS.forEach((f, i) => {
@@ -126,8 +162,11 @@ const undecided = [];
 for (let i = 0; i < cand.length; i++) {
   for (let j = i + 1; j < cand.length; j++) {
     const a = cand[i], b = cand[j];
+    /* THE STEM ARM STAYS WITHIN A TASK. Only the ANCHOR arm went cross-task (PROMPT-129 s2): two
+     * stems on different tasks describe different competences, and comparing them produced 90 flags
+     * where the within-task comparison produces 3. The cross-task question is about the PASSAGE. */
     if (a.task !== b.task) continue;
-    if (a.artifact === b.artifact) continue;
+    if (ARTS.length > 1 && a.artifact === b.artifact) continue;
     const r = nearDuplicateOf(a.stem, [{ id: b.item_id, stem: b.stem }]);
     if (r.state === "DUPLICATE") flagged.push({ kind: "cross-artifact", task: a.task, a, b, reason: r.reason });
     else if (r.state !== "DISTINCT") undecided.push({ task: a.task, a, b, state: r.state, reason: r.reason });
@@ -145,41 +184,74 @@ for (let i = 0; i < cand.length; i++) {
  * refusal -- the enemy rule keeps same-anchor items off one form, so both are serveable -- it is
  * the pair a human should look at, which is the job this script exists to take off a human.
  */
-const normKey = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ")
-  .replace(/\s+/g, " ").trim();
+const normKey = normKeyEarly;
 const keyTextOf = (it) => {
   const o = it.raw || {};
   const opts = o.options || [];
   const hit = opts.find((x) => x && x.is_correct === true);
   return normKey(hit ? hit.text : "");
 };
+/* ============ ACROSS ANY TASK, AND AGAINST THE LIVE BANK (PROMPT-129 s2) ============
+ *
+ * The first version compared only WITHIN one task and only AMONG candidates. Of the director's 17
+ * duplicate and twin calls on R3, 14 share an anchor ACROSS tasks or against an item already LIVE --
+ * `4f4e9379` duplicates `5a5e1d83` on 27001 9.2.2 from a different task entirely. An anchor is a
+ * passage, not a task, so the comparison has to be per anchor.
+ */
+const keyShare = (ka, kb) => {
+  const wa = [...new Set(ka.split(" "))].filter((w) => w.length > 3);
+  const wb = new Set([...new Set(kb.split(" "))].filter((w) => w.length > 3));
+  const shared = wa.filter((w) => wb.has(w)).length;
+  const denom = Math.min(wa.length, wb.size) || 1;
+  return shared / denom;
+};
+const SHARE_BAR = 0.6;
+/* candidate against candidate, ANY task */
 for (let i = 0; i < cand.length; i++) {
   for (let j = i + 1; j < cand.length; j++) {
     const a = cand[i], b = cand[j];
-    if (a.task !== b.task) continue;
     /* with ONE artifact the pair is necessarily same-artifact, and that is the case this signal has
      * never covered; with two or more, same-artifact pairs were already seen by the in-run gate. */
-    if (ARTS.length > 1 && a.artifact === b.artifact) continue;
+    if (ARTS.length > 1 && a.artifact === b.artifact && a.task === b.task) continue;
     if (a.anchor !== b.anchor) continue;
     const ka = keyTextOf(a), kb = keyTextOf(b);
     if (!ka || !kb) continue;
-    const wa = new Set(ka.split(" ")), wb = new Set(kb.split(" "));
-    const shared = [...wa].filter((w) => w.length > 3 && wb.has(w)).length;
-    const denom = Math.min([...wa].filter((w) => w.length > 3).length,
-      [...wb].filter((w) => w.length > 3).length) || 1;
-    const share = shared / denom;
-    if (ka === kb || share >= 0.6) {
-      flagged.push({ kind: "same-anchor-same-key", task: a.task, a, b,
+    const share = keyShare(ka, kb);
+    if (ka === kb || share >= SHARE_BAR) {
+      flagged.push({ kind: a.task === b.task ? "same-anchor-same-key" : "same-anchor-ACROSS-TASKS",
+        task: a.task + (a.task === b.task ? "" : " / " + b.task), a, b,
         reason: "same anchor " + a.anchor + " and the keys share " + Math.round(share * 100) +
           "% of their distinctive words" + (ka === kb ? " (identical key text)" : "") +
+          (a.task === b.task ? "" : " -- DIFFERENT TASKS, same passage") +
           ". Stem overlap is below the near-duplicate bar, so no stem rule sees this pair." });
+    }
+  }
+}
+/* candidate against the LIVE GROUNDED BANK, any task, matched on the anchor */
+for (const c of cand) {
+  const ka = keyTextOf(c);
+  if (!ka) continue;
+  for (const l of (liveByAnchor.get(c.anchor) || []).filter((l) => l.item_id !== c.item_id)) {
+    const share = keyShare(ka, l.key);
+    if (ka === l.key || share >= SHARE_BAR) {
+      flagged.push({ kind: "same-anchor-AGAINST-LIVE", task: c.task + " / live " + l.task, a: c,
+        b: { artifact: "LIVE BANK", item_id: l.item_id, anchor: c.anchor, writer: l.status },
+        reason: "the live item " + l.item_id + " (task " + l.task + ", " + l.status + ") already " +
+          "tests this passage and the keys share " + Math.round(share * 100) + "% of their " +
+          "distinctive words" + (ka === l.key ? " (identical key text)" : "") + "." });
     }
   }
 }
 
 /* AGAINST THE LIVE BANK: each candidate against the live grounded stems for its task. */
 for (const c of cand) {
-  const pool = liveByTask.get(c.task) || [];
+  /* ============ A CANDIDATE IS NOT ITS OWN DUPLICATE (PROMPT-129 s2) ============
+   *
+   * Once a round is inserted, every candidate has a live row with the same stem, so the against-live
+   * arms matched 43 of 43 items to themselves. THIRD occurrence of this class in this repository
+   * (PROMPT-122 recorded it for revise-artifact, and the stored path for row id). Excluded by STEM
+   * IDENTITY, which is the identifier both sides share. */
+  const pool = (liveByTask.get(c.task) || []).filter((l) => itemIdOfStem(l.stem) !== c.item_id);
   if (!pool.length) continue;
   const r = nearDuplicateOf(c.stem, pool);
   if (r.state === "DUPLICATE") flagged.push({ kind: "against-live", task: c.task, a: c, b: null, reason: r.reason });
@@ -205,7 +277,19 @@ console.log("");
 console.log("  NOTHING IS WITHHELD BY THIS SCRIPT. It names pairs; a human rules which half to keep,");
 console.log("  and the kept-out half belongs in <SLUG>-WITHHELD.json -- a withholding, not a rejection.");
 if (OUT) {
+  /* ============ THE OUTPUT CARRIES IDS, NOT ITEMS (PROMPT-129 s2) ============
+   *
+   * Candidate entries hold the whole item under `raw` -- key_support and all -- so writing the
+   * flag list straight out put 178 runs of ISO 19011 text into a file nothing ignored.
+   * check-licensed-text caught it before any commit. This file needs identifiers and reasons;
+   * it never needed the text. */
+  const slim = (x) => x && { artifact: x.artifact, item_id: x.item_id, task: x.task,
+    anchor: x.anchor, writer: x.writer };
   writeFileSync(join(ROOT, OUT), JSON.stringify({ cert: CERT, artifacts: ARTS,
-    candidates: cand.length, flagged, undecided }, null, 2) + "\n");
+    candidates: cand.length,
+    flagged: flagged.map((f) => ({ kind: f.kind, task: f.task, a: slim(f.a), b: slim(f.b),
+      reason: f.reason })),
+    undecided: undecided.map((u) => ({ task: u.task, a: slim(u.a), b: slim(u.b), state: u.state })),
+  }, null, 2) + "\n");
   console.log("  wrote " + OUT);
 }
