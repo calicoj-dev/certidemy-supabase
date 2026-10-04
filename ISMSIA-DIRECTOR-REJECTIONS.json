@@ -19,6 +19,24 @@
       "accepted": 10,
       "rejected": 3,
       "note": "Writer claude-sonnet-5-5. 3 of 13 rejected, all for IMPLAUSIBLE DISTRACTORS rather than a wrong anchor: options rejectable on common sense, a strawman, a repeated key. The PROMPT-127 s4 writer note addresses exactly this and applies to BOTH models."
+    },
+    {
+      "artifact": "ISMSIA-R2-opus.json",
+      "report": "ISMSIA-ROLLOUT-R2.md",
+      "ruled": "2026-10-04, PROMPT-128 s1",
+      "read": 13,
+      "accepted": 13,
+      "rejected": 0,
+      "note": "Writer claude-opus-5. All 13 accepted."
+    },
+    {
+      "artifact": "ISMSIA-R2-sonnet55.json",
+      "report": "ISMSIA-ROLLOUT-R2.md",
+      "ruled": "2026-10-04, PROMPT-128 s1",
+      "read": 13,
+      "accepted": 12,
+      "rejected": 1,
+      "note": "Writer claude-sonnet-5-5. One reject, and it is a CROSS-WRITER duplicate the in-run gate could not see: both writers wrote the same tasks from the same prompt and neither artifact could see the other. check-cross-artifact-duplicates.mjs now exists and independently flags this pair at 67 percent key-word share."
     }
   ],
   "rejections": [
@@ -48,6 +66,15 @@
       "writer_model": "claude-sonnet-5-5",
       "why": "RULED reject (PROMPT-127 s1): two options both name top management, and the fourth (\"only after a certification body issued major nonconformities\") is a strawman. The item is answered by eliminating the strawman, not by knowing 9.3.",
       "ruled_in": "PROMPT-127 s1"
+    },
+    {
+      "item_id": "ab6095d6",
+      "artifact": "ISMSIA-R2-sonnet55.json",
+      "task": "5.7",
+      "anchor": "ISO/IEC 27001 9.3.3",
+      "writer_model": "claude-sonnet-5-5",
+      "why": "RULED reject (PROMPT-128 s1): it tests the same 9.3.3 point, with the same key, as Opus 22090360, and it is the plain-recall version of it. Stem overlap is 41 percent so no stem rule sees it; the anchor-and-key signal added in PROMPT-128 s2 measures 67 percent and flags it.",
+      "ruled_in": "PROMPT-128 s1"
     }
   ]
 }

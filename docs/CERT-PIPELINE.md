@@ -24,6 +24,14 @@ only 48 generated, and a **31% director reject against ~3% for R3–R5**. `--wri
 `--solver-model` exist; the solver is the quality filter and stays on Opus. `claude-sonnet-5-5` is priced
 in the table ($2/$10 per Mtok) and **has not been tested as a writer**.
 
+**SUPERSEDED — writer: `claude-sonnet-5-5` (ruled PROMPT-128 s4, from ISMS-IA on). The solver stays
+Opus.** Settled by a SAME-TASK CROSSOVER: ISMS-IA R2 gave both writers the same ten tasks and both
+survived 13 of 20, so R1's 25-point gap was the task mix, not the model. Over R1+R2 the cost per
+director-ACCEPTED item was **$0.23 against Opus's $0.48**. **Tripwires — either one sends that
+certification back to Opus:** a director reject rate **above 15% in any round**, or a task scoring
+**0 Sonnet survivors from 4 or more asked** (that task alone reverts). Sonnet-**5** is a different
+model and was refused in R6 on the numbers above.
+
 ## What each stage may write
 
 Stages 1–3 write **nothing** to the item tables (stage 2 writes a keep-list artifact). Stage 4 writes

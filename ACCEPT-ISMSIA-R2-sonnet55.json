@@ -1,0 +1,102 @@
+{
+  "_what": "PROMPT-128 s1: 12 of 13 sonnet-5-5 R2 survivors accepted. ab6095d6 rejected as the plain-recall version of Opus 22090360 on the same 9.3.3 point with the same key -- a CROSS-WRITER duplicate the in-run gate could not see.",
+  "_writer_model": "claude-sonnet-5-5",
+  "accepts": [
+    {
+      "item_id": "735ed831",
+      "report_number": 1,
+      "task": "4.1",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 4.2"
+    },
+    {
+      "item_id": "79687a7a",
+      "report_number": 2,
+      "task": "4.1",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO 19011 A.8"
+    },
+    {
+      "item_id": "c0a43470",
+      "report_number": 3,
+      "task": "4.8",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 A.5.12"
+    },
+    {
+      "item_id": "a048d3ee",
+      "report_number": 4,
+      "task": "5.5",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 10.2"
+    },
+    {
+      "item_id": "db491785",
+      "report_number": 5,
+      "task": "5.5",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO 19011 A.18.3"
+    },
+    {
+      "item_id": "3abae3c4",
+      "report_number": 6,
+      "task": "1.1",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 A.5.35"
+    },
+    {
+      "item_id": "8304e207",
+      "report_number": 7,
+      "task": "1.1",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO 19011 3.1"
+    },
+    {
+      "item_id": "a7efedea",
+      "report_number": 8,
+      "task": "5.7",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 9.2.1"
+    },
+    {
+      "item_id": "4f3f59bc",
+      "report_number": 9,
+      "task": "1.2",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO 19011 4.3"
+    },
+    {
+      "item_id": "df1baea4",
+      "report_number": 10,
+      "task": "1.3",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 9.2.2"
+    },
+    {
+      "item_id": "711848f6",
+      "report_number": 11,
+      "task": "1.3",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO 19011 6.3.3"
+    },
+    {
+      "item_id": "ebba5a50",
+      "report_number": 12,
+      "task": "1.4",
+      "ruled_in": "PROMPT-128 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-128 s1 | writer claude-sonnet-5-5 | ISO 19011 3.23"
+    }
+  ]
+}

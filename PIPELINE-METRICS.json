@@ -322,6 +322,36 @@
       "seconds": 2,
       "note": null,
       "recorded_at": "2026-10-04T21:54:51.575Z"
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 4,
+      "note": null,
+      "recorded_at": "2026-10-04T22:35:42.924Z"
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 3,
+      "note": null,
+      "recorded_at": "2026-10-04T22:36:02.476Z"
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 3,
+      "note": null,
+      "recorded_at": "2026-10-04T22:36:05.451Z"
     }
   ],
   "costs_usd": [
@@ -682,7 +712,7 @@
           "read": 19,
           "accepted": 19,
           "rejected": 0,
-          "reject_rate": 0.0,
+          "reject_rate": 0,
           "usd_per_accepted": 0.459
         },
         "claude-sonnet-5-5": {
@@ -733,7 +763,23 @@
           "retries": 0
         }
       },
-      "note": "SURVIVAL IS IDENTICAL AT 65 PERCENT ON THE SAME TASKS -- R1 25-point gap was the task mix, not the model. Cost per survivor is 2.9x apart. Per-task survival differs by at most one item either way on 10 tasks. The director reads both sets before the writer is settled; the reject rate per model on the SAME tasks is the number that decides it."
+      "note": "SURVIVAL IS IDENTICAL AT 65 PERCENT ON THE SAME TASKS -- R1 25-point gap was the task mix, not the model. Cost per survivor is 2.9x apart. Per-task survival differs by at most one item either way on 10 tasks. The director reads both sets before the writer is settled; the reject rate per model on the SAME tasks is the number that decides it.",
+      "director_verdicts": {
+        "claude-opus-5": {
+          "read": 13,
+          "accepted": 13,
+          "rejected": 0,
+          "reject_rate": 0.0
+        },
+        "claude-sonnet-5-5": {
+          "read": 13,
+          "accepted": 12,
+          "rejected": 1,
+          "reject_rate": 0.077,
+          "why_rejected": "a CROSS-WRITER duplicate: same 9.3.3 point, same key, plain-recall version of Opus 22090360. Stem overlap 41 percent so no stem rule saw it."
+        }
+      },
+      "accepted_and_inserted": 25
     }
   ],
   "not_instrumented": [
@@ -791,6 +837,40 @@
       ],
       "not_pursued": "The empty-response mode (9 of 37 Sonnet writer calls returned no text). Ruled: it only occurred on Sonnet, so it is not chased.",
       "measured_and_notable": "The director read the rejects as 'the key is far longer than the rest'. Measured, it is NOT a length effect: key-is-the-longest-option 44% on the 9 rejects against 50% on the 20 accepts, mean key/longest-rival 1.02 against 1.07. The existing length-cue rule correctly did not fire and no length rule would have caught these. The defect is distractor PLAUSIBILITY, which CLAUDE.md s13 already records as needing an SME rather than a gate."
+    },
+    {
+      "ruled_in": "PROMPT-128 s4",
+      "decided": "2026-10-04",
+      "certification_scope": "ISMS-IA and the certifications after it",
+      "decision": "DEFAULT WRITER IS claude-sonnet-5-5. The solver stays claude-opus-5.",
+      "evidence": {
+        "R1_plus_R2": {
+          "claude-opus-5": {
+            "survivors": 32,
+            "director_rejects": 0,
+            "spend_usd": 15.21,
+            "usd_per_accepted": 0.48
+          },
+          "claude-sonnet-5-5": {
+            "survivors": 26,
+            "director_rejects": 4,
+            "spend_usd": 5.19,
+            "usd_per_accepted": 0.23
+          }
+        },
+        "what_settled_it": "R2 was a SAME-TASK CROSSOVER and both writers survived 13 of 20 -- identical. R1 25-point gap was the task mix. After the PROMPT-127 s4 distractor-plausibility note the director rejects were 1 to 0, and that one was a cross-writer duplicate rather than a weak item.",
+        "what_is_given_up": "Opus scenarios are richer. The director judged Sonnet R2 items exam-grade."
+      },
+      "tripwires": [
+        {
+          "trip": "director reject rate on Sonnet items above 15 percent in any round",
+          "action": "that certification goes back to Opus as writer"
+        },
+        {
+          "trip": "a task gets 0 Sonnet survivors from 4 or more asked",
+          "action": "that task alone goes to Opus for its next items"
+        }
+      ]
     }
   ],
   "certification_summaries": {

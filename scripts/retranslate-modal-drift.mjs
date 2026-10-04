@@ -38,9 +38,11 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { driftInField, driftInItem, MODAL_BRIEF, modalDriftControls, LANGS } from "./lib/modal-drift.mjs";
+import { itemIdOfStem } from "./lib/item-id.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 let CERT = null, APPLY = false, LIMIT = 0, MAXUSD = null, PRINTED = false, ONLY_NEW = false, KEPT = false;
+let IDS = [], ALL_CERT = false;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
   let m = a.match(/^--cert=(.+)$/); if (m) { CERT = m[1]; continue; }
@@ -48,12 +50,41 @@ for (const a of process.argv.slice(2)) {
   m = a.match(/^--max-usd=([0-9.]+)$/); if (m) { MAXUSD = Number(m[1]); continue; }
   if (a === '--only-new') { ONLY_NEW = true; continue; }
   if (a === '--kept') { KEPT = true; continue; }
+  if (a === '--all-cert') { ALL_CERT = true; continue; }
+  { const mi = a.match(/^--ids=(.+)$/); if (mi) { IDS = mi[1].split(',').map((x) => x.trim()).filter(Boolean); continue; } }
   console.error("Unrecognised flag: " + a +
-    ". Known: --cert=, --max-usd=, --limit=, --only-new, --kept, --apply.");
+    ". Known: --cert=, --max-usd=, --limit=, --only-new, --kept, --ids=, --all-cert, --apply.");
   console.error("(This directory has two flag conventions: this script is the --apply family, dry by default.)");
   process.exit(2);
 }
 if (!CERT) { console.error("--cert=<CODE> is required."); process.exit(2); }
+
+/* ============ THE SCOPE MUST BE EXPLICIT (ruled PROMPT-128 s3) ============
+ *
+ * `--cert ISMS-IA` alone meant THE WHOLE CERTIFICATION, and in PROMPT-127 that silently repaired 88
+ * translated fields on live approved AUTHORED rows -- items already ruled for replacement -- then
+ * stopped at its ceiling leaving 209 findings, a half-repaired bank. The default was the widest
+ * possible blast radius, which is backwards for a script that edits served text.
+ *
+ * There is no default any more. `--all-cert` still does the wide run; it just has to be typed. */
+if (!ONLY_NEW && !KEPT && !IDS.length && !ALL_CERT) {
+  console.error("REFUSING: no scope. This script EDITS SERVED TEXT, so the scope is never implied.");
+  console.error("  --only-new    the rows in <SLUG>-INSERTED.json");
+  console.error("  --kept        the audit-kept rows in <SLUG>-SURVIVORS.json");
+  console.error("  --ids=a,b     named item ids");
+  console.error("  --all-cert    EVERY row of the certification, authored and served included");
+  console.error("");
+  console.error("PROMPT-127 ran this without a scope and repaired 88 fields nobody had asked for.");
+  process.exit(2);
+}
+{
+  const named = [ONLY_NEW && "--only-new", KEPT && "--kept", IDS.length && "--ids", ALL_CERT && "--all-cert"]
+    .filter(Boolean);
+  if (named.length > 1) {
+    console.error("REFUSING: " + named.join(" and ") + " name different scopes. Pass exactly one.");
+    process.exit(2);
+  }
+}
 if (MAXUSD === null) { console.error("--max-usd=<n> is required (PROMPT-117 s3). 0 means no ceiling and must be typed."); process.exit(2); }
 
 {
@@ -140,8 +171,23 @@ if (ONLY_NEW) {
     .map((r) => r.question_group_id).filter(Boolean));
   console.log("SCOPE: --kept   " + keep.size + " keep id(s) -> " + wantGroups.size + " group(s) resolved");
   if (!wantGroups.size) { console.error("REFUSING: no keep id resolved to a live group."); process.exit(2); }
+} else if (IDS.length) {
+  /* --ids: named item ids, resolved through the ENGLISH row's stem hash the way every other
+   * id-taking script in this directory does it. A named id that resolves to nothing is a surprise. */
+  const en = rows.filter((r) => r.language === "en");
+  const hit = en.filter((r) => IDS.includes(itemIdOfStem(r.question_text)));
+  wantGroups = new Set(hit.map((r) => r.question_group_id).filter(Boolean));
+  console.log("SCOPE: --ids   " + IDS.length + " id(s) -> " + wantGroups.size + " group(s) resolved");
+  const missing = IDS.filter((i) => !en.some((r) => itemIdOfStem(r.question_text) === i));
+  if (missing.length) {
+    console.error("REFUSING: " + missing.length + " named id(s) resolve to no live English row: " +
+      missing.join(", "));
+    process.exit(2);
+  }
 } else {
-  console.log("SCOPE: the WHOLE certification, including the authored bank already approved and served.");
+  /* --all-cert, and it has to have been typed: see the scope refusal above. */
+  console.log("SCOPE: --all-cert   THE WHOLE CERTIFICATION, including the authored bank already " +
+    "approved and served. This was the silent default until PROMPT-128 s3.");
 }
 const per = new Map();
 for (const r of rows) {

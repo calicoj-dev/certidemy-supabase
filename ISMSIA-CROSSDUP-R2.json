@@ -1,0 +1,10 @@
+{
+  "cert": "ISMS-IA",
+  "artifacts": [
+    "ISMSIA-R2-opus.json",
+    "ISMSIA-R2-sonnet55.json"
+  ],
+  "candidates": 25,
+  "flagged": [],
+  "undecided": []
+}
