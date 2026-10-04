@@ -196,3 +196,7 @@ AIMSF-R[0-9]*
 # full row dumps taken before a sibling delete: they carry served text verbatim
 ISMSF-RESTALE-RECOVERY.json
 *-RESTALE-RECOVERY.json
+# EVERY translation artifact, not just the -R<n> ones. ISMSF-TRANSLATION-DECUE.json reached the
+# index because the pattern was round-specific -- the same mistake as ISMSF-R6.
+*-TRANSLATION-*.json
+*-TRANSLATION-*.json.partial.jsonl
