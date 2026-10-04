@@ -281,7 +281,13 @@ facts, as against method:
 
 - **FOUNDATION (`-F`): guidance anchors are valid** — 27002, 42001 Annex B/D, NIST AI RMF, EU AI Act
   (recitals too), ITIL. One rule: an item never says 27001/42001 **requires** what guidance only
-  recommends. **Internal Auditor (`-IA`) keeps the stricter standard: normative anchors only.**
+  recommends.
+- **INTERNAL AUDITOR (`-IA`), ruled PROMPT-126 s1** — "normative only" was unworkable: 19011 has **no
+  `shall`**. Requirements key on **27001 `shall`** (controls: Annex A, *not* 27002); audit practice keys
+  on **19011**, whose `should` is its authoritative voice; **27002/27000 support only, never the key**;
+  the modal gate stays **unnarrowed** — a 19011 anchor states good practice, never "must". A task is
+  audit-practice when 19011 is among its primaries. `lib/tier-anchoring.mjs` is the one definition,
+  read by the gate and by the writer prompt.
 - **Only `key_support` is verbatim.** Served text is paraphrase, and paraphrase is preferred. Don't add
   a gate for a wording nuance — report it in one line and let it through `[H:PROMPT-111 s0]`.
 - **One shared locator, `lib/iso-locator.mjs`**; a new one inherits its defences or says why not.

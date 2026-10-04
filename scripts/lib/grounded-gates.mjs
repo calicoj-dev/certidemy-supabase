@@ -30,6 +30,7 @@ import { gateQuoteNoise } from "./quote-noise.mjs";
 import { makePassageIndex } from "./passage-index.mjs";
 import { passageKey, labelOf } from "./passage-key.mjs";
 import { ISO_ANCHOR_WORD, SCHEME_PREFIXED } from "./clause-address.mjs";
+import { tierOf, keyMayAnchor } from "./tier-anchoring.mjs";
 
 /* ============ NORMALISATION, AND WHY IT IS THE RISKY PART ============
  *
@@ -1006,7 +1007,11 @@ export function gateReproduction(item, sources, leak) {
  * A DISTRACTOR'S REASON MAY USE A SUPPORTING PASSAGE. The key may not: it is the thing the item
  * measures, and the task says what that is.
  */
-export function gateAnchorIsPrimary(item, primaryClauses, supportingClauses) {
+/* The 4th parameter is OPTIONAL and additive: every caller that passes three arguments gets
+ * tier "general", which this rule does not narrow. `keyNormative` is the key passage's own
+ * modality, resolved by the caller from the library -- the ITEM does not carry it. */
+export function gateAnchorIsPrimary(item, primaryClauses, supportingClauses, opts = {}) {
+  const { cert = null, keyNormative = null } = opts || {};
   /* PROMPT-102 s2: the map carries FULL passage keys, because task 5.5 maps ISO/IEC 17021-1 3.4 and a
    * bare-clause compare resolved it against 42001's 3.4. A bare list is refused, not coerced. */
   const asKey = (x) => (x && typeof x === "object")
@@ -1026,10 +1031,26 @@ export function gateAnchorIsPrimary(item, primaryClauses, supportingClauses) {
   }
   const clause = normClause(item.key_support_clause);
   const key = passageKey(item.source_id, item.edition, clause);
+
+  /* ============ THE TIER RULE RUNS FIRST (PROMPT-126 s1) ============
+   *
+   * Being a primary passage of the task is necessary and, on the Internal Auditor tier, not
+   * sufficient: 27002 and 27000 are mapped as primaries on several ISMS-IA tasks and a KEY may
+   * never rest on them there. So the tier is asked before the map, and its refusal names itself.
+   * Foundation and general tiers get `ok: true` unconditionally, so nothing about them moves. */
+  const tier = tierOf(cert);
+  const verdict = keyMayAnchor(
+    { source_id: item.source_id, edition: item.edition, clause, normative: keyNormative },
+    { tier, primaryClauses: primaryClauses || [] });
+  if (!verdict.ok) {
+    return { id: "anchor-is-primary", pass: false, examined: prim.size, reason: verdict.why };
+  }
+
   if (prim.has(key)) {
     return { id: "anchor-is-primary", pass: true, examined: prim.size,
       reason: "the key anchors in " + labelOf(item.source_id, item.edition, clause) +
-        ", a primary passage of this task" };
+        ", a primary passage of this task" +
+        (tier === "internal-auditor" ? " (" + verdict.why + ")" : "") };
   }
 
   /* ============ ANNEX B GUIDANCE COUNTS WITH ITS ANNEX A CONTROL ============
@@ -1187,7 +1208,9 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
     gateSharedDistractorPhrase(item),
     /* These two are UNASSERTED rather than skipped when their input is absent, so a run without
      * the task map or without the leak index cannot read as a clean pass. */
-    gateAnchorIsPrimary(item, primaryClauses, supportingClauses),
+    /* the key passage's own modality, resolved from the library for the tier rule */
+    gateAnchorIsPrimary(item, primaryClauses, supportingClauses, { cert,
+      keyNormative: (passagesByKey.get(normClause(item.key_support_clause)) || {}).normative || null }),
     gateReproduction(item, sources, leak),
     gateNo27000(item),
     gateClauseNumberRecall(item),

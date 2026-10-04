@@ -20,6 +20,7 @@ import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
 import { loadTaskFloors, floorFor } from "./lib/task-floors.mjs";
 import { classifyPrimaries, effectivePrimaryControls, MIN_EFFECTIVE } from "./lib/effective-primary.mjs";
+import { tierOf, keyMayAnchor } from "./lib/tier-anchoring.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
@@ -54,7 +55,10 @@ const tasks = (await getAll(KEY, "tasks?select=id,code,is_exam_scope,certificati
   .filter((t) => t.certification_id === cert.id);
 const inScope = tasks.filter((t) => t.is_exam_scope);
 const tsRows = await getAll(KEY, "task_sources?select=task_id,passage_id,role&order=task_id");
-const passRows = await getAll(KEY, "source_passages?select=id,clause,source_id,edition&order=id");
+/* `normative` IS SELECTED: the tier rule asserts on it, and a predicate that cannot see the column
+ * it tests reads every 27001 primary as "not `shall`" and refuses the lot. Fourth instance of that
+ * defect in this repository, so it is named at the select rather than trusted. */
+const passRows = await getAll(KEY, "source_passages?select=id,clause,source_id,edition,normative&order=id");
 const pById = new Map(passRows.map((r) => [r.id, r]));
 /* question_group_id IS SELECTED: `enOf` needs it to find a sibling.s English row, and without it every
  * non-English row counted 0 and reported AIMS-F -- a bank known to be at floor -- as 35 tasks short.
@@ -168,9 +172,19 @@ for (const t of inScope) {
       "      -" + "         -" + "  NO PRIMARY PASSAGES MAPPED");
     continue;
   }
+  /* ============ EFFECTIVE PRIMARIES RESPECT THE TIER RULE (PROMPT-126 s1) ============
+   *
+   * An effective primary is one a KEY COULD ACTUALLY ANCHOR ON. On the Internal Auditor tier that
+   * excludes 27002 and 27000 outright and admits 19011 only on an audit-practice task, so counting
+   * every mapped primary would report a task as thick when no key may rest on most of it. The same
+   * `keyMayAnchor` the gate and the writer prompt use. Foundation and general tiers are unchanged:
+   * `keyMayAnchor` returns ok for everything there, so `keyable` is `mine`. */
+  const TIER = tierOf(CERT);
+  const keyable = mine.filter((p) => keyMayAnchor(p, { tier: TIER, primaryClauses: mine }).ok);
+  const excluded = mine.length - keyable.length;
   /* group by (source, edition): the container test is per document */
   let effective = 0;
-  for (const [k, group] of groupBy(mine, (p) => p.source_id + "|" + p.edition)) {
+  for (const [k, group] of groupBy(keyable, (p) => p.source_id + "|" + p.edition)) {
     const idx = bySrc.get(k) || new Map();
     const all = [...idx.keys()];
     const res = classifyPrimaries(group.map((p) => String(p.clause)), (c) => idx.get(String(c)) || null, all);
@@ -189,7 +203,8 @@ for (const t of inScope) {
     (minHeld === held.en ? "  " : " (" + minLang + ") ") + state +
     (state === "short" ? " (need " + (f.floor - minHeld) + " more per language)" : "") +
     (tooThin ? " (" + effective + " effective < " + MIN_EFFECTIVE + " -- a MAP question, not work)" : "") +
-    (f.why.startsWith("override") ? "   floor " + f.why : ""));
+    (f.why.startsWith("override") ? "   floor " + f.why : "")
+    + (excluded ? "   [" + excluded + " primary(ies) not key-anchorable on this tier]" : ""));
 }
 
 function groupBy(arr, keyOf) {

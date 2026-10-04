@@ -59,6 +59,7 @@ import { makePassageIndex, passageIndexControls } from "./lib/passage-index.mjs"
  * clause the writer is told to use is exactly the clause the gate checks for. */
 import { itemDispositionControls } from "./lib/item-disposition.mjs";
 import { itemIdControls } from "./lib/item-id.mjs";
+import { tierOf, tierAnchoringBrief, anchorMarkFor, keyMayAnchor, tierAnchoringControls } from "./lib/tier-anchoring.mjs";
 import { assignAnchors, assignmentInstruction, gateAnchorAssignment, anchorAssignmentControls }
   from "./lib/anchor-assignment.mjs";
 import { buildCapCensus } from "./lib/anchor-cap-census.mjs";
@@ -261,6 +262,9 @@ const WRITER_ROLES = new Set(["writer", "writer-retry", "paraphrase", "de-cue"])
 /* closes over the two model consts declared just below: only ever CALLED after they are initialised. */
 const modelForRole = (role) => (WRITER_ROLES.has(role) ? WRITER_MODEL : SOLVER_MODEL);
 const priceOf = (model) => PRICES[model] || PRICES["claude-opus-5"];
+/* THE TIER, resolved HERE because classifyFor (far above the prompt code) filters on it. Declared
+ * after the prompt block it would have been a temporal-dead-zone ReferenceError on the first call. */
+const TIER = tierOf(CERT);
 const MODEL = process.env.GROUNDED_MODEL || "claude-opus-5";
 const WRITER_MODEL = WRITER_MODEL_FLAG || MODEL;
 const SOLVER_MODEL = SOLVER_MODEL_FLAG || MODEL;
@@ -714,8 +718,29 @@ const supportingOf = (code) => (mapByTask.get(taskIdOfCode.get(code)) || {}).sup
 /* Classified PER (source, edition): the container test is a clause-number prefix test, and a prefix only
  * means anything inside one document. effective-primary.mjs stays unchanged and keeps its own controls. */
 const classifyFor = (code) => {
+  /* ============ THE TIER RULE FILTERS THE PRIMARIES FIRST (PROMPT-126 s1) ============
+   *
+   * `effectivePrimariesOf` feeds the ANCHOR ASSIGNMENT, so without this the generator assigns a key
+   * to a 27002 or 27000 primary on an Internal Auditor task -- which the per-passage mark then calls
+   * SUPPORT ONLY in the same prompt, and which `anchor-is-primary` then refuses. The writer would be
+   * given two contradictory instructions and the item would be paid for and dropped. Caught on the
+   * first R1 attempt: task 1.1's assignment named 27002 5.35 alongside 27001 A.5.35.
+   *
+   * Filtering here means the count, the assignment, the prompt's marks and the gate are all one rule.
+   * On Foundation and general tiers `keyMayAnchor` returns ok for everything, so nothing changes. */
+  /* `primaryOf` returns MAP ROWS -- source, edition, clause -- and carries NO `normative`, which the
+   * tier rule asserts on. Unresolved, every 27001 primary read as "not `shall`" and was dropped while
+   * the 19011 ones (whose arm does not test modality) survived: task 1.1 fell from 5 effective to 2,
+   * and the 19011 definitions it kept are the weakest anchors on the task. FIFTH instance in this
+   * repository of a predicate that cannot see the column it tests, so the resolution is done here and
+   * named rather than assumed. */
+  const allPrim = primaryOf(code).map((p) => {
+    const held = passageIndex.get(p.source_id, p.edition, p.clause);
+    return held ? { ...p, normative: held.normative } : p;
+  });
+  const keyable = allPrim.filter((p) => keyMayAnchor(p, { tier: TIER, primaryClauses: allPrim }).ok);
   const groups = new Map();
-  for (const p of primaryOf(code)) {
+  for (const p of keyable) {
     const se = String(p.source_id) + "|" + String(p.edition);
     if (!groups.has(se)) groups.set(se, []);
     groups.get(se).push(p);
@@ -967,21 +992,6 @@ THE ODD-VERDICT CUE, AND HOW TO AVOID IT (ruled PROMPT-114 s2):
 - Do not make the key the only hedged or multi-part option either. If the key carries a qualifier,
   at least one distractor carries one too.
 
-NEVER NAME ISO/IEC 27000 IN A SERVED FIELD (ruled PROMPT-115 s3):
-
-- Not in the stem, not in an option, not in the explanation. Not "the 27000 family" either.
-- ANCHORING THERE IS FINE. Say "the ISMS vocabulary", or "the guidance on risk", or simply state the
-  definition in our own words. A gate refuses the item otherwise, and in R2 it cost 17 of 21
-  rejections -- every one of them an item that was otherwise sound.
-
-WHAT CLAUSE 9.1 ITEMS TEST (ruled PROMPT-115 s3.5):
-
-- Test what clause 9.1 asks the ORGANIZATION TO DO -- what to monitor, when, by whom, and that the
-  results are comparable and reproducible.
-- Do NOT test measurement terminology: measurement method, measurement function, base measure,
-  indicator, subjective versus objective. That is ISO/IEC 27004 taxonomy and it is too obscure for a
-  Foundation candidate.
-
 Return a JSON array. Each element:
 
 {
@@ -1049,16 +1059,32 @@ RULES
  * the prompt. A ruling about CONTENT does not belong in a code edit, and a note nobody can see in the
  * artifact is a note nobody can check: the ones used are listed at the top of every run.
  */
+/* ============ A CERT-LEVEL BLOCK, BESIDE THE PER-TASK NOTES (PROMPT-126 s2) ============
+ *
+ * The system prompt carried ISMS-F rulings as though they were universal: "NEVER NAME ISO/IEC
+ * 27000" (PROMPT-115 s3) and the clause-9.1 block ending "too obscure for a FOUNDATION candidate"
+ * (PROMPT-115 s3.5). The PROMPT-125 s5 dry run printed both into an ISMS-IA prompt, which is how
+ * they were found. They now live under `cert_notes` in the per-certification notes file and reach
+ * only the certification that ruled them. */
 const TASK_NOTES = (() => {
   const p = join(ROOT, "TASK-WRITER-NOTES-" + CERT.replace(/-/g, "") + ".json");
-  if (!existsSync(p)) return { file: null, notes: {} };
+  if (!existsSync(p)) return { file: null, notes: {}, cert: "" };
   const j = JSON.parse(readFileSync(p, "utf8"));
-  return { file: p.split(/[\\/]/).pop(), notes: j.notes || {} };
+  return { file: p.split(/[\\/]/).pop(), notes: j.notes || {},
+    cert: String(j.cert_notes || "").trim() };
 })();
 if (TASK_NOTES.file) {
   const codes = Object.keys(TASK_NOTES.notes);
-  console.log("writer notes: " + TASK_NOTES.file + "   " + codes.length + " task(s): " + codes.join(", "));
+  console.log("writer notes: " + TASK_NOTES.file + "   " + codes.length + " task(s): " + codes.join(", ") +
+    (TASK_NOTES.cert ? "   + a cert-level block of " + TASK_NOTES.cert.split("\n").length + " line(s)"
+      : "   (no cert-level block)"));
 }
+
+/* THE SYSTEM PROMPT FOR THIS RUN: the shared rules, then the TIER's anchoring rule, then this
+ * certification's own block. Each part is empty unless it applies, so a certification that rules
+ * nothing and sits on no narrowed tier gets exactly the shared text it got before. */
+const SYSTEM_FOR_RUN = [WRITER_SYSTEM, tierAnchoringBrief(TIER), TASK_NOTES.cert]
+  .map((s) => String(s || "").trim()).filter(Boolean).join("\n\n");
 
 function writerUser(task, domain, passages, k, assignments) {
   /* Keyed on (source, edition, clause): the writer is shown passages from more than one standard now, so
@@ -1069,12 +1095,21 @@ function writerUser(task, domain, passages, k, assignments) {
   const full = atCapFor(task.code);
   const fullSet = new Set(full.map((f) => passageKey(f.source_id, f.edition, f.clause)));
   const isPrim = (p) => prim.has(keyOfPassage(p));
+  /* ============ THE MARK IS COMPUTED BY THE TIER RULE, NEVER TYPED (PROMPT-126 s2) ============
+   *
+   * On the Internal Auditor tier, being a primary is not enough: 27002 and 27000 are mapped as
+   * primaries on several ISMS-IA tasks and a key may never rest on them there. `anchorMarkFor` in
+   * lib/tier-anchoring.mjs is the SAME function the gate consults, so the prompt cannot promise an
+   * anchor the gate will refuse. The cap still overrides everything -- a passage at the cap is
+   * closed to a key however anchorable its source. */
+  const tierMark = (p) => anchorMarkFor(p,
+    { tier: TIER, primaryClauses: primaryOf(task.code), isPrimary: isPrim(p) });
   const fmt = (p) =>
     "--- " + p.source_id + ":" + p.edition + " clause " + p.clause + (p.title ? " (" + p.title + ")" : "") +
     "  [this clause is " + p.normative + "; " +
     (isPrim(p) ? (fullSet.has(keyOfPassage(p))
       ? "PRIMARY but ALREADY AT THE ANCHOR CAP -- DO NOT anchor a key here"
-      : "PRIMARY for this task -- a KEY MAY anchor here") :
+      : (TIER === "internal-auditor" ? tierMark(p) : "PRIMARY for this task -- a KEY MAY anchor here")) :
       "SUPPORTING -- a distractor's reason may use it, a KEY MAY NOT anchor here") + "] ---\n" + p.text;
   const primaries = passages.filter(isPrim);
   const others = passages.filter((p) => !isPrim(p));
@@ -1347,14 +1382,14 @@ if (FROM) {
         console.log("  ---- FULL WRITER PROMPT, FIRST ITEM (dry run: NOTHING IS SENT) ----");
         console.log("  writer model: " + WRITER_MODEL + "   max_tokens " + budget +
           "   (solver would be " + SOLVER_MODEL + ")");
-        console.log("  SYSTEM: " + WRITER_SYSTEM.replace(/\n/g, "\n  "));
+        console.log("  SYSTEM: " + SYSTEM_FOR_RUN.replace(/\n/g, "\n  "));
         console.log("  USER:   " + userPrompt.replace(/\n/g, "\n  "));
         console.log("  ---- END PROMPT ----");
         console.log("");
         console.log("  DRY RUN: no model call was made and no row was written. Re-run with --apply.");
         process.exit(0);
       }
-      const rawText = await claude(WRITER_SYSTEM, userPrompt, budget);
+      const rawText = await claude(SYSTEM_FOR_RUN, userPrompt, budget);
       arr = parseArray(rawText);
       /* THREE CAUSES, THREE MESSAGES. parseArray returns null whether the response carried no
        * brackets, would not parse, or was empty -- and one bumped string for all three is why two
@@ -1392,7 +1427,7 @@ if (FROM) {
           console.log("      RETRYING ONCE" + (truncated ? " at " + budget2 + " tokens (it was truncated)" : "") + "...");
           try {
             CALL_ROLE = "writer-retry";
-            const rawText2 = await claude(WRITER_SYSTEM, writerUser(t, d, ps, k, asg.assignments), budget2);
+            const rawText2 = await claude(SYSTEM_FOR_RUN, writerUser(t, d, ps, k, asg.assignments), budget2);
             const arr2 = parseArray(rawText2);
             if (Array.isArray(arr2) && arr2.length) {
               writerRetrySaved += arr2.length;
@@ -1591,7 +1626,7 @@ for (const g of generated) {
     let revised = null;
     try {
       CALL_ROLE = "paraphrase";
-      revised = parseArray(await claude(WRITER_SYSTEM,
+      revised = parseArray(await claude(SYSTEM_FOR_RUN,
         writerUser(t, domById.get(t.domain_id) || {}, ps, 1) +
         (unnamedQuote
           ? "\n\nFIX THE ITEM BELOW. It is sound and its quotation is allowed; the quotation simply does" +

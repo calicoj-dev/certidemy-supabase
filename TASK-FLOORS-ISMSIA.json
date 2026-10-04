@@ -1,0 +1,40 @@
+{
+ "ruled": "2026-10-04, PROMPT-126 s3",
+ "certification": "ISMS-IA",
+ "default_floor": 8,
+ "why_this_file_exists": "THE ONE PLACE A PER-TASK FLOOR IS RECORDED for ISMS-IA. Read by lib/task-floors.mjs, which verify-cert and check-task-map both call. An override with no `ruled_in` is an ERROR, not a pass.",
+ "the_rule": {
+  "derivation": "min(default_floor, 2 x effective primaries). The cap of 2 items per (source, edition, clause) per task is what makes 2 x effective the ceiling a task can hold.",
+  "override": "A floor the derivation cannot produce, lowered by the director with the reason recorded. Named in every report that uses it, so a lowered floor can never pass as a met one.",
+  "effective_on_this_tier": "RULED PROMPT-126 s1. An effective primary is one a KEY MAY ACTUALLY ANCHOR ON, and on the Internal Auditor tier that is: a 27001 `shall` passage, or an ISO 19011 passage on an audit-practice task. ISO/IEC 27002 and ISO/IEC 27000 are support only here and count toward nothing. lib/tier-anchoring.mjs is the one definition, read by the gate, the writer prompt and this floor.",
+  "temporary": "`temporary: true` means the task goes live BELOW its floor because the reason it is short is a defect being fixed, not a thin map. verify-cert reports it as a WARN and names it: never a pass, never a fail. It must carry a reason as well as a ruling."
+ },
+ "per_task_overrides": {
+  "_what": "Each entry is a director ruling with its reason. Empty at creation: PROMPT-126 s3 ruled that any task still thin after the s1 re-count comes back BY NAME next round rather than being given a floor now.",
+  "3.5": {
+   "floor": 4,
+   "ruled_in": "PROMPT-126 s3",
+   "reason": "floor = 2 x effective. With the PROMPT-126 s1 rule ISO 19011 A.17 (Conducting interviews) is a valid key anchor, so the task re-counts from 0 keyable primaries to 2 -- but 2 is still under MIN_EFFECTIVE, so it stays labelled too_thin and takes the ruled floor the derivation produces. Its other primary, 19011 3.10, is a DEFINITION: keyable under the tier rule, weak as a key, and worth knowing when the round is read."
+  }
+ },
+ "map_changes_ruled_here": [
+  {
+   "task": "4.7",
+   "added": "ISO/IEC 27001 2022/Amd1:2024 4.1 as primary",
+   "ruled_in": "PROMPT-126 s3",
+   "why": "The amended sentence -- `The organization shall determine whether climate change is a relevant issue.` -- IS the task's subject, and its edition was not in the map at all. `shall`, 21 words, held."
+  },
+  {
+   "task": "4.7",
+   "not_added": "ISO/IEC 27001 2022/Amd1:2024 4.2",
+   "ruled_in": "PROMPT-126 s3",
+   "why": "It is a NOTE, modality `can`. Left out by the ruling, and the tier rule would refuse a key on it in any case."
+  },
+  {
+   "task": "5.7",
+   "added": "ISO/IEC 27001 2022 9.3.1, 9.3.3 and 9.2.1 as primaries",
+   "ruled_in": "PROMPT-126 s3",
+   "why": "Management review general and results, plus internal audit general -- all `shall`, all held. Takes the task from 2 effective to 5."
+  }
+ ]
+}

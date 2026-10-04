@@ -37,6 +37,7 @@ import { controls as translationCheckControls } from "./lib/translation-checks.m
 import { translationLintControls } from "./lib/translation-term-lint.mjs";
 import { populationControls } from "./lib/verify-cert-population.mjs";
 import { clauseAddressControls } from "./lib/clause-address.mjs";
+import { tierAnchoringControls } from "./lib/tier-anchoring.mjs";
 
 /* Suites needing an argument cannot run here. NAMED, not omitted. */
 const NEEDS_ARGUMENT = [
@@ -63,6 +64,7 @@ const SUITES = [
   ["translate-item", translateItemControls], ["translation-checks", translationCheckControls],
   ["translation-term-lint", translationLintControls], ["verify-cert-population", populationControls],
   ["clause-address", clauseAddressControls],
+  ["tier-anchoring", tierAnchoringControls],
 ];
 
 /* FOUR CONTRACTS, and reading only one reported fifteen suites as "examined 0". Three carry a
