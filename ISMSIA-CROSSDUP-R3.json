@@ -1,0 +1,9 @@
+{
+  "cert": "ISMS-IA",
+  "artifacts": [
+    "ISMSIA-R3.json"
+  ],
+  "candidates": 60,
+  "flagged": [],
+  "undecided": []
+}

@@ -47,11 +47,22 @@ for (let i = 0; i < AV.length; i++) {
   console.error("  --cert <CODE>  --artifacts=a,b  [--accept=a,b]  [--out=file]   READ-ONLY");
   process.exit(2);
 }
-if (!CERT || ARTS.length < 2) {
-  console.error("--cert and --artifacts (two or more) are required.");
-  console.error("With ONE artifact the generator's own gate already covers it; this check is for rounds");
-  console.error("where two artifacts cannot see each other.");
+if (!CERT || !ARTS.length) {
+  console.error("--cert and --artifacts are required.");
   process.exit(2);
+}
+/* ============ ONE ARTIFACT IS ALLOWED, AND NOT REDUNDANT (PROMPT-128 s6) ============
+ *
+ * The in-run gate compares each item against the live stems AS THEY WERE WHEN THE RUN STARTED. R3
+ * generated for roughly forty minutes while R2's 25 items were being inserted and approved, so its
+ * early items were gated against a smaller bank than now exists. Re-checking against the CURRENT
+ * live bank is therefore a different question, not a repeat of one.
+ *
+ * And the same-anchor-same-key signal has never run inside a single artifact at all: with 4 items
+ * asked per task against an anchor cap of 2, a task can produce two items on one clause. */
+if (ARTS.length === 1) {
+  console.log("ONE ARTIFACT: comparing against the CURRENT live bank, and within the artifact on the");
+  console.log("anchor-and-key signal. The in-run gate saw the live bank as it was when the run began.");
 }
 if (ACCEPTS.length && ACCEPTS.length !== ARTS.length) {
   console.error("--accept must name one list per artifact, in the same order.");
@@ -145,7 +156,10 @@ const keyTextOf = (it) => {
 for (let i = 0; i < cand.length; i++) {
   for (let j = i + 1; j < cand.length; j++) {
     const a = cand[i], b = cand[j];
-    if (a.task !== b.task || a.artifact === b.artifact) continue;
+    if (a.task !== b.task) continue;
+    /* with ONE artifact the pair is necessarily same-artifact, and that is the case this signal has
+     * never covered; with two or more, same-artifact pairs were already seen by the in-run gate. */
+    if (ARTS.length > 1 && a.artifact === b.artifact) continue;
     if (a.anchor !== b.anchor) continue;
     const ka = keyTextOf(a), kb = keyTextOf(b);
     if (!ka || !kb) continue;

@@ -780,6 +780,33 @@
         }
       },
       "accepted_and_inserted": 25
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 4,
+      "stage_name": "generation R3",
+      "usd": 14.878,
+      "ceiling": 30,
+      "attempted": 100,
+      "generated": 100,
+      "survivors": 60,
+      "writer_model": "claude-sonnet-5-5",
+      "solver_model": "claude-opus-5",
+      "survival_of_generated": 0.6,
+      "writer_role_usd": 2.51,
+      "writer_usd_per_item": 0.0251,
+      "usd_per_survivor": 0.248,
+      "retries": 0,
+      "tasks": 25,
+      "excluded": "4.7, pending the PROMPT-128 s5 diagnosis",
+      "tripwire_hit": {
+        "rule": "0 Sonnet survivors from 4 or more asked",
+        "task": "3.7",
+        "asked": 4,
+        "survivors": 0,
+        "action": "task 3.7 alone goes to Opus as writer for its next items (PROMPT-128 s4 tripwire 2)"
+      },
+      "note": "FIRST round with the writer decision in force. 60 percent survival on 25 tasks at $0.248 per survivor -- against Opus $0.499 in R2. structure is the dominant refusal at 21 per 100, which is the cue guard. The cross-artifact duplicate check ran against the CURRENT live bank (R3 generated while R2 was being inserted) and flagged nothing on either signal."
     }
   ],
   "not_instrumented": [
