@@ -2,8 +2,31 @@
   "_what": "Items the director read and refused. A rejection is the one disposition no generated artifact carries, so the standing list must be read by anything that promotes. `approve-grounded-items.mjs` reads this file by content id.",
   "_every_entry_names_its_artifact_and_its_id": "A REPORT NUMBER IS NOT AN IDENTITY. It is a position in one artifact's survivor list, and that list MOVES: the PROMPT-115 s3 rescues flipped eight R2 items from rejected to survivor, which renumbered everything after them. R1's #13/#20/#21 and R2's #13/.../#21 are different items, so a matcher keyed on the number alone refuses the wrong ones -- it would have refused R2 #13, a director accept. Every entry therefore carries `artifact` and `item_id`, and `insert-pilot-drafts.mjs` refuses an entry that carries a number without an artifact rather than matching it loosely.",
   "rounds": [
-    { "artifact": "ISMSF-R1", "report": "ISMSF-ROLLOUT-R1.md", "ruled": "2026-10-03, PROMPT-114 s1", "read": 23, "accepted": 21, "rejected": 3 },
-    { "artifact": "ISMSF-R2", "report": "ISMSF-ROLLOUT-R2.md", "ruled": "2026-10-03, PROMPT-115 s2", "read": 19, "accepted": 17, "rejected": 2 }
+    {
+      "artifact": "ISMSF-R1",
+      "report": "ISMSF-ROLLOUT-R1.md",
+      "ruled": "2026-10-03, PROMPT-114 s1",
+      "read": 23,
+      "accepted": 21,
+      "rejected": 3
+    },
+    {
+      "artifact": "ISMSF-R2",
+      "report": "ISMSF-ROLLOUT-R2.md",
+      "ruled": "2026-10-03, PROMPT-115 s2",
+      "read": 19,
+      "accepted": 17,
+      "rejected": 2
+    },
+    {
+      "artifact": "ISMSF-R4",
+      "report": "ISMSF-ROLLOUT-R4.md",
+      "ruled": "2026-10-04, PROMPT-118 s1",
+      "read": 48,
+      "accepted": 45,
+      "rejected": 3,
+      "note": "Plus 9 rescues ruled in s2, of which 8 were accepted; 335faae6 dropped on a repeated solver split."
+    }
   ],
   "note": "R1's 21 accepts = the 20 numbered accepts plus the item R1 code-rejected on modal-fidelity, which PROMPT-114 s3 ruled a false positive: the item's 'ought to' is not a claim about the standard. The narrowed gate now passes it.",
   "rejections": [
@@ -51,7 +74,38 @@
       "anchor": "ISO/IEC 27001 6.1.2",
       "why": "RULED reject (PROMPT-115 s2).",
       "ruled_in": "PROMPT-115 s2"
+    },
+    {
+      "item_id": "01d0b78f",
+      "report_number": 35,
+      "task": "5.3",
+      "anchor": "ISO/IEC 27000 3.58",
+      "kept_instead": "f592f984 (#39)",
+      "why": "RULED reject (PROMPT-118 s1): a TRUE restatement -- same task, same anchor, same fact and the same framing as #39. Both ask what a review sets out to establish and both answer with the suitable/adequate/effective definition. The enemy rule would keep them off one form, but the near-duplicate ruling rejects a true restatement whatever the enemy rule says.",
+      "artifact": "ISMSF-R4",
+      "ruled_in": "PROMPT-118 s1"
+    },
+    {
+      "item_id": "10142900",
+      "report_number": 38,
+      "task": "5.3",
+      "anchor": "ISO/IEC 27001 9.3.3",
+      "kept_instead": "20eb6e02 (#34)",
+      "why": "RULED reject (PROMPT-118 s1): a TRUE restatement of #34 -- same task, same anchor, both on the results of management review being retained as documented evidence.",
+      "artifact": "ISMSF-R4",
+      "ruled_in": "PROMPT-118 s1"
+    },
+    {
+      "item_id": "e6b389b6",
+      "report_number": 15,
+      "task": "3.6",
+      "anchor": "ISO/IEC 27002 1",
+      "kept_instead": "2a34a8e6 (#18)",
+      "why": "RULED reject (PROMPT-118 s1): a TRUE restatement of #18 -- same task, same anchor, both saying 27002 is a generic reference set usable inside a management system or for in-house guidelines.",
+      "artifact": "ISMSF-R4",
+      "ruled_in": "PROMPT-118 s1"
     }
   ],
-  "why_near_duplicates_reached_a_survivor_list": "gateNearDuplicate compares STEMS, and these pairs differ in their stems while asserting the same fact from the same anchor. That blindness is recorded in CLAUDE.md s13: the same answer with a different stem is invisible to it. The anchor cap of 2 per (source, edition, clause) per task is what bounds the damage, and it allowed exactly these two pairs."
+  "why_near_duplicates_reached_a_survivor_list": "gateNearDuplicate compares STEMS, and these pairs differ in their stems while asserting the same fact from the same anchor. That blindness is recorded in CLAUDE.md s13: the same answer with a different stem is invisible to it. The anchor cap of 2 per (source, edition, clause) per task is what bounds the damage, and it allowed exactly these two pairs.",
+  "why_true_restatements_are_rejected_anyway": "PROMPT-117 s1 made a same-fact item acceptable WHEN the enemy rule separates the pair, and kept one exception: a true restatement -- same task, same fact, same framing -- is rejected regardless. These three are that case, and all three share an anchor with the item kept, so the enemy rule does separate them. Separation is not the test here; redundancy is."
 }

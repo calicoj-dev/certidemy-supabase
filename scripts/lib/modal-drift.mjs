@@ -30,7 +30,12 @@
 /** English hedges: the item claims nothing mandatory. */
 const HEDGE = /\b(should|may|can|could|ought to)\b/i;
 /** English requirement forms. A sentence with one of these AND a hedge is undecidable. */
-const HARD_EN = /\b(shall|must|is required to|are required to|requires?|required|has to|have to|had to)\b/i;
+/* `having to` was missing and cost a false positive on R4: "personal data in the records HAVING TO be
+ * masked" is a requirement in the English, so rendering it as "tuvieron que" is faithful. Same shape as
+ * the CADENCE_SOURCE gap that withheld a correct item -- a missing form on the ENGLISH side of a
+ * source-relative test makes the test fire on correct work, and the English side is the one nobody
+ * thinks to widen. */
+const HARD_EN = /\b(shall|must|is required to|are required to|requires?|required|has to|have to|had to|having to)\b/i;
 /** target-language requirement forms. */
 const HARD = {
   "es-419": /(\bdebe\b|\bdeben\b|\bdebera\b|\bdeberá\b|\bdeberan\b|\bdeberán\b|\btiene que\b|\btienen que\b|es obligatorio|est(a|á) obligad|\bha de\b|\bhan de\b)/i,
@@ -147,6 +152,12 @@ export function modalDriftControls() {
     one("A reviewer objects that consequence has to be monetised before any level can be set.",
       "Un revisor objeta que la consecuencia debe monetizarse antes de fijar cualquier nivel.", "es-419")
       .findings.length === 0);
+
+  /* ---- `having to` is a requirement in the English (measured on R4 c77678a8) ---- */
+  ok("`having to` with a hedge is UNDECIDABLE, not a finding",
+    one("The delay traces to personal data in the records having to be masked before analysts could read them.", "La demora se debe a que los datos personales tuvieron que enmascararse antes de que los analistas pudieran leerlos.", "es-419").undecidable === 1);
+  ok("...and it yields no finding",
+    one("The delay traces to personal data in the records having to be masked before analysts could read them.", "La demora se debe a que los datos personales tuvieron que enmascararse antes de que los analistas pudieran leerlos.", "es-419").findings.length === 0);
 
   /* ---- a quoted hedge is NOT exempt ---- */
   ok("a quoted should rendered as debe IS a finding",

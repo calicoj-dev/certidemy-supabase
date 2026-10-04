@@ -95,11 +95,38 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
      * gate would refuse */
     if (i > seeded.length * (cap + 1)) break;
   }
+  /* ============ WHEN THE SLOT LIST REPEATS, THE GATE WIDENS WITH IT ============
+   *
+   * Ruled PROMPT-118 s3, measured on R4 task 2.4: 4 eligible primaries, 7 items asked, so the
+   * round-robin above handed out 7.5.1, 4.2, 4.3, 4.1, 7.5.1, 4.2, 4.3. The writer saw all four
+   * passages, wrote seven sound items, and anchored five of them on a DIFFERENT primary of the same
+   * four -- which anchor-assignment refused. 1 survivor of 7, and every rejection was correct work.
+   *
+   * The assignment exists to stop CLUSTERING: four items on one clause means three rejections. Once the
+   * ask exceeds the number of eligible primaries, a single fixed slot per item stops serving that
+   * purpose -- the clauses are going to be reused whatever the writer does -- and starts rejecting
+   * items for choosing a different member of the set the round is already spread across.
+   *
+   * So each assignment carries `allowed`: its own clause when there is a distinct one per item, and
+   * EVERY eligible (under-cap) primary when the list repeats. The gate accepts any member of that set.
+   * `clause` stays the PREFERRED slot and still goes in the prompt, so the spread is still steered.
+   *
+   * THE CAP IS NOT WEAKENED BY THIS. `allowed` is built from `eligible`, which is "under cap in the
+   * census at assignment time", and a within-round pile-up is still cut by `applyCap` on the survivors
+   * and refused by the insert's own census. What the gate stops asserting is the one thing it was
+   * getting wrong: that a reused clause belongs to one item rather than to the round. */
+  const repeats = assignments.length > eligible.length;
+  const allowedSet = seeded.map((p) => String(p.clause));
+  for (const a of assignments) {
+    a.allowed = repeats ? allowedSet.slice() : [String(a.clause)];
+  }
   return {
     assignments,
     eligible: eligible.length,
     capacity,
     shortfall: Math.max(0, want - assignments.length),
+    repeats,
+    allowed: repeats ? allowedSet.slice() : null,
     order: seeded.map((p) => p.clause),
     /* THREE REASONS, NOT TWO. "every primary is at the cap" is a fact about the CAP and says the map is fine;
      * "the task has no primary in this run's standard" is a fact about the MAP and says generation can never
@@ -118,13 +145,24 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
 /** The line the writer is given. ONE implementation, so the prompt and the gate cannot drift. */
 export function assignmentInstruction(assignments) {
   if (!assignments || !assignments.length) return "";
-  return "\n\nEACH ITEM'S KEY IS ASSIGNED A CLAUSE, and code refuses a key anchored anywhere else." +
-    " This is not a preference: a writer handed a list of passages picks the most salient one repeatedly," +
-    " and four items on one clause means three rejections.\n" +
-    assignments.map((a) => "  item " + (a.index + 1) + ": anchor its `key_support` in clause " + a.clause +
-      " (" + a.source_id + ")").join("\n") +
+  /* ONE implementation, so what the writer is told is what the gate checks -- including the widening. */
+  const wide = assignments.some((a) => Array.isArray(a.allowed) && a.allowed.length > 1);
+  const head = wide
+    ? "\n\nEACH ITEM'S KEY IS ASSIGNED A PREFERRED CLAUSE. This round asks more items than the task has" +
+      " distinct primary passages, so the clauses repeat: the key may anchor in its preferred clause OR in" +
+      " any other clause on the assigned list below. Spread them -- four items on one clause means the" +
+      " anchor cap drops three of them -- but a different clause from the list is not an error.\n"
+    : "\n\nEACH ITEM'S KEY IS ASSIGNED A CLAUSE, and code refuses a key anchored anywhere else." +
+      " This is not a preference: a writer handed a list of passages picks the most salient one repeatedly," +
+      " and four items on one clause means three rejections.\n";
+  const body = assignments.map((a) => "  item " + (a.index + 1) + ": anchor its `key_support` in clause " +
+    a.clause + " (" + a.source_id + ")").join("\n");
+  const tail = (wide
+      ? "\nTHE ASSIGNED LIST for this task: " + assignments[0].allowed.join(", ") + "."
+      : "") +
     "\nA DISTRACTOR's support may cite any passage above, primary or supporting. Only the KEY's anchor is" +
     " assigned.";
+  return head + body + tail;
 }
 
 /**
@@ -144,13 +182,26 @@ export function gateAnchorAssignment(item, assigned) {
     return { id: "anchor-assignment", pass: false, examined: 1,
       reason: "the item names no key_support_clause, so it cannot be the assigned " + assigned.clause };
   }
-  if (got !== String(assigned.clause)) {
+  /* ============ THE ALLOWED SET, WHERE THE ASSIGNMENT REPEATED ============
+   *
+   * `allowed` holds one clause in the ordinary case and every under-cap primary of the task where the
+   * ask exceeded the number of distinct primaries (PROMPT-118 s3). An assignment carrying no `allowed`
+   * is an older artifact and keeps the strict single-clause test -- it is not widened retroactively. */
+  const allowed = Array.isArray(assigned.allowed) && assigned.allowed.length
+    ? assigned.allowed.map(String)
+    : [String(assigned.clause)];
+  if (!allowed.includes(got)) {
     return { id: "anchor-assignment", pass: false, examined: 1,
-      reason: "anchored in " + got + ", assigned " + assigned.clause +
-        " -- the writer chose its own clause, which is the clustering this assignment exists to stop" };
+      reason: allowed.length > 1
+        ? "anchored in " + got + ", which is not among this task's under-cap primaries (" +
+          allowed.join(", ") + ") -- a supporting passage or a clause at the cap is still refused"
+        : "anchored in " + got + ", assigned " + assigned.clause +
+          " -- the writer chose its own clause, which is the clustering this assignment exists to stop" };
   }
   return { id: "anchor-assignment", pass: true, examined: 1,
-    reason: "anchored in its assigned clause " + assigned.clause };
+    reason: allowed.length > 1
+      ? "anchored in " + got + ", an under-cap primary of this task (assigned list: " + allowed.join(", ") + ")"
+      : "anchored in its assigned clause " + assigned.clause };
 }
 
 /* ---------------------------------------------------------------- controls */
@@ -272,6 +323,57 @@ export function anchorAssignmentControls({ quiet = false } = {}) {
       /Only the KEY's anchor is assigned/.test(s));
     ok("an empty assignment list produces NO instruction rather than an empty heading",
       assignmentInstruction([]) === "" && assignmentInstruction(null) === "");
+  }
+  /* ============ PROMPT-118 s3: THE REPEATED SLOT LIST, BOTH DIRECTIONS ============
+   *
+   * R4 task 2.4 measured: 4 eligible primaries, 7 asked, 5 correct items refused. The widening must
+   * admit another under-cap primary AND still refuse the two things the gate exists for. */
+  {
+    const prim = ["7.5.1", "4.2", "4.3", "4.1"].map(P);
+    /* one clause held twice is AT the cap and drops out of `eligible` */
+    const census = cens([["4.1", CAP]]);   /* cens takes [clause, count] pairs */
+    const wide = assignAnchors({ taskCode: "2.4", runId: "r4", primaries: prim, censusMap: census, want: 7 });
+    ok("the ask exceeding distinct primaries is reported as repeating", wide.repeats === true,
+      JSON.stringify({ repeats: wide.repeats, eligible: wide.eligible, n: wide.assignments.length }));
+    ok("...and 4.1, at the cap, is NOT in the allowed set",
+      !!wide.allowed && !wide.allowed.includes("4.1"), JSON.stringify(wide.allowed));
+    ok("...while the three under-cap primaries are",
+      !!wide.allowed && ["7.5.1", "4.2", "4.3"].every((c) => wide.allowed.includes(c)),
+      JSON.stringify(wide.allowed));
+    const a0 = wide.assignments[0];
+    /* MUST PASS: a repeat-slot item anchored on another under-cap primary */
+    const other = wide.allowed.find((c) => c !== String(a0.clause));
+    ok("a repeat-slot item anchored on ANOTHER under-cap primary PASSES",
+      gateAnchorAssignment({ key_support_clause: other }, a0).pass === true,
+      JSON.stringify(gateAnchorAssignment({ key_support_clause: other }, a0)));
+    ok("...and on its own preferred clause, obviously",
+      gateAnchorAssignment({ key_support_clause: String(a0.clause) }, a0).pass === true);
+    /* MUST FAIL: a supporting passage, which is not a primary of the task at all */
+    ok("a repeat-slot item anchored on a SUPPORTING passage FAILS",
+      gateAnchorAssignment({ key_support_clause: "9.9.9" }, a0).pass === false,
+      JSON.stringify(gateAnchorAssignment({ key_support_clause: "9.9.9" }, a0)));
+    /* MUST FAIL: a primary that is AT the cap */
+    ok("a repeat-slot item anchored on a primary AT CAP FAILS",
+      gateAnchorAssignment({ key_support_clause: "4.1" }, a0).pass === false,
+      JSON.stringify(gateAnchorAssignment({ key_support_clause: "4.1" }, a0)));
+    /* AND THE NARROW CASE IS UNCHANGED: enough distinct primaries, so one slot each */
+    const narrow = assignAnchors({ taskCode: "2.4", runId: "r4", primaries: prim, censusMap: cens([]), want: 3 });
+    ok("an ask within the distinct primaries does NOT repeat", narrow.repeats === false,
+      JSON.stringify({ repeats: narrow.repeats, n: narrow.assignments.length }));
+    const n0 = narrow.assignments[0];
+    const notN0 = narrow.assignments.map((a) => String(a.clause)).find((c) => c !== String(n0.clause));
+    ok("...and an item anchored on a different primary STILL FAILS there",
+      gateAnchorAssignment({ key_support_clause: notN0 }, n0).pass === false,
+      JSON.stringify(gateAnchorAssignment({ key_support_clause: notN0 }, n0)));
+    /* an OLDER assignment, with no `allowed`, keeps the strict test rather than being widened */
+    ok("an assignment with no `allowed` keeps the strict single-clause test",
+      gateAnchorAssignment({ key_support_clause: "4.2" }, { index: 0, clause: "7.5.1" }).pass === false);
+    /* the instruction the writer reads must SAY it widened, or the two drift */
+    const instr = assignmentInstruction(wide.assignments);
+    ok("the writer is told the clauses repeat and a listed clause is not an error",
+      /repeat/i.test(instr) && /THE ASSIGNED LIST/.test(instr), instr.slice(0, 160));
+    ok("...and the narrow instruction still says code refuses anything else",
+      /refuses a key anchored anywhere else/.test(assignmentInstruction(narrow.assignments)));
   }
   if (!quiet) for (const r of out) if (!r.pass) console.error("  anchor-assignment control FAIL: " + r.what);
   return { cases: out, examined: out.length, allPass: out.every((r) => r.pass) };

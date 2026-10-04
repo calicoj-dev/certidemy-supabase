@@ -74,6 +74,13 @@ const byCode = new Map(tasks.map((t) => [t.code, t]));
 const passages = await getAll(KEY, "source_passages?select=id,clause,source_id,edition,normative&order=id");
 const existing = await getAll(KEY, "task_sources?select=task_id,passage_id,role&order=task_id");
 const have = new Set(existing.map((r) => r.task_id + "|" + r.passage_id));
+/* ============ A ROLE CHANGE IS NOT "ALREADY MAPPED" ============
+ *
+ * Ruled PROMPT-118 s4. Task 4.1 holds 27002 0.3 as SUPPORTING, and the widening that opens the task
+ * is exactly promoting it to PRIMARY -- the clause that names the four themes. The pair existed, so
+ * `have` reported "already mapped" and the ruling would have been a no-op that read as done. The role
+ * is now part of what is compared, and a change is an UPDATE, printed as one. */
+const roleOf = new Map(existing.map((r) => [r.task_id + "|" + r.passage_id, r.role]));
 
 const plan = [], unresolved = [];
 console.log("MAP TASK SOURCES   " + CERT + (APPLY ? "   --apply" : "   dry run (default)"));
@@ -90,10 +97,15 @@ for (const s of SPEC) {
       continue;
     }
     const p = hits[0];
-    const already = have.has(t.id + "|" + p.id);
+    const key = t.id + "|" + p.id;
+    const already = have.has(key);
+    const wasRole = roleOf.get(key) || null;
+    const change = already && wasRole !== s.role;
     console.log("    " + src.padEnd(16) + cl.padEnd(14) + (p.normative || "?").padEnd(12) +
-      (already ? "already mapped" : "WOULD ADD"));
-    if (!already) plan.push({ t, p, role: s.role, ruled: s.ruled, src, cl });
+      (change ? "WOULD PROMOTE " + wasRole + " -> " + s.role
+        : already ? "already mapped as " + wasRole : "WOULD ADD"));
+    if (!already) plan.push({ t, p, role: s.role, ruled: s.ruled, src, cl, op: "insert" });
+    else if (change) plan.push({ t, p, role: s.role, ruled: s.ruled, src, cl, op: "update", from: wasRole });
   }
 }
 if (unresolved.length) {
@@ -104,19 +116,40 @@ if (unresolved.length) {
   process.exit(1);
 }
 console.log("");
-console.log("  rows to add " + plan.length);
+console.log("  rows to add    " + plan.filter((x) => x.op === "insert").length);
+console.log("  roles to change " + plan.filter((x) => x.op === "update").length);
 if (!APPLY) { console.log("\nDRY RUN. Nothing written. Re-run with --apply."); process.exit(0); }
 
-let wrote = 0;
+let wrote = 0, promoted = 0;
 for (const x of plan) {
+  if (x.op === "update") {
+    const r = await fetch(REST_URL + "/task_sources?task_id=eq." + x.t.id + "&passage_id=eq." + x.p.id,
+      { method: "PATCH", headers: { ...H, Prefer: "return=representation" },
+        body: JSON.stringify({ role: x.role, added_by: x.ruled }) });
+    if (!r.ok) { console.error("  PROMOTE FAILED " + x.t.code + " " + x.src + " " + x.cl + "  " + (await r.text()).slice(0, 160)); continue; }
+    console.log("  promoted " + x.t.code + "  " + x.src + " " + x.cl + "  " + x.from + " -> " + x.role);
+    promoted++;
+    continue;
+  }
   const r = await fetch(REST_URL + "/task_sources", { method: "POST", headers: H,
     /* added_by is NOT NULL with no default: the ruling IS the provenance. */
     body: JSON.stringify({ task_id: x.t.id, passage_id: x.p.id, role: x.role, added_by: x.ruled }) });
   if (!r.ok) { console.error("  INSERT FAILED " + x.t.code + " " + x.src + " " + x.cl + "  " + (await r.text()).slice(0, 160)); continue; }
   wrote++;
 }
+if (promoted) console.log("  roles changed " + promoted);
 const after = await getAll(KEY, "task_sources?select=task_id,passage_id,role&order=task_id");
 const nowHave = new Set(after.map((r) => r.task_id + "|" + r.passage_id));
+const nowRole = new Map(after.map((r) => [r.task_id + "|" + r.passage_id, r.role]));
+/* BOTH DIRECTIONS: the row is there AND it carries the ruled role. A promotion that silently kept
+ * `supporting` would leave the task exactly as thin as before and report success. */
+let roleBad = 0;
+for (const x of plan) {
+  const got = nowRole.get(x.t.id + "|" + x.p.id);
+  if (got !== x.role) { console.error("  ROLE NOT AS RULED: " + x.t.code + " " + x.src + " " + x.cl +
+    " is " + got + ", ruled " + x.role); roleBad++; }
+}
+if (roleBad) process.exitCode = 2;
 let bad = 0;
 for (const x of plan) if (!nowHave.has(x.t.id + "|" + x.p.id)) { console.error("  POST: " + x.t.code + " " + x.cl); bad++; }
 /* the NEGATIVE half: no mapping outside the plan appeared or vanished */

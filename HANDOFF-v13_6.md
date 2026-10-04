@@ -448,3 +448,100 @@ R4's 48 survivors would take that to roughly 88 remaining once inserted. Distinc
 unreachable for a floor.
 
 Form assembly stays FEASIBLE for ISMS-F under both enemy arms with the 95 grounded rows in.
+
+## PROMPT-118: R4 in, the 2.4 lesson in the generator, and the two thin tasks settled
+
+**148 grounded English rows on ISMS-F** (46 + 49 + 53), 296 siblings, nothing approved.
+
+### s1 -- three true restatements rejected
+
+#35, #38 and #15 are recorded in `ISMSF-DIRECTOR-REJECTIONS.json` by `item_id` and artifact. Each shares
+its anchor with the item kept, so the ENEMY RULE DOES separate them -- separation is not the test for a
+true restatement, redundancy is. That distinction is now written into the file.
+
+### s2 -- 9 rescues, 8 accepted
+
+| kind | items | outcome |
+|---|---|---|
+| declared re-assignment (task 2.4 anchor-assignment) | 5 | all accepted, solver accepted/accepted |
+| explanation rewrite (modal-fidelity on the EXPLANATION, not the key) | 2 | both accepted |
+| `requote` of key_support | 2 | 816c7f31 accepted; 335faae6 DROPPED |
+
+`revise-artifact.mjs` gained a third operation, `requotes`: key_support replaced by a DIFFERENT SPAN OF
+THE SAME PASSAGE, refused unless the new text is verbatim in the anchored passage. PROMPT-111 s0 rules
+out REWRITING key_support; it does not rule out quoting more of the passage, which is what the ruling
+asked for twice. The verbatim check against the held passage is what keeps it from becoming authored
+support.
+
+**335faae6 is the finding worth keeping.** Requoted onto 9.1's shall sentence, gates passing, it went
+accepted/accepted, then rejected/accepted, then rejected/accepted -- 4 accepts and 2 rejections across
+6 solver calls. The rule is a drop on any split, so it drops. **The first pair alone would have admitted
+it**, which is a measurement of the two-run rule's own variance, not just of the item.
+
+### s3 -- the 2.4 lesson is in the generator
+
+When a round asks a task for more items than it has eligible primaries, `assignAnchors` now marks the
+round as REPEATING and every assignment carries `allowed`: its own clause where there is a distinct one
+per item, and EVERY under-cap primary where the list repeats. `gateAnchorAssignment` accepts any member
+of that set and the writer is told so in the same breath (one implementation, so prompt and gate cannot
+drift). The cap is not weakened: `allowed` is built from the under-cap set, and a within-round pile-up is
+still cut by `applyCap` and refused by the insert's census.
+
+12 new controls, both directions: a repeat-slot item on another under-cap primary PASSES; one on a
+supporting passage FAILS; one on a primary AT CAP FAILS; an ask within the distinct primaries does not
+widen; an older assignment with no `allowed` keeps the strict test. 33 controls pass.
+
+### s4 -- the two rulings
+
+**The old bank's modal drift: deferred, as ruled.** 78 non-stem findings across the pre-existing ISMS-F
+bank are NOT repaired. After the cutover, run `check-modal-drift.mjs` on the kept items' siblings only
+and repair those with `retranslate-modal-drift.mjs --only-new`. Most of those rows retire at cutover.
+
+**3.5 and 4.1 -- and my earlier claim was imprecise.** I reported them as unable to reach their floor.
+`scripts/explain-thin-task.mjs` measures which of the two limits actually bites, and for both it was
+**MIN_EFFECTIVE, not the cap**: two effective primaries at a cap of 2 is exactly 4 items, so the
+arithmetic allowed the floor all along.
+
+| | 3.5 (SoA) | 4.1 (Annex A themes) |
+|---|---|---|
+| primaries before | 27001 6.1.3, 27000 4.5.5 | 27002 4.1, 4.2 |
+| the ruling's suggestions | 6.1.3 d) NOT HELD (6.1.3 is one 247-word row); no held 27k passage defines the SoA | clause 5's opening and the 6/7/8 theme intros NOT HELD -- containers with no rows; 4.2 already primary |
+| what was available | nothing | **27002 0.3**, which names the four themes in terms, already attached as SUPPORTING |
+| action | floor 4 -> **2**, ruled PROMPT-118 s4 | **promoted 0.3 to primary**; floor stays 4 |
+| result | 2 effective, still `too_thin` | **3 effective, ceiling 6, neither limit bites** |
+
+Two things fell out of that:
+
+- **A ruled map change had never happened.** PROMPT-111 s2 recorded "add 27001 A.5-A.8 theme headings as
+  primaries" for 4.1. A.5 to A.8 are container headings whose children carry the text, so there was no
+  row to map and the entry read as done. Corrected in `TASK-FLOORS-ISMSF.json`.
+- **`map-task-sources.mjs` treated a ROLE CHANGE as "already mapped."** Promoting 0.3 was a no-op that
+  would have reported success. The role is now part of what is compared, a change is an UPDATE, and the
+  post-condition asserts the role and not only the row's presence.
+
+A floor change does NOT clear `too_thin`: MIN_EFFECTIVE is 3 and 3.5 has 2, so it keeps reporting as a
+map question whatever the floor says. Clearing it is a LIBRARY decision -- extract 6.1.3 d) as its own
+passage, or add a statement-of-applicability term if ISO/IEC 27000:2018 carries one.
+
+### s5 -- two more defects of mine, both caught by the lint
+
+- **A letter reference I introduced.** The s2 explanation rewrite of b1b9e6d8 kept the original's
+  "Option C"; `shuffleOptions` remapped it to "option c" at insert, and `options_fixed_order` is FALSE on
+  every row here, so delivery may reorder again and the letter would name a different option. The
+  translation lint caught it on both siblings. The explanation now names the option's CONTENT.
+- **`HARD_EN` was missing `having to`**, so "personal data having to be masked" read as hedged and a
+  faithful "tuvieron que" counted as drift. Same shape as the `yearly` gap: a missing form on the
+  ENGLISH side of a source-relative test makes it fire on correct work.
+
+### Distance to every in-scope task at floor
+
+| | |
+|---|---|
+| in-scope tasks | 49 |
+| at floor | **17** (8 before R3, 13 before R4) |
+| short | 31, totalling **100 English items** |
+| too thin | 1: task 3.5 only, needing 2 items at its new floor |
+| short tasks whose floor exceeds effective x cap | **0** |
+
+So **48 of 49 tasks can be at floor by generating 100 more English items**, and 3.5 reaches its own floor
+of 2 with two more -- leaving `too_thin` as a label on a map, not a shortfall in items.

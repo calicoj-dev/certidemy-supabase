@@ -1,0 +1,325 @@
+{
+  "_what": "PROMPT-118 s1 and s2: 45 of the 48 R4 survivors (3 rejected as true restatements) plus the 8 rescues that passed their gates and agreed on both solver runs.",
+  "_numbers_are_frozen": "The report numbers are the ORIGINAL 48-survivor order, the list the director read. The s2 rescues flipped 8 more items to survivor and would renumber a fresh read, so each number is recorded beside its id and never recomputed.",
+  "_dropped": "335faae6 (5.8, `methods determined in advance`) was requoted onto 9.1's shall sentence and passed its gates, but the solver went accepted/accepted, then rejected/accepted, then rejected/accepted over three pairs -- 4 accepts and 2 rejections in 6 calls. The rule is a drop on any split, so it is dropped. The first pair alone would have admitted it.",
+  "accepts": [
+    {
+      "item_id": "a3ded691",
+      "report_number": 1,
+      "task": "2.4",
+      "note": "accepted PROMPT-118 s1 (#1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "bd7841e5",
+      "report_number": 2,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#2) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "7a4a1261",
+      "report_number": 3,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#3) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "c6a0537f",
+      "report_number": 4,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#4) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "85608bc0",
+      "report_number": 5,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#5) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "b81b3d19",
+      "report_number": 6,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#6) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "63ea0b91",
+      "report_number": 7,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#7) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "1eedc3b8",
+      "report_number": 8,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#8) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "ba8b05c0",
+      "report_number": 9,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#9) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue reverted in-run on a CODE cue"
+    },
+    {
+      "item_id": "d1661ebc",
+      "report_number": 10,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#10) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "bc8c5eca",
+      "report_number": 11,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#11) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "4a40efa4",
+      "report_number": 12,
+      "task": "3.11",
+      "note": "accepted PROMPT-118 s1 (#12) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "30080c2f",
+      "report_number": 13,
+      "task": "3.6",
+      "note": "accepted PROMPT-118 s1 (#13) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue reverted in-run on a CODE cue"
+    },
+    {
+      "item_id": "0b2ee3dd",
+      "report_number": 14,
+      "task": "3.6",
+      "note": "accepted PROMPT-118 s1 (#14) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "c517e808",
+      "report_number": 16,
+      "task": "3.6",
+      "note": "accepted PROMPT-118 s1 (#16) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "61639787",
+      "report_number": 17,
+      "task": "3.6",
+      "note": "accepted PROMPT-118 s1 (#17) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "2a34a8e6",
+      "report_number": 18,
+      "task": "3.6",
+      "note": "accepted PROMPT-118 s1 (#18) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "cb0b50f6",
+      "report_number": 19,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#19) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "2530c166",
+      "report_number": 20,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#20) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "a6a1a7d5",
+      "report_number": 21,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#21) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "81ab3766",
+      "report_number": 22,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#22) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "c851b483",
+      "report_number": 23,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#23) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "aa23282d",
+      "report_number": 24,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#24) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "b7b002c7",
+      "report_number": 25,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#25) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "7514074d",
+      "report_number": 26,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#26) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "c8cd39db",
+      "report_number": 27,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#27) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "b71f7206",
+      "report_number": 28,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#28) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "da638dd0",
+      "report_number": 29,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#29) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "1b000020",
+      "report_number": 30,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#30) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "7a997e43",
+      "report_number": 31,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#31) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "485a9775",
+      "report_number": 32,
+      "task": "4.11",
+      "note": "accepted PROMPT-118 s1 (#32) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "ebc58e9f",
+      "report_number": 33,
+      "task": "5.3",
+      "note": "accepted PROMPT-118 s1 (#33) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "20eb6e02",
+      "report_number": 34,
+      "task": "5.3",
+      "note": "accepted PROMPT-118 s1 (#34) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "12c0e761",
+      "report_number": 36,
+      "task": "5.3",
+      "note": "accepted PROMPT-118 s1 (#36) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "01e03cca",
+      "report_number": 37,
+      "task": "5.3",
+      "note": "accepted PROMPT-118 s1 (#37) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "f592f984",
+      "report_number": 39,
+      "task": "5.3",
+      "note": "accepted PROMPT-118 s1 (#39) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "2ced54fd",
+      "report_number": 40,
+      "task": "5.8",
+      "note": "accepted PROMPT-118 s1 (#40) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "b78392f3",
+      "report_number": 41,
+      "task": "5.8",
+      "note": "accepted PROMPT-118 s1 (#41) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "0659eb2e",
+      "report_number": 42,
+      "task": "5.8",
+      "note": "accepted PROMPT-118 s1 (#42) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "723499d2",
+      "report_number": 43,
+      "task": "5.8",
+      "note": "accepted PROMPT-118 s1 (#43) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "a4dc459f",
+      "report_number": 44,
+      "task": "5.8",
+      "note": "accepted PROMPT-118 s1 (#44) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "34a6fd63",
+      "report_number": 45,
+      "task": "5.8",
+      "note": "accepted PROMPT-118 s1 (#45) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "b754cda5",
+      "report_number": 46,
+      "task": "5.8",
+      "note": "accepted PROMPT-118 s1 (#46) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "09207431",
+      "report_number": 47,
+      "task": "5.8",
+      "note": "accepted PROMPT-118 s1 (#47) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "ab949151",
+      "report_number": 48,
+      "task": "5.8",
+      "note": "accepted PROMPT-118 s1 (#48) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "b1b9e6d8",
+      "report_number": null,
+      "task": "2.4",
+      "note": "rescued PROMPT-118 s2 from `rejected by code` | edit explanation | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "cb05360d",
+      "report_number": null,
+      "task": "2.4",
+      "note": "rescued PROMPT-118 s2 from `rejected by code` | reanchor key -> 7.5.1 | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "889b4724",
+      "report_number": null,
+      "task": "2.4",
+      "note": "rescued PROMPT-118 s2 from `rejected by code` | reanchor key -> 4.2 | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "ee454d10",
+      "report_number": null,
+      "task": "2.4",
+      "note": "rescued PROMPT-118 s2 from `rejected by code` | reanchor key -> 4.2 | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "288fb87e",
+      "report_number": null,
+      "task": "2.4",
+      "note": "rescued PROMPT-118 s2 from `rejected by code` | reanchor key -> 4.1 | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "e59691fe",
+      "report_number": null,
+      "task": "2.4",
+      "note": "rescued PROMPT-118 s2 from `rejected by code` | reanchor key -> 4.3 | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "816c7f31",
+      "report_number": null,
+      "task": "3.11",
+      "note": "rescued PROMPT-118 s2 from `rejected by code` | requote key_support 4w -> 43w in 6.1.2 | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "6e279ec1",
+      "report_number": null,
+      "task": "3.6",
+      "note": "rescued PROMPT-118 s2 from `rejected by code` | edit explanation | re-gated and solver accepted/accepted after the revision"
+    }
+  ]
+}

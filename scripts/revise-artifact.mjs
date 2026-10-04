@@ -14,9 +14,18 @@
  *               attributed to. REFUSED unless the quote is ALREADY verbatim in the new passage.
  *   edits       a SERVED field is rewritten: `question_text`, `explanation`, or one option's text.
  *               REFUSED unless `from` matches the present value exactly.
+ *   requotes    `key_support` is replaced by a DIFFERENT SPAN OF THE SAME PASSAGE -- a short quote
+ *               extended to its sentence, or a NOTE swapped for the requirement it sits under.
+ *               REFUSED unless the new text is verbatim in the anchored passage.
  *
- * `key_support` IS NOT EDITABLE HERE (ruled PROMPT-111 s0: it stays verbatim and nothing else). A spec
- * naming it is an error, not a field this script will write.
+ * ============ `key_support` IS RE-QUOTED, NEVER REWRITTEN ============
+ *
+ * PROMPT-111 s0: key_support stays verbatim and nothing else. That rules out rewriting it -- and it
+ * does NOT rule out quoting a different span of the same passage, which is what PROMPT-118 s2 asks for
+ * twice: a four-word quote extended to the sentence the gate's floor exists to require, and a NOTE
+ * swapped for the `shall` sentence it qualifies. Both stay verbatim, and the script PROVES it against
+ * the held passage before writing. A `requote` whose text is not in the passage is refused, so this
+ * cannot become a back door to authored support. An `edits` entry naming key_support is still an error.
  *
  * ONE ITEM FIRST (standing rule, PROMPT-115): the first item's full solver prompt is printed before
  * any further call.
@@ -88,6 +97,7 @@ const norm = (s) => String(s || "").replace(/\s+/g, " ").trim();
 /* ---------------------------------------------------------------- the work list */
 let work = [
   ...(spec.reanchors || []).map((r) => ({ kind: "reanchor", r })),
+  ...(spec.requotes || []).map((r) => ({ kind: "requote", r })),
   ...(spec.edits || []).map((r) => ({ kind: "edit", r })),
 ];
 if (ONLY) {
@@ -96,7 +106,7 @@ if (ONLY) {
   console.log("--only=" + ONLY + ": " + narrowed.length + " of " + work.length + " entr(ies)");
   work = narrowed;
 }
-if (!work.length) { console.error(SPECFILE + " declares neither `reanchors` nor `edits`."); process.exit(2); }
+if (!work.length) { console.error(SPECFILE + " declares no `reanchors`, `requotes` or `edits`."); process.exit(2); }
 
 console.log("");
 console.log("REVISE   " + CERT + "   " + IN + "   " + work.length + " declared revision(s)" +
@@ -136,6 +146,36 @@ for (const { kind, r } of work) {
     what = "reanchor " + r.what + (r.index != null ? "[" + r.index + "]" : "") + " -> " + r.to.clause;
   }
 
+  if (kind === "requote") {
+    /* THE PASSAGE IS THE AUTHORITY. The new span must be verbatim in the clause the item anchors to
+     * (or in the clause the spec re-points the anchor to), normalised only for whitespace -- the same
+     * test gateVerbatim applies, run here so a refusal costs nothing. */
+    const at = r.to && r.to.clause ? r.to : { source_id: o.source_id, edition: o.edition, clause: o.key_support_clause };
+    const target = ctx.index.get(at.source_id, at.edition, String(at.clause));
+    if (!target) {
+      console.log("  " + r.item_id + "  REFUSED: " + at.source_id + " " + at.clause + " is not held");
+      results.push({ id: r.item_id, outcome: "target not held" }); continue;
+    }
+    if (typeof r.key_support !== "string" || !r.key_support.trim()) {
+      console.log("  " + r.item_id + "  REFUSED: a requote must name `key_support`");
+      results.push({ id: r.item_id, outcome: "no key_support given" }); continue;
+    }
+    if (!norm(target.text).includes(norm(r.key_support))) {
+      console.log("  " + r.item_id + "  REFUSED: the new key_support is NOT VERBATIM in " +
+        at.source_id + " " + at.clause + " -- a requote quotes the passage, it does not author support");
+      results.push({ id: r.item_id, outcome: "requote not verbatim" }); continue;
+    }
+    const wordsBefore = String(o.key_support || "").trim().split(/\s+/).filter(Boolean).length;
+    const wordsAfter = r.key_support.trim().split(/\s+/).filter(Boolean).length;
+    o.key_support = r.key_support;
+    o.key_support_clause = String(at.clause);
+    o.source_id = at.source_id; o.edition = at.edition;
+    if (r.explanation) o.explanation = r.explanation;
+    what = "requote key_support " + wordsBefore + "w -> " + wordsAfter + "w in " + at.clause;
+    console.log("  " + r.item_id + "  REQUOTED, verbatim in " + at.source_id + " " + at.clause +
+      "   " + wordsBefore + " -> " + wordsAfter + " words");
+  }
+
   if (kind === "edit") {
     /* ============ A DECLARED EDIT NAMES WHAT IT EXPECTS TO FIND ============
      *
@@ -145,7 +185,8 @@ for (const { kind, r } of work) {
     const FIELDS = new Set(["question_text", "explanation", "option"]);
     if (!FIELDS.has(r.field)) {
       console.log("  " + r.item_id + "  REFUSED: field " + r.field + " is not editable here" +
-        (r.field === "key_support" ? " (key_support stays verbatim -- PROMPT-111 s0)" : ""));
+        (r.field === "key_support" ? " -- key_support stays verbatim (PROMPT-111 s0). Use a `requotes`" +
+          " entry, which is checked against the held passage." : ""));
       results.push({ id: r.item_id, outcome: "field not editable" }); continue;
     }
     const present = r.field === "option"

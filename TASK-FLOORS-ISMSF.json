@@ -1,5 +1,5 @@
 {
-  "ruled": "2026-10-03, PROMPT-111 s2",
+  "ruled": "2026-10-04, PROMPT-118 s4 (over PROMPT-111 s2)",
   "certification": "ISMS-F",
   "default_floor": 8,
   "why_this_file_exists": "THE ONE PLACE A PER-TASK FLOOR IS RECORDED for ISMS-F. Read by lib/task-floors.mjs, which verify-cert and check-task-map both call. An override with no `ruled_in` is an ERROR, not a pass.",
@@ -25,14 +25,17 @@
       "reason": "Amendment 1:2024 adds the climate-change consideration to 4.1 and 4.2 in a sentence each. There are not eight distinct requirements to test."
     },
     "3.5": {
-      "floor": 4,
-      "ruled_in": "PROMPT-111 s2",
-      "reason": "The Statement of Applicability is one requirement, 6.1.3 d), with a short content list. Eight items would mean testing the same sentence eight ways."
+      "floor": 2,
+      "ruled_in": "PROMPT-118 s4",
+      "supersedes": "PROMPT-111 s2, which set 4",
+      "reason": "MEASURED (scripts/explain-thin-task.mjs): task 3.5 has exactly 2 effective primaries -- 27001 6.1.3 and 27000 4.5.5 -- and NO third is held. 27001 6.1.3 d) is not a separate passage (6.1.3 is one 247-word row) and no held 27k passage defines the statement of applicability apart from those two. The cap would allow 4 items (2 primaries x cap 2), so the CAP is not the limit; two items per clause would mean testing one sentence twice, which is what MIN_EFFECTIVE guards. The floor is therefore one item per available primary.",
+      "caveat": "A FLOOR CHANGE DOES NOT CLEAR `too_thin`. MIN_EFFECTIVE is 3 and this task has 2, so check-task-map will keep calling it a MAP question whatever the floor is. Clearing it needs the LIBRARY to change: 6.1.3 d) extracted as its own passage, or a statement-of-applicability term added if ISO/IEC 27000:2018 carries one. That is an extraction decision, not a generation one."
     },
     "4.1": {
       "floor": 4,
-      "ruled_in": "PROMPT-111 s2",
-      "reason": "Recognising the four Annex A themes and the control count is a structural task about the annex, not about eight requirements. Same reasoning as AIMS-F 4.1. Annex A's own theme headings A.5-A.8 are added as primaries alongside 27002 4.1 and 4.2."
+      "ruled_in": "PROMPT-111 s2, re-affirmed PROMPT-118 s4",
+      "reason": "Recognising the four Annex A themes and the control count is a structural task about the annex, not about eight requirements. Same reasoning as AIMS-F 4.1.",
+      "map_widened": "PROMPT-118 s4 promoted 27002 0.3 (which names the organizational, people, physical and technological themes) from supporting to PRIMARY. The task now has 3 effective primaries, a cap ceiling of 6 and neither limit biting -- it is short on items, not on map, and the floor of 4 stands."
     }
   },
   "map_changes_ruled_here": {
@@ -40,7 +43,8 @@
     "1.6": "map EU AI Act recitals + Art. 55(1) + NIST AI RMF (primary)",
     "1.7": "map 27002 7.1, 27002 8.15, NIST AI RMF MANAGE 4.3, and 42001 A.6 if it matches (primary)",
     "2.4": "widen to 27001 4.3 + 4.1 + 4.2 + 7.5.1 (primary)",
-    "4.1": "add 27001 A.5, A.6, A.7, A.8 theme headings as primaries beside 27002 4.1 and 4.2",
-    "5.9": "widen with 42001 D.1 and D.2 (primary)"
+    "4.1": "PROMPT-111 s2 ruled 27001 A.5-A.8 theme headings onto this task. THEY ARE NOT HELD: A.5 to A.8 are container headings whose children (A.5.1 ...) carry the text, so there is no passage row to map and that ruling was never implementable. Recorded here because the entry read as though it had been done. PROMPT-118 s4 widened the task with 27002 0.3 instead.",
+    "5.9": "widen with 42001 D.1 and D.2 (primary)",
+    "3.5": "NONE AVAILABLE. See the 3.5 override above: the two passages the ruling named are not held, and the floor came down instead."
   }
 }

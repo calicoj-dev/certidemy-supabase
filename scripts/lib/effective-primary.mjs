@@ -41,6 +41,15 @@ export function isContainer(clause, clausesOfSameSource) {
 
 export const MIN_WORDS = 15;
 
+/* ============ THE FLOOR ON PRIMARIES, NOT ON ITEMS ============
+ *
+ * A task with fewer than this many EFFECTIVE primaries is a MAP question, not work: every item would
+ * come from one of that few sentences, even where the cap arithmetic allows the item floor (two
+ * primaries at a cap of 2 is exactly 4). It lived as a local constant in check-task-map.mjs; moved here
+ * because explain-thin-task.mjs needs the same number and a second copy is how the two drift.
+ * Ruled PROMPT-118 s4. */
+export const MIN_EFFECTIVE = 3;
+
 export function wordCount(text) {
   return String(text || "").trim().split(/\s+/).filter(Boolean).length;
 }

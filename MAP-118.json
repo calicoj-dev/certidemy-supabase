@@ -1,0 +1,15 @@
+{
+  "_what": "PROMPT-118 s4: the map widening for task 4.1. The ruling named 27002 clause 5's opening and the theme introductions for 6, 7 and 8; none of those is HELD -- `5`, `6`, `7` and `8` are container headings whose children carry the text, so they have no passage row. 27002 4.2 (attributes) was already a primary. What IS held and on-task is 27002 0.3, which names the four themes in terms, and it is already attached to 4.1 as SUPPORTING. Promoting it is the widening.",
+  "_why_not_27002_4_3": "27002 4.3 is held and anchorable, but it describes the LAYOUT of a control entry (title, attribute table, purpose, guidance). Task 4.1 is about naming the four themes and the control count, so 4.3 would anchor off-task items -- the defect the primary gate exists to catch.",
+  "_task_3_5": "NOT widenable from what is held. 27001 6.1.3 d) is not a separate passage (6.1.3 is one 247-word row) and no held passage in the 27k family defines the statement of applicability apart from 27001 6.1.3 and 27000 4.5.5, both already primaries. Its floor is lowered instead -- see TASK-FLOORS-ISMSF.json.",
+  "map_rounds": [
+    {
+      "task": "4.1",
+      "role": "primary",
+      "ruled": "PROMPT-118 s4",
+      "clauses": [
+        ["ISO/IEC 27002", "2022", "0.3"]
+      ]
+    }
+  ]
+}

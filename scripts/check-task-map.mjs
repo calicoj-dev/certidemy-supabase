@@ -19,11 +19,11 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
 import { loadTaskFloors, floorFor } from "./lib/task-floors.mjs";
-import { classifyPrimaries, effectivePrimaryControls } from "./lib/effective-primary.mjs";
+import { classifyPrimaries, effectivePrimaryControls, MIN_EFFECTIVE } from "./lib/effective-primary.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-const MIN_EFFECTIVE = 3;
+/* MIN_EFFECTIVE now lives with the classifier it belongs to (PROMPT-118 s4). */
 let CERT = null;
 const argv = process.argv.slice(2);
 for (let i = 0; i < argv.length; i++) {

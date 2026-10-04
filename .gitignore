@@ -185,3 +185,7 @@ ISMSF-R3*
 ISMSF-R4*
 *-TRANSLATION-R*.json
 *-TRANSLATION-R*.json.partial.jsonl
+ISMSF-R5*
+# REVISE-118.json carries VERBATIM requote spans (key_support), unlike REVISE-116 whose edits
+# were our own prose. The licensed text is the payload, so it cannot be de-licensed -- only untracked.
+REVISE-118.json

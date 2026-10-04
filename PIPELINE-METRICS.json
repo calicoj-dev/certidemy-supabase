@@ -142,6 +142,16 @@
       "seconds": 2,
       "note": null,
       "recorded_at": "2026-10-04T04:16:05.561Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 3,
+      "note": null,
+      "recorded_at": "2026-10-04T05:33:13.293Z"
     }
   ],
   "costs_usd": [
