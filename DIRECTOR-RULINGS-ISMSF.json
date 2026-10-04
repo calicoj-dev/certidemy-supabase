@@ -1,0 +1,31 @@
+{
+  "ruled": "2026-10-03, PROMPT-114 s4",
+  "note": "Director rulings over the ISMS-F existing-bank audit. `overrides` wins over the mechanical verdict, by prefix. The solver-miss tag (PROMPT-112 s2) exists so these ten could be read; three of the ten were genuinely ambiguous, which is what the tag was for.",
+  "spot_read": {
+    "of": "the 10 items tagged `solver-miss` -- anchored cleanly, blind solver missed the key",
+    "read": 10,
+    "kept": 7,
+    "dropped": 3,
+    "conclusion": "the ambiguity is real in 3 of 10, so the tag earned its place: a solver miss is a signal worth a human read, not a verdict"
+  },
+  "overrides": [
+    {
+      "prefix": "0bb3e7d8",
+      "verdict": "drop",
+      "why": "RULED drop, PROMPT-114 s4. Option c -- the same person stays in post, so authority continues -- is defensible. Renaming a role does not clearly void the individual's authority, so the key is not uniquely correct.",
+      "ruled_in": "PROMPT-114 s4"
+    },
+    {
+      "prefix": "3e104409",
+      "verdict": "drop",
+      "why": "RULED drop, PROMPT-114 s4. The key ('events are classified at the time of occurrence') is not in the standard, and option c -- a formal reclassification process -- is defensible.",
+      "ruled_in": "PROMPT-114 s4"
+    },
+    {
+      "prefix": "7fd48dc2",
+      "verdict": "drop",
+      "why": "RULED drop, PROMPT-114 s4. Option a -- posting on the intranet communicates the policy -- is defensible under 5.2. 'Understand' is a 7.3 obligation, not a 5.2 one, so the key reads the wrong clause.",
+      "ruled_in": "PROMPT-114 s4"
+    }
+  ]
+}

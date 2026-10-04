@@ -19,6 +19,8 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { requireKey, getAll } from "./_pg.mjs";
+import { attributesRequirementToStandard } from "./lib/grounded-gates.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
@@ -77,6 +79,22 @@ const inflation = [...merged.values()].filter((it) => {
   return g.length === 1 && g[0] === "modal-fidelity";
 });
 
+/* THE FOUNDATION NARROWING (PROMPT-114 s3), applied to the recorded claim. Same exported function the
+ * gate uses, so there is no second definition of "attributed". An item whose deontic verb belongs to
+ * the scenario claims nothing about the standard, so there is nothing to inflate. */
+const FOUNDATION = /-F$/.test(CERT);
+const KEY = requireKey(HERE);
+const cert = (await getAll(KEY, "certifications?select=id&code=eq." + CERT))[0];
+const rows = await getAll(KEY, "quiz_questions?select=id,options,correct_answer,explanation" +
+  "&certification_id=eq." + cert.id + "&language=eq.en&order=id");
+const claimTextOf = (prefix) => {
+  const r = rows.find((x) => String(x.id).startsWith(prefix));
+  if (!r) return "";
+  const keyId = (r.correct_answer || [])[0];
+  const key = (r.options || []).find((o) => o.id === keyId);
+  return [key && key.text, r.explanation].filter(Boolean).join(" ");
+};
+
 const licensed = [], unlicensed = [];
 for (const it of inflation) {
   const cl = (it.anchor && it.anchor.clause) || it.key_support_clause;
@@ -84,13 +102,19 @@ for (const it of inflation) {
   const p = twin ? held.get(twin.source_id + "|" + twin.clause) : null;
   if (p && p.normative === "shall") {
     licensed.push({ prefix: it.prefix, task: it.task, from: String(cl),
-      to: twin.source_id + " " + twin.clause, twin_title: p.title || "" });
-  } else {
-    unlicensed.push({ prefix: it.prefix, task: it.task, clause: String(cl),
-      why: !twin ? "no normative twin by numbering (definition, or already-normative clause)"
-        : !p ? "twin " + twin.source_id + " " + twin.clause + " is NOT HELD"
-        : "twin is " + p.normative + ", not shall" });
+      to: twin.source_id + " " + twin.clause, twin_title: p.title || "", by: "normative twin" });
+    continue;
   }
+  if (FOUNDATION && !attributesRequirementToStandard(claimTextOf(it.prefix))) {
+    licensed.push({ prefix: it.prefix, task: it.task, from: String(cl),
+      to: "(not attributed)", by: "Foundation narrowing: the claim names no standard or clause " +
+        "alongside requires/shall, so the deontic verb is the scenario's own" });
+    continue;
+  }
+  unlicensed.push({ prefix: it.prefix, task: it.task, clause: String(cl),
+    why: !twin ? "no normative twin, AND the claim attributes a requirement to the standard"
+      : !p ? "twin " + twin.source_id + " " + twin.clause + " is NOT HELD, and the claim is attributed"
+      : "twin is " + p.normative + ", not shall, and the claim is attributed" });
 }
 
 console.log("");

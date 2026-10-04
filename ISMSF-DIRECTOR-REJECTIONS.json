@@ -1,0 +1,30 @@
+{
+  "_what": "Items the director read and refused. A rejection is the one disposition no generated artifact carries, so the standing list must be read by anything that promotes. `approve-grounded-items.mjs` reads this file by content id.",
+  "ruled": "2026-10-03, PROMPT-114 s1",
+  "round": "ISMS-F R1 (ISMSF-ROLLOUT-R1.md)",
+  "read": 23,
+  "accepted": 21,
+  "rejected": 3,
+  "note": "21 accepts = the 20 numbered accepts plus the item R1's code rejected on modal-fidelity, which PROMPT-114 s3 ruled a false positive: the item's 'ought to' is not a claim about the standard. The narrowed gate now passes it.",
+  "rejections": [
+    {
+      "report_number": 13,
+      "task": "4.5",
+      "why": "RULED reject: dynamic access management versus access control lists is too obscure for a Foundation candidate. Not wrong -- out of scope for the tier.",
+      "ruled_in": "PROMPT-114 s1"
+    },
+    {
+      "report_number": 20,
+      "task": "4.5",
+      "why": "RULED reject: near-duplicate of #16. Same anchor (A.5.9) and the same fact -- the inventory carries owners. #16 is kept.",
+      "ruled_in": "PROMPT-114 s1"
+    },
+    {
+      "report_number": 21,
+      "task": "4.5",
+      "why": "RULED reject: near-duplicate of #17. Same definition (3.27) and the same fact -- the term covers infrastructure and the location housing it. #17 is kept.",
+      "ruled_in": "PROMPT-114 s1"
+    }
+  ],
+  "why_near_duplicates_reached_a_survivor_list": "gateNearDuplicate compares STEMS, and these pairs differ in their stems while asserting the same fact from the same anchor. That blindness is recorded in CLAUDE.md s13: the same answer with a different stem is invisible to it. The anchor cap of 2 per (source, edition, clause) per task is what bounds the damage, and it allowed exactly these two pairs."
+}

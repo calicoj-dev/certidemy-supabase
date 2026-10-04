@@ -799,6 +799,20 @@ the item is discarded if it does not match.
 If the passages do not support a defensible item for this task, return fewer items, or none.
 Returning nothing is a correct answer. Inventing a requirement is not.
 
+THE ODD-VERDICT CUE, AND HOW TO AVOID IT (ruled PROMPT-114 s2):
+
+- AT LEAST ONE DISTRACTOR MUST SHARE THE KEY'S VERDICT and be wrong on the REASON or the REMEDY.
+  If the key says the practice is required, one distractor must also say it is required and then give
+  the wrong reason why, or the wrong thing to do about it.
+- DO NOT make every distractor an excuse. "Acceptable, as long as X", "only where Y", "need only Z"
+  in all three distractors leaves the key as the single strict statement, and a candidate who knows
+  nothing picks the strict one. An options-only probe reads that straight off the shapes.
+- WHERE THE STANDARD PERMITS THE PRACTICE, THE KEY MAY BE THE PERMISSIVE OPTION. The correct answer
+  must not always be the strictest one. A bank whose key is always the strict option is answerable
+  without reading the stem.
+- Do not make the key the only hedged or multi-part option either. If the key carries a qualifier,
+  at least one distractor carries one too.
+
 Return a JSON array. Each element:
 
 {

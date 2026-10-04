@@ -412,7 +412,38 @@ export function gateClauseExists(item, passagesByKey, annexGaps = [], sequenceGa
  * that produced three Tier A findings: a plausible requirement the standard does not
  * impose.
  */
-export function gateModalFidelity(item, passagesByKey) {
+/* ============ FOUNDATION: THE CLAIM MUST BE ATTRIBUTED TO THE STANDARD ============
+ *
+ * Ruled PROMPT-114 s3, after the director read all 8 surviving inflation samples and found 8 false
+ * positives. The gate was reading ANY deontic verb in the key or explanation as the item asserting a
+ * requirement -- but in a scenario item the "must" is usually somebody else's: an organisation's own
+ * acceptance criteria, a risk owner's authority, or a manager's flawed reasoning the item then
+ * corrects. None of those claims anything about what the standard requires.
+ *
+ * So for a Foundation certification the gate fires only when the item ATTRIBUTES the requirement to
+ * the standard: it names the standard or a clause in the same breath as requires/shall/mandates/is
+ * required. "Role assignments ought to be checked" is a statement about good practice; "Clause 5.3
+ * requires role checks" is a claim about the document.
+ *
+ * Internal Auditor keeps the unnarrowed gate: there, the modal IS the subject matter.
+ */
+const ATTRIBUTION_SUBJECT = /\b(?:ISO|IEC|27001|27002|42001|19011|17021|42006|the\s+standard|this\s+document|the\s+document|clause|annex|control\s+[A-D]\.)\b/i;
+const ATTRIBUTION_VERB = /\b(?:requires?|required|shall|mandates?|mandated|obliges?|obligates?|prescribes?)\b/i;
+
+/** Does the text attribute a REQUIREMENT TO THE STANDARD (not merely use a deontic verb)? */
+export function attributesRequirementToStandard(text) {
+  const t = String(text || "");
+  if (!t.trim()) return false;
+  /* BOTH halves, in the same sentence. A paragraph that names a clause in one sentence and says
+   * "must" in another is not necessarily attributing one to the other -- and a sentence is the unit
+   * a reader attributes in. */
+  for (const s of t.split(/(?<=[.;:!?])\s+/)) {
+    if (ATTRIBUTION_SUBJECT.test(s) && ATTRIBUTION_VERB.test(s)) return true;
+  }
+  return false;
+}
+
+export function gateModalFidelity(item, passagesByKey, opts = {}) {
   const p = passagesByKey.get(normClause(item.key_support_clause));
   if (!p) return { id: "modal-fidelity", pass: false, examined: 0, reason: "no passage to compare against" };
 
@@ -500,17 +531,30 @@ export function gateModalFidelity(item, passagesByKey) {
         "obligation to a named document with a scope verb. A scope clause imposes nothing, so " +
         "there is nothing to inflate." };
   }
-  if (claim === "requirement" && anchorClaim !== "requirement") {
+  /* FOUNDATION NARROWING (PROMPT-114 s3): only an ATTRIBUTED requirement can inflate. A deontic verb
+   * belonging to the scenario -- the organisation's criteria, a risk owner, a manager's bad reasoning
+   * -- claims nothing about the document, and reading it as a claim produced 8 false positives out of
+   * 8 read. The recommendation arm goes with it: "ought to be checked" is not a claim about a clause. */
+  const foundation = opts.foundation === true;
+  const attributed = attributesRequirementToStandard(claimText);
+  if (claim === "requirement" && anchorClaim !== "requirement" && (!foundation || attributed)) {
     return { id: "modal-fidelity", pass: false, examined: 1,
       reason: "the item asserts a requirement and the anchor carries none -- force taken from " +
         forceFrom + " (" + anchorClaim + "), clause " + normClause(item.key_support_clause) +
         " is classed " + p.normative +
+        (foundation ? " [Foundation: the claim NAMES the standard or a clause alongside requires/shall]" : "") +
         (isScopeAnchor ? " (scope anchor, but the claim is not purely descriptive)" : "") };
   }
-  if (claim === "recommendation" && anchorClaim !== "requirement" && anchorClaim !== "recommendation") {
+  if (claim === "recommendation" && anchorClaim !== "requirement" && anchorClaim !== "recommendation" &&
+    (!foundation || attributed)) {
     return { id: "modal-fidelity", pass: false, examined: 1,
       reason: "the item asserts a recommendation and the anchor only " +
         (anchorClaim === "permission" ? "permits" : "describes") + " -- force taken from " + forceFrom };
+  }
+  if (foundation && claim !== "description" && !attributed) {
+    return { id: "modal-fidelity", pass: true, examined: 1,
+      reason: "Foundation: the item asserts a " + claim + " but does not attribute it to the standard " +
+        "(no clause or standard named alongside requires/shall), so there is nothing to inflate" };
   }
   return { id: "modal-fidelity", pass: true, examined: 1,
     reason: "item asserts a " + claim + "; anchor is a " + anchorClaim + " by " + forceFrom +
@@ -965,7 +1009,9 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
   const gates = [
     gateClauseExists(item, passagesByKey, annexGaps, sequenceGaps, resolveAnchor),
     gateVerbatim(item, passagesByKey, resolveAnchor),
-    gateModalFidelity(item, passagesByKey),
+    /* FOUNDATION is read off the certification code, the same way report-survivors does it (-F vs -IA).
+     * The narrowing is per certification, not per run, so it cannot be turned on by a flag. */
+    gateModalFidelity(item, passagesByKey, { foundation: /-F$/.test(String(cert || "")) }),
     gateSuperseded(item, cert),
     gateStructure(item, cueCfg),
     gateNearDuplicate(item, liveStemsForTask),
@@ -1713,6 +1759,53 @@ export function groundedGateControls() {
       return runCodeGates(good, { passagesByKey: byKey, primaryClauses: [P42("9.2.2")],
         supportingClauses: [P42("B.9.2")], sources: [], leak: null }).failed.includes("quote-noise");
     }, false],
+
+    /* ============ THE FOUNDATION MODAL NARROWING, BOTH DIRECTIONS (PROMPT-114 s3) ============
+     *
+     * The three cases the director named, against a `should` anchor. The attribution test is what
+     * separates a claim about the document from a deontic verb belonging to the scenario. */
+    ["attribution: `Clause 5.3 requires role checks` IS attributed",
+      () => attributesRequirementToStandard("Clause 5.3 requires role checks."), true],
+    ["attribution: `Role assignments ought to be checked` is NOT attributed",
+      () => attributesRequirementToStandard("Role assignments ought to be checked."), false],
+    ["attribution: a scenario `must` with no clause named is NOT attributed",
+      () => attributesRequirementToStandard("The organization's own criteria say the model must be retrained."), false],
+    ["attribution: a clause named in one sentence and `must` in another is NOT attributed",
+      () => attributesRequirementToStandard("Clause 5.3 covers roles. The manager must therefore act."), false],
+    ["attribution: `ISO/IEC 27001 mandates` IS attributed",
+      () => attributesRequirementToStandard("ISO/IEC 27001 mandates an inventory."), true],
+    ...(() => {
+      /* a SOFT anchor (`should`) with each claim shape, under Foundation and under Internal Auditor */
+      const softItem = (keyText) => I42({
+        question_text: "A reviewer asks what the arrangement means here. Which statement is accurate?",
+        options: [{ id: "a", text: keyText, is_correct: true },
+          { id: "b", text: "Recording the release plan and confirming the stated requirements beforehand." },
+          { id: "c", text: "Fixing the verification measures and the acceptance criteria in advance." },
+          { id: "d", text: "Setting out what continuing operation needs, including monitoring and repairs." }],
+        correct_answer: ["a"],
+        explanation: "The guidance in B.9.2 advises this; it is not stated as a requirement.",
+        key_support: soft.text, key_support_clause: "B.9.2",
+      });
+      const run = (keyText, cert) => runCodeGates(softItem(keyText), { passagesByKey: byKey,
+        primaryClauses: [P42("B.9.2")], supportingClauses: [P42("9.2.2")], sources: [], leak: null, cert })
+        .failed.includes("modal-fidelity");
+      const ATTRIB = "Clause 5.3 requires that role assignments be checked at planned intervals.";
+      /* a REQUIREMENT claim with no attribution -- the scenario's own "must". This is the case the
+       * narrowing exists for, and the one that separates Foundation from Internal Auditor. */
+      const PLAIN_MUST = "Role assignments must be checked at planned intervals by the reviewer.";
+      /* a RECOMMENDATION claim. Never an inflation against a `should` anchor, under either standard --
+       * so it passes both, and saying so keeps the next reader from reading the IA case too widely. */
+      const OUGHT = "Role assignments ought to be checked at planned intervals by the reviewer.";
+      return [
+        ["FOUNDATION: an ATTRIBUTED requirement on a should anchor FAILS", () => run(ATTRIB, "AIMS-F"), true],
+        ["FOUNDATION: an unattributed `must` on the same anchor PASSES", () => run(PLAIN_MUST, "AIMS-F"), false],
+        ["INTERNAL AUDITOR keeps the stricter gate: the same unattributed `must` FAILS",
+          () => run(PLAIN_MUST, "AIMS-IA"), true],
+        ["an ATTRIBUTED requirement FAILS for Internal Auditor too", () => run(ATTRIB, "AIMS-IA"), true],
+        ["`ought to` on a should anchor passes under BOTH -- a recommendation on a recommendation is " +
+          "no inflation", () => run(OUGHT, "AIMS-F") === false && run(OUGHT, "AIMS-IA") === false, true],
+      ];
+    })(),
 
     /* ============ THE CUE ALLOWANCE, ONE CHARACTER EITHER SIDE (PROMPT-109 s1) ============
      *
