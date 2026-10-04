@@ -61,6 +61,15 @@
       "accepted": 2,
       "rejected": 4,
       "note": "The round whose four empty tasks turned out to be a normClause defect (1.6, 1.7), a one-sentence amendment passage (2.3) and unheld container clauses (5.5) -- not generation."
+    },
+    {
+      "artifact": "ISMSF-R9",
+      "report": "ISMSF-ROLLOUT-R9.md",
+      "ruled": "2026-10-04, PROMPT-123 s1",
+      "read": 6,
+      "accepted": 5,
+      "rejected": 1,
+      "note": "R9 plus the three rescues the normaliser fix recovered. The two 5.5 survivors sit on five-level clauses the old normaliser truncated, which is what disproved the premise of the 5.5 floor ruling. The one reject duplicates a kept rescue."
     }
   ],
   "note": "R1's 21 accepts = the 20 numbered accepts plus the item R1 code-rejected on modal-fidelity, which PROMPT-114 s3 ruled a false positive: the item's 'ought to' is not a claim about the standard. The narrowed gate now passes it.",
@@ -283,6 +292,15 @@
       "anchor": "ISO/IEC 17021-1 8.2.1",
       "why": "RULED reject (PROMPT-122 s1): how a certificate is delivered is trivial, and it is certification-body procedure",
       "ruled_in": "PROMPT-122 s1"
+    },
+    {
+      "item_id": "a2157d85",
+      "artifact": "ISMSF-R9",
+      "report_number": 1,
+      "task": "1.7",
+      "anchor": "ISO/IEC 27002 8.15",
+      "why": "RULED reject (PROMPT-123 s1): the same task, the same anchor and the same fact as rescue 1 (5cf9321b), which the director keeps -- a privileged user must not be able to delete or de-activate logs of their own activities",
+      "ruled_in": "PROMPT-123 s1"
     }
   ],
   "why_near_duplicates_reached_a_survivor_list": "gateNearDuplicate compares STEMS, and these pairs differ in their stems while asserting the same fact from the same anchor. That blindness is recorded in CLAUDE.md s13: the same answer with a different stem is invisible to it. The anchor cap of 2 per (source, edition, clause) per task is what bounds the damage, and it allowed exactly these two pairs.",

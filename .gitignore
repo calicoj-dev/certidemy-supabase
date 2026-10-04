@@ -205,3 +205,9 @@ ISMSF-RESTALE-RECOVERY.json
 # the same way. Already-tracked REVISE-116/119 stay tracked -- their edits were our own prose and
 # check-licensed-text passes them; gitignore only governs untracked files.
 REVISE-*.json
+
+# A rescue read document carries key_support verbatim for every item in it, the same licensed
+# text as the ROLLOUT reports two lines up. GENERIC on purpose: naming ISMSF-RESCUES-123.md alone
+# is how ISMSF-R6 and REVISE-122 both reached the index.
+*-RESCUES-*.md
+*-RESCUES-*.json

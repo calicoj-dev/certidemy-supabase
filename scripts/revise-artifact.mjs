@@ -330,7 +330,24 @@ for (const { kind, r } of work) {
     console.log("");
   }
   const s1 = solverVerdict(parseObj(await claude(SOLVER_SYSTEM, prompt)), keyLabel);
-  const s2 = solverVerdict(parseObj(await claude(SOLVER_SYSTEM, prompt)), keyLabel);
+  /* ============ RUN TWO SHUFFLES THE OPTIONS, as the generator's does ============
+   *
+   * This path sent the same prompt twice, so "accepted/accepted" here was agreement with itself
+   * under identical conditions -- a weaker bar than the generator's, which reorders the options
+   * and re-identifies the key BY ITS TEXT. Two implementations of one rule, and the weaker one
+   * was being used for every rescue. Found PROMPT-123 s1 while lifting a rescue's solver record.
+   *
+   * The key is found by TEXT after the shuffle, never by its old label. */
+  const shuffled = [...bp.options];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = (i * 7 + 3) % (i + 1);               /* deterministic: a run must be reproducible */
+    const t = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = t;
+  }
+  const keyText = (bp.options.find((x) => x.label === keyLabel) || {}).text;
+  const bp2 = { ...bp, options: shuffled.map((x, i) => ({ label: String.fromCharCode(65 + i), text: x.text })) };
+  const keyLabel2 = (bp2.options.find((x) => x.text === keyText) || {}).label || keyLabel;
+  assertBlind(bp2, o);
+  const s2 = solverVerdict(parseObj(await claude(SOLVER_SYSTEM, solverUser(bp2, ps))), keyLabel2);
   const ok = s1.state === s2.state && s1.state === "accepted";
   console.log("    solver " + s1.state + "/" + s2.state + "   " + (ok ? "ACCEPT" : "DROP (a split or a miss is not a pass)") +
     "   $" + usd().toFixed(3));
@@ -340,6 +357,14 @@ for (const { kind, r } of work) {
     if (reassigned) target.assigned = reassigned.to;
     target.revised = [...(target.revised || []), { kind, what, to: r.to ?? null,
       reassigned, solver: [s1.state, s2.state], ruled_in: r.ruled_in || spec._ruled_in || null }];
+    /* AND onto item.solver, in the generator's shape. It was written only into `revised[]`, so a
+     * rescue read as never solved -- the insert's guard looks at `item.solver.state` and would
+     * have refused three items that had in fact been solved accepted/accepted.
+     * Run two now shuffles the options, so this record claims the same bar as the generator's
+     * and `shuffled: true` says so. The three PROMPT-122 rescues were solved before that fix
+     * and carry `unshuffled: true`; the difference is kept visible rather than backdated. */
+    target.solver = { ...s1, runs: 2, second: s2, shuffled: true,
+      via: "revise-artifact " + (r.ruled_in || spec._ruled_in || "declared in the spec") };
     /* a RESCUED item was not a survivor; it becomes one, or the insert's accept list cannot name it */
     if (target.verdict !== "survivor" && r.rescue === true) {
       console.log("    verdict " + target.verdict + " -> survivor (rescued, " +

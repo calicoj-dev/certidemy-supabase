@@ -29,6 +29,7 @@ import { gateAnchorAssignment } from "./anchor-assignment.mjs";
 import { gateQuoteNoise } from "./quote-noise.mjs";
 import { makePassageIndex } from "./passage-index.mjs";
 import { passageKey, labelOf } from "./passage-key.mjs";
+import { ISO_ANCHOR_WORD, SCHEME_PREFIXED } from "./clause-address.mjs";
 
 /* ============ NORMALISATION, AND WHY IT IS THE RISKY PART ============
  *
@@ -250,7 +251,7 @@ const LICENSES = {
  * This is the gate the whole design rests on: it is what makes "the pointing is checked by
  * code" true rather than aspirational.
  */
-export function gateVerbatim(item, passagesByKey, resolveAnchor = null) {
+export function gateVerbatim(item, passagesByKey, resolveAnchor = null, resolveCandidates = null) {
   /* source_id/edition TRAVEL WITH THE ANCHOR. Dropping them here made every per-anchor resolution fall
    * back to the item's scope, so a distractor citing another held standard read as "not in the library". */
   const anchors = [
@@ -264,13 +265,18 @@ export function gateVerbatim(item, passagesByKey, resolveAnchor = null) {
     return { id: "verbatim", pass: false, examined: 0,
       reason: "the item carries no anchor at all -- nothing to check, which is a refusal and not a pass" };
   }
-  const bad = [];
+  const bad = [], viaEdition = [];
   for (const a of anchors) {
     if (!a.clause) { bad.push(a.role + ": no clause named"); continue; }
     if (!a.text || !String(a.text).trim()) { bad.push(a.role + ": no support sentence"); continue; }
-    const p = resolveAnchor ? resolveAnchor(a) : passagesByKey.get(normClause(a.clause));
-    if (!p) { bad.push(a.role + ": clause " + normClause(a.clause) + " is not in the library"); continue; }
-    const hay = normForVerbatim(p.text + " " + (p.title || ""));
+    /* CANDIDATES, not one passage. A distractor's clause may exist in the item's own edition AND
+     * read differently there -- 27001 Amd1:2024's 4.1 is one sentence where 27001:2022's is a
+     * paragraph -- so a resolver that stops at the first hit returns the wrong text and the
+     * fallback never fires. Measured PROMPT-123 s2b: the control for the fix caught the fix.
+     * The KEY always has exactly one candidate; only a distractor gets more. */
+    const cands = (resolveCandidates ? resolveCandidates(a)
+      : [resolveAnchor ? resolveAnchor(a) : passagesByKey.get(normClause(a.clause))]).filter(Boolean);
+    if (!cands.length) { bad.push(a.role + ": clause " + normClause(a.clause) + " is not in the library"); continue; }
     const needle = normForVerbatim(a.text);
     /* THE FIVE-WORD FLOOR IS ON THE KEY ANCHOR ONLY, and the pilot is why.
      *
@@ -290,10 +296,20 @@ export function gateVerbatim(item, passagesByKey, resolveAnchor = null) {
         (a.role === "key" ? "supporting sentence" : "pointer"));
       continue;
     }
-    if (!hay.includes(needle)) bad.push(a.role + ": not verbatim in " + a.clause);
+    /* verbatim in ANY candidate. A pass found in an edition other than the anchor's own is
+     * RECORDED, the way the container-children resolution is: a pass reached by a fallback must
+     * not read the same as a pass on the address as written. */
+    const hit = cands.find((p) => normForVerbatim(p.text + " " + (p.title || "")).includes(needle));
+    if (!hit) { bad.push(a.role + ": not verbatim in " + a.clause); continue; }
+    if (hit.edition && a.edition && hit.edition !== a.edition) {
+      viaEdition.push(a.role + " " + a.clause + " resolved in " + hit.source_id + " " + hit.edition +
+        " (the anchor named " + a.edition + ")");
+    }
   }
   return { id: "verbatim", pass: bad.length === 0, examined: anchors.length,
-    reason: bad.length ? bad.join("; ") : anchors.length + " anchor(s) verbatim in their named passage" };
+    reason: bad.length ? bad.join("; ")
+      : anchors.length + " anchor(s) verbatim in their named passage" +
+        (viaEdition.length ? "; " + viaEdition.join("; ") : "") };
 }
 
 /**
@@ -351,9 +367,9 @@ export function gateVerbatim(item, passagesByKey, resolveAnchor = null) {
  * clause string, and the case-insensitive half of the ruling lives in the passage index's lookup,
  * where the two strings actually meet.
  */
-const ISO_ANCHOR_WORD = /^(?:clause|subclause|annex|control|section|table|figure)\b/i;
-/* a word, then whitespace, then a digit (optionally parenthesised): the word belongs to the address */
-const SCHEME_PREFIXED = /^[A-Za-z][A-Za-z.]*\s+\(?\d/;
+/* ISO_ANCHOR_WORD and SCHEME_PREFIXED were declared here and the attribution check in leak-score
+ * had its own, narrower answer to the same question. ONE definition now, imported from
+ * lib/clause-address.mjs, so a new scheme word reaches both. Ruled PROMPT-123 s2a. */
 
 export function normClause(c) {
   const raw = String(c || "").trim();
@@ -403,9 +419,11 @@ export function gateClauseExists(item, passagesByKey, annexGaps = [], sequenceGa
   ]);
   /* Each named clause keeps its OWN source, so a distractor citing another held standard is not
    * reported absent just because the ITEM is scoped elsewhere. */
+  /* `role` travels so the resolver can apply the distractor-only edition fallback (PROMPT-123 s2b);
+   * without it a distractor here would be treated as a key and get no fallback. */
   const namedAnchors = [
-    { clause: item.key_support_clause, source_id: item.source_id, edition: item.edition },
-    ...(item.distractor_support || []).map((d) => ({ clause: d.clause,
+    { role: "key", clause: item.key_support_clause, source_id: item.source_id, edition: item.edition },
+    ...(item.distractor_support || []).map((d, i) => ({ role: "distractor " + i, clause: d.clause,
       source_id: d.source_id ?? item.source_id, edition: d.edition ?? item.edition })),
   ].filter((a) => a.clause);
   const srcOf = new Map(namedAnchors.map((a) => [normClause(a.clause), a]));
@@ -1120,12 +1138,46 @@ export function runCodeGates(item, { passagesByKey, annexGaps = [], sequenceGaps
   /* PER-ANCHOR resolution. A DISTRACTOR may cite a different standard from the key -- task 5.5 maps
    * 42006 and 17021-1 together -- so an anchor carrying its own source resolves there, not in the
    * item's scope. Without the index we can only use the item's scope, which is the old behaviour. */
-  const resolveAnchor = (a) => (index && a && a.source_id && a.edition)
-    ? index.get(a.source_id, a.edition, normClause(a.clause))
-    : passagesByKey.get(normClause(a.clause));
+  /* ============ PROMPT-123 s2b: A DISTRACTOR IS NOT PINNED TO THE KEY'S EDITION ============
+   *
+   * A distractor without its own `edition` inherits the ITEM's, and task 2.3's items ground on
+   * 27001 Amd1:2024, whose 4.1 and 4.2 rows are one sentence each. So a distractor pointing at
+   * 4.1 resolved against the amendment and could never be verbatim -- six of six R9 rejections.
+   *
+   * Ruled: a distractor's support may resolve against ANY EDITION OF THE SAME SOURCE that the
+   * task maps. The KEY still resolves only in its own anchor -- the key is what the item asserts,
+   * and letting it drift between editions is how an item ends up supported by a text it does not
+   * cite. The fallback never leaves the task's own mapped sources, so it cannot become a door to
+   * a standard the task does not examine.
+   */
+  const taskEditions = new Map();
+  for (const k of [...(primaryClauses || []), ...(supportingClauses || [])]) {
+    if (!k || !k.source_id) continue;
+    if (!taskEditions.has(k.source_id)) taskEditions.set(k.source_id, new Set());
+    taskEditions.get(k.source_id).add(k.edition);
+  }
+  const isDistractor = (a) => typeof a.role === "string" && a.role.startsWith("distractor");
+
+  /** Every passage a given anchor may legitimately be checked against, best match first. */
+  const resolveCandidates = (a) => {
+    if (!(index && a && a.source_id && a.edition)) return [passagesByKey.get(normClause(a.clause))];
+    const want = normClause(a.clause);
+    const out = [];
+    const direct = index.get(a.source_id, a.edition, want);
+    if (direct) out.push(direct);
+    if (!isDistractor(a)) return out;
+    for (const ed of (taskEditions.get(a.source_id) || [])) {
+      if (ed === a.edition) continue;
+      const p = index.get(a.source_id, ed, want);
+      if (p) out.push(p);
+    }
+    return out;
+  };
+  /* existence only: for clause-exists, any candidate resolving is enough */
+  const resolveAnchor = (a) => resolveCandidates(a).filter(Boolean)[0] || null;
   const gates = [
     gateClauseExists(item, passagesByKey, annexGaps, sequenceGaps, resolveAnchor),
-    gateVerbatim(item, passagesByKey, resolveAnchor),
+    gateVerbatim(item, passagesByKey, resolveAnchor, resolveCandidates),
     /* FOUNDATION is read off the certification code, the same way report-survivors does it (-F vs -IA).
      * The narrowing is per certification, not per run, so it cannot be turned on by a flag. */
     gateModalFidelity(item, passagesByKey, { foundation: /-F$/.test(String(cert || "")) }),
@@ -1988,6 +2040,88 @@ export function groundedGateControls() {
           () => cueFailed(RIVAL + allowed - 1), false],
         ["cue: key EXACTLY AT the allowance passes (the bar is `>`, not `>=`)",
           () => cueFailed(RIVAL + allowed), false],
+      ];
+    })(),
+
+  /* ============ PROMPT-123 s2b: DISTRACTOR SUPPORT ACROSS EDITIONS OF ONE SOURCE ============
+   *
+   * Task 2.3's shape: the item grounds on 27001 Amd1:2024, whose 4.1 is one sentence, while the
+   * task also maps 27001:2022, whose 4.1 is a paragraph. The distractor points at the paragraph.
+   *
+   * These cases pass the UNSCOPED index, because that is what makes `index` non-null inside
+   * runCodeGates and therefore the only way the per-anchor resolver runs at all. Every fixture
+   * above hands in a pre-scoped view, so none of them was exercising this path. */
+    ...(() => {
+      const S = "ISO/IEC 27001";
+      const long2022 = {
+        source_id: S, edition: "2022", clause: "4.1", title: "Understanding the organization and its context",
+        normative: "shall",
+        text: "The organization shall determine external and internal issues that are relevant to its " +
+          "purpose and that affect its ability to achieve the intended outcome of its information " +
+          "security management system.",
+      };
+      const short2024 = {
+        source_id: S, edition: "Amd1:2024", clause: "4.1", title: "Understanding the organization and its context",
+        normative: "shall",
+        text: "The organization shall determine relevant external and internal issues.",
+      };
+      const anchor2024 = {
+        source_id: S, edition: "Amd1:2024", clause: "6.1.1", title: "Planning", normative: "shall",
+        text: "When planning for the information security management system the organization shall " +
+          "consider the issues referred to in 4.1 and determine the risks and opportunities.",
+      };
+      const elsewhere = {
+        source_id: "ISO/IEC 42001", edition: "2023", clause: "5.2", title: "AI policy", normative: "shall",
+        text: "Top management shall establish an AI policy appropriate to the purpose of the organization.",
+      };
+      const full = makePassageIndex([long2022, short2024, anchor2024, elsewhere]);
+      const MAP = { primary: [{ source_id: S, edition: "Amd1:2024", clause: "6.1.1" },
+        { source_id: S, edition: "2022", clause: "4.1" }], supporting: [] };
+      /* the paragraph only the 2022 edition carries */
+      const SPAN2022 = "external and internal issues that are relevant to its purpose";
+
+      /* THROUGH runCodeGates, so the resolver under test is the production one. A control that
+       * re-implements the rule it is checking proves only that the copy agrees with itself. */
+      const verbatimOk = (item) => {
+        const r = runCodeGates({ ...item }, { passagesByKey: full, annexGaps: [], sequenceGaps: [],
+          cert: "ISMS-F", primaryClauses: MAP.primary, supportingClauses: MAP.supporting,
+          sources: [], leak: null });
+        const g = r.gates.find((x) => x.id === "verbatim");
+        return g.pass === true;
+      };
+
+      const base = {
+        source_id: S, edition: "Amd1:2024",
+        question_text: "An organization is determining the scope of its information security management " +
+          "system. What does the standard require it to consider when planning?",
+        options: [
+          { text: "The issues referred to in 4.1, and the risks and opportunities arising from them", is_correct: true },
+          { text: "Only the issues raised by the external certification body at the last audit", is_correct: false },
+          { text: "Only the issues the information security manager considers material", is_correct: false },
+          { text: "Only the issues recorded in the previous management review minutes", is_correct: false },
+        ],
+        explanation: 'Clause 6.1.1 requires the organization to "consider the issues referred to in 4.1" ' +
+          "when planning the management system.",
+        key_support_clause: "6.1.1",
+        key_support: "consider the issues referred to in 4.1 and determine the risks and opportunities",
+      };
+      return [
+        ["s2b: a 2.3 distractor quoting 27001:2022 4.1 resolves, though the item is on Amd1:2024",
+          () => verbatimOk({ ...base, distractor_support: [{ clause: "4.1", support: SPAN2022 }] }), true],
+        ["s2b: the SAME span as key_support on an Amd1:2024 anchor FAILS -- the key does not drift",
+          () => verbatimOk({ ...base, key_support_clause: "4.1", key_support: SPAN2022,
+            distractor_support: [] }), false],
+        ["s2b: a distractor quoting a source the task does NOT map gets no fallback and fails",
+          () => verbatimOk({ ...base, distractor_support: [{ clause: "5.2", source_id: "ISO/IEC 42001",
+            edition: "2099", support: "establish an AI policy appropriate to the purpose" }] }), false],
+        ["s2b: a distractor quoting a clause held in NEITHER mapped edition still fails",
+          () => verbatimOk({ ...base, distractor_support: [{ clause: "9.9",
+            support: "a span from a clause that does not exist anywhere" }] }), false],
+        ["s2b: a distractor whose span is in no edition of the source fails (not verbatim, not absent)",
+          () => verbatimOk({ ...base, distractor_support: [{ clause: "4.1",
+            support: "words that appear in neither the 2022 paragraph nor the amendment" }] }), false],
+        ["s2b: the KEY is still checked -- a key span in no edition fails",
+          () => verbatimOk({ ...base, key_support: "a span that is in no passage at all anywhere" }), false],
       ];
     })(),
   ];

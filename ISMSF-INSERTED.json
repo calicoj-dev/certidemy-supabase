@@ -2503,6 +2503,95 @@
      "source": "ISO/IEC 17021-1"
     }
    ]
+  },
+  {
+   "at": "2026-10-04T16:57:46.239Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R9",
+   "accept_list": "ACCEPT-ISMSF-R9.json",
+   "note": "",
+   "ids": [
+    "8bc41c57-ef0f-42fb-ba51-550ace31f4f8"
+   ],
+   "rows": [
+    {
+     "id": "8bc41c57-ef0f-42fb-ba51-550ace31f4f8",
+     "item_id": "86ec724b",
+     "report_number": 2,
+     "task": "5.5",
+     "anchor": "9.6.3.1.2",
+     "source": "ISO/IEC 17021-1"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-04T17:01:48.622Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R9",
+   "accept_list": "ACCEPT-ISMSF-R9.json",
+   "note": "",
+   "ids": [
+    "f5d77c51-eb73-4354-95c2-89ac2e3641c4"
+   ],
+   "rows": [
+    {
+     "id": "f5d77c51-eb73-4354-95c2-89ac2e3641c4",
+     "item_id": "474d058d",
+     "report_number": 3,
+     "task": "5.5",
+     "anchor": "9.6.3.1.1",
+     "source": "ISO/IEC 17021-1"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-04T17:02:19.979Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R8",
+   "accept_list": "ACCEPT-ISMSF-R8.json",
+   "note": "",
+   "ids": [
+    "33d8221e-87f3-44d8-9311-88f24342cc98"
+   ],
+   "rows": [
+    {
+     "id": "33d8221e-87f3-44d8-9311-88f24342cc98",
+     "item_id": "5cf9321b",
+     "report_number": 101,
+     "task": "1.7",
+     "anchor": "8.15",
+     "source": "ISO/IEC 27002"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-04T17:02:32.923Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R8",
+   "accept_list": "ACCEPT-ISMSF-R8.json",
+   "note": "",
+   "ids": [
+    "798b48d7-2930-4e4c-8e60-1016442ea2f1",
+    "b3eda27c-759e-4a17-a124-872a0bf058d1"
+   ],
+   "rows": [
+    {
+     "id": "798b48d7-2930-4e4c-8e60-1016442ea2f1",
+     "item_id": "f9cf0cd3",
+     "report_number": 102,
+     "task": "1.7",
+     "anchor": "7.1",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "b3eda27c-759e-4a17-a124-872a0bf058d1",
+     "item_id": "d246d1df",
+     "report_number": 103,
+     "task": "5.5",
+     "anchor": "9.6.3.2.4",
+     "source": "ISO/IEC 17021-1"
+    }
+   ]
   }
  ]
 }

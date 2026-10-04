@@ -1,5 +1,7 @@
 {
-  "_what": "PROMPT-122 s1: 2 of the 6 R8 survivors. Three of the four rejects are same-task, same-fact restatements of already-accepted items; the fourth is certification-body procedure.",
+  "_what": "PROMPT-122 s1 accepted 2 of the 6 R8 survivors (report numbers 2 and 5; both inserted). PROMPT-123 s1 adds the THREE RESCUES that the PROMPT-122 s2 normaliser fix recovered from this same artifact's rejections -- revise-artifact wrote them back into ISMSF-R8 with verdict `survivor` and `rescued_from_verdict` set.",
+  "_report_numbers": "The rescues are numbered 101-103 rather than 1-3: the ROLLOUT document calls them 'R8 rescue 1/2/3' and R8's survivor list already uses 1-6, so reusing those would make two different items share a number in the record. 101 = rescue 1.",
+  "_solver": "All three were solved accepted/accepted when they were rescued. The result was recorded only in `revised[].solver` until PROMPT-123 s1 lifted it onto `item.solver`, which is where the insert's guard looks. `unshuffled: true` on those records: revise-artifact sends the same prompt twice, where the generator shuffles the options for run two.",
   "accepts": [
     {
       "item_id": "1ce959cf",
@@ -12,6 +14,27 @@
       "report_number": 5,
       "task": "5.6",
       "note": "accepted PROMPT-122 s1 (#5) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4) | options probe not run (withdrawn, PROMPT-117 s2) | 5.6 asked from the CUSTOMER's side, which is the angle TASK-WRITER-NOTES asks for"
+    },
+    {
+      "item_id": "5cf9321b",
+      "report_number": 101,
+      "task": "1.7",
+      "ruled_in": "PROMPT-123 s1",
+      "note": "accepted PROMPT-123 s1 (R8 rescue 1) | ISO/IEC 27002 8.15 | rescued by the PROMPT-122 s2 normaliser fix, requoted in place, solver accepted/accepted | R9 #1 was rejected as the same task, anchor and fact as this item"
+    },
+    {
+      "item_id": "f9cf0cd3",
+      "report_number": 102,
+      "task": "1.7",
+      "ruled_in": "PROMPT-123 s1",
+      "note": "accepted PROMPT-123 s1 (R8 rescue 2) | ISO/IEC 27002 7.1 | rescued by the PROMPT-122 s2 normaliser fix, requoted in place, solver accepted/accepted"
+    },
+    {
+      "item_id": "d246d1df",
+      "report_number": 103,
+      "task": "5.5",
+      "ruled_in": "PROMPT-123 s1",
+      "note": "accepted PROMPT-123 s1 (R8 rescue 3) | ISO/IEC 17021-1 9.6.3.2.4, a five-level clause truncated to the unheld container 9.6.3.2 by the old normaliser | solver accepted/accepted"
     }
   ]
 }

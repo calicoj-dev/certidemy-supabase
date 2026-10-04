@@ -64,6 +64,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { PDFS, expectedWords } from "./citation-index.mjs";
 import { annexBoundaryWord } from "./iso-locator.mjs";
+import { namesAnAddress } from "./clause-address.mjs";
 
 export const SEED = 4;
 export const MIN_RUN = 4;
@@ -461,8 +462,9 @@ export function isHarmonised(s, sources) {
 export const ITEM_MAX_RUN = 9;              /* stem, options, and unquoted explanation prose */
 export const QUOTATION_MAX_WORDS = 30;      /* "at most one sentence" */
 
-/** A clause address, anchored the way this repository already requires. */
-const QUOTED_ADDRESS = /\b(?:clause|clauses|annex|control|controls|section|subclause)\s+(?:[A-Z]\.?)?\d+(?:\.\d+){0,3}/i;
+/* QUOTED_ADDRESS lived here: ISO anchor words only, depth 4. It refused `MAP 5.1`, `Recital 133`
+ * and `Art. 55(1)` as naming no clause while normClause was resolving those same addresses.
+ * Replaced by the one imported definition in lib/clause-address.mjs. Ruled PROMPT-123 s2a. */
 
 /**
  * Split an explanation into its one permitted attributed quotation and the prose around it.
@@ -494,7 +496,9 @@ export function splitOneAttributedQuotation(text) {
       reason: "the quotation is " + words + " words; the ruling allows at most one sentence (" +
         QUOTATION_MAX_WORDS + " words)" };
   }
-  if (!QUOTED_ADDRESS.test(s)) {
+  /* PROMPT-123 s2a: a SCHEME address names the clause too. `MAP 5.1`, `Recital 133`, `Art. 55(1)`
+   * were refused here while normClause resolved those very addresses. One imported rule now. */
+  if (!namesAnAddress(s)) {
     return { remainder: s, quotation: q.inner, ok: false,
       reason: "the quotation names no clause -- an attributed quotation has to say what it is quoting" };
   }
@@ -526,6 +530,23 @@ export function quotationModeControls() {
     ["the remainder is not joined across the removed span",
       'Clause 9.2.2 requires this "quoted span of at least eight words here" and also that.',
       (r) => r.ok && /\n/.test(r.remainder)],
+
+    /* PROMPT-123 s2a, both directions: a SCHEME address names the clause, and no address still fails. */
+    ["a NIST all-caps dotted address attributes the quotation",
+      'The incident outcome MANAGE 4.3 states that "incidents and errors are communicated to relevant AI actors".',
+      (r) => r.ok && r.quotation],
+    ["an EU AI Act recital attributes the quotation",
+      'Recital 133 of the EU AI Act notes that such content raises "new risks of misinformation and manipulation at scale".',
+      (r) => r.ok && r.quotation],
+    ["an EU AI Act article with a sub-point attributes the quotation",
+      'Article 55(1) of the EU AI Act requires providers to perform "conducting and documenting adversarial testing of the model".',
+      (r) => r.ok && r.quotation],
+    ["a quotation with NO address is still refused",
+      'The framework says "incidents and errors are communicated to relevant AI actors and communities".',
+      (r) => !r.ok && /names no clause/.test(r.reason)],
+    ["naming the DOCUMENT is not naming the clause",
+      'NIST AI RMF says "incidents and errors are communicated to relevant AI actors and communities".',
+      (r) => !r.ok && /names no clause/.test(r.reason)],
   ];
   const fails = [];
   for (const [name, text, ok] of cases) {

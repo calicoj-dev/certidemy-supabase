@@ -1,0 +1,20 @@
+{
+  "_what": "PROMPT-123 s1: 2 of the 3 R9 survivors. Both are task 5.5, anchored on ISO/IEC 17021-1 five-level clauses that the pre-PROMPT-122 normaliser truncated to unheld containers -- the normaliser fix is what produced them, and they are the evidence that the 5.5 floor ruling rested on a bug.",
+  "_rejected": "R9 #1 (a2157d85, task 1.7, 27002 8.15) is RULED reject: the same task, the same anchor and the same fact as rescue 1 (5cf9321b), which the director keeps. Recorded in ISMSF-DIRECTOR-REJECTIONS.json.",
+  "accepts": [
+    {
+      "item_id": "86ec724b",
+      "report_number": 2,
+      "task": "5.5",
+      "ruled_in": "PROMPT-123 s1",
+      "note": "accepted PROMPT-123 s1 (R9 #2) | ISO/IEC 17021-1 9.6.3.1.2 | solver accepted/accepted, options shuffled on run two | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "474d058d",
+      "report_number": 3,
+      "task": "5.5",
+      "ruled_in": "PROMPT-123 s1",
+      "note": "accepted PROMPT-123 s1 (R9 #3) | ISO/IEC 17021-1 9.6.3.1.1 | solver accepted/accepted, options shuffled on run two | options probe not run (withdrawn, PROMPT-117 s2)"
+    }
+  ]
+}
