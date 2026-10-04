@@ -349,3 +349,102 @@ be judged?". My first pass counted whole FIELDS and reported 20; the unit has to
 
 Nothing is served -- every row is `pending_review`. The quotation case is the serious one: it alters
 quoted text. A ruling is needed on whether translation carries a modal-fidelity obligation at all.
+
+## PROMPT-117: R3 in, the probe out, and the translation modals fixed
+
+**95 grounded English rows now on ISMS-F** (46 + 49), 190 siblings, nothing approved. R4 generated,
+nothing inserted.
+
+### The near-duplicate ruling (s1)
+
+For Foundation, a same-fact item on a different task or scenario is acceptable WHEN the enemy rule keeps
+the pair off one form; a pair it does not separate means the later item is rejected. All 7 declared pairs
+SEPARATED, 0 same-task, so all 49 R3 items were accepted -- `scripts/check-duplicate-pairs.mjs` over
+`DUPLICATE-PAIRS-117.json`, run against the module `generate-mock-exam` imports.
+
+**What the enemy rule cannot answer:** it separates on (source, edition, clause) and on shared option
+text. A same-fact pair with DIFFERENT anchors is invisible to it, and `gateNearDuplicate` compares stems
+only. Nothing in code finds that case; it needs a read.
+
+### The options-only probe is withdrawn (s2)
+
+It picked the key on 92% of generated and 98% of AUTHORED items -- it reads examiner convention, not a
+cue in the options. Removed from generation runs; one model call per survivor saved (57 calls in R3). It
+records `not-run`, NOT null: a missing probe field reads downstream as "no cue found", which is a claim
+about an instrument that never ran. The module and its controls stay.
+
+The de-cue retry KEEPS RUNNING on the four CODE cues -- it has not been probe-triggered since
+2026-09-28. I read "no further de-cue spend" as closing the R1 BACKLOG (the 20 flagged items), not as
+stopping the in-run retry. **Say so if that is wrong.**
+
+### Four instrument defects, each measured
+
+| what | how it showed | now |
+|---|---|---|
+| check-task-map printed held(en) while the verdict used the MINIMUM across languages | task 2.1 read "8, floor 8, short (need 7 more)" | the column shown is the column that decides, and it names the binding language |
+| the translation checkpoint locked in 8 items missing a language | R3 task 3.8 lost its es-419 batch and re-running could not fix it | a record counts as done only with BOTH languages |
+| CADENCE_SOURCE had annual(ly) but not bare "yearly" | a faithful "anualmente" was flagged and the item WITHHELD from insertion | widened, with controls in both directions (74/74) |
+| retranslate-modal-drift asserted on columns its select never read | "A NAMED COLUMN MOVED" on a row where nothing had moved | an undefined before-value is COULD NOT ASSERT, never a violation |
+
+The third is a guard firing on the normal case. The fourth is the THIRD instance in this repository of an
+assertion reading a column the select omitted (verify-cert / retired_at, check-task-map /
+question_group_id).
+
+### Modal force in translation (s4)
+
+`scripts/lib/modal-drift.mjs` states the rule ONCE: the brief the translator is given and the measurement
+that checks it come from the same constant, so they cannot disagree. A REPORT LINE in the translation
+stage, never a gate (PROMPT-111 s0).
+
+The unit is a SENTENCE and only where the two texts align; a QUESTION is excluded ("como deve ser
+julgado?" imposes nothing); an English sentence carrying both a hedge and a requirement is undecidable.
+Those two exclusions took the first measurement from 20 to the 11 the ruling was about.
+
+**New rows: 12 findings -> 0.** All 95 items, both languages, re-measured at zero. $0.31.
+
+**OPEN, NEEDS A RULING: the pre-existing ISMS-F bank carries 92 of these (78 non-stem)** across 927
+groups -- APPROVED AND SERVED, unlike the new rows. `--only-new` keeps the repair off them. The serious
+shape is a quoted *should* rendered as *debe* / *deve* INSIDE quotation marks, which misquotes the
+standard.
+
+### Cost projection is now per task (s6)
+
+`scripts/project-generation-cost.mjs`. R2 cost $0.256 an item and R3 $0.526 -- same generator, same model
+-- because THE SOLVER PROMPT CARRIES THE WHOLE TASK MAP and runs twice per survivor. R3's tasks ranged
+6,508 to 42,490 chars of passage text, which is $3.45 to $5.41 for the same 8 items.
+
+`--calibrate=<artifact>` re-projects a finished round beside its actual spend. On R3 it reproduces the
+total exactly -- but FIXED_IN is derived from R3's own mean, so the total is true by construction. What
+the model adds is the PER-TASK SPREAD. Its first independent test was R4: projected $27.54, actual
+$24.28, **12% over**.
+
+### R4
+
+62 attempted (2x the shortfall, capped at the anchor ceiling for four tasks), 62 generated, **48
+survivors (77%)**, $24.28 against a $35 ceiling. 0 writer retries -- the new retry path has NOT yet
+fired, so it is implemented and unexercised. Probe not run on all 48.
+
+**Task 2.4 returned 1 survivor of 7, and 5 of the 6 rejections are one defect:** the task has only 4
+eligible primaries and 7 items were asked, so the assignment list repeats (7.5.1, 4.2, 4.3, 4.1, 7.5.1,
+4.2, 4.3) and the writer anchored to a DIFFERENT clause of the same four. All 5 are re-assignable within
+the cap (`scratch/check-reassign-candidates.mjs`): the anchor is a PRIMARY of 2.4 in every case and only
+the slot differs. They need the solver twice each (~$0.4 total); the gates are free.
+
+**The structural lesson:** asking for more items than a task has eligible primaries makes
+`anchor-assignment` fire on the writer's own correct work. On a 4-primary task the ask should be 4.
+
+### Distance to every in-scope task at floor (s7)
+
+| | |
+|---|---|
+| in-scope tasks | 49 |
+| at floor | 13 (was 8 before R3 landed) |
+| short | 34, totalling **136 English items** |
+| too thin -- a MAP question, not work | 2: tasks 3.5 and 4.1 |
+| reachable by generating | **47 of 49**, and the full 136 fits under the cap |
+
+R4's 48 survivors would take that to roughly 88 remaining once inserted. Distinct from the above: 2.4,
+3.6 and 5.3 can each reach floor EXACTLY and have no room for a 2x ask -- cap-bound for a round, not
+unreachable for a floor.
+
+Form assembly stays FEASIBLE for ISMS-F under both enemy arms with the 95 grounded rows in.
