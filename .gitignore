@@ -189,3 +189,7 @@ ISMSF-R5*
 # REVISE-118.json carries VERBATIM requote spans (key_support), unlike REVISE-116 whose edits
 # were our own prose. The licensed text is the payload, so it cannot be de-licensed -- only untracked.
 REVISE-118.json
+# Every generation round and its raw/partial/report siblings. GENERIC on purpose: adding
+# ISMSF-R3*, R4*, R5* one at a time is how ISMSF-R6 reached the index with 4,595 reproduced runs.
+ISMSF-R[0-9]*
+AIMSF-R[0-9]*

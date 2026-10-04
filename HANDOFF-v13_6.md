@@ -568,3 +568,99 @@ Thin yields worth a read: **5.2 returned 1 of 4** and **2.2 6 of 12**.
 The $40 ceiling bounds the ask at 11 of the 31 short tasks and **53 of the 100 needed items**. So even at
 100% survival R5 could not close the gap; with 68 survivors across those 11 tasks it closes what it
 covers and leaves **roughly 47 items across 20 tasks**. One more round at a similar ceiling finishes it.
+
+## PROMPT-119: 67 R5 rows in, and the Sonnet-writer experiment answered
+
+**215 grounded English rows on ISMS-F** (46 + 49 + 53 + 67), 430 siblings, nothing approved.
+
+### s1
+
+R5 #61 rejected -- it asks what ISO/IEC 27004 covers, the territory PROMPT-115 s3 ruled out of tier.
+#29's stem asked two things while the options answered one; the clause was cut and the verdict KEPT.
+`revise-artifact.mjs` gained `keep_verdict`: the gates run, the solver does not, and an entry is refused
+where there is no recorded `accepted` verdict to keep. It is not the default, because a revised item
+normally needs a new judgement -- this one only DELETES an unanswered question.
+
+Translation $7.88, lint 0, drift 3 -> 0.
+
+### s2.1 -- where a round's money goes
+
+`scripts/report-round-cost-split.mjs`, free from the artifacts' own `by_role` logs. Across R3-R5, 204
+generated items, $83.12: **writer 39.1%, solver 42.9%, other 18.0%**. Each round's per-role sum agrees
+with its own reported total, so the split is of the bill and not of something else.
+
+A Sonnet writer caps the saving at **31.3%** of a round -- and only if the same number of items survive.
+
+### s2.2 -- a model per role, a price per model
+
+`--writer-model` covers everything that WRITES served text (writer, its retry, the paraphrase retry, the
+de-cue rewrite); `--solver-model` covers the solver and its recheck. Spend is metered PER MODEL: a single
+rate over a mixed run would report Sonnet tokens at Opus prices, which is the measurement the change
+exists to make. An unpriced model exits 2 -- a run that cannot price itself cannot respect `--max-usd`.
+Controlled both ways on one item each.
+
+### s2.4 -- THE ANSWER: the writer does NOT stay on Sonnet
+
+| | R3 opus | R4 opus | R5 opus | **R6 sonnet** |
+|---|---|---|---|---|
+| attempted / generated / survivors | 64/56/49 | 62/62/48 | 86/86/68 | **89/48/29** |
+| survival of items that ARRIVED | 88% | 77% | 79% | **60%** |
+| survival against what was ASKED | 77% | 77% | 79% | **33%** |
+| cost per survivor | $0.601 | $0.506 | $0.432 | $0.482 |
+| writer $ per generated item | $0.269 | $0.210 | $0.204 | $0.170 |
+
+Survival is **17 to 28 points below** Opus, against a bar of about 10. But the gate profile is the real
+answer -- rejections per 100 generated items:
+
+| gate | R3 | R4 | R5 | **R6 sonnet** |
+|---|---|---|---|---|
+| **verbatim** | 1.8 | 1.6 | 8.1 | **29.2** |
+| **modal-fidelity** | 1.8 | 4.8 | 1.2 | **20.8** |
+| reproduction | 3.6 | - | 4.7 | **16.7** |
+| solver rejections | 5.4 | 12.9 | 10.5 | 2.1 |
+
+**The two gates Sonnet fails most are the two that ARE the grounding guarantee**: `verbatim` means the
+quote is not actually in the passage, and `modal-fidelity` means the item states as required what the
+standard only recommends. Four to seventeen times the Opus rate on both. A cheaper writer whose
+characteristic failure is mis-quoting the source is not a cheaper writer.
+
+Cost per survivor looks competitive, but it bought 29 survivors for $13.98 where R4's $24.28 bought 48.
+
+### And a delivery failure underneath it
+
+**41 of 89 items never reached a gate** -- 15 of 22 writer batches failed on the first call (9 empty
+responses, 6 unparseable or truncated). The PROMPT-118 s3 retry recovered 24 items across 5 batches, so
+it paid for itself; 10 tasks still delivered nothing.
+
+Two causes, and **one of them is mine**:
+
+- **The budget formula is an Opus number.** `2000 + 2200 x k` capped at 32000. Sonnet averaged **10,569
+  output tokens per writer call at every batch size**, so 9 of 22 batches had a budget BELOW its average
+  output -- a one-item batch got 4,200 tokens for a model that wanted 10,500. Not fixed here: raising it
+  changes the experiment's conditions, and R6 is already measured.
+- **My truncation test was defeated by a nested bracket.** `hasOpen && !hasClose` said "closed" for any
+  response containing a `]`, and every item carries an `options` array -- so a truncation was reported
+  as "would not parse as JSON" and the retry re-ran at the SAME budget instead of 1.5x. Replaced with a
+  balanced-bracket scan that ignores brackets inside strings and respects escapes; 7 controls including
+  R6's exact shape. Task 4.2 failed twice for this reason.
+
+6 batches failed with 4.6k-9k of headroom, so the budget does not explain all of it; the empty-response
+mode is measured and unexplained.
+
+### s3 -- NOT at floor. 14 tasks, 33 items
+
+R5's 67 are inserted. R6's 29 survivors land on only **8 of the 22 short tasks**, and each of those 8
+meets its need. So **34 of 49 tasks would be at floor**, with:
+
+| still short | items |
+|---|---|
+| 1.6, 1.7, 2.3, 4.2 | 4 each |
+| 4.8, 5.5 | 3 each |
+| 3.7, 3.9, 5.3 | 2 each |
+| 1.4, 3.6, 4.4, 4.6, 5.7 | 1 each |
+
+**33 English items across 14 tasks**, every one of them a task R6's writer delivered nothing for. Task
+3.5 is at floor in items (floor 2, held 2) and will keep reporting `too_thin`, which is a label on the
+map rather than a shortfall.
+
+One more round on an OPUS writer closes it: 33 items needed, projected well under $20.

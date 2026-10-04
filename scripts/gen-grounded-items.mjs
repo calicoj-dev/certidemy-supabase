@@ -464,6 +464,34 @@ function parseObject(text) {
   if (a < 0 || b <= a) return null;
   try { return JSON.parse(t.slice(a, b + 1)); } catch { return null; }
 }
+/* ============ IS THE TOP-LEVEL ARRAY CLOSED? ============
+ *
+ * `hasOpen && !hasClose` was my truncation test and a NESTED `]` defeats it: every item carries an
+ * `options` array, so a response cut off halfway still contains a `]` and the run reported
+ * "would not parse as JSON" for what was plainly a truncation. Measured on R6 with a Sonnet writer:
+ * tasks 4.2, 5.5 and 5.6 all took that path, so the retry re-ran at the SAME budget instead of the
+ * 1.5x a truncation is supposed to get -- and 4.2 failed again for the same reason.
+ *
+ * So the brackets are COUNTED, outside string literals and respecting escapes. A truncation is an
+ * unbalanced top-level array, which is a different fact from text that will not parse.
+ */
+function topLevelArrayClosed(text) {
+  const t = String(text || "");
+  const a = t.indexOf("[");
+  if (a < 0) return { opened: false, closed: false, depth: 0 };
+  let depth = 0, inStr = false, esc = false;
+  for (let i = a; i < t.length; i++) {
+    const c = t[i];
+    if (esc) { esc = false; continue; }
+    if (c === "\\") { esc = true; continue; }
+    if (c === '"') { inStr = !inStr; continue; }
+    if (inStr) continue;
+    if (c === "[") depth++;
+    else if (c === "]") { depth--; if (depth === 0) return { opened: true, closed: true, depth: 0 }; }
+  }
+  return { opened: true, closed: false, depth };
+}
+
 function parseArray(text) {
   const t = String(text || "");
   const a = t.indexOf("["), b = t.lastIndexOf("]");
@@ -1280,12 +1308,13 @@ if (FROM) {
        * runs ended on 'writer returned nothing' with no way to tell a refusal from a truncation. */
       if (!Array.isArray(arr) || !arr.length) {
         const head = String(rawText || "").replace(/\s+/g, " ").slice(0, 300);
-        const hasOpen = String(rawText || "").includes("[");
-        const hasClose = String(rawText || "").includes("]");
+        const bal = topLevelArrayClosed(rawText);
+        const hasOpen = bal.opened;
+        const hasClose = bal.closed;
         const why = !rawText ? "the model returned NOTHING (empty response)"
           : !hasOpen ? "the response carried NO array at all -- prose or a refusal"
-          : !hasClose ? "the array was NOT CLOSED -- the response was TRUNCATED, so the budget " +
-            "of " + budget + " tokens was too small for " + k + " item(s)"
+          : !hasClose ? "the top-level array was NOT CLOSED (depth " + bal.depth + ") -- the response " +
+            "was TRUNCATED, so the budget of " + budget + " tokens was too small for " + k + " item(s)"
           : Array.isArray(arr) ? "the model returned an EMPTY array"
           : "the bracketed text would not parse as JSON";
         console.log("  " + t.code + "  WRITER PRODUCED NO ITEMS: " + why);
