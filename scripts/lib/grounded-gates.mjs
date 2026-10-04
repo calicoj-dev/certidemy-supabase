@@ -807,9 +807,18 @@ export function gateNo27000(item) {
   const re = /(?<!\d)27000(?!\d)/;
   const hits = fields.filter(([, t]) => re.test(String(t)));
   if (hits.length) {
-    return { id: "no-27000", pass: false, examined: fields.length,
-      detail: "ISO/IEC 27000 named in " + hits.map(([n]) => n).join(", ") +
-        " -- cite 27001 where the term is used there, or state the definition in our own words" };
+    /* `reason` AS WELL AS `detail`: every caller prints `reason`, and this gate set only `detail`, so
+     * a rejection that cost R2 seventeen items reported itself as "undefined". The phrase is quoted
+     * too -- naming the field without the words leaves the writer guessing which ones to replace. */
+    const named = hits.map(([n, t]) => {
+      const m = re.exec(String(t));
+      const at = m ? Math.max(0, m.index - 30) : 0;
+      return n + ' ("' + String(t).slice(at, at + 70).replace(/\s+/g, " ").trim() + '")';
+    });
+    const msg = "ISO/IEC 27000 named in served text: " + named.join("; ") +
+      " -- anchoring there is fine, but refer to it as the ISMS vocabulary, or state the definition " +
+      "in our own words";
+    return { id: "no-27000", pass: false, examined: fields.length, reason: msg, detail: msg };
   }
   return { id: "no-27000", pass: true, examined: fields.length };
 }

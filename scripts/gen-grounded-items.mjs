@@ -813,6 +813,21 @@ THE ODD-VERDICT CUE, AND HOW TO AVOID IT (ruled PROMPT-114 s2):
 - Do not make the key the only hedged or multi-part option either. If the key carries a qualifier,
   at least one distractor carries one too.
 
+NEVER NAME ISO/IEC 27000 IN A SERVED FIELD (ruled PROMPT-115 s3):
+
+- Not in the stem, not in an option, not in the explanation. Not "the 27000 family" either.
+- ANCHORING THERE IS FINE. Say "the ISMS vocabulary", or "the guidance on risk", or simply state the
+  definition in our own words. A gate refuses the item otherwise, and in R2 it cost 17 of 21
+  rejections -- every one of them an item that was otherwise sound.
+
+WHAT CLAUSE 9.1 ITEMS TEST (ruled PROMPT-115 s3.5):
+
+- Test what clause 9.1 asks the ORGANIZATION TO DO -- what to monitor, when, by whom, and that the
+  results are comparable and reproducible.
+- Do NOT test measurement terminology: measurement method, measurement function, base measure,
+  indicator, subjective versus objective. That is ISO/IEC 27004 taxonomy and it is too obscure for a
+  Foundation candidate.
+
 Return a JSON array. Each element:
 
 {

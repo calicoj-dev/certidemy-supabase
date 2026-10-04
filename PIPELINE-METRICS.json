@@ -233,5 +233,14 @@
   ],
   "not_instrumented": [
     "AIMS-F stages 1-3 and 6-7 predate PIPELINE-METRICS.json; their cost is not recoverable and is left null rather than estimated."
+  ],
+  "library_findings": [
+    {
+      "found": "PROMPT-115 s2",
+      "what": "ISO/IEC 27000 3.77 (vulnerability, an 18-word definition) held 282 words: the extractor did not bound it at the next top-level heading, so it swallowed clause 4 and 4.1.",
+      "impact": "Two R2 survivors quoted that clause-4 text as support and both now FAIL verbatim: #10 in its KEY (the director spotted the symptom in the explanation) and #5 in a distractor support (not visible from the report).",
+      "repaired": "SOURCE-PASSAGES.json patched and recorded in PASSAGE-REPAIRS.json; the extractor itself is NOT yet fixed.",
+      "detector": "scripts/check-passage-runon.mjs, 6 controls. 48 passages flagged library-wide: 6 on the strong arm (an embedded later clause heading) and the rest on an annex cross-reference, which is usually legitimate."
+    }
   ]
 }
