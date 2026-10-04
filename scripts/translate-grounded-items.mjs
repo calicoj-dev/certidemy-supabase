@@ -212,7 +212,21 @@ for (const [code, taskRows] of [...byTask.entries()].sort()) {
         }
       } catch (e) { for (const rec of recs) rec.errors.push(lang.code + ": " + String(e.message).slice(0, 120)); }
     }
-    for (const rec of recs) { appendFileSync(partial, JSON.stringify(rec) + "\n", "utf8"); results.push(rec); n++; }
+    /* ============ THE CHECKPOINT CARRIES THE SPEND (PROMPT-125 s3) ============
+     *
+     * The spend happens on the run that MAKES the calls, and the artifact is written by the run
+     * that writes the rows -- which resumes from this checkpoint and legitimately spends $0. So
+     * every ISMSF-TRANSLATION-*.json records `usd: 0` and the per-round translation cost for a
+     * whole certification is unrecoverable. Found closing the ISMS-F book: 304 item-translations
+     * with no price on any of them.
+     *
+     * `usd_cumulative` is the running total at the moment this batch was checkpointed, so the last
+     * record in the file is the round's translation spend even if the run is resumed. */
+    const soFar = Number(usd().toFixed(4));
+    for (const rec of recs) {
+      appendFileSync(partial, JSON.stringify({ ...rec, usd_cumulative: soFar }) + "\n", "utf8");
+      results.push(rec); n++;
+    }
     console.log("  " + String(n).padStart(3) + "/" + scope.length + "  task " + code.padEnd(5) +
       " batch of " + fresh.length + "   both langs: " + recs.filter((r) => r.langs["es-419"] && r.langs["pt-BR"]).length +
       "/" + fresh.length + "   $" + usd().toFixed(2));
@@ -298,7 +312,11 @@ const perItem = ok.length ? usd() / ok.length : 0;
 console.log("  per English item            $" + perItem.toFixed(4) + "   (both languages)");
 
 const artifact = { cert: CERT, model: MODEL, generated: results.length, complete: ok.length,
-  spend: { usd: Number(usd().toFixed(4)), calls, input: inTok, output: outTok, price_per_mtok: PRICE },
+  /* `usd` is what THIS run paid; `usd_round` is what the round cost including the calls a prior
+   * run made and checkpointed. A resumed apply pays nothing, so without the second number the
+   * artifact claims the round was free. */
+  spend: { usd: Number(usd().toFixed(4)), calls, input: inTok, output: outTok, price_per_mtok: PRICE,
+    usd_round: Number(Math.max(usd(), ...results.map((r) => Number(r.usd_cumulative) || 0)).toFixed(4)) },
   lint, items: results, emitted_by: "translate-grounded-items.mjs (PROMPT-104 s3b)" };
 writeFileSync(join(ROOT, OUT), JSON.stringify(artifact, null, 1), "utf8");
 console.log("  wrote " + OUT);

@@ -249,8 +249,14 @@ if (MAXUSD === null) {
 const PRICES = {
   "claude-opus-5": { input: 15.0, output: 75.0 },
   "claude-sonnet-5": { input: 3.0, output: 15.0 },
+  /* PROMPT-125 s5: read off Juan's console. Priced, NOT YET TESTED as a writer -- the comparison
+   * is ISMS-IA R1, splitting its tasks between Opus and this with the solver on Opus for both. */
+  "claude-sonnet-5-5": { input: 2.0, output: 10.0 },
   "claude-haiku-4-5-20251001": { input: 1.0, output: 5.0 },
 };
+/* An unknown model is already REFUSED below, before any call: "a run that cannot price itself
+ * cannot respect --max-usd". `priceOf`'s Opus fallback is therefore unreachable for the writer and
+ * solver, and is left only for roles that resolve through `modelForRole`. */
 const WRITER_ROLES = new Set(["writer", "writer-retry", "paraphrase", "de-cue"]);
 /* closes over the two model consts declared just below: only ever CALLED after they are initialised. */
 const modelForRole = (role) => (WRITER_ROLES.has(role) ? WRITER_MODEL : SOLVER_MODEL);
@@ -1329,7 +1335,26 @@ if (FROM) {
        * reported `writer returned nothing` under an OUTCOME block that reads like a gate result. */
       const budget = Math.min(32000, 2000 + 2200 * k);
       CALL_ROLE = "writer";
-      const rawText = await claude(WRITER_SYSTEM, writerUser(t, d, ps, k, asg.assignments), budget);
+      const userPrompt = writerUser(t, d, ps, k, asg.assignments);
+      /* ============ THE DRY RUN PRINTS THE PROMPT AND SPENDS NOTHING (PROMPT-125 s5) ============
+       *
+       * The standing rule (PROMPT-115) is that a paid run shows its first item's full prompt before
+       * any batch. It did -- AFTER the call. So the only way to read the prompt was to pay for it,
+       * which is backwards: the point of showing it is to approve it first. A dry run now prints
+       * the system and user prompt for the first item of the first task and stops. */
+      if (!APPLY) {
+        console.log("");
+        console.log("  ---- FULL WRITER PROMPT, FIRST ITEM (dry run: NOTHING IS SENT) ----");
+        console.log("  writer model: " + WRITER_MODEL + "   max_tokens " + budget +
+          "   (solver would be " + SOLVER_MODEL + ")");
+        console.log("  SYSTEM: " + WRITER_SYSTEM.replace(/\n/g, "\n  "));
+        console.log("  USER:   " + userPrompt.replace(/\n/g, "\n  "));
+        console.log("  ---- END PROMPT ----");
+        console.log("");
+        console.log("  DRY RUN: no model call was made and no row was written. Re-run with --apply.");
+        process.exit(0);
+      }
+      const rawText = await claude(WRITER_SYSTEM, userPrompt, budget);
       arr = parseArray(rawText);
       /* THREE CAUSES, THREE MESSAGES. parseArray returns null whether the response carried no
        * brackets, would not parse, or was empty -- and one bumped string for all three is why two

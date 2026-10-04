@@ -1,5 +1,63 @@
 # HANDOFF v13.6 — the (source, edition, clause) re-key starts here
 
+---
+
+## ISMS-F: what the second certification taught the line
+
+**Closed 2026-10-04, PROMPT-125.** 263 grounded items, 896 approved rows per language, 47 of 49 tasks at
+floor, **verify-cert 58 pass / 0 fail / 2 warn**. $229.49 known spend; nine generation rounds; **273 items
+read by the director, 248 accepted — a 9% reject rate.**
+
+**What got faster than AIMS-F.** The pipeline itself: AIMS-F's stages were discovered one prompt at a time,
+and ISMS-F ran them as a sequence that already existed. Three things that cost AIMS-F whole prompts cost
+ISMS-F one command each — `check-migration-state`-style probing of what had run, the cutover (generalised
+with `--cert`, so ISMS-F reused it rather than forking), and approval (same). **Generation got cheaper per
+survivor where the map was thick:** R3-R5 ran 49, 48 and 68 survivors at ~$0.50 each with a 0-6% reject
+rate, which is the line working as designed.
+
+**What did not.** Three things were as slow as the first time:
+
+1. **The director's read is the rate limiter, and it does not amortise.** 273 items at a human read is the
+   bulk of the elapsed time, and nothing built here changed that.
+2. **Short tasks cost what they cost.** Survival fell from 79% of generated (R5) to 11% (R9) as the easy
+   anchors were spent. R7-R9 bought 34 survivors for $42 — about $1.24 each, against $0.50 earlier. **A
+   thin map is not a generation problem and more rounds do not fix it:** four R8 tasks produced zero and
+   the cause was a code defect; two more sit at 7 because their only candidate is cued in a way no
+   mechanical edit can fix.
+3. **The Sonnet-writer experiment failed and had to be paid for to know it.** R6: 89 attempted, 48
+   generated, 31% director reject against ~3% for R3-R5. Settled, recorded, not revisited.
+
+**The gate defects, all found the same way — by refusing a number that looked green.** Every one of these
+had been passing:
+
+| defect | how it read before | found by |
+|---|---|---|
+| `auditItem` returns a PASS when `correct_answer` is absent -- the generator's own shape | the cue guard had **never run at generation**; 46 of 218 stored rows failed once fixed | PROMPT-120 |
+| `normClause` stripped non-ISO scheme words AND capped ISO depth at 4 | 17021-1's 16 five-level clauses resolved to unheld containers; **task 5.5's "thin map" was this** | PROMPT-122 |
+| the attributed-quotation rule knew only ISO anchor words | `MAP 5.1`, `Recital 133` refused for "naming no clause" while `normClause` resolved them | PROMPT-123 |
+| distractor support inherited the ITEM's edition | 2.3's distractors resolved against a one-sentence amendment row, never the paragraph | PROMPT-123 |
+| `verify-cert` never applied the ruled derived floor | demanded 8 from tasks whose map reaches 6; **stage 3 and verify-cert disagreed** | PROMPT-123 |
+| the floor counted UNAPPROVED rows | three tasks read at floor on a withheld, unservable item apiece | PROMPT-123 |
+| `approve-grounded-items` treated "already approved" as a blocking refusal | every re-run blocked by its own prior success: 257 of 258 | PROMPT-124 |
+| `decue-stored-length` exited before recording a round where nothing cleared | lost exactly the attempt history that "one attempt each" depends on | PROMPT-124 |
+| the translation checkpoint carried no spend | 304 item-translations priced at $0; **per-round translation cost is unrecoverable for ISMS-F** | PROMPT-125 |
+
+**The pattern worth carrying forward:** six of the nine were found because two instruments disagreed, or
+because a count was read rather than trusted. None was found by a test. The three that cost the most — the
+cue guard, `normClause`, the derived floor — were all **silent passes on the happy path**, invisible until
+something downstream forced the comparison.
+
+**Two mechanisms ISMS-F added that ISMS-IA inherits:** the **withheld disposition** (a third state, neither
+approved nor rejected, that can only ever withhold) and the **temporary floor exception** (a ruled
+shortfall that verify-cert reports as a named WARN — never a pass, never a fail). Both exist because
+ISMS-F hit a state the line had no word for and stopped.
+
+**What ISMS-IA should expect to be different:** the stricter standard (normative anchors only, full
+`modal-fidelity`), which will cut survival on any task mapped to guidance; and ISO 19011 as a source the
+library does not yet hold.
+
+---
+
 **Written 2026-10-01, end of PROMPT-101.** Covers everything after `HANDOFF-v13_5.md`.
 
 > **ON THE NAME.** PROMPT-101 asked for `HANDOFF-v9_8.md`. **That name was taken** — by a document dated

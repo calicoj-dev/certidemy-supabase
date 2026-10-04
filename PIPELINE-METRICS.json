@@ -252,6 +252,36 @@
       "seconds": 3,
       "note": null,
       "recorded_at": "2026-10-04T18:41:08.460Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 3,
+      "note": null,
+      "recorded_at": "2026-10-04T19:21:13.546Z"
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 1,
+      "stage_name": "library completeness",
+      "applied": false,
+      "exit": 0,
+      "seconds": 4,
+      "note": null,
+      "recorded_at": "2026-10-04T19:26:52.439Z"
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 3,
+      "note": null,
+      "recorded_at": "2026-10-04T19:27:43.372Z"
     }
   ],
   "costs_usd": [
@@ -612,5 +642,226 @@
       "not_pursued": "The empty-response mode (9 of 37 Sonnet writer calls returned no text). Ruled: it only occurred on Sonnet, so it is not chased.",
       "measured_and_notable": "The director read the rejects as 'the key is far longer than the rest'. Measured, it is NOT a length effect: key-is-the-longest-option 44% on the 9 rejects against 50% on the 20 accepts, mean key/longest-rival 1.02 against 1.07. The existing length-cue rule correctly did not fire and no length rule would have caught these. The defect is distractor PLAUSIBILITY, which CLAUDE.md s13 already records as needing an SME rather than a gate."
     }
-  ]
+  ],
+  "certification_summaries": {
+    "ISMS-F": {
+      "_what": "Closed PROMPT-125 s3. ISMS-F is live: 263 grounded items, 896 approved rows per language.",
+      "session": {
+        "first_recorded_stage_run": "2026-10-03T21:05:18.579Z",
+        "last_recorded_stage_run": "2026-10-04T19:21:13.546Z",
+        "elapsed_hours": 22.3,
+        "_caveat": "WALL CLOCK between the first and last instrumented stage run, not time at the keyboard. Stages 5 to 9 are not instrumented, so work after the last stage-4 run is outside this window."
+      },
+      "spend_usd": {
+        "recorded_in_costs_usd": 215.86,
+        "de_cue_rounds_in_ISMSF_DECUED": 12.7539,
+        "rescue_solver_calls": 0.8826,
+        "_total_known": 229.49,
+        "_NOT_RECOVERABLE": "THE TRANSLATION STAGE. The spend happens on the run that makes the calls; the artifact is written by the run that writes the rows, which resumes from the checkpoint and legitimately spends $0. So every ISMSF-TRANSLATION-*.json records usd: 0 and the per-round translation cost is gone. 304 item-translations with no price on any of them. Three runs were observed live and are the only translation figures that exist: PROMPT-123 $0.7531 for 5 items, PROMPT-124 $0.2315 for 1, PROMPT-125 $0.8520 for 5. NOT extrapolated to the other 293: a rate times a count is an estimate, and this file does not carry estimates. FIXED for ISMS-IA: the checkpoint now carries usd_cumulative and the artifact carries spend.usd_round.",
+        "_also_not_instrumented": "Stages 1, 3, 5, 6, 7, 8 and 9 have no cost record for any certification."
+      },
+      "translation": {
+        "item_translations": 304,
+        "per_round": [
+          {
+            "file": "ISMSF-TRANSLATION-124",
+            "items": 1,
+            "usd": null
+          },
+          {
+            "file": "ISMSF-TRANSLATION-125",
+            "items": 5,
+            "usd": null
+          },
+          {
+            "file": "ISMSF-TRANSLATION-DECUE",
+            "items": 45,
+            "usd": null
+          },
+          {
+            "file": "ISMSF-TRANSLATION-R1",
+            "items": 46,
+            "usd": null
+          },
+          {
+            "file": "ISMSF-TRANSLATION-R3",
+            "items": 57,
+            "usd": null
+          },
+          {
+            "file": "ISMSF-TRANSLATION-R4",
+            "items": 53,
+            "usd": null
+          },
+          {
+            "file": "ISMSF-TRANSLATION-R5",
+            "items": 67,
+            "usd": null
+          },
+          {
+            "file": "ISMSF-TRANSLATION-R6",
+            "items": 20,
+            "usd": null
+          },
+          {
+            "file": "ISMSF-TRANSLATION-R7",
+            "items": 3,
+            "usd": null
+          },
+          {
+            "file": "ISMSF-TRANSLATION-R8",
+            "items": 2,
+            "usd": null
+          },
+          {
+            "file": "ISMSF-TRANSLATION-R9",
+            "items": 5,
+            "usd": null
+          }
+        ]
+      },
+      "director_verdicts": {
+        "per_round": [
+          {
+            "round": "R1",
+            "writer_model": "claude-opus-5",
+            "attempted": 32,
+            "generated": 24,
+            "survivors": 23,
+            "read": 23,
+            "accepted": 21,
+            "rejected": 3,
+            "director_reject_rate": 0.13,
+            "usd": 10.0004,
+            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+          },
+          {
+            "round": "R2",
+            "writer_model": "claude-opus-5",
+            "attempted": 46,
+            "generated": 40,
+            "survivors": 19,
+            "read": 19,
+            "accepted": 17,
+            "rejected": 2,
+            "director_reject_rate": 0.105,
+            "usd": 10.2394,
+            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+          },
+          {
+            "round": "R3",
+            "writer_model": "claude-opus-5",
+            "attempted": 64,
+            "generated": 56,
+            "survivors": 49,
+            "read": 49,
+            "accepted": 49,
+            "rejected": 0,
+            "director_reject_rate": 0,
+            "usd": 29.4477,
+            "source": "ACCEPT-ISMSF-R3.json (no round record: 0 rejections)"
+          },
+          {
+            "round": "R4",
+            "writer_model": "claude-opus-5",
+            "attempted": 62,
+            "generated": 62,
+            "survivors": 48,
+            "read": 48,
+            "accepted": 45,
+            "rejected": 3,
+            "director_reject_rate": 0.063,
+            "usd": 24.282,
+            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+          },
+          {
+            "round": "R5",
+            "writer_model": "claude-opus-5",
+            "attempted": 86,
+            "generated": 86,
+            "survivors": 68,
+            "read": 68,
+            "accepted": 67,
+            "rejected": 1,
+            "director_reject_rate": 0.015,
+            "usd": 29.3883,
+            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+          },
+          {
+            "round": "R6",
+            "writer_model": "claude-sonnet-5",
+            "attempted": 89,
+            "generated": 48,
+            "survivors": 29,
+            "read": 29,
+            "accepted": 20,
+            "rejected": 9,
+            "director_reject_rate": 0.31,
+            "usd": 13.9799,
+            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+          },
+          {
+            "round": "R7",
+            "writer_model": "claude-opus-5",
+            "attempted": 62,
+            "generated": 62,
+            "survivors": 25,
+            "read": 25,
+            "accepted": 23,
+            "rejected": 2,
+            "director_reject_rate": 0.08,
+            "usd": 22.1254,
+            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+          },
+          {
+            "round": "R8",
+            "writer_model": "claude-opus-5",
+            "attempted": 31,
+            "generated": 31,
+            "survivors": 6,
+            "read": 6,
+            "accepted": 2,
+            "rejected": 4,
+            "director_reject_rate": 0.667,
+            "usd": 10.2299,
+            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+          },
+          {
+            "round": "R9",
+            "writer_model": "claude-opus-5",
+            "attempted": 27,
+            "generated": 27,
+            "survivors": 3,
+            "read": 6,
+            "accepted": 5,
+            "rejected": 1,
+            "director_reject_rate": 0.167,
+            "usd": 9.6365,
+            "source": "ISMSF-DIRECTOR-REJECTIONS.json",
+            "_read_includes": "The read of 6 covers R9 three survivors PLUS the three PROMPT-122 s2 rescues appended to ISMSF-ROLLOUT-R9.md for the same read. Survivors (3) and read (6) differ for that reason."
+          }
+        ],
+        "rescues": {
+          "round": "rescues",
+          "note": "Items rejected BY CODE in R8/R9 that passed every gate once the PROMPT-122 s2 normaliser and the PROMPT-123 s2a/s2b gate defects were fixed. Re-gated free, solved twice on the shuffled bar, read in PROMPT-125 s1.",
+          "read": 5,
+          "accepted": 5,
+          "rejected": 0,
+          "director_reject_rate": 0,
+          "usd": 0.8826,
+          "usd_what": "revise-artifact solver calls only; the gating was free"
+        },
+        "_totals": "273 items read, 248 accepted, 25 rejected: a 9 percent director reject rate across nine rounds. R6 (31 percent) is the Sonnet-writer experiment and R8 (67 percent of 6) is the round whose four empty tasks were a code defect rather than a thin map.",
+        "_rescues_are_separate": "The rescues entry is the five items read in PROMPT-125 s1. It is NOT part of the 273: those were rejected by code in R8/R9 and never reached a director read until the gate defects were fixed."
+      },
+      "outcome": {
+        "tasks_at_floor": "47 of 49; 1 too_thin (3.5, a map question); 1 at a ruled floor of 2 (1.6)",
+        "verify_cert": "58 pass, 0 fail, 2 warn (higher-order share; variant stems)",
+        "live_rows_per_language": 896,
+        "grounded_items": 263,
+        "withheld": 7,
+        "_withheld_why": "cue-guard failures: 5 untouched by ruling, 2 given a second attempt that failed or could not apply (absolute-word tell, not a length escape). Floors 2.4 and 3.6 are 7."
+      }
+    }
+  }
 }

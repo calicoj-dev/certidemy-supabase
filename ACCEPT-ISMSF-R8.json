@@ -35,6 +35,14 @@
       "task": "5.5",
       "ruled_in": "PROMPT-123 s1",
       "note": "accepted PROMPT-123 s1 (R8 rescue 3) | ISO/IEC 17021-1 9.6.3.2.4, a five-level clause truncated to the unheld container 9.6.3.2 by the old normaliser | solver accepted/accepted"
+    },
+    {
+      "item_id": "45d226aa",
+      "report_number": 201,
+      "task": "2.3",
+      "ruled_in": "PROMPT-125 s1",
+      "note": "accepted PROMPT-125 s1 (rescue) | task 2.3, 27001 4.1 | same fix as above (s2b) | solver accepted/accepted, options reordered on run two"
     }
-  ]
+  ],
+  "_rescues_PROMPT_125": "The rescues from ISMSF-RESCUES-123.md, all five accepted on the director read. Numbered from 201 so they cannot collide with a survivor-list position in either artifact."
 }

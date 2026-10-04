@@ -15,6 +15,35 @@
       "task": "5.5",
       "ruled_in": "PROMPT-123 s1",
       "note": "accepted PROMPT-123 s1 (R9 #3) | ISO/IEC 17021-1 9.6.3.1.1 | solver accepted/accepted, options shuffled on run two | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "a0da2861",
+      "report_number": 201,
+      "task": "1.6",
+      "ruled_in": "PROMPT-125 s1",
+      "note": "accepted PROMPT-125 s1 (rescue) | task 1.6, NIST AI RMF MANAGE 4.3 | rescued by the PROMPT-123 s2a attribution fix: an all-caps dotted scheme address names the clause | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "3c02e909",
+      "report_number": 202,
+      "task": "1.6",
+      "ruled_in": "PROMPT-125 s1",
+      "note": "accepted PROMPT-125 s1 (rescue) | task 1.6, EU AI Act Recital 110 | rescued by the PROMPT-123 s2a attribution fix: a recital address names the clause | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "97d92fdc",
+      "report_number": 203,
+      "task": "2.3",
+      "ruled_in": "PROMPT-125 s1",
+      "note": "accepted PROMPT-125 s1 (rescue) | task 2.3, 27001 4.2 | rescued by the PROMPT-123 s2b edition fix: a distractor resolves against another mapped edition of the same source | solver accepted/accepted, options reordered on run two"
+    },
+    {
+      "item_id": "de71b61f",
+      "report_number": 204,
+      "task": "2.3",
+      "ruled_in": "PROMPT-125 s1",
+      "note": "accepted PROMPT-125 s1 (rescue) | task 2.3, 27001 4.2 | same fix as above (s2b) | solver accepted/accepted, options reordered on run two"
     }
-  ]
+  ],
+  "_rescues_PROMPT_125": "The rescues from ISMSF-RESCUES-123.md, all five accepted on the director read. Numbered from 201 so they cannot collide with a survivor-list position in either artifact."
 }

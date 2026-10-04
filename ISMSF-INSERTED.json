@@ -2592,6 +2592,84 @@
      "source": "ISO/IEC 17021-1"
     }
    ]
+  },
+  {
+   "at": "2026-10-04T19:18:16.471Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R9",
+   "accept_list": "ACCEPT-ISMSF-R9.json",
+   "note": "",
+   "ids": [
+    "8085bb11-d4ca-46aa-acd4-885794e0410a"
+   ],
+   "rows": [
+    {
+     "id": "8085bb11-d4ca-46aa-acd4-885794e0410a",
+     "item_id": "a0da2861",
+     "report_number": 201,
+     "task": "1.6",
+     "anchor": "MANAGE 4.3",
+     "source": "NIST AI RMF"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-04T19:18:32.017Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R9",
+   "accept_list": "ACCEPT-ISMSF-R9.json",
+   "note": "",
+   "ids": [
+    "7856ede5-6ffb-4ef1-9932-7d24b171d640",
+    "df2b4a2f-a538-4e26-aa26-005888ca540a",
+    "bef14400-0cf7-44ab-b3c9-152b9796c329"
+   ],
+   "rows": [
+    {
+     "id": "7856ede5-6ffb-4ef1-9932-7d24b171d640",
+     "item_id": "3c02e909",
+     "report_number": 202,
+     "task": "1.6",
+     "anchor": "Recital 110",
+     "source": "EU AI Act"
+    },
+    {
+     "id": "df2b4a2f-a538-4e26-aa26-005888ca540a",
+     "item_id": "97d92fdc",
+     "report_number": 203,
+     "task": "2.3",
+     "anchor": "4.2",
+     "source": "ISO/IEC 27001"
+    },
+    {
+     "id": "bef14400-0cf7-44ab-b3c9-152b9796c329",
+     "item_id": "de71b61f",
+     "report_number": 204,
+     "task": "2.3",
+     "anchor": "4.2",
+     "source": "ISO/IEC 27001"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-04T19:18:36.170Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R8",
+   "accept_list": "ACCEPT-ISMSF-R8.json",
+   "note": "",
+   "ids": [
+    "24d20d6d-4e25-4aea-b3b2-59d39f02245a"
+   ],
+   "rows": [
+    {
+     "id": "24d20d6d-4e25-4aea-b3b2-59d39f02245a",
+     "item_id": "45d226aa",
+     "report_number": 201,
+     "task": "2.3",
+     "anchor": "4.1",
+     "source": "ISO/IEC 27001"
+    }
+   ]
   }
  ]
 }

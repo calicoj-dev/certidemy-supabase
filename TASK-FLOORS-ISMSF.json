@@ -1,5 +1,5 @@
 {
- "ruled": "2026-10-04, PROMPT-124 s1 (over PROMPT-123 s3, PROMPT-118 s4, PROMPT-111 s2)",
+ "ruled": "2026-10-04, PROMPT-125 s2 (over PROMPT-124 s1, PROMPT-123 s3, PROMPT-118 s4, PROMPT-111 s2)",
  "certification": "ISMS-F",
  "default_floor": 8,
  "why_this_file_exists": "THE ONE PLACE A PER-TASK FLOOR IS RECORDED for ISMS-F. Read by lib/task-floors.mjs, which verify-cert and check-task-map both call. An override with no `ruled_in` is an ERROR, not a pass.",
@@ -7,15 +7,15 @@
   "derivation": "min(default_floor, 2 x effective primaries). The cap of 2 items per (source, edition, clause) per task is what makes 2 x effective the ceiling a task can hold.",
   "override": "A floor the derivation cannot produce, lowered by the director with the reason recorded. Named in every report that uses it, so a lowered floor can never pass as a met one.",
   "temporary": "temporary: true means the task goes live BELOW its floor because the reason it is short is a defect being fixed, not a thin map. verify-cert reports it as a WARN and names it: never a pass, never a fail. It must carry a reason as well as a ruling -- lib/task-floors.mjs refuses one without either.",
-  "absolute_word_tell": "Two ISMS-F items are cued by an ABSOLUTE-WORD TELL rather than by length, which decue-stored-length.mjs cannot fix -- it only moves length. Removing a distractor absolute risks making the distractor true, so it is not a mechanical edit. Named here as the reason 2.4 and 3.6 sit at 7 rather than a thin map."
+  "absolute_word_tell": "Two ISMS-F items are cued by an ABSOLUTE-WORD TELL rather than by length, which decue-stored-length.mjs cannot fix -- it only moves length. Removing a distractor absolute risks making the distractor true, so it is not a mechanical edit. Named here as the reason 2.4 and 3.6 sit at 7 rather than a thin map.",
+  "no_temporary_exceptions_remain": "Both PROMPT-123 s3 temporary exceptions are closed as of PROMPT-125 s2: 2.3 reached its floor of 4, and 1.6 took a permanent floor of 2. No override in this file carries the temporary flag any more; the mechanism stays because the next certification will need it."
  },
  "per_task_overrides": {
   "_what": "Each entry is a director ruling with its reason. PROMPT-111 s2 ruled all five.",
   "1.6": {
-   "floor": 4,
-   "ruled_in": "PROMPT-123 s3",
-   "temporary": true,
-   "reason": "TEMPORARY, ruled PROMPT-123 s3: goes live holding 0 of 4. The task is short because of source-specific gate defects, not a thin map -- the attribution check refused scheme addresses (fixed PROMPT-123 s2a) and reproduction refuses prose sources (EU AI Act, NIST AI RMF) at 8 of 8. Two rescues are in ISMSF-RESCUES-123.md awaiting the director read. The old bank is the alternative and is worse on this task."
+   "floor": 2,
+   "ruled_in": "PROMPT-125 s2",
+   "reason": "prose sources (EU AI Act, NIST AI RMF): the reproduction ceiling refuses most faithful items; 2 held after gate fixes"
   },
   "1.7": {
    "floor": 3,
@@ -24,9 +24,8 @@
   },
   "2.3": {
    "floor": 4,
-   "ruled_in": "PROMPT-123 s3",
-   "temporary": true,
-   "reason": "TEMPORARY, ruled PROMPT-123 s3: goes live holding 1 of 4. The task is short because distractor support was pinned to the key edition, so distractors resolved against 27001 Amd1:2024 one-sentence 4.1 instead of 27001:2022 paragraph (fixed PROMPT-123 s2b). Three rescues are in ISMSF-RESCUES-123.md awaiting the director read."
+   "ruled_in": "PROMPT-125 s2",
+   "reason": "Floor 4, originally ruled PROMPT-111 s2 on the map. The TEMPORARY flag is removed: the three rescues recovered by the PROMPT-123 s2b edition fix brought the task to 4 of 4, so it is at floor on its own items rather than by exception."
   },
   "3.5": {
    "floor": 2,

@@ -52,6 +52,7 @@ import { AUDIT480_TIER_A, AUDIT480_TIER_B, AUDIT480_TIER_C, AUDIT480_TIER_D,
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 let CERT = "AIMS-F", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false, ONLY = null, TAG = "", REUSE_SOLVER = null, INCLUDE_PENDING = false, LIMIT = 0;
+let MAXUSD = null, CEILING_HIT = false;
 for (const a of process.argv.slice(2)) {
   const m = /^--cert=(.+)$/.exec(a);
   if (m) { CERT = m[1]; continue; }
@@ -68,6 +69,8 @@ for (const a of process.argv.slice(2)) {
   /* --limit stops after N NEW items (PROMPT-111 s3), so a run can be projected before it is finished */
   const lm = /^--limit=([0-9]+)$/.exec(a);
   if (lm) { LIMIT = Number(lm[1]); continue; }
+  const mu = /^--max-usd=([0-9.]+)$/.exec(a);
+  if (mu) { MAXUSD = Number(mu[1]); continue; }
   console.error("unknown flag " + JSON.stringify(a) + " -- READ-ONLY and MEASURE-ONLY.");
   console.error("There is no --apply: an instrument that disagrees with an item must not be able");
   console.error("to change it.");
@@ -420,6 +423,20 @@ for (const s of sampled) {
   /* already measured -> reuse, no spend */
   if (done.has(s.prefix)) { out.push(done.get(s.prefix)); continue; }
   if (LIMIT && fresh >= LIMIT) continue;
+  /* ============ --max-usd, THE STANDING RULE (PROMPT-117 s3) ============
+   *
+   * This script predates that rule and had no ceiling: a run could only be bounded by --limit,
+   * which bounds ITEMS, not money. PROMPT-117 s3 exists because R3 overspent a ruled $25 at
+   * $29.45 with nothing able to stop it. The run stops BEFORE the call that would cross the
+   * ceiling, and what is already measured is checkpointed, so stopping costs nothing. */
+  if (MAXUSD !== null && usd() >= MAXUSD) {
+    if (!CEILING_HIT) {
+      console.log("  STOPPED at $" + usd().toFixed(4) + ": the --max-usd ceiling of $" + MAXUSD +
+        " is reached. " + fresh + " new item(s) measured; the rest are untouched, not failed.");
+      CEILING_HIT = true;
+    }
+    continue;
+  }
   fresh++;
   const hits = rows.filter((r) => String(r.id).startsWith(s.prefix));
   const base = { n: s.n, prefix: s.prefix, director_tier: tierOf.get(s.prefix) || null, task: s.task };

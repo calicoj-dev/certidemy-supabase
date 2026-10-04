@@ -213,3 +213,22 @@ REVISE-*.json
 # is how ISMSF-R6 and REVISE-122 both reached the index.
 *-RESCUES-*.md
 *-RESCUES-*.json
+
+# ============ ISMS-IA: THE INCOMING CERTIFICATION, ITS BLOCK CREATED BEFORE ITS FIRST ARTIFACT ============
+#
+# ISMSIA-SONNET55-PROBE.json reached the working tree carrying 150 runs of ISO 19011 text, and NO
+# pattern above matched it -- every one names a slug that already existed (AIMSF-, ISMSF-). A new
+# certification therefore starts with ZERO coverage, and this is the FOURTH time a new name has
+# escaped a pattern written for the old names. check-licensed-text caught it before any commit,
+# which is the check working; the durable half is that a certification gets its block at stage 1,
+# not after its first generation round.
+ISMSIA-R[0-9]*
+ISMSIA-ROLLOUT-*
+ISMSIA-SURVIVORS*
+ISMSIA-AUDIT-*
+ISMSIA-DECUED.json
+ISMSIA-INFLATION-*
+# and GENERIC, by shape rather than slug: a probe artifact is always a generated artifact.
+*-PROBE.json
+*-PROBE-*.json
+*-SONNET*-PROBE*.json
