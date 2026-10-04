@@ -664,3 +664,128 @@ meets its need. So **34 of 49 tasks would be at floor**, with:
 map rather than a shortfall.
 
 One more round on an OPUS writer closes it: 33 items needed, projected well under $20.
+
+## PROMPT-120: the writer settled, 20 R6 rows in, and four guards that could not fire
+
+**235 grounded English rows on ISMS-F** (46 + 49 + 53 + 67 + 20), 470 siblings, nothing approved.
+
+### s1 -- the writer stays on Opus
+
+Recorded in `PIPELINE-METRICS.json` (`model_decisions`) and in one line of `docs/CERT-PIPELINE.md`.
+`--writer-model` / `--solver-model` stay; the default was already Opus, so no code change was needed.
+
+**One measurement against the director's own read.** He read the 9 rejects as "the key is far longer
+than the rest". Measured, it is NOT a length effect: the key is the longest option on **44% of the 9
+rejects against 50% of the 20 accepts**, mean key/longest-rival 1.02 against 1.07. The existing
+length-cue rule correctly did not fire and no length rule would have caught them. The defect is
+distractor PLAUSIBILITY, which CLAUDE.md s13 already records as needing an SME rather than a gate.
+
+### s2 -- 20 accepted, 9 rejected
+
+Translation $2.94, lint 0 and drift 0 on the FIRST pass -- the first round needing no repair. Every one
+of the 20 carries its writer in the review note: they are the only Sonnet-written rows in the bank, and
+PROMPT-120 s1 ruled the writer back to Opus, so a later reader has to be able to tell from the row.
+
+### s4 -- FOUR GUARDS THAT COULD NOT FIRE, which is what the dry runs bought
+
+**1. `gateStructure`'s cue guard has never run at generation.** `auditItem` resolves the key through
+`correct_answer[0]` against `o.id` and returns `{ok:true}` -- a PASS -- the moment either is missing. A
+generated item is `options: [{text, is_correct}]` with neither. So every round R1-R6 reported the cue
+guard clean on every item; it began firing only once rows were stored and `lib/stored-item.mjs` built
+the shape. **46 of 218 stored ISMS-F rows fail it today.**
+
+Worse than the `audit.fail` incident this file already records: that read a key that never existed and
+got nothing. This returned a pass. Fixed by normalising in the gate, with **UNASSERTED** where the key
+cannot be resolved at all. **Two of the gate's own control fixtures turned out to be length-cued** -- 78
+chars against a 65-char rival, and 68 against 53 -- and were rewritten rather than the rule relaxed.
+`scratch/prove-cue-guard-lives.mjs` shows the same item passing in generator shape and failing in
+stored shape before the fix, and failing in both after.
+
+**2. `approve-grounded-items` read the wrong rejections file, by the wrong key.** Hard-coded to
+`AIMSF-DIRECTOR-REJECTIONS.json` and to `r.id`, in a script that takes `--cert`. ISMS-F keys on
+`item_id`, so all 18 ISMS-F rejections would have passed condition 5 twice over. The filename now
+follows the cert, both key names are read, and **a file that exists but yields no ids refuses the run**.
+
+**3. `cutover-aimsf` would have retired the entire ISMS-F exam pool.** Both cert-specific filenames
+were hard-coded: the keep list it reads and the rollback file it writes. Generalised with `--cert`, and
+a missing keep list now REFUSES rather than making every live secure item a retire candidate.
+
+**4. The cutover reported its own controls as "0 case(s), all pass".** It leaned on the enemy rule and
+stem identity and verified neither: both modules return arrays, so `c.fails` and `c.cases` were
+undefined and the reader found nothing to object to. Two modules, two contracts -- `enemyRuleControls`
+returns case objects, `stemIdentityControls` returns failure strings -- and my first fix refused the
+second as vacuous, which was the same mistake mirrored. `stem-identity` now counts what it examined
+(6 cases) and zero refuses. `deno check generate-mock-exam` passes.
+
+A fifth, smaller: the `--kept` scope I added to `check-modal-drift` matched keep ids as stem hashes
+when they are **uuid prefixes**. It resolved 0 of 143, and the refusal guard is what surfaced it rather
+than a drift count over the wrong population.
+
+### s4's dry runs
+
+| | |
+|---|---|
+| approval | 161 of 235 groups would approve (483 rows). 74 refused: 46 `structure` (the cue guard), **17 "no solver verdict recorded"**, 11 siblings mid-translation (now cleared) |
+| cutover | 143 of 143 kept resolve with approved siblings; target 429 rows, 0 not live; duplicate stems 0; **20/20 forms per language**; retire 248 per language = 744 rows; no domain short |
+| verify-cert | 55 pass, 2 fail, 2 warn |
+| old-bank drift on the KEPT items | **17 non-stem** (es-419 7, pt-BR 10) against 78 across the whole old bank -- most of it does retire |
+
+**The 17 "no solver verdict recorded" are mine.** Every one is a RESCUED item.
+`insert-pilot-drafts.mjs` writes `solver: it.solver ?? null`, and a rescue's earned verdict is recorded
+in `revised[].solver`, never copied back to `it.solver`. The rows are sound -- each was solved twice
+during its rescue -- but `item_grounding.solver` is null and condition 3 refuses them. **Not fixed
+here:** it is a backfill over named rows and belongs with the approval step.
+
+**verify-cert's other fail needs a ruling.** s8.1 reports 3 references (one item, three languages)
+citing "Clause 5.3.2" as "no such address in ISO 27001". The item is CORRECT: it is grounded on
+ISO/IEC 27000 5.3.2, which is held -- the ISO/IEC 27006 summary -- and quotes it exactly. The check
+infers the standard from served text and cannot see the item's grounding row, so since PROMPT-113 made
+the bank multi-source it mis-attributes any citation outside the certification's primary standard.
+`CITATION_EXEMPT` exists, but using it would waive a check on sound work rather than teach the check
+about multi-source grounding.
+
+### s3 -- R7, and why the last 16 items are not one more round away
+
+62 attempted, 62 generated, **25 survivors (40%)**, $22.13 against a $30 ceiling (projected $30.98 --
+the projection was 40% over, its worst error yet, and it does not know about the revived cue guard).
+
+Survival fell from R5's 79% on the same Opus writer, and the gate profile says why -- per 100 generated,
+R7 against R5: reproduction **38.7 / 4.7**, verbatim **37.1 / 8.1**, structure **33.9 / 2.3**,
+modal-fidelity **19.4 / 1.2**, clause-exists **12.9 / 2.3**.
+
+`structure` is the cue guard revived today: in R1-R6 those items passed generation and would have been
+refused at APPROVAL instead. That part is a quality improvement showing up as a lower number.
+
+**The rest tracks the SOURCE, not the round:**
+
+| task | source | survived |
+|---|---|---|
+| 1.6 | NIST AI RMF | **0 of 8** -- verbatim 8, reproduction 8, **clause-exists 6** |
+| 5.5 | ISO/IEC 17021-1 | **0 of 6** -- verbatim 6 |
+| 2.3 | 27001 Amd1:2024 | **1 of 8** -- verbatim 6 |
+| 3.7, 4.2, 4.6, 5.7, 3.6 | 27000 / 27002 | **100%** |
+| 3.9 | 27002 | 75% |
+
+Task 1.6's `clause-exists` failing 6 of 8 is the diagnostic: the writer invented NIST AI RMF addresses.
+Its clause vocabulary ("MANAGE 4.3", "MAP 5.1") is unlike ISO's and the writer does not reproduce it.
+**Another round at the same settings will reproduce this.** 1.6, 5.5 and 2.3 need a map or a prompt
+decision, not more items.
+
+### Distance to floor: 41 of 49, 7 tasks short by 16 items
+
+Assuming the R3-R5 accept rate on R7's 25:
+
+| still short | needs | R7 gave |
+|---|---|---|
+| 1.6 | 4 | 0 |
+| 1.7 | 3 | 1 of 4 |
+| 2.3 | 3 | 1 of 4 |
+| 5.5 | 3 | 0 |
+| 4.8 | 1 | 2 of 3 |
+| 5.3 | 1 | 1 of 2 |
+| 4.4 | 1 | 0 |
+
+Plus 3.5, at floor in items and permanently `too_thin` -- a label on the map.
+
+**So ISMS-F is NOT at floor**, and the four easy ones (1.7, 4.8, 5.3, 4.4 -- 6 items) are a small round;
+1.6, 5.5 and 2.3 (10 items) are the source problem above.
