@@ -1,0 +1,92 @@
+{
+ "_what": "PROMPT-116 s3 (carrying PROMPT-115 s2 and s3): the R2 stem rescues, the missing question on #8, and the one task-5.1 item whose anchor is a real primary passage of its task.",
+ "_ruled_in": "PROMPT-115/116",
+ "reanchors": [
+  {
+   "item_id": "eacea5dc",
+   "what": "key",
+   "to": {
+    "source_id": "ISO/IEC 27001",
+    "edition": "2022",
+    "clause": "9.1"
+   },
+   "reassign": true,
+   "rescue": true,
+   "ruled_in": "PROMPT-115 s3",
+   "why": "The item is already anchored to 27001 9.1 and quotes it verbatim; 9.1 is a primary passage of task 5.1 (item #19 anchors there and passed). Only the writer's assigned slot said 3.45, so the ASSIGNMENT is what was wrong. The anchor itself does not move: the verbatim check is the control that proves it."
+  }
+ ],
+ "edits": [
+  {
+   "item_id": "c0d9e1b2",
+   "field": "question_text",
+   "from": "A security team first assigns each identified risk a magnitude using its scoring scale, and then, in a separate session, places those magnitudes beside the thresholds in its acceptance table. Following ISO/IEC 27000's guidance on assessing information security risks, how is the second session best characterised?",
+   "to": "A security team first assigns each identified risk a magnitude using its scoring scale, and then, in a separate session, places those magnitudes beside the thresholds in its acceptance table. Following the ISMS overview guidance on assessing information security risks, how is the second session best characterised?",
+   "rescue": true,
+   "ruled_in": "PROMPT-115 s3",
+   "why": "no-27000 fired on the stem only; the claim, key, support and explanation are untouched. ISO/IEC 27000 IS the ISMS overview and vocabulary, so the served text names it that way."
+  },
+  {
+   "item_id": "a67419b7",
+   "field": "question_text",
+   "from": "An analysed risk sits in the lowest band of an organization's criteria, and the only available control would cost more than the exposure it would remove. Management decides to take the risk as it stands. Under ISO/IEC 27000's guidance on treating information security risks, how does this stand?",
+   "to": "An analysed risk sits in the lowest band of an organization's criteria, and the only available control would cost more than the exposure it would remove. Management decides to take the risk as it stands. Under the ISMS overview guidance on treating information security risks, how does this stand?",
+   "rescue": true,
+   "ruled_in": "PROMPT-115 s3",
+   "why": "no-27000 fired on the stem only; the claim, key, support and explanation are untouched. ISO/IEC 27000 IS the ISMS overview and vocabulary, so the served text names it that way."
+  },
+  {
+   "item_id": "5bc989ba",
+   "field": "question_text",
+   "from": "At evaluation, a risk falls inside the acceptance band and its owner records acceptance without applying any control. The owner then asks for the item to be dropped from the quarterly review list. Which reading matches ISO/IEC 27000's treatment of risk acceptance?",
+   "to": "At evaluation, a risk falls inside the acceptance band and its owner records acceptance without applying any control. The owner then asks for the item to be dropped from the quarterly review list. Which reading matches the ISMS vocabulary's treatment of risk acceptance?",
+   "rescue": true,
+   "ruled_in": "PROMPT-115 s3",
+   "why": "no-27000 fired on the stem only; the claim, key, support and explanation are untouched. ISO/IEC 27000 IS the ISMS overview and vocabulary, so the served text names it that way."
+  },
+  {
+   "item_id": "389378ec",
+   "field": "question_text",
+   "from": "A steering group settles two risks: the first it will knowingly keep as it stands with no new control, the second it will cover through an insurance policy. Using ISO/IEC 27000's description of risk treatment, how are the two decisions classified?",
+   "to": "A steering group settles two risks: the first it will knowingly keep as it stands with no new control, the second it will cover through an insurance policy. Using the ISMS vocabulary's description of risk treatment, how are the two decisions classified?",
+   "rescue": true,
+   "ruled_in": "PROMPT-115 s3",
+   "why": "no-27000 fired on the stem only; the claim, key, support and explanation are untouched. ISO/IEC 27000 IS the ISMS overview and vocabulary, so the served text names it that way."
+  },
+  {
+   "item_id": "ac6b6620",
+   "field": "question_text",
+   "from": "A project team moves straight from a list of identified risks to selecting controls, saying that levels can be worked out afterwards. Which statement reflects the role that ISO/IEC 27000 gives to risk analysis?",
+   "to": "A project team moves straight from a list of identified risks to selecting controls, saying that levels can be worked out afterwards. Which statement reflects the role that the ISMS vocabulary gives to risk analysis?",
+   "rescue": true,
+   "ruled_in": "PROMPT-115 s3",
+   "why": "no-27000 fired on the stem only; the claim, key, support and explanation are untouched. ISO/IEC 27000 IS the ISMS overview and vocabulary, so the served text names it that way."
+  },
+  {
+   "item_id": "b3ebc5a5",
+   "field": "question_text",
+   "from": "An organization reassesses risks only when a new system goes live, and two assessors working the same scenario arrive at different levels. Following ISO/IEC 27000's guidance on assessing information security risks, what would improve the position?",
+   "to": "An organization reassesses risks only when a new system goes live, and two assessors working the same scenario arrive at different levels. Following the ISMS overview guidance on assessing information security risks, what would improve the position?",
+   "rescue": true,
+   "ruled_in": "PROMPT-115 s3",
+   "why": "no-27000 fired on the stem only; the claim, key, support and explanation are untouched. ISO/IEC 27000 IS the ISMS overview and vocabulary, so the served text names it that way."
+  },
+  {
+   "item_id": "ec205b78",
+   "field": "question_text",
+   "from": "A manager proposes to accept a risk whose analysed level sits above the stated acceptance band, giving current budget pressure as the reason. How should the proposal be handled under ISO/IEC 27000's guidance on treating risks?",
+   "to": "A manager proposes to accept a risk whose analysed level sits above the stated acceptance band, giving current budget pressure as the reason. How should the proposal be handled under the ISMS overview guidance on treating risks?",
+   "rescue": true,
+   "ruled_in": "PROMPT-115 s3",
+   "why": "no-27000 fired on the stem only; the claim, key, support and explanation are untouched. ISO/IEC 27000 IS the ISMS overview and vocabulary, so the served text names it that way."
+  },
+  {
+   "item_id": "fc375196",
+   "field": "question_text",
+   "from": "A newly launched service has no incident history of its own, and the team is unsure what it is entitled to draw on when identifying risks for it.",
+   "to": "A newly launched service has no incident history of its own, and the team is unsure what it is entitled to draw on when identifying risks for it. What can the identification draw on?",
+   "ruled_in": "PROMPT-115 s2",
+   "why": "The stem set out the situation and asked nothing. The question the options already answer is now asked. 'the identification' rather than 'it', because the stem's last 'it' is the service."
+  }
+ ]
+}

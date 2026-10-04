@@ -1,0 +1,32 @@
+{
+  "_what": "PROMPT-116 s1: the two R2 items whose support quotes came from the clause-4 text that ISO/IEC 27000 3.77 had swallowed. The claims are sound; the addresses were wrong. 27000 4.1 is now a primary of task 3.3 (MAP-116.json), so the quotes resolve where they actually live.",
+  "reanchors": [
+    {
+      "item_id": "3d8644f4",
+      "report_number": 10,
+      "what": "key",
+      "to": {
+        "source_id": "ISO/IEC 27000",
+        "edition": "2018",
+        "clause": "4.1"
+      },
+      "why": "The key quotes the clause-4 sentence about information being treated as an asset whose value warrants protection. That sentence is clause 4.1, not part of the definition of vulnerability.",
+      "explanation": "Information security treats information as an asset with a value that warrants protection, so the thing of value is the asset. The weakness that could be exploited is the vulnerability, and the potential cause acting on it is the threat; the three are distinct and only one of them names what is being protected.",
+      "reassign": true,
+      "reassign_why": "The writer was assigned 3.77 because 3.77 was the passage HOLDING this text. The run-on repair moved that text to 4.1, so the assignment record is what was wrong. The gate is still checked, against the corrected assignment."
+    },
+    {
+      "item_id": "e13609f9",
+      "report_number": 5,
+      "what": "distractor",
+      "index": 2,
+      "to": {
+        "source_id": "ISO/IEC 27000",
+        "edition": "2018",
+        "clause": "4.1"
+      },
+      "why": "The key is correctly anchored to the real 3.77 definition. Distractor 2 takes its support from the clause-4 asset sentence, so only that support moves."
+    }
+  ],
+  "_no_quotation": "The whys describe the sentences rather than quoting them: this file is tracked, and licensed text stays out of git (CLAUDE.md s2.6, enforced by check-licensed-text)."
+}

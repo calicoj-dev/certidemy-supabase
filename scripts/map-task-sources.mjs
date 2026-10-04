@@ -6,16 +6,20 @@
  * written. A clause that does not resolve is named and the whole batch refuses: a map with a silently
  * dropped row is a map whose floor derivation is wrong.
  */
-import { dirname } from "node:path";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-let APPLY = false, CERT = "ISMS-F";
+const ROOT = join(HERE, "..");
+let APPLY = false, CERT = "ISMS-F", SPECFILE = null;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
-  const m = a.match(/^--cert(?:=(.+))?$/);
+  let m = a.match(/^--cert(?:=(.+))?$/);
   if (m) { CERT = m[1]; continue; }
+  m = a.match(/^--spec=(.+)$/);
+  if (m) { SPECFILE = m[1]; continue; }
   console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE>, --apply (dry by default).");
   process.exit(2);
 }
@@ -24,7 +28,7 @@ for (const a of process.argv.slice(2)) {
 /* EDITION IS PART OF THE ADDRESS. 27001 4.1 and 4.2 exist twice -- `2022` and `2022/Amd1:2024`, the
  * climate-change amendment -- and a two-part address resolved to both and refused, which is what the
  * (source, edition, clause) key is for. */
-const SPEC = [
+let SPEC = [
   { task: "1.6", role: "primary", ruled: "PROMPT-111 s2", clauses: [
     ["EU AI Act", "2024/1689", "Recital 133"], ["EU AI Act", "2024/1689", "Recital 110"],
     ["EU AI Act", "2024/1689", "Recital 111"], ["EU AI Act", "2024/1689", "Art. 55(1)"],
@@ -51,6 +55,14 @@ const SPEC = [
     ["ISO/IEC 42001", "2023", "D.1"], ["ISO/IEC 42001", "2023", "D.2"],
   ] },
 ];
+
+/* --spec loads a declared mapping round from a file, so a new ruling does not edit this script.
+ * Same shape: [{task, role, ruled, clauses: [[source, edition, clause], ...]}]. */
+if (SPECFILE) {
+  const loaded = JSON.parse(readFileSync(join(ROOT, SPECFILE), "utf8"));
+  SPEC = loaded.map_rounds || loaded;
+  console.log("spec: " + SPECFILE + "   " + SPEC.length + " task(s)");
+}
 
 const KEY = requireKey(HERE);
 const H = { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json" };

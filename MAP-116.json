@@ -1,0 +1,11 @@
+{
+  "_what": "PROMPT-116 s1: map ISO/IEC 27000 4.1 to ISMS-F task 3.3 as a primary. Task 3.3 asks for the asset, the threat and the vulnerability, and 4.1 is where the vocabulary treats information as an asset. This is what lets R2 #5 and #10 be re-anchored instead of dropped: both quoted clause-4 text that the 3.77 run-on had made look like part of the definition.",
+  "map_rounds": [
+    {
+      "task": "3.3",
+      "role": "primary",
+      "ruled": "PROMPT-116 s1",
+      "clauses": [["ISO/IEC 27000", "2018", "4.1"]]
+    }
+  ]
+}

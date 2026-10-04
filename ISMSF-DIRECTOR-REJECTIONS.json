@@ -1,29 +1,56 @@
 {
   "_what": "Items the director read and refused. A rejection is the one disposition no generated artifact carries, so the standing list must be read by anything that promotes. `approve-grounded-items.mjs` reads this file by content id.",
-  "ruled": "2026-10-03, PROMPT-114 s1",
-  "round": "ISMS-F R1 (ISMSF-ROLLOUT-R1.md)",
-  "read": 23,
-  "accepted": 21,
-  "rejected": 3,
-  "note": "21 accepts = the 20 numbered accepts plus the item R1's code rejected on modal-fidelity, which PROMPT-114 s3 ruled a false positive: the item's 'ought to' is not a claim about the standard. The narrowed gate now passes it.",
+  "_every_entry_names_its_artifact_and_its_id": "A REPORT NUMBER IS NOT AN IDENTITY. It is a position in one artifact's survivor list, and that list MOVES: the PROMPT-115 s3 rescues flipped eight R2 items from rejected to survivor, which renumbered everything after them. R1's #13/#20/#21 and R2's #13/.../#21 are different items, so a matcher keyed on the number alone refuses the wrong ones -- it would have refused R2 #13, a director accept. Every entry therefore carries `artifact` and `item_id`, and `insert-pilot-drafts.mjs` refuses an entry that carries a number without an artifact rather than matching it loosely.",
+  "rounds": [
+    { "artifact": "ISMSF-R1", "report": "ISMSF-ROLLOUT-R1.md", "ruled": "2026-10-03, PROMPT-114 s1", "read": 23, "accepted": 21, "rejected": 3 },
+    { "artifact": "ISMSF-R2", "report": "ISMSF-ROLLOUT-R2.md", "ruled": "2026-10-03, PROMPT-115 s2", "read": 19, "accepted": 17, "rejected": 2 }
+  ],
+  "note": "R1's 21 accepts = the 20 numbered accepts plus the item R1 code-rejected on modal-fidelity, which PROMPT-114 s3 ruled a false positive: the item's 'ought to' is not a claim about the standard. The narrowed gate now passes it.",
   "rejections": [
     {
+      "item_id": "935b347e",
+      "artifact": "ISMSF-R1",
       "report_number": 13,
       "task": "4.5",
+      "anchor": "ISO/IEC 27002 8.3",
       "why": "RULED reject: dynamic access management versus access control lists is too obscure for a Foundation candidate. Not wrong -- out of scope for the tier.",
       "ruled_in": "PROMPT-114 s1"
     },
     {
+      "item_id": "5bcfefad",
+      "artifact": "ISMSF-R1",
       "report_number": 20,
-      "task": "4.5",
+      "task": "4.4",
+      "anchor": "ISO/IEC 27001 A.5.9",
       "why": "RULED reject: near-duplicate of #16. Same anchor (A.5.9) and the same fact -- the inventory carries owners. #16 is kept.",
       "ruled_in": "PROMPT-114 s1"
     },
     {
+      "item_id": "1a698855",
+      "artifact": "ISMSF-R1",
       "report_number": 21,
-      "task": "4.5",
+      "task": "4.4",
+      "anchor": "ISO/IEC 27000 3.27",
       "why": "RULED reject: near-duplicate of #17. Same definition (3.27) and the same fact -- the term covers infrastructure and the location housing it. #17 is kept.",
       "ruled_in": "PROMPT-114 s1"
+    },
+    {
+      "item_id": "1b4b736f",
+      "artifact": "ISMSF-R2",
+      "report_number": 11,
+      "task": "3.2",
+      "anchor": "ISO/IEC 27000 3.61",
+      "why": "RULED reject (PROMPT-115 s2).",
+      "ruled_in": "PROMPT-115 s2"
+    },
+    {
+      "item_id": "89c35d53",
+      "artifact": "ISMSF-R2",
+      "report_number": 12,
+      "task": "3.2",
+      "anchor": "ISO/IEC 27001 6.1.2",
+      "why": "RULED reject (PROMPT-115 s2).",
+      "ruled_in": "PROMPT-115 s2"
     }
   ],
   "why_near_duplicates_reached_a_survivor_list": "gateNearDuplicate compares STEMS, and these pairs differ in their stems while asserting the same fact from the same anchor. That blindness is recorded in CLAUDE.md s13: the same answer with a different stem is invisible to it. The anchor cap of 2 per (source, edition, clause) per task is what bounds the damage, and it allowed exactly these two pairs."

@@ -67,7 +67,10 @@ const recPath = join(ROOT, "PASSAGE-REPAIRS.json");
 const rec = existsSync(recPath) ? JSON.parse(readFileSync(recPath, "utf8"))
   : { _what: "Repairs applied over the GENERATED library. Re-extraction loses them: check this list " +
       "after every extraction and fix the extractor rather than re-patching.", repairs: [] };
-rec.repairs.push({ source_id: SRC, edition: ED, clause: CLAUSE, ruled_in: "PROMPT-115 s2",
+rec.repairs.push({ source_id: SRC, edition: ED, clause: CLAUSE,
+  /* the ruling is read off --why rather than hard-coded: the first five repairs of PROMPT-116 were
+   * recorded as PROMPT-115 s2 because this string was fixed. */
+  ruled_in: (String(WHY).match(/PROMPT-d+[^:.]*/) || ["unrecorded"])[0],
   cut_at_char: r.at, detected: r.matched, words_before: before.split(/\s+/).length,
   words_after: cut.split(/\s+/).length, why: WHY, at: new Date().toISOString() });
 writeFileSync(recPath, JSON.stringify(rec, null, 2) + "\n");

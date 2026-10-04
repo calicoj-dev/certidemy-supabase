@@ -1,396 +1,429 @@
 #!/usr/bin/env node
 /**
- * insert-pilot-drafts.mjs - insert the ruled pilot survivors in the unservable status.
- *
- * The ruling says `draft`; the CHECK vocabulary has no such value, so they land as
- * `pending_review`. See DRAFT_STATUS below for the measurement and the deviation.
+ * insert-pilot-drafts.mjs -- insert NAMED accepted items from a generation artifact.
  *
  * WRITES. `--apply`; dry by default. Unknown flags exit 2.
  *
- * ============ WHAT GOES IN, AND WHY THE SET IS SMALLER THAN THE SURVIVOR COUNT ============
+ *   --cert <CODE>        the certification
+ *   --from <artifact>    the generation artifact (ISMSF-R1, ISMSF-R2, ...)
+ *   --accept <file>      the accept list: item ids with their verdicts. NOTHING ELSE IS INSERTED.
+ *   --limit=<n>          insert only the first n of the accepted set
+ *   --note=<text>        appended to every review_note in this batch
  *
- * Pilot 3's 27 survivors, plus only those pilot-2 survivors that do not duplicate a pilot-3 item on
- * BOTH task and anchor clause. Two drafts resting on one fact cross-cue each other later, and stem
- * identity cannot see it -- their stems differ, which is exactly why a dedupe on text misses them.
+ * ============ THE ACCEPT LIST IS THE AUTHORITY (ruled PROMPT-116 s2) ============
  *
- * The director numbers SURVIVORS, not all items, and every reference he gives carries the task code
- * in parentheses. That parenthetical is the check: this script resolves the ordinal and then asserts
- * the task code matches, so a numbering drift cannot silently edit the wrong item.
+ * Generalised from the AIMS-F pilot script, which merged two named artifacts and deduplicated them by
+ * task+anchor. That selection logic WAS the ruling for that round; it cannot be reused, because a
+ * selection rule and a director's accept list are different things.
  *
- * ============ EVERY COLUMN A DEFAULT COULD DECIDE IS WRITTEN EXPLICITLY ============
+ * So: the list names ids. An id not in the artifact is an error, not a skip. An id in
+ * `<SLUG>-DIRECTOR-REJECTIONS.json` is refused even if the list names it -- a rejection outranks an
+ * accept, because the two files can disagree only by mistake.
  *
- * `quiz_questions` defaults are `status='approved'`, `visibility='secure'` and
- * `is_exam_scope=true`. An insert that omits `status` lands LIVE. Two of the three defaults happen
- * to be safe for a draft and one is catastrophic, and which is which is not a thing to rely on --
- * so status, pool, visibility, is_exam_scope, item_origin and language are all named, and the rows
- * are read back afterwards and asserted one by one.
+ * ============ EVERY COLUMN A DEFAULT COULD DECIDE IS NAMED ============
  *
- * ============ THREE INDEPENDENT REASONS A DRAFT CANNOT REACH A CANDIDATE ============
+ * `quiz_questions.status` defaults to 'approved', `is_exam_scope` to true and `visibility` to
+ * 'secure'. One of those three is catastrophic for a draft and which one is not a thing to rely on.
  *
- *   status=pending_review generate-mock-exam filters status='approved' exactly
- *   is_exam_scope=false   no exam form can contain it
- *   pool='secure'         submit-quiz-answer now refuses pool='secure' outright
+ * ============ KEYS ARE SHUFFLED AT INSERT ============
  *
- * A guarantee that depends on one column staying true is not a guarantee.
+ * The writer returns the key first, so every artifact item keys on 'a'. `shuffleOptions` is the
+ * generator's own de-bias, which also remaps any "(option b)" reference in the explanation.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
-import { gateReproduction } from "./lib/grounded-gates.mjs";
-/* ONE IMPLEMENTATION: `buildSources` is the lesson scanner's own index, in leak-score.mjs, and it
- * asserts each document's word count against the manifest -- a positive control this path gets for
- * free. It is NOT in citation-index.mjs, which is where I first reached for it. */
-import * as leakScore from "./lib/leak-score.mjs";
-
-let APPLY = false;
-for (const a of process.argv.slice(2)) {
-  if (a === "--apply") { APPLY = true; continue; }
-  console.error("unknown flag " + JSON.stringify(a) + ". Known: --apply (dry by default).");
-  process.exitCode = 2; process.exit();
-}
+import { buildGateContext } from "./lib/gate-context.mjs";
+import { runCodeGates } from "./lib/grounded-gates.mjs";
+import { shuffleOptions } from "../functions/_shared/item-rules/item-cue-guard.mjs";
+import { CAP } from "./lib/anchor-cap.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
+let APPLY = false, CERT = null, FROM = null, ACCEPT = null, LIMIT = 0, NOTE = "";
+{
+  const av = process.argv.slice(2);
+  for (let i = 0; i < av.length; i++) {
+    const a = av[i];
+    if (a === "--apply") { APPLY = true; continue; }
+    let m = a.match(/^--cert(?:=(.+))?$/); if (m) { CERT = m[1] || av[++i]; continue; }
+    m = a.match(/^--from(?:=(.+))?$/); if (m) { FROM = m[1] || av[++i]; continue; }
+    m = a.match(/^--accept(?:=(.+))?$/); if (m) { ACCEPT = m[1] || av[++i]; continue; }
+    m = a.match(/^--limit=([0-9]+)$/); if (m) { LIMIT = Number(m[1]); continue; }
+    m = a.match(/^--note=(.+)$/); if (m) { NOTE = m[1]; continue; }
+    console.error("Unrecognised flag: " + a);
+    console.error("  --cert <CODE> --from <artifact> --accept <file> [--limit=n] [--note=text] [--apply]");
+    process.exit(2);
+  }
+}
+if (!CERT || !FROM || !ACCEPT) {
+  console.error("--cert, --from and --accept are all required. The accept list is the authority:");
+  console.error("nothing is inserted that it does not name.");
+  process.exit(2);
+}
+const SLUG = CERT.replace(/-/g, "");
+/* ============ ORIGIN IS `grounded`, NOT `generated` ============
+ *
+ * CLAUDE.md s12: `generate-mock-exam` excludes `item_origin = 'generated'` on BOTH modes. An exam-scope
+ * secure item written as `generated` would be approved and then never served. The 199 approved AIMS-F
+ * grounded items carry `grounded`; that is the value, and the post-conditions assert it. */
+const ORIGIN = "grounded";
+const STATUS = "pending_review";
+const EXAM_SCOPE = true;
+const VERDICT = "accept";
+
+/* ---------------------------------------------------------------- the set */
+const art = JSON.parse(readFileSync(join(ROOT, FROM), "utf8"));
+const items = art.items || [];
+const survivors = items.filter((x) => x.verdict === "survivor");
+const acc = JSON.parse(readFileSync(join(ROOT, ACCEPT), "utf8"));
+const wanted = acc.accepts || acc;
+if (!Array.isArray(wanted) || !wanted.length) {
+  console.error(ACCEPT + " names no accepts. An empty list is refused rather than treated as none.");
+  process.exit(2);
+}
+/* ============ THE NUMBER COMES FROM THE ACCEPT LIST, NOT FROM THE ARTIFACT ============
+ *
+ * The survivor list is re-filtered on every read, so a rescue that flips a verdict renumbers it. The
+ * director's numbers were read against the list AS IT STOOD, so the accept list carries them and they
+ * are reported from there. The artifact position is the fallback, and it says so. */
+const posOf = new Map(survivors.map((x, i) => [x.item_id, i + 1]));
+const declaredNum = new Map();
+for (const w of wanted) {
+  if (typeof w !== "string" && w.report_number != null) declaredNum.set(w.item_id, Number(w.report_number));
+}
+const numberLabel = (id) => declaredNum.has(id) ? "#" + declaredNum.get(id)
+  : (posOf.has(id) ? "artifact position " + posOf.get(id) + ", not a director number" : "unnumbered");
+const numberOf = { get: (id) => declaredNum.has(id) ? declaredNum.get(id) : null };
+/* ============ A REPORT NUMBER IS NOT AN IDENTITY, SO IT IS NOT MATCHED ON ============
+ *
+ * A number is a position in ONE artifact's survivor list, and that list MOVES. The PROMPT-115 s3
+ * rescues flipped eight R2 items from rejected to survivor; re-filtering the artifact then put two of
+ * the RESCUED items at positions 11 and 12, which are the numbers the director rejected. Matching on
+ * the number refused two items he had just rescued -- and in the other direction R1 #13 and R2 #13 are
+ * different items, one of them an accept.
+ *
+ * So: the match is by item_id, full stop. A rejection entry WITHOUT an item_id cannot be matched
+ * safely and is refused rather than guessed at; the number stays in the file as documentation. */
+const rejPath = join(ROOT, SLUG + "-DIRECTOR-REJECTIONS.json");
+const rejectedIds = new Map();
+let rejTotal = 0;
+if (existsSync(rejPath)) {
+  const rj = JSON.parse(readFileSync(rejPath, "utf8"));
+  for (const r of (rj.rejections || [])) {
+    rejTotal++;
+    if (!r.item_id) {
+      console.error("REFUSING: " + rejPath.split(/[\\/]/).pop() + " has a rejection with no `item_id`" +
+        (r.report_number != null ? " (report_number " + r.report_number + ", artifact " + r.artifact + ")" : "") +
+        ". A report number is a position in a survivor list that moves, so it cannot identify an item.");
+      process.exit(2);
+    }
+    rejectedIds.set(String(r.item_id), r);
+  }
+}
+
+/* ============ AN ID ALREADY INSERTED IS SKIPPED, LOUDLY ============
+ *
+ * The staged sequence (one row, then the rest) re-runs the SAME accept list, so the script has to be
+ * resumable. A silent skip would hide a double insert, so each skip names the row it found. */
+const insPath = join(ROOT, SLUG + "-INSERTED.json");
+const already = new Map();
+if (existsSync(insPath)) {
+  for (const b of (JSON.parse(readFileSync(insPath, "utf8")).batches || [])) {
+    for (const r of (b.rows || [])) already.set(r.item_id, r.id);
+  }
+}
+
+const chosen = [], refused = [], regate = [], skipped = [];
+for (const w of wanted) {
+  const id = typeof w === "string" ? w : w.item_id;
+  const it = items.find((x) => x.item_id === id);
+  if (!it) { refused.push({ id, why: "not in " + FROM }); continue; }
+  if (already.has(id)) { skipped.push({ id, row: already.get(id) }); continue; }
+  const rej = rejectedIds.get(String(id));
+  if (rej) {
+    refused.push({ id, why: "named in " + SLUG + "-DIRECTOR-REJECTIONS.json (" + rej.artifact +
+      " #" + rej.report_number + ", " + rej.ruled_in + ")" }); continue;
+  }
+  /* A STALE ARTIFACT VERDICT IS NOT TRUSTED EITHER WAY.
+   *
+   * An accept may name an item the artifact recorded as code-rejected, where the GATE has since
+   * changed -- PROMPT-114 s3 narrowed modal-fidelity and PROMPT-116 s1 tightened it again. Such an
+   * entry must say `"regate": true`, and the item is then re-gated LIVE: a pass admits it, a failure
+   * refuses the batch. The artifact's own verdict is never the authority in that case, and neither is
+   * the accept list on its own. */
+  if (it.verdict !== "survivor") {
+    const spec = typeof w === "string" ? {} : w;
+    if (spec.regate !== true) {
+      refused.push({ id, why: "artifact verdict is " + it.verdict + " and the accept entry does not say regate:true" });
+      continue;
+    }
+    regate.push({ it, spec });
+    continue;
+  }
+  chosen.push({ it, spec: typeof w === "string" ? {} : w });
+}
+/* re-gate the named exceptions LIVE, before anything is selected */
+if (regate.length) {
+  const ctx = await buildGateContext(requireKey(HERE), CERT);
+  for (const { it, spec } of regate) {
+    const map = ctx.mapByTask.get(ctx.taskIdOfCode.get(it.task_code)) || { primary: [], supporting: [] };
+    const v = runCodeGates({ ...it.item }, { passagesByKey: ctx.index, annexGaps: ctx.annexGaps,
+      sequenceGaps: [...ctx.sequenceGaps, ...ctx.declaredGaps], cert: CERT, cueCfg: ctx.cueCfg,
+      primaryClauses: map.primary, supportingClauses: map.supporting,
+      sources: ctx.sources, leak: ctx.leak,
+      liveStemsForTask: (ctx.liveByTask && ctx.liveByTask.get(ctx.taskIdOfCode.get(it.task_code))) || [],
+      assignedAnchor: it.assigned || null });
+    console.log("  RE-GATED " + it.item_id + " (artifact said " + it.verdict + "): passed=" + v.passed +
+      (v.failed.length ? " FAILED[" + v.failed.join(",") + "]" : ""));
+    if (v.passed) chosen.push({ it, spec });
+    else refused.push({ id: it.item_id, why: "re-gated and still fails [" + v.failed.join(",") + "]" });
+  }
+}
+if (refused.length) {
+  console.error("REFUSING THE WHOLE BATCH: " + refused.length + " accepted id(s) cannot be inserted.");
+  for (const r of refused) console.error("  " + r.id + "  " + r.why);
+  console.error("An accept list and the bank disagreeing is a mistake, not a case to work around.");
+  process.exit(1);
+}
+if (skipped.length) {
+  console.log("  already inserted, skipped: " + skipped.length);
+  for (const k of skipped) console.log("      " + k.id + " -> " + k.row);
+}
+if (!chosen.length) {
+  console.error("Nothing left to insert: all " + wanted.length + " accepted id(s) are already in " +
+    SLUG + "-INSERTED.json. An empty batch is refused rather than reported as a success.");
+  process.exit(1);
+}
+const batch = LIMIT ? chosen.slice(0, LIMIT) : chosen;
+
 const KEY = requireKey(HERE);
+const H = { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json" };
+const certRows = await getAll(KEY, "certifications?select=id,code&code=eq." + CERT);
+if (!certRows.length) { console.error("No certification " + CERT); process.exit(2); }
+const cert = certRows[0];
+const taskRows = await getAll(KEY, "tasks?select=id,code,bloom_level&certification_id=eq." + cert.id);
+const taskByCode = new Map(taskRows.map((t) => [t.code, t]));
 
-/* ============ THERE IS NO `draft` STATUS, AND THE CHECK SAYS SO ============
- *
- * Every prompt in this programme says `status='draft'`, and the first insert attempt died on
- *
- *   23514  quiz_questions_status_check
- *   CHECK (status = ANY (ARRAY['pending_review', 'approved', 'rejected']))
- *
- * `draft` is not in the vocabulary and no path can write it -- which also means
- * `gen-grounded-items.mjs`, whose insert body has said `status: "draft"` since it was written, could
- * never have inserted anything either. Its `--apply` had never run, so the branch read exactly like
- * one that works. That is the second defect this path has had of precisely that shape.
- *
- * `pending_review` IS the vocabulary's word for this state, and it is the word the platform already
- * intended: CLAUDE.md records that AI drafts should land `status='pending_review'` before being
- * served. So these rows land as `pending_review` rather than under a status that cannot exist.
- *
- * IT IS AT LEAST AS RESTRICTIVE AS `draft` WOULD HAVE BEEN. Every candidate-facing selector requires
- * `approved` exactly -- generate-mock-exam, get-review-batch and submit-quiz-answer's recommendNext
- * all `.eq('status','approved')` -- so `pending_review` is excluded wherever `draft` would have been,
- * and the two live checks below prove it on the wire rather than asserting it.
- *
- * STATED AS A DEVIATION: if a distinct `draft` state is wanted, it needs a migration widening the
- * CHECK, and then one UPDATE over these 32 ids. Nothing else about the ruling changes -- the review
- * verdict stays `read`, and `read` still does not promote a row. */
-const DRAFT_STATUS = "pending_review";
-
-/* ============ THE DIRECTOR'S EDITS, DECLARED BY (SURVIVOR ORDINAL, TASK CODE) ============
- *
- * Verbatim from his read. `from` must occur exactly once in the field or the edit is refused: a
- * substitution that silently matches nothing is how an approved change fails to land. */
-const EDITS = [
-  {
-    pilot: 3, task: "3.2", field: "option", index: 0,
-    from: "should know the AI policy",
-    to: "are to be aware of the AI policy",
-    why: "Clause 7.3 is a shall. 'should know' understates it, so the item taught that awareness is "
-       + "optional. Understatement is not inflation, so no gate fires -- this is the director's read.",
-  },
-];
-
-/* Excluded by name, with his reason. */
-const EXCLUDE = [{ pilot: 2, ord: 15, task: "4.2", why: "Tier B: distractor d is defensible under 6.1.3 NOTE 3" }];
-
-const rd = (p) => JSON.parse(readFileSync(join(ROOT, p), "utf8"));
-const survivors = (j) => j.items.filter((r) => r.verdict === "survivor").map((r, i) => ({ ord: i + 1, ...r }));
-const anchorKey = (r) => r.task_code + "|" + String(r.item.key_support_clause || "").trim();
-
-async function main() {
-  const p2 = survivors(rd("PILOT-GROUNDED-AIMSF-2.json"));
-  const p3 = survivors(rd("PILOT-GROUNDED-AIMSF-3.json"));
-
-  /* ---- the set ---- */
-  const p3keys = new Set(p3.map(anchorKey));
-  const chosen = p3.map((r) => ({ ...r, pilot: 3, why_in: "pilot 3 survivor" }));
-  const dropped = [];
-  const seen = new Set(p3keys);
-  for (const r of p2) {
-    const ex = EXCLUDE.find((e) => e.pilot === 2 && e.ord === r.ord);
-    if (ex) {
-      if (ex.task !== r.task_code) throw new Error("EXCLUDE #" + ex.ord + " expects task " + ex.task + ", resolved to " + r.task_code);
-      dropped.push({ r, why: ex.why }); continue;
-    }
-    const k = anchorKey(r);
-    if (seen.has(k)) {
-      dropped.push({ r, why: p3keys.has(k) ? "duplicates a pilot-3 item on task+anchor" : "duplicates an earlier pilot-2 item on task+anchor" });
-      continue;
-    }
-    seen.add(k);
-    chosen.push({ ...r, pilot: 2, why_in: "pilot 2 survivor, unique on task+anchor" });
-  }
-
-  /* ---- the edits, applied with their own assertion ---- */
-  const edited = [];
-  for (const e of EDITS) {
-    const pool = e.pilot === 3 ? chosen.filter((c) => c.pilot === 3) : chosen.filter((c) => c.pilot === 2);
-    const hit = e.task ? pool.find((c) => c.task_code === e.task) : pool.find((c) => c.ord === e.ord);
-    if (!hit) throw new Error("edit for pilot " + e.pilot + " task " + e.task + " matched no item in the insert set");
-    const target = e.field === "option" ? hit.item.options[e.index] : hit.item;
-    const prop = e.field === "option" ? "text" : e.field;
-    const before = String(target[prop] || "");
-    const n = before.split(e.from).length - 1;
-    if (n !== 1) throw new Error("edit text occurs " + n + " time(s), expected exactly 1: " + JSON.stringify(e.from));
-    target[prop] = before.replace(e.from, e.to);
-    edited.push({ hit, e, before, after: target[prop] });
-  }
-
-  /* ---- THE REPRODUCTION GATE, RE-RUN ON EVERY EDITED ITEM ---- */
-  let sources = null, reGate = [];
-  try {
-    sources = leakScore.buildSources();
-    const qc = leakScore.quotationModeControls();
-    if (qc.fails.length) throw new Error("quotation-mode controls fail: " + qc.fails.join("; "));
-  } catch (e) {
-    console.error("the leak index could not be built: " + String(e.message).slice(0, 160));
-    sources = null;
-  }
-  for (const { hit, e } of edited) {
-    const g = gateReproduction(hit.item, sources, sources ? leakScore : null);
-    reGate.push({ task: hit.task_code, pilot: e.pilot, pass: g.pass, reason: g.reason, examined: g.examined });
-  }
-
-  console.log("");
-  console.log("PILOT DRAFTS  " + (APPLY ? "--apply (WILL WRITE)" : "dry run (default)"));
-  console.log("  pilot 3 survivors            " + p3.length);
-  console.log("  pilot 2 survivors            " + p2.length);
-  console.log("  IN  " + chosen.length + "   (" + chosen.filter((c) => c.pilot === 3).length +
-    " from pilot 3, " + chosen.filter((c) => c.pilot === 2).length + " from pilot 2)");
-  console.log("  OUT " + dropped.length + " from pilot 2");
-  for (const d of dropped) console.log("      #" + d.r.ord + "  " + anchorKey(d.r).padEnd(16) + d.why);
-  console.log("");
-  console.log("  EDITS APPLIED " + edited.length);
-  for (const { hit, e, before, after } of edited) {
-    console.log("      pilot " + e.pilot + " task " + hit.task_code + " " + e.field +
-      (e.field === "option" ? " " + String.fromCharCode(97 + e.index) : ""));
-    console.log("        before: " + before.slice(0, 110));
-    console.log("        after : " + after.slice(0, 110));
-  }
-  console.log("  REPRODUCTION GATE, RE-RUN ON THE EDITED TEXT");
-  for (const g of reGate) {
-    console.log("      task " + g.task + "  " + (g.pass === null ? "UNASSERTED" : g.pass ? "pass" : "FAIL") +
-      "  examined " + g.examined + "  " + String(g.reason || "").slice(0, 90));
-  }
-  if (reGate.some((g) => g.pass === false)) {
-    console.error("");
-    console.error("REFUSING: an edited text now reproduces a source. Nothing written.");
-    return 2;
-  }
-  if (reGate.some((g) => g.pass === null)) {
-    console.error("");
-    console.error("REFUSING: the leak index was not available, so the edited text is UNASSERTED");
-    console.error("rather than clean. An edit that has not been re-gated is not ready to write.");
-    return 2;
-  }
-
-  /* ---- THE REVIEW HAS NOWHERE TO GO YET ---- */
-
-  const hasReview = await (async () => {
-    const r = await fetch(REST_URL + "/item_grounding?select=reviewed_by&limit=1",
-      { headers: { apikey: KEY, Authorization: "Bearer " + KEY } });
-    return r.ok;
-  })();
-  console.log("");
-  console.log("  item_grounding carries the director's read: " + (hasReview ? "yes" : "NO -- migration 379 is not applied"));
-  if (!hasReview) {
-    console.log("");
-    console.log("  REFUSING TO INSERT. Each row is ruled to get item_grounding, grounding_family, the");
-    console.log("  gate record AND the director's read recorded as the review. There is no English");
-    console.log("  item review mechanism in this database -- item_translation_reviews is for");
-    console.log("  TRANSLATIONS (tr_hash, tr_hash_basis), and reusing it would put two meanings in one");
-    console.log("  table, which is the defect this repository already records against en_hash.");
-    console.log("  migrations/379_item_grounding_review.sql is written and waiting for Juan.");
-    console.log("");
-    console.log("  Inserting first and adding the review afterwards would leave drafts in the bank");
-    console.log("  with no record of who cleared them, which is the state the ruling exists to avoid.");
-    writeFileSync(join(ROOT, "PILOT-DRAFT-INSERT-SET.json"),
-      JSON.stringify({
-        prepared: "2026-09-27",
-        blocked_on: "migrations/379_item_grounding_review.sql",
-        in_count: chosen.length,
-        out_count: dropped.length,
-        edits: edited.map(({ hit, e, before, after }) => ({ pilot: e.pilot, task: hit.task_code, field: e.field, before, after, why: e.why })),
-        reproduction_regate: reGate,
-        in: chosen.map((c) => ({ pilot: c.pilot, ord: c.ord, task: c.task_code, anchor: c.item.key_support_clause, grounding_family: c.grounding_family })),
-        out: dropped.map((d) => ({ ord: d.r.ord, task: d.r.task_code, anchor: d.r.item.key_support_clause, why: d.why })),
-      }, null, 1) + "\n", "utf8");
-    console.log("  wrote PILOT-DRAFT-INSERT-SET.json -- the exact set, so the insert is a re-run and");
-    console.log("  not a re-derivation once 379 is applied.");
-    return 1;
-  }
-
-  /* ============ THE SET COMES FROM THE PINNED ARTIFACT, NOT FROM A RE-DERIVATION ============
-   *
-   * PILOT-DRAFT-INSERT-SET.json was written when the set was ruled. Recomputing the membership and
-   * the edit here would make the insert a fresh decision wearing the old one's name -- the
-   * generate-once-then-persist rule, and the reason the emitted artifact exists at all.
-   *
-   * So the DECISIONS are read from the file and the BODIES are resolved out of the pilot artifacts,
-   * with an assertion that each resolved item still carries the task and anchor the file recorded.
-   * An emitted artifact goes stale against its source exactly as a stored hash does. */
-  const pinned = JSON.parse(readFileSync(join(ROOT, "PILOT-DRAFT-INSERT-SET.json"), "utf8"));
-  const byPilot = { 2: p2, 3: p3 };
-  const resolved = [];
-  for (const want of pinned.in) {
-    const r = byPilot[want.pilot].find((x) => x.ord === want.ord);
-    if (!r) throw new Error("pinned set names pilot " + want.pilot + " #" + want.ord + ", which is not a survivor");
-    if (r.task_code !== want.task) {
-      throw new Error("pinned pilot " + want.pilot + " #" + want.ord + " recorded task " + want.task +
-        " and resolves to " + r.task_code + " -- the artifact is stale against its source");
-    }
-    if (String(r.item.key_support_clause || "").trim() !== want.anchor) {
-      throw new Error("pinned pilot " + want.pilot + " #" + want.ord + " recorded anchor " + want.anchor +
-        " and resolves to " + r.item.key_support_clause);
-    }
-    resolved.push({ ...r, pilot: want.pilot });
-  }
-  if (resolved.length !== pinned.in_count) {
-    throw new Error("pinned set says " + pinned.in_count + " rows, resolved " + resolved.length);
-  }
-
-  /* The edit, replayed from the artifact's recorded before/after rather than re-run from EDITS. */
-  const replayed = [];
-  for (const e of pinned.edits) {
-    const hit = resolved.find((x) => x.pilot === e.pilot && x.task_code === e.task);
-    if (!hit) throw new Error("pinned edit for pilot " + e.pilot + " task " + e.task + " matches no row in the set");
-    const target = e.field === "option" ? hit.item.options.find((o) => String(o.text) === e.before) : hit.item;
-    if (!target) {
-      /* Already applied in memory by the EDITS pass above -- assert the AFTER text is present, which
-       * is the resumable-state shape: a span whose `from` is gone and whose `to` is there is done. */
-      const done = hit.item.options.some((o) => String(o.text) === e.after);
-      if (!done) throw new Error("pinned edit for task " + e.task + ": neither the before nor the after text is present");
-      replayed.push({ task: e.task, state: "already applied" });
-      continue;
-    }
-    target.text = e.after;
-    replayed.push({ task: e.task, state: "applied now" });
-  }
-  console.log("  pinned edits: " + replayed.map((r) => r.task + " " + r.state).join(", "));
-
-  if (!APPLY) {
-    console.log("");
-    console.log("Nothing written. Re-run with --apply.");
-    return 0;
-  }
-
-  /* ---------------------------------------------------------------- write */
-  const certRows = await getAll(KEY, "certifications?select=id,code&code=eq.AIMS-F");
-  const cert = certRows[0];
-  const taskRows = await getAll(KEY, "tasks?select=id,code,bloom_level&certification_id=eq." + cert.id);
-  const taskByCode = new Map(taskRows.map((t) => [t.code, t]));
-
-  const post = async (path, rows, prefer) => {
-    const res = await fetch(REST_URL + "/" + path, {
-      method: "POST",
-      headers: { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json",
-        Prefer: prefer || "return=representation" },
-      body: JSON.stringify(rows),
-    });
-    const text = await res.text();
-    if (!res.ok) throw new Error(path + ": " + res.status + " " + text.slice(0, 300));
-    return text ? JSON.parse(text) : null;
+/* ---------------------------------------------------------------- the rows */
+const rows = [];
+for (const { it, spec } of batch) {
+  const t = taskByCode.get(it.task_code);
+  if (!t) { console.error("task " + it.task_code + " not found on " + CERT); process.exit(2); }
+  const o = it.item;
+  const ki = (o.options || []).findIndex((x) => x.is_correct === true);
+  if (ki < 0) { console.error(it.item_id + ": no option is marked is_correct"); process.exit(2); }
+  const base = {
+    options: (o.options || []).map((x, i) => ({ id: String.fromCharCode(97 + i), text: x.text })),
+    correct_answer: [String.fromCharCode(97 + ki)],
+    explanation: o.explanation,
   };
-
-  const inserted = [];
-  for (const r of resolved) {
-    const t = taskByCode.get(r.task_code);
-    if (!t) throw new Error("task " + r.task_code + " not found on AIMS-F");
-    const keyLetter = String.fromCharCode(97 + r.item.options.findIndex((o) => o.is_correct));
-    /* EVERY COLUMN A DEFAULT COULD DECIDE IS NAMED. status defaults to 'approved', is_exam_scope to
-     * true and visibility to 'secure'; two of those are safe for a draft and one is catastrophic,
-     * and which is which is not a thing to rely on. */
-    const row = {
+  const shuffled = shuffleOptions({ ...base, question_text: o.question_text });
+  rows.push({
+    it, spec, task: t,
+    row: {
       certification_id: cert.id,
       task_id: t.id,
       language: "en",
-      question_text: r.item.question_text,
+      question_text: o.question_text,
       question_type: "single_choice",
-      options: r.item.options.map((o, i) => ({ id: String.fromCharCode(97 + i), text: o.text })),
-      correct_answer: [keyLetter],
-      explanation: r.item.explanation,
-      status: DRAFT_STATUS,
+      options: shuffled.options,
+      correct_answer: shuffled.correct_answer,
+      explanation: shuffled.explanation ?? o.explanation,
+      status: STATUS,
       pool: "secure",
       visibility: "secure",
-      is_exam_scope: false,
-      item_origin: "generated",
+      is_exam_scope: EXAM_SCOPE,
+      item_origin: ORIGIN,
       bloom_level: t.bloom_level,
       difficulty: 3,
-    };
-    const back = await post("quiz_questions", [row]);
-    const id = Array.isArray(back) ? back[0].id : back.id;
-    inserted.push({ id, r });
-  }
-  console.log("  inserted " + inserted.length + " draft row(s)");
-
-  /* ---- item_grounding, the gate record, and the director's read ---- */
-  const NOTE = (r) => r.pilot === 3
-    ? (r.task_code === "3.2"
-        ? "pilot 3. Director read 2026-09-27: the only wording fix in the run -- clause 7.3 is a shall, "
-          + "so the key's 'should know' understated it and was changed to 'are to be aware of'. "
-          + "Reproduction gate re-run on the edited text: pass."
-        : "pilot 3. Director read 2026-09-27: 27 survivors, 0 Tier A, 0 Tier B, no findings on this item.")
-    : "pilot 2, kept because it is unique on task+anchor against pilot 3. Read 2026-09-26, no findings.";
-
-  const groundingRows = inserted.map(({ id, r }) => ({
-    question_id: id,
-    key_support_clause: r.item.key_support_clause,
-    key_support: r.item.key_support,
-    source_id: "ISO/IEC 42001",
-    edition: "2023",
-    gates: r.gates ?? [],
-    solver: r.solver ?? null,
-    generator: "gen-grounded-items.mjs",
-    model: pinned.model ?? null,
-    grounding_family: r.grounding_family ?? r.item.key_support_clause,
-    reviewed_by: "director",
-    reviewed_at: new Date().toISOString(),
-    review_verdict: "read",
-    review_note: NOTE(r),
-  }));
-  await post("item_grounding", groundingRows, "return=minimal");
-  console.log("  wrote " + groundingRows.length + " item_grounding row(s) with the review");
-
-  /* ---------------------------------------------------- POST-CONDITIONS */
-  const ids = inserted.map((x) => x.id);
-  const backRows = await getAll(KEY,
-    "quiz_questions?select=id,status,pool,visibility,is_exam_scope,item_origin,language,correct_answer,task_id" +
-    "&id=in.(" + ids.join(",") + ")");
-  console.log("");
-  console.log("POST-CONDITIONS, read back row by row");
-  console.log("  rows read back            " + backRows.length + " of " + ids.length);
-  const bad = [];
-  for (const b of backRows) {
-    if (b.status !== DRAFT_STATUS) bad.push(b.id.slice(0, 8) + " status=" + b.status);
-    if (b.is_exam_scope !== false) bad.push(b.id.slice(0, 8) + " is_exam_scope=" + b.is_exam_scope);
-    if (b.pool !== "secure") bad.push(b.id.slice(0, 8) + " pool=" + b.pool);
-    if (b.visibility !== "secure") bad.push(b.id.slice(0, 8) + " visibility=" + b.visibility);
-    if (b.item_origin !== "generated") bad.push(b.id.slice(0, 8) + " item_origin=" + b.item_origin);
-    if (b.language !== "en") bad.push(b.id.slice(0, 8) + " language=" + b.language);
-    if (!Array.isArray(b.correct_answer) || b.correct_answer.length !== 1) {
-      bad.push(b.id.slice(0, 8) + " correct_answer=" + JSON.stringify(b.correct_answer));
-    }
-  }
-  console.log("  status=" + DRAFT_STATUS + ", is_exam_scope=false, pool/visibility/origin/language as written: " +
-    (bad.length ? bad.length + " VIOLATION(S)" : "all " + backRows.length + " rows"));
-  for (const b of bad.slice(0, 10)) console.log("      " + b);
-  const grounded = await getAll(KEY,
-    "item_grounding?select=question_id,grounding_family,review_verdict,reviewed_by&question_id=in.(" + ids.join(",") + ")");
-  console.log("  item_grounding rows       " + grounded.length + " of " + ids.length +
-    ", all verdict 'read' by 'director': " +
-    (grounded.every((g) => g.review_verdict === "read" && g.reviewed_by === "director") ? "yes" : "NO"));
-  if (backRows.length !== ids.length || bad.length || grounded.length !== ids.length) {
-    throw new Error("post-conditions failed -- see above");
-  }
-  writeFileSync(join(ROOT, "PILOT-DRAFT-INSERTED.json"),
-    JSON.stringify({ inserted_on: new Date().toISOString().slice(0, 10), ids,
-      rows: inserted.map(({ id, r }) => ({ id, pilot: r.pilot, ord: r.ord, task: r.task_code,
-        anchor: r.item.key_support_clause, grounding_family: r.grounding_family })) }, null, 1) + "\n", "utf8");
-  console.log("  wrote PILOT-DRAFT-INSERTED.json with the 32 ids, for the form and stranger checks");
-  return 0;
+    },
+  });
 }
-process.exitCode = await main();
+
+/* ============ THE ANCHOR CAP IS CHECKED AT INSERT, NOT ONLY AT GENERATION ============
+ *
+ * The cap is CAP items per (source, edition, clause) per task, and the generator applies it WITHIN a
+ * round. Two rounds, or a round plus a rescue, can each stay under it and still put three items on one
+ * clause once both are in the bank. So the census is live grounding PLUS this batch, and the batch is
+ * refused rather than trimmed: which item to drop is a content decision. CAP is imported, not retyped.
+ * Measured on AIMS-F: task 1.2 ended with eight items on two clauses, four times the cap. */
+const liveGrounding = await getAll(KEY, "item_grounding?select=question_id,source_id,edition," +
+  "key_support_clause&order=question_id");
+const liveRows = await getAll(KEY, "quiz_questions?select=id,task_id,retired_at&certification_id=eq." +
+  cert.id + "&language=eq.en&retired_at=is.null&order=id");
+const taskOfRow = new Map(liveRows.map((r) => [r.id, r.task_id]));
+const capKey = (taskId, src, ed, cl) => taskId + "|" + src + "|" + ed + "|" + String(cl);
+const censusNow = new Map();
+for (const g of liveGrounding) {
+  const t = taskOfRow.get(g.question_id);
+  if (!t) continue; /* another certification, or retired */
+  const k = capKey(t, g.source_id, g.edition, g.key_support_clause);
+  censusNow.set(k, (censusNow.get(k) || 0) + 1);
+}
+const overCap = [];
+for (const r of rows) {
+  const k = capKey(r.task.id, r.it.item.source_id, r.it.item.edition, r.it.item.key_support_clause);
+  const n = (censusNow.get(k) || 0) + 1;
+  censusNow.set(k, n);
+  if (n > CAP) {
+    overCap.push(r.it.task_code + "  " + r.it.item.source_id + " " + r.it.item.edition + " " +
+      r.it.item.key_support_clause + "  would be #" + n + " against a cap of " + CAP +
+      "   (" + r.it.item_id + ")");
+  }
+}
+if (overCap.length) {
+  console.error("REFUSING THE WHOLE BATCH: " + overCap.length + " item(s) would pass the anchor cap.");
+  for (const x of overCap) console.error("  " + x);
+  console.error("Which item to drop is a content decision, not a trim this script may make.");
+  process.exit(1);
+}
+console.log("  anchor cap          " + CAP + " per (source, edition, clause) per task: all " + rows.length +
+  " item(s) fit, live grounding counted (" + liveGrounding.length + " row(s))");
+
+const keyDist = {};
+for (const r of rows) keyDist[r.row.correct_answer[0]] = (keyDist[r.row.correct_answer[0]] || 0) + 1;
+console.log("INSERT   " + CERT + "   from " + FROM + "   accept list " + ACCEPT +
+  (APPLY ? "   --apply" : "   dry run (default)"));
+console.log("  accepted named      " + wanted.length);
+console.log("  to insert           " + rows.length + (LIMIT ? "   (--limit=" + LIMIT + ")" : ""));
+console.log("  status/pool/vis     " + STATUS + " / secure / secure   is_exam_scope=" + EXAM_SCOPE +
+  "   item_origin=" + ORIGIN + "   verdict=" + VERDICT);
+console.log("  key after shuffle   " + JSON.stringify(keyDist));
+console.log("  rejections file     " + (existsSync(rejPath) ? rejPath.split(/[\\/]/).pop() + " (" + rejTotal +
+  " entr(ies), matched by item_id)" : "ABSENT"));
+if (!APPLY) {
+  const s = rows[0];
+  console.log("");
+  console.log("  ONE FULL ROW AS IT WOULD BE WRITTEN (" + s.it.item_id + ", " + numberLabel(s.it.item_id) + "):");
+  console.log(JSON.stringify(s.row, null, 2).split("\n").map((l) => "    " + l).join("\n"));
+  console.log("");
+  console.log("  its item_grounding would carry: clause " + s.it.item.key_support_clause +
+    ", source " + s.it.item.source_id + " " + s.it.item.edition + ", verdict " + VERDICT);
+  console.log("");
+  console.log("DRY RUN. Nothing written. Re-run with --apply.");
+  process.exit(0);
+}
+
+/* ---------------------------------------------------------------- write */
+/* ============ THE NEGATIVE HALF IS A CHECKSUM, NOT A COUNT ============
+ *
+ * "zero rows outside the batch changed" (ruled PROMPT-116 s2). A count passes on a swap -- one row
+ * edited and one added reads as +1 either way -- so every pre-existing row is fingerprinted over the
+ * columns an insert has no business touching, and the fingerprints are compared afterwards. */
+const SNAP_SELECT = "quiz_questions?select=id,question_text,options,correct_answer,explanation,status," +
+  "pool,visibility,is_exam_scope,item_origin,task_id,language,retired_at&certification_id=eq." + cert.id +
+  "&order=id";
+const fingerprint = (r) => createHash("md5").update(JSON.stringify([r.question_text, r.options,
+  r.correct_answer, r.explanation, r.status, r.pool, r.visibility, r.is_exam_scope, r.item_origin,
+  r.task_id, r.language, r.retired_at])).digest("hex");
+const snapBefore = new Map((await getAll(KEY, SNAP_SELECT)).map((r) => [r.id, fingerprint(r)]));
+const beforeCount = [...snapBefore.keys()].length;
+const post = async (path, body, prefer) => {
+  const res = await fetch(REST_URL + "/" + path, { method: "POST",
+    headers: { ...H, Prefer: prefer || "return=representation" }, body: JSON.stringify(body) });
+  const text = await res.text();
+  if (!res.ok) throw new Error(path + ": " + res.status + " " + text.slice(0, 300));
+  return text ? JSON.parse(text) : null;
+};
+
+const inserted = [];
+for (const r of rows) {
+  const back = await post("quiz_questions", [r.row]);
+  const id = Array.isArray(back) ? back[0].id : back.id;
+  inserted.push({ id, ...r });
+}
+console.log("  inserted " + inserted.length + " row(s)");
+
+const stamp = new Date().toISOString();
+const groundingRows = inserted.map(({ id, it, spec }) => ({
+  question_id: id,
+  key_support_clause: it.item.key_support_clause,
+  key_support: it.item.key_support,
+  source_id: it.item.source_id,
+  edition: it.item.edition,
+  gates: it.gates ?? [],
+  solver: it.solver ?? null,
+  generator: "gen-grounded-items.mjs",
+  model: art.model ?? null,
+  grounding_family: it.grounding_family ?? it.item.key_support_clause,
+  reviewed_by: "director, ruled PROMPT-116",
+  reviewed_at: stamp,
+  review_verdict: VERDICT,
+  review_note: [spec.note, NOTE].filter(Boolean).join(" | ") || ("accepted from " + FROM),
+}));
+await post("item_grounding", groundingRows, "return=minimal");
+console.log("  wrote " + groundingRows.length + " item_grounding row(s)");
+
+/* ---------------------------------------------------- POST-CONDITIONS */
+const ids = inserted.map((x) => x.id);
+const backRows = await getAll(KEY, "quiz_questions?select=id,status,pool,visibility,is_exam_scope," +
+  "item_origin,language,correct_answer,task_id&id=in.(" + ids.join(",") + ")");
+console.log("");
+console.log("POST-CONDITIONS");
+console.log("  rows read back      " + backRows.length + " of " + ids.length);
+const bad = [];
+for (const b of backRows) {
+  const want = inserted.find((x) => x.id === b.id);
+  if (b.status !== STATUS) bad.push(b.id.slice(0, 8) + " status=" + b.status);
+  if (b.is_exam_scope !== EXAM_SCOPE) bad.push(b.id.slice(0, 8) + " is_exam_scope=" + b.is_exam_scope);
+  if (b.pool !== "secure") bad.push(b.id.slice(0, 8) + " pool=" + b.pool);
+  if (b.visibility !== "secure") bad.push(b.id.slice(0, 8) + " visibility=" + b.visibility);
+  if (b.language !== "en") bad.push(b.id.slice(0, 8) + " language=" + b.language);
+  if (b.item_origin !== ORIGIN) bad.push(b.id.slice(0, 8) + " item_origin=" + b.item_origin);
+  if (b.task_id !== want.task.id) bad.push(b.id.slice(0, 8) + " task_id mismatch");
+  if (!Array.isArray(b.correct_answer) || b.correct_answer.length !== 1) {
+    bad.push(b.id.slice(0, 8) + " correct_answer=" + JSON.stringify(b.correct_answer));
+  }
+}
+console.log("  columns as written  " + (bad.length ? bad.length + " VIOLATION(S)" : "all " + backRows.length + " rows"));
+for (const b of bad.slice(0, 10)) console.log("      " + b);
+
+const grounded = await getAll(KEY, "item_grounding?select=question_id,source_id,edition," +
+  "key_support_clause,review_verdict,reviewed_by&question_id=in.(" + ids.join(",") + ")");
+let gbad = 0;
+for (const g of grounded) {
+  const want = inserted.find((x) => x.id === g.question_id);
+  /* SOURCE AND EDITION ASSERTED, not assumed: a grounding row stamped with the run's standard rather
+   * than the item's own is a defect this repository has already made once. */
+  if (g.source_id !== want.it.item.source_id || String(g.edition) !== String(want.it.item.edition) ||
+    g.review_verdict !== VERDICT) {
+    console.log("      GROUNDING: " + g.question_id.slice(0, 8) + " " + g.source_id + " " + g.edition +
+      " verdict=" + g.review_verdict); gbad++;
+  }
+}
+console.log("  grounding rows      " + grounded.length + " of " + ids.length +
+  ", source+edition+verdict as the item's: " + (gbad ? gbad + " WRONG" : "all"));
+
+/* the NEGATIVE half: the only new English rows are this batch */
+const snapAfter = new Map((await getAll(KEY, SNAP_SELECT)).map((r) => [r.id, fingerprint(r)]));
+const afterCount = [...snapAfter.keys()].length;
+const grew = afterCount - beforeCount;
+const inBatch = new Set(ids);
+const changed = [], vanished = [], strayNew = [];
+for (const [id, fp] of snapBefore) {
+  if (!snapAfter.has(id)) { vanished.push(id); continue; }
+  if (snapAfter.get(id) !== fp) changed.push(id);
+}
+for (const id of snapAfter.keys()) if (!snapBefore.has(id) && !inBatch.has(id)) strayNew.push(id);
+console.log("  rows on " + CERT + "      " + beforeCount + " -> " + afterCount + "   grew by " + grew +
+  (grew === ids.length ? " (exactly this batch)" : "   MISMATCH: expected " + ids.length));
+console.log("  pre-existing rows   " + snapBefore.size + " fingerprinted; changed " + changed.length +
+  ", vanished " + vanished.length + ", new rows outside the batch " + strayNew.length);
+for (const id of [...changed, ...vanished, ...strayNew].slice(0, 10)) console.log("      STRAY " + id);
+
+const recPath = insPath;
+const rec = existsSync(recPath) ? JSON.parse(readFileSync(recPath, "utf8")) : { batches: [] };
+rec.batches.push({ at: stamp, cert: CERT, from: FROM, accept_list: ACCEPT, note: NOTE,
+  ids, rows: inserted.map(({ id, it }) => ({ id, item_id: it.item_id, report_number: numberOf.get(it.item_id),
+    task: it.task_code, anchor: it.item.key_support_clause, source: it.item.source_id })) });
+writeFileSync(recPath, JSON.stringify(rec, null, 1) + "\n");
+console.log("  recorded in " + recPath.split(/[\\/]/).pop());
+if (backRows.length !== ids.length || bad.length || gbad || grounded.length !== ids.length ||
+  grew !== ids.length || changed.length || vanished.length || strayNew.length) {
+  console.error("");
+  console.error("POST-CONDITIONS FAILED -- see above.");
+  process.exitCode = 2;
+}

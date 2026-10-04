@@ -430,15 +430,34 @@ export function gateClauseExists(item, passagesByKey, annexGaps = [], sequenceGa
 const ATTRIBUTION_SUBJECT = /\b(?:ISO|IEC|27001|27002|42001|19011|17021|42006|the\s+standard|this\s+document|the\s+document|clause|annex|control\s+[A-D]\.)\b/i;
 const ATTRIBUTION_VERB = /\b(?:requires?|required|shall|mandates?|mandated|obliges?|obligates?|prescribes?)\b/i;
 
-/** Does the text attribute a REQUIREMENT TO THE STANDARD (not merely use a deontic verb)? */
+/**
+ * Does the text attribute a REQUIREMENT TO THE STANDARD (not merely use a deontic verb)?
+ *
+ * PROXIMITY, NOT CO-OCCURRENCE (tightened PROMPT-116 s1). The first version asked only that a
+ * sentence mention a clause AND contain a requiring verb anywhere in it, and that flagged a correct
+ * item: an explanation reading "Clause 5.3 advises that ... among duties that can require
+ * segregation" attributes nothing -- `advises` is the verb that belongs to the clause, and `require`
+ * is fifteen words away describing the duties.
+ *
+ * So the verb must sit NEXT TO the subject, in either order:
+ *     "Clause 5.3 requires ..."          subject then verb
+ *     "... is required by clause 5.3"    verb then subject
+ * Up to three words may intervene, which covers "ISO/IEC 27001 explicitly requires" and
+ * "required under clause 5.3" without reaching across a clause boundary.
+ */
+const SUBJ = "(?:ISO|IEC|27001|27002|42001|19011|17021|42006|the\\s+standard|this\\s+document|" +
+  "the\\s+document|clause|annex|control)";
+const VERB = "(?:requires?|required|shall|mandates?|mandated|obliges?|obligates?|prescribes?)";
+const GAP = "(?:\\s+\\S+){0,3}\\s+";
+const SUBJ_THEN_VERB = new RegExp("\\b" + SUBJ + "\\b[^.;:!?]{0,24}?" + GAP + VERB + "\\b", "i");
+const VERB_THEN_SUBJ = new RegExp("\\b" + VERB + "\\b" + GAP + "[^.;:!?]{0,24}?\\b" + SUBJ + "\\b", "i");
+
 export function attributesRequirementToStandard(text) {
   const t = String(text || "");
   if (!t.trim()) return false;
-  /* BOTH halves, in the same sentence. A paragraph that names a clause in one sentence and says
-   * "must" in another is not necessarily attributing one to the other -- and a sentence is the unit
-   * a reader attributes in. */
+  /* per SENTENCE: a clause named in one sentence and a "must" in the next attribute nothing */
   for (const s of t.split(/(?<=[.;:!?])\s+/)) {
-    if (ATTRIBUTION_SUBJECT.test(s) && ATTRIBUTION_VERB.test(s)) return true;
+    if (SUBJ_THEN_VERB.test(s) || VERB_THEN_SUBJ.test(s)) return true;
   }
   return false;
 }
@@ -1783,6 +1802,19 @@ export function groundedGateControls() {
       () => attributesRequirementToStandard("Clause 5.3 covers roles. The manager must therefore act."), false],
     ["attribution: `ISO/IEC 27001 mandates` IS attributed",
       () => attributesRequirementToStandard("ISO/IEC 27001 mandates an inventory."), true],
+    /* ---- PROXIMITY, from the real false positive (PROMPT-116 s1). A clause named with `advises`,
+     * and a far-off `require` describing something else, attributes nothing. Paraphrased: the real
+     * explanation quotes 27002 and licensed text does not go in a tracked file. ---- */
+    ["attribution: a clause that ADVISES, with `require` far away about something else, is NOT attributed",
+      () => attributesRequirementToStandard(
+        "Clause 5.3 advises that care be taken with role-based systems, and it lists building software " +
+        "and running production among duties that can require separation."), false],
+    ["attribution: `required by clause 5.3` IS attributed (verb before subject)",
+      () => attributesRequirementToStandard("Separation of duties is required by clause 5.3."), true],
+    ["attribution: `the standard explicitly requires` IS attributed (words between)",
+      () => attributesRequirementToStandard("Here the standard explicitly requires a review."), true],
+    ["attribution: a clause named, then a requiring verb in the NEXT sentence, is NOT attributed",
+      () => attributesRequirementToStandard("Clause 5.3 is about roles. A reviewer must then act."), false],
     ...(() => {
       /* a SOFT anchor (`should`) with each claim shape, under Foundation and under Internal Auditor */
       const softItem = (keyText) => I42({

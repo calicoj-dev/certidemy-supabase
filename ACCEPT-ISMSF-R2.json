@@ -1,0 +1,157 @@
+{
+  "_what": "PROMPT-116 s3: the R2 inserts -- 17 director accepts (PROMPT-115 s2: #1-10 and #13-19) plus the 8 items rescued under PROMPT-115 s3 (7 no-27000 stem rescues on task 3.2, and the task 5.1 9.1-methods item whose assignment, not whose anchor, was wrong).",
+  "_numbers_are_frozen": "The report numbers were read against the ORIGINAL 19-survivor list. The rescues flipped 8 items to survivor and renumbered it, so each number is recorded here beside its id and is never recomputed from the artifact.",
+  "_rejections": "R2 #11 (1b4b736f) and #12 (89c35d53) are in ISMSF-DIRECTOR-REJECTIONS.json. 3555f21e (task 5.1, 27001 6.2) stays rejected: it fails anchor-assignment because the writer anchored its own clause, and it is neither the 9.1-methods item nor measurement vocabulary, so no ruling covers it. The 11 measurement-vocabulary items on task 5.1 are dropped (PROMPT-115 s3).",
+  "accepts": [
+    {
+      "item_id": "e59273cc",
+      "report_number": 1,
+      "task": "3.3",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#1)"
+    },
+    {
+      "item_id": "c521480d",
+      "report_number": 2,
+      "task": "3.3",
+      "note": "probe: no-cue -- no de-cue work owed | accepted PROMPT-115 s2 (#2)"
+    },
+    {
+      "item_id": "b5668a61",
+      "report_number": 3,
+      "task": "3.3",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#3)"
+    },
+    {
+      "item_id": "32307ada",
+      "report_number": 4,
+      "task": "3.3",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#4)"
+    },
+    {
+      "item_id": "e13609f9",
+      "report_number": 5,
+      "task": "3.3",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#5)"
+    },
+    {
+      "item_id": "85a0be4e",
+      "report_number": 6,
+      "task": "3.3",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#6)"
+    },
+    {
+      "item_id": "926a4cd2",
+      "report_number": 7,
+      "task": "3.3",
+      "note": "probe: no-cue -- no de-cue work owed | accepted PROMPT-115 s2 (#7)"
+    },
+    {
+      "item_id": "fc375196",
+      "report_number": 8,
+      "task": "3.3",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#8) | revised: edit question_text (PROMPT-115 s2)"
+    },
+    {
+      "item_id": "d3c709b6",
+      "report_number": 9,
+      "task": "3.3",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#9)"
+    },
+    {
+      "item_id": "3d8644f4",
+      "report_number": 10,
+      "task": "3.3",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#10)"
+    },
+    {
+      "item_id": "056dd6d5",
+      "report_number": 13,
+      "task": "3.2",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#13)"
+    },
+    {
+      "item_id": "16894f79",
+      "report_number": 14,
+      "task": "3.2",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#14)"
+    },
+    {
+      "item_id": "a8669755",
+      "report_number": 15,
+      "task": "3.2",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#15)"
+    },
+    {
+      "item_id": "4d0cdfc8",
+      "report_number": 16,
+      "task": "3.2",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#16)"
+    },
+    {
+      "item_id": "bd44704c",
+      "report_number": 17,
+      "task": "3.2",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#17)"
+    },
+    {
+      "item_id": "97a369b7",
+      "report_number": 18,
+      "task": "3.2",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#18)"
+    },
+    {
+      "item_id": "4c3ed18a",
+      "report_number": 19,
+      "task": "5.1",
+      "note": "cue: odd-verdict, de-cue backlog | accepted PROMPT-115 s2 (#19)"
+    },
+    {
+      "item_id": "c0d9e1b2",
+      "report_number": null,
+      "task": "3.2",
+      "note": "rescued PROMPT-115 s3 from `rejected by code` | edit question_text (PROMPT-115 s3) | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "a67419b7",
+      "report_number": null,
+      "task": "3.2",
+      "note": "rescued PROMPT-115 s3 from `rejected by code` | edit question_text (PROMPT-115 s3) | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "5bc989ba",
+      "report_number": null,
+      "task": "3.2",
+      "note": "rescued PROMPT-115 s3 from `rejected by code` | edit question_text (PROMPT-115 s3) | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "389378ec",
+      "report_number": null,
+      "task": "3.2",
+      "note": "rescued PROMPT-115 s3 from `rejected by code` | edit question_text (PROMPT-115 s3) | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "ac6b6620",
+      "report_number": null,
+      "task": "3.2",
+      "note": "rescued PROMPT-115 s3 from `rejected by code` | edit question_text (PROMPT-115 s3) | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "b3ebc5a5",
+      "report_number": null,
+      "task": "3.2",
+      "note": "rescued PROMPT-115 s3 from `rejected by code` | edit question_text (PROMPT-115 s3) | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "ec205b78",
+      "report_number": null,
+      "task": "3.2",
+      "note": "rescued PROMPT-115 s3 from `rejected by code` | edit question_text (PROMPT-115 s3) | re-gated and solver accepted/accepted after the revision"
+    },
+    {
+      "item_id": "eacea5dc",
+      "report_number": null,
+      "task": "5.1",
+      "note": "rescued PROMPT-115 s3 from `rejected by code` | reanchor key -> 9.1 (PROMPT-115 s3) | re-gated and solver accepted/accepted after the revision"
+    }
+  ]
+}

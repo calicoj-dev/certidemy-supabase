@@ -1,0 +1,450 @@
+{
+ "batches": [
+  {
+   "at": "2026-10-04T02:14:12.312Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R1",
+   "accept_list": "ACCEPT-ISMSF-R1.json",
+   "note": "",
+   "ids": [
+    "3b631343-61a9-4de9-b508-ceb44e754e3e"
+   ],
+   "rows": [
+    {
+     "id": "3b631343-61a9-4de9-b508-ceb44e754e3e",
+     "item_id": "e56c57af",
+     "report_number": 1,
+     "task": "4.5",
+     "anchor": "5.16",
+     "source": "ISO/IEC 27002"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-04T02:17:50.030Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R1",
+   "accept_list": "ACCEPT-ISMSF-R1.json",
+   "note": "",
+   "ids": [
+    "045aac8b-57bf-4412-ad65-f52e15adc18a",
+    "a010f63a-f6a6-42d2-9818-ef56a4d0f018",
+    "ed654cb1-036e-4aea-a737-9702afbad861",
+    "33139dd8-bbdb-4dce-b6fd-f15a101f2a58",
+    "ec8b2530-ec2b-484a-9dad-d4f1d7702980",
+    "18567182-06a1-49a0-a404-ea15b5264af7",
+    "25ad325e-1646-48d2-92bc-3ccffa4f5af6",
+    "a67ef962-3673-4e45-b3a6-927f2029cbbc",
+    "72748623-62d8-4d58-a53c-56b87aa52915",
+    "039fd6f8-624e-4079-8aff-5db2767a0a80",
+    "ab1c6ed9-f051-4876-af1e-6e307f463d15",
+    "4eafdc02-832d-4750-8010-50c4523dcc27",
+    "226f9697-ccaf-4fec-98d2-9b66c7488428",
+    "59bd6ff6-9f03-458b-8d7c-41deda5326b3",
+    "a0dd1999-5151-4a54-b43c-2ddefa51b166",
+    "e7b5e84d-c7b9-47fc-81f8-244750654d19",
+    "1a0ed4e4-5448-4ac2-a33d-86ffb585d135",
+    "e0113e5a-94d1-4357-b767-9f7af19f1d1c",
+    "9d4a3712-f2ab-4f1e-bada-cd28df44e0cf",
+    "8aba5b06-051b-49a8-947e-d1e92bf5d568"
+   ],
+   "rows": [
+    {
+     "id": "045aac8b-57bf-4412-ad65-f52e15adc18a",
+     "item_id": "8835e2fb",
+     "report_number": 2,
+     "task": "4.5",
+     "anchor": "8.3",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "a010f63a-f6a6-42d2-9818-ef56a4d0f018",
+     "item_id": "2810e606",
+     "report_number": 3,
+     "task": "4.5",
+     "anchor": "5.3",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "ed654cb1-036e-4aea-a737-9702afbad861",
+     "item_id": "8974b3a4",
+     "report_number": 4,
+     "task": "4.5",
+     "anchor": "5.15",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "33139dd8-bbdb-4dce-b6fd-f15a101f2a58",
+     "item_id": "0f7bc8aa",
+     "report_number": 5,
+     "task": "4.5",
+     "anchor": "8.18",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "ec8b2530-ec2b-484a-9dad-d4f1d7702980",
+     "item_id": "b57089d6",
+     "report_number": 6,
+     "task": "4.5",
+     "anchor": "A.5.18",
+     "source": "ISO/IEC 27001"
+    },
+    {
+     "id": "18567182-06a1-49a0-a404-ea15b5264af7",
+     "item_id": "99ac02fd",
+     "report_number": 7,
+     "task": "4.5",
+     "anchor": "A.8.3",
+     "source": "ISO/IEC 27001"
+    },
+    {
+     "id": "25ad325e-1646-48d2-92bc-3ccffa4f5af6",
+     "item_id": "0322338d",
+     "report_number": 8,
+     "task": "4.5",
+     "anchor": "8.2",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "a67ef962-3673-4e45-b3a6-927f2029cbbc",
+     "item_id": "f36326b0",
+     "report_number": 9,
+     "task": "4.5",
+     "anchor": "3.1",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "72748623-62d8-4d58-a53c-56b87aa52915",
+     "item_id": "92f70d4b",
+     "report_number": 10,
+     "task": "4.5",
+     "anchor": "5.18",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "039fd6f8-624e-4079-8aff-5db2767a0a80",
+     "item_id": "9695160a",
+     "report_number": 11,
+     "task": "4.5",
+     "anchor": "A.5.15",
+     "source": "ISO/IEC 27001"
+    },
+    {
+     "id": "ab1c6ed9-f051-4876-af1e-6e307f463d15",
+     "item_id": "90625d37",
+     "report_number": 12,
+     "task": "4.5",
+     "anchor": "5.16",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "4eafdc02-832d-4750-8010-50c4523dcc27",
+     "item_id": "7b1eeadd",
+     "report_number": 14,
+     "task": "4.5",
+     "anchor": "5.15",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "226f9697-ccaf-4fec-98d2-9b66c7488428",
+     "item_id": "67906efd",
+     "report_number": 15,
+     "task": "4.5",
+     "anchor": "8.18",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "59bd6ff6-9f03-458b-8d7c-41deda5326b3",
+     "item_id": "b0de308d",
+     "report_number": 16,
+     "task": "4.4",
+     "anchor": "A.5.9",
+     "source": "ISO/IEC 27001"
+    },
+    {
+     "id": "a0dd1999-5151-4a54-b43c-2ddefa51b166",
+     "item_id": "0ecee8ce",
+     "report_number": 17,
+     "task": "4.4",
+     "anchor": "3.27",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "e7b5e84d-c7b9-47fc-81f8-244750654d19",
+     "item_id": "0423ade5",
+     "report_number": 18,
+     "task": "4.4",
+     "anchor": "5.9",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "1a0ed4e4-5448-4ac2-a33d-86ffb585d135",
+     "item_id": "bb7dfa9f",
+     "report_number": 19,
+     "task": "4.4",
+     "anchor": "4.2.2",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "e0113e5a-94d1-4357-b767-9f7af19f1d1c",
+     "item_id": "1576d840",
+     "report_number": 22,
+     "task": "4.4",
+     "anchor": "5.9",
+     "source": "ISO/IEC 27002"
+    },
+    {
+     "id": "9d4a3712-f2ab-4f1e-bada-cd28df44e0cf",
+     "item_id": "9b02b7a3",
+     "report_number": 23,
+     "task": "4.4",
+     "anchor": "4.2.2",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "8aba5b06-051b-49a8-947e-d1e92bf5d568",
+     "item_id": "e723f8f3",
+     "task": "4.5",
+     "anchor": "5.3",
+     "source": "ISO/IEC 27002"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-04T02:29:46.556Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R2",
+   "accept_list": "ACCEPT-ISMSF-R2.json",
+   "note": "",
+   "ids": [
+    "6a58e98d-064f-43a4-b282-b83ef7638d03",
+    "8f6c0a84-f924-4adc-b87f-42f258875cb2",
+    "04d83f25-f472-45c0-96e7-db8483a679e6",
+    "881b4d58-6b65-41f1-bdcb-2b684122e6a0",
+    "d21ece09-8548-4733-ae6e-ba3899d9d825",
+    "956742ef-1b0c-42c5-aca5-711e6baa5479",
+    "66323308-178a-4fde-808e-c1a8e8304f82",
+    "427abfcb-cdd9-41df-b4ed-bf05a777a35c",
+    "c3f65fbb-5112-456d-9f97-a49a73e9f0d2",
+    "dfdb61d1-21c2-4ea9-ac6a-82607f32c8a2",
+    "b8432df8-ee01-4ba5-8c02-4af4ab459124",
+    "7351a19b-43ca-482c-8d8c-191f237a8b61",
+    "6f63dd4c-84f8-4e59-a25c-f3749e28b2e0",
+    "bc81fd34-c747-4d42-b34b-d55b58dc79e5",
+    "1d648eae-6ed7-490f-ab6f-c60af98b3d9a",
+    "396db821-e037-482c-8b0e-013c621885f1",
+    "e0717456-8ab7-4573-83a1-ec86491d5f07",
+    "75eea957-caf5-4b93-acdd-bcfa8c743a95",
+    "00668963-7bb8-49eb-9eff-d0b2c8dd1d7e",
+    "993f8b28-63c8-4a45-a345-29cdd82ddc12",
+    "66d36e22-e5c3-4123-a8bd-73bfcac6f8a8",
+    "773e9971-f2ea-4d3d-bb2c-0213305c6ed6",
+    "d34bc3d4-7b1d-4e5a-b8c9-8807cc4ec9e1",
+    "41d1e5ee-cb37-42b5-be6c-fc1560b04612",
+    "a1f9b895-b27a-4468-8b4c-dfc57c9291a5"
+   ],
+   "rows": [
+    {
+     "id": "6a58e98d-064f-43a4-b282-b83ef7638d03",
+     "item_id": "e59273cc",
+     "report_number": 1,
+     "task": "3.3",
+     "anchor": "3.61",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "8f6c0a84-f924-4adc-b87f-42f258875cb2",
+     "item_id": "c521480d",
+     "report_number": 2,
+     "task": "3.3",
+     "anchor": "3.74",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "04d83f25-f472-45c0-96e7-db8483a679e6",
+     "item_id": "b5668a61",
+     "report_number": 3,
+     "task": "3.3",
+     "anchor": "3.68",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "881b4d58-6b65-41f1-bdcb-2b684122e6a0",
+     "item_id": "32307ada",
+     "report_number": 4,
+     "task": "3.3",
+     "anchor": "6.1.2",
+     "source": "ISO/IEC 27001"
+    },
+    {
+     "id": "d21ece09-8548-4733-ae6e-ba3899d9d825",
+     "item_id": "e13609f9",
+     "report_number": 5,
+     "task": "3.3",
+     "anchor": "3.77",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "956742ef-1b0c-42c5-aca5-711e6baa5479",
+     "item_id": "85a0be4e",
+     "report_number": 6,
+     "task": "3.3",
+     "anchor": "3.61",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "66323308-178a-4fde-808e-c1a8e8304f82",
+     "item_id": "926a4cd2",
+     "report_number": 7,
+     "task": "3.3",
+     "anchor": "3.74",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "427abfcb-cdd9-41df-b4ed-bf05a777a35c",
+     "item_id": "fc375196",
+     "report_number": 8,
+     "task": "3.3",
+     "anchor": "3.68",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "c3f65fbb-5112-456d-9f97-a49a73e9f0d2",
+     "item_id": "d3c709b6",
+     "report_number": 9,
+     "task": "3.3",
+     "anchor": "6.1.2",
+     "source": "ISO/IEC 27001"
+    },
+    {
+     "id": "dfdb61d1-21c2-4ea9-ac6a-82607f32c8a2",
+     "item_id": "3d8644f4",
+     "report_number": 10,
+     "task": "3.3",
+     "anchor": "4.1",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "b8432df8-ee01-4ba5-8c02-4af4ab459124",
+     "item_id": "056dd6d5",
+     "report_number": 13,
+     "task": "3.2",
+     "anchor": "3.57",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "7351a19b-43ca-482c-8d8c-191f237a8b61",
+     "item_id": "16894f79",
+     "report_number": 14,
+     "task": "3.2",
+     "anchor": "3.12",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "6f63dd4c-84f8-4e59-a25c-f3749e28b2e0",
+     "item_id": "a8669755",
+     "report_number": 15,
+     "task": "3.2",
+     "anchor": "3.39",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "bc81fd34-c747-4d42-b34b-d55b58dc79e5",
+     "item_id": "4d0cdfc8",
+     "report_number": 16,
+     "task": "3.2",
+     "anchor": "3.66",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "1d648eae-6ed7-490f-ab6f-c60af98b3d9a",
+     "item_id": "bd44704c",
+     "report_number": 17,
+     "task": "3.2",
+     "anchor": "3.62",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "396db821-e037-482c-8b0e-013c621885f1",
+     "item_id": "97a369b7",
+     "report_number": 18,
+     "task": "3.2",
+     "anchor": "3.72",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "e0717456-8ab7-4573-83a1-ec86491d5f07",
+     "item_id": "4c3ed18a",
+     "report_number": 19,
+     "task": "5.1",
+     "anchor": "9.1",
+     "source": "ISO/IEC 27001"
+    },
+    {
+     "id": "75eea957-caf5-4b93-acdd-bcfa8c743a95",
+     "item_id": "c0d9e1b2",
+     "report_number": null,
+     "task": "3.2",
+     "anchor": "4.5.3",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "00668963-7bb8-49eb-9eff-d0b2c8dd1d7e",
+     "item_id": "a67419b7",
+     "report_number": null,
+     "task": "3.2",
+     "anchor": "4.5.4",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "993f8b28-63c8-4a45-a345-29cdd82ddc12",
+     "item_id": "5bc989ba",
+     "report_number": null,
+     "task": "3.2",
+     "anchor": "3.62",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "66d36e22-e5c3-4123-a8bd-73bfcac6f8a8",
+     "item_id": "389378ec",
+     "report_number": null,
+     "task": "3.2",
+     "anchor": "3.72",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "773e9971-f2ea-4d3d-bb2c-0213305c6ed6",
+     "item_id": "ac6b6620",
+     "report_number": null,
+     "task": "3.2",
+     "anchor": "3.63",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "d34bc3d4-7b1d-4e5a-b8c9-8807cc4ec9e1",
+     "item_id": "b3ebc5a5",
+     "report_number": null,
+     "task": "3.2",
+     "anchor": "4.5.3",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "41d1e5ee-cb37-42b5-be6c-fc1560b04612",
+     "item_id": "ec205b78",
+     "report_number": null,
+     "task": "3.2",
+     "anchor": "4.5.4",
+     "source": "ISO/IEC 27000"
+    },
+    {
+     "id": "a1f9b895-b27a-4468-8b4c-dfc57c9291a5",
+     "item_id": "eacea5dc",
+     "report_number": null,
+     "task": "5.1",
+     "anchor": "9.1",
+     "source": "ISO/IEC 27001"
+    }
+   ]
+  }
+ ]
+}

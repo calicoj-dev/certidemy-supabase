@@ -102,6 +102,26 @@
       "sent_back": 3,
       "note": "R1: 3 rejected of 23; R2 awaiting the read",
       "recorded_at": "2026-10-04T01:00:21.230Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 3,
+      "note": null,
+      "recorded_at": "2026-10-04T02:40:00.791Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 2,
+      "note": null,
+      "recorded_at": "2026-10-04T02:40:07.535Z"
     }
   ],
   "costs_usd": [

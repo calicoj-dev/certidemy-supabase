@@ -286,3 +286,66 @@ The 13 live grounded escapes, by uuid prefix, over-allowance in chars: `ce86479f
 `1ea0ea64` 17, `c38d0298` 17, `bb2fcc40` 16, `00c565c9` 15, `6cbb6cdf` 15, `139c011a` 14, `3ca45f4c` 14,
 `46a860d2` 14, `c55b92ae` 13, `d7e85bb2` 12, `9f905f3e` 11. The 3 authored ones are worse (87, 61, 59) and
 are KEPT items that pre-date all of this.
+
+## PROMPT-116: the R1/R2 inserts, the rescues, and what the inserts taught
+
+**46 English rows inserted on ISMS-F, 92 siblings, nothing approved.** 21 from R1 (PROMPT-114 s1),
+25 from R2 (17 numbered accepts + 8 rescues). All `status=pending_review`, `pool/visibility=secure`,
+`is_exam_scope=true`, `item_origin=grounded`. Recorded in `ISMSF-INSERTED.json` (gitignored).
+
+### Three defects the staged insert caught, in order
+
+1. **`item_origin` was `generated`, not `grounded`.** Caught on the single `--limit=1` row. CLAUDE.md
+   s12: `generate-mock-exam` excludes `generated` on both modes, so the item would have been approved
+   and never served. The AIMS-F cohort of 199 carries `grounded`. One row patched, the constant named
+   `ORIGIN`, and a post-condition now asserts it.
+2. **A report number is not an identity.** `ISMSF-DIRECTOR-REJECTIONS.json` keyed its entries on
+   `report_number` alone. The survivor list is re-filtered on every read, so the 8 rescues renumbered
+   it: the number match then refused two RESCUED items at positions 11 and 12. Across artifacts it is
+   worse -- R1 #13 and R2 #13 are different items and R2 #13 is an accept. The file now carries
+   `item_id` and `artifact` on every entry, the match is by id only, and an entry with no id is
+   refused rather than guessed at. Positive control: `scratch/control-rejection-guard.json`.
+3. **The anchor cap was not checked at insert.** The generator applies it within a round; two rounds
+   can each stay under it and still put three items on one clause. The insert now builds the census
+   from live grounding plus the batch and refuses the batch (never trims) -- `CAP` imported from
+   `lib/anchor-cap.mjs`. Measured: all 46 fit, 15 clauses carry exactly 2.
+
+Also: the zero-stray post-condition is a FINGERPRINT of every pre-existing row, not a count -- a count
+passes on a swap. 2,688 rows fingerprinted on the second batch, 0 changed.
+
+### The rescues (PROMPT-115 s3, run under PROMPT-116 s3)
+
+`scripts/revise-artifact.mjs` (was `reanchor-artifact.mjs`; widened, not copied) applies DECLARED
+revisions then re-gates and runs the solver twice. 9 revisions, all accepted/accepted, $1.44:
+
+- 7 task-3.2 `no-27000` stem rescues. The proper name left the SERVED text only; key, support and
+  explanation untouched. `ISO/IEC 27000` -> `the ISMS overview guidance` / `the ISMS vocabulary`,
+  which is what the document is. The a67419b7 "written down" item did NOT split, so it is kept.
+- `fc375196` (#8): the stem stated a situation and asked nothing. "What can the identification draw
+  on?" added -- "the identification" rather than "it", because the stem's last "it" is the service.
+- `eacea5dc` (task 5.1, 9.1 methods): a DECLARED RE-ASSIGNMENT, not a waiver. The item already
+  anchored 27001 9.1 and quotes it verbatim; 9.1 is a primary of task 5.1 (4c3ed18a anchors there and
+  passed), so the writer's assigned slot was what was wrong. The script refuses a re-assignment to a
+  clause outside the task map.
+- The 11 task-5.1 measurement-vocabulary items are DROPPED. `3555f21e` (27001 6.2) stays rejected: it
+  fails `anchor-assignment` on a clause of its own choosing and no ruling covers it. **One line, open.**
+
+### OPEN, MEASURED, NEEDS A RULING: modal drift in the pt-BR translations
+
+The translation lint is clean (0 pin findings, 0 letter references, both languages, 46 items). A
+SEPARATE sentence-aligned measurement -- `scratch/measure-modal-drift.mjs`, read-only, NOT a gate,
+because PROMPT-111 s0 rules out new gates for wording nuances -- finds **11 non-stem sentences where
+the English hedges and the sibling states a requirement**, 10 of them pt-BR:
+
+| what | example |
+|---|---|
+| option text | "should be written down" -> "deve ser registrada" |
+| option text | "ought to be checked" -> "devem ser verificadas" (the 5.3 RBAC item, whose whole point is the UNattributed modal) |
+| explanation | an es-419 quotation of 27002 5.9 renders *should* as *debe* INSIDE the quotation marks |
+
+The 9 stem hits are false positives: "como deve ser julgado?" is how Portuguese asks "how should this
+be judged?". My first pass counted whole FIELDS and reported 20; the unit has to be a sentence, and
+6 field pairs could not be sentence-aligned and are reported as could-not-answer rather than clean.
+
+Nothing is served -- every row is `pending_review`. The quotation case is the serious one: it alters
+quoted text. A ruling is needed on whether translation carries a modal-fidelity obligation at all.

@@ -1,0 +1,134 @@
+{
+  "_what": "PROMPT-116 s2: the 21 R1 accepts. 20 numbered by the director in PROMPT-114 s1, plus the item R1 code-rejected on modal-fidelity, which PROMPT-114 s3 ruled a false positive.",
+  "accepts": [
+    {
+      "item_id": "e56c57af",
+      "report_number": 1,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "8835e2fb",
+      "report_number": 2,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "2810e606",
+      "report_number": 3,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "8974b3a4",
+      "report_number": 4,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "0f7bc8aa",
+      "report_number": 5,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "b57089d6",
+      "report_number": 6,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "99ac02fd",
+      "report_number": 7,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "0322338d",
+      "report_number": 8,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "f36326b0",
+      "report_number": 9,
+      "task": "4.5",
+      "note": "probe: no-cue -- picked the key and named no concrete cue; no de-cue work owed | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "92f70d4b",
+      "report_number": 10,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "9695160a",
+      "report_number": 11,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "90625d37",
+      "report_number": 12,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "7b1eeadd",
+      "report_number": 14,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "67906efd",
+      "report_number": 15,
+      "task": "4.5",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "b0de308d",
+      "report_number": 16,
+      "task": "4.4",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "0ecee8ce",
+      "report_number": 17,
+      "task": "4.4",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "0423ade5",
+      "report_number": 18,
+      "task": "4.4",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "bb7dfa9f",
+      "report_number": 19,
+      "task": "4.4",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "1576d840",
+      "report_number": 22,
+      "task": "4.4",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "9b02b7a3",
+      "report_number": 23,
+      "task": "4.4",
+      "note": "cue: odd-verdict (PROMPT-114 s2), de-cue backlog | accepted PROMPT-114 s1"
+    },
+    {
+      "item_id": "e723f8f3",
+      "report_number": null,
+      "task": "4.5",
+      "note": "the 5.3 RBAC item R1 rejected on modal-fidelity; PROMPT-114 s3 ruled it a false positive (the ought-to is not attributed to the standard) | not probed: R1 rejected it by code, so the options probe never ran",
+      "regate": true,
+      "regate_why": "R1 recorded `rejected by code [modal-fidelity]`. PROMPT-114 s3 narrowed that gate for Foundation and PROMPT-116 s1 tightened the attribution test after it over-fired on this very item. The artifact verdict is stale in BOTH directions, so the item is re-gated live at insert time: a pass admits it, a failure refuses the whole batch."
+    }
+  ],
+  "_notes_derived": "The per-item note is DERIVED from each item's options_probe state in ISMSF-R1, not hand-written: 19 flag, 1 no-cue, 1 unprobed. Tagging the no-cue item with a cue it does not have would put a false claim in item_grounding.review_note."
+}
