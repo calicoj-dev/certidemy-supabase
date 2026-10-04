@@ -99,8 +99,8 @@ export function condSolver(g) {
   if (!g || g.solver === null || g.solver === undefined) return { ok: false, why: "no solver verdict recorded" };
   return { ok: true };
 }
-export function condNotRejected(id8, rejectedIds) {
-  if (rejectedIds.has(id8)) return { ok: false, why: "named in AIMSF-DIRECTOR-REJECTIONS.json" };
+export function condNotRejected(id8, rejectedIds, file = "the director's rejections") {
+  if (rejectedIds.has(id8)) return { ok: false, why: "named in " + file };
   return { ok: true };
 }
 /** Is this refusal reason a RECORDED DISPOSITION (tolerated in --cert mode) or a real failure? */
@@ -196,12 +196,41 @@ if (!IDS && !CERT) {
   process.exit(2);
 }
 
+const CERT_CODE = CERT || "AIMS-F";
+
+/* ============ THE REJECTIONS FILE IS PER CERTIFICATION, AND ITS KEY NAME VARIES ============
+ *
+ * Condition 5 is "the row is not in the director's rejections". This read was hard-coded to
+ * `AIMSF-DIRECTOR-REJECTIONS.json` and to the key `r.id`, in a script that takes `--cert`. Run on
+ * ISMS-F it would have read the WRONG FILE, and even pointed at the right one it would have loaded
+ * nothing: AIMS-F keys its entries on `id` and ISMS-F on `item_id`. Either way all 18 ISMS-F
+ * rejections would have passed condition 5 -- the exact shape of a guard that cannot fire.
+ *
+ * So: the filename follows the cert, BOTH key names are read, and a file that exists but yields no
+ * ids REFUSES THE RUN. "No rejections loaded" and "no rejections exist" must never look the same in a
+ * script whose output a candidate can be examined on.
+ */
+const REJ_FILE = CERT_CODE.replace(/-/g, "") + "-DIRECTOR-REJECTIONS.json";
 const rejectedIds = new Set();
 {
-  const p = join(ROOT, "AIMSF-DIRECTOR-REJECTIONS.json");
-  if (existsSync(p)) for (const r of (JSON.parse(readFileSync(p, "utf8")).rejections || [])) rejectedIds.add(String(r.id));
+  const p = join(ROOT, REJ_FILE);
+  if (existsSync(p)) {
+    const entries = JSON.parse(readFileSync(p, "utf8")).rejections || [];
+    for (const r of entries) {
+      const id = r.item_id ?? r.id;
+      if (id) rejectedIds.add(String(id));
+    }
+    if (entries.length && !rejectedIds.size) {
+      console.error("REFUSING: " + REJ_FILE + " lists " + entries.length + " rejection(s) and none" +
+        " carries an `item_id` or an `id`. Condition 5 would pass every rejected row.");
+      process.exit(2);
+    }
+    console.log("rejections: " + REJ_FILE + "   " + entries.length + " entr(ies), " +
+      rejectedIds.size + " id(s) loaded");
+  } else {
+    console.log("rejections: " + REJ_FILE + " ABSENT -- condition 5 can refuse nothing");
+  }
 }
-const CERT_CODE = CERT || "AIMS-F";
 const cert = (await getAll(KEY, "certifications?select=id,code&code=eq." + CERT_CODE))[0];
 if (!cert) { console.error("No certification " + CERT_CODE); process.exit(2); }
 const qs = await getAll(KEY, "quiz_questions?select=id,question_group_id,question_text,task_id,status," +
@@ -234,7 +263,7 @@ for (const id8 of IDS) {
   const q = hits[0];
   const g = ig.get(q.id);
   for (const [name, res] of [["verdict", condVerdict(g)], ["not-reserved", condNotReserved(g)],
-    ["solver", condSolver(g)], ["not-rejected", condNotRejected(id8, rejectedIds)]]) {
+    ["solver", condSolver(g)], ["not-rejected", condNotRejected(id8, rejectedIds, REJ_FILE)]]) {
     if (!res.ok) { refused.push({ id8, why: name + ": " + res.why }); break; }
   }
   if (refused.some((r) => r.id8 === id8)) continue;

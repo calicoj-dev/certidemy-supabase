@@ -1,0 +1,10 @@
+{
+  "_what": "Per-task writer instructions for ISMS-F, read by gen-grounded-items.mjs and printed as the LAST instruction in the writer prompt. A ruling about what a task is ABOUT belongs here rather than in a code edit, and the tasks carrying a note are listed at the top of every run.",
+  "_why_this_file_exists": "Task 5.6 maps to ISO/IEC 17021-1, and the easy half of that standard to write from is certification-body internal procedure -- who signs what, how a mark may be printed, who decides a suspension. Six of the nine R6 rejects were exactly that. The map cannot express the distinction because the source is correct; only the angle is wrong.",
+  "notes": {
+    "5.6": {
+      "ruled_in": "PROMPT-120 s3",
+      "instruction": "Test what a certified organization or its customers need to understand about certification -- the scope of a certificate, what may and may not be claimed, accreditation, surveillance -- NOT certification-body internal procedure. An item about who inside the certification body signs, decides or reviews something is out of scope for this task, however well it is anchored."
+    }
+  }
+}

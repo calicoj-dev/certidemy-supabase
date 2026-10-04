@@ -1032,6 +1032,28 @@ RULES
  * passage with no role and no rule, so on task 1.3 it anchored 6 of 7 keys in supporting clauses and
  * six writer calls were spent discovering a rule nobody had given it. A distractor's reason may still
  * use a supporting passage -- that is the gate's own contract, so prompt and gate cannot drift. */
+/* ============ PER-TASK WRITER INSTRUCTIONS, DECLARED IN A FILE ============
+ *
+ * Ruled PROMPT-120 s3 for task 5.6: six of nine R6 rejects were certification-body INTERNAL procedure
+ * -- who signs what, how a mark may be printed, who decides a suspension -- when the task is about
+ * what a certified organization and its customers need to understand. The map cannot express that:
+ * 17021-1 is the right source and the wrong half of it is the easy half to write from.
+ *
+ * So the instruction lives in `TASK-WRITER-NOTES-<CERT>.json`, keyed by task code, and is printed into
+ * the prompt. A ruling about CONTENT does not belong in a code edit, and a note nobody can see in the
+ * artifact is a note nobody can check: the ones used are listed at the top of every run.
+ */
+const TASK_NOTES = (() => {
+  const p = join(ROOT, "TASK-WRITER-NOTES-" + CERT.replace(/-/g, "") + ".json");
+  if (!existsSync(p)) return { file: null, notes: {} };
+  const j = JSON.parse(readFileSync(p, "utf8"));
+  return { file: p.split(/[\\/]/).pop(), notes: j.notes || {} };
+})();
+if (TASK_NOTES.file) {
+  const codes = Object.keys(TASK_NOTES.notes);
+  console.log("writer notes: " + TASK_NOTES.file + "   " + codes.length + " task(s): " + codes.join(", "));
+}
+
 function writerUser(task, domain, passages, k, assignments) {
   /* Keyed on (source, edition, clause): the writer is shown passages from more than one standard now, so
    * a clause number alone cannot say whether THIS passage is primary. */
@@ -1051,6 +1073,11 @@ function writerUser(task, domain, passages, k, assignments) {
   const primaries = passages.filter(isPrim);
   const others = passages.filter((p) => !isPrim(p));
   const src = [...primaries.map(fmt), ...others.map(fmt)].join("\n\n");
+  /* the ruled note for THIS task, if any. Placed last so it is the final instruction read. */
+  const taskNote = TASK_NOTES.notes[task.code];
+  const noteBlock = taskNote
+    ? "\n\nWHAT THIS TASK IS ABOUT (ruled " + (taskNote.ruled_in || "by the director") + ", and it overrides your own reading of the passages):\n" + taskNote.instruction
+    : "";
   return "CERTIFICATION: " + CERT + "\nDOMAIN: " + domain.code + " " + domain.title +
     "\nTASK " + task.code + ": " + task.statement +
     "\nBLOOM: " + (task.bloom_level || "2_understand") +
@@ -1088,6 +1115,7 @@ function writerUser(task, domain, passages, k, assignments) {
     " 'in' or 'under' clause X, which obligation 'belongs to' X, or which option 'matches' X --" +
     " those test memory of ISO's numbering rather than understanding of the requirement. Citing a clause" +
     " as the AUTHORITY for a question whose subject the stem names is fine." +
+    noteBlock +
     "\n\nWrite " + k + " item(s). Return the JSON array only.";
 }
 

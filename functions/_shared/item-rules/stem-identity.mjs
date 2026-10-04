@@ -64,7 +64,14 @@ export function dedupeByIdentity(rows, englishStemByGroup) {
  */
 export function stemIdentityControls() {
   const bad = [];
-  const must = (cond, what) => { if (!cond) bad.push(what); };
+  /* ============ THE SUITE COUNTS WHAT IT EXAMINED ============
+   *
+   * It returns an array of FAILURE strings, so an empty return means "all pass" -- indistinguishable
+   * from "nothing ran". cutover-aimsf.mjs reported "stem-identity controls: 0 case(s), all pass" and
+   * retired live examination items on the strength of it. The array still carries only failures, so
+   * every existing caller is unaffected; `examined` rides along for the readers that ask. */
+  let examined = 0;
+  const must = (cond, what) => { examined++; if (!cond) bad.push(what); };
 
   /* --- the four es-419 families that escaped the old byte guard --- */
   const ESCAPED_ES = [
@@ -145,5 +152,6 @@ export function stemIdentityControls() {
   must(normStem("  padded  ") === "padded", "normStem stopped trimming");
   must(normStem("x".repeat(200)).length === 160, "normStem stopped truncating at 160");
 
+  bad.examined = examined;
   return bad;
 }

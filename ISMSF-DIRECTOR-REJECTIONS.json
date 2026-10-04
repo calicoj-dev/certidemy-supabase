@@ -35,6 +35,15 @@
       "accepted": 67,
       "rejected": 1,
       "note": "#29 kept with a free stem edit (its second question had no answer among the options); the verdict was kept, no solver call."
+    },
+    {
+      "artifact": "ISMSF-R6",
+      "report": "ISMSF-ROLLOUT-R6.md",
+      "ruled": "2026-10-04, PROMPT-120 s2",
+      "read": 29,
+      "accepted": 20,
+      "rejected": 9,
+      "note": "The Sonnet-writer round. A 31% director reject rate against about 3% for R3-R5, which with the gate rates settled PROMPT-120 s1: the writer stays on Opus."
     }
   ],
   "note": "R1's 21 accepts = the 20 numbered accepts plus the item R1 code-rejected on modal-fidelity, which PROMPT-114 s3 ruled a false positive: the item's 'ought to' is not a claim about the standard. The narrowed gate now passes it.",
@@ -122,6 +131,87 @@
       "anchor": "ISO/IEC 27000 5.4.3",
       "why": "RULED reject (PROMPT-119 s1): the item asks what the dedicated measurement guidance covers, which is the ISO/IEC 27004 territory PROMPT-115 s3 already ruled too obscure for a Foundation candidate. Not wrong -- out of scope for the tier.",
       "ruled_in": "PROMPT-119 s1"
+    },
+    {
+      "item_id": "1870a6e0",
+      "artifact": "ISMSF-R6",
+      "report_number": 1,
+      "task": "5.6",
+      "anchor": "ISO/IEC 17021-1 5.1.2",
+      "why": "RULED reject (PROMPT-120 s2): multi-site agreements are certification-body procedure, too obscure for Foundation (the same ruling as AIMS-F's shift-work item)",
+      "ruled_in": "PROMPT-120 s2"
+    },
+    {
+      "item_id": "ddf2e1df",
+      "artifact": "ISMSF-R6",
+      "report_number": 3,
+      "task": "5.6",
+      "anchor": "ISO/IEC 17021-1 8.3.2",
+      "why": "RULED reject (PROMPT-120 s2): marks on calibration reports: certification-body procedure, same reason",
+      "ruled_in": "PROMPT-120 s2"
+    },
+    {
+      "item_id": "c09986be",
+      "artifact": "ISMSF-R6",
+      "report_number": 6,
+      "task": "5.6",
+      "anchor": "ISO/IEC 17021-1 5.1.3",
+      "why": "RULED reject (PROMPT-120 s2): who inside the certification body decides suspension: certification-body internals, with weak distractors",
+      "ruled_in": "PROMPT-120 s2"
+    },
+    {
+      "item_id": "2df547f4",
+      "artifact": "ISMSF-R6",
+      "report_number": 7,
+      "task": "5.6",
+      "anchor": "ISO/IEC 17021-1 8.3.3",
+      "why": "RULED reject (PROMPT-120 s2): the same fact as #2 -- no implying the product is certified. #2 is kept",
+      "ruled_in": "PROMPT-120 s2"
+    },
+    {
+      "item_id": "ac6ff1b1",
+      "artifact": "ISMSF-R6",
+      "report_number": 8,
+      "task": "4.10",
+      "anchor": "ISO/IEC 27001 A.6.8",
+      "why": "RULED reject (PROMPT-120 s2): the key is far longer than the rest and the distractors are implausible",
+      "ruled_in": "PROMPT-120 s2"
+    },
+    {
+      "item_id": "5448c066",
+      "artifact": "ISMSF-R6",
+      "report_number": 9,
+      "task": "4.10",
+      "anchor": "ISO/IEC 27002 5.36",
+      "why": "RULED reject (PROMPT-120 s2): absurd distractors",
+      "ruled_in": "PROMPT-120 s2"
+    },
+    {
+      "item_id": "de2d3f67",
+      "artifact": "ISMSF-R6",
+      "report_number": 10,
+      "task": "4.10",
+      "anchor": "ISO/IEC 27001 A.5.10",
+      "why": "RULED reject (PROMPT-120 s2): absurd distractors",
+      "ruled_in": "PROMPT-120 s2"
+    },
+    {
+      "item_id": "7cf5cb04",
+      "artifact": "ISMSF-R6",
+      "report_number": 12,
+      "task": "4.10",
+      "anchor": "ISO/IEC 27002 6.3",
+      "why": "RULED reject (PROMPT-120 s2): absurd distractors",
+      "ruled_in": "PROMPT-120 s2"
+    },
+    {
+      "item_id": "d091a75f",
+      "artifact": "ISMSF-R6",
+      "report_number": 13,
+      "task": "4.10",
+      "anchor": "ISO/IEC 27002 5.10",
+      "why": "RULED reject (PROMPT-120 s2): absurd distractors",
+      "ruled_in": "PROMPT-120 s2"
     }
   ],
   "why_near_duplicates_reached_a_survivor_list": "gateNearDuplicate compares STEMS, and these pairs differ in their stems while asserting the same fact from the same anchor. That blindness is recorded in CLAUDE.md s13: the same answer with a different stem is invisible to it. The anchor cap of 2 per (source, edition, clause) per task is what bounds the damage, and it allowed exactly these two pairs.",

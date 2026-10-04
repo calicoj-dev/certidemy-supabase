@@ -1,0 +1,127 @@
+{
+  "_what": "PROMPT-120 s2: 20 of the 29 R6 survivors. The other 9 are rejected -- certification-body procedure out of tier, one restatement, and five with implausible distractors.",
+  "_writer": "Every item here was written by claude-sonnet-5. The experiment is over and the writer is back on Opus (PROMPT-120 s1); these 20 passed the gates, the solver and the director's read on their own merits, and the note on each row records where they came from.",
+  "_numbers_are_frozen": "Recorded beside each id and never recomputed from the artifact.",
+  "accepts": [
+    {
+      "item_id": "bf457351",
+      "report_number": 2,
+      "task": "5.6",
+      "note": "accepted PROMPT-120 s2 (#2) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue reverted in-run on a CODE cue"
+    },
+    {
+      "item_id": "1b222543",
+      "report_number": 4,
+      "task": "5.6",
+      "note": "accepted PROMPT-120 s2 (#4) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "03832735",
+      "report_number": 5,
+      "task": "5.6",
+      "note": "accepted PROMPT-120 s2 (#5) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "3b274c93",
+      "report_number": 11,
+      "task": "4.10",
+      "note": "accepted PROMPT-120 s2 (#11) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "ef5417d4",
+      "report_number": 14,
+      "task": "5.2",
+      "note": "accepted PROMPT-120 s2 (#14) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "99aa9961",
+      "report_number": 15,
+      "task": "5.2",
+      "note": "accepted PROMPT-120 s2 (#15) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "9c191ac3",
+      "report_number": 16,
+      "task": "5.2",
+      "note": "accepted PROMPT-120 s2 (#16) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue reverted in-run on a CODE cue"
+    },
+    {
+      "item_id": "5840a187",
+      "report_number": 17,
+      "task": "1.5",
+      "note": "accepted PROMPT-120 s2 (#17) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "93cbc2c2",
+      "report_number": 18,
+      "task": "1.5",
+      "note": "accepted PROMPT-120 s2 (#18) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "c33e839d",
+      "report_number": 19,
+      "task": "2.6",
+      "note": "accepted PROMPT-120 s2 (#19) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "23a93d1d",
+      "report_number": 20,
+      "task": "2.6",
+      "note": "accepted PROMPT-120 s2 (#20) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "351c9cb5",
+      "report_number": 21,
+      "task": "2.6",
+      "note": "accepted PROMPT-120 s2 (#21) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "497d6233",
+      "report_number": 22,
+      "task": "4.9",
+      "note": "accepted PROMPT-120 s2 (#22) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "0b7e2600",
+      "report_number": 23,
+      "task": "4.9",
+      "note": "accepted PROMPT-120 s2 (#23) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "59feb75f",
+      "report_number": 24,
+      "task": "4.9",
+      "note": "accepted PROMPT-120 s2 (#24) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "5a4cd3a0",
+      "report_number": 25,
+      "task": "4.9",
+      "note": "accepted PROMPT-120 s2 (#25) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "100ff3c7",
+      "report_number": 26,
+      "task": "5.9",
+      "note": "accepted PROMPT-120 s2 (#26) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "57b945f2",
+      "report_number": 27,
+      "task": "5.9",
+      "note": "accepted PROMPT-120 s2 (#27) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "55772260",
+      "report_number": 28,
+      "task": "2.9",
+      "note": "accepted PROMPT-120 s2 (#28) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "0e5cf240",
+      "report_number": 29,
+      "task": "2.9",
+      "note": "accepted PROMPT-120 s2 (#29) | WRITER: claude-sonnet-5 (the PROMPT-119 s2 experiment; the writer reverted to Opus in PROMPT-120 s1) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue reverted in-run on a CODE cue"
+    }
+  ]
+}

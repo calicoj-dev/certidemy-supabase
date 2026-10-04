@@ -19,11 +19,16 @@ import { driftInItem, modalDriftControls, LANGS } from "./lib/modal-drift.mjs";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 let CERT = null, ONLY_NEW = false, VERBOSE = false;
+/* --kept scopes to the AUDIT-KEPT items, which is the population PROMPT-118 s4 ruled the post-cutover
+ * repair runs over: the old bank mostly retires at cutover, so repairing all of it would be work on rows
+ * about to leave the pool. */
+let KEPT = false;
 for (const a of process.argv.slice(2)) {
   let m = a.match(/^--cert=(.+)$/); if (m) { CERT = m[1]; continue; }
   if (a === "--only-new") { ONLY_NEW = true; continue; }
+  if (a === "--kept") { KEPT = true; continue; }
   if (a === "--verbose") { VERBOSE = true; continue; }
-  console.error("Unrecognised flag: " + a + ". Known: --cert=, --only-new, --verbose. READ-ONLY.");
+  console.error("Unrecognised flag: " + a + ". Known: --cert=, --only-new, --kept, --verbose. READ-ONLY.");
   process.exit(2);
 }
 if (!CERT) { console.error("--cert=<CODE> is required."); process.exit(2); }
@@ -51,6 +56,20 @@ if (ONLY_NEW) {
   console.log("--only-new: " + ids.size + " English row(s) -> " + wantGroups.size + " group(s)");
 }
 
+if (KEPT) {
+  const p = join(ROOT, SLUG + "-SURVIVORS.json");
+  if (!existsSync(p)) { console.error("--kept needs " + SLUG + "-SURVIVORS.json"); process.exit(2); }
+  const keep = new Set((JSON.parse(readFileSync(p, "utf8")).keep_ids || []).map(String));
+  if (!keep.size) { console.error("REFUSING: the keep list is empty, so --kept would measure nothing."); process.exit(2); }
+  /* THE KEEP IDS ARE UUID PREFIXES, not stem hashes. Resolved exactly as cutover-aimsf.mjs does
+   * (row.id.startsWith(kid)) -- a stem-hash match resolved 0 of 143 and the refusal below is what
+   * caught it, rather than a drift count over the wrong population. */
+  const en = rows.filter((r) => r.language === "en");
+  const hit = (r) => [...keep].some((k) => String(r.id).startsWith(k));
+  wantGroups = new Set(en.filter(hit).map((r) => r.question_group_id).filter(Boolean));
+  console.log("--kept: " + keep.size + " keep id(s) -> " + wantGroups.size + " group(s) resolved");
+  if (!wantGroups.size) { console.error("REFUSING: no keep id resolved to a live group."); process.exit(2); }
+}
 const per = new Map();
 for (const r of rows) {
   if (!r.question_group_id) continue;

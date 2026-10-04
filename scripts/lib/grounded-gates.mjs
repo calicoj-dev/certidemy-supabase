@@ -631,9 +631,42 @@ export function gateStructure(item, cfg = CUE_CFG) {
    * distractors at 1.25x, where `cueConfigFor` declares the key against the MAX RIVAL plus
    * max(KEY_LEN_MARGIN, KEY_LEN_PCT%). It is deleted, not left beside this one: ruled PROMPT-109 s1,
    * there is ONE cue rule and it is `cueConfigFor`. */
-  const audit = auditItem(item, cfg);
-  if (audit && audit.ok === false) {
-    problems.push("cue guard: " + (Array.isArray(audit.reasons) ? audit.reasons.join(", ") : audit.reason));
+  /* ============ AND THE SHAPE IT NEEDS, WHICH A GENERATED ITEM DOES NOT HAVE ============
+   *
+   * MEASURED 2026-10-04, at the ISMS-F approval dry run: 46 of 218 stored items failed `structure` on
+   * the cue guard, every one of which had passed `structure` at generation with "no structural tell".
+   *
+   * `auditItem` resolves the key through `q.correct_answer[0]` against `o.id`, and returns `{ok:true}`
+   * -- a PASS -- the moment either is missing. A generated item is `options: [{text, is_correct}]` with
+   * no ids and no correct_answer, so THE CUE GUARD HAS NEVER RUN AT GENERATION. Every round R1-R6
+   * reported it clean on every item. It only began firing once the rows were stored and
+   * `lib/stored-item.mjs` built the shape for it.
+   *
+   * This is the shape of defect this file keeps recording, and worse than the last one: `audit.fail`
+   * was read from a key that never existed, which at least returned nothing. This returned a PASS.
+   *
+   * So the item is normalised HERE, and if the key still cannot be resolved the arm reports
+   * UNASSERTED rather than passing -- a cue rule that cannot find the key has not checked anything. */
+  const auditable = (() => {
+    if (Array.isArray(item.correct_answer) && item.correct_answer.length === 1 &&
+      (item.options || []).some((o) => o && o.id === item.correct_answer[0])) return item;
+    const ix = (item.options || []).findIndex((o) => o && o.is_correct === true);
+    if (ix < 0) return null;
+    return {
+      ...item,
+      options: (item.options || []).map((o, i) => ({ id: String.fromCharCode(97 + i), text: (o && o.text) || "" })),
+      correct_answer: [String.fromCharCode(97 + ix)],
+    };
+  })();
+  let cueUnasserted = null;
+  if (!auditable) {
+    cueUnasserted = "the cue guard could not resolve the key (no correct_answer id and no is_correct " +
+      "option), so NOTHING about length or absolutes was checked";
+  } else {
+    const audit = auditItem(auditable, cfg);
+    if (audit && audit.ok === false) {
+      problems.push("cue guard: " + (Array.isArray(audit.reasons) ? audit.reasons.join(", ") : audit.reason));
+    }
   }
 
   /* ODD-ONE-OUT, NEGATION FORM -- AND A SCOPE MARKER IS NOT A VERDICT NEGATION.
@@ -704,6 +737,11 @@ export function gateStructure(item, cfg = CUE_CFG) {
    * are confidentiality/integrity/availability in words that name none of them. It lives in the
    * options-only probe, which reads shapes rather than matching words. */
 
+  /* UNASSERTED beats a pass: the arm did not run. */
+  if (cueUnasserted && !problems.length) {
+    return { id: "structure", pass: null, examined: opts.length,
+      reason: "UNASSERTED -- " + cueUnasserted };
+  }
   return { id: "structure", pass: problems.length === 0, examined: opts.length,
     notes,
     reason: problems.length ? problems.join("; ")
@@ -1113,11 +1151,18 @@ export function groundedGateControls() {
   const good = {
     source_id: SRC, edition: ED,
     question_text: "An organization is planning its AI management system internal audits. What does ISO/IEC 42001:2023 require the organization to establish?",
+    /* ============ THIS FIXTURE WAS ITSELF CUED, AND THAT IS WHY IT IS WRITTEN OUT ============
+     *
+     * The key was 78 characters against a 65-character longest rival, over the declared allowance of
+     * max(KEY_LEN_MARGIN, KEY_LEN_PCT%) -- and it passed for as long as the cue arm could not resolve
+     * the key on a generated-shape item (fixed 2026-10-04). The rivals now carry the same weight as
+     * the key, so "a sound grounded item" is sound on the length rule too. Relaxing the rule to keep
+     * the fixture green would have been the threshold-widening this repository forbids. */
     options: [
       { text: "An audit programme covering frequency, methods, responsibilities and reporting", is_correct: true },
-      { text: "A single annual audit performed by an external certification body" },
-      { text: "A register of auditor qualifications approved by top management" },
-      { text: "A corrective action plan prepared before each audit begins" },
+      { text: "A single annual audit performed by an external certification body each year" },
+      { text: "A register of auditor qualifications approved in advance by top management" },
+      { text: "A corrective action plan prepared and signed off before each audit begins" },
     ],
     explanation: "Clause 9.2.2 requires an audit programme.",
     key_support_clause: "9.2.2",
@@ -1226,11 +1271,13 @@ export function groundedGateControls() {
     ["a lone negated key is FLAGGED, not refused", () => {
       const r = gateStructure({
         ...good,
+        /* the rivals carry the key's weight, so this control tests the NEGATION rule and not the
+         * length arm. It too passed only while the cue guard could not resolve a generated key. */
         options: [
           { text: "The programme does not require an external body to perform the audit", is_correct: true },
-          { text: "The programme requires an external body every year" },
-          { text: "The programme requires a qualification register" },
-          { text: "The programme requires a corrective action plan first" },
+          { text: "The programme requires an external body to perform every audit" },
+          { text: "The programme requires a register of auditor qualifications" },
+          { text: "The programme requires a corrective action plan to be filed first" },
         ],
       });
       return r.pass === true && (r.notes || []).some((n) => /only negated option/.test(n));

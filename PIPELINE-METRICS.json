@@ -162,6 +162,16 @@
       "seconds": 3,
       "note": null,
       "recorded_at": "2026-10-04T06:38:30.806Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 3,
+      "note": null,
+      "recorded_at": "2026-10-04T08:06:24.766Z"
     }
   ],
   "costs_usd": [
@@ -301,6 +311,51 @@
       "impact": "Two R2 survivors quoted that clause-4 text as support and both now FAIL verbatim: #10 in its KEY (the director spotted the symptom in the explanation) and #5 in a distractor support (not visible from the report).",
       "repaired": "SOURCE-PASSAGES.json patched and recorded in PASSAGE-REPAIRS.json; the extractor itself is NOT yet fixed.",
       "detector": "scripts/check-passage-runon.mjs, 6 controls. 48 passages flagged library-wide: 6 on the strong arm (an embedded later clause heading) and the rest on an annex cross-reference, which is usually legitimate."
+    }
+  ],
+  "model_decisions": [
+    {
+      "ruled": "2026-10-04, PROMPT-120 s1",
+      "decision": "The WRITER stays on claude-opus-5. The SOLVER was never in question.",
+      "tested": "claude-sonnet-5 as the writer, R6 (ISMSF-R6), solver held on claude-opus-5",
+      "measured": {
+        "survival_of_items_that_arrived": {
+          "sonnet_r6": "60%",
+          "opus_r3_r5": "77-88%"
+        },
+        "survival_against_what_was_asked": {
+          "sonnet_r6": "33%",
+          "opus_r3_r5": "77-79%"
+        },
+        "director_reject_rate": {
+          "sonnet_r6": "31% (9 of 29)",
+          "opus_r3_r5": "about 3%"
+        },
+        "gate_rejections_per_100_generated": {
+          "verbatim": {
+            "sonnet_r6": 29.2,
+            "opus_r3_r5": "1.6-8.1"
+          },
+          "modal_fidelity": {
+            "sonnet_r6": 20.8,
+            "opus_r3_r5": "1.2-4.8"
+          },
+          "reproduction": {
+            "sonnet_r6": 16.7,
+            "opus_r3_r5": "0-4.7"
+          }
+        },
+        "items_that_never_reached_a_gate": "41 of 89 (15 of 22 writer batches failed on the first call)",
+        "writer_share_of_a_round": "39.1% across R3-R5, so a 5x cheaper writer caps the saving at 31.3%"
+      },
+      "why": "The two gates Sonnet failed most ARE the grounding guarantee: verbatim means the quote is not in the passage, modal-fidelity means the item states as required what the standard recommends. The director's own read found the rest -- implausible distractors beside a sensible key. A cheaper writer whose characteristic failure is mis-quoting the source is not cheaper.",
+      "kept_from_the_experiment": [
+        "--writer-model and --solver-model: a model change is a flag, not a code change.",
+        "Spend metered PER MODEL, so a mixed run cannot be priced at one rate.",
+        "The balanced-bracket truncation test (the old one was defeated by the nested options array)."
+      ],
+      "not_pursued": "The empty-response mode (9 of 37 Sonnet writer calls returned no text). Ruled: it only occurred on Sonnet, so it is not chased.",
+      "measured_and_notable": "The director read the rejects as 'the key is far longer than the rest'. Measured, it is NOT a length effect: key-is-the-longest-option 44% on the 9 rejects against 50% on the 20 accepts, mean key/longest-rival 1.02 against 1.07. The existing length-cue rule correctly did not fire and no length rule would have caught these. The defect is distractor PLAUSIBILITY, which CLAUDE.md s13 already records as needing an SME rather than a gate."
     }
   ]
 }

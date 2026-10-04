@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * PROMPT-107 s3: the AIMS-F cutover. WRITES with `--apply`; dry by default. Unknown flags exit 2.
+ * The cutover, for any certification: `--cert=<CODE>`. WRITES with `--apply`; dry by default.
+ * Unknown flags exit 2. Written for AIMS-F in PROMPT-107 s3 and generalised in PROMPT-120 s4.2.
  *
  * Target pool = approved grounded + the kept authored items. Everything else in the live exam pool is
  * retired with `retired_at`, which `generate-mock-exam` already filters and which no practice surface
@@ -33,12 +34,52 @@ for (const a of process.argv.slice(2)) {
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const LANGS = ["en", "es-419", "pt-BR"];
-const RETIRED_FILE = join(ROOT, "AIMSF-CUTOVER-RETIRED.json");
+/* ============ THE TWO FILENAMES FOLLOW --cert ============
+ *
+ * Generalised PROMPT-120 s4.2, not forked. Both were hard-coded to AIMSF in a script that already
+ * took `--cert`: the keep list it READ and the rollback file it WRITES. Run on ISMS-F as it stood, it
+ * would have read AIMS-F's keep ids -- none of which are ISMS-F rows -- and retired the entire
+ * ISMS-F exam pool, then written the rollback under AIMS-F's name and refused to overwrite it.
+ *
+ * The same defect class as approve-grounded-items' rejections file, found the same way: by pointing a
+ * `--cert` script at a second certification and reading what it actually opened. */
+const SLUG = CERT.replace(/-/g, "");
+const RETIRED_FILE = join(ROOT, SLUG + "-CUTOVER-RETIRED.json");
+const SURVIVORS_FILE = join(ROOT, SLUG + "-SURVIVORS.json");
 
+/* ============ A CONTROL SUITE REPORTING ZERO CASES IS VACUOUS, NOT PASSING ============
+ *
+ * Measured at the ISMS-F dry run: this printed "enemy-rule controls: 0 case(s), all pass" and
+ * "stem-identity controls: 0 case(s), all pass" -- and went on. Both modules return an ARRAY of cases,
+ * so `c.fails` and `c.cases` are both undefined and the reader found nothing to object to.
+ *
+ * The two guards this script leans on hardest therefore reported themselves verified by a reader that
+ * had not read them. Three shapes are accepted now, and ZERO CASES REFUSES THE RUN.
+ */
 for (const [label, c] of [["enemy-rule", enemyRuleControls()], ["stem-identity", stemIdentityControls()]]) {
-  const fails = c.fails || (c.cases || []).filter((x) => !x.pass);
-  if (fails.length) { console.error("REFUSING: " + label + " controls fail"); process.exit(2); }
-  console.log(label + " controls: " + (c.examined ?? (c.cases || []).length) + " case(s), all pass");
+  /* TWO CONTRACTS, AND THEY LOOK ALIKE. enemyRuleControls returns an array of CASE OBJECTS
+   * ({what, pass}); stemIdentityControls returns an array of FAILURE STRINGS, empty on success. A
+   * reader that assumed one shape reported the other as zero cases -- and reading an empty failure
+   * list as "vacuous" is the same mistake in the other direction. So the shape is detected, and the
+   * case count comes from `examined` where the suite reports it. */
+  const arr = Array.isArray(c) ? c : (c.cases || []);
+  const caseObjects = arr.filter((x) => x && typeof x === "object" && "pass" in x);
+  const isCaseList = caseObjects.length === arr.length && arr.length > 0;
+  const fails = isCaseList ? arr.filter((x) => x.pass === false)
+    : (Array.isArray(c) ? arr : (c.fails || []));
+  const n = (Array.isArray(c) ? c.examined : c.examined) ?? (isCaseList ? arr.length : null);
+  if (n === null || n === 0) {
+    console.error("REFUSING: " + label + " controls do not report how many cases they examined, or");
+    console.error("examined none. A suite whose case count is unknowable cannot be said to pass, and");
+    console.error("this script retires live examination items on the strength of it.");
+    process.exit(2);
+  }
+  if (fails.length) {
+    console.error("REFUSING: " + label + " controls fail: " +
+      JSON.stringify(fails.map((x) => (x && x.what) || x)).slice(0, 240));
+    process.exit(2);
+  }
+  console.log(label + " controls: " + n + " case(s), all pass");
 }
 
 const KEY = requireKey(HERE);
@@ -69,10 +110,17 @@ const inLivePool = (r, l) => r.language === l && r.pool === "secure" && r.status
   r.item_origin !== "generated" && r.is_exam_scope === true;
 
 /* ============ 1. THE KEPT SET, from the record ============ */
-const surv = JSON.parse(readFileSync(join(ROOT, "AIMSF-SURVIVORS.json"), "utf8"));
+/* A MISSING KEEP LIST IS A REFUSAL, NEVER AN EMPTY ONE. An empty keep set makes every live secure
+ * item a retire candidate, which is the one mistake this script must not be able to make quietly. */
+if (!existsSync(SURVIVORS_FILE)) {
+  console.error("REFUSING: " + SURVIVORS_FILE.split(/[\\/]/).pop() + " does not exist, so the KEPT" +
+    " set would be empty and every live secure item a retire candidate.");
+  process.exit(2);
+}
+const surv = JSON.parse(readFileSync(SURVIVORS_FILE, "utf8"));
 const KEEP_IDS = surv.keep_ids || [];
 console.log("");
-console.log("1. KEPT SET   AIMSF-SURVIVORS.json keep_ids = " + KEEP_IDS.length + " id(s)");
+console.log("1. KEPT SET   " + SURVIVORS_FILE.split(/[\\/]/).pop() + " keep_ids = " + KEEP_IDS.length + " id(s)");
 const enRows = all.filter((r) => r.language === "en");
 const keptResolved = [], keptUnresolved = [], keptNoSiblings = [], keptNotLive = [];
 for (const kid of KEEP_IDS) {
@@ -343,7 +391,8 @@ const practiceBefore = Object.fromEntries(LANGS.map((l) => [l,
 const sumBefore = canon(all);
 console.log("");
 console.log("   checksum over the " + (all.length - retireIds.size) + " row(s) this batch may NOT touch: " + sumBefore.slice(0, 16));
-console.log("   AIMS-F practice approved, before: " + JSON.stringify(practiceBefore));
+/* the label follows --cert: it read "AIMS-F practice approved" during an ISMS-F dry run. */
+console.log("   " + CERT + " practice approved, before: " + JSON.stringify(practiceBefore));
 
 if (!APPLY) {
   console.log("");

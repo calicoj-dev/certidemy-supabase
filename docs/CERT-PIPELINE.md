@@ -19,6 +19,9 @@ stale once the work it planned was done). Rules live in `CLAUDE.md` §13–§14;
 | 8 | **cutover** | the target pool is SERVABLE (step 2b), zero duplicate stems, and 20 forms per language fill to `num_questions` under the domain weights and the enemy rule — checked BEFORE any write. Not-kept items leave via `retired_at`, recorded for one-command rollback | `cutover-aimsf.mjs`, undo `rollback-cutover.mjs` |
 | 9 | **verify-cert** | 0 fails. Floors read from `TASK-FLOORS-<CERT>.json`; the length cue is `keyLengthEscape`/`cueConfigFor`; every check measures the **served** pool (`lib/verify-cert-population.mjs`) unless its label says history | `verify-cert.mjs --cert <C>` |
 
+**Writer: Opus.** Sonnet tested PROMPT-119: survival 33% of asked, director reject 31% vs ~3%.
+`--writer-model` / `--solver-model` exist; the solver is the quality filter and stays on Opus.
+
 ## What each stage may write
 
 Stages 1–3 write **nothing** to the item tables (stage 2 writes a keep-list artifact). Stage 4 writes
