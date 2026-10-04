@@ -1,0 +1,42 @@
+{
+  "_what": "PROMPT-117 s1: the six R3 items the director read as restating a fact already accepted, each against the accepted item. The ruling: separated by the enemy rule = acceptable for Foundation; not separated = reject the later item.",
+  "_ruled_in": "PROMPT-117 s1",
+  "_note": "R1 #20/#21 and R2 #11/#12 are NOT re-examined here. They were rejected under their own ruling (PROMPT-114 s1, PROMPT-115 s2) and stay rejected.",
+  "pairs": [
+    {
+      "label": "R3 #16 vs R3 #12 (6.1.2, risks plus owners)",
+      "later": { "item_id": "4b049537", "artifact": "ISMSF-R3" },
+      "earlier": { "item_id": "2ed94cc4", "artifact": "ISMSF-R3" }
+    },
+    {
+      "label": "R3 #16 vs R2 #4 (6.1.2, risks plus owners)",
+      "later": { "item_id": "4b049537", "artifact": "ISMSF-R3" },
+      "earlier": { "item_id": "32307ada", "artifact": "ISMSF-R2" }
+    },
+    {
+      "label": "R3 #17 vs R2 #16 (3.66, criteria sources)",
+      "later": { "item_id": "e17aedb2", "artifact": "ISMSF-R3" },
+      "earlier": { "item_id": "4d0cdfc8", "artifact": "ISMSF-R2" }
+    },
+    {
+      "label": "R3 #19 vs R2 #8 (3.68, inputs)",
+      "later": { "item_id": "ff1487a9", "artifact": "ISMSF-R3" },
+      "earlier": { "item_id": "fc375196", "artifact": "ISMSF-R2" }
+    },
+    {
+      "label": "R3 #20 vs R2 #15 (3.39, level)",
+      "later": { "item_id": "578a0a6f", "artifact": "ISMSF-R3" },
+      "earlier": { "item_id": "a8669755", "artifact": "ISMSF-R2" }
+    },
+    {
+      "label": "R3 #21 vs the R2 rescue on 3.63",
+      "later": { "item_id": "751526ce", "artifact": "ISMSF-R3" },
+      "earlier": { "item_id": "ac6b6620", "artifact": "ISMSF-R2" }
+    },
+    {
+      "label": "R3 #18 vs R3 #29 (assessment = identify + analyse + evaluate)",
+      "later": { "item_id": "df376c8d", "artifact": "ISMSF-R3" },
+      "earlier": { "item_id": "451a8045", "artifact": "ISMSF-R3" }
+    }
+  ]
+}

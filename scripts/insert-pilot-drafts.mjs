@@ -9,6 +9,7 @@
  *   --accept <file>      the accept list: item ids with their verdicts. NOTHING ELSE IS INSERTED.
  *   --limit=<n>          insert only the first n of the accepted set
  *   --note=<text>        appended to every review_note in this batch
+ *   --ruled-in=<PROMPT>  REQUIRED. The ruling that admitted these rows; stamped into reviewed_by.
  *
  * ============ THE ACCEPT LIST IS THE AUTHORITY (ruled PROMPT-116 s2) ============
  *
@@ -43,6 +44,9 @@ import { CAP } from "./lib/anchor-cap.mjs";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 let APPLY = false, CERT = null, FROM = null, ACCEPT = null, LIMIT = 0, NOTE = "";
+/* which ruling admitted these rows. It is stamped into every item_grounding row, so it must be the
+ * prompt that actually ruled them -- it was hardcoded to PROMPT-116 and would have mislabelled R3. */
+let RULED = null;
 {
   const av = process.argv.slice(2);
   for (let i = 0; i < av.length; i++) {
@@ -53,10 +57,16 @@ let APPLY = false, CERT = null, FROM = null, ACCEPT = null, LIMIT = 0, NOTE = ""
     m = a.match(/^--accept(?:=(.+))?$/); if (m) { ACCEPT = m[1] || av[++i]; continue; }
     m = a.match(/^--limit=([0-9]+)$/); if (m) { LIMIT = Number(m[1]); continue; }
     m = a.match(/^--note=(.+)$/); if (m) { NOTE = m[1]; continue; }
+    m = a.match(/^--ruled-in=(.+)$/); if (m) { RULED = m[1]; continue; }
     console.error("Unrecognised flag: " + a);
     console.error("  --cert <CODE> --from <artifact> --accept <file> [--limit=n] [--note=text] [--apply]");
     process.exit(2);
   }
+}
+if (!RULED) {
+  console.error("--ruled-in=<PROMPT-nnn> is required: it is stamped into every item_grounding row as");
+  console.error("the ruling that admitted the item, and a wrong one is an unattributable record.");
+  process.exit(2);
 }
 if (!CERT || !FROM || !ACCEPT) {
   console.error("--cert, --from and --accept are all required. The accept list is the authority:");
@@ -349,7 +359,7 @@ const groundingRows = inserted.map(({ id, it, spec }) => ({
   generator: "gen-grounded-items.mjs",
   model: art.model ?? null,
   grounding_family: it.grounding_family ?? it.item.key_support_clause,
-  reviewed_by: "director, ruled PROMPT-116",
+  reviewed_by: "director, ruled " + RULED,
   reviewed_at: stamp,
   review_verdict: VERDICT,
   review_note: [spec.note, NOTE].filter(Boolean).join(" | ") || ("accepted from " + FROM),

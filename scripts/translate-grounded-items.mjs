@@ -21,6 +21,7 @@ import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { translateSystem } from "./lib/item-translation.mjs";
 import { graftTranslation, translateUser, translateItemControls } from "./lib/translate-item.mjs";
 import { checkPins, PIN_RULES } from "./lib/pin-compliance.mjs";
+import { driftInItem, MODAL_BRIEF, modalDriftControls } from "./lib/modal-drift.mjs";
 import { explanationOptionRef, explanationOptionRefControls } from "./lib/explanation-option-ref.mjs";
 
 const LANGS = [{ code: "es-419", name: "Latin American Spanish" }, { code: "pt-BR", name: "Brazilian Portuguese" }];
@@ -50,7 +51,7 @@ if (!AK) { console.error("ANTHROPIC_API_KEY not found in env or scripts/.env"); 
 /* CONTROLS FIRST. A translation run whose graft is broken writes holes into the bank. */
 /* A control suite that reports 0 cases is VACUOUS, not passing -- explanationOptionRefControls returns
  * an ARRAY of cases and my first shim read {fails} off it, printing "0 case(s), all pass". */
-for (const [label, c] of [["translate-item", translateItemControls()], ["explanation-option-ref", explanationOptionRefControls()]]) {
+for (const [label, c] of [["translate-item", translateItemControls()], ["explanation-option-ref", explanationOptionRefControls()], ["modal-drift", modalDriftControls()]]) {
   const cases = Array.isArray(c) ? [...c] : (c.cases ? [...c.cases] : null);
   const n = cases ? cases.length : (c.examined ?? 0);
   const fails = cases ? cases.filter((x) => x && x.pass === false).map((x) => x.what) : (c.fails || []);
@@ -134,12 +135,24 @@ if (!scope.length) { console.log("\nNothing to translate."); process.exit(0); }
 /* ---- the checkpoint ---- */
 const partial = join(ROOT, OUT + ".partial.jsonl");
 const done = new Map();
+const partialDone = new Map();   /* checkpointed but missing a language: RE-PAID, not skipped */
 if (existsSync(partial)) {
   for (const line of readFileSync(partial, "utf8").split(/\r?\n/)) {
     if (!line.trim()) continue;
-    try { const r = JSON.parse(line); done.set(r.en_id, r); } catch { /* a torn last line is skipped */ }
+    /* ============ A HALF-DONE ITEM IS NOT DONE ============
+     *
+     * R3 task 3.8 lost its whole es-419 batch to a count mismatch; the eight records were checkpointed
+     * with pt-BR only, and the resume then skipped them because the id was present. A checkpoint that
+     * locks in a missing language is worse than no checkpoint: the run reports "incomplete 8" for ever
+     * and re-running cannot fix it. So a record counts as done only when BOTH languages are there. */
+    try {
+      const r = JSON.parse(line);
+      if (r && r.langs && LANGS.every((l) => r.langs[l.code])) done.set(r.en_id, r);
+      else if (r) partialDone.set(r.en_id, r);
+    } catch { /* a torn last line is skipped */ }
   }
-  console.log("  checkpoint                  " + done.size + " item(s) already translated, not re-paid");
+  console.log("  checkpoint                  " + done.size + " item(s) complete, not re-paid" +
+    (partialDone.size ? ";  " + partialDone.size + " item(s) MISSING A LANGUAGE and re-translated" : ""));
 }
 
 /* ============ BATCHED PER TASK, because the SYSTEM PROMPT is the bulk of the input ============
@@ -174,6 +187,11 @@ for (const [code, taskRows] of [...byTask.entries()].sort()) {
          * brief from PIN_RULES alone left the one rule that changes what the item REQUIRES unstated. */
         const brief = PIN_RULES.filter((r) => r.langs.includes(lang.code))
           .map((r) => "- " + r.id + ": " + r.why).join("\n") +
+          /* MODAL FORCE, ruled PROMPT-117 s4. Measured on the 46 ISMS-F items: 11 non-stem sentences
+           * stated a requirement where the English hedged, 10 of them pt-BR, one of them inside a
+           * QUOTATION of 27002 5.9 -- which misquotes the standard. The rule is stated ONCE, in
+           * lib/modal-drift.mjs, so the brief and the measurement cannot disagree. */
+          "\n" + MODAL_BRIEF +
           "\n- inserted-cadence: NEVER add a periodicity the English does not state. If the English gives" +
           "\n  no interval, the translation gives none -- no 'periodicamente', 'continuamente', 'de forma" +
           "\n  continua', 'trimestralmente' or 'regularmente'. Adding one changes what the item REQUIRES.";
@@ -235,6 +253,39 @@ for (const lang of LANGS) for (const p of lint[lang.code].pins) {
 for (const lang of LANGS) for (const p of lint[lang.code].letters.slice(0, 8)) {
   console.log("      " + lang.code + "  " + p.id + "  LETTER REF  " + p.reason);
 }
+
+/* ============ MODAL DRIFT: A REPORT LINE, NOT A GATE ============
+ *
+ * Ruled PROMPT-117 s4. It reports whether a translated sentence states a requirement the English only
+ * recommended. It does NOT withhold the row -- PROMPT-111 s0 rules out new gates for wording nuances,
+ * and the fix is the brief above. The members are printed, because the count alone was wrong twice. */
+const drift = { "es-419": [], "pt-BR": [] };
+let driftExamined = 0, driftUnaligned = 0;
+for (const rec of results) {
+  const row = scope.find((r) => r.id === rec.en_id) || en.find((r) => r.id === rec.en_id);
+  for (const lang of LANGS) {
+    const g = rec.langs[lang.code];
+    if (!g || !row) continue;
+    const r = driftInItem(row, { question_text: g.question_text, explanation: g.explanation,
+      options: g.options }, lang.code);
+    driftExamined += r.examined; driftUnaligned += r.unaligned.length;
+    for (const x of r.findings) drift[lang.code].push({ id: String(rec.en_id).slice(0, 8), ...x });
+  }
+}
+const driftAll = [...drift["es-419"], ...drift["pt-BR"]];
+const driftNonStem = driftAll.filter((x) => x.field !== "stem");
+console.log("");
+console.log("  MODAL DRIFT (report, not a gate)   hedged sentences examined " + driftExamined +
+  "   unalignable " + driftUnaligned);
+console.log("    findings " + driftAll.length + "   non-stem " + driftNonStem.length +
+  "   es-419 " + drift["es-419"].length + "   pt-BR " + drift["pt-BR"].length +
+  (driftNonStem.length ? "   TARGET IS 0 NON-STEM (PROMPT-117 s4)" : ""));
+for (const x of driftAll.slice(0, 12)) {
+  console.log("      " + x.lang + "  " + x.id + "  " + x.field);
+  console.log("          en: " + String(x.en).slice(0, 150));
+  console.log("          tr: " + String(x.tr).slice(0, 150));
+}
+if (driftAll.length > 12) console.log("      ... " + (driftAll.length - 12) + " more");
 
 const ok = results.filter((r) => r.langs["es-419"] && r.langs["pt-BR"]);
 const broken = results.filter((r) => !(r.langs["es-419"] && r.langs["pt-BR"]));

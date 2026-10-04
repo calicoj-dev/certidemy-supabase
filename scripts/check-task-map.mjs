@@ -148,7 +148,13 @@ console.log("  floors: " + floors.source + "   default " + floors.defaultFloor +
   "   " + floors.overrides.size + " override(s)");
 console.log("  in-scope tasks: " + inScope.length + " of " + tasks.length);
 console.log("");
-console.log("  task     mapped  effective  floor  held(en)  state");
+/* ============ THE COLUMN SHOWN IS THE COLUMN THE VERDICT USES ============
+ *
+ * It was held(en) while the state came from the MINIMUM across the three languages. Task 2.1 therefore
+ * printed "8   short (need 7 more)" against a floor of 8 -- which reads as a broken instrument, not as
+ * "the siblings are not translated yet". A floor is per language, so the binding number is the minimum
+ * and the language that sets it is named. */
+console.log("  task     mapped  effective  floor  held(en)  held(min)  state");
 
 const summary = { at_floor: 0, short: 0, too_thin: 0, no_map: 0 };
 const detail = [];
@@ -177,8 +183,10 @@ for (const t of inScope) {
   const state = tooThin ? "too_thin" : (minHeld >= f.floor ? "at_floor" : "short");
   summary[state]++;
   detail.push({ code: t.code, mapped: mine.length, effective, floor: f.floor, why: f.why, held, state });
+  const minLang = LANGS.filter((l) => held[l] === minHeld).join(",");
   console.log("  " + t.code.padEnd(8) + String(mine.length).padStart(6) + String(effective).padStart(11) +
-    String(f.floor).padStart(7) + String(held.en).padStart(10) + "  " + state +
+    String(f.floor).padStart(7) + String(held.en).padStart(10) + String(minHeld).padStart(11) +
+    (minHeld === held.en ? "  " : " (" + minLang + ") ") + state +
     (state === "short" ? " (need " + (f.floor - minHeld) + " more per language)" : "") +
     (tooThin ? " (" + effective + " effective < " + MIN_EFFECTIVE + " -- a MAP question, not work)" : "") +
     (f.why.startsWith("override") ? "   floor " + f.why : ""));

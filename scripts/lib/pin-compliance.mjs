@@ -187,7 +187,20 @@ const CADENCE_TARGET = /\b(peri[\u00f3o]dicamente|regularmente|continuamente|de 
 /* `continuing` and `on a continuing basis` were MISSING, so a faithful "de forma continua" rendering of
  * "Improving, on a continuing basis" was reported as an INSERTED cadence. The source list has to carry
  * every way the English states a cadence, or the rule accuses the translation of the pattern's gap. */
-const CADENCE_SOURCE = /\b(planned intervals?|at intervals?|periodic(?:ally)?|regular(?:ly)?|annual(?:ly)?|monthly|quarterly|ongoing|continu(?:al|ous|ing)(?:ly)?|each year|every year)\b/i;
+/* ============ A GAP IN THIS LIST WITHHOLDS A CORRECT ITEM ============
+ *
+ * Measured on ISMS-F R3, 2026-10-04. The rule fires when the TRANSLATION carries a periodicity and
+ * the ENGLISH does not, so every English periodicity word has to be in here -- and `yearly` was not.
+ * An option reading "so they can be reviewed yearly" was translated faithfully as "anualmente" and
+ * flagged as an invention, which HELD THE ITEM BACK from insertion: a guard firing on the normal case.
+ *
+ * `keep improving` / `continue to improve` is the same miss one step further out: 27001 10.1's
+ * continual improvement written in plain words, which pt-BR renders as "melhorar continuamente".
+ *
+ * WIDENING THIS LIST CANNOT EXCUSE A REAL INSERTION. The rule asks whether the English carries a
+ * periodicity AT ALL; where it genuinely carries none, none of these words match and the rule still
+ * fires. The controls below assert that direction as well as this one. */
+const CADENCE_SOURCE = /\b(planned intervals?|at intervals?|periodic(?:ally)?|regular(?:ly)?|annual(?:ly)?|semi-?annual(?:ly)?|biannual(?:ly)?|yearly|monthly|weekly|daily|quarterly|ongoing|continu(?:al|ous|ing)(?:ly)?|keeps? improving|keep on improving|continue to improve|each year|every year|each month|every month|twice a year)\b/i;
 
 /**
  * @param {string} text    the translated field-set
@@ -419,6 +432,23 @@ const CASES = [
    null, "It returns for reassessment at the planned intervals and whenever a significant change occurs."],
   ["no English supplied - rule abstains rather than guesses", "pt-BR",
    "A organizacao deve retornar periodicamente a essa determinacao.", null, undefined],
+  // the two R3 false positives: the English DOES carry the periodicity
+  ["English `yearly` - anualmente is FAITHFUL, must not fire", "es-419",
+   "las politicas y objetivos se tratan por separado para poder revisarse anualmente.",
+   null, "policies and objectives are taken separately so they can be reviewed yearly."],
+  ["English `yearly` - anualmente is FAITHFUL, pt", "pt-BR",
+   "as politicas e objetivos sao tratados separadamente para que sejam analisados anualmente.",
+   null, "policies and objectives are taken separately so they can be reviewed yearly."],
+  ["English `keep improving` - continuamente is FAITHFUL, must not fire", "pt-BR",
+   "Entra em conflito com a obrigacao de melhorar continuamente a adequacao do sistema.",
+   null, "It conflicts with the obligation to keep improving the adequacy of the system."],
+  // AND THE OTHER DIRECTION: a widened source list must not excuse a real insertion
+  ["`yearly` in the list does NOT excuse an insertion elsewhere", "es-419",
+   "El desempeno se evalua trimestralmente frente a las politicas.",
+   "inserted-cadence", "Performance is assessed against the policies."],
+  ["`keep improving` in the list does NOT excuse an unrelated insertion", "pt-BR",
+   "A organizacao analisa criticamente os resultados mensalmente.",
+   "inserted-cadence", "The organization reviews the results."],
 
   // THE PIN ITSELF MUST STILL PASS. A leak rule that also fires on the correct
   // language would make the pin unsatisfiable in both directions, which is the

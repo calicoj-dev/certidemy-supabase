@@ -1,0 +1,301 @@
+{
+  "_what": "PROMPT-117 s1: all 49 R3 survivors accepted. The six items that restate an already-accepted fact are accepted under the new near-duplicate ruling, because the enemy rule keeps each pair off one form -- measured by check-duplicate-pairs.mjs, 7 of 7 separated, 0 same-task.",
+  "_numbers_are_frozen": "Each report number is recorded beside its id and never recomputed. The survivor list is re-filtered on every read, so a later rescue or rejection renumbers it.",
+  "_probe": "R3 still ran the options-only probe; PROMPT-117 s2 withdrew it afterwards. Its verdicts are kept as a record and imply no work.",
+  "accepts": [
+    {
+      "item_id": "8dc30cf6",
+      "report_number": 1,
+      "task": "2.1",
+      "note": "accepted PROMPT-117 s1 (#1) | options probe flagged (only-negation) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "968d2cdb",
+      "report_number": 2,
+      "task": "2.1",
+      "note": "accepted PROMPT-117 s1 (#2) | options probe flagged (only-negation) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "7ed94534",
+      "report_number": 3,
+      "task": "2.1",
+      "note": "accepted PROMPT-117 s1 (#3) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "a41b8207",
+      "report_number": 4,
+      "task": "2.1",
+      "note": "accepted PROMPT-117 s1 (#4) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "5fe5a19d",
+      "report_number": 5,
+      "task": "2.1",
+      "note": "accepted PROMPT-117 s1 (#5) | options probe flagged (length) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "eb3ea65d",
+      "report_number": 6,
+      "task": "2.1",
+      "note": "accepted PROMPT-117 s1 (#6) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | de-cue reverted in-run on a CODE cue"
+    },
+    {
+      "item_id": "3734dd4c",
+      "report_number": 7,
+      "task": "2.1",
+      "note": "accepted PROMPT-117 s1 (#7) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "03e635d1",
+      "report_number": 8,
+      "task": "2.7",
+      "note": "accepted PROMPT-117 s1 (#8) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | de-cue reverted in-run on a CODE cue"
+    },
+    {
+      "item_id": "1e1ebb49",
+      "report_number": 9,
+      "task": "2.7",
+      "note": "accepted PROMPT-117 s1 (#9) | options probe flagged (length) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "26a4eb6f",
+      "report_number": 10,
+      "task": "2.7",
+      "note": "accepted PROMPT-117 s1 (#10) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "df870331",
+      "report_number": 11,
+      "task": "2.7",
+      "note": "accepted PROMPT-117 s1 (#11) | options probe flagged (length) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | de-cue reverted in-run on a CODE cue"
+    },
+    {
+      "item_id": "2ed94cc4",
+      "report_number": 12,
+      "task": "2.7",
+      "note": "accepted PROMPT-117 s1 (#12) | options probe: no-cue (recorded; the probe is withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "cb772bee",
+      "report_number": 13,
+      "task": "2.7",
+      "note": "accepted PROMPT-117 s1 (#13) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "85959294",
+      "report_number": 14,
+      "task": "2.7",
+      "note": "accepted PROMPT-117 s1 (#14) | options probe: no-cue (recorded; the probe is withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "b521f16b",
+      "report_number": 15,
+      "task": "3.1",
+      "note": "accepted PROMPT-117 s1 (#15) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "4b049537",
+      "report_number": 16,
+      "task": "3.1",
+      "note": "accepted PROMPT-117 s1 (#16) | options probe: no-cue (recorded; the probe is withdrawn, PROMPT-117 s2) | same fact as #12 and R2 #4 (27001 6.1.2); the enemy rule separates all three"
+    },
+    {
+      "item_id": "e17aedb2",
+      "report_number": 17,
+      "task": "3.1",
+      "note": "accepted PROMPT-117 s1 (#17) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | same fact as R2 #16 (27000 3.66); the enemy rule separates the pair"
+    },
+    {
+      "item_id": "df376c8d",
+      "report_number": 18,
+      "task": "3.1",
+      "note": "accepted PROMPT-117 s1 (#18) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | same fact as #29 (27000 3.64); the enemy rule separates the pair"
+    },
+    {
+      "item_id": "ff1487a9",
+      "report_number": 19,
+      "task": "3.1",
+      "note": "accepted PROMPT-117 s1 (#19) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | same fact as R2 #8 (27000 3.68); the enemy rule separates the pair"
+    },
+    {
+      "item_id": "578a0a6f",
+      "report_number": 20,
+      "task": "3.1",
+      "note": "accepted PROMPT-117 s1 (#20) | options probe: no-cue (recorded; the probe is withdrawn, PROMPT-117 s2) | same fact as R2 #15 (27000 3.39); the enemy rule separates the pair"
+    },
+    {
+      "item_id": "751526ce",
+      "report_number": 21,
+      "task": "3.1",
+      "note": "accepted PROMPT-117 s1 (#21) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | same fact as the R2 rescue on 27000 3.63; the enemy rule separates the pair"
+    },
+    {
+      "item_id": "0a9b80d8",
+      "report_number": 22,
+      "task": "3.8",
+      "note": "accepted PROMPT-117 s1 (#22) | options probe flagged (only-hedged) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "b279477a",
+      "report_number": 23,
+      "task": "3.8",
+      "note": "accepted PROMPT-117 s1 (#23) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "5fee73fd",
+      "report_number": 24,
+      "task": "3.8",
+      "note": "accepted PROMPT-117 s1 (#24) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "5cabc9f5",
+      "report_number": 25,
+      "task": "3.8",
+      "note": "accepted PROMPT-117 s1 (#25) | options probe flagged (only-negation) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "a482f6ab",
+      "report_number": 26,
+      "task": "3.8",
+      "note": "accepted PROMPT-117 s1 (#26) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "af91d507",
+      "report_number": 27,
+      "task": "3.8",
+      "note": "accepted PROMPT-117 s1 (#27) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "2b37e241",
+      "report_number": 28,
+      "task": "3.8",
+      "note": "accepted PROMPT-117 s1 (#28) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "451a8045",
+      "report_number": 29,
+      "task": "3.8",
+      "note": "accepted PROMPT-117 s1 (#29) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "4a4f769e",
+      "report_number": 30,
+      "task": "4.6",
+      "note": "accepted PROMPT-117 s1 (#30) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "eb8b9000",
+      "report_number": 31,
+      "task": "4.6",
+      "note": "accepted PROMPT-117 s1 (#31) | options probe: no-cue (recorded; the probe is withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "210481e9",
+      "report_number": 32,
+      "task": "4.6",
+      "note": "accepted PROMPT-117 s1 (#32) | options probe flagged (only-hedged) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "9f70b8bd",
+      "report_number": 33,
+      "task": "4.6",
+      "note": "accepted PROMPT-117 s1 (#33) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "b02476dc",
+      "report_number": 34,
+      "task": "4.6",
+      "note": "accepted PROMPT-117 s1 (#34) | options probe flagged (length) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "55f1d03a",
+      "report_number": 35,
+      "task": "4.6",
+      "note": "accepted PROMPT-117 s1 (#35) | options probe flagged (only-hedged) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "88dbe2c6",
+      "report_number": 36,
+      "task": "4.7",
+      "note": "accepted PROMPT-117 s1 (#36) | options probe flagged (only-negation) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "81d0ce47",
+      "report_number": 37,
+      "task": "4.7",
+      "note": "accepted PROMPT-117 s1 (#37) | options probe flagged (only-hedged) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "c026fcf2",
+      "report_number": 38,
+      "task": "4.7",
+      "note": "accepted PROMPT-117 s1 (#38) | options probe flagged (length) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "db2fa30b",
+      "report_number": 39,
+      "task": "4.7",
+      "note": "accepted PROMPT-117 s1 (#39) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "b752d955",
+      "report_number": 40,
+      "task": "4.7",
+      "note": "accepted PROMPT-117 s1 (#40) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "b83cf48c",
+      "report_number": 41,
+      "task": "4.7",
+      "note": "accepted PROMPT-117 s1 (#41) | options probe flagged (grammar) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "ed610e5c",
+      "report_number": 42,
+      "task": "4.7",
+      "note": "accepted PROMPT-117 s1 (#42) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "1ca01c96",
+      "report_number": 43,
+      "task": "4.7",
+      "note": "accepted PROMPT-117 s1 (#43) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "78f80bec",
+      "report_number": 44,
+      "task": "5.7",
+      "note": "accepted PROMPT-117 s1 (#44) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "fbf024ec",
+      "report_number": 45,
+      "task": "5.7",
+      "note": "accepted PROMPT-117 s1 (#45) | options probe flagged (only-negation) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "c0feb759",
+      "report_number": 46,
+      "task": "5.7",
+      "note": "accepted PROMPT-117 s1 (#46) | options probe: no-cue (recorded; the probe is withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "d9e370ed",
+      "report_number": 47,
+      "task": "5.7",
+      "note": "accepted PROMPT-117 s1 (#47) | options probe flagged (shared-phrase) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "ea198cc5",
+      "report_number": 48,
+      "task": "5.7",
+      "note": "accepted PROMPT-117 s1 (#48) | options probe flagged (odd-verdict) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    },
+    {
+      "item_id": "bb4f7cc9",
+      "report_number": 49,
+      "task": "5.7",
+      "note": "accepted PROMPT-117 s1 (#49) | options probe flagged (only-hedged) -- recorded only; the probe is withdrawn and no de-cue work is owed (PROMPT-117 s2)"
+    }
+  ]
+}

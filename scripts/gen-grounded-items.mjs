@@ -32,7 +32,8 @@
  *   --n=40          how many items to attempt across the blueprint
  *   --apply         WRITE the survivors. DRY BY DEFAULT.
  *   --out=FILE      where the artifact goes (default PILOT-GROUNDED-<CERT>.json)
- *   --max-usd=25    stop between items once spend reaches this. 0 = no ceiling (the default).
+ *   --max-usd=35    REQUIRED (PROMPT-117 s3). Stop between items once spend reaches this.
+ *                   --max-usd=0 means no ceiling and must be typed; there is no default.
  *
  * Unknown flags exit 2 and the error names both flag conventions in this directory.
  *
@@ -67,8 +68,10 @@ import { quoteNoiseControls } from "./lib/quote-noise.mjs";
 import { reporterGateParity, reporterGateParityControls } from "./lib/reporter-gate-parity.mjs";
 import { supersededControls } from "./lib/superseded-wording.mjs";
 import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs";
-import { optionsPayload, assertOptionsOnly, optionsProbeUser, optionsProbeVerdict,
-  OPTIONS_PROBE_SYSTEM, optionsProbeControls } from "./lib/options-probe.mjs";
+/* Only the CONTROLS are imported: the probe itself is withdrawn (PROMPT-117 s2, PROBE_WITHDRAWN
+ * below). The module is untouched, so re-running the measurement means re-importing four names -- an
+ * unused import of them would read as though the probe still ran. */
+import { optionsProbeControls } from "./lib/options-probe.mjs";
 import { shapeCues, shapeCueControls, KEY_LENGTH_TOLERANCE } from "./lib/shape-cues.mjs";
 import { deCueRewriteCheck, deCueCheckControls, newCodeCue, triggerCleared,
   limiterDropped } from "./lib/de-cue-checks.mjs";
@@ -161,8 +164,12 @@ let CERT = "AIMS-F", N = 40, APPLY = false, OUT = null, FROM = null, ONLY = null
  * already on disk: the run stops, says how many items it did not gate, and `--from` re-gates the rest
  * for free once the ceiling is raised. Default 0 = no ceiling, so no existing caller changes.
  * It cannot stop MID-ITEM: a half-gated item is worse than an over-spend of one item's cost. */
-let MAXUSD = 0;
+let MAXUSD = null;   /* null = not given (refused); 0 = no ceiling, explicitly chosen */
 let CEILING_STOPPED = 0;
+/* one retry PER TASK BATCH, and the items it saved -- reported, because a retry nobody sees is a
+ * silent second bill. */
+const writerRetried = new Set();
+let writerRetrySaved = 0;
 let REUSE_SOLVER = false;
 for (const a of process.argv.slice(2)) {
   let m;
@@ -215,6 +222,21 @@ for (const a of process.argv.slice(2)) {
   process.exitCode = 2; process.exit();
 }
 OUT = OUT || ("PILOT-GROUNDED-" + CERT.replace(/[^A-Za-z0-9-]/g, "") + ".json");
+/* ============ A GENERATION RUN WITHOUT A CEILING IS REFUSED ============
+ *
+ * Ruled PROMPT-117 s3, after R3 spent $29.45 against a ruled $25 with nothing able to stop it.
+ * `--max-usd` is not a safety opt-in here; it is the only thing between a deep-mapped task set and an
+ * open-ended bill, and a default would be a number nobody chose. `--max-usd=0` is accepted and means
+ * NO CEILING -- but it has to be typed, so an unbounded run is a decision in the shell history.
+ *
+ * `--from` re-gates a persisted artifact and still pays for the solver, so it needs one too. */
+if (MAXUSD === null) {
+  console.error("--max-usd is REQUIRED on every generation run (ruled PROMPT-117 s3).");
+  console.error("  --max-usd=35   stop between items once spend reaches $35");
+  console.error("  --max-usd=0    no ceiling -- allowed, but it has to be typed");
+  console.error("R3 spent $29.45 against a ruled $25 because nothing here could stop it.");
+  process.exit(2);
+}
 
 const MODEL = process.env.GROUNDED_MODEL || "claude-opus-5";
 
@@ -303,6 +325,20 @@ if (!ANTHROPIC_API_KEY) { console.error("ANTHROPIC_API_KEY not found (scripts/.e
  * Every call's token usage, tagged by role. The API has always returned this and nothing read it, which
  * is why every cost figure in this repository has been in CALLS rather than dollars. Prices are per
  * MILLION tokens and live in ONE place, so a stale price cannot hide inside an estimate. */
+/* ============ THE OPTIONS-ONLY PROBE IS WITHDRAWN FROM GENERATION RUNS ============
+ *
+ * Ruled PROMPT-117 s2. R3 measured it: the probe picks the key on 92% of generated items and 98% of
+ * the AUTHORED bank. On a "which statement is correct" item the correct statement is recognisable to a
+ * reader who knows ISO, so the probe measures the probing model's knowledge, not a cue in the options.
+ * It cost one model call per survivor and triggered nothing (the de-cue retry has run on CODE cues
+ * alone since 2026-09-28).
+ *
+ * NOT-RUN IS RECORDED, NOT null. A missing probe field reads downstream as "no cue found", which is a
+ * claim about an instrument that never ran. The module and its controls stay, so the measurement can
+ * be repeated deliberately. */
+const PROBE_WITHDRAWN = { state: "not-run",
+  reason: "the options-only probe was withdrawn from generation runs (PROMPT-117 s2): it picked the " +
+    "key on 92% of generated and 98% of authored items, which reads examiner convention rather than a cue" };
 const PRICE_PER_MTOK = { input: 15.0, output: 75.0 };   /* claude-opus, USD per million tokens */
 const SPEND = { calls: 0, input: 0, output: 0, byRole: {} };
 let CALL_ROLE = "unattributed";
@@ -1186,8 +1222,44 @@ if (FROM) {
         console.log("  " + t.code + "  WRITER PRODUCED NO ITEMS: " + why);
         console.log("      response length " + String(rawText || "").length +
           " char(s); head: " + head);
-        bump("writer produced no items: " + why);
-        continue;
+        /* ============ ONE RETRY PER BATCH, AND ONLY FOR A MALFORMED RESPONSE ============
+         *
+         * Ruled PROMPT-117 s3. Task 3.11 lost ALL EIGHT of its items to a single response that would
+         * not parse -- the whole batch, for one bad character. So the batch is asked once more.
+         *
+         * ONE retry, not a loop: a refusal or a prompt the model cannot satisfy would retry forever,
+         * and each attempt costs a full writer call. The retry is counted separately from the first
+         * attempt, and a retry that also fails records BOTH causes -- otherwise the artifact would say
+         * the batch failed once when it failed twice.
+         *
+         * A TRUNCATION IS NOT RETRIED AT THE SAME BUDGET. Where the array was simply not closed the
+         * budget was too small, so the retry gets 1.5x -- capped at the same 32000 the first call is. */
+        const truncated = hasOpen && !hasClose;
+        if (!writerRetried.has(t.code)) {
+          writerRetried.add(t.code);
+          const budget2 = truncated ? Math.min(32000, Math.round(budget * 1.5)) : budget;
+          console.log("      RETRYING ONCE" + (truncated ? " at " + budget2 + " tokens (it was truncated)" : "") + "...");
+          try {
+            CALL_ROLE = "writer-retry";
+            const rawText2 = await claude(WRITER_SYSTEM, writerUser(t, d, ps, k, asg.assignments), budget2);
+            const arr2 = parseArray(rawText2);
+            if (Array.isArray(arr2) && arr2.length) {
+              writerRetrySaved += arr2.length;
+              console.log("      retry produced " + arr2.length + " item(s)");
+              arr = arr2;
+            } else {
+              bump("writer produced no items TWICE: " + why);
+              console.log("      the retry produced nothing either; " + k + " item(s) lost for this task");
+              continue;
+            }
+          } catch (e) {
+            bump("writer retry could not run: " + String(e.message).slice(0, 80));
+            continue;
+          }
+        } else {
+          bump("writer produced no items: " + why);
+          continue;
+        }
       }
     } catch (e) {
       console.log("  " + t.code + "  WRITER FAILED: " + String(e.message).slice(0, 120));
@@ -1527,35 +1599,9 @@ for (const g of generated) {
   if (v.state === "accepted") {
     record.verdict = "survivor";
 
-    /* ============ THE OPTIONS-ONLY PROBE: FLAGGED, NEVER REJECTED ============
-     *
-     * A third model call, on the survivors only, seeing the four option texts and nothing else.
-     * It flags an item a candidate with NO KNOWLEDGE could answer from the shape of the options.
-     * It does not reject: with four options it is right one in four by luck, and it will always
-     * produce a story. So a flag needs BOTH the key and a concrete, checkable cue, and it goes
-     * on the director's read list with that cue rather than being thrown away. */
-    try {
-      const op = optionsPayload(item);
-      assertOptionsOnly(op, item);
-      CALL_ROLE = "options-probe";
-      const probeRaw = parseObject(await claude(OPTIONS_PROBE_SYSTEM, optionsProbeUser(op), 800));
-      const pv = optionsProbeVerdict(probeRaw, keyLabel);
-      record.options_probe = pv;
-      if (pv.state === "flag") {
-        flagCounts.set("options probe: a cue in the options alone", (flagCounts.get("options probe: a cue in the options alone") || 0) + 1);
-        console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " +
-          item.key_support_clause + "   OPTIONS-PROBE FLAG (" + pv.cue_kind + ")");
-      } else {
-        console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " + item.key_support_clause);
-      }
-    } catch (e) {
-      /* A probe that could not run leaves the item a survivor and says the probe is UNRUN --
-       * folding it into "no cue" would claim a check nobody performed. */
-      record.options_probe = { state: "could-not-run", reason: String(e.message).slice(0, 160) };
-      flagCounts.set("options probe COULD NOT RUN", (flagCounts.get("options probe COULD NOT RUN") || 0) + 1);
-      console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " +
-        item.key_support_clause + "   (options probe could not run)");
-    }
+    /* the probe is withdrawn (PROMPT-117 s2). See PROBE_WITHDRAWN at the top of this file. */
+    record.options_probe = { ...PROBE_WITHDRAWN };
+    console.log("  " + t.code + "  SURVIVOR  key " + keyLabel + ", anchored in " + item.key_support_clause);
 
     /* ============ THE DE-CUE RETRY: DISTRACTORS ONLY, ONE ATTEMPT ============
      *
@@ -1708,14 +1754,9 @@ for (const g of generated) {
               record.de_cue = { state: "reverted", reason: "the solver no longer accepts it: " + reSolver.state };
               deCueRevertedSolver++;
             } else {
-              try {
-                const op2 = optionsPayload(cand);
-                assertOptionsOnly(op2, cand);
-                CALL_ROLE = "options-probe";
-                reProbe = optionsProbeVerdict(parseObject(await claude(OPTIONS_PROBE_SYSTEM, optionsProbeUser(op2), 800)), keyLabel);
-              } catch (e) {
-                reProbe = { state: "could-not-run", reason: String(e.message).slice(0, 160) };
-              }
+              /* no re-probe: the probe is withdrawn (PROMPT-117 s2). The rewrite is still re-gated
+               * and re-solved, which is what can turn a distractor into a second correct answer. */
+              reProbe = { ...PROBE_WITHDRAWN };
               item = cand;
               record.item = cand;
               record.gates = recoded.gates.map((x) => ({ id: x.id, pass: x.pass, examined: x.examined, reason: x.reason }));
@@ -1723,7 +1764,7 @@ for (const g of generated) {
               record.options_probe = reProbe;
               record.de_cue = { state: "applied",
                 probe_before: cueList.slice(0, 200),
-                probe_after: reProbe ? reProbe.state : null };
+                probe_after: reProbe ? reProbe.state : null };   /* "not-run" since PROMPT-117 s2 */
               keptIt = true;
               deCueApplied++;
             }
@@ -1839,8 +1880,17 @@ for (const c of clusters) {
 }
 
 const probeFlags = results.filter((r) => r.options_probe && r.options_probe.state === "flag");
+const probeNotRun = results.filter((r) => r.options_probe && r.options_probe.state === "not-run").length;
 console.log("");
-console.log("  OPTIONS-ONLY PROBE  " + probeFlags.length + " flag(s) of " + survivors.length + " survivor(s)");
+/* "0 flags" WOULD READ AS CLEAN. A withdrawn instrument reports that it did not run. */
+if (probeNotRun) {
+  console.log("  OPTIONS-ONLY PROBE  NOT RUN on " + probeNotRun + " survivor(s) -- withdrawn, PROMPT-117 s2.");
+  console.log("    Not a clean result: nothing looked at the option shapes this round. The CODE cues");
+  console.log("    (key-length, only-hedged, odd-verdict, opposite-pair, agreement) still run and still");
+  console.log("    trigger the de-cue retry.");
+} else {
+  console.log("  OPTIONS-ONLY PROBE  " + probeFlags.length + " flag(s) of " + survivors.length + " survivor(s)");
+}
 for (const r of probeFlags) {
   console.log("    " + r.task_code + "  (" + r.options_probe.cue_kind + ") " +
     String(r.options_probe.cue).slice(0, 96));
@@ -1922,6 +1972,10 @@ console.log("  LONGEST SERVED RUN across survivors   max " + (runs.length ? Math
   "   (the ceiling is 9)");
 const over = survivors.filter((r) => typeof r.longest_served_run === "number" && r.longest_served_run > 9);
 console.log("  survivors over the ceiling            " + over.length + " (must be 0)");
+if (writerRetried.size) {
+  console.log("  WRITER RETRIES  " + writerRetried.size + " batch(es) retried once for a malformed " +
+    "response; " + writerRetrySaved + " item(s) recovered   (ruled PROMPT-117 s3)");
+}
 if (MAXUSD) {
   /* A RUN STOPPED ON SPEND LOOKS LIKE A RUN THAT FOUND NOTHING. So the count of items generated and
    * never gated is printed and put in the artifact, with the free way to finish them. */
@@ -1940,6 +1994,7 @@ writeFileSync(OUT_PATH, JSON.stringify({
   /* THE CEILING AND WHAT IT COST. A run that stopped on spend looks like a run that found nothing,
    * so the number of items it never gated is in the artifact, not only in the console. */
   ceiling_usd: MAXUSD || null, ceiling_stopped_items: CEILING_STOPPED,
+  writer_retries: writerRetried.size, writer_retry_items_saved: writerRetrySaved,
   generation_note: priorNote,
   reject_counts: Object.fromEntries(rejectCounts),
   tasks_mapped: mappedTasks.length, tasks_total: tasks.length,
@@ -1955,6 +2010,7 @@ writeFileSync(OUT_PATH, JSON.stringify({
   anchor_clusters: clusters,
   options_probe_flags: probeFlags.length,
   options_probe_unrun: probeUnrun,
+  options_probe_not_run: probeNotRun,
   longest_served_run_max: runs.length ? Math.max(...runs) : null,
   items: results,
 }, null, 1) + "\n", "utf8");
