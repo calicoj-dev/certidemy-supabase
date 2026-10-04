@@ -27,6 +27,9 @@
  *   --cert=<CODE>     required
  *   --max-usd=<n>     required (PROMPT-117 s3's rule, applied here too)
  *   --only-new        limit to the rows named in <SLUG>-INSERTED.json (default: the whole cert)
+ *   --kept            limit to the AUDIT-KEPT rows in <SLUG>-SURVIVORS.json -- the population
+ *                     PROMPT-118 s4 deferred to after the cutover. Same resolution as
+ *                     check-modal-drift's --kept, so repair and measurement cover one population.
  *   --limit=<n>       repair only the first n fields
  *   --apply           write
  */
@@ -37,14 +40,16 @@ import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { driftInField, driftInItem, MODAL_BRIEF, modalDriftControls, LANGS } from "./lib/modal-drift.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-let CERT = null, APPLY = false, LIMIT = 0, MAXUSD = null, PRINTED = false, ONLY_NEW = false;
+let CERT = null, APPLY = false, LIMIT = 0, MAXUSD = null, PRINTED = false, ONLY_NEW = false, KEPT = false;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
   let m = a.match(/^--cert=(.+)$/); if (m) { CERT = m[1]; continue; }
   m = a.match(/^--limit=([0-9]+)$/); if (m) { LIMIT = Number(m[1]); continue; }
   m = a.match(/^--max-usd=([0-9.]+)$/); if (m) { MAXUSD = Number(m[1]); continue; }
   if (a === '--only-new') { ONLY_NEW = true; continue; }
-  console.error("Unrecognised flag: " + a + ". Known: --cert=, --max-usd=, --limit=, --apply.");
+  if (a === '--kept') { KEPT = true; continue; }
+  console.error("Unrecognised flag: " + a +
+    ". Known: --cert=, --max-usd=, --limit=, --only-new, --kept, --apply.");
   console.error("(This directory has two flag conventions: this script is the --apply family, dry by default.)");
   process.exit(2);
 }
@@ -121,6 +126,20 @@ if (ONLY_NEW) {
   const ins = new Set(JSON.parse(readFileSync(p, "utf8")).batches.flatMap((b) => b.ids));
   wantGroups = new Set(rows.filter((r) => ins.has(r.id)).map((r) => r.question_group_id).filter(Boolean));
   console.log("SCOPE: --only-new   " + ins.size + " inserted English row(s) -> " + wantGroups.size + " group(s)");
+} else if (KEPT) {
+  /* --kept: the AUDIT-KEPT items, the population PROMPT-118 s4 ruled the post-cutover repair for.
+   * Identical resolution to check-modal-drift's --kept, so the repairer and the measurement cover
+   * the same rows: THE KEEP IDS ARE UUID PREFIXES, not stem hashes. A stem-hash match resolved
+   * 0 of 143 when that was first written, and the refusal below is what caught it. */
+  const p = join(HERE, "..", SLUG + "-SURVIVORS.json");
+  if (!existsSync(p)) { console.error("--kept needs " + SLUG + "-SURVIVORS.json"); process.exit(2); }
+  const keep = new Set((JSON.parse(readFileSync(p, "utf8")).keep_ids || []).map(String));
+  if (!keep.size) { console.error("REFUSING: the keep list is empty, so --kept would repair nothing."); process.exit(2); }
+  const en = rows.filter((r) => r.language === "en");
+  wantGroups = new Set(en.filter((r) => [...keep].some((k) => String(r.id).startsWith(k)))
+    .map((r) => r.question_group_id).filter(Boolean));
+  console.log("SCOPE: --kept   " + keep.size + " keep id(s) -> " + wantGroups.size + " group(s) resolved");
+  if (!wantGroups.size) { console.error("REFUSING: no keep id resolved to a live group."); process.exit(2); }
 } else {
   console.log("SCOPE: the WHOLE certification, including the authored bank already approved and served.");
 }

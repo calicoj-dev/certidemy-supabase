@@ -47,6 +47,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { cueConfigFor, keyLengthEscape } from "./lib/item-cue-guard.mjs";
 import { loadTaskFloors, floorFor, taskFloorControls } from "./lib/task-floors.mjs";
+import { classifyPrimaries } from "./lib/effective-primary.mjs";
 import { isServed, isCueJudgeable, populationControls } from "./lib/verify-cert-population.mjs";
 import { RETIRED_HARD, RETIRED_SOFT } from "./lib/item-translation.mjs";
 import { buildIndex, analyseText, newSink, sourcesAvailable, loadExemptions } from "./lib/citation-index.mjs";
@@ -265,6 +266,9 @@ async function verify(cert) {
    * every multi-source citation would fail again, so a zero count is reported loudly. */
   const GROUNDING_BY_Q = new Map();
   const LIBRARY_ADDRESSES = new Set();
+  const PASSAGE_BY_ID = new Map();
+  const CLAUSES_BY_SRC = new Map();
+  const PRIMARY_PASSAGE_IDS_BY_TASK = new Map();
   {
     for (let from = 0; ; from += 1000) {
       const { data } = await must(`item_grounding[${from}]`, db.from("item_grounding")
@@ -276,14 +280,50 @@ async function verify(cert) {
     }
     for (let from = 0; ; from += 1000) {
       const { data } = await must(`source_passages[${from}]`, db.from("source_passages")
-        .select("source_id, edition, clause").order("id").range(from, from + 999));
+        .select("id, source_id, edition, clause, text").order("id").range(from, from + 999));
       if (!data || data.length === 0) break;
-      for (const p of data) LIBRARY_ADDRESSES.add(p.source_id + "|" + p.edition + "|" + String(p.clause));
+      for (const p of data) {
+        LIBRARY_ADDRESSES.add(p.source_id + "|" + p.edition + "|" + String(p.clause));
+        /* `text` is read for the effective-primary derivation below: the 15-word floor needs it. */
+        PASSAGE_BY_ID.set(p.id, p);
+        const k = p.source_id + "|" + p.edition;
+        if (!CLAUSES_BY_SRC.has(k)) CLAUSES_BY_SRC.set(k, new Map());
+        CLAUSES_BY_SRC.get(k).set(String(p.clause), p);
+      }
       if (data.length < 1000) break;
     }
     if (!LIBRARY_ADDRESSES.size) {
       console.error("  !! the passage library read EMPTY: no citation can be resolved against an item's");
       console.error("     own source, so items.citations may fail on correct multi-source items.");
+      process.exitCode = 1;
+    }
+    /* ============ THE TASK MAP, for the effective-primary derivation (PROMPT-123 s4) ============
+     *
+     * ORDERED BY THE WHOLE PRIMARY KEY, and counted. `task_sources` has 1,728 rows and no `id`
+     * column -- its key is (task_id, passage_id) -- so paging on `task_id` alone is paging on a
+     * NON-UNIQUE order, which can skip and duplicate rows across page boundaries. It did: the
+     * first version of this read lost primaries and derived a floor below 8 for 42 of 49 tasks,
+     * against stage 3's 7. A short read here LOWERS every floor, so it is the most dangerous
+     * possible silent failure in this file -- hence the count assertion rather than trust. */
+    let tsSeen = 0;
+    for (let from = 0; ; from += 1000) {
+      const { data } = await must(`task_sources[${from}]`, db.from("task_sources")
+        .select("task_id, passage_id, role").order("task_id").order("passage_id")
+        .range(from, from + 999));
+      if (!data || data.length === 0) break;
+      tsSeen += data.length;
+      for (const r of data) {
+        if (r.role !== "primary") continue;
+        if (!PRIMARY_PASSAGE_IDS_BY_TASK.has(r.task_id)) PRIMARY_PASSAGE_IDS_BY_TASK.set(r.task_id, []);
+        PRIMARY_PASSAGE_IDS_BY_TASK.get(r.task_id).push(r.passage_id);
+      }
+      if (data.length < 1000) break;
+    }
+    const { count: tsTotal } = await db.from("task_sources").select("task_id", { count: "exact", head: true });
+    if (Number.isFinite(tsTotal) && tsSeen !== tsTotal) {
+      console.error(`  !! task_sources read ${tsSeen} of ${tsTotal} row(s). The floor derivation is`);
+      console.error("     ABANDONED rather than computed from a short read: a missing primary lowers a floor.");
+      PRIMARY_PASSAGE_IDS_BY_TASK.clear();
       process.exitCode = 1;
     }
   }
@@ -452,15 +492,78 @@ async function verify(cert) {
     R.fail("floors.config", "§8", "Task floors file is well-formed",
       `${floors.errors.length} problem(s) in ${floors.source}`, floors.errors.slice(0, 6));
   }
+  /* ============ THE DERIVED FLOOR, WHICH THIS SCRIPT NEVER APPLIED (PROMPT-123 s4) ============
+   *
+   * TASK-FLOORS-*.json rules the floor as `min(default_floor, 2 x effective primaries)`, because the
+   * anchor cap of 2 per (source, edition, clause) per task is the ceiling a task can reach. Stage 3
+   * passes the effective count to `floorFor`; THIS SCRIPT NEVER DID, so it demanded the default 8
+   * from tasks whose map supports 6. It went unnoticed while the old bank carried 8+ on every task
+   * and surfaced the moment the cutover reduced the pool to what the grounded bank holds: stage 3
+   * said 1.1, 4.2 and 5.4 were at floor, verify-cert said they were short. Two instruments, one
+   * rule, applied in one of them.
+   *
+   * THE GUARD MATTERS MORE THAN THE DERIVATION. If the map or the library read empty, every task
+   * would derive 2 x 0 = 0 and EVERY floor would pass -- the silent success this repository exists
+   * to prevent. So the derivation is applied ONLY where that task actually has primaries and the
+   * library is non-empty; anywhere else the default stands and the reason is reported. */
+  const libraryUsable = LIBRARY_ADDRESSES.size > 0 && PRIMARY_PASSAGE_IDS_BY_TASK.size > 0;
+  const effectiveOf = (t) => {
+    if (!libraryUsable) return null;
+    const ids = PRIMARY_PASSAGE_IDS_BY_TASK.get(t.id) || [];
+    if (!ids.length) return null;                   /* no map: the default stands, not a floor of 0 */
+    const mine = ids.map((i) => PASSAGE_BY_ID.get(i)).filter(Boolean);
+    if (!mine.length) return null;
+    const bySrc = new Map();
+    for (const p of mine) {
+      const k = p.source_id + "|" + p.edition;
+      if (!bySrc.has(k)) bySrc.set(k, []);
+      bySrc.get(k).push(p);
+    }
+    let effective = 0;
+    for (const [k, group] of bySrc) {
+      const idx = CLAUSES_BY_SRC.get(k) || new Map();
+      const all = [...idx.keys()];
+      effective += classifyPrimaries(group.map((p) => String(p.clause)),
+        (c) => idx.get(String(c)) || null, all).filter((r) => r.effective).length;
+    }
+    return effective;
+  };
+  if (!libraryUsable) {
+    R.warn("floors.derivation", "§8", "The derived floor could not be computed",
+      "the passage library or the task map read empty, so every floor is the default or an " +
+      "explicit override -- a task whose map supports fewer is reported short rather than excused");
+  }
+
   for (const [pool, poolFloor] of [["secure", null], ["practice", 10]]) {
     const short = [];
+    const excepted = [];
     const used = new Set();
+    const derived = [];
     for (const t of inScopeTasks) {
-      const f = poolFloor == null ? floorFor(t.code, floors) : { floor: poolFloor, why: "practice floor" };
+      const eff = poolFloor == null ? effectiveOf(t) : null;
+      const f = poolFloor == null ? floorFor(t.code, floors, eff) : { floor: poolFloor, why: "practice floor" };
+      /* ONLY where the derivation actually LOWERS the floor. `why` starts with "min(" for every
+       * task the derivation ran on, and for most of them it returns the default -- reporting those
+       * as "below default" said 42 when the answer is 7. */
+      if (poolFloor == null && f.why.startsWith("min(") && f.floor < floors.defaultFloor) {
+        derived.push(`${t.code}=${f.floor} (${f.why})`);
+      }
       used.add(f.floor);
       for (const lang of LANGS) {
-        const n = questions.filter((q) => q.pool === pool && q.language === lang && q.task_id === t.id).length;
-        if (n < f.floor) short.push(`${t.code}/${lang}=${n} (floor ${f.floor}, ${f.why})`);
+        /* ONLY APPROVED ROWS COUNT TOWARD A FLOOR (PROMPT-123 s4). `questions` excludes retired
+         * rows but not unapproved ones, and `generate-mock-exam` filters `status='approved'`
+         * exactly -- so a pending row sits in the pool, counts here, and cannot be served. Three
+         * tasks were reading AT floor on the strength of a withheld cued item apiece. A floor met
+         * by rows the assembler cannot serve is not met. */
+        const n = questions.filter((q) => q.pool === pool && q.language === lang &&
+          q.task_id === t.id && q.status === "approved").length;
+        if (n >= f.floor) continue;
+        const where = `${t.code}/${lang}=${n} (floor ${f.floor}, ${f.why})`;
+        /* A RULED TEMPORARY EXCEPTION IS NEITHER A PASS NOR A FAIL (PROMPT-123 s3). It is a WARN
+         * carrying the task's name and its ruling, so going live below floor is visible in the
+         * conformance report every time it runs -- and cannot be mistaken for conformance. */
+        if (f.temporary) excepted.push(where + ` -- TEMPORARY, ${f.ruled_in}`);
+        else short.push(where);
       }
     }
     const total = questions.filter((q) => q.pool === pool).length;
@@ -468,8 +571,21 @@ async function verify(cert) {
       ? `${pool} floor per task (${floors.source}, default ${floors.defaultFloor}, ${floors.overrides.size} override(s))`
       : `${pool} floor >= ${poolFloor}/task/lang`;
     short.length === 0
-      ? R.pass(`floors.${pool}`, "§8", label, `${total} items, all ${inScopeTasks.length} in-scope tasks x3 langs at floor; floors used {${[...used].sort((a, b) => a - b).join(",")}}`)
+      ? R.pass(`floors.${pool}`, "§8", label, `${total} items, ${inScopeTasks.length - new Set(excepted.map((e) => e.split("/")[0])).size} of ${inScopeTasks.length} in-scope tasks x3 langs at floor; floors used {${[...used].sort((a, b) => a - b).join(",")}}${excepted.length ? `; ${new Set(excepted.map((e) => e.split("/")[0])).size} task(s) under a ruled temporary exception, warned separately` : ""}`)
       : R.fail(`floors.${pool}`, "§8", label, `${short.length} below floor`, short.slice(0, 12));
+    if (excepted.length) {
+      const names = [...new Set(excepted.map((e) => e.split("/")[0]))].sort();
+      R.warn(`floors.${pool}.temporary`, "§8",
+        `${pool} tasks live BELOW floor under a ruled temporary exception`,
+        `${names.length} task(s): ${names.join(", ")}`, excepted.slice(0, 12));
+    }
+    /* A DERIVED floor is lower than the default, so it is named rather than left implicit. */
+    if (derived.length) {
+      R.pass(`floors.${pool}.derived`, "§8",
+        `${pool} floors derived from the map rather than the default`,
+        `${derived.length} task(s) below default ${floors.defaultFloor} because 2 x effective primaries is lower`,
+        derived.slice(0, 12));
+    }
   }
 
   // ==========================================================================

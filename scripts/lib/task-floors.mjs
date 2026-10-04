@@ -49,15 +49,44 @@ export function loadTaskFloors(certCode) {
   const overrides = new Map();
   for (const [code, v] of Object.entries(doc.per_task_overrides || {})) {
     if (code.startsWith("_")) continue;          /* `_what` and friends are documentation, not tasks */
-    if (!v || typeof v !== "object") { errors.push(code + ": override is not an object"); continue; }
-    if (!Number.isFinite(v.floor)) { errors.push(code + ": override has no numeric `floor`"); continue; }
-    if (!v.ruled_in || typeof v.ruled_in !== "string" || !v.ruled_in.trim()) {
-      errors.push(code + ": override has no `ruled_in` -- an unattributed floor is an error, not a pass");
-      continue;
-    }
-    overrides.set(code, { floor: v.floor, ruled_in: v.ruled_in, reason: v.reason || "" });
+    const r = validateOverride(code, v);
+    if (r.error) { errors.push(r.error); continue; }
+    overrides.set(code, r.value);
   }
   return { defaultFloor, overrides, source: found, errors };
+}
+
+/**
+ * Validate ONE override entry. Exported so the controls exercise the real rule rather than a copy
+ * of it -- the `ruled_in` control used to mirror this logic inline, which proved only that the
+ * mirror agreed with itself.
+ *
+ * ============ A TEMPORARY EXCEPTION (PROMPT-123 s3) ============
+ *
+ * `temporary: true` means the task goes live BELOW what its map should support, because the reason
+ * it is short is a defect being fixed rather than a thin map. It is neither a pass nor a fail:
+ * verify-cert reports it as a WARN and NAMES it, so the exception cannot quietly become standard.
+ *
+ * It must carry a REASON as well as a ruling. `ruled_in` says who allowed it; without the reason
+ * nobody can later tell whether the condition that justified it still holds, and that is the only
+ * thing that makes it temporary rather than permanent.
+ *
+ * @returns {{error:string|null, value:object|null}}
+ */
+export function validateOverride(code, v) {
+  const bad = (why) => ({ error: code + ": " + why, value: null });
+  if (!v || typeof v !== "object") return bad("override is not an object");
+  if (!Number.isFinite(v.floor)) return bad("override has no numeric `floor`");
+  if (!v.ruled_in || typeof v.ruled_in !== "string" || !v.ruled_in.trim()) {
+    return bad("override has no `ruled_in` -- an unattributed floor is an error, not a pass");
+  }
+  const temporary = v.temporary === true;
+  if (temporary && !String(v.reason || "").trim()) {
+    return bad("a temporary exception has no `reason` -- a temporary floor nobody can re-examine " +
+      "is a permanent one");
+  }
+  return { error: null,
+    value: { floor: v.floor, ruled_in: v.ruled_in, reason: v.reason || "", temporary } };
 }
 
 /**
@@ -66,7 +95,10 @@ export function loadTaskFloors(certCode) {
  */
 export function floorFor(taskCode, floors, effectivePrimaries = null) {
   const ov = floors.overrides.get(taskCode);
-  if (ov) return { floor: ov.floor, why: "override " + ov.ruled_in };
+  if (ov) {
+    return { floor: ov.floor, why: "override " + ov.ruled_in + (ov.temporary ? " (TEMPORARY)" : ""),
+      temporary: ov.temporary === true, ruled_in: ov.ruled_in, reason: ov.reason };
+  }
   if (Number.isFinite(effectivePrimaries)) {
     const derived = Math.min(floors.defaultFloor, 2 * effectivePrimaries);
     return { floor: derived, why: "min(" + floors.defaultFloor + ", 2 x " + effectivePrimaries + " effective)" };
@@ -97,15 +129,42 @@ export function taskFloorControls() {
   ok("2 effective primaries derives a floor of 4", floorFor("9.9", real, 2).floor === 4);
   ok("9 effective primaries is capped at default_floor", floorFor("9.9", real, 9).floor === 8);
 
-  /* AN OVERRIDE WITHOUT `ruled_in` IS AN ERROR. Synthetic, because the real file has none. */
+  /* AN OVERRIDE WITHOUT `ruled_in` IS AN ERROR. Through the REAL validator, not a mirror of it. */
   {
     const synth = { defaultFloor: 8, overrides: new Map(), source: "synthetic", errors: [] };
-    /* mirror loadTaskFloors' validation on a bad entry */
-    const bad = { floor: 3 };
-    const hasRuling = !!(bad.ruled_in && String(bad.ruled_in).trim());
-    ok("an override with no ruled_in is rejected by the validator", !hasRuling);
+    ok("an override with no ruled_in is rejected",
+      !!validateOverride("9.9", { floor: 3 }).error);
     ok("...and such a task falls back to the default rather than to 3",
       floorFor("9.9", synth).floor === 8);
+    ok("an override with a ruled_in is accepted",
+      validateOverride("9.9", { floor: 3, ruled_in: "PROMPT-X" }).error === null);
+    ok("an override with no numeric floor is rejected",
+      !!validateOverride("9.9", { ruled_in: "PROMPT-X" }).error);
+
+    /* ============ TEMPORARY EXCEPTIONS (PROMPT-123 s3), BOTH DIRECTIONS ============ */
+    ok("a temporary exception WITHOUT ruled_in fails",
+      !!validateOverride("1.6", { floor: 0, temporary: true, reason: "a reason" }).error);
+    ok("a temporary exception WITHOUT a reason fails",
+      !!validateOverride("1.6", { floor: 0, temporary: true, ruled_in: "PROMPT-123 s3" }).error);
+    ok("a temporary exception WITH both is accepted",
+      validateOverride("1.6", { floor: 0, temporary: true, ruled_in: "PROMPT-123 s3",
+        reason: "gate defects fixed in s2; rescues pending read" }).error === null);
+    ok("...and it is marked temporary",
+      validateOverride("1.6", { floor: 0, temporary: true, ruled_in: "PROMPT-123 s3",
+        reason: "r" }).value.temporary === true);
+    ok("a NON-temporary override is not marked temporary",
+      validateOverride("1.6", { floor: 4, ruled_in: "PROMPT-111 s2" }).value.temporary === false);
+    ok("a non-temporary override needs no reason",
+      validateOverride("1.6", { floor: 4, ruled_in: "PROMPT-111 s2" }).error === null);
+    ok("`temporary: 'yes'` is NOT temporary -- only the boolean counts",
+      validateOverride("1.6", { floor: 4, ruled_in: "P", temporary: "yes" }).value.temporary === false);
+    /* and floorFor must carry the flag through, or verify-cert cannot warn on it */
+    const tmp = { defaultFloor: 8, source: "synthetic", errors: [],
+      overrides: new Map([["1.6", { floor: 0, ruled_in: "PROMPT-123 s3", reason: "r", temporary: true }]]) };
+    ok("floorFor carries `temporary` through", floorFor("1.6", tmp).temporary === true);
+    ok("floorFor names it TEMPORARY in `why`", /TEMPORARY/.test(floorFor("1.6", tmp).why));
+    ok("floorFor on a task with no override reports no temporary flag",
+      floorFor("9.9", tmp).temporary !== true);
   }
 
   const missing = loadTaskFloors("NO-SUCH-CERT-ZZ");

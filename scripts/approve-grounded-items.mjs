@@ -105,7 +105,7 @@ export function condNotRejected(id8, rejectedIds, file = "the director's rejecti
 }
 /** Is this refusal reason a RECORDED DISPOSITION (tolerated in --cert mode) or a real failure? */
 export function isRecordedDisposition(why) {
-  return /^verdict: review_verdict is |^not-rejected: named in /.test(String(why || ""));
+  return /^verdict: review_verdict is |^not-rejected: named in |^withheld: /.test(String(why || ""));
 }
 
 /* ============ SELF-TEST: every condition in BOTH directions, and fc0000a0's refusal by name ============ */
@@ -142,6 +142,18 @@ export function approvalControls() {
   ok("a null solver is REFUSED", !condSolver({ solver: null }).ok);
   ok("a rejected id is REFUSED", !condNotRejected("3a3d26fa", new Set(["3a3d26fa"])).ok);
   ok("an unrejected id passes", condNotRejected("2741d373", new Set(["3a3d26fa"])).ok);
+
+  /* THE WITHHELD DISPOSITION (PROMPT-123 s4), both directions. */
+  ok("a withheld refusal is a RECORDED disposition and does not refuse the batch",
+    isRecordedDisposition("withheld: fails the cue guard (PROMPT-123 s4)"));
+  ok("a gate failure is NOT a recorded disposition",
+    !isRecordedDisposition("gates: FAILED [structure]"));
+  ok("a rejection IS a recorded disposition",
+    isRecordedDisposition("not-rejected: named in ISMSF-DIRECTOR-REJECTIONS.json"));
+  ok("an unrecognised reason is NOT a recorded disposition",
+    !isRecordedDisposition("resolves to 2 English bank row(s)"));
+  ok("a withheld reason that does not use the prefix is NOT tolerated",
+    !isRecordedDisposition("this item is withheld because of the cue guard"));
 
   /* ---- THE --cert TOLERANCE, both directions. A gate failure must NEVER read as a disposition. ---- */
   ok("a reject verdict IS a recorded disposition",
@@ -231,6 +243,50 @@ const rejectedIds = new Set();
     console.log("rejections: " + REJ_FILE + " ABSENT -- condition 5 can refuse nothing");
   }
 }
+/* ============ THE WITHHELD LIST: A THIRD DISPOSITION, NEITHER APPROVED NOR REJECTED ============
+ *
+ * Eight ISMS-F items fail the cue guard's `structure` arm. They are not director rejections -- he
+ * never saw them refused on content -- and they are not approvable. Until PROMPT-123 they had no
+ * disposition at all, so the batch refused as a whole and nothing could go live.
+ *
+ * A withheld entry can only ever WITHHOLD. It cannot approve anything, it cannot relax a gate, and
+ * a withheld item that would have passed anyway is still withheld -- the list is read before the
+ * conditions, not instead of them. Each entry needs `ruled_in` and a `reason`, and a file that
+ * exists but yields no ids REFUSES THE RUN: "no withholdings loaded" must not look like
+ * "nothing is withheld" in the one script that promotes.
+ */
+const WITHHELD_FILE = CERT_CODE.replace(/-/g, "") + "-WITHHELD.json";
+const withheldIds = new Map();
+{
+  const p = join(ROOT, WITHHELD_FILE);
+  if (existsSync(p)) {
+    const doc = JSON.parse(readFileSync(p, "utf8"));
+    const entries = doc.withheld || [];
+    const bad = [];
+    for (const w of entries) {
+      const id = w.item_id ?? w.id;
+      if (!id) { bad.push("an entry carries no `item_id`"); continue; }
+      if (!String(w.ruled_in || "").trim()) { bad.push(id + ": no `ruled_in`"); continue; }
+      if (!String(w.reason || "").trim()) { bad.push(id + ": no `reason`"); continue; }
+      withheldIds.set(String(id), w);
+    }
+    if (bad.length) {
+      console.error("REFUSING: " + WITHHELD_FILE + " has " + bad.length + " unusable entr(ies). " +
+        "An unattributed withholding is an error, not a disposition.");
+      for (const b of bad) console.error("  " + b);
+      process.exit(2);
+    }
+    if (entries.length && !withheldIds.size) {
+      console.error("REFUSING: " + WITHHELD_FILE + " lists " + entries.length + " withholding(s) and " +
+        "none could be loaded.");
+      process.exit(2);
+    }
+    console.log("withheld: " + WITHHELD_FILE + "   " + entries.length + " entr(ies), " +
+      withheldIds.size + " id(s) loaded");
+  } else {
+    console.log("withheld: " + WITHHELD_FILE + " ABSENT -- nothing is withheld");
+  }
+}
 const cert = (await getAll(KEY, "certifications?select=id,code&code=eq." + CERT_CODE))[0];
 if (!cert) { console.error("No certification " + CERT_CODE); process.exit(2); }
 const qs = await getAll(KEY, "quiz_questions?select=id,question_group_id,question_text,task_id,status," +
@@ -262,6 +318,13 @@ for (const id8 of IDS) {
   if (hits.length !== 1) { refused.push({ id8, why: "resolves to " + hits.length + " English bank row(s)" }); continue; }
   const q = hits[0];
   const g = ig.get(q.id);
+  /* WITHHELD is checked first and reported as its own disposition. It can only withhold: an item on
+   * this list never reaches the conditions, and nothing on this list can be approved. */
+  if (withheldIds.has(id8)) {
+    const w = withheldIds.get(id8);
+    refused.push({ id8, why: "withheld: " + w.reason + " (" + w.ruled_in + ")" });
+    continue;
+  }
   for (const [name, res] of [["verdict", condVerdict(g)], ["not-reserved", condNotReserved(g)],
     ["solver", condSolver(g)], ["not-rejected", condNotRejected(id8, rejectedIds, REJ_FILE)]]) {
     if (!res.ok) { refused.push({ id8, why: name + ": " + res.why }); break; }
@@ -357,7 +420,10 @@ if (unexpected.length) {
 }
 if (refused.length) {
   console.log("");
-  console.log("  " + refused.length + " refusal(s), all recorded dispositions (reject / named rejection).");
+  /* name the KINDS actually present, rather than a fixed list that stopped being true */
+  const kinds = [...new Set(refused.map((r) => /^withheld: /.test(r.why) ? "withheld"
+    : /^not-rejected: /.test(r.why) ? "named rejection" : "non-accept verdict"))].sort();
+  console.log("  " + refused.length + " refusal(s), all recorded dispositions (" + kinds.join(", ") + ").");
   console.log("  Those are the disposition working, not a surprise, so the batch proceeds.");
 }
 if (!APPLY) {

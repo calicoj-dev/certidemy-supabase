@@ -1,50 +1,63 @@
 {
-  "ruled": "2026-10-04, PROMPT-118 s4 (over PROMPT-111 s2)",
-  "certification": "ISMS-F",
-  "default_floor": 8,
-  "why_this_file_exists": "THE ONE PLACE A PER-TASK FLOOR IS RECORDED for ISMS-F. Read by lib/task-floors.mjs, which verify-cert and check-task-map both call. An override with no `ruled_in` is an ERROR, not a pass.",
-  "the_rule": {
-    "derivation": "min(default_floor, 2 x effective primaries). The cap of 2 items per (source, edition, clause) per task is what makes 2 x effective the ceiling a task can hold.",
-    "override": "A floor the derivation cannot produce, lowered by the director with the reason recorded. Named in every report that uses it, so a lowered floor can never pass as a met one."
+ "ruled": "2026-10-04, PROMPT-123 s3 (over PROMPT-118 s4, PROMPT-111 s2)",
+ "certification": "ISMS-F",
+ "default_floor": 8,
+ "why_this_file_exists": "THE ONE PLACE A PER-TASK FLOOR IS RECORDED for ISMS-F. Read by lib/task-floors.mjs, which verify-cert and check-task-map both call. An override with no `ruled_in` is an ERROR, not a pass.",
+ "the_rule": {
+  "derivation": "min(default_floor, 2 x effective primaries). The cap of 2 items per (source, edition, clause) per task is what makes 2 x effective the ceiling a task can hold.",
+  "override": "A floor the derivation cannot produce, lowered by the director with the reason recorded. Named in every report that uses it, so a lowered floor can never pass as a met one.",
+  "temporary": "temporary: true means the task goes live BELOW its floor because the reason it is short is a defect being fixed, not a thin map. verify-cert reports it as a WARN and names it: never a pass, never a fail. It must carry a reason as well as a ruling -- lib/task-floors.mjs refuses one without either."
+ },
+ "per_task_overrides": {
+  "_what": "Each entry is a director ruling with its reason. PROMPT-111 s2 ruled all five.",
+  "1.6": {
+   "floor": 4,
+   "ruled_in": "PROMPT-123 s3",
+   "temporary": true,
+   "reason": "TEMPORARY, ruled PROMPT-123 s3: goes live holding 0 of 4. The task is short because of source-specific gate defects, not a thin map -- the attribution check refused scheme addresses (fixed PROMPT-123 s2a) and reproduction refuses prose sources (EU AI Act, NIST AI RMF) at 8 of 8. Two rescues are in ISMSF-RESCUES-123.md awaiting the director read. The old bank is the alternative and is worse on this task."
   },
-  "per_task_overrides": {
-    "_what": "Each entry is a director ruling with its reason. PROMPT-111 s2 ruled all five.",
-    "1.6": {
-      "floor": 4,
-      "ruled_in": "PROMPT-111 s2",
-      "reason": "Model-level versus agentic risk is AI content, and ISO/IEC 27001 carries none. Mapped to EU AI Act recitals plus Art. 55(1) and NIST AI RMF; informative anchors are valid for a Foundation certification (PROMPT-111 s0). Four items is what that map supports."
-    },
-    "1.7": {
-      "floor": 4,
-      "ruled_in": "PROMPT-111 s2",
-      "reason": "Classifying an AI security concern rests on guidance: 27002 7.1 and 8.15 and NIST AI RMF MANAGE 4.3, plus 42001 A.6 where it matches. Guidance anchors are valid for Foundation (s0); four is what the map supports."
-    },
-    "2.3": {
-      "floor": 4,
-      "ruled_in": "PROMPT-111 s2",
-      "reason": "Amendment 1:2024 adds the climate-change consideration to 4.1 and 4.2 in a sentence each. There are not eight distinct requirements to test."
-    },
-    "3.5": {
-      "floor": 2,
-      "ruled_in": "PROMPT-118 s4",
-      "supersedes": "PROMPT-111 s2, which set 4",
-      "reason": "MEASURED (scripts/explain-thin-task.mjs): task 3.5 has exactly 2 effective primaries -- 27001 6.1.3 and 27000 4.5.5 -- and NO third is held. 27001 6.1.3 d) is not a separate passage (6.1.3 is one 247-word row) and no held 27k passage defines the statement of applicability apart from those two. The cap would allow 4 items (2 primaries x cap 2), so the CAP is not the limit; two items per clause would mean testing one sentence twice, which is what MIN_EFFECTIVE guards. The floor is therefore one item per available primary.",
-      "caveat": "A FLOOR CHANGE DOES NOT CLEAR `too_thin`. MIN_EFFECTIVE is 3 and this task has 2, so check-task-map will keep calling it a MAP question whatever the floor is. Clearing it needs the LIBRARY to change: 6.1.3 d) extracted as its own passage, or a statement-of-applicability term added if ISO/IEC 27000:2018 carries one. That is an extraction decision, not a generation one."
-    },
-    "4.1": {
-      "floor": 4,
-      "ruled_in": "PROMPT-111 s2, re-affirmed PROMPT-118 s4",
-      "reason": "Recognising the four Annex A themes and the control count is a structural task about the annex, not about eight requirements. Same reasoning as AIMS-F 4.1.",
-      "map_widened": "PROMPT-118 s4 promoted 27002 0.3 (which names the organizational, people, physical and technological themes) from supporting to PRIMARY. The task now has 3 effective primaries, a cap ceiling of 6 and neither limit biting -- it is short on items, not on map, and the floor of 4 stands."
-    }
+  "1.7": {
+   "floor": 3,
+   "ruled_in": "PROMPT-123 s3",
+   "reason": "Floor = held count (3), by the same post-R9 rule. PROMPT-123 s3 expected 1.7 to be AT a floor of 4; it holds 3 because the fourth item, R9 #1 (a2157d85), was rejected in s1 as the same task, anchor and fact as rescue 1. Reported rather than absorbed."
   },
-  "map_changes_ruled_here": {
-    "_what": "Recorded for the audit trail. The task map itself lives in `task_sources`; these are the rulings behind this round's inserts.",
-    "1.6": "map EU AI Act recitals + Art. 55(1) + NIST AI RMF (primary)",
-    "1.7": "map 27002 7.1, 27002 8.15, NIST AI RMF MANAGE 4.3, and 42001 A.6 if it matches (primary)",
-    "2.4": "widen to 27001 4.3 + 4.1 + 4.2 + 7.5.1 (primary)",
-    "4.1": "PROMPT-111 s2 ruled 27001 A.5-A.8 theme headings onto this task. THEY ARE NOT HELD: A.5 to A.8 are container headings whose children (A.5.1 ...) carry the text, so there is no passage row to map and that ruling was never implementable. Recorded here because the entry read as though it had been done. PROMPT-118 s4 widened the task with 27002 0.3 instead.",
-    "5.9": "widen with 42001 D.1 and D.2 (primary)",
-    "3.5": "NONE AVAILABLE. See the 3.5 override above: the two passages the ruling named are not held, and the floor came down instead."
+  "2.3": {
+   "floor": 4,
+   "ruled_in": "PROMPT-123 s3",
+   "temporary": true,
+   "reason": "TEMPORARY, ruled PROMPT-123 s3: goes live holding 1 of 4. The task is short because distractor support was pinned to the key edition, so distractors resolved against 27001 Amd1:2024 one-sentence 4.1 instead of 27001:2022 paragraph (fixed PROMPT-123 s2b). Three rescues are in ISMSF-RESCUES-123.md awaiting the director read."
+  },
+  "3.5": {
+   "floor": 2,
+   "ruled_in": "PROMPT-118 s4",
+   "supersedes": "PROMPT-111 s2, which set 4",
+   "reason": "MEASURED (scripts/explain-thin-task.mjs): task 3.5 has exactly 2 effective primaries -- 27001 6.1.3 and 27000 4.5.5 -- and NO third is held. 27001 6.1.3 d) is not a separate passage (6.1.3 is one 247-word row) and no held 27k passage defines the statement of applicability apart from those two. The cap would allow 4 items (2 primaries x cap 2), so the CAP is not the limit; two items per clause would mean testing one sentence twice, which is what MIN_EFFECTIVE guards. The floor is therefore one item per available primary.",
+   "caveat": "A FLOOR CHANGE DOES NOT CLEAR `too_thin`. MIN_EFFECTIVE is 3 and this task has 2, so check-task-map will keep calling it a MAP question whatever the floor is. Clearing it needs the LIBRARY to change: 6.1.3 d) extracted as its own passage, or a statement-of-applicability term added if ISO/IEC 27000:2018 carries one. That is an extraction decision, not a generation one."
+  },
+  "4.1": {
+   "floor": 4,
+   "ruled_in": "PROMPT-111 s2, re-affirmed PROMPT-118 s4",
+   "reason": "Recognising the four Annex A themes and the control count is a structural task about the annex, not about eight requirements. Same reasoning as AIMS-F 4.1.",
+   "map_widened": "PROMPT-118 s4 promoted 27002 0.3 (which names the organizational, people, physical and technological themes) from supporting to PRIMARY. The task now has 3 effective primaries, a cap ceiling of 6 and neither limit biting -- it is short on items, not on map, and the floor of 4 stands."
+  },
+  "4.4": {
+   "floor": 7,
+   "ruled_in": "PROMPT-123 s3",
+   "reason": "Floor = held count. The post-R9 rule (ruled PROMPT-122 s5): a short task holding at least 2 takes its held count as its floor. R7-R9 each produced 0 for this task against an anchor cap of 2 per (source, edition, clause); the map cannot reach 8."
+  },
+  "5.3": {
+   "floor": 7,
+   "ruled_in": "PROMPT-123 s3",
+   "reason": "Floor = held count. The post-R9 rule (ruled PROMPT-122 s5): a short task holding at least 2 takes its held count as its floor. R7-R9 each produced 0 for this task against an anchor cap of 2 per (source, edition, clause); the map cannot reach 8."
   }
+ },
+ "map_changes_ruled_here": {
+  "_what": "Recorded for the audit trail. The task map itself lives in `task_sources`; these are the rulings behind this round's inserts.",
+  "1.6": "map EU AI Act recitals + Art. 55(1) + NIST AI RMF (primary)",
+  "1.7": "map 27002 7.1, 27002 8.15, NIST AI RMF MANAGE 4.3, and 42001 A.6 if it matches (primary)",
+  "2.4": "widen to 27001 4.3 + 4.1 + 4.2 + 7.5.1 (primary)",
+  "4.1": "PROMPT-111 s2 ruled 27001 A.5-A.8 theme headings onto this task. THEY ARE NOT HELD: A.5 to A.8 are container headings whose children (A.5.1 ...) carry the text, so there is no passage row to map and that ruling was never implementable. Recorded here because the entry read as though it had been done. PROMPT-118 s4 widened the task with 27002 0.3 instead.",
+  "5.9": "widen with 42001 D.1 and D.2 (primary)",
+  "3.5": "NONE AVAILABLE. See the 3.5 override above: the two passages the ruling named are not held, and the floor came down instead."
+ }
 }

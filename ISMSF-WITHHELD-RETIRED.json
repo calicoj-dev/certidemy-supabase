@@ -1,0 +1,172 @@
+{
+  "cert": "ISMS-F",
+  "ruled_in": "PROMPT-123 s4",
+  "retired_at": "2026-10-04T17:56:44.434Z",
+  "why": "rows of items named in ISMSF-WITHHELD.json: withheld items are not served, and left pending_review in the live pool they fail verify-cert's 'All items approved' for a decided reason",
+  "rollback": "set retired_at = null on exactly these ids",
+  "count": 24,
+  "ids": [
+    {
+      "id": "12626615-9216-4c4f-ad5b-8393d2ea613c",
+      "language": "es-419",
+      "item_id": null
+    },
+    {
+      "id": "21f5a733-fa71-4777-9dab-cfe61a1dc429",
+      "language": "pt-BR",
+      "item_id": null
+    },
+    {
+      "id": "242641a0-8295-473d-9985-8b505586be39",
+      "language": "es-419",
+      "item_id": null
+    },
+    {
+      "id": "250b6e31-a928-44f6-a451-c1cdeff6c3f9",
+      "language": "pt-BR",
+      "item_id": null
+    },
+    {
+      "id": "260b4619-fbe3-4f66-9e70-d14f82499145",
+      "language": "pt-BR",
+      "item_id": null
+    },
+    {
+      "id": "348e62d6-6c47-42e7-a71f-478454bafefc",
+      "language": "en",
+      "item_id": null
+    },
+    {
+      "id": "382ff340-7ea5-4055-bde1-a02bd23664bf",
+      "language": "en",
+      "item_id": null
+    },
+    {
+      "id": "40535816-0bd0-41f3-a2d6-970a2008ce87",
+      "language": "es-419",
+      "item_id": null
+    },
+    {
+      "id": "49b89004-d622-45d2-9e5d-127fd8238cbb",
+      "language": "es-419",
+      "item_id": null
+    },
+    {
+      "id": "4fb73784-1d3f-47a0-b758-823761bc7573",
+      "language": "en",
+      "item_id": null
+    },
+    {
+      "id": "5158f5f1-530d-4efb-a5b5-62b2ddf7939b",
+      "language": "es-419",
+      "item_id": null
+    },
+    {
+      "id": "7351a19b-43ca-482c-8d8c-191f237a8b61",
+      "language": "en",
+      "item_id": null
+    },
+    {
+      "id": "809c2ac4-f340-4c29-8919-a6626478a24c",
+      "language": "pt-BR",
+      "item_id": null
+    },
+    {
+      "id": "90746935-5aee-4720-aa84-48c98977e683",
+      "language": "pt-BR",
+      "item_id": null
+    },
+    {
+      "id": "93576ef0-9163-40f7-9219-22ecf82646f4",
+      "language": "en",
+      "item_id": null
+    },
+    {
+      "id": "a96e8dcf-1fc8-4aca-a9ca-91f4ee285e49",
+      "language": "pt-BR",
+      "item_id": null
+    },
+    {
+      "id": "c3f65fbb-5112-456d-9f97-a49a73e9f0d2",
+      "language": "en",
+      "item_id": null
+    },
+    {
+      "id": "d336b28c-7850-41ba-9fe2-065026038f64",
+      "language": "pt-BR",
+      "item_id": null
+    },
+    {
+      "id": "d44a2f16-300f-4bae-adfd-648e1e9004be",
+      "language": "es-419",
+      "item_id": null
+    },
+    {
+      "id": "e1f52791-be12-4f22-a4e3-28c486a78ed2",
+      "language": "pt-BR",
+      "item_id": null
+    },
+    {
+      "id": "e7491003-62ca-478d-b76a-7d739132a5e3",
+      "language": "es-419",
+      "item_id": null
+    },
+    {
+      "id": "e7c84d2c-0592-4365-9680-72d600cdd081",
+      "language": "en",
+      "item_id": null
+    },
+    {
+      "id": "f7830856-7730-4a46-8378-78eaf02a076c",
+      "language": "es-419",
+      "item_id": null
+    },
+    {
+      "id": "f97c9384-3780-4957-848e-8510d6a0a5ec",
+      "language": "en",
+      "item_id": null
+    }
+  ],
+  "items": [
+    {
+      "item_id": "856c20fa",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "351c9cb5",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "34a6fd63",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "16894f79",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "6e279ec1",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "d3c709b6",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "cb05360d",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "bb4f7cc9",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    }
+  ]
+}

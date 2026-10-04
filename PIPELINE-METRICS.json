@@ -202,6 +202,36 @@
       "seconds": 2,
       "note": null,
       "recorded_at": "2026-10-04T10:06:38.860Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 5,
+      "note": null,
+      "recorded_at": "2026-10-04T17:31:18.568Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 5,
+      "note": null,
+      "recorded_at": "2026-10-04T17:40:05.745Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 3,
+      "note": null,
+      "recorded_at": "2026-10-04T17:49:47.455Z"
     }
   ],
   "costs_usd": [

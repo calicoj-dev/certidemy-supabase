@@ -1,0 +1,48 @@
+{
+  "_what": "A THIRD DISPOSITION: items that are neither approved nor director-rejected. Read by approve-grounded-items.mjs before the seven conditions. An entry can only ever WITHHOLD -- it cannot approve anything and it cannot relax a gate.",
+  "_why_this_file_exists": "These eight items fail the cue guard's `structure` arm. They are not director rejections: he never saw them refused on content, and the refusal is a measurable property of the option text rather than a judgement. Until this file existed they had no disposition at all, so approve-grounded-items refused the whole batch and ISMS-F could not go live.",
+  "_the_history": "The cue guard was revived in PROMPT-120 s4 after the discovery that `auditItem` returns a PASS when `correct_answer` is absent, which is the generator's shape -- so the guard had never run at generation. 46 of 218 stored rows then failed it. PROMPT-121 s2b ruled one de-cue attempt each: 38 cleared, 8 did not. These are those 8.",
+  "_what_would_clear_them": "A rewrite of the option text that removes the length cue, as PROMPT-109's method does. The rule is right and these items are cued; widening the allowance to admit them is the threshold-widening this repository forbids (CLAUDE.md s13: an options-only cue is not fixed by a harder exam -- rewrite the cue out).",
+  "withheld": [
+    {
+      "item_id": "856c20fa",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "351c9cb5",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "34a6fd63",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "16894f79",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "6e279ec1",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "d3c709b6",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "cb05360d",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    },
+    {
+      "item_id": "bb4f7cc9",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
+    }
+  ]
+}
