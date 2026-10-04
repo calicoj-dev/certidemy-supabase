@@ -32,6 +32,7 @@
  *   --n=40          how many items to attempt across the blueprint
  *   --apply         WRITE the survivors. DRY BY DEFAULT.
  *   --out=FILE      where the artifact goes (default PILOT-GROUNDED-<CERT>.json)
+ *   --max-usd=25    stop between items once spend reaches this. 0 = no ceiling (the default).
  *
  * Unknown flags exit 2 and the error names both flag conventions in this directory.
  *
@@ -149,12 +150,26 @@ const ROOT = join(HERE, "..");
 const underRoot = (p) => (isAbsolute(p) ? p : join(ROOT, p));
 
 let CERT = "AIMS-F", N = 40, APPLY = false, OUT = null, FROM = null, ONLY = null, IDS = null, EXAM_SCOPE = false;
+/* ============ A CEILING THE RUN CANNOT PASS ============
+ *
+ * R3 was ruled at $25 (PROMPT-116 s5) and spent $29.45, because nothing here could stop it. The
+ * projection that said $14 came from R2's cost PER ITEM, and that number does not travel: the solver
+ * prompt carries all of a task's passages, so a task with 15 effective primaries costs nearly twice
+ * per item what one with 6 does. R3's solver read 665,658 input tokens against R2's 138,776.
+ *
+ * So the ceiling is checked between items, where the raw writer output and the per-item checkpoint are
+ * already on disk: the run stops, says how many items it did not gate, and `--from` re-gates the rest
+ * for free once the ceiling is raised. Default 0 = no ceiling, so no existing caller changes.
+ * It cannot stop MID-ITEM: a half-gated item is worse than an over-spend of one item's cost. */
+let MAXUSD = 0;
+let CEILING_STOPPED = 0;
 let REUSE_SOLVER = false;
 for (const a of process.argv.slice(2)) {
   let m;
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
   if ((m = /^--n=(\d+)$/.exec(a))) { N = Number(m[1]); continue; }
   if ((m = /^--out=(.+)$/.exec(a))) { OUT = m[1]; continue; }
+  if ((m = /^--max-usd=([0-9.]+)$/.exec(a))) { MAXUSD = Number(m[1]); continue; }
   if ((m = /^--from=(.+)$/.exec(a))) { FROM = m[1]; continue; }
   /* --tasks=5.4,5.5 generates ONE item for each named task and ignores the weight
    * allocation. It exists because a network outage cost eight of forty writer calls, and
@@ -1216,8 +1231,8 @@ const RAW = OUT.replace(/\.json$/, "") + "-raw.json";
 if (!FROM) {
   writeFileSync(join(ROOT, RAW), JSON.stringify({
     certification: CERT, model: MODEL, standard: mapping.standard, edition: mapping.edition,
-  spend: { calls: SPEND.calls, input_tokens: SPEND.input, output_tokens: SPEND.output,
-    usd: Number(spendUSD().toFixed(4)), price_per_mtok: PRICE_PER_MTOK, by_role: SPEND.byRole },
+    spend: { calls: SPEND.calls, input_tokens: SPEND.input, output_tokens: SPEND.output,
+      usd: Number(spendUSD().toFixed(4)), price_per_mtok: PRICE_PER_MTOK, by_role: SPEND.byRole },
     attempted: N, generated: generated.length,
     note: "RAW WRITER OUTPUT, ungated and unsolved. Not a result. Re-gate with --from=" + RAW,
     items: generated.map((g) => ({ task_code: g.task.code, item: g.item })),
@@ -1239,6 +1254,10 @@ for (const g of generated) {
   const gid = itemId(g.item);
   if (resumed.has(gid)) {
     results.push(resumed.get(gid).record);
+    continue;
+  }
+  if (MAXUSD && spendUSD() >= MAXUSD) {
+    CEILING_STOPPED++;
     continue;
   }
   const spendBefore = snapshotSpend();
@@ -1903,6 +1922,13 @@ console.log("  LONGEST SERVED RUN across survivors   max " + (runs.length ? Math
   "   (the ceiling is 9)");
 const over = survivors.filter((r) => typeof r.longest_served_run === "number" && r.longest_served_run > 9);
 console.log("  survivors over the ceiling            " + over.length + " (must be 0)");
+if (MAXUSD) {
+  /* A RUN STOPPED ON SPEND LOOKS LIKE A RUN THAT FOUND NOTHING. So the count of items generated and
+   * never gated is printed and put in the artifact, with the free way to finish them. */
+  console.log("  SPEND CEILING  $" + MAXUSD.toFixed(2) + "   spent $" + spendUSD().toFixed(2) +
+    "   items generated but NEVER GATED: " + CEILING_STOPPED +
+    (CEILING_STOPPED ? "   re-gate them free with --from=" + RAW : ""));
+}
 
 writeFileSync(OUT_PATH, JSON.stringify({
   certification: CERT, model: MODEL, standard: mapping.standard, edition: mapping.edition,
@@ -1911,6 +1937,9 @@ writeFileSync(OUT_PATH, JSON.stringify({
   spend: { calls: SPEND.calls, input_tokens: SPEND.input, output_tokens: SPEND.output,
     usd: Number(spendUSD().toFixed(4)), price_per_mtok: PRICE_PER_MTOK, by_role: SPEND.byRole },
   attempted: N, generated: generated.length, survivors: survivors.length,
+  /* THE CEILING AND WHAT IT COST. A run that stopped on spend looks like a run that found nothing,
+   * so the number of items it never gated is in the artifact, not only in the console. */
+  ceiling_usd: MAXUSD || null, ceiling_stopped_items: CEILING_STOPPED,
   generation_note: priorNote,
   reject_counts: Object.fromEntries(rejectCounts),
   tasks_mapped: mappedTasks.length, tasks_total: tasks.length,
