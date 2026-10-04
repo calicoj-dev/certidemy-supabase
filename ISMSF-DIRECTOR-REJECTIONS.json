@@ -26,6 +26,15 @@
       "accepted": 45,
       "rejected": 3,
       "note": "Plus 9 rescues ruled in s2, of which 8 were accepted; 335faae6 dropped on a repeated solver split."
+    },
+    {
+      "artifact": "ISMSF-R5",
+      "report": "ISMSF-ROLLOUT-R5.md",
+      "ruled": "2026-10-04, PROMPT-119 s1",
+      "read": 68,
+      "accepted": 67,
+      "rejected": 1,
+      "note": "#29 kept with a free stem edit (its second question had no answer among the options); the verdict was kept, no solver call."
     }
   ],
   "note": "R1's 21 accepts = the 20 numbered accepts plus the item R1 code-rejected on modal-fidelity, which PROMPT-114 s3 ruled a false positive: the item's 'ought to' is not a claim about the standard. The narrowed gate now passes it.",
@@ -104,6 +113,15 @@
       "why": "RULED reject (PROMPT-118 s1): a TRUE restatement of #18 -- same task, same anchor, both saying 27002 is a generic reference set usable inside a management system or for in-house guidelines.",
       "artifact": "ISMSF-R4",
       "ruled_in": "PROMPT-118 s1"
+    },
+    {
+      "item_id": "4e6b0b48",
+      "artifact": "ISMSF-R5",
+      "report_number": 61,
+      "task": "5.1",
+      "anchor": "ISO/IEC 27000 5.4.3",
+      "why": "RULED reject (PROMPT-119 s1): the item asks what the dedicated measurement guidance covers, which is the ISO/IEC 27004 territory PROMPT-115 s3 already ruled too obscure for a Foundation candidate. Not wrong -- out of scope for the tier.",
+      "ruled_in": "PROMPT-119 s1"
     }
   ],
   "why_near_duplicates_reached_a_survivor_list": "gateNearDuplicate compares STEMS, and these pairs differ in their stems while asserting the same fact from the same anchor. That blindness is recorded in CLAUDE.md s13: the same answer with a different stem is invisible to it. The anchor cap of 2 per (source, edition, clause) per task is what bounds the damage, and it allowed exactly these two pairs.",

@@ -32,6 +32,8 @@
  *   --n=40          how many items to attempt across the blueprint
  *   --apply         WRITE the survivors. DRY BY DEFAULT.
  *   --out=FILE      where the artifact goes (default PILOT-GROUNDED-<CERT>.json)
+ *   --writer-model= the model that WRITES items (and the paraphrase and de-cue rewrites)
+ *   --solver-model= the model that JUDGES them. The quality filter: keep it on Opus.
  *   --max-usd=35    REQUIRED (PROMPT-117 s3). Stop between items once spend reaches this.
  *                   --max-usd=0 means no ceiling and must be typed; there is no default.
  *
@@ -165,6 +167,8 @@ let CERT = "AIMS-F", N = 40, APPLY = false, OUT = null, FROM = null, ONLY = null
  * for free once the ceiling is raised. Default 0 = no ceiling, so no existing caller changes.
  * It cannot stop MID-ITEM: a half-gated item is worse than an over-spend of one item's cost. */
 let MAXUSD = null;   /* null = not given (refused); 0 = no ceiling, explicitly chosen */
+/* the writer and the solver take separate models (PROMPT-119 s2). Null = follow MODEL. */
+let WRITER_MODEL_FLAG = null, SOLVER_MODEL_FLAG = null;
 let CEILING_STOPPED = 0;
 /* one retry PER TASK BATCH, and the items it saved -- reported, because a retry nobody sees is a
  * silent second bill. */
@@ -177,6 +181,8 @@ for (const a of process.argv.slice(2)) {
   if ((m = /^--n=(\d+)$/.exec(a))) { N = Number(m[1]); continue; }
   if ((m = /^--out=(.+)$/.exec(a))) { OUT = m[1]; continue; }
   if ((m = /^--max-usd=([0-9.]+)$/.exec(a))) { MAXUSD = Number(m[1]); continue; }
+  if ((m = /^--writer-model=(.+)$/.exec(a))) { WRITER_MODEL_FLAG = m[1]; continue; }
+  if ((m = /^--solver-model=(.+)$/.exec(a))) { SOLVER_MODEL_FLAG = m[1]; continue; }
   if ((m = /^--from=(.+)$/.exec(a))) { FROM = m[1]; continue; }
   /* --tasks=5.4,5.5 generates ONE item for each named task and ignores the weight
    * allocation. It exists because a network outage cost eight of forty writer calls, and
@@ -238,7 +244,38 @@ if (MAXUSD === null) {
   process.exit(2);
 }
 
+/* MODEL stays as the artifact's `model` field and the default for both roles; the two role settings
+ * override it. GROUNDED_MODEL still works and still moves both, so no existing caller changes. */
+const PRICES = {
+  "claude-opus-5": { input: 15.0, output: 75.0 },
+  "claude-sonnet-5": { input: 3.0, output: 15.0 },
+  "claude-haiku-4-5-20251001": { input: 1.0, output: 5.0 },
+};
+const WRITER_ROLES = new Set(["writer", "writer-retry", "paraphrase", "de-cue"]);
+/* closes over the two model consts declared just below: only ever CALLED after they are initialised. */
+const modelForRole = (role) => (WRITER_ROLES.has(role) ? WRITER_MODEL : SOLVER_MODEL);
+const priceOf = (model) => PRICES[model] || PRICES["claude-opus-5"];
 const MODEL = process.env.GROUNDED_MODEL || "claude-opus-5";
+const WRITER_MODEL = WRITER_MODEL_FLAG || MODEL;
+const SOLVER_MODEL = SOLVER_MODEL_FLAG || MODEL;
+{
+  /* AN UNKNOWN MODEL HAS NO PRICE, and a run that cannot price itself cannot respect a ceiling. */
+  for (const [what, m] of [["writer", WRITER_MODEL], ["solver", SOLVER_MODEL]]) {
+    if (!PRICES[m]) {
+      console.error("no price on file for the " + what + " model " + JSON.stringify(m) + ".");
+      console.error("known: " + Object.keys(PRICES).join(", "));
+      console.error("A run that cannot price itself cannot respect --max-usd.");
+      process.exit(2);
+    }
+  }
+  if (WRITER_MODEL !== SOLVER_MODEL) {
+    console.log("MODELS SPLIT BY ROLE   writer=" + WRITER_MODEL + " ($" + PRICES[WRITER_MODEL].input +
+      "/$" + PRICES[WRITER_MODEL].output + ")   solver=" + SOLVER_MODEL + " ($" +
+      PRICES[SOLVER_MODEL].input + "/$" + PRICES[SOLVER_MODEL].output + ")");
+    console.log("  writer roles: " + [...WRITER_ROLES].join(", ") + " -- everything that WRITES served text");
+    console.log("  every other role, and anything unattributed, is priced and run on the solver model.");
+  }
+}
 
 /* A STABLE ID FOR AN ARTIFACT ITEM: a hash of the normalised stem. Positions are not ids -- an artifact
  * regenerated between the read and the insert would leave --ids=2,4 pointing at items nobody saw. */
@@ -339,33 +376,63 @@ if (!ANTHROPIC_API_KEY) { console.error("ANTHROPIC_API_KEY not found (scripts/.e
 const PROBE_WITHDRAWN = { state: "not-run",
   reason: "the options-only probe was withdrawn from generation runs (PROMPT-117 s2): it picked the " +
     "key on 92% of generated and 98% of authored items, which reads examiner convention rather than a cue" };
-const PRICE_PER_MTOK = { input: 15.0, output: 75.0 };   /* claude-opus, USD per million tokens */
+/* ============ A MODEL PER ROLE, AND A PRICE PER MODEL ============
+ *
+ * Ruled PROMPT-119 s2. The WRITER is 39.1% of a round's spend across R3-R5 and the SOLVER is 42.9%
+ * (scripts/report-round-cost-split.mjs), so the two want separate settings: the solver is the quality
+ * filter and stays on Opus, while a cheaper writer is a cheap experiment because a weak item dies at
+ * the gates, the solver or the director's read and never reaches an exam.
+ *
+ * SPEND IS METERED PER MODEL, not at one price. A single PRICE_PER_MTOK over a mixed-model run would
+ * report Sonnet tokens at Opus rates and the whole comparison would be of a number nobody paid --
+ * which is the measurement this change exists to make.
+ *
+ * `--writer-model` covers the writer, its retry, the paraphrase retry and the de-cue rewrite: all four
+ * WRITE served text. `--solver-model` covers the solver and its recheck, which JUDGE it. An
+ * unattributed call is priced on the solver model, the dearer of the two, so a routing gap cannot
+ * understate the bill.
+ */
 const SPEND = { calls: 0, input: 0, output: 0, byRole: {} };
 let CALL_ROLE = "unattributed";
+/* the model a role ran on is recorded WITH its tokens, so the cost is computed from what was used */
+function bucket(role) {
+  const r = SPEND.byRole[role] || (SPEND.byRole[role] = { calls: 0, input: 0, output: 0, model: modelForRole(role) });
+  if (!r.model) r.model = modelForRole(role);
+  return r;
+}
 function meterRaw(role, inp, out, calls) {
   SPEND.calls += calls; SPEND.input += inp; SPEND.output += out;
-  const r = SPEND.byRole[role] || (SPEND.byRole[role] = { calls: 0, input: 0, output: 0 });
+  const r = bucket(role);
   r.calls += calls; r.input += inp; r.output += out;
 }
 function meter(role, usage) {
   const inp = Number((usage || {}).input_tokens || 0);
   const out = Number((usage || {}).output_tokens || 0);
   SPEND.calls++; SPEND.input += inp; SPEND.output += out;
-  const r = SPEND.byRole[role] || (SPEND.byRole[role] = { calls: 0, input: 0, output: 0 });
+  const r = bucket(role);
   r.calls++; r.input += inp; r.output += out;
 }
+/* ONE BUCKET'S COST, at its own model's price. Called with no argument it sums every bucket, which is
+ * why a mixed-model run cannot be mispriced by a single rate. */
 function spendUSD(s) {
-  const x = s || SPEND;
-  return (x.input / 1e6) * PRICE_PER_MTOK.input + (x.output / 1e6) * PRICE_PER_MTOK.output;
+  if (s) {
+    const p = priceOf(s.model || SOLVER_MODEL);
+    return (s.input / 1e6) * p.input + (s.output / 1e6) * p.output;
+  }
+  let total = 0;
+  for (const r of Object.values(SPEND.byRole)) total += spendUSD(r);
+  return total;
 }
 function spendReport() {
   const out = ["  SPEND  " + SPEND.calls + " call(s), " + SPEND.input + " in / " + SPEND.output +
-    " out tokens, $" + spendUSD().toFixed(2) + "   (at $" + PRICE_PER_MTOK.input + "/$" +
-    PRICE_PER_MTOK.output + " per Mtok)"];
+    " out tokens, $" + spendUSD().toFixed(2) +
+    "   writer=" + WRITER_MODEL + "  solver=" + SOLVER_MODEL];
   for (const [role, r] of Object.entries(SPEND.byRole)) {
+    const p = priceOf(r.model || SOLVER_MODEL);
     out.push("    " + role.padEnd(13) + String(r.calls).padStart(4) + " call(s)  " +
       String(r.input).padStart(8) + " in  " + String(r.output).padStart(7) + " out  $" +
-      spendUSD(r).toFixed(2));
+      spendUSD(r).toFixed(2) + "   " + String(r.model || SOLVER_MODEL).replace("claude-", "") +
+      " @ $" + p.input + "/$" + p.output);
   }
   return out.join(String.fromCharCode(10));
 }
@@ -376,7 +443,9 @@ async function claude(system, user, maxTokens = 4000) {
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: { "x-api-key": ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-        body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, system, messages: [{ role: "user", content: user }] }),
+        /* the model follows the ROLE of the call, never a single run-wide setting */
+        body: JSON.stringify({ model: modelForRole(CALL_ROLE), max_tokens: maxTokens, system,
+          messages: [{ role: "user", content: user }] }),
       });
       if (!res.ok) throw new Error("Anthropic " + res.status + ": " + (await res.text()).slice(0, 300));
       const data = await res.json();
@@ -1304,7 +1373,9 @@ if (!FROM) {
   writeFileSync(join(ROOT, RAW), JSON.stringify({
     certification: CERT, model: MODEL, standard: mapping.standard, edition: mapping.edition,
     spend: { calls: SPEND.calls, input_tokens: SPEND.input, output_tokens: SPEND.output,
-      usd: Number(spendUSD().toFixed(4)), price_per_mtok: PRICE_PER_MTOK, by_role: SPEND.byRole },
+      usd: Number(spendUSD().toFixed(4)), writer_model: WRITER_MODEL, solver_model: SOLVER_MODEL,
+      price_per_mtok: { writer: priceOf(WRITER_MODEL), solver: priceOf(SOLVER_MODEL) },
+      by_role: SPEND.byRole },
     attempted: N, generated: generated.length,
     note: "RAW WRITER OUTPUT, ungated and unsolved. Not a result. Re-gate with --from=" + RAW,
     items: generated.map((g) => ({ task_code: g.task.code, item: g.item })),
@@ -1989,7 +2060,9 @@ writeFileSync(OUT_PATH, JSON.stringify({
   /* the FINAL spend, after gating. The raw artifact carries only the writer calls, because it is written
    * before any gate runs -- so a cost read off that one would omit every solver call. */
   spend: { calls: SPEND.calls, input_tokens: SPEND.input, output_tokens: SPEND.output,
-    usd: Number(spendUSD().toFixed(4)), price_per_mtok: PRICE_PER_MTOK, by_role: SPEND.byRole },
+    usd: Number(spendUSD().toFixed(4)), writer_model: WRITER_MODEL, solver_model: SOLVER_MODEL,
+    price_per_mtok: { writer: priceOf(WRITER_MODEL), solver: priceOf(SOLVER_MODEL) },
+    by_role: SPEND.byRole },
   attempted: N, generated: generated.length, survivors: survivors.length,
   /* THE CEILING AND WHAT IT COST. A run that stopped on spend looks like a run that found nothing,
    * so the number of items it never gated is in the artifact, not only in the console. */

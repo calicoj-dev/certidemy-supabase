@@ -1,0 +1,15 @@
+{
+ "_what": "PROMPT-119 s1: R5 #29's stem asked two things -- which treatment is most defensible, AND why the neighbouring option is weaker -- while the options answer only the first. The second clause is cut and nothing else changes.",
+ "_ruled_in": "PROMPT-119 s1",
+ "edits": [
+  {
+   "item_id": "234d1d95",
+   "field": "question_text",
+   "from": "A bank considered adding a generative AI feature that drafts customer contracts. The assessment puts the legal exposure well above the stated appetite, no available control brings it within the acceptance criteria, and the business objective can be met without the feature. Which treatment is most defensible, and why is the neighbouring option weaker?",
+   "to": "A bank considered adding a generative AI feature that drafts customer contracts. The assessment puts the legal exposure well above the stated appetite, no available control brings it within the acceptance criteria, and the business objective can be met without the feature. Which treatment is most defensible?",
+   "keep_verdict": true,
+   "ruled_in": "PROMPT-119 s1",
+   "why": "The edit DELETES a question the option set never answered. Nothing is added and no claim changes, so there is nothing new for the solver to judge -- the director ruled the verdict kept and the call saved. The code gates still run."
+  }
+ ]
+}

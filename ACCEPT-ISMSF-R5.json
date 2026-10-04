@@ -1,0 +1,408 @@
+{
+  "_what": "PROMPT-119 s1: 67 of the 68 R5 survivors. #61 is rejected (27004 territory, out of tier) and #29 carries a free stem edit whose verdict was kept.",
+  "_numbers_are_frozen": "Recorded beside each id and never recomputed from the artifact.",
+  "accepts": [
+    {
+      "item_id": "18e2d531",
+      "report_number": 1,
+      "task": "1.2",
+      "note": "accepted PROMPT-119 s1 (#1) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "fb665838",
+      "report_number": 2,
+      "task": "1.2",
+      "note": "accepted PROMPT-119 s1 (#2) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "6d81b340",
+      "report_number": 3,
+      "task": "1.2",
+      "note": "accepted PROMPT-119 s1 (#3) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "8573a221",
+      "report_number": 4,
+      "task": "1.2",
+      "note": "accepted PROMPT-119 s1 (#4) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "e6b951ab",
+      "report_number": 5,
+      "task": "1.2",
+      "note": "accepted PROMPT-119 s1 (#5) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "d74100fa",
+      "report_number": 6,
+      "task": "1.2",
+      "note": "accepted PROMPT-119 s1 (#6) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "ca7a5b5e",
+      "report_number": 7,
+      "task": "1.2",
+      "note": "accepted PROMPT-119 s1 (#7) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "c2395ceb",
+      "report_number": 8,
+      "task": "1.2",
+      "note": "accepted PROMPT-119 s1 (#8) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "7ad62e51",
+      "report_number": 9,
+      "task": "1.2",
+      "note": "accepted PROMPT-119 s1 (#9) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue reverted in-run on a CODE cue"
+    },
+    {
+      "item_id": "4019bc83",
+      "report_number": 10,
+      "task": "2.2",
+      "note": "accepted PROMPT-119 s1 (#10) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "444f3abc",
+      "report_number": 11,
+      "task": "2.2",
+      "note": "accepted PROMPT-119 s1 (#11) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "b9d722c4",
+      "report_number": 12,
+      "task": "2.2",
+      "note": "accepted PROMPT-119 s1 (#12) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "93808600",
+      "report_number": 13,
+      "task": "2.2",
+      "note": "accepted PROMPT-119 s1 (#13) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "52eb15ab",
+      "report_number": 14,
+      "task": "2.2",
+      "note": "accepted PROMPT-119 s1 (#14) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "371a815d",
+      "report_number": 15,
+      "task": "2.2",
+      "note": "accepted PROMPT-119 s1 (#15) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "c8541fa4",
+      "report_number": 16,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#16) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "d1b0ce88",
+      "report_number": 17,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#17) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "b20e9ccf",
+      "report_number": 18,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#18) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "82dfe172",
+      "report_number": 19,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#19) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "999f508e",
+      "report_number": 20,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#20) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "4464970e",
+      "report_number": 21,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#21) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "f65486cb",
+      "report_number": 22,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#22) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "94d28008",
+      "report_number": 23,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#23) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "9328175a",
+      "report_number": 24,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#24) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "df111a06",
+      "report_number": 25,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#25) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "821ed5d0",
+      "report_number": 26,
+      "task": "2.5",
+      "note": "accepted PROMPT-119 s1 (#26) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue reverted in-run on a CODE cue"
+    },
+    {
+      "item_id": "526b751b",
+      "report_number": 27,
+      "task": "3.10",
+      "note": "accepted PROMPT-119 s1 (#27) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "d6efee20",
+      "report_number": 28,
+      "task": "3.10",
+      "note": "accepted PROMPT-119 s1 (#28) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "234d1d95",
+      "report_number": 29,
+      "task": "3.10",
+      "note": "accepted PROMPT-119 s1 (#29) | options probe not run (withdrawn, PROMPT-117 s2) | stem edit PROMPT-119 s1 (its second question had no answer among the options); solver verdict accepted KEPT, no new call"
+    },
+    {
+      "item_id": "51ce2ae6",
+      "report_number": 30,
+      "task": "3.10",
+      "note": "accepted PROMPT-119 s1 (#30) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "31be6365",
+      "report_number": 31,
+      "task": "3.10",
+      "note": "accepted PROMPT-119 s1 (#31) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "84e6a271",
+      "report_number": 32,
+      "task": "3.10",
+      "note": "accepted PROMPT-119 s1 (#32) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "58591880",
+      "report_number": 33,
+      "task": "3.10",
+      "note": "accepted PROMPT-119 s1 (#33) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "11c8ae3c",
+      "report_number": 34,
+      "task": "3.10",
+      "note": "accepted PROMPT-119 s1 (#34) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "d45ea0ee",
+      "report_number": 35,
+      "task": "3.10",
+      "note": "accepted PROMPT-119 s1 (#35) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "7a3e3c98",
+      "report_number": 36,
+      "task": "1.1",
+      "note": "accepted PROMPT-119 s1 (#36) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "750a2d12",
+      "report_number": 37,
+      "task": "1.1",
+      "note": "accepted PROMPT-119 s1 (#37) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "a5f0a6bb",
+      "report_number": 38,
+      "task": "1.1",
+      "note": "accepted PROMPT-119 s1 (#38) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "b8974bb3",
+      "report_number": 39,
+      "task": "1.1",
+      "note": "accepted PROMPT-119 s1 (#39) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "a47240a2",
+      "report_number": 40,
+      "task": "1.1",
+      "note": "accepted PROMPT-119 s1 (#40) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "f17da722",
+      "report_number": 41,
+      "task": "1.3",
+      "note": "accepted PROMPT-119 s1 (#41) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "7a1f8939",
+      "report_number": 42,
+      "task": "1.3",
+      "note": "accepted PROMPT-119 s1 (#42) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "7f65d122",
+      "report_number": 43,
+      "task": "1.3",
+      "note": "accepted PROMPT-119 s1 (#43) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "1dca27d3",
+      "report_number": 44,
+      "task": "1.3",
+      "note": "accepted PROMPT-119 s1 (#44) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "a9b457c5",
+      "report_number": 45,
+      "task": "1.3",
+      "note": "accepted PROMPT-119 s1 (#45) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "0f101f60",
+      "report_number": 46,
+      "task": "1.3",
+      "note": "accepted PROMPT-119 s1 (#46) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "9e888058",
+      "report_number": 47,
+      "task": "1.3",
+      "note": "accepted PROMPT-119 s1 (#47) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "03cfc0a9",
+      "report_number": 48,
+      "task": "1.3",
+      "note": "accepted PROMPT-119 s1 (#48) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "e71aab11",
+      "report_number": 49,
+      "task": "3.4",
+      "note": "accepted PROMPT-119 s1 (#49) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "f6173cc1",
+      "report_number": 50,
+      "task": "3.4",
+      "note": "accepted PROMPT-119 s1 (#50) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "b521bdee",
+      "report_number": 51,
+      "task": "3.4",
+      "note": "accepted PROMPT-119 s1 (#51) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "b6bc54f9",
+      "report_number": 52,
+      "task": "3.4",
+      "note": "accepted PROMPT-119 s1 (#52) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "51f0f0e4",
+      "report_number": 53,
+      "task": "3.4",
+      "note": "accepted PROMPT-119 s1 (#53) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "932c3c5f",
+      "report_number": 54,
+      "task": "5.1",
+      "note": "accepted PROMPT-119 s1 (#54) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue reverted in-run on a CODE cue | anchored 3.52 against a preferred slot of 3.45; admitted by the repeated-slot widening (PROMPT-118 s3)"
+    },
+    {
+      "item_id": "21eff58c",
+      "report_number": 55,
+      "task": "5.1",
+      "note": "accepted PROMPT-119 s1 (#55) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "d5c3bf36",
+      "report_number": 56,
+      "task": "5.1",
+      "note": "accepted PROMPT-119 s1 (#56) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "09d8262c",
+      "report_number": 57,
+      "task": "5.1",
+      "note": "accepted PROMPT-119 s1 (#57) | options probe not run (withdrawn, PROMPT-117 s2) | anchored 4.5.6 against a preferred slot of 3.46; admitted by the repeated-slot widening (PROMPT-118 s3)"
+    },
+    {
+      "item_id": "44cd2d99",
+      "report_number": 58,
+      "task": "5.1",
+      "note": "accepted PROMPT-119 s1 (#58) | options probe not run (withdrawn, PROMPT-117 s2) | anchored 3.46 against a preferred slot of 3.43; admitted by the repeated-slot widening (PROMPT-118 s3)"
+    },
+    {
+      "item_id": "9eb1d117",
+      "report_number": 59,
+      "task": "5.1",
+      "note": "accepted PROMPT-119 s1 (#59) | options probe not run (withdrawn, PROMPT-117 s2) | anchored 6.2 against a preferred slot of 5.4.3; admitted by the repeated-slot widening (PROMPT-118 s3)"
+    },
+    {
+      "item_id": "84a6756f",
+      "report_number": 60,
+      "task": "5.1",
+      "note": "accepted PROMPT-119 s1 (#60) | options probe not run (withdrawn, PROMPT-117 s2) | anchored 6.2 against a preferred slot of 3.42; admitted by the repeated-slot widening (PROMPT-118 s3)"
+    },
+    {
+      "item_id": "3d0973f7",
+      "report_number": 62,
+      "task": "4.1",
+      "note": "accepted PROMPT-119 s1 (#62) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "19119854",
+      "report_number": 63,
+      "task": "4.1",
+      "note": "accepted PROMPT-119 s1 (#63) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "94c8dfe0",
+      "report_number": 64,
+      "task": "4.1",
+      "note": "accepted PROMPT-119 s1 (#64) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue"
+    },
+    {
+      "item_id": "ae1e4567",
+      "report_number": 65,
+      "task": "4.1",
+      "note": "accepted PROMPT-119 s1 (#65) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "9ab20353",
+      "report_number": 66,
+      "task": "3.5",
+      "note": "accepted PROMPT-119 s1 (#66) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "374d5378",
+      "report_number": 67,
+      "task": "3.5",
+      "note": "accepted PROMPT-119 s1 (#67) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "856c20fa",
+      "report_number": 68,
+      "task": "5.2",
+      "note": "accepted PROMPT-119 s1 (#68) | options probe not run (withdrawn, PROMPT-117 s2)"
+    }
+  ]
+}

@@ -27,6 +27,9 @@
  * the held passage before writing. A `requote` whose text is not in the passage is refused, so this
  * cannot become a back door to authored support. An `edits` entry naming key_support is still an error.
  *
+ * An entry may carry `keep_verdict: true` -- the gates run, the solver does NOT, and the item's own
+ * recorded `accepted` verdict is kept. Declared per entry, refused where there is no such verdict.
+ *
  * ONE ITEM FIRST (standing rule, PROMPT-115): the first item's full solver prompt is printed before
  * any further call.
  */
@@ -257,6 +260,37 @@ for (const { kind, r } of work) {
       console.log("      " + g.id + ": " + String(g.reason || g.detail).replace(/\s+/g, " ").slice(0, 220));
     }
     results.push({ id: r.item_id, outcome: "gates: " + v.failed.join(",") }); continue;
+  }
+  /* ============ keep_verdict: A REVISION THE DIRECTOR RULED NEEDS NO NEW JUDGEMENT ============
+   *
+   * Ruled PROMPT-119 s1 for R5 #29, whose stem asked two things while the options answered one. The
+   * revision DELETES the unanswered clause and changes nothing else, so there is no new claim for the
+   * solver to judge and the recorded verdict is still the verdict the item cleared.
+   *
+   * IT IS NOT THE DEFAULT, and the reason is in gen-grounded-items: a REVISED item normally needs a new
+   * judgement, because a new stem is a new thing to solve. So this path is per-entry, declared, printed,
+   * and recorded on the item as `kept_verdict` -- and it REFUSES where there is no verdict to keep,
+   * rather than writing an item whose solver field is null.
+   *
+   * THE GATES STILL RUN. Only the model call is skipped. */
+  if (r.keep_verdict === true) {
+    const prior = it.solver && it.solver.state;
+    if (prior !== "accepted") {
+      console.log("    REFUSED: keep_verdict needs a recorded `accepted` solver verdict, found " +
+        JSON.stringify(prior));
+      results.push({ id: r.item_id, outcome: "keep_verdict with no accepted verdict to keep" });
+      continue;
+    }
+    const target = items.find((x) => x.item_id === r.item_id);
+    target.item = o;
+    if (reassigned) target.assigned = reassigned.to;
+    target.revised = [...(target.revised || []), { kind, what, to: r.to ?? null, reassigned,
+      solver: "KEPT: " + prior + " (no new call, PROMPT-119 s1)",
+      ruled_in: r.ruled_in || spec._ruled_in || null }];
+    target.kept_verdict = { state: prior, why: r.why || "declared keep_verdict" };
+    console.log("    VERDICT KEPT  solver " + prior + " (no model call)   $" + usd().toFixed(3));
+    results.push({ id: r.item_id, outcome: "accept (verdict kept)", to: what });
+    continue;
   }
   if (!APPLY) { results.push({ id: r.item_id, outcome: "dry: gates pass" }); continue; }
   if (usd() > MAXUSD) {

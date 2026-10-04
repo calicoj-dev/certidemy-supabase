@@ -35,19 +35,34 @@ import { buildGateContext } from "./lib/gate-context.mjs";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 let CERT = null, TASKS = null, CALIBRATE = null, WITH_PROBE = false;
+/* R3-R5 all ran one model. A split run (PROMPT-119 s2) prices the WRITING roles separately, so the
+ * projection has to as well -- otherwise it reports Opus rates for Sonnet tokens. */
+let WRITER_MODEL = "claude-opus-5", SOLVER_MODEL = "claude-opus-5";
 for (const a of process.argv.slice(2)) {
   let m = a.match(/^--cert=(.+)$/); if (m) { CERT = m[1]; continue; }
   m = a.match(/^--tasks=(.+)$/); if (m) { TASKS = m[1]; continue; }
   m = a.match(/^--calibrate=(.+)$/); if (m) { CALIBRATE = m[1]; continue; }
   if (a === "--with-probe") { WITH_PROBE = true; continue; }
+  m = a.match(/^--writer-model=(.+)$/); if (m) { WRITER_MODEL = m[1]; continue; }
+  m = a.match(/^--solver-model=(.+)$/); if (m) { SOLVER_MODEL = m[1]; continue; }
   console.error("Unrecognised flag: " + a + ". Known: --cert=, --tasks=, --calibrate=, --with-probe.");
   process.exit(2);
 }
 if (!CERT) { console.error("--cert=<CODE> is required."); process.exit(2); }
 if (!TASKS && !CALIBRATE) { console.error("one of --tasks= or --calibrate= is required."); process.exit(2); }
 
-const PRICE = { input: 15, output: 75 };   /* USD per Mtok, claude-opus-5 */
-const usdOf = (inTok, outTok) => (inTok / 1e6) * PRICE.input + (outTok / 1e6) * PRICE.output;
+const PRICES = {
+  "claude-opus-5": { input: 15, output: 75 },
+  "claude-sonnet-5": { input: 3, output: 15 },
+  "claude-haiku-4-5-20251001": { input: 1, output: 5 },
+};
+const PRICE = PRICES["claude-opus-5"];   /* the rate R3-R5's measurements were taken at */
+const usdAt = (model, inTok, outTok) => {
+  const p = PRICES[model];
+  if (!p) { console.error('no price on file for ' + JSON.stringify(model)); process.exit(2); }
+  return (inTok / 1e6) * p.input + (outTok / 1e6) * p.output;
+};
+const usdOf = (inTok, outTok) => usdAt("claude-opus-5", inTok, outTok);
 
 /* ---------------------------------------------------------------- measured on R3 */
 /* 7 tasks, 56 generated, 49 survivors, $29.4477 over 202 calls. Every figure below is R3's, divided by
@@ -104,25 +119,30 @@ console.log("  mean task passage text        " + Math.round(r3MeanChars) + " cha
 console.log("  fixed part (system + item)    " + FIXED_IN + " tokens");
 console.log("  per-task passage text, R3:    " + r3Tasks.map((c, i) => c + "=" + r3Chars[i]).join("  "));
 
+/* WRITING roles are priced on the writer model, JUDGING roles on the solver model -- the same split
+ * gen-grounded-items applies at run time, so a projection and a bill describe the same thing. */
 function projectTask(code, n) {
   const { chars, passages } = passageChars(code);
   const solverIn = FIXED_IN + chars / CHARS_PER_TOKEN;
   const solverCalls = n * R3.solver_calls_per_item;
-  let inTok = n * R3.writer_in_per_item, outTok = n * R3.writer_out_per_item;
-  inTok += solverCalls * solverIn; outTok += solverCalls * R3.solver_out_per_call;
-  inTok += n * R3.paraphrase_calls_per_item * R3.paraphrase_in_per_call;
-  outTok += n * R3.paraphrase_calls_per_item * R3.paraphrase_out_per_call;
-  inTok += n * R3.decue_calls_per_item * R3.decue_in_per_call;
-  outTok += n * R3.decue_calls_per_item * R3.decue_out_per_call;
-  inTok += n * R3.recheck_calls_per_item * R3.recheck_in_per_call;
-  outTok += n * R3.recheck_calls_per_item * R3.recheck_out_per_call;
+  /* writer-side */
+  let wIn = n * R3.writer_in_per_item, wOut = n * R3.writer_out_per_item;
+  wIn += n * R3.paraphrase_calls_per_item * R3.paraphrase_in_per_call;
+  wOut += n * R3.paraphrase_calls_per_item * R3.paraphrase_out_per_call;
+  wIn += n * R3.decue_calls_per_item * R3.decue_in_per_call;
+  wOut += n * R3.decue_calls_per_item * R3.decue_out_per_call;
+  /* solver-side */
+  let sIn = solverCalls * solverIn, sOut = solverCalls * R3.solver_out_per_call;
+  sIn += n * R3.recheck_calls_per_item * R3.recheck_in_per_call;
+  sOut += n * R3.recheck_calls_per_item * R3.recheck_out_per_call;
   if (WITH_PROBE) {
-    inTok += n * R3.probe_calls_per_item * R3.probe_in_per_call;
-    outTok += n * R3.probe_calls_per_item * R3.probe_out_per_call;
+    sIn += n * R3.probe_calls_per_item * R3.probe_in_per_call;
+    sOut += n * R3.probe_calls_per_item * R3.probe_out_per_call;
   }
-  return { code, n, passages, chars, solverIn: Math.round(solverIn), usd: usdOf(inTok, outTok) };
+  const wUsd = usdAt(WRITER_MODEL, wIn, wOut);
+  const sUsd = usdAt(SOLVER_MODEL, sIn, sOut);
+  return { code, n, passages, chars, solverIn: Math.round(solverIn), wUsd, sUsd, usd: wUsd + sUsd };
 }
-
 if (CALIBRATE) {
   const art = JSON.parse(readFileSync(join(ROOT, CALIBRATE), "utf8"));
   const gen = (art.items || []).reduce((m, it) => m.set(it.task_code, (m.get(it.task_code) || 0) + 1), new Map());
@@ -155,14 +175,17 @@ for (const w of want) if (!known.has(w.code)) { console.error("no task " + w.cod
 console.log("");
 console.log("PROJECTION   " + CERT + "   " + want.length + " task(s), " +
   want.reduce((n, w) => n + w.n, 0) + " item(s) attempted" + (WITH_PROBE ? "" : "   probe withdrawn"));
-console.log("  task    items  passages   chars  solver-in      $");
+console.log("  models: writer=" + WRITER_MODEL + "   solver=" + SOLVER_MODEL);
+console.log("  task    items  passages   chars  solver-in   writer$   solver$       $");
 let total = 0;
 const rows = [];
 for (const w of want) {
   const p = projectTask(w.code, w.n);
   total += p.usd; rows.push(p);
   console.log("  " + p.code.padEnd(7) + String(p.n).padStart(5) + String(p.passages).padStart(10) +
-    String(p.chars).padStart(8) + String(p.solverIn).padStart(11) + "   $" + p.usd.toFixed(2));
+    String(p.chars).padStart(8) + String(p.solverIn).padStart(11) +
+    ("$" + p.wUsd.toFixed(2)).padStart(10) + ("$" + p.sUsd.toFixed(2)).padStart(10) +
+    ("$" + p.usd.toFixed(2)).padStart(9));
 }
 const survivalR3 = R3.survivors / R3.generated;
 console.log("");
