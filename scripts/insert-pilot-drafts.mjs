@@ -188,6 +188,20 @@ if (regate.length) {
       assignedAnchor: it.assigned || null });
     console.log("  RE-GATED " + it.item_id + " (artifact said " + it.verdict + "): passed=" + v.passed +
       (v.failed.length ? " FAILED[" + v.failed.join(",") + "]" : ""));
+    /* ============ A RE-GATED ITEM STILL NEEDS A SOLVER VERDICT ============
+     *
+     * Found PROMPT-121 s2a. e723f8f3 was admitted here by a live re-gate (PROMPT-116 s2) having been
+     * rejected by code before the solver ever ran -- so it was inserted with `item_grounding.solver`
+     * null, and approval condition 3 refuses it for ever. PASSING THE GATES IS NOT BEING SOLVED.
+     *
+     * The remedy is to solve it, not to insert it and backfill a verdict nobody earned, so the entry
+     * is refused with that said. */
+    if (v.passed && !(it.solver && it.solver.state)) {
+      refused.push({ id: it.item_id, why: "re-gated and passes, but carries NO SOLVER VERDICT -- it " +
+        "was rejected by code before the solver ran. Solve it first with revise-artifact.mjs; a row " +
+        "inserted with a null solver can never pass approval condition 3." });
+      continue;
+    }
     if (v.passed) chosen.push({ it, spec });
     else refused.push({ id: it.item_id, why: "re-gated and still fails [" + v.failed.join(",") + "]" });
   }

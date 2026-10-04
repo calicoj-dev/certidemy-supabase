@@ -1,0 +1,538 @@
+{
+ "rounds": [
+  {
+   "ruled_in": "PROMPT-121 s2b",
+   "cert": "ISMS-F",
+   "de_cued": [
+    {
+     "row": "a47a280e-de19-4a39-b59a-34eddaad1b9c",
+     "task": "2.9",
+     "what": "Condensed the key's phrasing and added concrete detail to the distractors so all options are comparable in length without altering any option's meaning or correctness.",
+     "key_before": 172,
+     "key_after": 105,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    }
+   ],
+   "failed": [],
+   "not_tried": [],
+   "spend_usd": 0.2664
+  },
+  {
+   "ruled_in": "PROMPT-121 s2b",
+   "cert": "ISMS-F",
+   "de_cued": [
+    {
+     "row": "6ce61e0b-d2c9-45c5-b46e-be4b02986e11",
+     "task": "5.9",
+     "what": "Condensed the key's wording without altering its reasoning and padded one distractor with concrete scheduling detail so all four options are comparable in length.",
+     "key_before": 254,
+     "key_after": 173,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "79718ad9-e089-4bd7-834e-ffee2cb55667",
+     "task": "5.6",
+     "what": "Condensed the key's explanatory clause and added concrete filler detail to the distractors so all four options are now comparable in length.",
+     "key_before": 180,
+     "key_after": 115,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "8156c360-b298-4989-833f-d1dac655c925",
+     "task": "3.11",
+     "what": "Condensed the key's wording and added concrete detail to two distractors so all four options are of comparable length, without altering any claim.",
+     "key_before": 215,
+     "key_after": 146,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "4de6ebda-6c28-4532-8d6f-91a09ccefbe2",
+     "task": "2.4",
+     "what": "The key was condensed to roughly the length of the distractors and one wrong answer was slightly expanded, with no change to what any option asserts.",
+     "key_before": 181,
+     "key_after": 134,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "a7f8ca61-1ea1-49a2-abb5-780a4ad18430",
+     "task": "3.11",
+     "what": "Tightened the key's wording without altering its claim and added concrete detail to two distractors so the correct option is no longer the longest.",
+     "key_before": 189,
+     "key_after": 145,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "083feb40-0876-4802-894a-d2df11131a72",
+     "task": "5.2",
+     "what": "Condensed the key's wording and padded the two shorter distractors with concrete detail so all options are similar in length, without altering what any option asserts.",
+     "key_before": 160,
+     "key_after": 128,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "7bbc3f35-002b-4105-9f8d-31bfd22d0a52",
+     "task": "3.6",
+     "what": "Tightened the key's wording and padded two distractors with neutral detail so all four options sit at a similar length without altering any claim.",
+     "key_before": 183,
+     "key_after": 143,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "0773ecb3-768f-4a76-aaf9-6788aa25ddaa",
+     "task": "2.4",
+     "what": "Condensed the key's phrasing and added concrete detail to one distractor so the options' lengths are comparable, without altering what any option asserts.",
+     "key_before": 167,
+     "key_after": 133,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "19518458-6a9c-41b8-bde9-4055228adce5",
+     "task": "1.5",
+     "what": "Condensed the key's wording and added concrete detail to one distractor so option lengths are comparable, without altering what any option asserts.",
+     "key_before": 180,
+     "key_after": 143,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "a311b47f-8605-412e-ab09-858a92f4a707",
+     "task": "3.11",
+     "what": "Condensed the key's wording and padded the three distractors with concrete but non-substantive detail so all four options sit within a few characters of each other.",
+     "key_before": 171,
+     "key_after": 150,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "7a75d566-19d0-4770-aec9-e138a434fb91",
+     "task": "2.9",
+     "what": "Condensed the key's wording and padded the distractors with concrete but non-substantive detail so all options are of comparable length without altering any assertion.",
+     "key_before": 163,
+     "key_after": 134,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "b5d21e28-41c6-47df-a58c-44d8895f002d",
+     "task": "3.11",
+     "what": "Trimmed the key's phrasing and padded the two shortest distractors with concrete detail so all four options now sit within a narrow length band, without altering any option's claim.",
+     "key_before": 182,
+     "key_after": 148,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "ead9c094-82dd-4b51-877e-fc7948e1d017",
+     "task": "2.5",
+     "what": "Trimmed the key's wording and added concrete but non-substantive detail to the distractors so all options are of comparable length.",
+     "key_before": 156,
+     "key_after": 116,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "0cf80efc-2c02-4c14-ad71-de049933de4f",
+     "task": "2.1",
+     "what": "Condensed the key's phrasing and added a brief wording expansion to one distractor so all options now fall within a few characters of each other, with no change to what any option asserts.",
+     "key_before": 159,
+     "key_after": 134,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "c0a7417e-4033-4542-87b3-4f7078b17a9d",
+     "task": "2.4",
+     "what": "Condensed the key's wording and padded the wrong options with concrete detail so all four options now sit in a similar length range, without altering any option's assertion.",
+     "key_before": 157,
+     "key_after": 123,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "6761f430-b319-4842-a16a-8fe53d893f87",
+     "task": "4.6",
+     "what": "Trimmed two words from the key and added a brief concrete detail to one distractor so the correct option is no longer the longest.",
+     "key_before": 162,
+     "key_after": 151,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "4c056961-c044-44b8-b981-0d3747f22e07",
+     "task": "4.10",
+     "what": "Trimmed the key's wording and added concrete detail to two distractors so option lengths are comparable without altering what any option asserts.",
+     "key_before": 139,
+     "key_after": 103,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "a010f63a-f6a6-42d2-9818-ef56a4d0f018",
+     "task": "4.5",
+     "what": "Trimmed the key's wording and added concrete detail to the distractors so all four options are comparable in length without altering what any option asserts.",
+     "key_before": 118,
+     "key_after": 96,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "08d8237c-16c7-48cd-9d7e-a6c7aadd9a94",
+     "task": "2.1",
+     "what": "The key was condensed to roughly the same length as the distractors while asserting the same requirements, with no changes to the wrong answers' claims.",
+     "key_before": 173,
+     "key_after": 149,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "185f1885-2963-4dfc-b69f-f36884283dd3",
+     "task": "2.7",
+     "what": "Trimmed redundant wording in the key and added concrete risk-register detail to one distractor so the options are comparable in length without altering any claim.",
+     "key_before": 135,
+     "key_after": 123,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "c958daa4-5019-41a4-adc9-d9b833bfe899",
+     "task": "2.4",
+     "what": "The key was tightened and the shortest wrong option was padded with neutral detail so lengths are comparable, with no change to what any option asserts.",
+     "key_before": 150,
+     "key_after": 134,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "3c2990ed-74c2-426a-9aff-0fed9e57f3b6",
+     "task": "2.2",
+     "what": "Trimmed the key's wording and padded the distractors with concrete but non-substantive detail so the correct option is no longer the longest.",
+     "key_before": 117,
+     "key_after": 96,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "89baca91-a118-4f99-86b9-6e9d376cd2a5",
+     "task": "2.5",
+     "what": "The key was condensed to shorter wording that makes the same assertion, bringing it below the longest distractor without altering any option's meaning.",
+     "key_before": 155,
+     "key_after": 125,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "97d1c0a6-2dbb-45b1-b70c-cd724d9c10a2",
+     "task": "3.6",
+     "what": "The key was tightened to roughly the length of the distractors and one wrong answer was slightly expanded, with no change to what any option asserts.",
+     "key_before": 149,
+     "key_after": 128,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "ec67a295-47c6-4e66-bd43-b47d5fdc0571",
+     "task": "2.5",
+     "what": "Tightened the key's wording and padded the shortest distractor with concrete detail so the correct option is no longer the longest, with no change to what any option asserts.",
+     "key_before": 161,
+     "key_after": 138,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "ec8b2530-ec2b-484a-9dad-d4f1d7702980",
+     "task": "4.5",
+     "what": "Trimmed wording in the key and added concrete detail to one distractor so all options fall within a comparable length range without altering any assertion.",
+     "key_before": 119,
+     "key_after": 98,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "7997c20b-33de-4ef4-a521-e90f7cf08299",
+     "task": "3.10",
+     "what": "Trimmed the key's wording and lengthened two distractors with neutral detail so no option stands out by size.",
+     "key_before": 119,
+     "key_after": 93,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "948350fa-1aec-433a-a6d4-74d1fdec64f3",
+     "task": "1.3",
+     "what": "Tightened the key's wording to shorten it and added neutral descriptive detail to two distractors so option lengths are comparable, without altering any option's claim.",
+     "key_before": 130,
+     "key_after": 104,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "97c46762-bcdb-4bd7-8d8a-b02ecae68078",
+     "task": "1.3",
+     "what": "Condensed the key's wording (dropping redundant phrasing without altering its claim) and lightly reworded a distractor so all options now sit within a few characters of each other.",
+     "key_before": 127,
+     "key_after": 106,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "8e151d34-2ad9-4096-ab6d-9d3bb9b7ec2d",
+     "task": "3.8",
+     "what": "Condensed the key's phrasing (removing filler words) so its length matches the distractors, without altering its claim or the wrong answers' assertions.",
+     "key_before": 152,
+     "key_after": 135,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "0b70c193-68f1-4a0f-b51c-c6561e68566b",
+     "task": "4.6",
+     "what": "Shortened the key's wording and added concrete detail to two distractors so the correct option is no longer the longest.",
+     "key_before": 143,
+     "key_after": 123,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "8aa0dfb9-4c4d-4dc6-8c85-2996eaa7e6d1",
+     "task": "3.1",
+     "what": "Trimmed the key's wording to about 94 characters and lengthened one distractor slightly so the correct option is no longer the longest.",
+     "key_before": 119,
+     "key_after": 97,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "9e1e337a-df2e-4dc6-866a-13bf1e62c710",
+     "task": "5.6",
+     "what": "The key was condensed from 161 to 143 characters without altering its claim, so it no longer exceeds the longest distractor.",
+     "key_before": 161,
+     "key_after": 143,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "d4a745c6-07c0-4b6f-9f9a-cb411349114d",
+     "task": "2.1",
+     "what": "Tightened the key's wording so it is no longer noticeably longer than the distractors, without altering what it asserts.",
+     "key_before": 162,
+     "key_after": 151,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "356f009c-d1b5-40e2-bfae-b52ecacc30d5",
+     "task": "5.7",
+     "what": "Shortened the key's closing phrase and lengthened the shortest distractor with equivalent wording, so the key is no longer the longest option while every option's assertion is unchanged.",
+     "key_before": 146,
+     "key_after": 134,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "e7b5e84d-c7b9-47fc-81f8-244750654d19",
+     "task": "4.4",
+     "what": "Condensed the key's wording and added a word to one distractor so option lengths are comparable, without altering any option's assertion.",
+     "key_before": 120,
+     "key_after": 107,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "fac7d1de-734a-4022-9508-12b678a201ad",
+     "task": "2.2",
+     "what": "Tightened the key's phrasing and added concrete detail to one distractor so the correct option is no longer the longest.",
+     "key_before": 120,
+     "key_after": 108,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "a67ef962-3673-4e45-b3a6-927f2029cbbc",
+     "task": "4.5",
+     "what": "Trimmed the key's wording and slightly lengthened the shortest distractor so all options sit within a narrow length band, without altering any option's meaning.",
+     "key_before": 105,
+     "key_after": 90,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "427abfcb-cdd9-41df-b4ed-bf05a777a35c",
+     "task": "3.3",
+     "what": "Trimmed the key's closing phrase and added a few neutral words to two distractors so option lengths no longer single out the correct answer, while every assertion remains unchanged.",
+     "key_before": 121,
+     "key_after": 105,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "fdd5fbf9-6615-43e7-94d5-3f679efa1c13",
+     "task": "3.10",
+     "what": "Tightened the key's wording and added concrete detail to two distractors so all options now sit at comparable lengths, without altering what any option asserts.",
+     "key_before": 110,
+     "key_after": 100,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "402bfda7-b303-4c7a-9f18-82d3cf4e0616",
+     "task": "3.10",
+     "what": "Tightened the key's wording and padded two distractors with concrete detail so the key is no longer the longest option, while each option's assertion is unchanged.",
+     "key_before": 112,
+     "key_after": 104,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "9dcc8be3-047a-4c96-bd5d-5bacfffb6880",
+     "task": "5.8",
+     "what": "Trimmed the key's wording and padded two distractors with concrete detail so all four options now fall in a similar length band without altering any assertion.",
+     "key_before": 132,
+     "key_after": 120,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "7b615277-f5f7-490a-aacf-641cd0403a55",
+     "task": "1.1",
+     "what": "Trimmed the key's wording and slightly padded two distractors so all options fall within a few characters of each other, without altering any option's meaning.",
+     "key_before": 90,
+     "key_after": 81,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    },
+    {
+     "row": "ba082931-90d4-4a6c-bccf-050cb8441152",
+     "task": "4.11",
+     "what": "Tightened the key's phrasing and added concrete detail to two distractors so the key is no longer the longest option, while each option's assertion is unchanged.",
+     "key_before": 111,
+     "key_after": 104,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    }
+   ],
+   "failed": [
+    {
+     "row": "e7c84d2c-0592-4365-9680-72d600cdd081",
+     "task": "2.4",
+     "why": "the cue guard still objects: absolute-word tell: every distractor uses an absolute, key does not"
+    },
+    {
+     "row": "348e62d6-6c47-42e7-a71f-478454bafefc",
+     "task": "5.2",
+     "why": "solver rejected/accepted -- REVERTED, the original passed it"
+    },
+    {
+     "row": "4fb73784-1d3f-47a0-b758-823761bc7573",
+     "task": "5.8",
+     "why": "solver rejected/accepted -- REVERTED, the original passed it"
+    },
+    {
+     "row": "382ff340-7ea5-4055-bde1-a02bd23664bf",
+     "task": "2.6",
+     "why": "the model did not return every option with its same id"
+    }
+   ],
+   "not_tried": [],
+   "spend_usd": 12.2074
+  }
+ ]
+}

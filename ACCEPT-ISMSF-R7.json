@@ -1,0 +1,144 @@
+{
+  "_what": "PROMPT-121 s1: 23 of the 25 R7 survivors. #22 (unparseable key, implausible b and d) and #23 (calibration-certificate marks, out of tier) are rejected.",
+  "_first_round_with_a_live_cue_guard": "R7 is the first round whose items were gated with the cue guard actually running at generation. 46 already-inserted rows from R1-R6 fail it and are being de-cued under PROMPT-121 s2b.",
+  "accepts": [
+    {
+      "item_id": "d1038afa",
+      "report_number": 1,
+      "task": "1.7",
+      "note": "accepted PROMPT-121 s1 (#1) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "1e696e48",
+      "report_number": 2,
+      "task": "2.3",
+      "note": "accepted PROMPT-121 s1 (#2) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "9b89a9a5",
+      "report_number": 3,
+      "task": "4.2",
+      "note": "accepted PROMPT-121 s1 (#3) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "4ceb31fd",
+      "report_number": 4,
+      "task": "4.2",
+      "note": "accepted PROMPT-121 s1 (#4) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "bcf575f4",
+      "report_number": 5,
+      "task": "4.2",
+      "note": "accepted PROMPT-121 s1 (#5) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "06a0a1b7",
+      "report_number": 6,
+      "task": "4.2",
+      "note": "accepted PROMPT-121 s1 (#6) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "f46a236d",
+      "report_number": 7,
+      "task": "4.8",
+      "note": "accepted PROMPT-121 s1 (#7) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "992c3765",
+      "report_number": 8,
+      "task": "4.8",
+      "note": "accepted PROMPT-121 s1 (#8) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "e234202d",
+      "report_number": 9,
+      "task": "3.7",
+      "note": "accepted PROMPT-121 s1 (#9) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "69f1dac3",
+      "report_number": 10,
+      "task": "3.7",
+      "note": "accepted PROMPT-121 s1 (#10) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "c2e3d4ff",
+      "report_number": 11,
+      "task": "3.7",
+      "note": "accepted PROMPT-121 s1 (#11) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "19a33f03",
+      "report_number": 12,
+      "task": "3.7",
+      "note": "accepted PROMPT-121 s1 (#12) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "0f315457",
+      "report_number": 13,
+      "task": "3.9",
+      "note": "accepted PROMPT-121 s1 (#13) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "d583471a",
+      "report_number": 14,
+      "task": "3.9",
+      "note": "accepted PROMPT-121 s1 (#14) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "6064d7ef",
+      "report_number": 15,
+      "task": "3.9",
+      "note": "accepted PROMPT-121 s1 (#15) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "a587c894",
+      "report_number": 16,
+      "task": "4.10",
+      "note": "accepted PROMPT-121 s1 (#16) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue reverted in-run on a CODE cue | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "420575d5",
+      "report_number": 17,
+      "task": "4.10",
+      "note": "accepted PROMPT-121 s1 (#17) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "c6c172db",
+      "report_number": 18,
+      "task": "5.3",
+      "note": "accepted PROMPT-121 s1 (#18) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "a386a2d2",
+      "report_number": 19,
+      "task": "1.4",
+      "note": "accepted PROMPT-121 s1 (#19) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "be3263cd",
+      "report_number": 20,
+      "task": "3.6",
+      "note": "accepted PROMPT-121 s1 (#20) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue reverted in-run on a CODE cue | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "dd5d50f1",
+      "report_number": 21,
+      "task": "4.6",
+      "note": "accepted PROMPT-121 s1 (#21) | options probe not run (withdrawn, PROMPT-117 s2) | de-cue applied in-run on a CODE cue | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "d02ba495",
+      "report_number": 24,
+      "task": "5.7",
+      "note": "accepted PROMPT-121 s1 (#24) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    },
+    {
+      "item_id": "fa76e003",
+      "report_number": 25,
+      "task": "5.7",
+      "note": "accepted PROMPT-121 s1 (#25) | options probe not run (withdrawn, PROMPT-117 s2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4)"
+    }
+  ]
+}

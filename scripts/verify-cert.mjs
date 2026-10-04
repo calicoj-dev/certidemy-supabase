@@ -255,6 +255,54 @@ async function verify(cert) {
     process.exitCode = 1;
   }
 
+  /* ============ THE GROUNDING ROWS AND THE LIBRARY ADDRESSES (PROMPT-121 s2c) ============
+   *
+   * Both feed one question: when the citation index cannot place a reference, does the item's OWN
+   * grounding source hold that address? `source_passages` is the authority, and it is read here
+   * rather than inside the check so the check stays a pure function of what it is given.
+   *
+   * A FAILED READ MUST NOT LOOK LIKE AN EMPTY LIBRARY. An empty address set would resolve nothing and
+   * every multi-source citation would fail again, so a zero count is reported loudly. */
+  const GROUNDING_BY_Q = new Map();
+  const LIBRARY_ADDRESSES = new Set();
+  {
+    for (let from = 0; ; from += 1000) {
+      const { data } = await must(`item_grounding[${from}]`, db.from("item_grounding")
+        .select("question_id, source_id, edition, key_support_clause").order("question_id")
+        .range(from, from + 999));
+      if (!data || data.length === 0) break;
+      for (const g of data) GROUNDING_BY_Q.set(g.question_id, g);
+      if (data.length < 1000) break;
+    }
+    for (let from = 0; ; from += 1000) {
+      const { data } = await must(`source_passages[${from}]`, db.from("source_passages")
+        .select("source_id, edition, clause").order("id").range(from, from + 999));
+      if (!data || data.length === 0) break;
+      for (const p of data) LIBRARY_ADDRESSES.add(p.source_id + "|" + p.edition + "|" + String(p.clause));
+      if (data.length < 1000) break;
+    }
+    if (!LIBRARY_ADDRESSES.size) {
+      console.error("  !! the passage library read EMPTY: no citation can be resolved against an item's");
+      console.error("     own source, so items.citations may fail on correct multi-source items.");
+      process.exitCode = 1;
+    }
+  }
+
+  /* ============ A SIBLING'S GROUNDING IS ITS ENGLISH ROW'S ============
+   *
+   * `item_grounding` carries one row per ITEM, on the English question. The first version of the
+   * resolver looked the grounding up by `q.id`, so the English row resolved its citation and its two
+   * siblings -- the same item, the same citation -- still failed. Grounding is a property of the item,
+   * so a row without one inherits from the English member of its group. */
+  const GROUNDING_BY_GROUP = new Map();
+  for (const q of questions) {
+    if (q.language !== "en" || !q.question_group_id) continue;
+    const g = GROUNDING_BY_Q.get(q.id);
+    if (g) GROUNDING_BY_GROUP.set(q.question_group_id, g);
+  }
+  const groundingFor = (q) => GROUNDING_BY_Q.get(q.id) ||
+    (q.question_group_id ? GROUNDING_BY_GROUP.get(q.question_group_id) : null) || null;
+
   const secureIds = questions.filter((q) => q.pool === "secure").map((q) => q.id);
   let leaked = 0;
   for (let i = 0; i < secureIds.length; i += 300) {
@@ -1296,8 +1344,30 @@ async function verify(cert) {
         for (const q of questions) {
           const before = sink.missing.length;
           const opts = Array.isArray(q.options) ? q.options : [];
-          analyseText([q.question_text, q.explanation || "", ...opts.map((o) => o.text || "")].join(String.fromCharCode(10)), index, sink, CITATION_EXEMPT.get(q.question_group_id) || null);
+          /* ============ THE ITEM'S OWN SOURCE RESOLVES WHAT THE INDEX CANNOT (PROMPT-121 s2c) ============
+           *
+           * The citation index holds three standards. The bank is multi-source since PROMPT-113, so an
+           * item may correctly cite a clause of a standard the index does not hold -- and this reported
+           * one such as "no such address in ISO 27001". It was right: the clause is held in the passage
+           * library and the item quotes it.
+           *
+           * So where the index cannot place a reference, it is resolved against the (source, edition)
+           * ON THE ITEM'S OWN GROUNDING ROW, from `source_passages`. An item with no grounding row gets
+           * no resolver and keeps the old behaviour exactly. A fabricated clause resolves nowhere and
+           * still fails -- this answers a question with evidence rather than excusing it. */
+          const gRow = groundingFor(q);
+          const resolveOwn = gRow && gRow.source_id
+            ? (ref) => LIBRARY_ADDRESSES.has(gRow.source_id + "|" + gRow.edition + "|" + ref.n)
+            : null;
+          analyseText([q.question_text, q.explanation || "", ...opts.map((o) => o.text || "")].join(String.fromCharCode(10)), index, sink, CITATION_EXEMPT.get(q.question_group_id) || null, resolveOwn);
           for (let i = before; i < sink.missing.length; i++) bad.push({ q, m: sink.missing[i] });
+        }
+        /* NEVER SILENT: a reference the index could not place and the item's own source could is
+         * reported, so "resolved" can be told from "not looked at". */
+        if (sink.resolvedOwnSource && sink.resolvedOwnSource.length) {
+          console.log("      " + sink.resolvedOwnSource.length + " citation(s) resolved against the" +
+            " item's OWN grounding source, which the citation index does not hold: " +
+            [...new Set(sink.resolvedOwnSource.map((x) => x.ref))].slice(0, 6).join(", "));
         }
         const badSecure = bad.filter((b) => b.q.pool === "secure");
         const ev = (rows) => rows.slice(0, 8).map((b) => `${b.q.language}/${b.m.ref} - no such address in ISO ${b.m.named}`);

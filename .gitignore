@@ -193,3 +193,6 @@ REVISE-118.json
 # ISMSF-R3*, R4*, R5* one at a time is how ISMSF-R6 reached the index with 4,595 reproduced runs.
 ISMSF-R[0-9]*
 AIMSF-R[0-9]*
+# full row dumps taken before a sibling delete: they carry served text verbatim
+ISMSF-RESTALE-RECOVERY.json
+*-RESTALE-RECOVERY.json

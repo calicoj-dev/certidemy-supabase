@@ -1,0 +1,2821 @@
+{
+ "cert": "ISMS-F",
+ "model": "claude-opus-5",
+ "generated": 45,
+ "complete": 45,
+ "spend": {
+  "usd": 0,
+  "calls": 0,
+  "input": 0,
+  "output": 0,
+  "price_per_mtok": {
+   "input": 15,
+   "output": 75
+  }
+ },
+ "lint": {
+  "es-419": {
+   "checked": 45,
+   "pins": [],
+   "letters": []
+  },
+  "pt-BR": {
+   "checked": 45,
+   "pins": [],
+   "letters": []
+  }
+ },
+ "items": [
+  {
+   "en_id": "7b615277-f5f7-490a-aacf-641cd0403a55",
+   "task": "1.1",
+   "group_id": "c63b6de0-6255-4e09-a020-7006d7b11692",
+   "langs": {
+    "es-419": {
+     "question_text": "Un borrador de contrato con un proveedor se encuentra en un repositorio configurado de modo que no puede ser leído por ninguna persona, sistema o proceso automatizado al que no se le haya concedido acceso. ¿Qué propiedad de seguridad de la información se está preservando?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "No repudio: una acción alegada y la parte que está detrás de ella pueden probarse posteriormente."
+      },
+      {
+       "id": "b",
+       "text": "Confidencialidad: la información se mantiene reservada frente a entidades o procesos no autorizados."
+      },
+      {
+       "id": "c",
+       "text": "Fiabilidad: el comportamiento y los resultados se producen de manera coherente con lo previsto."
+      },
+      {
+       "id": "d",
+       "text": "Autenticidad: una entidad involucrada es genuinamente la que dice ser."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "La cláusula 3.10 define la confidencialidad como la propiedad de que la información \"no se pone a disposición ni se divulga a individuos, entidades o procesos no autorizados\", que es exactamente lo que preserva la restricción de acceso. Las otras tres opciones enuncian propiedades de forma correcta, pero ninguna de ellas se refiere a restringir la divulgación.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um rascunho de contrato com fornecedor está armazenado em um repositório configurado de modo que não possa ser lido por nenhuma pessoa, sistema ou processo automatizado que não tenha recebido acesso. Qual propriedade de segurança da informação está sendo preservada?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Não repúdio: uma ação alegada e a parte responsável por ela podem ser comprovadas posteriormente."
+      },
+      {
+       "id": "b",
+       "text": "Confidencialidade: a informação é negada a entidades ou processos não autorizados."
+      },
+      {
+       "id": "c",
+       "text": "Confiabilidade: o comportamento e os resultados ocorrem de forma consistente com o que foi pretendido."
+      },
+      {
+       "id": "d",
+       "text": "Autenticidade: uma entidade envolvida é genuinamente aquela que alega ser."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "A cláusula 3.10 define confidencialidade como a propriedade de que a informação \"não é disponibilizada ou divulgada a indivíduos, entidades ou processos não autorizados\", que é exatamente o que a restrição de acesso preserva. As outras três opções enunciam propriedades de forma correta, mas nenhuma delas trata de restringir a divulgação.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "948350fa-1aec-433a-a6d4-74d1fdec64f3",
+   "task": "1.3",
+   "group_id": "542190ab-9aa3-4289-8296-cb68668ec234",
+   "langs": {
+    "es-419": {
+     "question_text": "Durante la capacitación de inducción, un nuevo analista pregunta por qué la organización registra miles de eventos de seguridad, pero declara solo unos pocos incidentes cada año. ¿Cuál es la explicación correcta del umbral?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Un evento se convierte en incidente en el momento en que se somete a través del canal formal de reporte de la organización."
+      },
+      {
+       "id": "b",
+       "text": "Un evento se eleva a incidente una vez que una debilidad relacionada ha sido confirmada mediante pruebas como técnicamente explotable."
+      },
+      {
+       "id": "c",
+       "text": "Los eventos se convierten en incidentes cuando son no deseados o inesperados y es probable que perjudiquen las operaciones y la seguridad."
+      },
+      {
+       "id": "d",
+       "text": "Los eventos que afectan datos personales son incidentes, mientras que cualquier otro tipo de evento, por disruptivo que sea, sigue siendo un evento."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "El vocabulario del SGSI en la cláusula 3.31 describe un incidente como uno o más eventos no deseados o inesperados “que tienen una probabilidad significativa de comprometer las operaciones del negocio y amenazar la seguridad de la información (3.28)”. Esa probabilidad de daño es el umbral, razón por la cual la mayoría de los eventos nunca se convierten en incidentes.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Durante o treinamento de integração, um novo analista pergunta por que a organização registra milhares de eventos de segurança, mas declara apenas um punhado de incidentes a cada ano. Qual explicação sobre o limiar está correta?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Um evento se torna um incidente no momento em que é submetido por meio do canal formal de comunicação da organização."
+      },
+      {
+       "id": "b",
+       "text": "Um evento é elevado à condição de incidente quando uma fragilidade relacionada é confirmada por testes como tecnicamente explorável."
+      },
+      {
+       "id": "c",
+       "text": "Eventos se tornam incidentes quando são indesejados ou inesperados e têm probabilidade de prejudicar as operações e a segurança."
+      },
+      {
+       "id": "d",
+       "text": "Eventos que envolvem dados pessoais são incidentes, enquanto todo outro tipo de evento, por mais disruptivo que seja, permanece um evento."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "O vocabulário do SGSI na cláusula 3.31 descreve um incidente como um ou mais eventos indesejados ou inesperados “que têm probabilidade significativa de comprometer as operações do negócio e ameaçar a segurança da informação (3.28)”. Essa probabilidade de dano é o limiar, razão pela qual a maioria dos eventos nunca se torna incidente.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "97c46762-bcdb-4bd7-8d8a-b02ecae68078",
+   "task": "1.3",
+   "group_id": "46b0da2e-f791-492e-9d5b-8b7efceca46e",
+   "langs": {
+    "es-419": {
+     "question_text": "Una organización detecta que dos analistas llegan a conclusiones diferentes sobre reportes similares acerca de si algo es un incidente. ¿Qué disposición recomienda la orientación sobre la evaluación y decisión sobre eventos de seguridad para hacer que estas decisiones sean consistentes?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Se recomienda un esquema, en el que cada empleado que reporta lo aplique a su propio reporte antes de remitirlo."
+      },
+      {
+       "id": "b",
+       "text": "Cada evento reportado se remite al órgano de gobierno, que decide caso por caso cuáles son incidentes."
+      },
+      {
+       "id": "c",
+       "text": "Un esquema acordado de categorización y priorización, aplicado a cada evento por el punto de contacto designado."
+      },
+      {
+       "id": "d",
+       "text": "Los resultados de la evaluación se descartan una vez que se cierra un evento, de modo que los registros conservados se mantengan proporcionados."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "La cláusula 5.25 recomienda un esquema acordado y establece que “Conviene que el punto de contacto evalúe cada evento de seguridad de la información utilizando el esquema acordado.” Los criterios compartidos aplicados por el punto de contacto son los que hacen repetible la decisión de evento a incidente.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma organização constata que dois analistas chegam a conclusões diferentes sobre relatos semelhantes a respeito de algo ser ou não um incidente. Qual arranjo a orientação sobre avaliação e decisão sobre eventos de segurança da informação recomenda para tornar essas decisões consistentes?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Recomenda-se um esquema, com cada funcionário que reporta aplicando-o ao seu próprio relato antes de encaminhá-lo."
+      },
+      {
+       "id": "b",
+       "text": "Cada evento reportado é encaminhado ao órgão de governança, que decide caso a caso quais deles são incidentes."
+      },
+      {
+       "id": "c",
+       "text": "Um esquema acordado de categorização e priorização, aplicado a cada evento pelo ponto de contato designado."
+      },
+      {
+       "id": "d",
+       "text": "Os resultados da avaliação são descartados assim que um evento é encerrado, para que os registros mantidos permaneçam proporcionais."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "A cláusula 5.25 recomenda um esquema acordado e afirma que “Convém que o ponto de contato avalie cada evento de segurança da informação utilizando o esquema acordado.” Critérios compartilhados aplicados pelo ponto de contato são o que torna repetível a decisão de converter evento em incidente.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "19518458-6a9c-41b8-bde9-4055228adce5",
+   "task": "1.5",
+   "group_id": "758d1ff6-67dc-43b1-bc11-39de07f62918",
+   "langs": {
+    "es-419": {
+     "question_text": "Una organización integra un asistente de escritura de IA generativa en su flujo de trabajo de soporte al cliente, y el personal pega datos de las cuentas de los clientes en los prompts para que el asistente pueda redactar respuestas. ¿Qué afirmación explica correctamente cómo se aplican los requisitos de clasificación de la organización a estos prompts?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Los prompts no necesitan clasificarse porque el asistente los consume en tiempo real y no se conservan después en ningún sistema de la organización."
+      },
+      {
+       "id": "b",
+       "text": "Se recomienda clasificar los prompts, pero solo porque los términos de servicio del proveedor de IA exigen que los clientes etiqueten los datos sensibles antes de enviarlos."
+      },
+      {
+       "id": "c",
+       "text": "Los prompts no necesitan clasificarse porque la salida del asistente, y no su entrada, es el único activo de información creado por este flujo de trabajo."
+      },
+      {
+       "id": "d",
+       "text": "Los prompts contienen información que se recomienda clasificar según sus necesidades de confidencialidad, integridad y disponibilidad, como cualquier otra información."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 5.12 requiere que la información se clasifique de acuerdo con sus necesidades de confidencialidad, integridad y disponibilidad, y eso aplica al contenido de los prompts igual que a cualquier otra información que posea la organización.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma organização integra um assistente de escrita de IA generativa ao seu fluxo de trabalho de suporte ao cliente, e os funcionários colam detalhes de contas de clientes nos prompts para que o assistente possa redigir respostas. Qual afirmação explica corretamente como os requisitos de classificação da organização se aplicam a esses prompts?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Os prompts não precisam ser classificados porque são consumidos em tempo real pelo assistente e não ficam retidos em nenhum sistema organizacional depois disso."
+      },
+      {
+       "id": "b",
+       "text": "Convém que os prompts sejam classificados, mas apenas porque os termos de serviço do fornecedor de IA exigem que os clientes rotulem dados sensíveis antes do envio."
+      },
+      {
+       "id": "c",
+       "text": "Os prompts não precisam ser classificados porque a saída do assistente, e não sua entrada, é o único ativo de informação criado por esse fluxo de trabalho."
+      },
+      {
+       "id": "d",
+       "text": "Os prompts contêm informação que convém ser classificada de acordo com suas necessidades de confidencialidade, integridade e disponibilidade, como qualquer outra informação."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 5.12 prevê que convém que a informação seja classificada de acordo com suas necessidades de confidencialidade, integridade e disponibilidade, e isso se aplica ao conteúdo dos prompts da mesma forma que se aplicaria a qualquer outra informação que a organização detenha.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "08d8237c-16c7-48cd-9d7e-a6c7aadd9a94",
+   "task": "2.1",
+   "group_id": "a090c49f-96e2-43be-accb-1c39dd8a3b5b",
+   "langs": {
+    "es-419": {
+     "question_text": "Un hospital está estableciendo sus objetivos de seguridad de la información para el próximo año. ¿Qué enunciado describe cómo se deben manejar los objetivos y su planificación?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Los objetivos se derivan de la primera auditoría interna una vez que esta concluye, y el equipo de seguridad los conserva como notas de trabajo en lugar de como información documentada retenida."
+      },
+      {
+       "id": "b",
+       "text": "Los objetivos son elaborados por el equipo de la alta dirección, y las demás funciones los reciben como instrucciones en lugar de tener objetivos propios."
+      },
+      {
+       "id": "c",
+       "text": "Los objetivos son obligatorios, y cada uno debe enunciarse como una meta cuantificada, registrando por separado como aspiraciones aquellas metas que no se pueden contabilizar."
+      },
+      {
+       "id": "d",
+       "text": "Los objetivos se establecen en las funciones y niveles pertinentes, son coherentes con la política, y sus planes indican el trabajo, los recursos, el responsable y la fecha de finalización."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 6.2 de la norma ISO/IEC 27001 exige objetivos en las funciones y niveles pertinentes, coherentes con la política, y requiere una planificación que determine \"lo que se va a hacer; i) qué recursos se requerirán; j) quién será responsable; k) cuándo se finalizará; y l) cómo se evaluarán los resultados\".",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um hospital está definindo seus objetivos de segurança da informação para o próximo ano. Qual afirmação descreve como os objetivos e seu planejamento devem ser tratados?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Os objetivos são derivados da primeira auditoria interna assim que ela é encerrada, e são mantidos como anotações de trabalho da equipe de segurança em vez de como registros retidos."
+      },
+      {
+       "id": "b",
+       "text": "Os objetivos são elaborados pela alta direção, e as demais funções os recebem como instruções em vez de terem objetivos próprios."
+      },
+      {
+       "id": "c",
+       "text": "Os objetivos são obrigatórios, e cada um deve ser declarado como uma meta quantificada, com as metas que não podem ser contadas registradas separadamente como aspirações."
+      },
+      {
+       "id": "d",
+       "text": "Os objetivos são estabelecidos nas funções e níveis pertinentes, estão alinhados com a política, e seus planos indicam o trabalho, os recursos, o responsável e o prazo."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 6.2 da ISO/IEC 27001 exige objetivos nas funções e níveis pertinentes, coerentes com a política, e exige um planejamento que determine \"o que será feito; i) quais recursos serão necessários; j) quem será responsável; k) quando estará concluído; e l) como os resultados serão avaliados\".",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "0cf80efc-2c02-4c14-ad71-de049933de4f",
+   "task": "2.1",
+   "group_id": "bee2745f-312f-429d-a07b-54dcf03434b6",
+   "langs": {
+    "es-419": {
+     "question_text": "El consejo de administración de un minorista pregunta en qué consiste un sistema de gestión, más allá de las medidas de seguridad que la empresa ya ha implementado. ¿Qué descripción coincide con la descripción publicada de un sistema de gestión?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "El inventario de activos de información dentro del alcance, donde cada entrada indica su propietario, su clasificación y su nivel de riesgo actual."
+      },
+      {
+       "id": "b",
+       "text": "La estructura organizativa, las políticas y actividades de planificación, las responsabilidades, prácticas y procedimientos, y los recursos."
+      },
+      {
+       "id": "c",
+       "text": "Los documentos y registros que mantiene la función de seguridad, reunidos de modo que se pueda demostrar la conformidad ante un auditor cuando lo solicite."
+      },
+      {
+       "id": "d",
+       "text": "El catálogo de medidas técnicas y físicas en servicio, junto con las líneas base de configuración frente a las cuales se controla cada una de ellas."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "La cláusula 4.2.5 de la guía de generalidades del SGSI establece que \"El sistema de gestión incluye la estructura organizativa, las políticas, las actividades de planificación, las responsabilidades, las prácticas, los procedimientos, los procesos y los recursos\". Es un marco de recursos utilizado para lograr los objetivos de la organización, lo cual es más que las medidas en sí mismas.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "O conselho de um varejista pergunta em que consiste um sistema de gestão, além das medidas de segurança que a empresa já implantou. Qual descrição corresponde à definição publicada de um sistema de gestão?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "O inventário de ativos de informação dentro do escopo, cada entrada contendo seu proprietário, sua classificação e sua avaliação de risco atual."
+      },
+      {
+       "id": "b",
+       "text": "A estrutura organizacional, as políticas e atividades de planejamento, as responsabilidades, práticas e procedimentos, e os recursos."
+      },
+      {
+       "id": "c",
+       "text": "Os documentos e registros mantidos pela função de segurança, reunidos de modo que a conformidade possa ser demonstrada a um auditor quando solicitado."
+      },
+      {
+       "id": "d",
+       "text": "O catálogo de medidas técnicas e físicas em operação, juntamente com as linhas de base de configuração em relação às quais cada uma é mantida."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "A cláusula 4.2.5 da orientação de visão geral do SGSI declara que \"O sistema de gestão inclui estrutura organizacional, políticas, atividades de planejamento, responsabilidades, práticas, procedimentos, processos e recursos.\" Trata-se de uma estrutura de recursos utilizada para alcançar os objetivos da organização, o que é mais do que as próprias medidas.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "d4a745c6-07c0-4b6f-9f9a-cb411349114d",
+   "task": "2.1",
+   "group_id": "912b24cc-bd9c-4a1c-8eb5-da352d4627ce",
+   "langs": {
+    "es-419": {
+     "question_text": "En una empresa de software, el gerente de seguridad redactó la política de seguridad de la información, la publicó en la wiki interna del equipo de seguridad y la limitó a reglas técnicas sobre contraseñas y cifrado. ¿Qué evaluación de esta situación es correcta?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "La principal brecha es que el plan de tratamiento de riesgos y la declaración de aplicabilidad quedaron fuera del propio documento de la política."
+      },
+      {
+       "id": "b",
+       "text": "La alta dirección debe establecer la política; esta incluye compromisos con los requisitos aplicables y con la mejora continua, y se comunica internamente."
+      },
+      {
+       "id": "c",
+       "text": "El arreglo es válido cuando el gerente de seguridad redacta bajo autoridad delegada, ya que la norma no restringe quién redacta el documento."
+      },
+      {
+       "id": "d",
+       "text": "La política es deficiente, y corregirla implica divulgarla íntegramente a cualquier parte externa que solicite una copia."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "La cláusula 5.2 de la norma ISO/IEC 27001 exige que \"La alta dirección debe establecer una política de seguridad de la información\" que sea apropiada al propósito de la organización, que aborde los objetivos y que incluya el compromiso de cumplir los requisitos aplicables y de la mejora continua, y debe estar documentada y comunicarse dentro de la organización.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Em uma empresa de software, o gerente de segurança redigiu a política de segurança da informação, publicou-a no wiki interno da equipe de segurança e limitou-a a regras técnicas sobre senhas e criptografia. Qual avaliação dessa situação está correta?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "A principal lacuna é que o plano de tratamento de riscos e a declaração de aplicabilidade foram deixados de fora do próprio documento da política."
+      },
+      {
+       "id": "b",
+       "text": "A alta direção deve estabelecer a política; ela inclui compromissos com os requisitos aplicáveis e com a melhoria contínua, e é comunicada internamente."
+      },
+      {
+       "id": "c",
+       "text": "O arranjo se sustenta quando o gerente de segurança redige sob autoridade delegada, pois a norma não restringe quem elabora o documento."
+      },
+      {
+       "id": "d",
+       "text": "A política é deficiente, e corrigi-la significa divulgá-la integralmente a qualquer parte externa que solicite uma cópia."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "A cláusula 5.2 da ISO/IEC 27001 exige que \"A alta direção deve estabelecer uma política de segurança da informação\" que seja apropriada ao propósito da organização, que contemple objetivos e que inclua o comprometimento com os requisitos aplicáveis e com a melhoria contínua, devendo ainda ser documentada e comunicada dentro da organização.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "3c2990ed-74c2-426a-9aff-0fed9e57f3b6",
+   "task": "2.2",
+   "group_id": "a1ae3703-6f9d-4bfe-b1c0-269d60147aa2",
+   "langs": {
+    "es-419": {
+     "question_text": "Una organización ha elaborado la lista de partes relevantes para su sistema de gestión de la seguridad de la información. ¿Qué más exige la cláusula sobre las necesidades y expectativas de las partes interesadas?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Determinar cuáles de sus requisitos son pertinentes y cuáles de ellos abordará el sistema."
+      },
+      {
+       "id": "b",
+       "text": "Tratar los términos contractuales firmados, como los acuerdos con clientes, como los únicos requisitos que vale la pena considerar."
+      },
+      {
+       "id": "c",
+       "text": "Dejar los requisitos para capturarlos más adelante, cuando se elabore y apruebe el plan de tratamiento de riesgos."
+      },
+      {
+       "id": "d",
+       "text": "Comprometer al sistema de gestión a abordar todos los requisitos declarados por cualquier parte de la lista elaborada."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La cláusula 4.2 requiere que la organización determine las partes interesadas pertinentes, \"b) los requisitos pertinentes de estas partes interesadas; c) cuáles de estos requisitos se abordarán a través del sistema de gestión de la seguridad de la información\".",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma organização compilou a lista de partes relevantes para seu sistema de gestão da segurança da informação. O que mais a cláusula sobre as necessidades e expectativas das partes interessadas exige?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Determinar quais de seus requisitos são relevantes e quais deles serão atendidos pelo sistema."
+      },
+      {
+       "id": "b",
+       "text": "Tratar termos contratuais assinados, como acordos com clientes, como os únicos requisitos que vale a pena considerar adiante."
+      },
+      {
+       "id": "c",
+       "text": "Deixar os requisitos para serem capturados mais tarde, quando o plano de tratamento de riscos for elaborado e aprovado."
+      },
+      {
+       "id": "d",
+       "text": "Comprometer o sistema de gestão a atender todo requisito declarado por qualquer parte da lista compilada."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A cláusula 4.2 exige que a organização determine as partes interessadas relevantes, \"b) os requisitos relevantes dessas partes interessadas; c) quais desses requisitos serão atendidos por meio do sistema de gestão da segurança da informação.\"",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "fac7d1de-734a-4022-9508-12b678a201ad",
+   "task": "2.2",
+   "group_id": "6c41c08e-d885-4849-a21f-7ae9a628b48a",
+   "langs": {
+    "es-419": {
+     "question_text": "Una organización aloja sus modelos de IA en la plataforma en la nube de un tercero. ¿Qué exige la determinación del alcance de su sistema de gestión de la seguridad de la información respecto de ese arreglo?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Que se tengan en cuenta las interfaces y dependencias entre sus propias actividades y las del proveedor."
+      },
+      {
+       "id": "b",
+       "text": "Que la plataforma y los centros de datos del proveedor deban incorporarse dentro del límite antes de que el alcance pueda aprobarse."
+      },
+      {
+       "id": "c",
+       "text": "Que las actividades subcontratadas queden totalmente fuera del alcance y se gestionen únicamente mediante el contrato con el proveedor."
+      },
+      {
+       "id": "d",
+       "text": "Que tales dependencias se registren en el plan de tratamiento de riesgos en lugar de ponderarse al establecer los límites."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La cláusula 4.3 requiere que la organización, al determinar el alcance, considere \"las interfaces y dependencias entre las actividades realizadas por la organización y las que realizan otras organizaciones\".",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma organização hospeda seus modelos de IA na plataforma em nuvem de um terceiro. O que a determinação do escopo de seu sistema de gestão da segurança da informação exige em relação a esse arranjo?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "As interfaces e dependências entre suas próprias atividades e as do provedor são levadas em consideração."
+      },
+      {
+       "id": "b",
+       "text": "A plataforma e os data centers do provedor precisam ser trazidos para dentro do limite antes que o escopo possa ser aprovado."
+      },
+      {
+       "id": "c",
+       "text": "Atividades terceirizadas ficam totalmente fora do escopo e são gerenciadas exclusivamente por meio do contrato com o fornecedor."
+      },
+      {
+       "id": "d",
+       "text": "Tais dependências são registradas no plano de tratamento de riscos em vez de ponderadas quando os limites são definidos."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A cláusula 4.3 exige que a organização, ao determinar o escopo, considere as \"interfaces e dependências entre as atividades realizadas pela organização e aquelas realizadas por outras organizações\".",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "0773ecb3-768f-4a76-aaf9-6788aa25ddaa",
+   "task": "2.4",
+   "group_id": "d12f6d82-3c99-4a7e-b39b-ae38ffb83f1a",
+   "langs": {
+    "es-419": {
+     "question_text": "Al recopilar los requisitos de las partes interesadas como entrada para el alcance de su SGSI, una empresa de logística debate qué tipos de requisitos corresponden a esa lista. ¿Qué descripción es la correcta?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Los deberes legales y reglamentarios pueden figurar en la lista, mientras que los compromisos asumidos con los clientes en contratos quedan excluidos de ella."
+      },
+      {
+       "id": "b",
+       "text": "Las obligaciones establecidas en contratos firmados son las que califican; los deberes legales los atiende el área jurídica fuera del SGSI."
+      },
+      {
+       "id": "c",
+       "text": "Solo los puntos que un auditor de certificación plantea durante la revisión documental de la etapa uno pueden incluirse en la lista."
+      },
+      {
+       "id": "d",
+       "text": "Los requisitos de las partes interesadas pueden incluir deberes legales y reglamentarios, obligaciones contractuales y otras expectativas pertinentes."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 4.2 señala que los requisitos de las partes interesadas \"pueden incluir requisitos legales y reglamentarios y obligaciones contractuales\", por lo que tanto los deberes legales como los compromisos contractuales pueden pertenecer a la lista que la organización determina.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Ao compilar os requisitos das partes interessadas como entrada para o escopo de seu SGSI, uma empresa de logística debate quais tipos de requisito pertencem à lista. Qual descrição se encaixa?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Deveres legais e regulatórios podem constar da lista, enquanto os compromissos assumidos com clientes em contratos são excluídos dela."
+      },
+      {
+       "id": "b",
+       "text": "As obrigações escritas em contratos assinados é que se qualificam; os deveres estatutários são tratados pela função jurídica fora do SGSI."
+      },
+      {
+       "id": "c",
+       "text": "Somente os pontos que um auditor de certificação levanta durante a análise documental da etapa um são elegíveis para inclusão na lista."
+      },
+      {
+       "id": "d",
+       "text": "Os requisitos das partes interessadas podem incluir deveres legais e regulatórios, obrigações contratuais e outras expectativas relevantes."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 4.2 observa que os requisitos das partes interessadas \"podem incluir requisitos legais e regulatórios e obrigações contratuais\", de modo que tanto os deveres estatutários quanto os compromissos contratuais podem pertencer à lista que a organização determina.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "4de6ebda-6c28-4532-8d6f-91a09ccefbe2",
+   "task": "2.4",
+   "group_id": "fba4d669-3954-4fea-8acd-1c408cd1fd0f",
+   "langs": {
+    "es-419": {
+     "question_text": "Dos organizaciones certificadas de tipo similar mantienen cantidades muy distintas de documentación del SGSI: una conserva un conjunto extenso de procedimientos y la otra uno reducido. ¿Cómo debe entenderse esta diferencia?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "El volumen de documentación lo fija el organismo de certificación para cada sector, por lo que el conjunto más reducido demuestra que una auditoría fue incompleta o apresurada."
+      },
+      {
+       "id": "b",
+       "text": "Una diferencia de ese tamaño indica una no conformidad, ya que se espera que organizaciones comparables mantengan conjuntos documentales equivalentes."
+      },
+      {
+       "id": "c",
+       "text": "La variación es normal, por lo que una organización con procesos simples puede omitir registros que la propia norma exige."
+      },
+      {
+       "id": "d",
+       "text": "La cantidad de información documentada que se mantiene puede diferir entre organizaciones, reflejando el tamaño, la complejidad de los procesos y la competencia del personal."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La nota de la cláusula 7.5.1 explica que la extensión de la información documentada \"puede diferir de una organización a otra\", citando el tamaño y las actividades de la organización, la complejidad de sus procesos y la competencia de sus personas. La opción que justifica omitir registros es permisiva por la razón equivocada: un proceso más simple no elimina la información documentada que la propia cláusula enumera.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Duas organizações certificadas de tipo semelhante mantêm quantidades muito diferentes de documentação do SGSI: uma mantém um conjunto extenso de procedimentos, a outra um conjunto enxuto. Como essa diferença deve ser entendida?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "O volume de documentação é fixado por setor pelo organismo de certificação, de modo que o conjunto mais enxuto mostra que uma auditoria foi incompleta ou apressada."
+      },
+      {
+       "id": "b",
+       "text": "Uma diferença desse porte aponta para uma não conformidade, pois espera-se que organizações comparáveis mantenham conjuntos de documentos equivalentes."
+      },
+      {
+       "id": "c",
+       "text": "A variação é normal, de modo que uma organização com processos simples pode omitir registros que a própria norma exige."
+      },
+      {
+       "id": "d",
+       "text": "A quantidade de informação documentada mantida pode diferir entre organizações, refletindo porte, complexidade dos processos e competência do pessoal."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A nota da cláusula 7.5.1 explica que a extensão da informação documentada \"pode diferir de uma organização para outra\", citando o porte e as atividades da organização, a complexidade de seus processos e a competência de suas pessoas. A opção que justifica a omissão de registros é permissiva pelo motivo errado: um processo mais simples não elimina a informação documentada que a própria cláusula relaciona.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "c0a7417e-4033-4542-87b3-4f7078b17a9d",
+   "task": "2.4",
+   "group_id": "0c9303f2-1780-4512-b017-76a2b2178108",
+   "langs": {
+    "es-419": {
+     "question_text": "Un banco que prepara el alcance de su SGSI enumera expectativas planteadas por su regulador, por dos proveedores de nube y por un panel externo de ética de IA. ¿Toda expectativa de esa lista debe gestionarse a través del SGSI?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "No: las expectativas de los reguladores son las únicas que necesitan identificarse, por lo que las de proveedores y paneles nunca entran en la lista."
+      },
+      {
+       "id": "b",
+       "text": "No: la organización identifica las partes y los requisitos pertinentes y luego determina cuáles abordará a través del SGSI."
+      },
+      {
+       "id": "c",
+       "text": "Sí: una vez que se ha registrado una expectativa de cualquier parte, sea regulador, proveedor o panel de ética, se adopta como requisito del SGSI."
+      },
+      {
+       "id": "d",
+       "text": "Sí: el organismo de certificación elabora la lista de expectativas y decide qué partes, internas o externas, se consideran pertinentes."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "La cláusula 4.2 exige que la organización determine \"cuáles de estos requisitos se abordarán a través del sistema de gestión de seguridad de la información\", de modo que la identificación de un requisito y su adopción dentro del SGSI son pasos distintos.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um banco que prepara o escopo de seu SGSI lista expectativas levantadas por seu regulador, por dois fornecedores de nuvem e por um painel externo de ética em IA. Toda expectativa dessa lista deve ser tratada por meio do SGSI?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Não — as expectativas dos reguladores são as únicas que precisam ser identificadas, portanto as expectativas de fornecedores e do painel nunca entram na lista."
+      },
+      {
+       "id": "b",
+       "text": "Não — a organização identifica as partes e os requisitos relevantes e, em seguida, determina quais deles tratará por meio do SGSI."
+      },
+      {
+       "id": "c",
+       "text": "Sim — uma vez registrada uma expectativa de qualquer parte, seja regulador, fornecedor ou painel de ética, ela é adotada como requisito do SGSI."
+      },
+      {
+       "id": "d",
+       "text": "Sim — o organismo de certificação elabora a lista de expectativas e decide quais partes, internas ou externas, são tratadas como relevantes."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "A cláusula 4.2 exige que a organização determine \"quais desses requisitos serão tratados por meio do sistema de gestão da segurança da informação\", de modo que a identificação de um requisito e sua adoção no SGSI são etapas distintas.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "c958daa4-5019-41a4-adc9-d9b833bfe899",
+   "task": "2.4",
+   "group_id": "6caafe25-524e-408b-a2d4-3534c1fd4376",
+   "langs": {
+    "es-419": {
+     "question_text": "Antes de fijar el límite de su SGSI, un grupo hospitalario revisa nuevas normas sobre IA clínica, su fusión pendiente con una cadena de clínicas y una escasez interna de competencias en seguridad. ¿Cuál es el estatus de esta revisión?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Determinar las cuestiones externas e internas que afectan el resultado del SGSI es obligatorio, y esas cuestiones alimentan el alcance cuando este se establece."
+      },
+      {
+       "id": "b",
+       "text": "Revisar el contexto de la organización es una buena práctica sugerida, adoptada de forma voluntaria por las organizaciones que ven valor en hacerlo."
+      },
+      {
+       "id": "c",
+       "text": "Determinar tales cuestiones es obligatorio, aunque solo los asuntos originados fuera de la organización se cuentan como cuestiones."
+      },
+      {
+       "id": "d",
+       "text": "Las cuestiones de contexto de este tipo se examinan en la revisión por la dirección una vez que el SGSI está en operación, y no antes de fijar el alcance."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La cláusula 4.1 exige que la organización determine las \"cuestiones externas e internas que son pertinentes para su propósito\" y que afectan los resultados previstos del SGSI, y la cláusula 4.3 exige luego que esas cuestiones se consideren al establecer los límites y la aplicabilidad.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Antes de fixar o limite de seu SGSI, um grupo hospitalar analisa novas regras sobre IA clínica, sua fusão pendente com uma rede de clínicas e a escassez interna de competências em segurança. Qual é o status dessa análise?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Determinar as questões externas e internas que afetam o resultado do SGSI é requerido, e essas questões informam o escopo quando ele é definido."
+      },
+      {
+       "id": "b",
+       "text": "Analisar o contexto da organização é uma boa prática sugerida, adotada voluntariamente por organizações que veem valor em fazê-lo."
+      },
+      {
+       "id": "c",
+       "text": "Determinar tais questões é requerido, embora somente os assuntos originados fora da organização sejam contados como questões."
+      },
+      {
+       "id": "d",
+       "text": "Questões de contexto desse tipo são examinadas na análise crítica pela direção, uma vez que o SGSI esteja operando, e não antes de o escopo ser fixado."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A cláusula 4.1 exige que a organização determine \"questões externas e internas que sejam relevantes para seu propósito\" e que afetem os resultados pretendidos do SGSI, e a cláusula 4.3 então exige que essas questões sejam consideradas ao estabelecer os limites e a aplicabilidade.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "89baca91-a118-4f99-86b9-6e9d376cd2a5",
+   "task": "2.5",
+   "group_id": "637ae707-39b1-43e9-a16a-9855d5b9e54a",
+   "langs": {
+    "es-419": {
+     "question_text": "Una organización aplica un único anexo de seguridad estándar a todos sus proveedores, desde contratistas de limpieza hasta empresas de software. Acaba de contratar a un proveedor de transcripción con IA que recibe llamadas grabadas de clientes; el anexo no dice nada sobre la retención de las grabaciones ni sobre su reutilización para mejorar modelos. ¿Cuál es el defecto?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Un único anexo uniforme es el enfoque correcto, porque los requisitos se acuerdan por organización y no por tipo de relación."
+      },
+      {
+       "id": "b",
+       "text": "Los acuerdos de este tipo solo aplican a proveedores que manejan datos personales, y las grabaciones de llamadas usadas para transcripción no los activan."
+      },
+      {
+       "id": "c",
+       "text": "Lo que se acordó aquí no corresponde con lo que la relación realmente implica, por lo que los requisitos de seguridad pertinentes quedan sin definir."
+      },
+      {
+       "id": "d",
+       "text": "Los requisitos acordados son exigibles, y se consideran definidos una vez que el proveedor se incorpora al registro de proveedores aprobados con un responsable designado."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "La cláusula A.5.20 requiere que \"se deben establecer y acordar con cada proveedor los requisitos de seguridad de la información pertinentes, con base en el tipo de relación con el proveedor\". Un anexo estándar que guarda silencio sobre la retención y la reutilización de las grabaciones no ha establecido los requisitos pertinentes a esta relación.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma organização aplica um único anexo de segurança padronizado a todos os fornecedores, de empresas de limpeza a empresas de software. Ela acabou de contratar um fornecedor de transcrição por IA que recebe gravações de chamadas de clientes; o anexo nada diz sobre retenção das gravações ou sobre seu reúso para melhoria de modelos. Qual é o defeito?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Um anexo único e uniforme é a abordagem correta, porque os requisitos são acordados por organização, e não por tipo de relacionamento."
+      },
+      {
+       "id": "b",
+       "text": "Acordos desse tipo só incidem sobre fornecedores que detêm dados pessoais, e gravações de chamadas usadas para transcrição não os acionam."
+      },
+      {
+       "id": "c",
+       "text": "O que foi acordado aqui não corresponde ao que o relacionamento de fato envolve, de modo que requisitos de segurança relevantes permanecem indefinidos."
+      },
+      {
+       "id": "d",
+       "text": "Requisitos acordados são devidos, e eles contam como definidos assim que o fornecedor é incluído no registro de fornecedores aprovados com um responsável nomeado."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "A cláusula A.5.20 exige que \"os requisitos de segurança da informação relevantes devem ser estabelecidos e acordados com cada fornecedor com base no tipo de relacionamento com o fornecedor\". Um anexo padronizado silente quanto à retenção e ao reúso das gravações não estabeleceu os requisitos relevantes para esse relacionamento.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "ead9c094-82dd-4b51-877e-fc7948e1d017",
+   "task": "2.5",
+   "group_id": "a163b2bd-c789-4772-8054-144bd7064a29",
+   "langs": {
+    "es-419": {
+     "question_text": "La elaboración de resúmenes de documentos que antes realizaba internamente un equipo administrativo ahora la lleva a cabo, en nombre de la organización, un proveedor de servicios de IA bajo un acuerdo de servicio. Un evaluador pregunta cómo se sitúa este arreglo frente al alcance declarado del SGSI. ¿Cuál interpretación es correcta?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "El proveedor queda fuera del sistema de gestión, y el trabajo de elaboración de resúmenes sale del alcance junto con él una vez que inicia el contrato."
+      },
+      {
+       "id": "b",
+       "text": "Ni el trabajo ni el proveedor cuentan como dentro del alcance hasta que el propio sistema de gestión del proveedor haya sido certificado por un organismo externo."
+      },
+      {
+       "id": "c",
+       "text": "Ceder el trabajo incorpora a toda la organización del proveedor dentro del límite declarado mientras dure el arreglo."
+      },
+      {
+       "id": "d",
+       "text": "La organización del proveedor queda fuera del sistema de gestión, mientras que el trabajo de elaboración de resúmenes permanece dentro del alcance."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "Disponer que una organización externa realice parte de una función es contratación externa, y la entrada de vocabulario 3.51 señala que la organización externa se sitúa fuera del sistema de gestión mientras que la función o el proceso contratado externamente permanece dentro del alcance. La cláusula 4.3 refuerza esto al requerir que se consideren las interfaces y dependencias con actividades realizadas por otras organizaciones al establecer el alcance.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "A sumarização de documentos que uma equipe de retaguarda costumava executar internamente é agora realizada em nome da organização por um provedor de serviços de IA sob um contrato de serviço. Um avaliador pergunta como esse arranjo se situa em relação ao escopo declarado do SGSI. Qual leitura está correta?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "O provedor situa-se fora do sistema de gestão, e o trabalho de sumarização sai do escopo junto com ele assim que o contrato tem início."
+      },
+      {
+       "id": "b",
+       "text": "Nem o trabalho nem o provedor contam como dentro do escopo até que o próprio sistema de gestão do provedor tenha sido certificado por um organismo externo."
+      },
+      {
+       "id": "c",
+       "text": "Transferir o trabalho traz toda a organização do provedor para dentro da fronteira declarada enquanto durar o arranjo."
+      },
+      {
+       "id": "d",
+       "text": "A organização do provedor situa-se fora do sistema de gestão, enquanto o trabalho de sumarização permanece dentro do escopo."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "Providenciar que uma organização externa execute parte de uma função é terceirização, e o verbete de vocabulário 3.51 observa que a organização externa está fora do sistema de gestão, enquanto a função ou o processo terceirizado permanece dentro do escopo. A cláusula 4.3 reforça isso ao exigir que as interfaces e dependências com atividades executadas por outras organizações sejam consideradas quando o escopo é definido.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "ec67a295-47c6-4e66-bd43-b47d5fdc0571",
+   "task": "2.5",
+   "group_id": "93f3ffdd-bc16-4851-be85-77e2780446b6",
+   "langs": {
+    "es-419": {
+     "question_text": "Los Developers han instalado una extensión de navegador que envía fragmentos del repositorio a un servicio de IA de terceros para obtener sugerencias de refactorización. La política específica de la organización sobre transferencia de información aborda únicamente el correo y la transferencia gestionada de archivos. ¿Qué análisis de la deficiencia se ajusta a la orientación sobre transferencia electrónica?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "La deficiencia es de filtrado: las categorías del proxy web pueden simplemente bloquear que las extensiones alcancen sitios con capacidad de carga, y las reglas de transferencia no juegan ningún papel."
+      },
+      {
+       "id": "b",
+       "text": "Las reglas para canales electrónicos apuntan al malware transportado en adjuntos, por lo que una extensión de sugerencia de código queda fuera de aquello para lo que fueron escritas."
+      },
+      {
+       "id": "c",
+       "text": "Se espera la aprobación previa al uso, y la situación se corrige revisando los fragmentos cargados una vez cerrado el trimestre."
+      },
+      {
+       "id": "d",
+       "text": "Se recomienda que las reglas de transferencia exijan aprobación antes de usar servicios públicos externos, y esta extensión se adoptó sin ninguna aprobación de ese tipo."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 5.14 enumera, entre los aspectos que conviene que consideren las reglas para la transferencia electrónica, \"obtener la aprobación previa al uso de servicios públicos externos tales como mensajería instantánea, redes sociales, intercambio de archivos o almacenamiento en la nube\". La extensión es un servicio de ese tipo y se puso en uso sin ninguna vía de aprobación y sin ninguna regla que la cubriera.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Developers instalaram uma extensão de navegador que envia trechos de repositório a um serviço de IA de terceiros para obter sugestões de refatoração. A política específica por tema da organização sobre transferência de informação trata apenas de correio eletrônico e de transferência gerenciada de arquivos. Qual análise da lacuna se ajusta às orientações sobre transferência eletrônica?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "A lacuna é de filtragem: categorias de proxy web podem simplesmente bloquear que extensões alcancem sites com capacidade de upload, e as regras de transferência não têm papel nenhum."
+      },
+      {
+       "id": "b",
+       "text": "As regras para canais eletrônicos visam a malware transportado em anexos, de modo que uma extensão de sugestão de código fica fora daquilo para o qual elas foram escritas."
+      },
+      {
+       "id": "c",
+       "text": "Espera-se aprovação antes do uso, e a situação é corrigida revisando-se os trechos enviados depois que o trimestre for encerrado."
+      },
+      {
+       "id": "d",
+       "text": "Convém que as regras de transferência exijam aprovação antes do uso de serviços públicos externos, e essa extensão foi adotada sem qualquer aprovação desse tipo."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 5.14 lista, entre os itens que convém que as regras para transferência eletrônica considerem, \"obter aprovação antes de usar serviços públicos externos, tais como mensagens instantâneas, redes sociais, compartilhamento de arquivos ou armazenamento em nuvem\". A extensão é um serviço desse tipo e foi colocada em uso sem qualquer caminho de aprovação e sem nenhuma regra que a cobrisse.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "185f1885-2963-4dfc-b69f-f36884283dd3",
+   "task": "2.7",
+   "group_id": "a8771a04-68d4-4e20-8b96-ce7e5311c724",
+   "langs": {
+    "es-419": {
+     "question_text": "Una organización está estableciendo su SGSI y pregunta quién debe asegurar que las responsabilidades y autoridades para los roles relevantes para la seguridad se asignen y se den a conocer, y qué cubre expresamente ese deber. ¿Cuál respuesta es correcta?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Cada propietario del riesgo tiene el deber respecto de los roles que se relacionan con los riesgos registrados en su propia parte del registro de riesgos."
+      },
+      {
+       "id": "b",
+       "text": "La alta dirección tiene el deber, y asigna la responsabilidad y la autoridad para la conformidad del SGSI y para informar sobre su desempeño."
+      },
+      {
+       "id": "c",
+       "text": "La alta dirección tiene el deber, y el rol de informar sobre el desempeño que asigna se debe rendir ante el organismo de certificación."
+      },
+      {
+       "id": "d",
+       "text": "El responsable de seguridad de la información designado tiene el deber y distribuye los roles de seguridad en toda la organización."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "La cláusula 5.3 establece que \"la alta dirección debe asegurarse de que las responsabilidades y autoridades para los roles pertinentes a la seguridad de la información se asignen y comuniquen dentro de la organización\". La misma cláusula añade las dos asignaciones específicas: la conformidad del SGSI y la de informar a la alta dirección sobre su desempeño.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma organização está estabelecendo seu SGSI e pergunta quem tem de assegurar que as responsabilidades e autoridades para papéis relevantes para a segurança sejam atribuídas e comunicadas, e o que esse dever abrange expressamente. Qual resposta está correta?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Cada proprietário de risco detém o dever pelos papéis que tocam os riscos registrados em sua própria parte do registro de riscos."
+      },
+      {
+       "id": "b",
+       "text": "A alta direção detém o dever, e ela atribui responsabilidade e autoridade pela conformidade do SGSI e pelo relato de desempenho."
+      },
+      {
+       "id": "c",
+       "text": "A alta direção detém o dever, e o papel de relato de desempenho que ela atribui é devido ao organismo de certificação."
+      },
+      {
+       "id": "d",
+       "text": "O gestor de segurança da informação designado detém o dever e distribui os papéis de segurança por toda a organização."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "A cláusula 5.3 estabelece que \"A alta direção deve assegurar que as responsabilidades e autoridades para papéis relevantes para a segurança da informação sejam atribuídas e comunicadas dentro da organização.\" A mesma cláusula acrescenta as duas atribuições específicas: a conformidade do SGSI e o relato sobre seu desempenho à alta direção.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "7a75d566-19d0-4770-aec9-e138a434fb91",
+   "task": "2.9",
+   "group_id": "f65d0b74-233f-4a49-b5f6-e2efa5c66579",
+   "langs": {
+    "es-419": {
+     "question_text": "Un gerente del SGSI ha estado monitoreando los controles frente a los objetivos de seguridad de la organización durante varios meses. De acuerdo con la guía de vocabulario del SGSI, ¿qué se debería hacer con estos resultados de monitoreo como parte del ritmo operativo del SGSI?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Se deberían reportar a la dirección para su revisión, pero únicamente para que la dirección pueda aprobar el presupuesto y el cronograma de la próxima auditoría interna."
+      },
+      {
+       "id": "b",
+       "text": "Se deberían escalar a la dirección solo si ha ocurrido una no conformidad; cuando los resultados cumplen las metas, no se necesita ninguna acción adicional."
+      },
+      {
+       "id": "c",
+       "text": "Los dueños de los controles los deberían conservar como registros locales, dado que la revisión por la dirección se ocupa únicamente de los hallazgos de auditoría interna."
+      },
+      {
+       "id": "d",
+       "text": "Se deberían reportar a la revisión por la dirección, la cual confirma que los controles siguen siendo adecuados y evidencia las acciones correctivas y de mejora."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 4.5.6 establece que una organización reporta los resultados del monitoreo \"a la dirección para su revisión\", de modo que la revisión del SGSI pueda verificar la idoneidad de los controles y proporcionar evidencia de las acciones correctivas, preventivas y de mejora, razón por la cual la mejora continua es una obligación recurrente y no un proyecto único.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um gestor do SGSI vem monitorando controles em relação aos objetivos de segurança da organização há vários meses. De acordo com a orientação de vocabulário do SGSI, o que convém que seja feito com esses resultados de monitoramento como parte do ritmo de operação do SGSI?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Convém que sejam relatados à direção para análise crítica, mas unicamente para que a direção possa aprovar o orçamento e o cronograma da próxima auditoria interna."
+      },
+      {
+       "id": "b",
+       "text": "Convém que sejam escalados à direção somente se tiver ocorrido uma não conformidade; quando os resultados atendem às metas, nenhuma ação adicional é necessária."
+      },
+      {
+       "id": "c",
+       "text": "Convém que sejam mantidos pelos responsáveis pelos controles como registros locais, já que a análise crítica pela direção trata apenas das constatações de auditoria interna."
+      },
+      {
+       "id": "d",
+       "text": "Convém que sejam relatados à análise crítica pela direção, que confirma que os controles permanecem adequados e evidencia ações corretivas e de melhoria."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 4.5.6 estabelece que uma organização relata os resultados de monitoramento \"à direção para análise crítica\", de modo que a análise crítica do SGSI possa verificar a adequação dos controles e fornecer evidência de ações corretivas, preventivas e de melhoria, razão pela qual a melhoria contínua é uma obrigação recorrente e não um projeto pontual.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "a47a280e-de19-4a39-b59a-34eddaad1b9c",
+   "task": "2.9",
+   "group_id": "0255bffa-de89-4ba7-ab35-ff08de48c7c8",
+   "langs": {
+    "es-419": {
+     "question_text": "Un gerente de seguridad está reuniendo las entradas para la próxima revisión por la dirección del SGSI de la organización. ¿Cuál de las siguientes debería incluirse entre esas entradas?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Las decisiones sobre los cambios específicos, la asignación de recursos y las prioridades que se aplicarán al SGSI en adelante."
+      },
+      {
+       "id": "b",
+       "text": "Únicamente las actas, la agenda y el registro de asistencia de la reunión anterior de revisión por la dirección."
+      },
+      {
+       "id": "c",
+       "text": "Retroalimentación sobre el desempeño de la seguridad (no conformidades, resultados de auditoría, objetivos) y oportunidades de mejora."
+      },
+      {
+       "id": "d",
+       "text": "Una lista completa de las fechas de finalización de la capacitación en concientización sobre seguridad de cada empleado individual."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "La cláusula 9.3.2 enumera entradas de la revisión que incluyen \"oportunidades de mejora continua\" junto con retroalimentación sobre tendencias de desempeño, tales como las no conformidades y los resultados de auditoría, que alimentan las etapas de verificar y actuar del ritmo del SGSI.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um gestor de segurança está reunindo as entradas para a próxima análise crítica do SGSI pela direção da organização. Qual das alternativas a seguir convém que seja incluída entre essas entradas?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Decisões sobre as mudanças específicas, os recursos e as prioridades a serem adotados no SGSI daqui em diante."
+      },
+      {
+       "id": "b",
+       "text": "Apenas a ata, a pauta e o registro de presença da reunião anterior de análise crítica pela direção."
+      },
+      {
+       "id": "c",
+       "text": "Retorno sobre o desempenho de segurança (não conformidades, resultados de auditoria, objetivos) e oportunidades de melhoria."
+      },
+      {
+       "id": "d",
+       "text": "Uma lista completa das datas de conclusão do treinamento de conscientização em segurança de cada funcionário individualmente."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "A cláusula 9.3.2 lista entradas da análise crítica que incluem \"oportunidades para melhoria contínua\" juntamente com retorno sobre tendências de desempenho, como não conformidades e resultados de auditoria, que alimentam as etapas de verificação e ação do ritmo do SGSI.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "8aa0dfb9-4c4d-4dc6-8c85-2996eaa7e6d1",
+   "task": "3.1",
+   "group_id": "1ab26e5c-49d6-4441-94b0-05534636ec0d",
+   "langs": {
+    "es-419": {
+     "question_text": "Un gerente del SGSI está documentando lo que debe entregar la etapa de identificación del proceso de apreciación de riesgos de la organización. ¿Qué enunciado describe correctamente ese resultado?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Se enumera cada control tomado del conjunto de referencia junto con la razón documentada de su inclusión."
+      },
+      {
+       "id": "b",
+       "text": "Se identifican los riesgos para la confidencialidad, la integridad y la disponibilidad dentro del alcance, cada uno con un propietario."
+      },
+      {
+       "id": "c",
+       "text": "A cada riesgo encontrado se le asigna un nivel determinado a partir de su consecuencia y de su probabilidad de ocurrencia."
+      },
+      {
+       "id": "d",
+       "text": "Los hallazgos se contrastan con los criterios de aceptación para poder separar las exposiciones tolerables."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "La cláusula 6.1.2 c) incluye dos cosas en la etapa de identificación: encontrar los riesgos que amenazan la confidencialidad, la integridad y la disponibilidad de la información dentro del alcance, y nombrar a quién pertenece cada uno, ya que exige que el proceso \"identifique los propietarios de los riesgos\". Determinar un nivel de riesgo corresponde a la etapa de análisis, y comparar los resultados con los criterios corresponde a la etapa de evaluación de la misma cláusula.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um gestor do SGSI está documentando o que a etapa de identificação do processo de avaliação de riscos da organização precisa entregar. Qual afirmação descreve corretamente esse resultado?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Todo controle extraído do conjunto de referência é listado junto com a justificativa documentada para sua inclusão."
+      },
+      {
+       "id": "b",
+       "text": "Os riscos à confidencialidade, à integridade e à disponibilidade dentro do escopo são identificados, cada um com um responsável."
+      },
+      {
+       "id": "c",
+       "text": "A cada risco encontrado é atribuído um nível determinado a partir de sua consequência e de sua probabilidade de ocorrência."
+      },
+      {
+       "id": "d",
+       "text": "Os resultados são confrontados com os critérios de aceitação, de modo que as exposições toleráveis possam ser separadas."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "A cláusula 6.1.2 c) coloca duas coisas na etapa de identificação: encontrar os riscos que ameaçam a confidencialidade, a integridade e a disponibilidade da informação dentro do escopo, e nomear quem é o responsável por cada um, uma vez que exige que o processo \"identifique os responsáveis pelos riscos\". Determinar um nível de risco pertence à etapa de análise, e comparar os resultados com os critérios pertence à etapa de avaliação da mesma cláusula.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "402bfda7-b303-4c7a-9f18-82d3cf4e0616",
+   "task": "3.10",
+   "group_id": "04374a52-a4e8-4cb7-aa1e-8f93530a8717",
+   "langs": {
+    "es-419": {
+     "question_text": "Los controles seleccionados para una nueva plataforma de analítica de IA tardarán nueve meses en implementarse por completo. Durante ese período, la exposición se situará por encima de lo que la organización está dispuesta a soportar de manera duradera, aunque la plataforma ya está en operación. ¿Cómo se maneja mejor el período intermedio?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Hacer que los criterios contemplen la tolerabilidad a corto plazo e informar a las partes interesadas los niveles previstos en el período intermedio."
+      },
+      {
+       "id": "b",
+       "text": "Retirar la plataforma del servicio, dejándola fuera de línea para todos los usuarios, hasta que todos los controles seleccionados estén plenamente operativos."
+      },
+      {
+       "id": "c",
+       "text": "La tolerancia a corto plazo es la cuestión, y se atiende suspendiendo los criterios hasta que termine el despliegue."
+      },
+      {
+       "id": "d",
+       "text": "Informar únicamente el nivel de exposición alcanzado una vez que esté completo todo el programa de controles de nueve meses."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La cláusula 4.5.5 anticipa exactamente esta brecha y señala: \"Se recomienda que los criterios de riesgo contemplen la tolerabilidad de los riesgos a corto plazo mientras se implementan los controles.\" La misma cláusula lo combina con mantener informadas a las partes interesadas sobre los niveles previstos en distintos momentos a medida que los controles se implementan por fases, de modo que suspender los criterios o informar solo el estado final no es la respuesta.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Os controles selecionados para uma nova plataforma de analytics de IA levarão nove meses para serem implementados integralmente. Durante esse período, a exposição ficará acima do que a organização está preparada para suportar de forma duradoura, embora a plataforma já esteja em operação. Como o período intermediário é mais bem tratado?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Fazer com que os critérios cubram a tolerabilidade de curto prazo e informar às partes interessadas os níveis intermediários esperados."
+      },
+      {
+       "id": "b",
+       "text": "Retirar a plataforma de serviço, deixando-a fora do ar para todos os usuários, até que todo controle selecionado esteja plenamente em operação."
+      },
+      {
+       "id": "c",
+       "text": "A tolerância de curto prazo é a questão, e ela é atendida suspendendo-se os critérios até o fim da implantação."
+      },
+      {
+       "id": "d",
+       "text": "Relatar apenas o nível de exposição alcançado quando todo o programa de controles de nove meses estiver concluído."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A cláusula 4.5.5 antecipa exatamente essa lacuna e afirma: \"Convém que os critérios de risco cubram a tolerabilidade dos riscos em bases de curto prazo enquanto os controles estão sendo implementados.\" A mesma cláusula associa isso a manter as partes interessadas informadas sobre os níveis previstos em diferentes momentos, à medida que os controles são implantados em fases, de modo que suspender os critérios ou relatar apenas o estado final não é a resposta.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "7997c20b-33de-4ef4-a521-e90f7cf08299",
+   "task": "3.10",
+   "group_id": "a12c2963-bd0e-408f-b7d3-8475ebefc8e3",
+   "langs": {
+    "es-419": {
+     "question_text": "Un equipo de finanzas realiza un piloto con una herramienta de IA que resume las notas de reuniones internas. La evaluación califica la exposición como baja, el costo del único control disponible supera la pérdida que evitaría y el apetito declarado de la organización tolera exposiciones bajas de este tipo. ¿Qué curso de acción es más defendible?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Registrar una aceptación consciente tras confirmar que cumple los criterios de aceptación de la organización."
+      },
+      {
+       "id": "b",
+       "text": "Transferir la exposición al proveedor de la herramienta mediante cláusulas contractuales antes de ponderar cualquier decisión de aceptación."
+      },
+      {
+       "id": "c",
+       "text": "Aceptar es lo correcto, pero el líder del piloto puede aprobarlo sin referencia a ningún criterio de aceptación."
+      },
+      {
+       "id": "d",
+       "text": "Agregar controles hasta que la exposición residual sea cero y luego informar a la dirección que no queda nada."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La aceptación es una de las opciones de tratamiento, y la cláusula 4.5.4 de la guía del SGSI la describe como \"aceptar los riesgos de manera consciente y objetiva, siempre que satisfagan claramente la política y los criterios de aceptación del riesgo de la organización\". Con una calificación baja, un control no económico y un apetito que tolera la exposición, una aceptación registrada y contrastada con los criterios es la opción defendible; compartir es una opción distinta y ningún conjunto de controles elimina la exposición por completo.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma equipe financeira realiza um piloto com uma ferramenta de IA que resume notas de reuniões internas. A avaliação classifica a exposição como baixa, o custo do único controle disponível excede a perda que ele evitaria, e o apetite declarado da organização tolera exposições baixas desse tipo. Qual curso de ação é mais defensável?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Registrar uma aceitação consciente após confirmar que ela atende aos critérios de aceitação da organização."
+      },
+      {
+       "id": "b",
+       "text": "Transferir a exposição ao fornecedor da ferramenta por meio de cláusulas contratuais antes que qualquer decisão de aceitação seja ponderada."
+      },
+      {
+       "id": "c",
+       "text": "Aceitar é o correto, mas o líder do piloto pode aprovar isso sem referência a quaisquer critérios de aceitação."
+      },
+      {
+       "id": "d",
+       "text": "Acrescentar controles até que a exposição remanescente seja zero e, então, relatar à direção que nada sobrou."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A aceitação é uma das opções de tratamento, e a cláusula 4.5.4 das diretrizes do SGSI a descreve como \"aceitar riscos de forma consciente e objetiva, desde que eles satisfaçam claramente a política e os critérios de aceitação de risco da organização\". Com uma classificação baixa, um controle antieconômico e um apetite que tolera a exposição, uma aceitação registrada e verificada em relação aos critérios é a escolha defensável; o compartilhamento é uma opção diferente e nenhum conjunto de controles elimina a exposição por completo.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "fdd5fbf9-6615-43e7-94d5-3f679efa1c13",
+   "task": "3.10",
+   "group_id": "4e3666cf-57ea-4bbf-a134-92cc9305d4e7",
+   "langs": {
+    "es-419": {
+     "question_text": "Dos equipos discrepan sobre si la exposición derivada de un chatbot de IA de cara al cliente está dentro del apetito de la organización. Uno cita la probabilidad y el impacto analizados; el otro, una calificación del proveedor. ¿Qué resuelve la cuestión de la aceptabilidad?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Comparar el nivel analizado con los criterios de riesgo establecidos a partir de los objetivos y el contexto de la organización."
+      },
+      {
+       "id": "b",
+       "text": "Ordenar el chatbot frente a las demás entradas del registro según su puntaje y tratar solo las pocas con mayor puntaje."
+      },
+      {
+       "id": "c",
+       "text": "Tomar la calificación de riesgo publicada por el proveedor del modelo para el servicio como referencia de aceptabilidad."
+      },
+      {
+       "id": "d",
+       "text": "Los criterios son la vara de medir correcta, y el equipo de evaluación redacta un conjunto nuevo para cada sistema de IA."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La aceptabilidad se juzga comparando el análisis con los términos de referencia que la organización ha establecido, y la cláusula 3.66 indica: \"Nota 1 a la entrada: Los criterios de riesgo se basan en los objetivos organizacionales y en el contexto externo (3.22) y el contexto interno (3.38).\" Un ordenamiento relativo o la calificación de un proveedor no son esa vara de medir, y los criterios no se reinventan sistema por sistema.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Duas equipes discordam sobre se a exposição decorrente de um chatbot de IA voltado ao cliente está dentro do apetite da organização. Uma cita a probabilidade e o impacto analisados; a outra, uma classificação do fornecedor. O que resolve a questão da aceitabilidade?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Comparar o nível analisado com critérios de risco estabelecidos a partir dos objetivos e do contexto da organização."
+      },
+      {
+       "id": "b",
+       "text": "Classificar o chatbot em relação aos demais registros por pontuação e tratar apenas os poucos de maior pontuação."
+      },
+      {
+       "id": "c",
+       "text": "Tomar a classificação de risco publicada pelo fornecedor do modelo para o serviço como referência de aceitabilidade."
+      },
+      {
+       "id": "d",
+       "text": "Os critérios são a régua correta, e a equipe de avaliação redige um conjunto novo para cada sistema de IA."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A aceitabilidade é julgada comparando-se a análise com os termos de referência que a organização estabeleceu, e a cláusula 3.66 afirma: \"Nota 1 de entrada: Os critérios de risco baseiam-se nos objetivos organizacionais e no contexto externo (3.22) e contexto interno (3.38).\" Uma classificação relativa ou a avaliação de um fornecedor não é essa régua, e os critérios não são reinventados sistema a sistema.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "8156c360-b298-4989-833f-d1dac655c925",
+   "task": "3.11",
+   "group_id": "04f65a0d-d414-4ed2-8519-528b93d01484",
+   "langs": {
+    "es-419": {
+     "question_text": "Una declaración de alcance del SGSI dice \"todos los sistemas operados internamente; los servicios operados por terceros están excluidos\". La transcripción de voz de las llamadas de clientes, incluido el contenido sensible de las llamadas, la realiza un proveedor externo de IA. La apreciación del riesgo, ejecutada conforme a la declaración de alcance, no arrojó ningún riesgo de transcripción. ¿Cuál es el análisis correcto de la decisión sobre el alcance?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "La determinación de los límites debe tener en cuenta las interfaces y dependencias con otras organizaciones, por lo que la dependencia de la transcripción no podía excluirse."
+      },
+      {
+       "id": "b",
+       "text": "El alcance es defectuoso, y la corrección consiste en ampliar el límite del sistema de gestión para que abarque las operaciones propias del proveedor y sus controles internos."
+      },
+      {
+       "id": "c",
+       "text": "El límite puede trazarse alrededor de los sistemas propios, y la dependencia de servicios operados externamente queda fuera de lo que la determinación del alcance tiene que ponderar."
+      },
+      {
+       "id": "d",
+       "text": "La declaración de alcance es aceptable; la omisión corresponde a la revisión de los acuerdos con proveedores y de las cláusulas contractuales, y no a cómo se fijó el límite."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La cláusula 4.3 exige que la organización, al determinar el alcance, considere \"las interfaces y dependencias entre las actividades realizadas por la organización y las que realizan otras organizaciones\". Una exclusión general de los servicios operados externamente elimina una dependencia del campo de visión, y la apreciación que sigue al alcance hereda ese punto ciego.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma declaração de escopo do SGSI diz: \"todos os sistemas operados internamente; serviços operados por terceiros estão excluídos\". A transcrição de fala das chamadas de clientes, incluindo conteúdo sensível das chamadas, é realizada por um provedor externo de IA. A avaliação de riscos, conduzida com base na declaração de escopo, não retornou nenhum risco de transcrição. Qual análise da decisão de escopo está correta?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "A definição de limites deve levar em conta interfaces e dependências com outras organizações, de modo que a dependência de transcrição não poderia ser excluída."
+      },
+      {
+       "id": "b",
+       "text": "O escopo está defeituoso, e a correção é estender o limite do sistema de gestão de forma que ele abranja as próprias operações e os controles internos do provedor."
+      },
+      {
+       "id": "c",
+       "text": "O limite pode ser traçado em torno dos sistemas próprios, e a dependência de serviços operados externamente fica fora daquilo que a determinação do escopo precisa ponderar."
+      },
+      {
+       "id": "d",
+       "text": "A declaração de escopo é aceitável; a omissão pertence à análise crítica dos acordos com fornecedores e das cláusulas contratuais, e não ao modo como o limite foi definido."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A cláusula 4.3 exige que a organização, ao determinar o escopo, considere \"as interfaces e dependências entre as atividades realizadas pela organização e aquelas realizadas por outras organizações\". Uma exclusão geral de serviços operados externamente retira uma dependência do campo de visão, e a avaliação que decorre do escopo herda esse ponto cego.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "a311b47f-8605-412e-ab09-858a92f4a707",
+   "task": "3.11",
+   "group_id": "9c5f7d2f-1d4a-41dc-a593-0bd7d52664a0",
+   "langs": {
+    "es-419": {
+     "question_text": "Un banco deriva las calificaciones de probabilidad exclusivamente de tres años de tickets registrados de incidentes de seguridad. Hace seis meses se adoptó un asistente de IA para codificación que no ha generado ningún ticket, por lo que se calificó como insignificante y la apreciación se cerró sin hallazgos. ¿Qué análisis explica mejor el mecanismo?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "El historial de tickets no puede describir una capacidad adoptada hace seis meses; la identificación también puede basarse en la teoría, el juicio experto y las cuestiones planteadas por las partes interesadas."
+      },
+      {
+       "id": "b",
+       "text": "Una exposición sin tickets registrados puede tratarse como riesgo retenido ya aceptado por la dirección, por lo que la calificación de insignificante se mantiene sin cambios."
+      },
+      {
+       "id": "c",
+       "text": "La identificación funcionó según lo previsto, y la brecha puede cerrarse simplemente conservando evidencia documentada de los resultados de seguimiento del asistente de codificación."
+      },
+      {
+       "id": "d",
+       "text": "La dependencia del historial de tickets es la falla real, y ninguna exposición que carezca de datos de incidentes puede calificarse jamás por debajo de la banda de probabilidad más alta."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La cláusula 3.68 señala que \"la identificación del riesgo puede involucrar datos históricos, análisis teóricos, opiniones informadas y de expertos, y las necesidades de las partes interesadas (3.37)\". Un método restringido a una sola de esas entradas queda ciego ante una capacidad adoptada recientemente que no ha producido historial, que es la razón por la cual el entorno resultó sin hallazgos.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um banco deriva as classificações de probabilidade exclusivamente de três anos de chamados registrados de incidentes de segurança. Um assistente de IA para codificação foi adotado há seis meses e não gerou nenhum chamado, de modo que foi classificado como desprezível e a avaliação foi encerrada sem apontamentos. Qual análise explica melhor o mecanismo?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "O histórico de chamados não é capaz de descrever uma capacidade adotada há seis meses; a identificação também pode se apoiar em teoria, julgamento de especialistas e preocupações das partes interessadas."
+      },
+      {
+       "id": "b",
+       "text": "Uma exposição sem chamados registrados pode ser tratada como risco retido já aceito pela direção, de modo que a classificação desprezível permanece inalterada."
+      },
+      {
+       "id": "c",
+       "text": "A identificação funcionou como pretendido, e a lacuna pode ser fechada simplesmente retendo evidência documentada dos resultados de monitoramento do assistente de codificação."
+      },
+      {
+       "id": "d",
+       "text": "A dependência do histórico de chamados é a falha real, e nenhuma exposição sem dados de incidentes pode jamais ser classificada abaixo da faixa mais alta de probabilidade."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A cláusula 3.68 observa que \"a identificação de riscos pode envolver dados históricos, análise teórica, opiniões informadas e de especialistas e as necessidades das partes interessadas (3.37)\". Um método restrito a apenas uma dessas entradas fica cego a uma capacidade adotada recentemente que não produziu histórico, e foi assim que o parque foi pontuado sem apontamentos.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "a7f8ca61-1ea1-49a2-abb5-780a4ad18430",
+   "task": "3.11",
+   "group_id": "ac312811-8430-4c3c-8f9e-93627364ebdf",
+   "langs": {
+    "es-419": {
+     "question_text": "Hace nueve meses se agregó una línea del registro que dice \"piloto de IA – datos de clientes\". El campo de propietario está vacío, nunca se proporcionaron valores de consecuencia ni de probabilidad, y la línea se arrastró sin calificar hasta un resumen que afirma que nada superó el umbral de aceptación. ¿Cuál es el mejor análisis?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "La línea no pudo calificarse porque aún no se habían recopilado datos de seguimiento del piloto, lo cual es un asunto de evaluación del desempeño."
+      },
+      {
+       "id": "b",
+       "text": "Los propietarios se asignan durante el tratamiento del riesgo, una vez seleccionadas las opciones y aprobados los planes de acción, por lo que un riesgo identificado que permanece sin propietario en el momento de la apreciación es un estado intermedio normal."
+      },
+      {
+       "id": "c",
+       "text": "En efecto faltaba un propietario, y la solución es registrar como propietario del riesgo del piloto al gerente de cuenta del proveedor, que opera la plataforma en el día a día."
+      },
+      {
+       "id": "d",
+       "text": "El proceso de apreciación designa un propietario del riesgo para cada riesgo que identifica; con el campo vacío, nada impulsó el análisis y la línea quedó sin calificar."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 6.1.2 exige que el proceso de apreciación identifique los riesgos e \"identifique a los propietarios del riesgo\". Una entrada sin propietario no tiene a nadie que aporte consecuencia y probabilidad, de modo que nunca llega al análisis ni a la comparación con los criterios, y el resumen informa un entorno sin hallazgos.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma linha de registro com os dizeres \"piloto de IA – dados de clientes\" foi adicionada há nove meses. O campo de responsável está vazio, nenhum valor de consequência ou de probabilidade foi jamais informado, e a linha foi transportada sem pontuação para um resumo que afirmava que nada excedia o limite de aceitação. Qual é a melhor análise?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "A linha não pôde ser pontuada porque ainda não haviam sido coletados dados de monitoramento do piloto, o que é uma questão de avaliação de desempenho."
+      },
+      {
+       "id": "b",
+       "text": "Os responsáveis são designados durante o tratamento de riscos, depois que as opções são selecionadas e os planos de ação aprovados, de modo que um risco identificado sem responsável no momento da avaliação é um estado intermediário normal."
+      },
+      {
+       "id": "c",
+       "text": "De fato faltava um responsável, e a correção é registrar o gerente de contas do fornecedor, que opera a plataforma no dia a dia, como responsável pelo risco do piloto."
+      },
+      {
+       "id": "d",
+       "text": "O processo de avaliação nomeia um responsável pelo risco para cada risco que identifica; com o campo vazio, nada impulsionou a análise e a linha permaneceu sem pontuação."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 6.1.2 exige que o processo de avaliação identifique os riscos e \"identifique os responsáveis pelos riscos\". Um registro sem responsável não tem ninguém para informar consequência e probabilidade, de modo que ele nunca chega à análise nem à comparação com os critérios, e o resumo reporta um parque sem apontamentos.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "b5d21e28-41c6-47df-a58c-44d8895f002d",
+   "task": "3.11",
+   "group_id": "1aa48c73-95bf-491e-b4e7-1ef12a5ae55a",
+   "langs": {
+    "es-419": {
+     "question_text": "La única línea sobre IA en un registro de riesgos dice \"herramienta de IA en uso – impacto: medio\". No se describe ninguna fuente, evento, causa ni consecuencia. En la evaluación, la línea se comparó con los criterios y se juzgó que no requería acción, y la apreciación se cerró sin hallazgos. ¿Qué análisis explica mejor esto?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "La descripción es inadecuada tal como está, y el paso a seguir es reemplazar la calificación de impacto medio por una referencia a un control específico del Anexo A."
+      },
+      {
+       "id": "b",
+       "text": "La línea es adecuada para fines de identificación; el resultado sin hallazgos se debe a que los criterios de aceptación se redactaron después de la calificación y no antes."
+      },
+      {
+       "id": "c",
+       "text": "Identificar significa reconocer y describir un riesgo —fuentes, eventos, causas, consecuencias—, y una simple etiqueta de tecnología no le da nada al análisis."
+      },
+      {
+       "id": "d",
+       "text": "La línea se vuelve adecuada una vez que se le designa un propietario, ya que describir las fuentes y consecuencias del riesgo corresponde a la etapa posterior de tratamiento."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "La cláusula 3.68 señala que \"la identificación del riesgo implica la identificación de las fuentes de riesgo, los eventos (3.21), sus causas y sus consecuencias potenciales (3.12)\". Nombrar una tecnología no es describir un riesgo, de modo que el análisis no tiene nada que dimensionar y la evaluación devuelve previsiblemente que no se requiere acción.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "A única linha sobre IA em um registro de riscos diz \"ferramenta de IA em uso – impacto: médio\". Nenhuma fonte, evento, causa ou consequência é descrita. Na avaliação, a linha foi comparada com os critérios e julgada como não exigindo ação, e a avaliação foi encerrada sem apontamentos. Qual análise explica melhor isso?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "A descrição é inadequada como está, e a providência a tomar é substituir a classificação de impacto médio por uma referência a um controle específico do Anexo A."
+      },
+      {
+       "id": "b",
+       "text": "A linha é adequada para fins de identificação; o resultado sem apontamentos decorre de os critérios de aceitação terem sido redigidos após a pontuação, e não antes."
+      },
+      {
+       "id": "c",
+       "text": "Identificar significa reconhecer e descrever um risco — fontes, eventos, causas, consequências — e um mero rótulo de tecnologia não oferece nada à análise."
+      },
+      {
+       "id": "d",
+       "text": "A linha torna-se adequada assim que um responsável é nomeado para ela, já que descrever as fontes e consequências do risco pertence à etapa posterior de tratamento."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "A cláusula 3.68 observa que \"a identificação de riscos envolve a identificação das fontes de risco, dos eventos (3.21), de suas causas e de suas consequências potenciais (3.12)\". Nomear uma tecnologia não é descrever um risco, portanto a análise não tem o que dimensionar e a avaliação previsivelmente retorna nenhuma ação.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "427abfcb-cdd9-41df-b4ed-bf05a777a35c",
+   "task": "3.3",
+   "group_id": "3933d57c-af2e-4d79-b215-58495ce847de",
+   "langs": {
+    "es-419": {
+     "question_text": "Un servicio recién lanzado no tiene un historial propio de incidentes, y el equipo no está seguro de en qué puede basarse al identificar los riesgos correspondientes. ¿En qué puede basarse la identificación?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Solo las entradas tomadas del registro de incidentes de un servicio estrechamente comparable pueden constituir la base de las entradas."
+      },
+      {
+       "id": "b",
+       "text": "La identificación se posterga hasta que se hayan acumulado en los registros doce meses de datos operativos del nuevo servicio."
+      },
+      {
+       "id": "c",
+       "text": "El juicio experto, el análisis razonado de cómo podría fallar el servicio y las necesidades de las partes interesadas pueden aportar información."
+      },
+      {
+       "id": "d",
+       "text": "Las opiniones de las partes interesadas se dejan de lado en este punto y se incorporan después, cuando los riesgos se priorizan para su tratamiento."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "La cláusula 3.68 señala que \"La identificación del riesgo puede involucrar datos históricos, análisis teóricos, opiniones informadas y de expertos, y las necesidades de las partes interesadas (3.37).\", por lo que la opinión experta y las necesidades de las partes interesadas son entradas legítimas cuando no existe historial.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um serviço recém-lançado não possui histórico próprio de incidentes, e a equipe não tem certeza sobre o que pode utilizar ao identificar riscos para ele. Em que a identificação pode se basear?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Somente registros extraídos do log de incidentes de um serviço bastante comparável podem servir de base para os registros."
+      },
+      {
+       "id": "b",
+       "text": "A identificação é adiada até que doze meses de dados operacionais do novo serviço tenham sido acumulados nos registros."
+      },
+      {
+       "id": "c",
+       "text": "Julgamento de especialistas, análise fundamentada de como o serviço poderia falhar e necessidades das partes interessadas podem todos contribuir."
+      },
+      {
+       "id": "d",
+       "text": "As opiniões das partes interessadas são deixadas de lado neste momento e consideradas posteriormente, quando os riscos forem priorizados para tratamento."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "A cláusula 3.68 observa que \"a identificação de riscos pode envolver dados históricos, análise teórica, opiniões informadas e de especialistas, e necessidades das partes interessadas (3.37).\", de modo que a opinião de especialistas e as necessidades das partes interessadas são entradas legítimas quando não existe histórico.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "7bbc3f35-002b-4105-9f8d-31bfd22d0a52",
+   "task": "3.6",
+   "group_id": "fc617931-59b2-4681-89a7-764da0b96226",
+   "langs": {
+    "es-419": {
+     "question_text": "Un equipo de proyecto ha trabajado sus decisiones de tratamiento de riesgos y ha elaborado el conjunto de controles que considera necesarios, algunos tomados de material de proveedores y otros redactados internamente. ¿Qué papel cumple ahora el Anexo A?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Los controles determinados se comparan con el Anexo A para verificar que no se haya omitido ninguno, y cualquier omisión se justifica en la Declaración de Aplicabilidad."
+      },
+      {
+       "id": "b",
+       "text": "El Anexo A reemplaza al conjunto de controles determinados, y luego cada una de sus entradas se marca como aplicable o no aplicable en la Declaración de Aplicabilidad."
+      },
+      {
+       "id": "c",
+       "text": "Se realiza la comparación contra el Anexo A y luego se agrega cada control del Anexo A que no esté ya en el conjunto, de modo que el Anexo quede cubierto por completo."
+      },
+      {
+       "id": "d",
+       "text": "El Anexo A se consulta únicamente como recurso alternativo, cuando el equipo no ha podido encontrar un control adecuado a partir de su propio trabajo o del material de sus proveedores."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "Los controles se determinan a partir de las opciones de tratamiento elegidas; el Anexo A se utiliza después como verificación cruzada. La cláusula 6.1.3 c) de ISO/IEC 27001 indica que la organización debe \"comparar los controles determinados en 6.1.3 b) anterior con los del Anexo A y verificar que no se hayan omitido controles necesarios\", y la Declaración de Aplicabilidad contiene la justificación para excluir cualquier control del Anexo A.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma equipe de projeto concluiu suas decisões de tratamento de riscos e elaborou o conjunto de controles que considera necessários, alguns retirados de material de fornecedores e outros redigidos internamente. Qual é o papel do Anexo A nesse momento?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Os controles determinados são comparados com o Anexo A para verificar que nenhum foi omitido, com qualquer omissão justificada na Declaração de Aplicabilidade."
+      },
+      {
+       "id": "b",
+       "text": "O Anexo A substitui o conjunto de controles determinados, e cada um de seus itens é então marcado como aplicável ou não aplicável na Declaração de Aplicabilidade."
+      },
+      {
+       "id": "c",
+       "text": "A comparação com o Anexo A é feita e, em seguida, cada controle do Anexo A que ainda não esteja no conjunto é adicionado, de modo que o Anexo seja totalmente coberto."
+      },
+      {
+       "id": "d",
+       "text": "O Anexo A é consultado apenas como alternativa, quando a equipe não conseguiu encontrar um controle adequado em seu próprio trabalho ou no material de seus fornecedores."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "Os controles são determinados a partir das opções de tratamento escolhidas; o Anexo A é então usado como verificação cruzada. A cláusula 6.1.3 c) da ISO/IEC 27001 orienta a organização a \"comparar os controles determinados em 6.1.3 b) acima com aqueles do Anexo A e verificar que nenhum controle necessário foi omitido\", e a Declaração de Aplicabilidade contém a justificativa para a exclusão de qualquer controle do Anexo A.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "97d1c0a6-2dbb-45b1-b70c-cd724d9c10a2",
+   "task": "3.6",
+   "group_id": "c9dd6c4e-02ca-4410-8a84-c6d30d47d2ad",
+   "langs": {
+    "es-419": {
+     "question_text": "Un consultor entrega una Declaración de Aplicabilidad que consiste en la lista del Anexo A con una columna de aplicable / no aplicable y nada más. ¿Qué tiene de incorrecto?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Solo falta el estado de implementación; la columna de aplicabilidad por sí sola ya aporta el razonamiento que se exige."
+      },
+      {
+       "id": "b",
+       "text": "Nada de fondo, siempre que un registro de riesgos independiente deje constancia de frente a qué riesgo se originó cada marca de la columna."
+      },
+      {
+       "id": "c",
+       "text": "Solo el ordenamiento está mal; las entradas deberían seguir la secuencia del plan de tratamiento de riesgos en lugar de la numeración del Anexo."
+      },
+      {
+       "id": "d",
+       "text": "Omite los controles necesarios, la justificación de su inclusión, el estado de implementación y las razones para excluir controles del Anexo A."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 6.1.3 d) de ISO/IEC 27001 requiere que la Declaración de Aplicabilidad contenga \"— la justificación de su inclusión; — si los controles necesarios están implementados o no; y — la justificación para excluir cualquiera de los controles del Anexo A.\", junto con los controles necesarios en sí, de modo que una simple columna de aplicabilidad frente al Anexo no la cumple.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um consultor entrega uma Declaração de Aplicabilidade composta pela lista do Anexo A com uma coluna de aplicável / não aplicável e nada mais. O que está errado nela?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Falta apenas a situação de implementação; a coluna de aplicabilidade, por si só, já fornece a justificativa exigida."
+      },
+      {
+       "id": "b",
+       "text": "Nada de substancial, desde que um registro de riscos separado documente contra qual risco cada marcação na coluna foi levantada."
+      },
+      {
+       "id": "c",
+       "text": "Apenas a ordenação está incorreta; os itens deveriam seguir a sequência do plano de tratamento de riscos em vez da numeração do Anexo."
+      },
+      {
+       "id": "d",
+       "text": "Ela omite os controles necessários, a justificativa para sua inclusão, a situação de implementação e as razões para excluir controles do Anexo A."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 6.1.3 d) da ISO/IEC 27001 exige que a Declaração de Aplicabilidade contenha \"— a justificativa para sua inclusão; — se os controles necessários estão implementados ou não; e — a justificativa para a exclusão de qualquer um dos controles do Anexo A.\" juntamente com os próprios controles necessários, de modo que uma simples coluna de aplicabilidade em relação ao Anexo não atende a esse requisito.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "8e151d34-2ad9-4096-ab6d-9d3bb9b7ec2d",
+   "task": "3.8",
+   "group_id": "ab982b1a-c96a-40ab-a49a-d695e20fb1e4",
+   "langs": {
+    "es-419": {
+     "question_text": "Un generador de resúmenes con IA se nutre de documentos de varios repositorios con distintos niveles de sensibilidad, incluido material recibido de una empresa asociada, y publica resúmenes breves en una página de intranet abierta. ¿Qué acción se ajusta a las directrices sobre la clasificación de la información?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Trasladar sin modificaciones las etiquetas de la empresa asociada a los resúmenes, asumiendo que nombres de nivel coincidentes implican requisitos de tratamiento coincidentes."
+      },
+      {
+       "id": "b",
+       "text": "Hacer que el administrador del generador de resúmenes establezca la clasificación de cada resumen, ya que la herramienta es el sistema que produce la salida."
+      },
+      {
+       "id": "c",
+       "text": "Dejar los resúmenes generados sin etiquetar, con el argumento de que cada documento fuente que alimenta la herramienta ya cuenta con un nivel de clasificación."
+      },
+      {
+       "id": "d",
+       "text": "Hacer que el propietario de la información responda por la clasificación de los resúmenes generados, revisando el nivel a medida que la sensibilidad cambia con el tiempo."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 5.12 indica que \"conviene que los propietarios de la información sean responsables de su clasificación\" y que conviene que los resultados de la clasificación se actualicen a medida que cambian el valor, la sensibilidad y la criticidad de la información, por lo que el propietario de la información clasifica los resúmenes generados.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um sumarizador de IA utiliza documentos de vários repositórios em diferentes níveis de sensibilidade, incluindo material recebido de uma empresa parceira, e publica resumos curtos em uma página de intranet aberta. Qual ação está de acordo com as diretrizes sobre classificação da informação?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Transportar os rótulos da empresa parceira para os resumos sem alteração, tratando nomes de níveis coincidentes como requisitos de tratamento coincidentes."
+      },
+      {
+       "id": "b",
+       "text": "Fazer com que o administrador do sumarizador defina a classificação de cada resumo, já que a ferramenta é o sistema que produz a saída."
+      },
+      {
+       "id": "c",
+       "text": "Deixar os resumos gerados sem rótulo, com base no fato de que todo documento de origem que alimenta a ferramenta já possui um nível de classificação."
+      },
+      {
+       "id": "d",
+       "text": "Fazer com que o proprietário da informação responda pela classificação dos resumos gerados, revisando o nível conforme a sensibilidade muda ao longo do tempo."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 5.12 afirma que \"convém que os proprietários da informação sejam responsáveis pela sua classificação\" e que convém que os resultados da classificação sejam atualizados conforme o valor, a sensibilidade e a criticidade da informação mudem, de modo que o proprietário da informação classifica os resumos gerados.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "4c056961-c044-44b8-b981-0d3747f22e07",
+   "task": "4.10",
+   "group_id": "bd1a4c20-7262-4940-9246-5e71257d8e36",
+   "langs": {
+    "es-419": {
+     "question_text": "Un empleado sospecha que un chatbot interno construido sobre un modelo de lenguaje está filtrando fragmentos de las indicaciones (prompts) de otros usuarios, pero en lugar de decir algo, decide ejecutar primero varias consultas de prueba adicionales para intentar confirmar la filtración antes de informar a alguien. ¿Cómo se debe evaluar esta respuesta frente a la orientación sobre el reporte de eventos?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Apropiada, porque confirmar una sospecha primero mediante algunas consultas de prueba adicionales evita generar una falsa alarma por nada."
+      },
+      {
+       "id": "b",
+       "text": "Correcta tal como está, ya que no se necesita ningún reporte a menos que se confirme que los fragmentos de prompts filtrados contienen datos personales."
+      },
+      {
+       "id": "c",
+       "text": "Problemática, porque la sospecha se debería haber reportado de inmediato en lugar de haberla puesto a prueba personalmente."
+      },
+      {
+       "id": "d",
+       "text": "Problemática, pero solo porque ya había comenzado a correr un plazo legal de notificación de 72 horas cuando surgió la sospecha."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "La cláusula 6.8 de la orientación relacionada señala que \"se recomienda advertir al personal y a los usuarios que no intenten probar las vulnerabilidades de seguridad de la información sospechadas\", por lo que el empleado debería haber reportado la sospecha en lugar de ponerla a prueba.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um funcionário suspeita que um chatbot interno construído sobre um modelo de linguagem esteja vazando fragmentos de prompts de outros usuários, mas, em vez de dizer qualquer coisa, decide executar primeiro várias consultas de teste adicionais para tentar confirmar o vazamento antes de avisar alguém. Como essa reação deve ser avaliada à luz da orientação sobre relato de eventos?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Apropriada, porque confirmar uma suspeita antes, por meio de algumas consultas de teste adicionais, evita levantar um alarme falso sem motivo."
+      },
+      {
+       "id": "b",
+       "text": "Adequada como está, já que nenhum relato é necessário a menos que se confirme que os fragmentos de prompts vazados contêm dados pessoais."
+      },
+      {
+       "id": "c",
+       "text": "Problemática, porque convém que a suspeita tivesse sido relatada imediatamente, em vez de testada pessoalmente."
+      },
+      {
+       "id": "d",
+       "text": "Problemática, mas apenas porque um prazo legal de notificação de 72 horas já havia começado a correr quando a suspeita surgiu."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "A cláusula 6.8 da orientação relacionada recomenda que \"convém que o pessoal e os usuários sejam orientados a não tentar provar vulnerabilidades suspeitas de segurança da informação\", de modo que convém que o funcionário tivesse relatado a suspeita em vez de testá-la.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "ba082931-90d4-4a6c-bccf-050cb8441152",
+   "task": "4.11",
+   "group_id": "a5a67b22-79ac-4f5f-b546-3288a3561996",
+   "langs": {
+    "es-419": {
+     "question_text": "Una empresa coloca sus servidores de entrenamiento de modelos en una sala de la planta baja de un edificio ubicado en una zona que se ha inundado dos veces en una década. La dirección considera que el riesgo es puramente comercial. ¿Cómo trata esto el tema de los controles físicos?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Debe implementarse la protección contra amenazas físicas y ambientales, incluidos los desastres naturales."
+      },
+      {
+       "id": "b",
+       "text": "La protección es obligatoria, y trasladar las copias de respaldo a otro sitio la satisface por completo para esta sala."
+      },
+      {
+       "id": "c",
+       "text": "Los actos deliberados contra la infraestructura están dentro del alcance, mientras que los peligros de origen natural, como las inundaciones, no lo están."
+      },
+      {
+       "id": "d",
+       "text": "La inundación de la sala de servidores se aborda mediante el control existente sobre el suministro de agua a los equipos."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "El control 7.5 del Anexo A requiere que la protección contra amenazas físicas y ambientales, \"tales como desastres naturales y otras amenazas físicas intencionales o no intencionales a la infraestructura, debe diseñarse e implementarse\". La naturaleza del cómputo que se realiza en la sala no cambia esto.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma empresa instala seus servidores de treinamento de modelos em uma sala no térreo de um edifício situado em uma área que sofreu inundações duas vezes em uma década. A direção considera o risco puramente comercial. Como o tema de controles físicos trata isso?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "A proteção contra ameaças físicas e ambientais, incluindo desastres naturais, deve ser implementada."
+      },
+      {
+       "id": "b",
+       "text": "A proteção é obrigatória, e mover cópias de backup para outro local a satisfaz plenamente no caso desta sala."
+      },
+      {
+       "id": "c",
+       "text": "Atos deliberados contra a infraestrutura estão no escopo, enquanto perigos de ocorrência natural, como inundações, não estão."
+      },
+      {
+       "id": "d",
+       "text": "A inundação da sala de servidores é tratada por meio do controle existente sobre o fornecimento de água aos equipamentos."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "O controle 7.5 do Anexo A exige que a proteção contra ameaças físicas e ambientais, \"como desastres naturais e outras ameaças físicas intencionais ou não intencionais à infraestrutura, deve ser projetada e implementada\". A natureza do processamento computacional realizado na sala não altera isso.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "e7b5e84d-c7b9-47fc-81f8-244750654d19",
+   "task": "4.4",
+   "group_id": "56deaf04-2e1c-47ef-b622-fc543743c715",
+   "langs": {
+    "es-419": {
+     "question_text": "Los trabajos nocturnos de ajuste fino (fine-tuning) crean máquinas virtuales con GPU que existen durante aproximadamente dos horas y luego se destruyen. El equipo pregunta cómo deberían aparecer estas instancias en el inventario de activos. ¿Qué respuesta sigue la orientación sobre el inventario de información y otros activos asociados?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Las máquinas virtuales quedan fuera de los inventarios de este tipo, que se ocupan de equipos físicos e instalaciones."
+      },
+      {
+       "id": "b",
+       "text": "Cada instancia debería recibir su propia entrada permanente con un propietario designado registrado antes de que el trabajo la inicie."
+      },
+      {
+       "id": "c",
+       "text": "Las instancias de corta duración deberían ingresarse en el inventario una vez que el trabajo de entrenamiento haya terminado de ejecutarse."
+      },
+      {
+       "id": "d",
+       "text": "Enumerar cada instancia puede ser impracticable; el nivel de detalle registrado puede ajustarse a las necesidades de la organización."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 5.9 señala que \"A veces no es factible documentar instancias específicas de activos en el ciclo de vida de la información debido a la naturaleza del activo\", y ofrece como ejemplo la instancia de máquina virtual de corta duración, con una granularidad establecida conforme a las necesidades de la organización.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Jobs noturnos de fine-tuning criam máquinas virtuais com GPU que existem por cerca de duas horas e depois são destruídas. A equipe pergunta como essas instâncias devem aparecer no inventário de ativos. Qual resposta segue a orientação sobre o inventário de informações e outros ativos associados?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Máquinas virtuais ficam fora de inventários desse tipo, que tratam de equipamentos físicos e instalações."
+      },
+      {
+       "id": "b",
+       "text": "Cada instância deve receber seu próprio registro permanente, com um proprietário nomeado registrado antes de o job iniciá-la."
+      },
+      {
+       "id": "c",
+       "text": "Instâncias de curta duração devem ser inseridas no inventário assim que o job de treinamento terminar de ser executado."
+      },
+      {
+       "id": "d",
+       "text": "Listar cada instância pode ser impraticável; o nível de detalhe registrado pode se adequar às necessidades da organização."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 5.9 observa que \"Às vezes, instâncias específicas de ativos no ciclo de vida da informação não são viáveis de serem documentadas devido à natureza do ativo.\", e apresenta a instância de VM de curta duração como seu exemplo, com a granularidade definida conforme as necessidades da organização.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "a010f63a-f6a6-42d2-9818-ef56a4d0f018",
+   "task": "4.5",
+   "group_id": "e66d5935-59dd-4fbc-a89b-6b358915b882",
+   "langs": {
+    "es-419": {
+     "question_text": "En un departamento de TI de cinco personas, el mismo administrador genera las solicitudes de acceso, las aprueba y las implementa, porque ningún colega tiene la competencia para aprobarlas. Al aplicar la orientación sobre segregación de funciones, ¿cuál es la respuesta apropiada?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Cuando la separación es genuinamente impracticable, la supervisión, el monitoreo y las pistas de auditoría son opciones."
+      },
+      {
+       "id": "b",
+       "text": "Una organización con solo cinco integrantes de TI queda fuera del principio y no necesita tomar ninguna acción."
+      },
+      {
+       "id": "c",
+       "text": "Emitir al administrador una segunda cuenta nominativa para usarla en las aprobaciones separa las funciones en conflicto."
+      },
+      {
+       "id": "d",
+       "text": "Una excepción documentada firmada por el propio administrador elimina la necesidad de cualquier medida adicional."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La cláusula 5.3 señala que \"Siempre que sea difícil segregar, se recomienda considerar otros controles, tales como el monitoreo de actividades, las pistas de auditoría y la supervisión de la dirección.\"",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Em um departamento de TI de cinco pessoas, o mesmo administrador solicita acessos, os aprova e os implementa, porque nenhum colega tem competência para aprovar. Aplicando a orientação sobre segregação de funções, qual é a resposta apropriada?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Quando a separação é genuinamente impraticável, supervisão, monitoramento e trilhas de auditoria são opções."
+      },
+      {
+       "id": "b",
+       "text": "Uma organização com apenas cinco profissionais de TI está fora do alcance do princípio e não precisa tomar nenhuma ação."
+      },
+      {
+       "id": "c",
+       "text": "Conceder ao administrador uma segunda conta nominal para uso nas aprovações separa as funções conflitantes."
+      },
+      {
+       "id": "d",
+       "text": "Uma exceção documentada assinada pelo próprio administrador elimina a necessidade de quaisquer medidas adicionais."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A cláusula 5.3 orienta que \"Sempre que for difícil segregar, convém que outros controles sejam considerados, tais como monitoramento de atividades, trilhas de auditoria e supervisão gerencial.\"",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "a67ef962-3673-4e45-b3a6-927f2029cbbc",
+   "task": "4.5",
+   "group_id": "b6e2c9fa-1ab4-4434-912a-d5cf69a5b244",
+   "langs": {
+    "es-419": {
+     "question_text": "Durante una revisión de diseño, un equipo afirma que el control de acceso significa probar que un usuario es quien dice ser. ¿Qué descripción corresponde al significado definido de control de acceso?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Asegurar que el acceso a los activos esté autorizado y limitado por los requisitos del negocio y de seguridad."
+      },
+      {
+       "id": "b",
+       "text": "Separar funciones en conflicto para que una sola persona no pueda completar sola una transacción sensible."
+      },
+      {
+       "id": "c",
+       "text": "Registrar los eventos que ocurren cuando los usuarios acceden a la información, para su investigación posterior."
+      },
+      {
+       "id": "d",
+       "text": "Confirmar la identidad declarada de un usuario o sistema antes de que se establezca una sesión."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La definición del vocabulario en la cláusula 3.1 indica que control de acceso significa \"asegurar que el acceso a los activos esté autorizado y restringido con base en los requisitos del negocio y de seguridad\", lo que abarca tanto la autorización como la limitación.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Durante uma revisão de projeto, uma equipe afirma que controle de acesso significa comprovar que um usuário é quem ele alega ser. Qual descrição corresponde ao significado definido de controle de acesso?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Assegurar que o acesso aos ativos seja autorizado e limitado por requisitos de negócio e de segurança."
+      },
+      {
+       "id": "b",
+       "text": "Separar funções conflitantes para que uma única pessoa não possa concluir sozinha uma transação sensível."
+      },
+      {
+       "id": "c",
+       "text": "Registrar os eventos que ocorrem quando usuários acessam informações, para investigação posterior."
+      },
+      {
+       "id": "d",
+       "text": "Confirmar a identidade alegada de um usuário ou sistema antes que uma sessão seja estabelecida."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A definição do vocabulário na cláusula 3.1 diz que controle de acesso significa \"assegurar que o acesso aos ativos seja autorizado e restrito com base em requisitos de negócio e de segurança\", o que abrange tanto a autorização quanto a limitação.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "ec8b2530-ec2b-484a-9dad-d4f1d7702980",
+   "task": "4.5",
+   "group_id": "d1a95f85-643e-411a-a71e-f42904389ec3",
+   "langs": {
+    "es-419": {
+     "question_text": "Una auditoría interna detecta que las cuentas se aprovisionan al contratar y se eliminan al momento de la salida, pero no ocurre nada con los derechos de una persona cuando se traslada entre departamentos. ¿Qué enunciado expresa el requisito de derechos de acceso que aplica?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Los cambios de rol corresponden al control de gestión de identidades; el control de derechos cubre altas y bajas."
+      },
+      {
+       "id": "b",
+       "text": "Los derechos se otorgan, revisan, modifican y retiran conforme a la política y las reglas de control de acceso."
+      },
+      {
+       "id": "c",
+       "text": "Las obligaciones de revisión se aplican a los derechos privilegiados; los derechos de usuario ordinarios solo requieren aprovisionamiento y eliminación."
+      },
+      {
+       "id": "d",
+       "text": "Un cambio de rol exige una nueva evaluación de riesgos de los sistemas afectados antes de ajustar cualquier derecho."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "La cláusula A.5.18 requiere que los derechos de acceso \"deben ser aprovisionados, revisados, modificados y eliminados de acuerdo con la política específica y las reglas de control de acceso de la organización\", por lo que la modificación ante un cambio de rol forma parte del control.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma auditoria interna constata que as contas são provisionadas na contratação e removidas no desligamento, mas nada acontece com os direitos de uma pessoa quando ela muda de departamento. Qual afirmação expressa o requisito de direitos de acesso aplicável?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Mudanças de papel pertencem ao controle de gestão de identidade; o controle de direitos abrange entradas e saídas de pessoal."
+      },
+      {
+       "id": "b",
+       "text": "Os direitos são concedidos, analisados criticamente, alterados e retirados conforme a política e as regras de controle de acesso."
+      },
+      {
+       "id": "c",
+       "text": "As obrigações de análise crítica se aplicam a direitos privilegiados; direitos de usuários comuns exigem apenas provisionamento e remoção."
+      },
+      {
+       "id": "d",
+       "text": "Uma mudança de papel exige uma nova avaliação de riscos dos sistemas afetados antes que quaisquer direitos sejam ajustados."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "A cláusula A.5.18 requer que os direitos de acesso \"devem ser providos, analisados criticamente, modificados e removidos de acordo com a política específica por tema e com as regras de controle de acesso da organização\", de modo que a modificação em uma mudança de papel faz parte do controle.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "0b70c193-68f1-4a0f-b51c-c6561e68566b",
+   "task": "4.6",
+   "group_id": "e2836d46-f5d7-41be-af94-bc5dec648430",
+   "langs": {
+    "es-419": {
+     "question_text": "La credencial de servicio de un agente se almacena en una bóveda aprobada, y dos ingenieros de guardia designados están autorizados a recuperarla para reiniciar el agente. Un revisor objeta que la información secreta de autenticación nunca debe compartirse entre personas. ¿Cómo debe juzgarse este arreglo frente a las directrices sobre información de autenticación?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "La regla de no compartir cubre los secretos personales; el secreto de una entidad no personal permanece limitado a las personas autorizadas, como ocurre aquí."
+      },
+      {
+       "id": "b",
+       "text": "El revisor tiene razón: ningún secreto puede estar en manos de más de una persona, sin importar a qué tipo de identidad pertenezca."
+      },
+      {
+       "id": "c",
+       "text": "El arreglo es aceptable, ya que los secretos guardados dentro de una bóveda aprobada y con control de acceso quedan totalmente fuera de las directrices sobre responsabilidades del usuario."
+      },
+      {
+       "id": "d",
+       "text": "El revisor tiene razón, y la solución es que el propio agente seleccione y cambie su credencial en el momento del primer uso."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "La cláusula 5.17 distingue entre un secreto personal, que no debe transmitirse a nadie más, y un secreto perteneciente a una identidad que no es personal, el cual puede estar en poder de aquellas personas autorizadas para tenerlo. Por lo tanto, dos ingenieros de guardia designados y autorizados con derechos de recuperación de una credencial de servicio se ajustan a las directrices en lugar de incumplirlas.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "A credencial de serviço de um agente é mantida em um cofre aprovado, e dois engenheiros de plantão nomeados têm direito de recuperá-la para reiniciar o agente. Um revisor objeta que informação secreta de autenticação nunca deve ser compartilhada entre pessoas. Como esse arranjo deve ser julgado em relação à orientação sobre informação de autenticação?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "A regra de nunca compartilhar abrange segredos pessoais; o segredo de uma entidade não pessoal permanece restrito a pessoas autorizadas, como neste caso."
+      },
+      {
+       "id": "b",
+       "text": "O revisor está correto: nenhum segredo pode ficar com mais de uma pessoa, seja qual for o tipo de identidade a que ele pertença."
+      },
+      {
+       "id": "c",
+       "text": "O arranjo é aprovado, pois segredos mantidos dentro de um cofre aprovado e com controle de acesso ficam totalmente fora da orientação sobre responsabilidades dos usuários."
+      },
+      {
+       "id": "d",
+       "text": "O revisor está correto, e a correção é fazer com que o próprio agente selecione e altere sua própria credencial no primeiro uso."
+      }
+     ],
+     "correct_answer": [
+      "a"
+     ],
+     "explanation": "A cláusula 5.17 distingue entre um segredo pessoal, que não deve ser repassado a ninguém mais, e um segredo pertencente a uma identidade que não é pessoal, o qual pode ser mantido pelas pessoas autorizadas a mantê-lo. Dois engenheiros de plantão nomeados e autorizados, com direitos de recuperação de uma credencial de serviço, portanto, estão em conformidade com a orientação em vez de violá-la.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "6761f430-b319-4842-a16a-8fe53d893f87",
+   "task": "4.6",
+   "group_id": "6b4a7dde-ca21-41a7-a433-0d30ec05a95b",
+   "langs": {
+    "es-419": {
+     "question_text": "Un piloto de un agente autónomo de programación terminó hace tres meses, pero la identidad de servicio que utilizaba todavía conserva todos los permisos otorgados en el lanzamiento y nadie los ha revisado desde entonces. El equipo argumenta que la rutina de altas, movimientos y bajas de personal no puede alcanzar a esa identidad porque ninguna persona se fue. ¿Cuál análisis de esta situación es correcto?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Generar y analizar registros de lo que hace la identidad, incluidas sus llamadas a la API, cubre el punto y sustituye la revisión de sus permisos."
+      },
+      {
+       "id": "b",
+       "text": "El requisito sí aplica aquí, pero se satisface rotando la credencial de la cuenta y añadiéndole un segundo factor de autenticación."
+      },
+      {
+       "id": "c",
+       "text": "El aprovisionamiento, la revisión y la eliminación de los derechos de esta identidad se rigen por las reglas de control de acceso de la organización, por lo que los permisos intactos constituyen una brecha."
+      },
+      {
+       "id": "d",
+       "text": "Ningún requisito alcanza este caso, porque la revisión de permisos se activa por un cambio en la relación laboral y esta identidad no tiene una situación laboral."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "La cláusula A.5.18 exige que los derechos de acceso sean \"aprovisionados, revisados, modificados y eliminados de acuerdo con la política específica y las reglas de control de acceso de la organización\". La obligación recae sobre los derechos que posee una identidad, ya sea que esa identidad la use una persona o un agente, por lo que los derechos permanentes dejados vigentes después de que terminó el piloto constituyen una brecha.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um piloto de um agente autônomo de agendamento terminou há três meses, mas a identidade de serviço que ele usava ainda detém todos os direitos concedidos no lançamento e ninguém os revisou desde então. A equipe argumenta que a rotina de entradas-movimentações-saídas não alcança a identidade porque nenhuma pessoa saiu. Qual análise dessa situação está correta?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Produzir e analisar logs do que a identidade faz, incluindo suas chamadas de API, resolve a questão, substituindo a revisão de seus direitos."
+      },
+      {
+       "id": "b",
+       "text": "O requisito de fato se aplica aqui, mas é satisfeito com a rotação da credencial da conta e a adição de um segundo fator de autenticação a ela."
+      },
+      {
+       "id": "c",
+       "text": "O provisionamento, a revisão e a remoção dos direitos dessa identidade estão sujeitos às regras de controle de acesso da organização, portanto os direitos intocados constituem uma lacuna."
+      },
+      {
+       "id": "d",
+       "text": "Nenhum requisito alcança este caso, porque a revisão de direitos é disparada por mudança de vínculo empregatício e essa identidade não possui situação empregatícia."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "A cláusula A.5.18 exige que os direitos de acesso sejam \"provisionados, revisados, modificados e removidos de acordo com a política específica por tema e as regras de controle de acesso da organização\". A obrigação está vinculada aos direitos detidos por uma identidade, seja ela usada por uma pessoa ou por um agente, de modo que direitos permanentes mantidos após o término do piloto constituem uma lacuna.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "083feb40-0876-4802-894a-d2df11131a72",
+   "task": "5.2",
+   "group_id": "aeb20e10-ab50-491f-8e93-6c6af1f9c379",
+   "langs": {
+    "es-419": {
+     "question_text": "Una organización conforma su equipo de auditoría interna rotando empleados entre departamentos en cada ciclo, pero no verifica de ninguna otra forma si algún auditor tiene una línea de reporte hacia el proceso auditado, o una participación reciente en él. ¿Esta práctica satisface la cláusula 9.2.2 de ISO/IEC 27001:2022?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Sí, porque la cláusula solo exige que los criterios de auditoría y el alcance se definan y se registren para cada auditoría individual."
+      },
+      {
+       "id": "b",
+       "text": "No, porque la cláusula 9.2.2 prohíbe que cualquier auditor, bajo cualquier esquema de rotación, audite alguna vez un proceso de su propio departamento."
+      },
+      {
+       "id": "c",
+       "text": "Sí, porque la información documentada sobre el programa de auditoría satisface los requisitos de la cláusula relativos a la selección de auditores."
+      },
+      {
+       "id": "d",
+       "text": "No, porque los auditores deben ser seleccionados y las auditorías deben realizarse de forma que se asegure la objetividad y la imparcialidad, no basta con rotarlos."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 9.2.2 exige que la organización \"seleccione los auditores y realice las auditorías de modo que se asegure la objetividad y la imparcialidad del proceso de auditoría\", un resultado sustantivo que la simple rotación no garantiza por sí misma.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma organização compõe sua equipe de auditoria interna rodiziando colaboradores entre departamentos a cada ciclo, mas não verifica de outra forma se algum auditor possui linha de reporte para, ou envolvimento recente com, o processo que está sendo auditado. Essa prática atende à cláusula 9.2.2 da ISO/IEC 27001:2022?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Sim, porque a cláusula exige apenas que os critérios de auditoria e o escopo sejam definidos e registrados para cada auditoria individual."
+      },
+      {
+       "id": "b",
+       "text": "Não, porque a cláusula 9.2.2 proíbe que qualquer auditor, sob qualquer esquema de rodízio, audite um processo de seu próprio departamento."
+      },
+      {
+       "id": "c",
+       "text": "Sim, porque a informação documentada sobre o programa de auditoria atende aos requisitos da cláusula quanto à seleção de auditores."
+      },
+      {
+       "id": "d",
+       "text": "Não, porque os auditores devem ser selecionados e as auditorias conduzidas de modo a assegurar a objetividade e a imparcialidade, e não apenas por meio de rodízio."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 9.2.2 exige que a organização \"selecione auditores e conduza auditorias que assegurem a objetividade e a imparcialidade do processo de auditoria\", um resultado substantivo que o simples rodízio, por si só, não garante.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "79718ad9-e089-4bd7-834e-ffee2cb55667",
+   "task": "5.6",
+   "group_id": "713f40fc-ff5f-476b-8488-f1ea40c59506",
+   "langs": {
+    "es-419": {
+     "question_text": "El cliente de un organismo de certificación comercializa un producto físico y anuncia que el producto mismo está certificado por el organismo de certificación, basándose en la certificación ISO/IEC 27001 del cliente. ¿Qué debe exigir el organismo de certificación a este cliente?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Permitir la declaración, siempre que el número de certificado del cliente se imprima junto a ella en cada anuncio."
+      },
+      {
+       "id": "b",
+       "text": "Exigir al cliente que etiquete el producto con la marca de certificación de producto del organismo de certificación en lugar de esa redacción."
+      },
+      {
+       "id": "c",
+       "text": "Mediante sus disposiciones exigibles, requerir que el cliente deje de dar a entender que el producto o el proceso está certificado."
+      },
+      {
+       "id": "d",
+       "text": "Exigir al organismo de acreditación que revise y apruebe la redacción publicitaria antes de su publicación."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "La cláusula 8.3.4 exige que el organismo de certificación se asegure de que el cliente \"no permita que la referencia a su certificación del sistema de gestión se utilice de manera que implique que el organismo de certificación certifica un producto (incluido un servicio) o un proceso\".",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "O cliente de um organismo de certificação comercializa um produto físico e anuncia que o próprio produto é certificado pelo organismo de certificação, com base na certificação ISO/IEC 27001 do cliente. O que o organismo de certificação deve exigir desse cliente?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Permitir a declaração, desde que o número do certificado do cliente seja impresso ao lado dela em cada anúncio."
+      },
+      {
+       "id": "b",
+       "text": "Exigir que o cliente rotule o produto com a marca de certificação de produto do organismo de certificação em vez daquela redação."
+      },
+      {
+       "id": "c",
+       "text": "Por meio de seus acordos exequíveis, exigir que o cliente pare de dar a entender que o produto ou processo é certificado."
+      },
+      {
+       "id": "d",
+       "text": "Exigir que o organismo de acreditação analise e aprove a redação do anúncio antes de sua publicação."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "A cláusula 8.3.4 exige que o organismo de certificação assegure que o cliente \"não permita que a referência à sua certificação de sistema de gestão seja usada de forma a dar a entender que o organismo de certificação certifica um produto (incluindo serviço) ou processo\".",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "9e1e337a-df2e-4dc6-866a-13bf1e62c710",
+   "task": "5.6",
+   "group_id": "8d23c154-c5b9-4d0d-8995-031227d4ec42",
+   "langs": {
+    "es-419": {
+     "question_text": "Una organización desea tener confianza en que un organismo de certificación es competente para emitir certificados ISO/IEC 27001. ¿Qué proporciona esa confianza?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "La acreditación del organismo de certificación, verificada contando cuántos certificados ISO/IEC 27001 ya ha emitido a organizaciones clientes."
+      },
+      {
+       "id": "b",
+       "text": "La certificación del propio SGSI de la organización, de la cual se asume que valida la competencia del organismo de certificación para emitirla."
+      },
+      {
+       "id": "c",
+       "text": "Una autodeclaración del organismo de certificación de que internamente sigue la norma ISO/IEC 27001 sin verificación externa."
+      },
+      {
+       "id": "d",
+       "text": "La acreditación del organismo de certificación frente a requisitos que complementan la norma general para organismos de certificación, confirmando la competencia en SGSI."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 5.3.2 establece que la orientación complementaria \"está destinada principalmente a apoyar la acreditación de los organismos de certificación que proporcionan certificación de SGSI de acuerdo con ISO/IEC 27001\".",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Uma organização deseja garantia de que um organismo de certificação é competente para emitir certificados ISO/IEC 27001. O que fornece essa garantia?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "A acreditação do organismo de certificação, verificada pela contagem de quantos certificados ISO/IEC 27001 ele já emitiu para organizações clientes."
+      },
+      {
+       "id": "b",
+       "text": "A certificação do próprio SGSI da organização, que por sua vez se presume validar a competência do organismo de certificação para emiti-la."
+      },
+      {
+       "id": "c",
+       "text": "Uma autodeclaração do organismo de certificação de que ele segue internamente a norma ISO/IEC 27001, sem verificação externa."
+      },
+      {
+       "id": "d",
+       "text": "A acreditação do organismo de certificação frente a requisitos que complementam a norma geral para organismos de certificação, confirmando a competência em SGSI."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 5.3.2 afirma que a orientação complementar \"destina-se principalmente a apoiar a acreditação de organismos de certificação que fornecem certificação de SGSI de acordo com a ISO/IEC 27001.\"",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "356f009c-d1b5-40e2-bfae-b52ecacc30d5",
+   "task": "5.7",
+   "group_id": "a4f98601-8b16-45dc-9316-9d8ce1d6399e",
+   "langs": {
+    "es-419": {
+     "question_text": "Un ingeniero de operaciones informa que un asistente de triaje con IA comenzó a resumir historias clínicas fuera del alcance que permite su política. La organización cuenta con un esquema acordado de categorización y priorización y con un punto de contacto designado. ¿Cómo se debe llegar a la decisión sobre si esto constituye un incidente?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "La ingeniera que observó el comportamiento asigna ella misma la categoría y transmite únicamente lo que considera personalmente grave."
+      },
+      {
+       "id": "b",
+       "text": "La decisión queda a la espera del análisis del proveedor del modelo, que determina si el comportamiento observado califica siquiera como incidente."
+      },
+      {
+       "id": "c",
+       "text": "El personal responsable de coordinar y responder a los incidentes evalúa el reporte frente al esquema acordado y registra la decisión."
+      },
+      {
+       "id": "d",
+       "text": "El reporte se evalúa frente al esquema acordado, pero el razonamiento se deja de manera informal en lugar de documentarse, para no retrasar a quienes responden."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "La cláusula 5.25 de la guía de implementación señala que \"conviene que el personal responsable de coordinar y responder a los incidentes de seguridad de la información realice la evaluación y tome una decisión sobre los eventos de seguridad de la información\". La misma cláusula pide que la evaluación y la decisión se registren en detalle para referencia y verificación posteriores.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um engenheiro de operações relata que um assistente de triagem de IA começou a resumir prontuários de pacientes fora do escopo permitido por sua política. A organização possui um esquema acordado de categorização e priorização e um ponto de contato designado. Como deve ser tomada a decisão sobre se isso constitui um incidente?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "A engenheira que observou o comportamento atribui a categoria ela mesma e repassa apenas o que julga pessoalmente ser grave."
+      },
+      {
+       "id": "b",
+       "text": "A decisão aguarda a análise do fornecedor do modelo, que determina se o comportamento observado se qualifica como incidente."
+      },
+      {
+       "id": "c",
+       "text": "O pessoal responsável por coordenar e responder a incidentes avalia o relato em relação ao esquema acordado e registra a decisão."
+      },
+      {
+       "id": "d",
+       "text": "O relato é avaliado em relação ao esquema acordado, mas o raciocínio é mantido informal em vez de documentado, para que os respondentes não sejam retardados."
+      }
+     ],
+     "correct_answer": [
+      "c"
+     ],
+     "explanation": "A cláusula 5.25 da orientação de implementação afirma que \"convém que o pessoal responsável por coordenar e responder a incidentes de segurança da informação realize a avaliação e tome uma decisão sobre os eventos de segurança da informação\". A mesma cláusula pede que a avaliação e a decisão sejam registradas em detalhe para referência e verificação posteriores.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "9dcc8be3-047a-4c96-bd5d-5bacfffb6880",
+   "task": "5.8",
+   "group_id": "149f7251-6b11-4e25-8e03-25013a814c70",
+   "langs": {
+    "es-419": {
+     "question_text": "Un ingeniero de machine learning con derechos administrativos sobre un host de entrenamiento de modelos copió un conjunto de datos etiquetado a un almacenamiento personal y luego eliminó los registros de actividad del host correspondientes a ese período. La eliminación no dejó rastro y la copia se descubrió meses después durante una revisión no relacionada. ¿Qué análisis explica mejor por qué la actividad nunca salió a la luz?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "La falla es que los registros se analizaron demasiado tarde, meses después del hecho, aunque su protección fue adecuada en todo momento."
+      },
+      {
+       "id": "b",
+       "text": "Los registros deben protegerse además de generarse; este administrador pudo borrar su propio rastro, sin dejar nada que analizar."
+      },
+      {
+       "id": "c",
+       "text": "La falla está en el registro de eventos, y la corrección es enmascarar los registros del host y enviarlos al proveedor para su análisis."
+      },
+      {
+       "id": "d",
+       "text": "No ocurrió ninguna falla de registro: los administradores pueden crear, gestionar y depurar los registros en los hosts que están bajo su control directo."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "La cláusula A.8.15 trata la salvaguarda de los registros de eventos como una obligación que se sitúa junto a generarlos, conservarlos y revisarlos. La protección es el elemento que falló aquí: un usuario privilegiado capaz de eliminar el registro de sus propias acciones destruye la única evidencia que un análisis o un monitoreo posterior podría haber utilizado, razón por la cual el tiempo hasta el descubrimiento se extendió a meses.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um engenheiro de machine learning com direitos administrativos em um host de treinamento de modelos copiou um conjunto de dados rotulado para um armazenamento pessoal e, em seguida, removeu os registros de atividade do host referentes àquele período. A remoção não deixou rastros e a cópia foi descoberta meses depois, durante uma revisão sem relação com o caso. Qual análise melhor explica por que a atividade nunca veio à tona?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "A falha é que os registros foram analisados tarde demais, meses após o fato, embora sua proteção tenha sido adequada o tempo todo."
+      },
+      {
+       "id": "b",
+       "text": "Os registros devem ser protegidos, além de produzidos; esse administrador pôde apagar seu próprio rastro, não deixando nada a ser analisado."
+      },
+      {
+       "id": "c",
+       "text": "A falha está no registro de eventos (logging), e a correção é mascarar os registros do host e enviá-los ao fornecedor para análise."
+      },
+      {
+       "id": "d",
+       "text": "Não houve falha de registro de eventos: administradores podem criar, gerenciar e expurgar os registros em hosts que estão sob seu controle direto."
+      }
+     ],
+     "correct_answer": [
+      "b"
+     ],
+     "explanation": "A cláusula A.8.15 trata a salvaguarda dos registros de eventos como uma obrigação que se coloca ao lado de gerá-los, retê-los e analisá-los criticamente. A proteção é o elemento que falhou aqui: um usuário privilegiado capaz de excluir o registro de suas próprias ações destrói a única evidência que uma análise ou monitoramento posterior poderia ter utilizado, razão pela qual o tempo até a descoberta se estendeu por meses.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  },
+  {
+   "en_id": "6ce61e0b-d2c9-45c5-b46e-be4b02986e11",
+   "task": "5.9",
+   "group_id": "6fd199e7-3bb0-4151-8f32-4cbc27cd71a1",
+   "langs": {
+    "es-419": {
+     "question_text": "Un consultor le dice a un cliente que tener la certificación ISO/IEC 27001 no cubrirá automáticamente un sistema de gestión de IA construido conforme a ISO/IEC 42001, aunque ambos sean 'sistemas de gestión'. ¿Cuál explicación justifica mejor esto?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Porque ISO/IEC 42001 aplica únicamente a las organizaciones que desarrollan sistemas de IA, un SGSI existente ya satisface las obligaciones de las organizaciones que simplemente usan IA."
+      },
+      {
+       "id": "b",
+       "text": "Porque un sistema de gestión puede abordar varias disciplinas a la vez, una organización puede volver a etiquetar la declaración de alcance de su SGSI existente para cubrir también la IA sin una evaluación adicional."
+      },
+      {
+       "id": "c",
+       "text": "Porque el organismo de certificación debe programar auditorías in situ separadas para cada norma en distintas épocas del año, los dos certificados necesariamente se registran y emiten de forma independiente."
+      },
+      {
+       "id": "d",
+       "text": "Porque un sistema de gestión es el conjunto de políticas, objetivos y procesos de una disciplina, y la seguridad de la información y la IA son disciplinas diferentes que requieren los suyos propios."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "La cláusula 3.41 describe un sistema de gestión como los elementos que una organización establece para definir políticas, objetivos y procesos para alcanzarlos, y señala que tal sistema 'puede abordar una sola disciplina o varias disciplinas'. Un SGSI y un sistema de gestión de IA atienden disciplinas diferentes, por lo que cada uno necesita sus propias políticas y objetivos, y una certificación no puede conferir la otra.",
+     "difficulty": 3
+    },
+    "pt-BR": {
+     "question_text": "Um consultor informa a um cliente que possuir a certificação ISO/IEC 27001 não cobrirá automaticamente um sistema de gestão de IA construído conforme a ISO/IEC 42001, ainda que ambos sejam 'sistemas de gestão'. Qual explicação melhor justifica isso?",
+     "question_type": "single_choice",
+     "options": [
+      {
+       "id": "a",
+       "text": "Como a ISO/IEC 42001 se aplica apenas a organizações que desenvolvem sistemas de IA, um SGSI existente já satisfaz as obrigações das organizações que apenas utilizam IA."
+      },
+      {
+       "id": "b",
+       "text": "Como um sistema de gestão pode abordar várias disciplinas ao mesmo tempo, uma organização pode apenas renomear a declaração de escopo do seu SGSI existente para também cobrir IA, sem avaliação adicional."
+      },
+      {
+       "id": "c",
+       "text": "Como o organismo de certificação deve agendar auditorias no local separadas para cada norma em épocas diferentes do ano, os dois certificados são necessariamente registrados e emitidos de forma independente."
+      },
+      {
+       "id": "d",
+       "text": "Como um sistema de gestão é o conjunto de políticas, objetivos e processos de uma disciplina, e segurança da informação e IA são disciplinas diferentes que exigem os seus próprios."
+      }
+     ],
+     "correct_answer": [
+      "d"
+     ],
+     "explanation": "A cláusula 3.41 descreve um sistema de gestão como os elementos que uma organização estabelece para definir políticas, objetivos e processos para alcançá-los, e observa que tal sistema 'pode abordar uma única disciplina ou várias disciplinas'. Um SGSI e um sistema de gestão de IA atendem a disciplinas diferentes, de modo que cada um precisa de suas próprias políticas e objetivos, e uma certificação não pode conferir a outra.",
+     "difficulty": 3
+    }
+   },
+   "errors": []
+  }
+ ],
+ "emitted_by": "translate-grounded-items.mjs (PROMPT-104 s3b)"
+}

@@ -1,0 +1,24 @@
+{
+  "_what": "PROMPT-121: three R7 task-3.9 explanations whose distractor diagnosis named options by LETTER. `options_fixed_order` is false on every row, so delivery may reorder and the letter would name a different option. Each diagnosis now names the option's CONTENT; nothing else in the explanation changes.",
+  "_how_it_surfaced": "The translation lint flagged `opcion A` / `opcao A` on all three siblings and WITHHELD the items, so 20 of 23 R7 rows got groups. Nothing checks the English explanation for letter references at generation -- `explanationOptionRef` exists and runs only on translations.",
+  "edits": [
+    {
+      "row": "55fc9bbc",
+      "from": "option d names the wrong approver, option b wrongly excludes uploads from monitoring, and option a expects blocking tools to handle screen capture.",
+      "to": "Routing approval through the security team names the wrong approver; treating browser uploads as beyond the reach of leakage controls wrongly excludes them from monitoring; and relying on the same blocking tools expects them to handle screen capture.",
+      "why": "8.12 copy/paste restriction. The three distractors are named by what they say."
+    },
+    {
+      "row": "5e2621f8",
+      "from": "option c shares the premise but misstates how schemes interact between organizations, option d misplaces accountability for classification, and option b ignores the cost of over-classification.",
+      "to": "Letting the provider's own scheme level replace the classification shares the premise but misstates how schemes interact between organizations; leaving the sensitivity to the individual sending the text misplaces accountability; and marking the material at the top level of the scheme ignores the cost of over-classification.",
+      "why": "5.12 classification by impact. The three distractors are named by what they say."
+    },
+    {
+      "row": "cb6d5141",
+      "from": "option b agrees a requirement exists but shrinks its scope, option c limits transfer to physical means, and option d substitutes a deletion record for transfer arrangements.",
+      "to": "Confining the rules to exchanges with outside parties agrees a requirement exists but shrinks its scope; restricting transfer arrangements to consignments of physical media limits them to physical means; and offering evidence of deletion substitutes a record for the transfer arrangements themselves.",
+      "why": "A.5.14 transfer rules. The three distractors are named by what they say."
+    }
+  ]
+}

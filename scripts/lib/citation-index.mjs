@@ -283,7 +283,11 @@ const BARE_ANNEX_RE = /\b([A-D]\.\d+(?:\.\d+)*)\b/g;
 const splitSentences = (s) => String(s).split(/(?<=[.;:!?])\s+|\n+/);
 
 export function newSink() {
-  return { checked: 0, missing: [], edition: [], unknownStd: [], misattributed: [], ambiguous: 0, unattributed: 0, exempted: 0 };
+  /* `resolvedOwnSource` holds references the indexed standards could not place but the item's OWN
+   * grounding source does hold. Reported, never silent: it is the difference between a resolution and
+   * an exemption (PROMPT-121 s2c). */
+  return { checked: 0, missing: [], edition: [], unknownStd: [], misattributed: [], ambiguous: 0,
+    unattributed: 0, exempted: 0, resolvedOwnSource: [] };
 }
 
 /**
@@ -313,7 +317,23 @@ export async function loadExemptions(db) {
   return out;
 }
 
-export function analyseText(text, index, sink, exempt = null) {
+/**
+ * ============ A CITATION OUTSIDE THE INDEXED STANDARDS (PROMPT-121 s2c) ============
+ *
+ * `CITATION_SOURCES` indexes three standards, and widening it is a content decision this module
+ * refuses to make by side effect. But the bank became MULTI-SOURCE in PROMPT-113, so an item may now
+ * correctly cite a clause of a standard the index does not hold -- and this reported one as
+ * "no such address in ISO 27001". The item was right: ISO/IEC 27000 clause 5.3.2 is held in the
+ * library and the item quotes it exactly.
+ *
+ * So the caller may pass `resolveOwnSource(ref)`, which answers whether the address exists in THE
+ * ITEM'S OWN grounding source, from the passage library. That is a RESOLUTION against evidence, not
+ * an exemption: a fabricated clause resolves nowhere and still fails.
+ *
+ * It is consulted only where the indexed standards cannot answer, so no previously-flagged address
+ * inside 19011 / 27001 / 42001 changes verdict.
+ */
+export function analyseText(text, index, sink, exempt = null, resolveOwnSource = null) {
   const existsSomewhere = (r) => Object.values(index).some((ix) =>
     (r.kind === "annex" ? ix.annex : ix.clauses).has(r.n));
 
@@ -349,6 +369,8 @@ export function analyseText(text, index, sink, exempt = null) {
     for (const r of refs) {
       sink.checked++;
       if (!existsSomewhere(r)) {
+        /* the item's own grounding source gets the last word before this is called a bad address */
+        if (resolveOwnSource && resolveOwnSource(r)) { sink.resolvedOwnSource.push({ ref: r.raw.replace(/\s+/g, " "), n: r.n }); continue; }
         sink.missing.push({ ref: r.raw.replace(/\s+/g, " "), n: r.n, kind: r.kind, named: known.join("+") });
         continue;
       }
@@ -357,7 +379,8 @@ export function analyseText(text, index, sink, exempt = null) {
         if (!pool.has(r.n)) {
           const elsewhere = Object.keys(index).filter((k) =>
             (r.kind === "annex" ? index[k].annex : index[k].clauses).has(r.n));
-          sink.misattributed.push({ named: known[0], ref: r.raw.replace(/\s+/g, " "), n: r.n, elsewhere: elsewhere.join("/") });
+          if (resolveOwnSource && resolveOwnSource(r)) { sink.resolvedOwnSource.push({ ref: r.raw.replace(/\s+/g, " "), n: r.n }); }
+          else sink.misattributed.push({ named: known[0], ref: r.raw.replace(/\s+/g, " "), n: r.n, elsewhere: elsewhere.join("/") });
         }
       } else {
         sink.ambiguous++;
