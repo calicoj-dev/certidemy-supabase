@@ -789,3 +789,96 @@ Plus 3.5, at floor in items and permanently `too_thin` -- a label on the map.
 
 **So ISMS-F is NOT at floor**, and the four easy ones (1.7, 4.8, 5.3, 4.4 -- 6 items) are a small round;
 1.6, 5.5 and 2.3 (10 items) are the source problem above.
+
+## PROMPT-121: 23 R7 rows in, the approval blockers cleared, and why four tasks cannot be generated
+
+**258 grounded English rows on ISMS-F**, 516 siblings, nothing approved. **Approval would now pass
+249 of 258 groups (747 rows)**, up from 161 at the start of PROMPT-120.
+
+### s1
+
+R7 #22 and #23 rejected. 23 inserted, translation $4.46 of $10, lint 0, drift 0.
+
+**Three R7 explanations named options by LETTER** and the lint withheld all three.
+`options_fixed_order` is false on every row, so the next reshuffle makes the letter name a different
+option; `shuffleOptions` keeps it right for the stored order and nothing more. Second occurrence (the
+first was my own rewrite in PROMPT-120), so it is now `scripts/fix-letter-refs.mjs`.
+**Nothing checks the English explanation for this at generation** -- `explanationOptionRef` exists and
+runs only on translations.
+
+### s2a -- solver refusals 17 -> 1
+
+16 rows took the verdict they EARNED during their rescue, copied from `revised[].solver`; no model
+call, and the anchor and review verdict asserted unmoved. The one left is `e723f8f3`: admitted by the
+`regate` path in PROMPT-116 having been rejected by code BEFORE the solver ran, so there is no earned
+verdict to copy and the backfill refused to invent one. `insert-pilot-drafts` now refuses that case --
+**passing the gates is not being solved.**
+
+### s2b -- 45 of 49 de-cued, $12.21
+
+Keys came down hard (172 -> 105 at the extreme) with rivals lengthened to match. Each was re-gated and
+solved twice; a split reverted it. **Four left out:** 2.4 (the cue guard's absolute-word arm now
+objects), 5.2 and 5.8 (solver split, reverted), 2.6 (malformed output). With the 4 that also fail a
+second gate, 8 `structure` refusals remain.
+
+**And a consequence worth naming: the 45 then had STALE SIBLINGS** translating superseded option text.
+Fluent, so the lint had nothing to object to -- a reviewer reading only the Spanish would have seen a
+clean item saying what the English no longer says. 90 rows dumped to a recovery file,
+deleted (`scripts/restale-siblings.mjs`), re-translated for $7.74, drift back to 0.
+
+### s2c -- verify-cert s8.1 PASSES, without exempting or widening the index
+
+`analyseText` takes a resolver and, where the three indexed standards cannot place a reference,
+resolves it against the item's OWN `item_grounding` source from the passage library. Widening
+`CITATION_SOURCES` would have been a content decision the module refuses to make by side effect;
+`CITATION_EXEMPT` would have waived a check on correct work. **7 citations resolved.**
+
+Two passes: the first looked grounding up by `q.id`, so the English row resolved its citation and its
+two siblings -- the same item, the same citation -- still failed. Grounding belongs to the ITEM, so a
+row without one now inherits its group's English row. 6 controls, both directions.
+
+### s3 -- R8, and the real reason four tasks are short
+
+31 attempted, 31 generated, **6 survivors**, $10.23 of $15 (projected $15.00 -- 47% over, the
+projection's worst). **The writer-retry path fired for the first time**: 2 batches retried, 13 items
+recovered. The four plain tasks all closed: 4.4, 4.8, 5.3, 5.6.
+
+**The other four produced ZERO, with their writer notes in place, and the causes are not generation:**
+
+| task | source | cause |
+|---|---|---|
+| **1.6** | EU AI Act / NIST AI RMF | **A CODE DEFECT.** `normClause` strips non-ISO address vocabulary: `MANAGE 4.3` -> `4.3`, `Recital 111` -> `111`, `Art. 55(1)` -> `55`. None of those is a held address, so `clause-exists` can NEVER pass. 7 of 8 failed it. |
+| **1.7** | NIST AI RMF | **The same defect.** It anchored `MANAGE 4.3` and the gate looked up `4.3`. |
+| **2.3** | 27001 Amd1:2024 | The amendment's 4.1 and 4.2 rows are ONE SENTENCE each. The key is verbatim; the three distractors have nothing left in the passage to quote. |
+| **5.5** | 17021-1 | Distractors cite sub-clauses that are not held (e.g. 9.6.2.1) -- a library gap or an invented address. |
+
+**The 1.6 note made it worse, which is the proof.** PROMPT-121 s3 told the writer to cite the addresses
+exactly as written. It complied -- `MANAGE 4.3`, `Recital 111`, `Art. 55` -- and the normaliser then
+destroyed every one. `clause-exists` went from 6 of 8 in R7 to 7 of 8 in R8.
+
+The library DOES hold these passages: `NIST AI RMF 1.0 MANAGE 4.3` is 3,417 words of held text, and the
+assignment hands the writer exactly that label. Only the gate's normaliser disagrees.
+
+**So no amount of generation closes 1.6, 1.7, 2.3 or 5.5.** 1.6 and 1.7 need `normClause` taught the
+EU AI Act and NIST AI RMF address shapes (and every gate that calls it re-run over the existing bank
+afterwards -- it is the same function the whole gate suite keys on). 2.3 and 5.5 are map or library
+decisions.
+
+### s4 -- the go-live dry runs
+
+| | |
+|---|---|
+| approval | **249 of 258 groups = 747 rows.** The 9 refusals are exactly the s2b leftovers (8) plus `e723f8f3`. `anchor-assignment` is UNASSERTED on all 249 and reported rather than counted clean -- a stored row carries no assignment record |
+| cutover, post-approval shape | **401 rows per language remain** (143 kept + 258 grounded), 0 target rows not in the live pool, **0 duplicate stems** over 401 identities, **20/20 forms** in all three languages, 744 rows retired, no domain short |
+| verify-cert | **55 pass, 2 fail, 2 warn.** The only fails are "728 not approved" and "23 ungrouped", both of which approval and translation clear. s8.1 now passes |
+| kept-item drift | **17 non-stem** (11 options, 6 explanations) for the post-cutover repair |
+
+`--assume-approved` was added to the cutover so the dry run answers the real question. It took two
+passes: touching only the grounded-approved set left `inLivePool` still demanding `approved`, and 2b
+reported 774 of 1203 target rows not live. **Half an assumption is worse than none** -- it produces a
+number about a pool the run is not simulating. It is refused outright with `--apply`.
+
+### Stage 3, counting accepted and inserted only (R8 unread)
+
+**40 of 49 at floor, 8 short by 17 items, 1 too thin (3.5).** R8's 6 survivors, once read, close 4.4,
+4.8, 5.3 and 5.6 -- taking it to **44 of 49, 4 short by 14 items**, and those 4 are the tasks above.
