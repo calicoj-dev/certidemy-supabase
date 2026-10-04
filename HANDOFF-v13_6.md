@@ -545,3 +545,26 @@ passage, or add a statement-of-applicability term if ISO/IEC 27000:2018 carries 
 
 So **48 of 49 tasks can be at floor by generating 100 more English items**, and 3.5 reaches its own floor
 of 2 with two more -- leaving `too_thin` as a label on a map, not a shortfall in items.
+
+### R5
+
+86 attempted (capped 2x across the 11 largest gaps, plus 3.5 at its new floor and 4.1 now that it is
+open), 86 generated, **68 survivors (79%)**, $29.39 against a $40 ceiling and a $36.27 projection --
+**23% under**, after R4 came in 12% under. The projection is now consistently conservative; that is worth
+knowing before the next ceiling is set.
+
+**The s3 fix fired, and it is measurable.** 68 of the 86 assignments carried a widened allowed set, and
+**8 items anchored on a clause other than their preferred one and were admitted** -- 6 of them survivors.
+`anchor-assignment` does not appear in R5's rejections at all, where R4 lost 5 correct items to it on a
+single task. 0 writer retries again, so that path is still unexercised.
+
+Rejections, 18 of 86: verbatim 7, second-defensible 6, reproduction 4 (2 surviving the retry),
+solver-split 3, structure 2, quote-noise 2, clause-exists 2, modal-fidelity 1.
+
+Thin yields worth a read: **5.2 returned 1 of 4** and **2.2 6 of 12**.
+
+### R5 does NOT reach every task at floor
+
+The $40 ceiling bounds the ask at 11 of the 31 short tasks and **53 of the 100 needed items**. So even at
+100% survival R5 could not close the gap; with 68 survivors across those 11 tasks it closes what it
+covers and leaves **roughly 47 items across 20 tasks**. One more round at a similar ceiling finishes it.
