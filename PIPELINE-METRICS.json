@@ -94,6 +94,14 @@
       "sent_back": 0,
       "note": "R1 generated, awaiting the director's read",
       "recorded_at": "2026-10-03T23:37:43.254Z"
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 4,
+      "stage_name": "generation rounds",
+      "sent_back": 3,
+      "note": "R1: 3 rejected of 23; R2 awaiting the read",
+      "recorded_at": "2026-10-04T01:00:21.230Z"
     }
   ],
   "costs_usd": [
@@ -188,6 +196,39 @@
       "survival_rate_of_attempted": 0.719,
       "per_survivor": 0.536,
       "note": "2x shortfall on the two largest gaps only: all four tasks at 2x projected ~$37, over the $25 ceiling. 24 of 32 generated -- the anchor cap of 2 per (source, edition, clause) per task bounds what a task can produce. Nothing inserted."
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 4,
+      "stage_name": "generation R2",
+      "usd": 10.2394,
+      "ceiling": 25,
+      "tasks": [
+        "3.3:16",
+        "3.2:16",
+        "5.1:14"
+      ],
+      "attempted": 46,
+      "generated": 40,
+      "survivors": 19,
+      "calls": 79,
+      "survival_rate_of_generated": 0.475,
+      "survival_rate_of_attempted": 0.413,
+      "per_survivor": 0.539,
+      "probe_flag_rate": "10/19 (52.6%)",
+      "probe_flag_rate_R1": "22/23 (95.7%)",
+      "note": "The PROMPT-114 s2 writer rules roughly HALVED the options-only cue rate. Survival fell from 95.8% to 47.5%, driven by gateNo27000: 17 of 21 code rejections name ISO/IEC 27000 in served text, because tasks 5.1 and 3.2 map 27000 passages and the learner-facing rule forbids naming it. Nothing inserted."
+    },
+    {
+      "cert": "ISMS-F",
+      "stage": 4,
+      "stage_name": "odd-verdict de-cue (PROMPT-114 s2)",
+      "usd": 5.4895,
+      "ceiling": 8,
+      "items_targeted": 15,
+      "fixed": 0,
+      "probe_cleared_but_solver_split": 4,
+      "note": "0 fixed. .08 of the .49 went on three defects in the fixer, not on the items: the stored-row item shape assumed for a pre-insert item (no id, no correct_answer); liveStemsForTask and assignedAnchor omitted so two gates returned UNASSERTED; and ctx.passagesForTask which does not exist, so the solver received an empty passage list and rejected all 15. All three fixed and verified on single items."
     }
   ],
   "not_instrumented": [
