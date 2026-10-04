@@ -24,11 +24,29 @@ import { enemyKeyOf, enemyReason, markEnemy, enemyRuleControls } from "../functi
 import { stemIdentity, stemIdentityControls } from "../functions/_shared/item-rules/stem-identity.mjs";
 
 let APPLY = false, CERT = "AIMS-F", FORMS = 20;
+/* ============ --assume-approved: WHAT THE CUTOVER WILL LOOK LIKE AFTER APPROVAL ============
+ *
+ * Ruled by necessity in PROMPT-121 s4. Target pool = APPROVED grounded + kept, so before the approval
+ * step runs the dry run can only ever show the kept set -- 143 rows against a 248-row retire set,
+ * which is not the shape anyone is about to apply. The flag treats every grounded row the approval
+ * conditions WOULD pass as approved, so the forms gate and the retire counts answer the real
+ * question while still writing nothing.
+ *
+ * REFUSED WITH --apply. A dry run may assume; a write may not. The approval step is what makes it
+ * true, and a cutover that acted on an assumption would retire rows against a pool that does not
+ * exist yet. */
+let ASSUME_APPROVED = false;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
+  if (a === "--assume-approved") { ASSUME_APPROVED = true; continue; }
   const m = a.match(/^--(cert|forms)=(.+)$/);
   if (m) { if (m[1] === "cert") CERT = m[2]; else FORMS = Number(m[2]); continue; }
-  console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE>, --forms=<n>, --apply (dry by default).");
+  console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE>, --forms=<n>, --assume-approved, --apply.");
+  process.exit(2);
+}
+if (ASSUME_APPROVED && APPLY) {
+  console.error("REFUSING: --assume-approved is a DRY-RUN instrument and cannot be combined with");
+  console.error("--apply. Run the approval step first; that is what makes the assumption true.");
   process.exit(2);
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -105,7 +123,19 @@ const enRowOf = (r, rows) => r.language === "en" ? r
   : (r.question_group_id ? rows.find((x) => x.question_group_id === r.question_group_id && x.language === "en") : null);
 
 /* generate-mock-exam's mode='exam' candidate filter, transcribed from :303-344. */
-const inLivePool = (r, l) => r.language === l && r.pool === "secure" && r.status === "approved" &&
+/* ============ THE ASSUMPTION REACHES HERE TOO ============
+ *
+ * `--assume-approved` first touched only the grounded-approved SET, and 2b then reported 774 of 1203
+ * target rows "not in the live pool" -- because this filter still demanded `approved`. Half an
+ * assumption is worse than none: it produced a number about a pool the run was not simulating.
+ *
+ * Under the flag a PENDING_REVIEW row counts as live when its group is one approval would promote,
+ * which is the whole group including both siblings. */
+const ASSUMED_GROUPS = new Set();
+const inLivePool = (r, l) => r.language === l && r.pool === "secure" &&
+  (r.status === "approved" ||
+    (ASSUME_APPROVED && r.status === "pending_review" && r.question_group_id &&
+      ASSUMED_GROUPS.has(r.question_group_id))) &&
   r.retired_at === null && r.item_origin !== null && r.item_origin !== undefined &&
   r.item_origin !== "generated" && r.is_exam_scope === true;
 
@@ -154,9 +184,22 @@ const keptEnIds = new Set(keptResolved.map((k) => k.en.id));
  * subtraction cannot see a row the filter already dropped. The servability check below is what tests
  * the predicate, so this side must be independent of it. */
 const groundedApprovedEn = new Set(enRows.filter((r) => ig.has(r.id) &&
-  ig.get(r.id).review_verdict === "accept" && r.status === "approved" && r.retired_at === null)
+  ig.get(r.id).review_verdict === "accept" && r.retired_at === null &&
+  /* under --assume-approved an ACCEPTED grounded row counts even while still pending_review */
+  (r.status === "approved" || (ASSUME_APPROVED && r.status === "pending_review")))
   .map((r) => r.id));
 console.log("");
+if (ASSUME_APPROVED) {
+  /* every group approval would promote: an accepted grounded English row, live, not retired. */
+  for (const r of enRows) {
+    const g = ig.get(r.id);
+    if (!g || g.review_verdict !== "accept" || r.retired_at !== null) continue;
+    if (r.question_group_id) ASSUMED_GROUPS.add(r.question_group_id);
+  }
+  console.log("--assume-approved: " + ASSUMED_GROUPS.size + " group(s) treated as approved. NOTHING IS");
+  console.log("  WRITTEN and nothing is promoted -- this shows the shape the cutover will have AFTER");
+  console.log("  the approval step, which is the only shape worth gating on.");
+}
 console.log("2. RETIRE SET   live exam pool - approved grounded - kept, per language, siblings with their group");
 const retire = [];
 for (const l of LANGS) {
