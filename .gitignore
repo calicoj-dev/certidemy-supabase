@@ -195,7 +195,9 @@ ISMSF-R[0-9]*
 AIMSF-R[0-9]*
 # full row dumps taken before a sibling delete: they carry served text verbatim
 ISMSF-RESTALE-RECOVERY.json
-*-RESTALE-RECOVERY.json
+# GENERIC: a recovery file moved aside under a round-specific name (…-RECOVERY-PROMPT-121.json)
+# escapes a pattern anchored on the exact old name. Third time this class of miss has happened.
+*-RESTALE-RECOVERY*.json
 # EVERY translation artifact, not just the -R<n> ones. ISMSF-TRANSLATION-DECUE.json reached the
 # index because the pattern was round-specific -- the same mistake as ISMSF-R6.
 *-TRANSLATION-*.json

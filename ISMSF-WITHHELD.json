@@ -5,11 +5,6 @@
   "_what_would_clear_them": "A rewrite of the option text that removes the length cue, as PROMPT-109's method does. The rule is right and these items are cued; widening the allowance to admit them is the threshold-widening this repository forbids (CLAUDE.md s13: an options-only cue is not fixed by a harder exam -- rewrite the cue out).",
   "withheld": [
     {
-      "item_id": "856c20fa",
-      "ruled_in": "PROMPT-123 s4",
-      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
-    },
-    {
       "item_id": "351c9cb5",
       "ruled_in": "PROMPT-123 s4",
       "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
@@ -44,5 +39,16 @@
       "ruled_in": "PROMPT-123 s4",
       "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it"
     }
-  ]
+  ],
+  "released": [
+    {
+      "item_id": "856c20fa",
+      "ruled_in": "PROMPT-123 s4",
+      "reason": "fails the cue guard (structure); one de-cue attempt ruled in PROMPT-121 s2b did not clear it",
+      "released_in": "PROMPT-124 s1",
+      "how": "second de-cue attempt cleared it: key 163 -> 137 characters, one distractor 146 -> 165, every option assertion unchanged, re-gated clean, blind solver accepted/accepted with the options reordered on run two"
+    }
+  ],
+  "_released": "An item that cleared a de-cue attempt and was released back into the bank. Kept here rather than deleted: the withheld list is the record of what was held and why, and a release is part of that record.",
+  "_two_attempts": "cb05360d (task 2.4) and 6e279ec1 (task 3.6) have now had their second and final attempt (PROMPT-124 s1, no third attempt ruled). 2.4 failed: shortening the key left an absolute-word tell. 3.6 was not a length escape at all -- its cue is an absolute-word tell, which a length edit cannot address. Their task floors are 7, ruled PROMPT-124 s1."
 }

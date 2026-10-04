@@ -103,6 +103,13 @@ export function condNotRejected(id8, rejectedIds, file = "the director's rejecti
   if (rejectedIds.has(id8)) return { ok: false, why: "named in " + file };
   return { ok: true };
 }
+/**
+ * Is this row already in the state this script exists to produce? Then there is nothing to do and
+ * nothing to refuse. Extracted so the control exercises the routing rather than a copy of it.
+ */
+export function isAlreadyLive(q) {
+  return !!q && q.status === "approved";
+}
 /** Is this refusal reason a RECORDED DISPOSITION (tolerated in --cert mode) or a real failure? */
 export function isRecordedDisposition(why) {
   return /^verdict: review_verdict is |^not-rejected: named in |^withheld: /.test(String(why || ""));
@@ -154,6 +161,18 @@ export function approvalControls() {
     !isRecordedDisposition("resolves to 2 English bank row(s)"));
   ok("a withheld reason that does not use the prefix is NOT tolerated",
     !isRecordedDisposition("this item is withheld because of the cue guard"));
+
+  /* ALREADY APPROVED IS A NO-OP (PROMPT-124 s1), both directions through the real predicate. */
+  ok("an approved row is already live -- a no-op, not a promotion",
+    isAlreadyLive({ status: "approved" }));
+  ok("a pending_review row is NOT a no-op; it is what this script promotes",
+    !isAlreadyLive({ status: "pending_review" }));
+  ok("a draft row is NOT a no-op", !isAlreadyLive({ status: "draft" }));
+  ok("a missing row is NOT a no-op", !isAlreadyLive(null));
+  /* and the reason string must never become a tolerated refusal: that was the old shape, and it
+   * blocked 257 of 258 items on the first re-run after go-live */
+  ok("`already approved` is still NOT a recorded disposition",
+    !isRecordedDisposition("already approved -- nothing to do"));
 
   /* ---- THE --cert TOLERANCE, both directions. A gate failure must NEVER read as a disposition. ---- */
   ok("a reject verdict IS a recorded disposition",
@@ -312,7 +331,7 @@ if (!IDS) {
     qs.length + " live English row(s).");
 }
 
-const plan = [], refused = [];
+const plan = [], refused = [], noop = [];
 for (const id8 of IDS) {
   const hits = byStem.get(id8) || [];
   if (hits.length !== 1) { refused.push({ id8, why: "resolves to " + hits.length + " English bank row(s)" }); continue; }
@@ -330,7 +349,17 @@ for (const id8 of IDS) {
     if (!res.ok) { refused.push({ id8, why: name + ": " + res.why }); break; }
   }
   if (refused.some((r) => r.id8 === id8)) continue;
-  if (q.status === "approved") { refused.push({ id8, why: "already approved -- nothing to do" }); continue; }
+  /* ============ ALREADY APPROVED IS A NO-OP, NOT A REFUSAL (PROMPT-124 s1) ============
+   *
+   * This pushed onto `refused`, and "already approved" is deliberately NOT a recorded disposition,
+   * so the batch refused as a whole. The effect: once a --cert run succeeds, EVERY later run is
+   * blocked by its own earlier success -- 257 of 258 on the first re-run after go-live. The row is
+   * already in the state this script exists to produce; there is nothing to refuse.
+   *
+   * It stays out of `plan`, so nothing is written twice, and it is counted and reported. The
+   * withheld and rejection checks run BEFORE this, so an item that should never have been approved
+   * is still caught by name rather than excused as a no-op. */
+  if (isAlreadyLive(q)) { noop.push(id8); continue; }
   plan.push({ id8, q, g });
 }
 
@@ -388,6 +417,7 @@ const sibs = await getAll(KEY, "quiz_questions?select=id,question_group_id,langu
 console.log("");
 console.log("APPROVE " + IDS.length + " CANDIDATE ITEM(S)   " + CERT_CODE);
 console.log("  would approve   " + plan.length + " group(s) = " + plan.length * 3 + " row(s) across 3 language(s)");
+console.log("  already live    " + noop.length + " group(s) -- approved by an earlier run, nothing to do");
 console.log("  refused         " + refused.length);
 for (const r of refused) console.log("    " + r.id8 + "  " + r.why);
 {

@@ -127,7 +127,14 @@ writeFileSync(OUT, JSON.stringify({
     "pending_review in the live pool they fail verify-cert's 'All items approved' for a decided reason",
   rollback: "set retired_at = null on exactly these ids",
   count: target.length,
-  ids: target.map((r) => ({ id: r.id, language: r.language, item_id: null })),
+  /* THE ROW CARRIES ITS ITEM ID. This was `item_id: null`, so the recovery file could say which
+   * rows were retired but not which ITEM each belonged to -- and un-retiring one released item
+   * then had to re-derive the mapping from the database. Resolved through the group, because only
+   * the English row has a stem to hash. */
+  ids: target.map((r) => ({ id: r.id, language: r.language,
+    item_id: (enHits.find((e) => e.question_group_id === r.question_group_id) || {}).question_text
+      ? itemIdOfStem(enHits.find((e) => e.question_group_id === r.question_group_id).question_text)
+      : null })),
   items: enHits.map((r) => ({ item_id: itemIdOfStem(r.question_text),
     ruled_in: withheld.get(itemIdOfStem(r.question_text)).ruled_in,
     reason: withheld.get(itemIdOfStem(r.question_text)).reason })),

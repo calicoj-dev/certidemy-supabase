@@ -533,6 +533,47 @@
    ],
    "not_tried": [],
    "spend_usd": 12.2074
+  },
+  {
+   "ruled_in": "PROMPT-124 s1",
+   "cert": "ISMS-F",
+   "de_cued": [
+    {
+     "row": "348e62d6-6c47-42e7-a71f-478454bafefc",
+     "task": "5.2",
+     "what": "Tightened the key's wording and added operational detail to one distractor so the key is no longer the longest option, with every option's assertion unchanged.",
+     "key_before": 163,
+     "key_after": 137,
+     "solver": [
+      "accepted",
+      "accepted"
+     ]
+    }
+   ],
+   "failed": [],
+   "not_tried": [],
+   "spend_usd": 0.2254
+  },
+  {
+   "ruled_in": "PROMPT-124 s1",
+   "cert": "ISMS-F",
+   "_reconstructed": "This round RAN but was not recorded: the script exited on \"nothing to write\" before writing the record. Reconstructed from the run output in the same session, and the early exit is fixed so it cannot recur.",
+   "de_cued": [],
+   "failed": [
+    {
+     "row": "e7c84d2c",
+     "task": "2.4",
+     "why": "the cue guard still objects: absolute-word tell: every distractor uses an absolute, key does not"
+    }
+   ],
+   "not_tried": [
+    {
+     "row": "6e279ec1",
+     "task": "3.6",
+     "why": "the cue guard failure is NOT a length escape (absolute-word tell); this script only moves length"
+    }
+   ],
+   "spend_usd": 0.0547
   }
  ]
 }

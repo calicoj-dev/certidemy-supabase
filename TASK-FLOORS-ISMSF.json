@@ -1,12 +1,13 @@
 {
- "ruled": "2026-10-04, PROMPT-123 s3 (over PROMPT-118 s4, PROMPT-111 s2)",
+ "ruled": "2026-10-04, PROMPT-124 s1 (over PROMPT-123 s3, PROMPT-118 s4, PROMPT-111 s2)",
  "certification": "ISMS-F",
  "default_floor": 8,
  "why_this_file_exists": "THE ONE PLACE A PER-TASK FLOOR IS RECORDED for ISMS-F. Read by lib/task-floors.mjs, which verify-cert and check-task-map both call. An override with no `ruled_in` is an ERROR, not a pass.",
  "the_rule": {
   "derivation": "min(default_floor, 2 x effective primaries). The cap of 2 items per (source, edition, clause) per task is what makes 2 x effective the ceiling a task can hold.",
   "override": "A floor the derivation cannot produce, lowered by the director with the reason recorded. Named in every report that uses it, so a lowered floor can never pass as a met one.",
-  "temporary": "temporary: true means the task goes live BELOW its floor because the reason it is short is a defect being fixed, not a thin map. verify-cert reports it as a WARN and names it: never a pass, never a fail. It must carry a reason as well as a ruling -- lib/task-floors.mjs refuses one without either."
+  "temporary": "temporary: true means the task goes live BELOW its floor because the reason it is short is a defect being fixed, not a thin map. verify-cert reports it as a WARN and names it: never a pass, never a fail. It must carry a reason as well as a ruling -- lib/task-floors.mjs refuses one without either.",
+  "absolute_word_tell": "Two ISMS-F items are cued by an ABSOLUTE-WORD TELL rather than by length, which decue-stored-length.mjs cannot fix -- it only moves length. Removing a distractor absolute risks making the distractor true, so it is not a mechanical edit. Named here as the reason 2.4 and 3.6 sit at 7 rather than a thin map."
  },
  "per_task_overrides": {
   "_what": "Each entry is a director ruling with its reason. PROMPT-111 s2 ruled all five.",
@@ -49,6 +50,16 @@
    "floor": 7,
    "ruled_in": "PROMPT-123 s3",
    "reason": "Floor = held count. The post-R9 rule (ruled PROMPT-122 s5): a short task holding at least 2 takes its held count as its floor. R7-R9 each produced 0 for this task against an anchor cap of 2 per (source, edition, clause); the map cannot reach 8."
+  },
+  "2.4": {
+   "floor": 7,
+   "ruled_in": "PROMPT-124 s1",
+   "reason": "Map reaches 8; the only remaining candidate is cued and failed two de-cue attempts. The second attempt (PROMPT-124 s1) shortened the key successfully and the cue guard then refused it on an ABSOLUTE-WORD TELL -- every distractor uses an absolute and the key does not. No third attempt ruled. Item cb05360d stays withheld."
+  },
+  "3.6": {
+   "floor": 7,
+   "ruled_in": "PROMPT-124 s1",
+   "reason": "Map reaches 8; the only remaining candidate is cued and no length edit can clear it. Item 6e279ec1 is NOT a length escape at all (key 159 characters against a 151 rival, allowance 15): its cue is an ABSOLUTE-WORD TELL, which the PROMPT-121 s2b length method cannot address. Counted as its second and final attempt. No third attempt ruled."
   }
  },
  "map_changes_ruled_here": {

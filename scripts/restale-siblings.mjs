@@ -101,11 +101,24 @@ console.log("  deleted " + gone + " of " + victims.length);
 /* ---------------------------------------------------- POST-CONDITIONS */
 const after = await getAll(KEY, "quiz_questions?select=id,language,question_group_id,status,retired_at" +
   "&certification_id=eq." + cert.id + "&order=id");
-const left = after.filter((r) => r.question_group_id && groups.has(r.question_group_id) && r.language !== "en");
+/* ============ THE EXPECTATION IS PER DELETED ROW, NOT PER NAMED GROUP (PROMPT-124 s1) ============
+ *
+ * This counted every non-English sibling in every group named by --from and expected 0. Once some of
+ * those groups are APPROVED -- which this script deliberately refuses to touch -- the count can never
+ * reach 0, so a correct run reported A POST-CONDITION FAILED. It cried wolf on 90 rows it had just
+ * protected on purpose. A check that fails on correct work is as useless as one that passes on bad.
+ *
+ * What must be 0 is the siblings THIS RUN SET OUT TO DELETE and did not. */
+const targetedIds = new Set(victims.map((r) => r.id));
+const left = after.filter((r) => targetedIds.has(r.id));
+const protectedLeft = after.filter((r) => r.question_group_id && groups.has(r.question_group_id) &&
+  r.language !== "en" && !targetedIds.has(r.id));
 const englishLeft = after.filter((r) => named.has(r.id)).length;
 console.log("");
 console.log("POST-CONDITIONS");
-console.log("  siblings remaining in those groups   " + left.length + "   (expected 0)");
+console.log("  rows this run targeted that survive  " + left.length + "   (expected 0)");
+console.log("  siblings left alone on purpose       " + protectedLeft.length +
+  " (approved, or outside this run's target set)");
 console.log("  the ENGLISH rows are untouched       " + englishLeft + " of " + named.size);
 /* THE NEGATIVE HALF: no row outside those groups was deleted */
 const before = all.length, nowCount = after.length;

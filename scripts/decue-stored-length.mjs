@@ -39,19 +39,35 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { buildGateContext } from "./lib/gate-context.mjs";
+import { itemIdOfStem } from "./lib/item-id.mjs";
 import { auditItem, keyLengthEscape, CUE_CFG } from "../functions/_shared/item-rules/item-cue-guard.mjs";
 import { blindPayload, assertBlind, solverUser, solverVerdict, SOLVER_SYSTEM,
   blindSolverControls } from "./lib/blind-solver.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-let CERT = null, MAXUSD = null, LIMIT = 0, APPLY = false, PRINTED = false;
+let CERT = null, MAXUSD = null, LIMIT = 0, APPLY = false, PRINTED = false, IDS = [];
+/* which ruling authorised THIS round. It was hard-coded to PROMPT-121 s2b, so a later round
+ * recorded someone else's ruling against its own work. */
+let RULED = "PROMPT-121 s2b";
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
   let m = a.match(/^--cert=(.+)$/); if (m) { CERT = m[1]; continue; }
   m = a.match(/^--max-usd=([0-9.]+)$/); if (m) { MAXUSD = Number(m[1]); continue; }
   m = a.match(/^--limit=([0-9]+)$/); if (m) { LIMIT = Number(m[1]); continue; }
-  console.error("Unrecognised flag: " + a + ". Known: --cert=, --max-usd=, --limit=, --apply.");
+  /* ============ --ids: A NAMED SET, AND RETIRED ROWS ARE INCLUDED (PROMPT-124 s1) ============
+   *
+   * The default scope is the LIVE accepted rows, and it stays that way. But the items this flag
+   * exists for were retired OUT of the pool by PROMPT-123 s4 precisely because they are cued, so
+   * the default fetch cannot see them. Naming an id is a deliberate act, so a named id may be
+   * retired; nothing here changes `retired_at` either way -- releasing a cleared item is a
+   * separate, recorded step. A named id that does not become a candidate is REPORTED, never
+   * silently dropped. */
+  m = a.match(/^--ruled-in=(.+)$/); if (m) { RULED = m[1]; continue; }
+  m = a.match(/^--ids=(.+)$/);
+  if (m) { IDS = m[1].split(",").map((s) => s.trim()).filter(Boolean); continue; }
+  console.error("Unrecognised flag: " + a +
+    ". Known: --cert=, --max-usd=, --limit=, --ids=, --ruled-in=, --apply.");
   process.exit(2);
 }
 if (!CERT) { console.error("--cert=<CODE> is required."); process.exit(2); }
@@ -104,8 +120,9 @@ if (!cert) { console.error("no certification " + CERT); process.exit(2); }
 const ctx = await buildGateContext(KEY, CERT);
 const SEL = "id,question_text,options,correct_answer,explanation,task_id,language,status,pool," +
   "visibility,is_exam_scope,question_group_id,item_origin,difficulty,bloom_level,retired_at";
+/* a named set may include retired rows; the default scope is the live pool, unchanged */
 const rows = await getAll(KEY, "quiz_questions?select=" + SEL + "&certification_id=eq." + cert.id +
-  "&language=eq.en&retired_at=is.null&order=id");
+  "&language=eq.en" + (IDS.length ? "" : "&retired_at=is.null") + "&order=id");
 const grounding = new Map((await getAll(KEY, "item_grounding?select=question_id,review_verdict," +
   "source_id,edition,key_support_clause&order=question_id")).map((g) => [g.question_id, g]));
 const tasks = await getAll(KEY, "tasks?select=id,code");
@@ -113,16 +130,33 @@ const codeOf = new Map(tasks.map((t) => [t.id, t.code]));
 
 /* ---- the cued set: a grounded, accepted row whose ONLY gate failure is the cue guard on length ---- */
 const cued = [];
+const namedSkips = [];
 for (const r of rows) {
+  const id8 = itemIdOfStem(r.question_text);
+  const named = IDS.length > 0 && IDS.includes(id8);
+  if (IDS.length && !named) continue;
+  const note = (why) => { if (named) namedSkips.push(id8 + " (" + (codeOf.get(r.task_id) || "?") + "): " + why); };
   const g = grounding.get(r.id);
-  if (!g || g.review_verdict !== "accept") continue;
+  if (!g || g.review_verdict !== "accept") { note("grounding verdict is " + ((g && g.review_verdict) || "absent") + ", not accept"); continue; }
   let v;
-  try { v = ctx.gateRow(r); } catch { continue; }
-  if (v.passed) continue;
+  try { v = ctx.gateRow(r); } catch (e) { note("could not gate: " + String(e.message).slice(0, 60)); continue; }
+  if (v.passed) { note("already passes every gate -- nothing to de-cue"); continue; }
   const only = v.failed.length === 1 && v.failed[0] === "structure";
   const esc = keyLengthEscape(r, CUE_CFG);
-  if (!only || !esc || !esc.escaped) continue;
-  cued.push({ r, g, esc, task: codeOf.get(r.task_id) });
+  if (!only) { note("fails more than the cue guard: [" + v.failed.join(",") + "] -- a length edit cannot fix that"); continue; }
+  if (!esc || !esc.escaped) { note("the cue guard failure is NOT a length escape; this script only moves length"); continue; }
+  cued.push({ r, g, esc, task: codeOf.get(r.task_id), retired: r.retired_at !== null });
+}
+/* A NAMED ID THAT PRODUCED NOTHING IS A RESULT, not an omission. */
+if (IDS.length) {
+  const got = new Set(cued.map((c) => itemIdOfStem(c.r.question_text)));
+  const missing = IDS.filter((i) => !got.has(i));
+  console.log("");
+  console.log("NAMED SET: " + IDS.length + " id(s), " + cued.length + " candidate(s)");
+  for (const s of namedSkips) console.log("  SKIPPED  " + s);
+  const unseen = missing.filter((i) => !namedSkips.some((s) => s.startsWith(i)));
+  for (const i of unseen) console.log("  SKIPPED  " + i + ": no live English row resolves to this id");
+  if (!cued.length) { console.log("No named id is a de-cue candidate."); process.exit(0); }
 }
 console.log("");
 console.log("DE-CUE STORED LENGTH   " + CERT + (APPLY ? "   --apply" : "   dry run (default)") +
@@ -210,7 +244,31 @@ console.log("  de-cued " + fixed.length + "   failed " + failed.length + "   not
 for (const f of failed) console.log("      FAILED  " + f.r.id.slice(0, 8) + "  " + f.task + "  " + f.why);
 console.log("  spend $" + usd().toFixed(4) + " over " + CALLS + " call(s), ceiling $" + MAXUSD);
 if (!APPLY) { console.log(""); console.log("DRY RUN. Nothing written and no call made. Re-run with --apply."); process.exit(0); }
-if (!fixed.length) { console.log("Nothing to write."); process.exit(0); }
+
+/* ============ THE RECORD IS WRITTEN EVEN WHEN NOTHING CLEARS (PROMPT-124 s1) ============
+ *
+ * This used to `exit(0)` on "nothing to write", BEFORE the round was recorded -- so a round in
+ * which every item failed left no trace, which is precisely the round whose history matters: the
+ * ruling is ONE attempt each, and a second attempt can only be refused if the first is on record.
+ * Found when a failed PROMPT-124 attempt on task 2.4 did not appear in ISMSF-DECUED.json. */
+const recPath = join(ROOT, CERT.replace(/-/g, "") + "-DECUED.json");
+const writeRecord = (written) => {
+  const rec = existsSync(recPath) ? JSON.parse(readFileSync(recPath, "utf8")) : { rounds: [] };
+  rec.rounds.push({ ruled_in: RULED, cert: CERT,
+    de_cued: written.map(({ f }) => ({ row: f.r.id, task: f.task, what: f.what,
+      key_before: f.esc.keyLen, key_after: f.esc2.keyLen, solver: f.solver })),
+    failed: failed.map((f) => ({ row: f.r.id, task: f.task, why: f.why })),
+    not_tried: notTried.map((f) => ({ row: f.r.id, task: f.task, why: f.why })),
+    spend_usd: Number(usd().toFixed(4)) });
+  writeFileSync(recPath, JSON.stringify(rec, null, 1) + "\n");
+  console.log("  recorded in " + recPath.split(/[\\/]/).pop() +
+    " (" + written.length + " cleared, " + failed.length + " failed, " + notTried.length + " not tried)");
+};
+if (!fixed.length) {
+  console.log("Nothing to write.");
+  writeRecord([]);
+  process.exit(0);
+}
 
 const written = [];
 for (const f of fixed) {
@@ -248,16 +306,7 @@ console.log("  options changed, key and every other named column unchanged, cue 
   (bad ? bad + " VIOLATION(S)" : "all " + written.length + " rows"));
 
 /* the record, so the siblings can be re-translated and the round is auditable */
-const recPath = join(ROOT, CERT.replace(/-/g, "") + "-DECUED.json");
-const rec = existsSync(recPath) ? JSON.parse(readFileSync(recPath, "utf8")) : { rounds: [] };
-rec.rounds.push({ ruled_in: "PROMPT-121 s2b", cert: CERT,
-  de_cued: written.map(({ f }) => ({ row: f.r.id, task: f.task, what: f.what,
-    key_before: f.esc.keyLen, key_after: f.esc2.keyLen, solver: f.solver })),
-  failed: failed.map((f) => ({ row: f.r.id, task: f.task, why: f.why })),
-  not_tried: notTried.map((f) => ({ row: f.r.id, task: f.task, why: f.why })),
-  spend_usd: Number(usd().toFixed(4)) });
-writeFileSync(recPath, JSON.stringify(rec, null, 1) + "\n");
-console.log("  recorded in " + recPath.split(/[\\/]/).pop());
+writeRecord(written);
 console.log("");
 console.log("  THE SIBLINGS ARE NOW STALE on " + written.length + " item(s). Re-translate them.");
 if (bad) process.exitCode = 2;
