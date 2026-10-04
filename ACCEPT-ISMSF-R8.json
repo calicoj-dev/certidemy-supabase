@@ -1,0 +1,17 @@
+{
+  "_what": "PROMPT-122 s1: 2 of the 6 R8 survivors. Three of the four rejects are same-task, same-fact restatements of already-accepted items; the fourth is certification-body procedure.",
+  "accepts": [
+    {
+      "item_id": "1ce959cf",
+      "report_number": 2,
+      "task": "4.8",
+      "note": "accepted PROMPT-122 s1 (#2) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4) | options probe not run (withdrawn, PROMPT-117 s2)"
+    },
+    {
+      "item_id": "70455be4",
+      "report_number": 5,
+      "task": "5.6",
+      "note": "accepted PROMPT-122 s1 (#5) | gated with the cue guard LIVE at generation (fixed PROMPT-120 s4) | options probe not run (withdrawn, PROMPT-117 s2) | 5.6 asked from the CUSTOMER's side, which is the angle TASK-WRITER-NOTES asks for"
+    }
+  ]
+}

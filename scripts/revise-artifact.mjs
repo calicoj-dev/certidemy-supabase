@@ -39,6 +39,7 @@ import { fileURLToPath } from "node:url";
 import { requireKey } from "./_pg.mjs";
 import { buildGateContext } from "./lib/gate-context.mjs";
 import { runCodeGates } from "./lib/grounded-gates.mjs";
+import { itemIdOfStem } from "./lib/item-id.mjs";
 import { blindPayload, assertBlind, solverUser, solverVerdict, SOLVER_SYSTEM,
   blindSolverControls } from "./lib/blind-solver.mjs";
 
@@ -248,7 +249,11 @@ for (const { kind, r } of work) {
     sequenceGaps: [...ctx.sequenceGaps, ...ctx.declaredGaps], cert: CERT, cueCfg: ctx.cueCfg,
     primaryClauses: map.primary, supportingClauses: map.supporting,
     sources: ctx.sources, leak: ctx.leak,
-    liveStemsForTask: (ctx.liveByTask && ctx.liveByTask.get(ctx.taskIdOfCode.get(it.task_code))) || [],
+    /* AN ALREADY-INSERTED ITEM IS NOT ITS OWN DUPLICATE. e723f8f3 is live, so liveStemsForTask
+     * carried its own stem and near-duplicate refused it against itself (PROMPT-122 s1). Excluded by
+     * STEM IDENTITY, which is the only join available here -- the artifact has no row id. */
+    liveStemsForTask: ((ctx.liveByTask && ctx.liveByTask.get(ctx.taskIdOfCode.get(it.task_code))) || [])
+      .filter((x) => itemIdOfStem(x.stem) !== itemIdOfStem(o.question_text)),
     assignedAnchor: it.assigned || null });
   console.log("");
   console.log("  " + r.item_id + " (#" + n + ")   " + what + "   anchor " + o.key_support_clause +

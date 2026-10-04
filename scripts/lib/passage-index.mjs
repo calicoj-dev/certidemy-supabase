@@ -26,13 +26,42 @@ export function makePassageIndex(passages) {
   }
   if (!byKey.size) throw new Error("makePassageIndex: the library is empty; every gate would be UNASSERTED");
 
+  /* ============ CASE IS NOT PART OF AN ADDRESS (PROMPT-122 s2) ============
+   *
+   * Since normClause stopped stripping non-ISO scheme words, a clause key can be a WORD: `MANAGE 4.3`,
+   * `Recital 111`, `Art. 55(1)`. The writer is told to cite them exactly and does, but an exact-case
+   * Map lookup makes `manage 4.3` a different passage from `MANAGE 4.3` -- and a case difference is not
+   * a different clause of a standard.
+   *
+   * So the lookup falls back to a case-folded key. EXACT MATCH IS TRIED FIRST, so nothing about ISO
+   * addresses changes; the fold only ever rescues a miss. A fold that collided with a DIFFERENT held
+   * clause would be a real hazard, so the folded map is built only where the fold is unambiguous and
+   * the collisions are counted. */
+  const foldedBy = new Map();
+  for (const [se, m] of clausesBy) {
+    const folded = new Map(), clash = new Set();
+    for (const k of m.keys()) {
+      const fk = String(k).toLowerCase().replace(/\s+/g, " ").trim();
+      if (folded.has(fk) && folded.get(fk) !== k) clash.add(fk);
+      folded.set(fk, k);
+    }
+    for (const fk of clash) folded.delete(fk);   /* ambiguous: no fallback rather than a guess */
+    foldedBy.set(se, folded);
+  }
   const view = (sourceId, edition) => {
     const se = String(sourceId) + "|" + String(edition);
     const m = clausesBy.get(se) || new Map();
+    const folded = foldedBy.get(se) || new Map();
+    const resolve = (clause) => {
+      const k = String(clause);
+      if (m.has(k)) return k;
+      const fk = k.toLowerCase().replace(/\s+/g, " ").trim();
+      return folded.has(fk) ? folded.get(fk) : null;
+    };
     return {
       source_id: sourceId, edition, size: m.size, scoped: true,
-      get: (clause) => m.get(String(clause)) || undefined,
-      has: (clause) => m.has(String(clause)),
+      get: (clause) => { const k = resolve(clause); return k === null ? undefined : m.get(k); },
+      has: (clause) => resolve(clause) !== null,
       keys: () => m.keys(),
       /* the full key, for a report or a cap census */
       keyOf: (clause) => passageKey(sourceId, edition, clause),
@@ -43,8 +72,12 @@ export function makePassageIndex(passages) {
     size: byKey.size,
     byKey,
     pairs: () => [...clausesBy.keys()].map((se) => { const p = parseKey(se + "|x"); return { source_id: p.source_id, edition: p.edition, count: clausesBy.get(se).size }; }),
-    get: (sourceId, edition, clause) => byKey.get(passageKey(sourceId, edition, clause)),
-    has: (sourceId, edition, clause) => byKey.has(passageKey(sourceId, edition, clause)),
+    /* the UNSCOPED getters route through the scoped view so they inherit the case-folded fallback:
+     * two lookups of the same address disagreeing by case is the kind of split this file exists to stop. */
+    get: (sourceId, edition, clause) => byKey.get(passageKey(sourceId, edition, clause)) ||
+      view(sourceId, edition).get(clause),
+    has: (sourceId, edition, clause) => byKey.has(passageKey(sourceId, edition, clause)) ||
+      view(sourceId, edition).has(clause),
     for: view,
     /* A scoped view for an ITEM, from its own grounding. An item with no source is an error, not a
      * default -- defaulting is how the collision was reachable. */

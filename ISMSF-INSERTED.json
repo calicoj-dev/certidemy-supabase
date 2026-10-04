@@ -2463,6 +2463,46 @@
      "source": "ISO/IEC 27002"
     }
    ]
+  },
+  {
+   "at": "2026-10-04T10:02:21.974Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R8",
+   "accept_list": "ACCEPT-ISMSF-R8.json",
+   "note": "",
+   "ids": [
+    "0a00471e-e886-4ead-a024-8f5073f80f68"
+   ],
+   "rows": [
+    {
+     "id": "0a00471e-e886-4ead-a024-8f5073f80f68",
+     "item_id": "1ce959cf",
+     "report_number": 2,
+     "task": "4.8",
+     "anchor": "5.23",
+     "source": "ISO/IEC 27002"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-04T10:02:25.433Z",
+   "cert": "ISMS-F",
+   "from": "ISMSF-R8",
+   "accept_list": "ACCEPT-ISMSF-R8.json",
+   "note": "",
+   "ids": [
+    "b466058f-c94e-46f1-abb2-5ca55e62247e"
+   ],
+   "rows": [
+    {
+     "id": "b466058f-c94e-46f1-abb2-5ca55e62247e",
+     "item_id": "70455be4",
+     "report_number": 5,
+     "task": "5.6",
+     "anchor": "5.1.3",
+     "source": "ISO/IEC 17021-1"
+    }
+   ]
   }
  ]
 }

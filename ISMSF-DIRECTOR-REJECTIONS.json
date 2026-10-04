@@ -52,6 +52,15 @@
       "read": 25,
       "accepted": 23,
       "rejected": 2
+    },
+    {
+      "artifact": "ISMSF-R8",
+      "report": "ISMSF-ROLLOUT-R8.md",
+      "ruled": "2026-10-04, PROMPT-122 s1",
+      "read": 6,
+      "accepted": 2,
+      "rejected": 4,
+      "note": "The round whose four empty tasks turned out to be a normClause defect (1.6, 1.7), a one-sentence amendment passage (2.3) and unheld container clauses (5.5) -- not generation."
     }
   ],
   "note": "R1's 21 accepts = the 20 numbered accepts plus the item R1 code-rejected on modal-fidelity, which PROMPT-114 s3 ruled a false positive: the item's 'ought to' is not a claim about the standard. The narrowed gate now passes it.",
@@ -238,6 +247,42 @@
       "anchor": "ISO/IEC 17021-1 8.3.2",
       "why": "RULED reject (PROMPT-121 s1): marks on calibration certificates: the same ruling as R6 #3, too obscure for Foundation",
       "ruled_in": "PROMPT-121 s1"
+    },
+    {
+      "item_id": "dee488b7",
+      "artifact": "ISMSF-R8",
+      "report_number": 1,
+      "task": "4.4",
+      "anchor": "ISO/IEC 27001 A.5.9",
+      "why": "RULED reject (PROMPT-122 s1): the same task and fact as R1 #16 -- the inventory records AI components with owners",
+      "ruled_in": "PROMPT-122 s1"
+    },
+    {
+      "item_id": "3f0671b1",
+      "artifact": "ISMSF-R8",
+      "report_number": 3,
+      "task": "4.8",
+      "anchor": "ISO/IEC 27002 5.22",
+      "why": "RULED reject (PROMPT-122 s1): the same task and fact as R7 #8 -- keep monitoring the provider through model and sub-processor changes",
+      "ruled_in": "PROMPT-122 s1"
+    },
+    {
+      "item_id": "9fe5d6f0",
+      "artifact": "ISMSF-R8",
+      "report_number": 4,
+      "task": "5.3",
+      "anchor": "ISO/IEC 27001 9.3.3",
+      "why": "RULED reject (PROMPT-122 s1): the same task and fact as R4 #34 -- review results are decisions on improvement and changes, kept as evidence",
+      "ruled_in": "PROMPT-122 s1"
+    },
+    {
+      "item_id": "36adb74a",
+      "artifact": "ISMSF-R8",
+      "report_number": 6,
+      "task": "5.6",
+      "anchor": "ISO/IEC 17021-1 8.2.1",
+      "why": "RULED reject (PROMPT-122 s1): how a certificate is delivered is trivial, and it is certification-body procedure",
+      "ruled_in": "PROMPT-122 s1"
     }
   ],
   "why_near_duplicates_reached_a_survivor_list": "gateNearDuplicate compares STEMS, and these pairs differ in their stems while asserting the same fact from the same anchor. That blindness is recorded in CLAUDE.md s13: the same answer with a different stem is invisible to it. The anchor cap of 2 per (source, edition, clause) per task is what bounds the damage, and it allowed exactly these two pairs.",

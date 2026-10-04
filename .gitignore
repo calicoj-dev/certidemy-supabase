@@ -200,3 +200,8 @@ ISMSF-RESTALE-RECOVERY.json
 # index because the pattern was round-specific -- the same mistake as ISMSF-R6.
 *-TRANSLATION-*.json
 *-TRANSLATION-*.json.partial.jsonl
+# A REVISE spec with a requotes block carries VERBATIM key_support, which is licensed text.
+# GENERIC on purpose: REVISE-118 was named individually and REVISE-122/122B then reached the index
+# the same way. Already-tracked REVISE-116/119 stay tracked -- their edits were our own prose and
+# check-licensed-text passes them; gitignore only governs untracked files.
+REVISE-*.json

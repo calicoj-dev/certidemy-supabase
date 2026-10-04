@@ -319,14 +319,65 @@ export function gateVerbatim(item, passagesByKey, resolveAnchor = null) {
  * So the address is now FOUND anywhere in the string, after an optional `clause`/`annex`/`control`
  * word. A leading document designation is skipped, because `ISO/IEC 42006` would otherwise donate
  * its `42006` as the address -- which is why the scan starts after the last such designation. */
+/* ============ ANOTHER SCHEME'S ADDRESS IS NOT AN ISO ADDRESS ============
+ *
+ * Ruled PROMPT-122 s2, and MEASURED on R7 and R8: task 1.6 produced 0 survivors of 16 across two
+ * rounds because this function threw its addresses away. `MANAGE 4.3` became `4.3`, `Recital 111`
+ * became `111`, `Art. 55(1)` became `55` -- and none of those is a held address, so `clause-exists`
+ * could never pass however correct the item was.
+ *
+ * THE WRITER NOTE MADE IT WORSE, WHICH IS HOW IT WAS FOUND. PROMPT-121 s3 told the writer to cite
+ * those addresses exactly as written; it complied, and clause-exists went from 6 of 8 to 7 of 8.
+ *
+ * The library holds five schemes whose addresses are NOT ISO-shaped:
+ *
+ *   NIST AI RMF      GOVERN 1.2, MAP 5.1, MEASURE 1, MANAGE 4.3
+ *   EU AI Act        Art. 55(1), Recital 111, Annex VII
+ *   Scrum Guide      The Sprint, Commitment: Definition of Done      (prose; already survived)
+ *   EBM Guide        Customer Cycle Time, Change Failure Rate       (prose; already survived)
+ *   ITIL 4           ISO-shaped, unaffected
+ *
+ * The prose ones survived only because they contain no digits and fell through to the final return.
+ * The scheme-prefixed ones did not.
+ *
+ * ============ THE RULE, AND WHY IT IS GENERAL RATHER THAN A LIST ============
+ *
+ * A leading WORD followed by a number means the word is PART OF THE ADDRESS, so the whole thing is
+ * kept. An ISO anchor word -- clause, annex, control -- is the one case where the word is NOT part of
+ * the address, and those keep their current behaviour. A list of scheme names would need editing
+ * every time the corpus grows, and the first source nobody edited it for would fail silently.
+ *
+ * Whitespace is collapsed. CASE IS NOT CHANGED here: the output is compared against the library's own
+ * clause string, and the case-insensitive half of the ruling lives in the passage index's lookup,
+ * where the two strings actually meet.
+ */
+const ISO_ANCHOR_WORD = /^(?:clause|subclause|annex|control|section|table|figure)\b/i;
+/* a word, then whitespace, then a digit (optionally parenthesised): the word belongs to the address */
+const SCHEME_PREFIXED = /^[A-Za-z][A-Za-z.]*\s+\(?\d/;
+
 export function normClause(c) {
-  let s = String(c || "").trim();
+  const raw = String(c || "").trim();
+  let s = raw;
   /* drop a leading document designation so its digits cannot be read as the address */
   s = s.replace(/^(?:BS\s+)?(?:EN\s+)?ISO(?:\/IEC)?(?:\/IEEE)?\s*\d+(?:[-:]\d+)*(?::\d{4})?\s*/i, "");
+  /* a non-ISO scheme's address is kept WHOLE */
+  if (!ISO_ANCHOR_WORD.test(s) && SCHEME_PREFIXED.test(s)) return s.replace(/\s+/g, " ").trim();
   /* an explicit anchor word wins: `clause 9.2`, `Annex A.5`, `control A.8.16` */
-  const anchored = /\b(?:clause|subclause|annex|control|section)\s+([A-Z]?\.?\d+(?:\.\d+){0,3})/i.exec(s);
-  const m = anchored || /([A-Z]?\.?\d+(?:\.\d+){0,3})/.exec(s);
-  if (!m) return String(c || "").trim();
+  /* ============ DEPTH 7, NOT 4 ============
+   *
+   * ISO/IEC 17021-1 holds SIXTEEN five-level clauses -- 9.6.3.2.5, 9.6.3.1.3, 9.3.1.2.1 -- and {0,3}
+   * truncated every one of them to four levels: 9.6.3.2.5 became 9.6.3.2, which is an unheld CONTAINER.
+   * So any item anchored on one failed `clause-exists` while its passage sat in the library.
+   *
+   * MEASURED PROMPT-122 s2: this, and not "container clauses the library does not hold", is why task
+   * 5.5 produced nothing in two rounds. The same truncating-normaliser defect as the non-ISO schemes
+   * above, found by the same control.
+   *
+   * The pattern matches digits and dots only, so a deeper bound cannot swallow prose: "9.1. The
+   * organization" still yields 9.1, because a dot must be followed by a digit to continue. */
+  const anchored = /\b(?:clause|subclause|annex|control|section)\s+([A-Z]?\.?\d+(?:\.\d+){0,6})/i.exec(s);
+  const m = anchored || /([A-Z]?\.?\d+(?:\.\d+){0,6})/.exec(s);
+  if (!m) return raw;
   return m[1].replace(/^\./, "").replace(/^([A-Z])(\d)/, "$1.$2");
 }
 

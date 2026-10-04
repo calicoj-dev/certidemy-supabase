@@ -1,0 +1,15 @@
+{
+  "_what": "PROMPT-122 s3, CORRECTED. The ruling was to add 27001:2022 4.1 and 4.2 to task 2.3 as SUPPORTING, on the understanding that they were not on the map. THEY WERE ALREADY PRIMARIES. Applying the ruling literally DEMOTED them, which took task 2.3 from 4 effective primaries to 2 and made it `too_thin` -- the opposite of widening. This file restores them to primary.",
+  "_what_the_2_3_failure_actually_IS": "R8's 2.3 items failed `verbatim` on distractors 0, 1 and 2 against clause 4.1 while the KEY was fine. The item's own (source, edition) is `ISO/IEC 27001 2022/Amd1:2024`, because that is where the key anchors -- and a distractor citing `4.1` is therefore resolved against the AMENDMENT's 4.1, a 21-word sentence, not against 27001:2022's 4.1. The 2022 rows were already on the map and still unreachable, because distractor support resolves within the ITEM'S edition. Role was never the problem; EDITION is. Fixing it means either the writer giving each distractor support an explicit source and edition, or the gate trying the task's other mapped editions -- neither of which is a map change.",
+  "map_rounds": [
+    {
+      "task": "2.3",
+      "role": "primary",
+      "ruled": "PROMPT-122 s3 (restoring what this prompt's first attempt demoted)",
+      "clauses": [
+        ["ISO/IEC 27001", "2022", "4.1"],
+        ["ISO/IEC 27001", "2022", "4.2"]
+      ]
+    }
+  ]
+}
