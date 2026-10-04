@@ -882,3 +882,123 @@ number about a pool the run is not simulating. It is refused outright with `--ap
 
 **40 of 49 at floor, 8 short by 17 items, 1 too thin (3.5).** R8's 6 survivors, once read, close 4.4,
 4.8, 5.3 and 5.6 -- taking it to **44 of 49, 4 short by 14 items**, and those 4 are the tasks above.
+
+## PROMPT-122: the normaliser was throwing away two families of address
+
+**2026-10-04.** Bank state: **260 inserted English rows** (R1 21, R2 25, R3 49, R4 53, R5 67, R6 20,
+R7 23, R8 2) with 520 siblings, all `pending_review`. **44 of 49 tasks at floor** once R9 and the
+rescues are read.
+
+### s1 -- R8 verdicts, and e723f8f3 solved at last
+
+#2 and #5 inserted (`ACCEPT-ISMSF-R8.json`), #1/#3/#4/#6 added to
+`ISMSF-DIRECTOR-REJECTIONS.json` -- 24 rejections over 7 rounds. `e723f8f3` solved twice,
+**accepted/accepted**, verdict recorded; **live null-solver rows are now 0**.
+
+Its near-duplicate failure was **self-duplication**: the item is live, so `liveStemsForTask` carried
+its own stem and it was its own rival. `revise-artifact.mjs` now excludes self by stem identity, which
+is what the stored path already did by row id.
+
+### s2 -- normClause truncated TWO families, and the second one was the live wound
+
+| what was thrown away | example | consequence |
+|---|---|---|
+| non-ISO scheme vocabulary | `MANAGE 4.3` -> `4.3`, `Recital 111` -> `111`, `Art. 55(1)` -> `55` | tasks 1.6 and 1.7, diagnosed in PROMPT-121 |
+| **ISO depth beyond four levels** | `9.6.3.2.5` -> `9.6.3.2` | **task 5.5** -- ISO/IEC 17021-1 holds **16 five-level clauses** |
+
+**The second one is why 5.5 produced nothing, not "container clauses the library does not hold."** That
+sentence was true of 9.6.2.1, 9.6.3.1 and 9.6.3.2 and irrelevant: the items need the five-level leaves
+*beneath* those containers, and those were held all along. R9 then produced 2 survivors for 5.5 on
+`9.6.3.1.2` and `9.6.3.1.1` -- the fix is what produced them.
+
+Both fixed in one rule rather than a list of scheme names, because the first source nobody updated the
+list for would fail silently: **a leading word followed by a digit means the word is part of the
+address**, and the depth bound is 7. Case is handled where the two strings actually meet -- a
+case-folded fallback in the passage index, exact match tried first, and **an ambiguous fold gets no
+fallback rather than a guess**. 13 normaliser controls, 94 gate controls, 11 index controls.
+
+**The re-gate diff took two passes to be worth anything.** Comparing the verdict *recorded at
+generation* against today's gates reported **68 pass->fail, and not one of them was this change** --
+they were the cue guard revived in PROMPT-120 and the passage repairs from PROMPT-116. **A diff against
+"generation time" conflates every change since.** Isolated properly, by re-gating only the items whose
+normalised ADDRESS moved: **32 addresses changed, 2 verdicts moved, both fail->pass, ZERO pass->fail.**
+The ruling's expected answer for ISO-anchored items was zero changes, and that is what it got.
+
+Rescued and solved: **2 on task 1.7, 1 on 5.5** (`9.6.3.2.4`). **1.6 rescued 0 of 8** -- the normaliser
+was necessary there and not sufficient; those items also fail `verbatim` and `reproduction` against EU
+AI Act and NIST prose, which is not an address problem.
+
+### s3 -- APPLIED AS RULED IT MADE THINGS WORSE, AND I REVERTED IT
+
+27001:2022 4.1 and 4.2 were **already primaries** of task 2.3, so adding them "as supporting" demoted
+them: effective primaries **4 -> 2** and the task flipped to `too_thin`. Restored, and
+`MAP-122.json` records why.
+
+**The real cause is EDITION, not role.** The item's own grounding edition is Amd1:2024, so a distractor
+citing 4.1 resolves against the amendment's 21-word sentence and can never reach 27001:2022's 4.1.
+Open: either distractor support carries an explicit source+edition, or the gate tries the task's other
+mapped editions. Either is a decision, not a repair.
+
+### s4 -- R9, the last round
+
+27 attempted, 27 generated, **3 survivors**, **$9.64 of $15**. 2 writer retries recovered 13 items.
+
+| task | survivors | the gates that refused the rest |
+|---|---|---|
+| 1.6 | 0 of 8 | **reproduction 8**, structure 5, clause-exists **1** (was 7 of 8 in R8) |
+| 1.7 | 1 of 5 | structure 3, reproduction 3 |
+| 2.3 | 0 of 6 | **verbatim 6**, structure 2 |
+| 4.4 | 0 of 1 | modal-fidelity, structure, reproduction |
+| 5.3 | 0 of 1 | structure |
+| 5.5 | **2 of 6** | structure 4, clause-exists 1, verbatim 1 |
+
+**1.6's clause-exists went 7 of 8 -> 1 of 8: the normaliser fix did its work.** What replaced it is
+`reproduction`, 8 of 8 -- the EU AI Act and NIST AI RMF are *prose*, and a writer staying close enough
+to be verbatim-supportable overshoots the 9-word served-text run. That is a different problem from the
+one that was fixed, and it is not a generation problem either.
+
+### s5 -- the floors
+
+**I did not carry out the 5.5 ruling.** It was ruled on my own diagnosis that 5.5's remaining
+sub-clauses were unheld containers, and s2 disproved that premise in the same prompt. Lowering a floor
+on a disproved reason is the wrong direction; 5.5 reaches 8 and stays at 8.
+
+The post-R9 rule, computed (`scripts/explain-thin-task.mjs` + stage 3):
+
+| task | floor | held | awaiting a read | would hold | outcome |
+|---|---|---|---|---|---|
+| 1.7 | 4 | 1 | 3 | **4** | at floor |
+| 5.5 | 8 | 5 | 3 | **8** | at floor |
+| 4.4 | 8 | 7 | 0 | 7 | floor -> **7**, `ruled_in: PROMPT-123` |
+| 5.3 | 8 | 7 | 0 | 7 | floor -> **7**, `ruled_in: PROMPT-123` |
+| **1.6** | 4 | **0** | 0 | 0 | **BACK BY NAME** |
+| **2.3** | 4 | **1** | 0 | 1 | **BACK BY NAME** |
+
+So **46 of 49 at floor** once the rule is applied, 2 by name, and 3.5 `too_thin` (a map label, not a
+shortfall). 1.6 holds nothing at all, which makes it a question about whether a Foundation task can be
+examined from prose sources, not a question about a floor.
+
+### s6 -- the go-live dry runs, read-only
+
+| | |
+|---|---|
+| approval | **252 of 260 groups = 756 rows** across 3 languages. The 8 refusals are all `structure` -- the de-cue leftovers. `anchor-assignment` UNASSERTED on 252 of 252, reported rather than counted clean |
+| cutover, `--assume-approved` | **403 rows per language remain**, 0 target rows not in the live pool, **0 duplicate stems** over 403 identities, **20/20 forms** in all three languages (smallest 40), 744 rows retired |
+| verify-cert | **56 pass, 1 fail, 2 warn.** The only fail is "780 not approved", which approval clears. s8.1 passes |
+
+### Cost, now complete
+
+`PIPELINE-METRICS.json` recorded R1 and R2 and then stopped. All nine rounds are in it now, derived
+from the artifacts' own `spend` blocks with the per-role split: **$167.14 on generation, $215.86 across
+every instrumented ISMS-F stage.** R6 is the Sonnet experiment and is labelled as such.
+
+### Open, carried forward
+
+- **Nothing checks the ENGLISH explanation for letter references at generation.** `explanationOptionRef`
+  runs only on translations, and `options_fixed_order` is false, so a reshuffle repoints the letter.
+  Caught by hand twice (PROMPT-118, PROMPT-121).
+- Task 2.3's distractor support is an **edition** scoping problem (s3 above).
+- Task 1.6 fails `reproduction` 8 of 8 against prose sources; it holds 0 items.
+- 8 `structure` refusals block approval: 4 de-cue failures, 4 with a second gate failure too.
+- 17 kept-item modal-drift findings for the post-cutover repair (ruled PROMPT-118 s4).
+- The PROMPT-104 container-citation backlog item.
