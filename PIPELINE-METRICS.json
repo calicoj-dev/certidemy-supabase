@@ -382,6 +382,16 @@
       "seconds": 4,
       "note": null,
       "recorded_at": "2026-10-05T01:30:47.769Z"
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 3,
+      "note": null,
+      "recorded_at": "2026-10-05T02:07:20.475Z"
     }
   ],
   "costs_usd": [
@@ -918,7 +928,7 @@
           "rejected_quality": 0,
           "rejected_duplicate_of_live": 8,
           "withheld_twins": 2,
-          "quality_reject_rate": 0.0
+          "quality_reject_rate": 0
         },
         "claude-opus-5": {
           "read": 3,
@@ -931,6 +941,72 @@
       "tripwire_evaluated": {
         "verdict": "NOT TRIPPED",
         "reason": "RULED PROMPT-130 s1. Sonnet quality rejects are 0 of 54. All 8 rejections duplicate a live item, and duplication is now the whole of the waste -- which is what the PROMPT-130 s3 semantic judge addresses."
+      }
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 4,
+      "stage_name": "generation R5",
+      "usd": 20.4484,
+      "ceiling": 30,
+      "attempted": 100,
+      "generated": 97,
+      "survivors": 55,
+      "design": "25 tasks. 3.7, 4.7 and 4.8 on claude-opus-5 after their tripwires, each with a PROMPT-130 s4 task note; the other 22 on claude-sonnet-5-5.",
+      "by_writer": {
+        "claude-sonnet-5-5": {
+          "tasks": 22,
+          "asked": 88,
+          "generated": 85,
+          "survivors": 51,
+          "survival_of_generated": 0.6,
+          "usd": 13.4284,
+          "usd_per_survivor": 0.2633,
+          "retries": 0
+        },
+        "claude-opus-5": {
+          "tasks": 3,
+          "asked": 12,
+          "generated": 12,
+          "survivors": 4,
+          "survival_of_generated": 0.333,
+          "usd": 7.02,
+          "usd_per_survivor": 1.755,
+          "retries": 2,
+          "per_task": {
+            "3.7": "2 of 4 (was 0 of 4 on Sonnet)",
+            "4.8": "2 of 4 (was 0 of 4 on Sonnet)",
+            "4.7": "0 of 4, THIRD consecutive round"
+          }
+        }
+      },
+      "judge": {
+        "ran": true,
+        "pairs": 113,
+        "judged": 113,
+        "flagged": 12,
+        "usd": 4.4456,
+        "control": "20 of 24 positives, 12 percent false positives -- cleared the PROMPT-130 s3 bar",
+        "note": "Flag-only. The spend is instrument spend and sits outside the generation ceiling."
+      },
+      "already_tested_block": {
+        "prompts_with_a_block": 23,
+        "prompts_total": 25,
+        "average_lines": 4.9,
+        "rule": "per-anchor cap of 2, ceiling 10 (PROMPT-130 s2)"
+      },
+      "tripwire": {
+        "new_hits": [
+          "3.3 (0 of 4, Sonnet)",
+          "4.7 (0 of 4, OPUS -- third round)"
+        ],
+        "note": "4.7 is not a writer or model problem. The PROMPT-130 s4 note WORKED -- distractors now cite 4.3 and 6.1.1 as instructed -- and what remains is two items citing ISO 19011 4.1, a source 4.7 does not map, confused with 27001 4.1, plus two keys not verbatim. A clause number shared between two held standards."
+      },
+      "remaining_shortfall_after": {
+        "items": 133,
+        "tasks": 37,
+        "at_floor": 0,
+        "too_thin": 1
       }
     }
   ],
@@ -1247,17 +1323,18 @@
     },
     "ISMS-IA": {
       "_what": "IN PROGRESS. Recorded PROMPT-130 s7.",
-      "spend_usd_to_date": 57.88,
+      "spend_usd_to_date": 78.33,
       "spend_breakdown": {
         "existing-bank audit": 7.08,
         "generation R1": 11.68,
         "generation R2": 8.72,
         "generation R3": 14.88,
-        "generation R4": 15.52
+        "generation R4": 15.52,
+        "generation R5": 20.45
       },
-      "accepted_items_to_date": 141,
-      "usd_per_accepted_item_cumulative": 0.41,
-      "approved_rows_per_language": 781,
+      "accepted_items_to_date": 144,
+      "usd_per_accepted_item_cumulative": 0.544,
+      "approved_rows_per_language": 828,
       "grounded_items": 97,
       "withheld": 9,
       "director_verdict_trend": "R1 3 rejects of 13 Sonnet items (before the distractor note); R2 1 of 13; R3 3 quality of 60; R4 0 quality of 54. Quality is settled; DUPLICATION is the remaining waste and PROMPT-130 s3 is the judge for it.",
@@ -1265,7 +1342,13 @@
       "instrument_spend_usd": {
         "judge_control_first_run": 4.0442,
         "judge_control_rescored": 4.8869,
-        "lint_guided_retry": 0.4191
+        "lint_guided_retry": 0.4191,
+        "judge_R5": 4.4456
+      },
+      "remaining_shortfall": {
+        "items": 133,
+        "tasks": 37,
+        "estimate": "about two more rounds of 100 at R5 60 percent survival"
       }
     }
   }
