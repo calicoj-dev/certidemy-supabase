@@ -1,0 +1,25 @@
+{
+ "_what": "PROMPT-137a s2: task 4.11 is thin from PASSAGE POVERTY, not from a missing document -- two short primaries, the same shape as ISMS-IA 4.7. Two SUPPORTING passages are added for distractor support only. 4.11's PRIMARIES DO NOT CHANGE.",
+ "cert": "AIMS-IA",
+ "ruled_in": "PROMPT-137a s2",
+ "added_by": "director ruling: distractor support for the climate task, primaries unchanged",
+ "links": [
+  {
+   "task": "4.11",
+   "source_id": "ISO/IEC 42001",
+   "edition": "2023",
+   "clause": "4.3",
+   "role": "supporting",
+   "why": "SUPPORTING only. Determining the scope of the AI management system -- the nearest context to a climate-relevance judgement, so a distractor can plausibly point at scope where the answer is context."
+  },
+  {
+   "task": "4.11",
+   "source_id": "ISO/IEC 42001",
+   "edition": "2023",
+   "clause": "6.1.1",
+   "role": "supporting",
+   "why": "SUPPORTING only. Actions to address risks and opportunities, general -- a distractor can plausibly point at risk planning where the answer is the context clause."
+  }
+ ],
+ "_primaries_must_not_change": "The ISMS-IA 4.7 lesson: three short passages cannot carry three distractor pointers, and the remedy is SUPPORTING breadth, never a wider key. map-ia-primaries prints each touched task's primaries before and after; they must read identically here."
+}

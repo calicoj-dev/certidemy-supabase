@@ -110,7 +110,22 @@ const tsAfter = after;
 const primAfter = (code) => tsAfter.filter((r) => r.task_id === idOfTask.get(code) && r.role === "primary")
   .map((r) => pById.get(r.passage_id)).filter(Boolean)
   .map((p) => p.source_id + ":" + p.edition + " " + p.clause).sort();
+/* ============ A SUPPORTING-ONLY SPEC MUST LEAVE EVERY PRIMARY LIST UNTOUCHED ============
+ *
+ * Ruled PROMPT-137a s2 for task 4.11: supporting breadth is the remedy for passage poverty, and a
+ * wider KEY is not. Printing both lists and leaving a human to compare them is the eyeball check
+ * this repository keeps paying for, so where a spec adds no primary the equality is ASSERTED. */
+const addsPrimary = new Set(plan.filter((x) => x.role === "primary").map((x) => x.task));
+const primMoved = [];
 for (const code of touched) {
-  console.log("  " + code + "  PRIMARIES AFTER  (" + primAfter(code).length + "): " + primAfter(code).join(", "));
+  const after = primAfter(code);
+  console.log("  " + code + "  PRIMARIES AFTER  (" + after.length + "): " + after.join(", "));
+  if (addsPrimary.has(code)) continue;              /* a primary was ruled here: it SHOULD move */
+  if (JSON.stringify(after) !== JSON.stringify(before[code])) {
+    primMoved.push(code + ": " + before[code].join(", ") + "  ->  " + after.join(", "));
+  }
 }
-if (missing.length || grew !== plan.length) process.exitCode = 2;
+console.log("  primaries UNCHANGED where the spec adds none: " +
+  (primMoved.length ? "NO -- " + primMoved.length + " task(s) moved" : "yes, asserted"));
+for (const m of primMoved) console.error("      MOVED " + m);
+if (missing.length || grew !== plan.length || primMoved.length) process.exitCode = 2;

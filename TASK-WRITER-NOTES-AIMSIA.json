@@ -3,6 +3,10 @@
  "_cert_notes_what": "Appended to the SYSTEM prompt on every AIMS-IA task. Carried over from ISMS-IA at PROMPT-136 s2 because it is a lesson about item quality, not about ISO/IEC 27001: the three ISMS-IA rejections it records were all answerable by elimination, which is a defect any certification can have.",
  "cert_notes": "EVERY DISTRACTOR MUST BE A MISTAKE SOMEONE COULD ACTUALLY MAKE (ruled PROMPT-127 s4, carried to AIMS-IA by PROMPT-136 s2):\n\n- Every distractor must be a mistake a working auditor or AI management system manager could\n  plausibly make. No option may be rejectable on common sense alone. Prefer a short scenario that\n  requires APPLYING the clause over asking for the definition.\n- This is why three of thirteen items were rejected on the first ISMS-IA round: a \"visit calendar\n  the certification body sets\", \"headcount\", \"the cheapest controls available\", and a strawman\n  naming a certification body's major nonconformities. Each was answerable by elimination without\n  knowing the clause, which makes the item measure nothing.\n\nNO ISO/IEC 27000-FAMILY DEFINITIONS AS THE KEY. This is an ISO/IEC 42001 certification. The 27000\nfamily -- 27000, 27001, 27002 -- is SUPPORT ONLY here: it may inform a distractor's reason and\nnever carries the key. A requirements key rests on an ISO/IEC 42001 `shall` passage, Annex A\ncontrols included; an audit-practice key rests on ISO 19011. ISO/IEC 42001 ANNEX B is\nimplementation guidance for an Annex A control and is support only too: key on the control.",
  "notes": {
-  "_what": "Per-task instructions, appended to THAT task's prompt only. Empty at creation: a task note is a ruling about one task and is added when the director makes one. ISMS-IA's notes were all written after a round was read, never before."
+  "_what": "Per-task instructions, appended to THAT task's prompt only. Empty at creation: a task note is a ruling about one task and is added when the director makes one. ISMS-IA's notes were all written after a round was read, never before.",
+  "4.11": {
+   "ruled_in": "PROMPT-137a s3",
+   "instruction": "The key anchors on the 4.1 climate sentence or the 4.2 climate note. Distractor support comes from 4.3 or 6.1.1. Note that 4.2's climate line is a NOTE, so a key on it states what interested parties CAN have, never what the organization MUST do."
+  }
  }
 }
