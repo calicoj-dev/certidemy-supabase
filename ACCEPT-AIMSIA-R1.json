@@ -1,0 +1,744 @@
+{
+  "_what": "PROMPT-137 s1: 82 accept(s) from AIMSIA-R1.json.",
+  "_writer_model": "claude-sonnet-5-5",
+  "accepts": [
+    {
+      "item_id": "9b7393a1",
+      "report_number": 1,
+      "task": "1.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 3.1"
+    },
+    {
+      "item_id": "eb2356db",
+      "report_number": 2,
+      "task": "1.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 9.2.1"
+    },
+    {
+      "item_id": "9c91fd81",
+      "report_number": 3,
+      "task": "1.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 3.13"
+    },
+    {
+      "item_id": "c435043c",
+      "report_number": 4,
+      "task": "1.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 3.1"
+    },
+    {
+      "item_id": "c0f436c1",
+      "report_number": 5,
+      "task": "1.2",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 4.5"
+    },
+    {
+      "item_id": "f3a3153a",
+      "report_number": 6,
+      "task": "1.2",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 4.7"
+    },
+    {
+      "item_id": "d5625fc7",
+      "report_number": 7,
+      "task": "1.3",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.18.3"
+    },
+    {
+      "item_id": "b8556d1d",
+      "report_number": 8,
+      "task": "2.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 5.2"
+    },
+    {
+      "item_id": "63f26967",
+      "report_number": 9,
+      "task": "2.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 3.5"
+    },
+    {
+      "item_id": "2611cb1b",
+      "report_number": 10,
+      "task": "2.2",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 5.3"
+    },
+    {
+      "item_id": "ef137313",
+      "report_number": 11,
+      "task": "2.3",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 7.2.3.4"
+    },
+    {
+      "item_id": "5e37dda5",
+      "report_number": 12,
+      "task": "2.3",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 3.15"
+    },
+    {
+      "item_id": "b60d9258",
+      "report_number": 13,
+      "task": "2.3",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 7.2.3.3"
+    },
+    {
+      "item_id": "950d94af",
+      "report_number": 14,
+      "task": "2.4",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 4.3"
+    },
+    {
+      "item_id": "8461aac9",
+      "report_number": 15,
+      "task": "2.4",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 A.10.2"
+    },
+    {
+      "item_id": "8454c8f2",
+      "report_number": 16,
+      "task": "2.5",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 3.6"
+    },
+    {
+      "item_id": "8070f854",
+      "report_number": 17,
+      "task": "2.5",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 9.2.2"
+    },
+    {
+      "item_id": "f3f2e933",
+      "report_number": 18,
+      "task": "2.5",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 3.8"
+    },
+    {
+      "item_id": "94eb0e37",
+      "report_number": 19,
+      "task": "2.5",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 5.5.2"
+    },
+    {
+      "item_id": "158d473f",
+      "report_number": 20,
+      "task": "2.6",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 5.5.3"
+    },
+    {
+      "item_id": "a7e4cb31",
+      "report_number": 21,
+      "task": "2.6",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.16"
+    },
+    {
+      "item_id": "385f5860",
+      "report_number": 22,
+      "task": "2.6",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.1"
+    },
+    {
+      "item_id": "fd985802",
+      "report_number": 23,
+      "task": "2.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 5.5.6"
+    },
+    {
+      "item_id": "6981fc6c",
+      "report_number": 24,
+      "task": "2.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 5.6"
+    },
+    {
+      "item_id": "f0f97715",
+      "report_number": 25,
+      "task": "2.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 5.5.7"
+    },
+    {
+      "item_id": "adb2be85",
+      "report_number": 26,
+      "task": "3.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.7"
+    },
+    {
+      "item_id": "cd7d15fb",
+      "report_number": 27,
+      "task": "3.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.8"
+    },
+    {
+      "item_id": "af061982",
+      "report_number": 28,
+      "task": "3.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.10"
+    },
+    {
+      "item_id": "b0fd1ccc",
+      "report_number": 29,
+      "task": "3.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.6"
+    },
+    {
+      "item_id": "45edc0a0",
+      "report_number": 30,
+      "task": "3.2",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.3.2.2"
+    },
+    {
+      "item_id": "750445b8",
+      "report_number": 31,
+      "task": "3.2",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.3.4"
+    },
+    {
+      "item_id": "c4ebf469",
+      "report_number": 32,
+      "task": "3.2",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.13"
+    },
+    {
+      "item_id": "4e862171",
+      "report_number": 33,
+      "task": "3.3",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.6.2"
+    },
+    {
+      "item_id": "842feb3e",
+      "report_number": 34,
+      "task": "3.3",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.6.3"
+    },
+    {
+      "item_id": "755ace32",
+      "report_number": 35,
+      "task": "3.4",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.7"
+    },
+    {
+      "item_id": "e630a60e",
+      "report_number": 36,
+      "task": "3.5",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.4"
+    },
+    {
+      "item_id": "ff941631",
+      "report_number": 37,
+      "task": "3.5",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.17"
+    },
+    {
+      "item_id": "070146b2",
+      "report_number": 38,
+      "task": "3.5",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 7.2.2"
+    },
+    {
+      "item_id": "e0608aa3",
+      "report_number": 39,
+      "task": "3.5",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 3.10"
+    },
+    {
+      "item_id": "534b18bb",
+      "report_number": 40,
+      "task": "3.6",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.5"
+    },
+    {
+      "item_id": "3aa3122e",
+      "report_number": 41,
+      "task": "3.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 A.4.6"
+    },
+    {
+      "item_id": "716c597e",
+      "report_number": 42,
+      "task": "3.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 A.4.5"
+    },
+    {
+      "item_id": "52bed07c",
+      "report_number": 43,
+      "task": "3.8",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.3"
+    },
+    {
+      "item_id": "08699b5c",
+      "report_number": 44,
+      "task": "3.8",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.2"
+    },
+    {
+      "item_id": "67358474",
+      "report_number": 45,
+      "task": "3.8",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.10"
+    },
+    {
+      "item_id": "8f5e46e7",
+      "report_number": 46,
+      "task": "4.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.8"
+    },
+    {
+      "item_id": "50143cb6",
+      "report_number": 47,
+      "task": "4.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.7"
+    },
+    {
+      "item_id": "e6fcc796",
+      "report_number": 48,
+      "task": "4.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 4.1"
+    },
+    {
+      "item_id": "bf523b69",
+      "report_number": 49,
+      "task": "4.10",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.3.1"
+    },
+    {
+      "item_id": "21c2f89d",
+      "report_number": 50,
+      "task": "4.10",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 6.1.3"
+    },
+    {
+      "item_id": "b3532f1f",
+      "report_number": 51,
+      "task": "4.12",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 8.1"
+    },
+    {
+      "item_id": "5c870fce",
+      "report_number": 52,
+      "task": "4.12",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 8.3"
+    },
+    {
+      "item_id": "7a71af3b",
+      "report_number": 53,
+      "task": "4.12",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 6.1.3"
+    },
+    {
+      "item_id": "8d858f8d",
+      "report_number": 54,
+      "task": "4.13",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.17"
+    },
+    {
+      "item_id": "e8030d04",
+      "report_number": 55,
+      "task": "4.2",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 4.3"
+    },
+    {
+      "item_id": "d55349e0",
+      "report_number": 56,
+      "task": "4.2",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 4.1"
+    },
+    {
+      "item_id": "bd9d6a92",
+      "report_number": 57,
+      "task": "4.3",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 A.2.4"
+    },
+    {
+      "item_id": "30797b39",
+      "report_number": 58,
+      "task": "4.3",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 A.3.2"
+    },
+    {
+      "item_id": "6c19b76d",
+      "report_number": 59,
+      "task": "4.3",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 5.1"
+    },
+    {
+      "item_id": "c30d2c2f",
+      "report_number": 60,
+      "task": "4.4",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 6.1.1"
+    },
+    {
+      "item_id": "4e44294a",
+      "report_number": 61,
+      "task": "4.4",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.10"
+    },
+    {
+      "item_id": "31a581dd",
+      "report_number": 62,
+      "task": "4.6",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 A.5.3"
+    },
+    {
+      "item_id": "37932368",
+      "report_number": 63,
+      "task": "4.6",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 8.2"
+    },
+    {
+      "item_id": "8860f14d",
+      "report_number": 64,
+      "task": "4.6",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 6.1.4"
+    },
+    {
+      "item_id": "b301eba8",
+      "report_number": 65,
+      "task": "4.6",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 A.5.5"
+    },
+    {
+      "item_id": "3e6a226d",
+      "report_number": 66,
+      "task": "4.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 7.3"
+    },
+    {
+      "item_id": "1bad6cdd",
+      "report_number": 67,
+      "task": "4.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 7.5.3"
+    },
+    {
+      "item_id": "fc21f27f",
+      "report_number": 68,
+      "task": "4.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 7.4"
+    },
+    {
+      "item_id": "478256a0",
+      "report_number": 69,
+      "task": "4.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 7.5.2"
+    },
+    {
+      "item_id": "194bb6e1",
+      "report_number": 70,
+      "task": "4.8",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 6.3"
+    },
+    {
+      "item_id": "ab402c75",
+      "report_number": 71,
+      "task": "4.8",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 8.2"
+    },
+    {
+      "item_id": "56864742",
+      "report_number": 72,
+      "task": "4.8",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 8.1"
+    },
+    {
+      "item_id": "3416d4f2",
+      "report_number": 73,
+      "task": "5.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 3.21"
+    },
+    {
+      "item_id": "b3b28b1c",
+      "report_number": 74,
+      "task": "5.1",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.18.2"
+    },
+    {
+      "item_id": "b37ab099",
+      "report_number": 75,
+      "task": "5.2",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.4.8"
+    },
+    {
+      "item_id": "e7a3ea42",
+      "report_number": 76,
+      "task": "5.3",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 A.18.4"
+    },
+    {
+      "item_id": "e4c3fbb5",
+      "report_number": 77,
+      "task": "5.4",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 4.7"
+    },
+    {
+      "item_id": "c94b3bfc",
+      "report_number": 78,
+      "task": "5.5",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 6.5.2"
+    },
+    {
+      "item_id": "ec6ba56a",
+      "report_number": 79,
+      "task": "5.5",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO 19011 4.3"
+    },
+    {
+      "item_id": "78a1c054",
+      "report_number": 80,
+      "task": "5.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 9.3.3"
+    },
+    {
+      "item_id": "0ca4fbbc",
+      "report_number": 81,
+      "task": "5.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 9.3.2"
+    },
+    {
+      "item_id": "6cefc52c",
+      "report_number": 82,
+      "task": "5.7",
+      "ruled_in": "PROMPT-137 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-137 s1 | ISO/IEC 42001 9.3.3"
+    }
+  ]
+}

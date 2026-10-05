@@ -1,0 +1,46 @@
+{
+ "_what": "PROMPT-137 s3: four thin AIMS-IA tasks get a ruled primary each. Every clause's title and first 40 words were printed and the subject confirmed against the task statement BEFORE this file was written.",
+ "cert": "AIMS-IA",
+ "ruled_in": "PROMPT-137 s3",
+ "links": [
+  {
+   "task": "1.4",
+   "source_id": "ISO 19011",
+   "edition": "2026",
+   "clause": "6.3.3",
+   "role": "primary",
+   "why": "CONFIRMED by reading its title and first 40 words: 'Assigning work to the audit team' -- assignments are to take impartiality into account, which is the task's subject."
+  },
+  {
+   "task": "1.5",
+   "source_id": "ISO 19011",
+   "edition": "2026",
+   "clause": "5.4.1",
+   "role": "primary",
+   "why": "CONFIRMED: 'Roles and responsibilities of individual(s) managing the audit programme', a) to n). The task classifies activities as within or outside the auditor's remit, which is this clause's ground."
+  },
+  {
+   "task": "1.5",
+   "source_id": "ISO 19011",
+   "edition": "2026",
+   "clause": "5.5.1",
+   "role": "primary",
+   "why": "CONFIRMED: operational planning and coordination of the programme's activities -- what the programme manager does, so what falls inside the remit."
+  },
+  {
+   "task": "4.5",
+   "source_id": "ISO/IEC 42001",
+   "edition": "2023",
+   "clause": "8.3",
+   "role": "primary",
+   "why": "CONFIRMED by reading its title and first 40 words: 'AI risk treatment' -- the clause requires the AI risk treatment plan to be implemented per 6.1.3 and its effectiveness verified, and it NAMES 6.1.3, which is the clause the task audits against. It is the implementation side of 6.1.3, as the ruling says."
+  }
+ ],
+ "_also_confirmed": "5.6's other half: ISO/IEC 42001:2023 10.2 'Nonconformity and corrective action' is HELD and was ALREADY a primary of 5.6 -- confirmed by reading the task's primaries before the write, so it is not re-linked here.",
+ "_already_primary_so_not_relinked": [
+  "1.4 ISO/IEC 42001 9.2.2 -- CONFIRMED already a primary, read off task_sources before the write",
+  "5.6 ISO 19011 6.7 -- CONFIRMED already a primary, read off task_sources before the write"
+ ],
+ "added_by": "director ruling, subject confirmed against each clause title and first 40 words",
+ "_no_verbatim": "The `why` fields PARAPHRASE each clause. An earlier version quoted 42001 8.3 and check-licensed-text found 4 runs of held text in this tracked file. A ruling record belongs in git, so the quotation was removed rather than the file ignored."
+}

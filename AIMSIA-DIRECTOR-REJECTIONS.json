@@ -1,0 +1,37 @@
+{
+  "_what": "The director's rulings on AIMS-IA generated items. `rounds` records what was READ; `rejections` records every item refused, by item_id, with its reason and ruling.",
+  "rounds": [
+    {
+      "artifact": "AIMSIA-R1.json",
+      "report": "AIMSIA-ROLLOUT-R1.md",
+      "ruled": "2026-10-05, PROMPT-137 s1",
+      "read": 88,
+      "accepted": 82,
+      "rejected": 2,
+      "withheld": 4,
+      "note": "AIMS-IA's FIRST round, and the cleanest first round of any certification: 88 survivors of 136 generated at $0.2227 each, and only 2 of 88 rejected on quality (2%). All 3 judge flags upheld; 1 missed (ec6ba56a/61fabc8a), a CROSS-ANCHOR pair the neighbour arm could not see because the bank held no live items to draw neighbours from."
+    }
+  ],
+  "rejections": [
+    {
+      "item_id": "e7ff5b2c",
+      "artifact": "AIMSIA-R1.json",
+      "task": "2.7",
+      "anchor": "ISO 19011 5.7",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "quality",
+      "why": "RULED reject (PROMPT-137 s1): the options are phrased as \"Whether...\" clauses that do not answer the stem's question, and two are strawmen (\"favour the auditors who raised the most findings\")",
+      "ruled_in": "PROMPT-137 s1"
+    },
+    {
+      "item_id": "4d0a4574",
+      "artifact": "AIMSIA-R1.json",
+      "task": "3.7",
+      "anchor": "ISO 19011 A.14",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "quality",
+      "why": "RULED reject (PROMPT-137 s1): two distractors are not sources anyone would consider for measurement reliability (\"office layout\", \"register of licences and permits\")",
+      "ruled_in": "PROMPT-137 s1"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "_what": "AIMS-IA items WITHHELD: neither approved nor rejected. A sound item held because a twin covers the point better. This file can only ever WITHHOLD -- releasing is a separate ruling and a separate script (release-withheld.mjs).",
+  "withheld": [
+    {
+      "item_id": "38fe7f52",
+      "artifact": "AIMSIA-R1.json",
+      "ruled_in": "PROMPT-137 s1",
+      "kind": "twin-within-round",
+      "twin_of": "158d473f",
+      "flagged_by": "judge",
+      "anchor": "ISO 19011 5.5.3",
+      "reason": "twin of 158d473f -- 19011 5.5.3: balance on-site and remote by risks and opportunities. Sound item, may serve later."
+    },
+    {
+      "item_id": "ddc2190d",
+      "artifact": "AIMSIA-R1.json",
+      "ruled_in": "PROMPT-137 s1",
+      "kind": "twin-within-round",
+      "twin_of": "f3f2e933",
+      "flagged_by": "judge",
+      "anchor": "ISO 19011 3.8",
+      "reason": "twin of f3f2e933 -- 19011 3.8: procedures and contracts can be criteria. Sound item, may serve later."
+    },
+    {
+      "item_id": "db722f2a",
+      "artifact": "AIMSIA-R1.json",
+      "ruled_in": "PROMPT-137 s1",
+      "kind": "twin-within-round",
+      "twin_of": "bf523b69",
+      "flagged_by": "judge",
+      "anchor": "ISO 19011 6.3.1",
+      "reason": "twin of bf523b69 -- 19011 6.3.1: a document-review issue is a potential concern until tested. Sound item, may serve later."
+    },
+    {
+      "item_id": "61fabc8a",
+      "artifact": "AIMSIA-R1.json",
+      "ruled_in": "PROMPT-137 s1",
+      "kind": "twin-within-round",
+      "twin_of": "ec6ba56a",
+      "flagged_by": "THE DIRECTOR",
+      "anchor": "ISO 19011 4.3",
+      "reason": "twin of ec6ba56a -- 19011 4.3: record the unresolved disagreement. THREE items make this point (61fabc8a, b37ab099, ec6ba56a); ec6ba56a covers it best and b37ab099 keys on 6.4.8 and stays. THE JUDGE MISSED THIS ONE: a cross-anchor pair the neighbour arm cannot see with no live items to draw neighbours from. Sound item, may serve later."
+    }
+  ]
+}
