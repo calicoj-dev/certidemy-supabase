@@ -1,0 +1,199 @@
+{
+  "cert": "ISMS-IA",
+  "model": "claude-opus-5",
+  "pairs": 152,
+  "judged": 152,
+  "flagged": [
+    {
+      "a": "db29a5ad",
+      "aTask": "4.9",
+      "aWhere": "ISMSIA-R7-sonnet.json",
+      "b": "746ce4e2",
+      "bTask": "4.9",
+      "bWhere": "live",
+      "anchor": "ISO 19011 A.3",
+      "anchorB": "ISO 19011 A.3",
+      "arm": "same-anchor",
+      "key_share": null,
+      "reason": "Both keys assert that the auditor must use professional judgement to determine whether the control's intended outcome is still achieved on the varied output, rather than resting on documented step-by-"
+    },
+    {
+      "a": "7521f193",
+      "aTask": "3.6",
+      "aWhere": "ISMSIA-R7-sonnet.json",
+      "b": "c06d84f5",
+      "bTask": "3.1",
+      "bWhere": "live",
+      "anchor": "ISO 19011 3.9",
+      "anchorB": "ISO 19011 3.9",
+      "arm": "same-anchor",
+      "key_share": null,
+      "reason": "Both keys assert the same proposition — that data gathered by a Note 1 means (measurement in A, observation in B) supporting the verity of a claim qualifies as objective evidence — so the same underst"
+    },
+    {
+      "a": "aa835a37",
+      "aTask": "3.7",
+      "aWhere": "ISMSIA-R7-opus.json",
+      "b": "8243dc25",
+      "bTask": "3.7",
+      "bWhere": "live",
+      "anchor": "ISO/IEC 27001 A.8.34",
+      "anchorB": "ISO/IEC 27001 A.8.34",
+      "arm": "same-anchor",
+      "key_share": null,
+      "reason": "Both keys assert the same proposition — that audit testing on an operational system must be planned and agreed with the management accountable for that system before it is executed — differing only in"
+    },
+    {
+      "a": "d6d4c85b",
+      "aTask": "3.3",
+      "aWhere": "ISMSIA-R7-opus.json",
+      "b": "c06d84f5",
+      "bTask": "3.1",
+      "bWhere": "live",
+      "anchor": "ISO 19011 3.9",
+      "anchorB": "ISO 19011 3.9",
+      "arm": "same-anchor",
+      "key_share": null,
+      "reason": "Both keys assert that what the auditor directly observed is data supporting existence/verity and that observation is a legitimate means of obtaining objective evidence even without any documentary or "
+    },
+    {
+      "a": "d6d4c85b",
+      "aTask": "3.3",
+      "aWhere": "ISMSIA-R7-opus.json",
+      "b": "13ef35fe",
+      "bTask": "3.3",
+      "bWhere": "ISMSIA-R7-opus.json",
+      "anchor": "ISO 19011 3.9",
+      "anchorB": "ISO 19011 3.9",
+      "arm": "same-anchor",
+      "key_share": null,
+      "reason": "Both keys assert the same proposition — that something viewed live via a shared screen in a remote audit constitutes data supporting existence/verity and that observation through the remote platform i"
+    },
+    {
+      "a": "37e4f130",
+      "aTask": "3.8",
+      "aWhere": "ISMSIA-R7-sonnet.json",
+      "b": "d0cbb7a4",
+      "bTask": "3.8",
+      "bWhere": "live",
+      "anchor": "ISO 19011 A.6.1",
+      "anchorB": "ISO 19011 A.6.1",
+      "arm": "same-anchor",
+      "key_share": null,
+      "reason": "Both keys assert the same proposition — the examined sample items are confirmed compliant but the representativeness of the sample, and hence any conclusion about the untested remainder of the populat"
+    },
+    {
+      "a": "7521f193",
+      "aTask": "3.6",
+      "aWhere": "ISMSIA-R7-sonnet.json",
+      "b": "d6d4c85b",
+      "bTask": "3.3",
+      "bWhere": "ISMSIA-R7-opus.json",
+      "anchor": "ISO 19011 3.9",
+      "anchorB": "ISO 19011 3.9",
+      "arm": "same-anchor",
+      "key_share": null,
+      "reason": "Both keys assert the same proposition from Note 1 — that data gathered by a listed means (measurement in A, observation in B) constitutes objective evidence supporting the existence or verity of the t"
+    },
+    {
+      "a": "f0b3cc05",
+      "aTask": "1.2",
+      "aWhere": "ISMSIA-R7-sonnet.json",
+      "b": "7b136259",
+      "bTask": "1.2",
+      "bWhere": "live",
+      "anchor": "ISO 19011 4.1",
+      "anchorB": "ISO 19011 4.1",
+      "arm": "same-anchor",
+      "key_share": null,
+      "reason": "Both keys assert the same proposition — that ISO 19011's principles have no fixed hierarchy and a clash (e.g. confidentiality vs fair presentation) must be resolved by honouring both rather than by ra"
+    },
+    {
+      "a": "add38990",
+      "aTask": "2.3",
+      "aWhere": "ISMSIA-R7-sonnet.json",
+      "b": "2fcb240c",
+      "bTask": "2.3",
+      "bWhere": "live",
+      "anchor": "ISO 19011 3.6",
+      "anchorB": "ISO 19011 3.6",
+      "arm": "same-anchor",
+      "key_share": null,
+      "reason": "Both items require recognizing that the scope statement comprises the Note 1 elements (locations, functions, processes, time period) as distinct from criteria/objectives/method, and both keys assert t"
+    }
+  ],
+  "spend_usd": 5.4171,
+  "unanswered": 7,
+  "unanswered_pairs": [
+    {
+      "a": "7003921b",
+      "aTask": "5.7",
+      "b": "22090360",
+      "bTask": "5.7",
+      "arm": "same-anchor",
+      "anchor": "ISO/IEC 27001 9.3.3",
+      "anchorB": "ISO/IEC 27001 9.3.3",
+      "raw": "unparseable: (empty)"
+    },
+    {
+      "a": "5964e8dd",
+      "aTask": "3.8",
+      "b": "bbd75219",
+      "bTask": "3.8",
+      "arm": "same-anchor",
+      "anchor": "ISO 19011 4.4",
+      "anchorB": "ISO 19011 4.4",
+      "raw": "unparseable: (empty)"
+    },
+    {
+      "a": "13ef35fe",
+      "aTask": "3.3",
+      "b": "c06d84f5",
+      "bTask": "3.1",
+      "arm": "same-anchor",
+      "anchor": "ISO 19011 3.9",
+      "anchorB": "ISO 19011 3.9",
+      "raw": "unparseable: (empty)"
+    },
+    {
+      "a": "add38990",
+      "aTask": "2.3",
+      "b": "7763fc0e",
+      "bTask": "2.3",
+      "arm": "key-term-neighbour",
+      "anchor": "ISO 19011 3.6",
+      "anchorB": "ISO 19011 5.5.2",
+      "raw": "unparseable: (empty)"
+    },
+    {
+      "a": "40d5c91b",
+      "aTask": "3.1",
+      "b": "7521f193",
+      "bTask": "3.6",
+      "arm": "same-anchor",
+      "anchor": "ISO 19011 3.9",
+      "anchorB": "ISO 19011 3.9",
+      "raw": "unparseable: (empty)"
+    },
+    {
+      "a": "7521f193",
+      "aTask": "3.6",
+      "b": "13ef35fe",
+      "bTask": "3.3",
+      "arm": "same-anchor",
+      "anchor": "ISO 19011 3.9",
+      "anchorB": "ISO 19011 3.9",
+      "raw": "unparseable: (empty)"
+    },
+    {
+      "a": "7521f193",
+      "aTask": "3.6",
+      "b": "fcbe0138",
+      "bTask": "3.6",
+      "arm": "same-anchor",
+      "anchor": "ISO 19011 3.9",
+      "anchorB": "ISO 19011 3.9",
+      "raw": "unparseable: (empty)"
+    }
+  ]
+}

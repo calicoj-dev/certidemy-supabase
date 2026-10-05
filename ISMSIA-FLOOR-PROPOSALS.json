@@ -1,0 +1,331 @@
+{
+ "cert": "ISMS-IA",
+ "read_only": true,
+ "saturation_cap": 3,
+ "counted_as_accepted": [
+  "ISMSIA-R7-sonnet.json",
+  "ISMSIA-R7-opus.json"
+ ],
+ "min_effective": 3,
+ "rows": [
+  {
+   "task": "5.3",
+   "held": 4,
+   "would_add_if_all_accepted": 0,
+   "held_after": 4,
+   "floor": 8,
+   "short_after": 4,
+   "assignable": 0,
+   "capacity": 0,
+   "saturated_primaries": [
+    "A.18.3 x3",
+    "3.8 x5",
+    "3.11 x3",
+    "6.4.8 x7",
+    "3.10 x3",
+    "4.3 x3"
+   ],
+   "why": "SATURATED -- every under-cap primary carries 3+ live items (A.18.3 x3, 3.8 x5, 3.11 x3, 6.4.8 x7, 3.10 x3, 4.3 x3). No assignable anchor; generation cannot close this.",
+   "proposed_floor": 4
+  },
+  {
+   "task": "3.1",
+   "held": 4,
+   "would_add_if_all_accepted": 1,
+   "held_after": 5,
+   "floor": 8,
+   "short_after": 3,
+   "assignable": 1,
+   "capacity": 1,
+   "saturated_primaries": [
+    "4.7 x4",
+    "3.11 x3",
+    "6.4.8 x7",
+    "6.4.7 x5",
+    "3.1 x6",
+    "3.10 x3"
+   ],
+   "why": "CAPACITY BOUND -- 1 assignable slot(s) left against a shortfall of 3. Mostly saturated: 4.7 x4, 3.11 x3, 6.4.8 x7, 6.4.7 x5, 3.1 x6, 3.10 x3.",
+   "proposed_floor": 5
+  },
+  {
+   "task": "4.4",
+   "held": 3,
+   "would_add_if_all_accepted": 0,
+   "held_after": 3,
+   "floor": 6,
+   "short_after": 3,
+   "assignable": 0,
+   "capacity": 0,
+   "saturated_primaries": [
+    "6.4.8 x7",
+    "6.1.3 x4",
+    "8.3 x3"
+   ],
+   "why": "SATURATED -- every under-cap primary carries 3+ live items (6.4.8 x7, 6.1.3 x4, 8.3 x3). No assignable anchor; generation cannot close this.",
+   "proposed_floor": 3
+  },
+  {
+   "task": "5.4",
+   "held": 3,
+   "would_add_if_all_accepted": 0,
+   "held_after": 3,
+   "floor": 6,
+   "short_after": 3,
+   "assignable": 1,
+   "capacity": 1,
+   "saturated_primaries": [
+    "6.4.7 x5",
+    "4.3 x3"
+   ],
+   "why": "CAPACITY BOUND -- 1 assignable slot(s) left against a shortfall of 3. Mostly saturated: 6.4.7 x5, 4.3 x3.",
+   "proposed_floor": 3
+  },
+  {
+   "task": "5.5",
+   "held": 5,
+   "would_add_if_all_accepted": 0,
+   "held_after": 5,
+   "floor": 8,
+   "short_after": 3,
+   "assignable": 0,
+   "capacity": 0,
+   "saturated_primaries": [
+    "A.18.3 x3",
+    "6.4.8 x7",
+    "A.18.1 x3",
+    "6.7 x3"
+   ],
+   "why": "SATURATED -- every under-cap primary carries 3+ live items (A.18.3 x3, 6.4.8 x7, A.18.1 x3, 6.7 x3). No assignable anchor; generation cannot close this.",
+   "proposed_floor": 5
+  },
+  {
+   "task": "1.3",
+   "held": 6,
+   "would_add_if_all_accepted": 0,
+   "held_after": 6,
+   "floor": 8,
+   "short_after": 2,
+   "assignable": 1,
+   "capacity": 1,
+   "saturated_primaries": [
+    "9.2.2 x9"
+   ],
+   "why": "CAPACITY BOUND -- 1 assignable slot(s) left against a shortfall of 2. Mostly saturated: 9.2.2 x9.",
+   "proposed_floor": 6
+  },
+  {
+   "task": "1.5",
+   "held": 6,
+   "would_add_if_all_accepted": 0,
+   "held_after": 6,
+   "floor": 8,
+   "short_after": 2,
+   "assignable": 1,
+   "capacity": 1,
+   "saturated_primaries": [
+    "10.2 x7",
+    "3.8 x5",
+    "3.1 x6"
+   ],
+   "why": "CAPACITY BOUND -- 1 assignable slot(s) left against a shortfall of 2. Mostly saturated: 10.2 x7, 3.8 x5, 3.1 x6.",
+   "proposed_floor": 6
+  },
+  {
+   "task": "2.1",
+   "held": 6,
+   "would_add_if_all_accepted": 0,
+   "held_after": 6,
+   "floor": 8,
+   "short_after": 2,
+   "assignable": 1,
+   "capacity": 1,
+   "saturated_primaries": [
+    "9.2.1 x6",
+    "9.2.2 x9",
+    "5.1 x3"
+   ],
+   "why": "CAPACITY BOUND -- 1 assignable slot(s) left against a shortfall of 2. Mostly saturated: 9.2.1 x6, 9.2.2 x9, 5.1 x3.",
+   "proposed_floor": 6
+  },
+  {
+   "task": "3.3",
+   "held": 4,
+   "would_add_if_all_accepted": 2,
+   "held_after": 6,
+   "floor": 8,
+   "short_after": 2,
+   "assignable": 2,
+   "capacity": 2,
+   "saturated_primaries": [
+    "4.7 x4",
+    "6.4.7 x5",
+    "3.10 x3",
+    "A.16 x3"
+   ],
+   "why": "CAPACITY BOUND -- 2 assignable slot(s) left against a shortfall of 2. Mostly saturated: 4.7 x4, 6.4.7 x5, 3.10 x3, A.16 x3.",
+   "proposed_floor": 6
+  },
+  {
+   "task": "3.4",
+   "held": 4,
+   "would_add_if_all_accepted": 0,
+   "held_after": 4,
+   "floor": 6,
+   "short_after": 2,
+   "assignable": 0,
+   "capacity": 0,
+   "saturated_primaries": [
+    "6.4.7 x5"
+   ],
+   "why": "SATURATED -- every under-cap primary carries 3+ live items (6.4.7 x5). No assignable anchor; generation cannot close this.",
+   "proposed_floor": 4
+  },
+  {
+   "task": "4.5",
+   "held": 5,
+   "would_add_if_all_accepted": 1,
+   "held_after": 6,
+   "floor": 8,
+   "short_after": 2,
+   "assignable": 4,
+   "capacity": 5,
+   "saturated_primaries": [],
+   "why": "ROOM LEFT -- 5 assignable slot(s) against a shortfall of 2. Generation can still close this; a floor ruling is not forced.",
+   "proposed_floor": null
+  },
+  {
+   "task": "1.1",
+   "held": 6,
+   "would_add_if_all_accepted": 1,
+   "held_after": 7,
+   "floor": 8,
+   "short_after": 1,
+   "assignable": 2,
+   "capacity": 2,
+   "saturated_primaries": [
+    "9.2.1 x6",
+    "9.2.2 x9"
+   ],
+   "why": "ROOM LEFT -- 2 assignable slot(s) against a shortfall of 1. Generation can still close this; a floor ruling is not forced.",
+   "proposed_floor": null
+  },
+  {
+   "task": "2.3",
+   "held": 6,
+   "would_add_if_all_accepted": 1,
+   "held_after": 7,
+   "floor": 8,
+   "short_after": 1,
+   "assignable": 1,
+   "capacity": 1,
+   "saturated_primaries": [
+    "3.8 x5",
+    "9.2.1 x6",
+    "9.2.2 x9"
+   ],
+   "why": "CAPACITY BOUND -- 1 assignable slot(s) left against a shortfall of 1. Mostly saturated: 3.8 x5, 9.2.1 x6, 9.2.2 x9.",
+   "proposed_floor": 7
+  },
+  {
+   "task": "2.6",
+   "held": 7,
+   "would_add_if_all_accepted": 0,
+   "held_after": 7,
+   "floor": 8,
+   "short_after": 1,
+   "assignable": 0,
+   "capacity": 0,
+   "saturated_primaries": [
+    "9.2.2 x9"
+   ],
+   "why": "SATURATED -- every under-cap primary carries 3+ live items (9.2.2 x9). No assignable anchor; generation cannot close this.",
+   "proposed_floor": 7
+  },
+  {
+   "task": "3.6",
+   "held": 6,
+   "would_add_if_all_accepted": 1,
+   "held_after": 7,
+   "floor": 8,
+   "short_after": 1,
+   "assignable": 3,
+   "capacity": 3,
+   "saturated_primaries": [
+    "4.7 x4",
+    "3.8 x5",
+    "6.4.8 x7",
+    "6.4.7 x5",
+    "A.5 x5",
+    "3.10 x3",
+    "6.1.3 x4"
+   ],
+   "why": "ROOM LEFT -- 3 assignable slot(s) against a shortfall of 1. Generation can still close this; a floor ruling is not forced.",
+   "proposed_floor": null
+  },
+  {
+   "task": "4.2",
+   "held": 5,
+   "would_add_if_all_accepted": 2,
+   "held_after": 7,
+   "floor": 8,
+   "short_after": 1,
+   "assignable": 3,
+   "capacity": 3,
+   "saturated_primaries": [],
+   "why": "ROOM LEFT -- 3 assignable slot(s) against a shortfall of 1. Generation can still close this; a floor ruling is not forced.",
+   "proposed_floor": null
+  },
+  {
+   "task": "4.9",
+   "held": 6,
+   "would_add_if_all_accepted": 1,
+   "held_after": 7,
+   "floor": 8,
+   "short_after": 1,
+   "assignable": 4,
+   "capacity": 6,
+   "saturated_primaries": [
+    "4.7 x4",
+    "6.4.7 x5",
+    "A.5 x5",
+    "8.1 x3",
+    "8.2 x3",
+    "9.1 x3"
+   ],
+   "why": "ROOM LEFT -- 6 assignable slot(s) against a shortfall of 1. Generation can still close this; a floor ruling is not forced.",
+   "proposed_floor": null
+  },
+  {
+   "task": "5.6",
+   "held": 7,
+   "would_add_if_all_accepted": 0,
+   "held_after": 7,
+   "floor": 8,
+   "short_after": 1,
+   "assignable": 0,
+   "capacity": 0,
+   "saturated_primaries": [
+    "A.5 x5"
+   ],
+   "why": "SATURATED -- every under-cap primary carries 3+ live items (A.5 x5). No assignable anchor; generation cannot close this.",
+   "proposed_floor": 7
+  },
+  {
+   "task": "5.7",
+   "held": 5,
+   "would_add_if_all_accepted": 2,
+   "held_after": 7,
+   "floor": 8,
+   "short_after": 1,
+   "assignable": 3,
+   "capacity": 3,
+   "saturated_primaries": [
+    "9.2.1 x6",
+    "9.2.2 x9"
+   ],
+   "why": "ROOM LEFT -- 3 assignable slot(s) against a shortfall of 1. Generation can still close this; a floor ruling is not forced.",
+   "proposed_floor": null
+  }
+ ]
+}

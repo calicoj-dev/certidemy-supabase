@@ -46,7 +46,7 @@
  * be told four, not be given six and lose two.
  */
 import { createHash } from "node:crypto";
-import { CAP, anchorKey } from "./anchor-cap.mjs";
+import { CAP, SATURATION_CAP, anchorKey } from "./anchor-cap.mjs";
 import { labelOf } from "./passage-key.mjs";
 
 /** deterministic 32-bit hash, for the tie-break */
@@ -65,9 +65,25 @@ function h32(s) {
  *            order: [string], why: string }}
  */
 export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap = CAP,
-  certCensus = null }) {
+  certCensus = null, satCap = SATURATION_CAP }) {
   const held = (p) => censusMap.get(anchorKey(p.source_id, p.edition, p.clause)) || 0;
-  const eligible = (primaries || []).filter((p) => held(p) < cap);
+  /* ============ SATURATION IS A HARD CAP, NOT A PREFERENCE (PROMPT-132 s2) ============
+   *
+   * certCensus arrived in PROMPT-129 s3 as a TIE-BREAK -- prefer the least-used anchor -- and a
+   * preference cannot stop a task whose every primary is used up from being handed one anyway. R6
+   * measured the result: 30% of survivors repeated a live point. Now an anchor at or over satCap
+   * certification-wide is not assignable at all.
+   *
+   * It needs certCensus to fire, so a caller that passes none is unchanged -- which is how ISMS-F and
+   * AIMS-F stay exactly as they were. */
+  const certHeldRaw = (p) => (certCensus
+    ? Number(certCensus.get(anchorKey(p.source_id, p.edition, p.clause)) || 0)
+    : 0);
+  const saturated = (p) => certCensus != null && satCap > 0 && certHeldRaw(p) >= satCap;
+  const underTaskCap = (primaries || []).filter((p) => held(p) < cap);
+  const eligible = underTaskCap.filter((p) => !saturated(p));
+  const satBlocked = underTaskCap.filter((p) => saturated(p)).map((p) => ({
+    source_id: p.source_id, edition: p.edition, clause: p.clause, cert_held: certHeldRaw(p) }));
 
   /* room left on each eligible clause, which is what bounds the whole assignment */
   const capacity = eligible.reduce((s, p) => s + (cap - held(p)), 0);
@@ -85,15 +101,12 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
    * It sorts AFTER the task-local count, which still leads: the cap is per task and a clause this
    * task already holds an item on is still the worse home. `certHeld` only breaks those ties, and
    * defaults to 0 when the caller passes no census -- so every existing caller behaves as before. */
-  const certHeldOf = (p) => {
-    if (!certCensus) return 0;
-    const k = anchorKey(p.source_id, p.edition, p.clause);
-    return Number(certCensus.get(k) || 0);
-  };
+  /* ONE implementation: certHeldRaw above is the same count the saturation cap reads, so the tie-break
+   * and the cap can never disagree about how used a passage is. */
   const seeded = eligible.map((p) => ({
     ...p,
     held: held(p),
-    certHeld: certHeldOf(p),
+    certHeld: certHeldRaw(p),
     tie: h32(String(taskCode) + "|" + String(runId) + "|" + p.source_id + "|" + p.edition + "|" + p.clause),
   }));
   seeded.sort((a, b) => a.held - b.held || a.certHeld - b.certHeld || a.tie - b.tie);
@@ -157,17 +170,28 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
     repeats,
     allowed: repeats ? allowedSet.slice() : null,
     order: seeded.map((p) => p.clause),
-    /* THREE REASONS, NOT TWO. "every primary is at the cap" is a fact about the CAP and says the map is fine;
-     * "the task has no primary in this run's standard" is a fact about the MAP and says generation can never
-     * help. Reporting the second as the first sent me looking for full clauses on task 5.5, which has none at
-     * all -- found 2026-09-30 when the source-collision fix emptied its primary list and the message did not
-     * change. They need opposite actions, so they cannot share a sentence. */
+    /* what the saturation cap removed, so a caller can name the tasks it closed rather than report a
+     * thin map for a map that is fine */
+    saturated_blocked: satBlocked,
+    saturation_cap: certCensus ? satCap : null,
+    /* FOUR REASONS, NOT THREE. "every primary is at the cap" is a fact about the TASK's cap and says the
+     * map is fine; "every primary is SATURATED" is a fact about the CERTIFICATION and says the passages
+     * are used up, which is a FLOOR question; "the task has no primary in this run's standard" is a MAP
+     * fact and says generation can never help. Reporting the third as the first sent me looking for full
+     * clauses on task 5.5, which has none at all -- found 2026-09-30 when the source-collision fix
+     * emptied its primary list and the message did not change. They need different actions, so they
+     * cannot share a sentence. */
     why: eligible.length
       ? "fewest-held first, ties by hash(task|run|clause), round-robin"
-      : (primaries || []).length
-        ? "no eligible primary: all " + primaries.length + " are at the cap of " + cap
-        : "THE TASK HAS NO PRIMARY PASSAGE IN THIS RUN'S STANDARD -- a MAP fact, not a cap fact, and no " +
-          "amount of generation can close it",
+      : satBlocked.length
+        ? "NO ASSIGNABLE ANCHOR: all " + satBlocked.length + " under-cap primary(ies) are SATURATED " +
+          "certification-wide (" + satCap + " or more live grounded items each: " +
+          satBlocked.map((s) => s.clause + " holds " + s.cert_held).join(", ") +
+          "). A FLOOR question, not a generation one -- the passages are used up."
+        : (primaries || []).length
+          ? "no eligible primary: all " + primaries.length + " are at the cap of " + cap
+          : "THE TASK HAS NO PRIMARY PASSAGE IN THIS RUN'S STANDARD -- a MAP fact, not a cap fact, and no " +
+            "amount of generation can close it",
   };
 }
 
@@ -251,8 +275,12 @@ export function anchorAssignmentControls({ quiet = false } = {}) {
   /* ---- CERTIFICATION-WIDE PREFERENCE (PROMPT-129 s3), both directions ---- */
   {
     /* two clauses, both untouched BY THIS TASK, but 9.1 is already tested by another task */
+    /* EVERY FIXTURE HERE SITS BELOW SATURATION_CAP, deliberately. These three cases test the
+     * PREFERENCE, and PROMPT-132 s2 turned a count of 3 into a hard refusal -- so fixtures written
+     * at 3 and 5 stopped exercising the ordering they were written for and started exercising the
+     * cap. The third one failed on exactly that and is the reason this comment exists. */
     const primaries = ["9.1", "9.2"].map(P);
-    const certBusy = cens([["9.1", 3]]);
+    const certBusy = cens([["9.1", 2]]);
     const r = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]),
       want: 1, certCensus: certBusy });
     ok("a clause used elsewhere in the certification loses to an unused one",
@@ -260,17 +288,61 @@ export function anchorAssignmentControls({ quiet = false } = {}) {
       "picked " + (r.assignments[0] || {}).clause);
     /* the other direction: swap which one is busy and the pick must swap too */
     const r2 = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]),
-      want: 1, certCensus: cens([["9.2", 3]]) });
+      want: 1, certCensus: cens([["9.2", 2]]) });
     ok("...and the preference follows the census, not the clause name",
       r2.assignments[0] && r2.assignments[0].clause === "9.1",
       "picked " + (r2.assignments[0] || {}).clause);
     /* the TASK-LOCAL count still leads: a clause this task already holds is worse even if the
-     * certification has never used it */
+     * certification has used the other one more -- while both stay under saturation */
     const r3 = assignAnchors({ taskCode: "x.1", runId: "r1", primaries,
-      censusMap: cens([["9.2", 1]]), want: 1, certCensus: cens([["9.1", 5]]) });
+      censusMap: cens([["9.2", 1]]), want: 1, certCensus: cens([["9.1", 2]]) });
     ok("the task's own count still outranks the certification-wide one",
       r3.assignments[0] && r3.assignments[0].clause === "9.1",
       "picked " + (r3.assignments[0] || {}).clause);
+
+    /* ---- SATURATION IS A HARD CAP (PROMPT-132 s2), BOTH DIRECTIONS ---- */
+    const satOne = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]),
+      want: 2, certCensus: cens([["9.1", SATURATION_CAP]]) });
+    ok("a SATURATED anchor is not assignable at all, however little this task holds",
+      satOne.assignments.every((a) => a.clause === "9.2") && satOne.eligible === 1,
+      JSON.stringify({ picked: satOne.assignments.map((a) => a.clause), eligible: satOne.eligible }));
+    ok("...and it is reported as saturated with its certification-wide count",
+      satOne.saturated_blocked.length === 1 && satOne.saturated_blocked[0].clause === "9.1" &&
+      satOne.saturated_blocked[0].cert_held === SATURATION_CAP,
+      JSON.stringify(satOne.saturated_blocked));
+    ok("one BELOW the cap is still assignable -- the boundary is >=, not >",
+      assignAnchors({ taskCode: "x.1", runId: "r1", primaries: [P("9.1")], censusMap: cens([]),
+        want: 1, certCensus: cens([["9.1", SATURATION_CAP - 1]]) }).eligible === 1);
+    ok("one OVER the cap is refused too",
+      assignAnchors({ taskCode: "x.1", runId: "r1", primaries: [P("9.1")], censusMap: cens([]),
+        want: 1, certCensus: cens([["9.1", SATURATION_CAP + 4]]) }).eligible === 0);
+    const satAll = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]),
+      want: 2, certCensus: cens([["9.1", 3], ["9.2", 4]]) });
+    ok("every primary saturated gives NO assignment rather than one the gate would refuse",
+      satAll.assignments.length === 0 && satAll.eligible === 0);
+    ok("...and says NO ASSIGNABLE ANCHOR -- a floor question, not a thin map",
+      /NO ASSIGNABLE ANCHOR/.test(satAll.why) && /SATURATED/.test(satAll.why) &&
+      !/NO PRIMARY PASSAGE/.test(satAll.why), satAll.why);
+    /* THE OTHER DIRECTION ON THE REASON: a genuinely empty map must NOT be called saturated */
+    const noMap = assignAnchors({ taskCode: "x.1", runId: "r1", primaries: [], censusMap: cens([]),
+      want: 2, certCensus: cens([["9.1", 9]]) });
+    ok("a task with no primary at all is a MAP fact, never reported as saturation",
+      /NO PRIMARY PASSAGE/.test(noMap.why) && !/SATURATED/.test(noMap.why), noMap.why);
+    /* AND THE TASK CAP STILL OWNS ITS OWN CASE: at the task cap but unsaturated is not saturation */
+    const taskCapped = assignAnchors({ taskCode: "x.1", runId: "r1", primaries: [P("9.1")],
+      censusMap: cens([["9.1", 2]]), want: 1, certCensus: cens([["9.1", 2]]) });
+    ok("at the task cap but under saturation reports the CAP, not saturation",
+      /at the cap of 2/.test(taskCapped.why) && taskCapped.saturated_blocked.length === 0,
+      taskCapped.why);
+    /* ISMS-F AND AIMS-F ARE UNAFFECTED, and the mechanism is the reason: no certCensus, no cap. */
+    const noCert = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]),
+      want: 2 });
+    ok("a caller passing NO certCensus has nothing saturated -- the complete certifications cannot move",
+      noCert.eligible === 2 && noCert.saturated_blocked.length === 0 && noCert.saturation_cap === null,
+      JSON.stringify({ eligible: noCert.eligible, satCap: noCert.saturation_cap }));
+    ok("...and satCap=0 turns the cap off explicitly as well",
+      assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]), want: 2,
+        certCensus: cens([["9.1", 9], ["9.2", 9]]), satCap: 0 }).eligible === 2);
     /* and with NO certCensus every existing caller is unchanged */
     const a = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]), want: 2 });
     const b = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]), want: 2,

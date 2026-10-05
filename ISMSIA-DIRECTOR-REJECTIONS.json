@@ -86,6 +86,26 @@
       "rejected": 1,
       "withheld": 0,
       "note": "Writer claude-opus-5. THE JUDGE'S 12 FLAGS WERE ALL UPHELD -- the director would have called every one. Its single miss (65362731 against 3da7fa4a) is a CROSS-ANCHOR pair, which a same-anchor judge cannot see; PROMPT-131 s3 adds key-term neighbours for exactly that."
+    },
+    {
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "report": "ISMSIA-ROLLOUT-R6.md",
+      "ruled": "2026-10-05, PROMPT-132 s1",
+      "read": 46,
+      "accepted": 31,
+      "rejected": 13,
+      "withheld": 2,
+      "note": "Writer claude-sonnet-5-5. ALL 18 JUDGE FLAGS UPHELD across both arms (13 same-anchor, 5 key-term neighbour). One miss: 50cb8b61 against 735ed831, a cross-anchor pair (4.3 against 4.2) that the neighbour arm did not rank into its top 3 either. SATURATION is now the dominant waste: 16 of 53 survivors repeated a live point, 30 percent against 18 in R5."
+    },
+    {
+      "artifact": "ISMSIA-R6-opus.json",
+      "report": "ISMSIA-ROLLOUT-R6.md",
+      "ruled": "2026-10-05, PROMPT-132 s1",
+      "read": 7,
+      "accepted": 4,
+      "rejected": 3,
+      "withheld": 0,
+      "note": "Writer claude-opus-5. ALL 18 JUDGE FLAGS UPHELD across both arms (13 same-anchor, 5 key-term neighbour). One miss: 50cb8b61 against 735ed831, a cross-anchor pair (4.3 against 4.2) that the neighbour arm did not rank into its top 3 either. SATURATION is now the dominant waste: 16 of 53 survivors repeated a live point, 30 percent against 18 in R5."
     }
   ],
   "rejections": [
@@ -437,6 +457,196 @@
       "kind": "quality",
       "why": "RULED reject (PROMPT-131 s1): recall, with two distractors no auditor would pick (\"approve the risk treatment plan on the risk owners' behalf\", \"replace the auditee's monitoring approach\")",
       "ruled_in": "PROMPT-131 s1"
+    },
+    {
+      "item_id": "26586ef3",
+      "artifact": "ISMSIA-R6-opus.json",
+      "task": "3.3",
+      "anchor": "ISO 19011 3.9",
+      "writer_model": "claude-opus-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "c06d84f5",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item c06d84f5 -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "e80140ab",
+      "artifact": "ISMSIA-R6-opus.json",
+      "task": "3.3",
+      "anchor": "ISO 19011 3.10",
+      "writer_model": "claude-opus-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "b535a163",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item b535a163 -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "94044ad1",
+      "artifact": "ISMSIA-R6-opus.json",
+      "task": "3.3",
+      "anchor": "ISO 19011 6.4.7",
+      "writer_model": "claude-opus-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "0cf45b42",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item 0cf45b42 -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "77f88c7a",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "5.1",
+      "anchor": "ISO 19011 3.11",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "3da7fa4a",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item 3da7fa4a -- judge (NEIGHBOUR arm) -- the FOURTH item on the non-compliance point",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "2afcd159",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "1.1",
+      "anchor": "ISO 19011 3.13",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "eda3a540",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item eda3a540 -- judge (NEIGHBOUR arm) -- also duplicates 8304e207; the THIRD 'customer audit = second party' item",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "c29824e5",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "3.1",
+      "anchor": "ISO 19011 6.4.8",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "41987c68",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item 41987c68 -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "79222d89",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "5.7",
+      "anchor": "ISO/IEC 27001 9.3.3",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "22090360",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item 22090360 -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "4f8b2757",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "5.7",
+      "anchor": "ISO/IEC 27001 9.2.2",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "71cb5f4e",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item 71cb5f4e -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "86a04411",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "5.1",
+      "anchor": "ISO 19011 3.21",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "20ee9bc7",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item 20ee9bc7 -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "8a5b3d19",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "5.4",
+      "anchor": "ISO 19011 4.3",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "a4ea9bcd",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item a4ea9bcd -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "c26c1fd6",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "3.8",
+      "anchor": "ISO 19011 4.7",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "d0cbb7a4",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item d0cbb7a4 -- judge (NEIGHBOUR arm)",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "5023df9e",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "2.2",
+      "anchor": "ISO 19011 5.1",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "68037836",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item 68037836 -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "12bcedb2",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "5.7",
+      "anchor": "ISO/IEC 27001 9.2.1",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "4481e168",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item 4481e168 -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "87ce4862",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "5.3",
+      "anchor": "ISO 19011 3.8",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "5b846ff4",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item 5b846ff4 -- judge",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "50cb8b61",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "4.1",
+      "anchor": "ISO/IEC 27001 4.3",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "735ed831",
+      "flagged_by": "director",
+      "why": "RULED reject (PROMPT-132 s1): duplicates the live item 735ed831 -- THE DIRECTOR -- MISSED BY THE JUDGE. A contract requirement not weighed in the scope; anchors 4.3 and 4.2, so a CROSS-ANCHOR pair that the neighbour arm also did not surface (735ed831 was not among 50cb8b61's three nearest by key-share).",
+      "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "72620d2f",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "task": "1.1",
+      "anchor": "ISO/IEC 27001 9.2.2",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "quality",
+      "why": "RULED reject (PROMPT-132 s1): \"not fine\" for the sole competent auditor CONTRADICTS WHAT THE BANK TEACHES (740d9999, 6b73a816: proceed with measures against bias). Same conflict as 3f9a949a in R3. The judge also flagged it as a duplicate of 09c6f6b5, which is true as well -- it is rejected on the conflict.",
+      "ruled_in": "PROMPT-132 s1"
     }
   ]
 }

@@ -1,0 +1,42 @@
+{
+  "_what": "PROMPT-132 s1: 4 accept(s) from ISMSIA-R6-opus.json.",
+  "_writer_model": "claude-opus-5",
+  "accepts": [
+    {
+      "item_id": "bad0404a",
+      "report_number": 1,
+      "task": "3.3",
+      "ruled_in": "PROMPT-132 s1",
+      "writer_model": "claude-opus-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-132 s1 | writer claude-opus-5 | ISO 19011 A.5"
+    },
+    {
+      "item_id": "68aff76f",
+      "report_number": 2,
+      "task": "3.7",
+      "ruled_in": "PROMPT-132 s1",
+      "writer_model": "claude-opus-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-132 s1 | writer claude-opus-5 | ISO 19011 3.17"
+    },
+    {
+      "item_id": "7a6647a1",
+      "report_number": 3,
+      "task": "4.8",
+      "ruled_in": "PROMPT-132 s1",
+      "writer_model": "claude-opus-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-132 s1 | writer claude-opus-5 | ISO/IEC 27001 A.5.13"
+    },
+    {
+      "item_id": "58550dce",
+      "report_number": 4,
+      "task": "4.8",
+      "ruled_in": "PROMPT-132 s1",
+      "writer_model": "claude-opus-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-132 s1 | writer claude-opus-5 | ISO/IEC 27001 4.3"
+    }
+  ]
+}

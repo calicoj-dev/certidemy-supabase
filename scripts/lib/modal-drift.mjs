@@ -37,9 +37,20 @@ const HEDGE = /\b(should|may|can|could|ought to)\b/i;
  * thinks to widen. */
 const HARD_EN = /\b(shall|must|is required to|are required to|requires?|required|has to|have to|had to|having to)\b/i;
 /** target-language requirement forms. */
+/* ============ THE TRAILING BOUNDARY AFTER AN ACCENT WAS DEAD (fixed PROMPT-132 s4) ============
+ *
+ * `\bdeberá\b` and `\bdeverá\b` could never match: ASCII `\b` needs a word character on one side, and
+ * `á` is not one, so the boundary after it never held. The FUTURE-FORM obligation ISO Spanish and
+ * Portuguese reach for most was invisible to this check for its whole life, which is invariant 13's
+ * own example. Only these two branches were affected -- `deberán` and `deverão` end in an ASCII
+ * letter, so their boundaries always fired.
+ *
+ * The repair is a Unicode lookahead and the `u` flag, which is also what keeps it from matching
+ * inside `deberán`. `\p{L}` is a REAL escape inside a regex literal; the G3 repair broke because it
+ * built the same class inside a STRING, where JavaScript drops the backslash. */
 const HARD = {
-  "es-419": /(\bdebe\b|\bdeben\b|\bdebera\b|\bdeberá\b|\bdeberan\b|\bdeberán\b|\btiene que\b|\btienen que\b|es obligatorio|est(a|á) obligad|\bha de\b|\bhan de\b)/i,
-  "pt-BR": /(\bdeve\b|\bdevem\b|\bdevera\b|\bdeverá\b|\bdeverao\b|\bdeverão\b|\btem de\b|\bt(e|ê)m de\b|\btem que\b|(e|é) obrigat)/i,
+  "es-419": /(\bdebe\b|\bdeben\b|\bdebera\b|\bdeberá(?![\p{L}\p{N}_])|\bdeberan\b|\bdeberán\b|\btiene que\b|\btienen que\b|es obligatorio|est(a|á) obligad|\bha de\b|\bhan de\b)/iu,
+  "pt-BR": /(\bdeve\b|\bdevem\b|\bdevera\b|\bdeverá(?![\p{L}\p{N}_])|\bdeverao\b|\bdeverão\b|\btem de\b|\bt(e|ê)m de\b|\btem que\b|(e|é) obrigat)/iu,
 };
 /** target-language hedges. Their presence means the sentence did carry the hedge across. */
 const HEDGED_TR = {
@@ -127,6 +138,26 @@ export function modalDriftControls() {
   ok("pt-BR: ought to -> devem is a finding",
     one("Role assignments ought to be checked.",
       "As atribuicoes de papeis devem ser verificadas.", "pt-BR").findings.length === 1);
+
+  /* ---- THE FUTURE FORMS, WHICH COULD NEVER MATCH BEFORE PROMPT-132 s4 ---- */
+  ok("es-419: should -> debera (accented) is a finding",
+    one("The owner should approve the plan.",
+      "El responsable deberá aprobar el plan.", "es-419").findings.length === 1);
+  ok("pt-BR: should -> devera (accented) is a finding",
+    one("The owner should approve the plan.",
+      "O responsável deverá aprovar o plano.", "pt-BR").findings.length === 1);
+  /* THE OTHER DIRECTION: the lookahead must not fire INSIDE a longer word. `deberan`/`deverao` have
+   * their own branches; what must not happen is the accented branch matching a prefix of them. */
+  ok("es-419: deberán still matches through its OWN branch, not the accented prefix",
+    one("The owners should approve the plan.",
+      "Los responsables deberán aprobar el plan.", "es-419").findings.length === 1);
+  ok("pt-BR: deverão still matches through its OWN branch",
+    one("The owners should approve the plan.",
+      "Os responsáveis deverão aprovar o plano.", "pt-BR").findings.length === 1);
+  /* and a hedged future is still clean -- the repair must not make the check indiscriminate */
+  ok("es-419: should -> se recomienda stays clean next to an accented word",
+    one("The owner should approve the plan.",
+      "Se recomienda que el responsable apruebe el plan.", "es-419").findings.length === 0);
 
   /* ---- and the shapes that must NOT be findings ---- */
   ok("pt-BR: should -> convem que is clean",

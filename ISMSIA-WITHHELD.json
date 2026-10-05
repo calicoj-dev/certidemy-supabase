@@ -110,6 +110,24 @@
       "twin_of": "71cb5f4e",
       "anchor": "ISO/IEC 27001 9.2.2",
       "reason": "twin of 71cb5f4e: same anchor, same point, flagged by the judge and upheld. The director keeps 71cb5f4e. Sound item, may serve later."
+    },
+    {
+      "item_id": "b883de5c",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "ruled_in": "PROMPT-132 s1",
+      "kind": "twin-within-round",
+      "twin_of": "f5883cc8",
+      "anchor": "ISO/IEC 27001 8.2",
+      "reason": "twin of f5883cc8: same anchor, same point, flagged by the judge and upheld. The director keeps f5883cc8. Sound item, may serve later."
+    },
+    {
+      "item_id": "4ae475ea",
+      "artifact": "ISMSIA-R6-sonnet.json",
+      "ruled_in": "PROMPT-132 s1",
+      "kind": "twin-within-round",
+      "twin_of": "26e5817b",
+      "anchor": "ISO/IEC 27001 6.1.3",
+      "reason": "twin of 26e5817b: same anchor, same point, flagged by the judge and upheld. The director keeps 26e5817b. Sound item, may serve later."
     }
   ],
   "_translation_lint_note": "Three R3 items are withheld for a TRANSLATION defect rather than an item defect. The English explanations were checked and name no option by letter, so the letter reference is the translator introducing one. Re-rolling reproduced both problems identically, so no further spend was made. They become approvable the moment a clean sibling pair exists.",

@@ -52,7 +52,7 @@ import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { runCodeGates, normClause } from "./lib/grounded-gates.mjs";
 import { blindPayload, assertBlind, solverUser, solverVerdict, SOLVER_SYSTEM, blindSolverControls } from "./lib/blind-solver.mjs";
 import { createHash } from "node:crypto";
-import { CAP, atCap, applyCap, anchorKey, anchorCapControls } from "./lib/anchor-cap.mjs";
+import { CAP, SATURATION_CAP, atCap, applyCap, anchorKey, anchorCapControls } from "./lib/anchor-cap.mjs";
 import { passageKey, keyOfPassage, labelOf, passageKeyControls } from "./lib/passage-key.mjs";
 import { makePassageIndex, passageIndexControls } from "./lib/passage-index.mjs";
 /* PROMPT-96 s2. ONE implementation of the assignment, imported by the writer prompt AND by the gate, so the
@@ -75,6 +75,7 @@ import { cueConfigFor } from "../functions/_shared/item-rules/item-cue-guard.mjs
  * below). The module is untouched, so re-running the measurement means re-importing four names -- an
  * unused import of them would read as though the probe still ran. */
 import { optionsProbeControls } from "./lib/options-probe.mjs";
+import { loadTaskFloors, floorFor } from "./lib/task-floors.mjs";
 import { shapeCues, shapeCueControls, KEY_LENGTH_TOLERANCE } from "./lib/shape-cues.mjs";
 import { deCueRewriteCheck, deCueCheckControls, newCodeCue, triggerCleared,
   limiterDropped } from "./lib/de-cue-checks.mjs";
@@ -175,7 +176,7 @@ let CEILING_STOPPED = 0;
  * silent second bill. */
 const writerRetried = new Set();
 let writerRetrySaved = 0;
-let REUSE_SOLVER = false, RESOLVE_FRESH = false;
+let REUSE_SOLVER = false, RESOLVE_FRESH = false, SAT_REPORT = false;
 for (const a of process.argv.slice(2)) {
   let m;
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
@@ -220,6 +221,7 @@ for (const a of process.argv.slice(2)) {
    * would mix judged and unjudged rows with nothing in the output saying which is which. */
   if (a === "--reuse-solver") { REUSE_SOLVER = true; continue; }
   if (a === "--resolve-fresh") { RESOLVE_FRESH = true; continue; }
+  if (a === "--saturation-report") { SAT_REPORT = true; continue; }
   if (a === "--apply") { APPLY = true; continue; }
   console.error("unknown flag " + JSON.stringify(a));
   console.error("");
@@ -925,6 +927,19 @@ console.log("  anchor cap          " + CAP + " per (source, clause) per task; " 
   " inserted + " + capInfo.fromAwaiting + " awaiting a read)" +
   (capInfo.unknownAnchor.length ? "; " + capInfo.unknownAnchor.length +
     " kept item(s) with NO recorded anchor, not counted" : ""));
+/* SATURATION, ruled PROMPT-132 s2. Counted off the SAME census the assignment reads, so the number
+ * reported and the number enforced cannot differ. */
+{
+  const sat = [...CERT_ANCHOR_USE.entries()].filter(([, n]) => n >= SATURATION_CAP);
+  console.log("  saturation cap      " + SATURATION_CAP + " per (source, edition, clause) across the " +
+    "whole certification; " + sat.length + " of " + CERT_ANCHOR_USE.size +
+    " used anchor(s) SATURATED and closed to new keys");
+  if (sat.length) {
+    const top = sat.sort((a, b) => b[1] - a[1]).slice(0, 8)
+      .map(([k, n]) => k.replace(/\|/g, ":") + " x" + n);
+    console.log("      busiest: " + top.join(", ") + (sat.length > 8 ? ", ..." : ""));
+  }
+}
 /* THE AWAITING LAYER IS ENUMERATED, NOT JUST COUNTED. It is the layer that can WRONGLY suppress generation --
  * an item counted as awaiting that is really inserted, or really withdrawn, refuses a task that has room. A
  * count cannot be checked against anything; the artifacts and the withdrawals can. */
@@ -1168,12 +1183,20 @@ function writerUser(task, domain, passages, k, assignments) {
    * closed to a key however anchorable its source. */
   const tierMark = (p) => anchorMarkFor(p,
     { tier: TIER, primaryClauses: primaryOf(task.code), isPrimary: isPrim(p) });
+  /* SATURATION, ruled PROMPT-132 s2: an anchor carrying SATURATION_CAP or more live grounded items
+   * ACROSS THE CERTIFICATION is closed to a new key and still open to a distractor. It is marked
+   * before the tier rule for the same reason the task cap is -- no mark may promise what code refuses. */
+  const isSaturated = (p) =>
+    (CERT_ANCHOR_USE.get(keyOfPassage(p)) || 0) >= SATURATION_CAP;
   const fmt = (p) =>
     "--- " + p.source_id + ":" + p.edition + " clause " + p.clause + (p.title ? " (" + p.title + ")" : "") +
     "  [this clause is " + p.normative + "; " +
     (isPrim(p) ? (fullSet.has(keyOfPassage(p))
       ? "PRIMARY but ALREADY AT THE ANCHOR CAP -- DO NOT anchor a key here"
-      : (TIER === "internal-auditor" ? tierMark(p) : "PRIMARY for this task -- a KEY MAY anchor here")) :
+      : isSaturated(p)
+        ? "PRIMARY but SATURATED across this certification (" + CERT_ANCHOR_USE.get(keyOfPassage(p)) +
+          " live items already rest on it) -- DO NOT anchor a key here; a distractor's reason still may"
+        : (TIER === "internal-auditor" ? tierMark(p) : "PRIMARY for this task -- a KEY MAY anchor here")) :
       "SUPPORTING -- a distractor's reason may use it, a KEY MAY NOT anchor here") + "] ---\n" + p.text;
   const primaries = passages.filter(isPrim);
   const others = passages.filter((p) => !isPrim(p));
@@ -1307,6 +1330,10 @@ const PARTIAL = OUT_PATH.replace(/\.json$/, "") + ".partial.jsonl";
 const RUN_ID = OUT.replace(/\.json$/, "");
 /* task code -> the assignments handed to the writer, read back by the gate */
 const assignmentByTask = new Map();
+/* tasks the saturation cap left with no assignable anchor -- a FLOOR question, named in the report */
+const NO_ASSIGNABLE = [];
+/* --saturation-report: the assignment verdict per task, no model call. PROMPT-132 s2. */
+const SAT_ROWS = [];
 const resumed = new Map();
 if (existsSync(PARTIAL)) {
   let bad = 0;
@@ -1464,6 +1491,23 @@ if (FROM) {
       }
     }
     assignmentByTask.set(t.code, asg.assignments);
+    /* ============ --saturation-report: THE ASSIGNMENT'S VERDICT, NO MODEL CALL (PROMPT-132 s2) ============
+     *
+     * The director needs to know which tasks the saturation cap leaves with no assignable anchor BEFORE
+     * a round is paid for, and that is a question only the assignment can answer. Reusing this loop is
+     * the point: a separate script would be a second implementation of the effective-primary rule, the
+     * tier filter and the census, and the three would drift. Free, and it writes nothing. */
+    if (SAT_REPORT) {
+      /* `effective` is the TASK'S KEYABLE PRIMARY COUNT and is recorded because nothing else here is
+       * it: `eligible` is under-task-cap AND unsaturated, so a task whose primaries are merely at the
+       * task cap would read as a thin map. A thin-map verdict has to come from the map. */
+      SAT_ROWS.push({ task: t.code, asked: k, effective: effectiveCountOf(t.code),
+        eligible: asg.eligible, capacity: asg.capacity,
+        assignable: asg.assignments.length,
+        saturated: (asg.saturated_blocked || []).map((s) => s.clause + " x" + s.cert_held),
+        why: asg.why });
+      continue;
+    }
     console.log("  " + t.code + "  anchors assigned: " +
       (asg.assignments.length ? asg.assignments.map((a) => a.clause).join(", ") : "none") +
       "   (" + asg.eligible + " eligible primary(ies), capacity " + asg.capacity + ")");
@@ -1476,7 +1520,20 @@ if (FROM) {
         "would refuse.");
       bump("anchor capacity short by " + asg.shortfall);
     }
-    if (!asg.assignments.length) { bump("no eligible primary under the anchor cap"); continue; }
+    if (!asg.assignments.length) {
+      /* TWO CAUSES, TWO LABELS (PROMPT-132 s2). "no eligible primary under the anchor cap" said the
+       * task was full; saturation says the certification has used the passages up, which is a FLOOR
+       * question the director rules on. One label for both would hide the new one inside the old. */
+      if (asg.saturated_blocked && asg.saturated_blocked.length) {
+        NO_ASSIGNABLE.push({ task: t.code, asked: k, saturated: asg.saturated_blocked });
+        console.log("      NO ASSIGNABLE ANCHOR -- every under-cap primary is saturated. Reported for " +
+          "a floor ruling; no call made.");
+        bump("no assignable anchor: every primary saturated certification-wide");
+      } else {
+        bump("no eligible primary under the anchor cap");
+      }
+      continue;
+    }
     k = asg.assignments.length;
     let arr = null;
     try {
@@ -2097,6 +2154,46 @@ for (const g of generated) {
   results.push(record);
 }
 
+/* ============ --saturation-report ENDS HERE: NO GATES, NO SOLVER, NO WRITE (PROMPT-132 s2) ============ */
+if (SAT_REPORT) {
+  const sat = [...CERT_ANCHOR_USE.entries()].filter(([, n]) => n >= SATURATION_CAP)
+    .sort((a, b) => b[1] - a[1]);
+  const floors = loadTaskFloors(CERT);
+  const heldOf = (code) => [...(capCensus.get(code) || new Map()).values()].reduce((s, n) => s + n, 0);
+  const none = SAT_ROWS.filter((r) => r.assignable === 0);
+  console.log("");
+  console.log("SATURATION REPORT   " + CERT + "   cap " + SATURATION_CAP +
+    " live grounded item(s) per (source, edition, clause) certification-wide");
+  console.log("  anchors in use                " + CERT_ANCHOR_USE.size);
+  console.log("  SATURATED, closed to new keys " + sat.length);
+  console.log("  tasks examined                " + SAT_ROWS.length);
+  console.log("  TASKS WITH NO ASSIGNABLE ANCHOR " + none.length);
+  console.log("");
+  console.log("  task   held  floor  assignable  saturated primaries");
+  for (const r of SAT_ROWS) {
+    const f = floorFor(r.task, floors, effectiveCountOf(r.task));
+    console.log("  " + r.task.padEnd(6) + String(heldOf(r.task)).padStart(4) +
+      String(f && f.floor != null ? f.floor : "?").padStart(7) +
+      String(r.assignable).padStart(12) + "  " +
+      (r.saturated.length ? r.saturated.join(", ") : "-") +
+      (r.assignable === 0 ? "   <-- NO ASSIGNABLE ANCHOR" : ""));
+  }
+  writeFileSync(join(ROOT, CERT.replace(/[^A-Za-z0-9-]/g, "") + "-SATURATION.json"), JSON.stringify({
+    cert: CERT, saturation_cap: SATURATION_CAP, anchors_in_use: CERT_ANCHOR_USE.size,
+    saturated: sat.map(([k, n]) => ({ anchor: k.replace(/\|/g, ":"), live_items: n })),
+    tasks: SAT_ROWS.map((r) => {
+      const f = floorFor(r.task, floors, effectiveCountOf(r.task));
+      return { ...r, held: heldOf(r.task), floor: f && f.floor != null ? f.floor : null,
+        floor_source: f && f.source ? f.source : null };
+    }),
+    tasks_with_no_assignable_anchor: none.map((r) => r.task),
+  }, null, 1) + "\n", "utf8");
+  console.log("");
+  console.log("wrote " + CERT.replace(/[^A-Za-z0-9-]/g, "") + "-SATURATION.json.  NOTHING ELSE RAN: " +
+    "no writer call, no gate, no solver, no row. Floors are NOT changed here.");
+  process.exit(0);
+}
+
 /* ---------------------------------------------------------------- report */
 /* ============ THE ANCHOR CAP, APPLIED AFTER EVERY OTHER GATE ============
  *
@@ -2317,9 +2414,20 @@ writeFileSync(OUT_PATH, JSON.stringify({
   options_probe_unrun: probeUnrun,
   options_probe_not_run: probeNotRun,
   longest_served_run_max: runs.length ? Math.max(...runs) : null,
+  /* PROMPT-132 s2: what the saturation cap closed. In the ARTIFACT because the floor ruling that
+   * follows is made from it, and a number only in a log is a number nobody can re-read. */
+  saturation_cap: SATURATION_CAP,
+  saturated_anchors: [...CERT_ANCHOR_USE.entries()].filter(([, n]) => n >= SATURATION_CAP)
+    .sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ anchor: k.replace(/\|/g, ":"), live_items: n })),
+  tasks_with_no_assignable_anchor: NO_ASSIGNABLE,
   items: results,
 }, null, 1) + "\n", "utf8");
 console.log("");
+if (NO_ASSIGNABLE.length) {
+  console.log("TASKS WITH NO ASSIGNABLE ANCHOR (saturation cap " + SATURATION_CAP + "): " +
+    NO_ASSIGNABLE.map((x) => x.task).join(", "));
+  console.log("  A FLOOR QUESTION, not a generation one. No call was made for these.");
+}
 console.log("wrote " + OUT);
 /* ============ A COMPLETED RUN RETIRES ITS PARTIAL ============
  *

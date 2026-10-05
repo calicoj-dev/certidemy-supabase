@@ -81,6 +81,23 @@ function normalise(c) {
     return { n: null, fails: c.map(String) };          /* failure names only, no denominator */
   }
   if (!c || typeof c !== "object") return null;
+  /* ============ A FIFTH SHAPE, AND IT WAS BEING READ AS THE SECOND (PROMPT-132) ============
+   *
+   * `{cases, examined, allPass}` carries BOTH a denominator and per-case verdicts. The `examined`
+   * branch below won, read `c.fails` -- which that shape does not have -- and reported "all pass"
+   * over a suite whose cases were failing. anchor-assignment is exactly that shape: it reported 42
+   * of 42 green while one case was red, and only running the suite by hand found it.
+   *
+   * The positive control did not catch it because its `{cases,allPass}` fixture carries no
+   * `examined`, so the fixture never took the branch the real suite takes. A control whose fixture
+   * is a simpler shape than the real return is testing a shape nothing returns.
+   *
+   * So: per-case verdicts WIN, because they say more than a count. The denominator still comes from
+   * `examined` when the suite states one. */
+  if (Array.isArray(c.cases) && !Array.isArray(c.fails)) {
+    const r = caseList(c.cases);
+    return { n: typeof c.examined === "number" ? c.examined : r.n, fails: r.fails };
+  }
   if (typeof c.examined === "number") return { n: c.examined, fails: (c.fails || []).map(String) };
   if (Array.isArray(c.cases)) return caseList(c.cases);
   return null;
@@ -93,6 +110,10 @@ async function selfControl() {
   const planted = [
     ["{examined,fails}", () => ({ examined: 3, fails: ["planted"] })],
     ["{cases,allPass}", () => ({ cases: [{ pass: true }, { pass: false, what: "planted" }] })],
+    /* THE REAL SHAPE anchor-assignment RETURNS: cases AND examined AND allPass. The fixture above
+     * omits `examined`, so it took a different branch and the green-over-red defect survived it. */
+    ["{cases,examined,allPass}", () => ({ examined: 2, allPass: false,
+      cases: [{ pass: true }, { pass: false, what: "planted" }] })],
     ["array of cases", () => [{ pass: false, what: "planted" }]],
     ["failure names", () => ["planted"]],
     ["async", () => Promise.resolve(["planted"])],
@@ -113,7 +134,7 @@ async function selfControl() {
 
 let bad = 0, vacuous = 0, broke = 0, unreadable = 0, unmeasured = 0, examined = 0, ran = 0;
 const selfMissed = await selfControl();
-console.log("POSITIVE CONTROL -- 5 planted failures, one per contract, plus 2 negative arms: " +
+console.log("POSITIVE CONTROL -- 6 planted failures, one per contract, plus 2 negative arms: " +
   (selfMissed.length ? selfMissed.length + " MISSED" : "all 7 detected"));
 for (const m of selfMissed) console.log("    MISSED " + m);
 console.log("");

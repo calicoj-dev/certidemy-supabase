@@ -442,6 +442,46 @@
    "seconds": 6,
    "note": null,
    "recorded_at": "2026-10-05T04:37:57.704Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 2,
+   "note": null,
+   "recorded_at": "2026-10-05T05:35:35.983Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 2,
+   "note": null,
+   "recorded_at": "2026-10-05T05:37:32.946Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-05T05:37:58.861Z"
+  },
+  {
+   "cert": "AIMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-05T05:38:01.615Z"
   }
  ],
  "costs_usd": [
@@ -1191,6 +1231,183 @@
     "tasks": 32,
     "at_floor": 5,
     "too_thin": 1
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 5,
+   "stage_name": "director verdicts R6",
+   "ruled_in": "PROMPT-132 s1",
+   "usd_generation": 18.817,
+   "usd_judge": 10.9356,
+   "usd_total": 29.7526,
+   "survivors": 53,
+   "accepted": 35,
+   "rejected": 16,
+   "withheld": 2,
+   "rejects_by_kind": {
+    "quality": 1,
+    "duplicate-of-live": 15
+   },
+   "twins_withheld": 2,
+   "usd_per_accepted_including_judge": 0.8501,
+   "judge": {
+    "flags": 18,
+    "flags_upheld": 18,
+    "flags_overruled": 0,
+    "misses": 1,
+    "arms": {
+     "same-anchor": {
+      "judged": 138,
+      "flagged": 13
+     },
+     "key-term-neighbour": {
+      "judged": 159,
+      "flagged": 5
+     }
+    },
+    "miss_detail": "50cb8b61 against 735ed831 -- a contract requirement not weighed in the scope, anchored on 4.3 and 4.2. CROSS-ANCHOR, and 735ed831 was not among 50cb8b61's three nearest by key-share, so the neighbour arm did not surface it either.",
+    "note": "18 of 18 upheld across both arms. The neighbour arm added 5 flags the same-anchor arm could not have seen, including the fourth item on the non-compliance point.",
+    "could_not_answer": 27
+   },
+   "saturation": {
+    "survivors_repeating_a_live_point": 16,
+    "share_of_survivors": 0.302,
+    "r5_share": 0.18,
+    "same_anchor_flags_against_live": 13,
+    "diagnosis": "The ALREADY TESTED block is not the failure: the writer WAS shown the live keys on those anchors and wrote the point again. A passage carrying three distinct keys has almost no distinct points left, so every remaining reading is near one that is taken.",
+    "remedy": "PROMPT-132 s2: a certification-wide saturation cap of 3 live grounded items per (source, edition, clause). Not assignable for a key; still available to a distractor.",
+    "measured_after": {
+     "anchors_in_use": 103,
+     "saturated": 28,
+     "tasks_with_no_assignable_anchor": [
+      "2.6",
+      "3.4",
+      "4.4",
+      "5.3",
+      "5.5",
+      "5.6"
+     ]
+    }
+   },
+   "opus_fallback": {
+    "tasks": [
+     "3.3",
+     "3.7",
+     "4.8"
+    ],
+    "asked": 12,
+    "survivors": 7,
+    "accepted": 4,
+    "usd": 5.1572,
+    "usd_per_accepted": 1.2893,
+    "against_sonnet_per_accepted": 0.4406,
+    "note": "3.3 RECOVERED 4 of 4 from 0 of 4 on Sonnet -- the clearest tripwire result so far. $1.29 an accepted item against Sonnet's $0.44."
+   },
+   "quality_reject_rate_sonnet": "1 of 46 = 2% (tripwire is >15%: NOT TRIPPED)",
+   "cumulative": {
+    "generation_usd": 90.0614,
+    "other_usd": 7.0844,
+    "known_usd": 97.1458,
+    "accepted_items": 221,
+    "usd_per_accepted_generation_only": 0.4075,
+    "approved_rows_per_language": 905
+   },
+   "instrument_usd_this_prompt": {
+    "translation_r6": 6.0861,
+    "judge_control_opus_extended_set": null,
+    "judge_control_sonnet_extended_set": null
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 4,
+   "stage_name": "generation R7",
+   "ruled_in": "PROMPT-132 s5",
+   "usd": 12.4489,
+   "ceiling": 30,
+   "attempted": 57,
+   "generated": 56,
+   "survivors": 34,
+   "design": "THE LAST GENERATION ROUND. 23 tasks; the 6 with no assignable anchor under the PROMPT-132 s2 saturation cap were left out (2.6, 3.4, 4.4, 5.3, 5.5, 5.6). Each ask bounded by assignable capacity, so 16 of 23 were asked less than 55%-survival arithmetic wanted.",
+   "by_writer": {
+    "claude-sonnet-5-5": {
+     "tasks": 20,
+     "asked": 47,
+     "generated": 46,
+     "survivors": 26,
+     "survival_of_generated": 0.5652,
+     "usd": 7.8599,
+     "usd_per_survivor": 0.3023
+    },
+    "claude-opus-5": {
+     "tasks": 3,
+     "asked": 10,
+     "generated": 10,
+     "survivors": 8,
+     "survival_of_generated": 0.8,
+     "usd": 4.589,
+     "usd_per_survivor": 0.5736,
+     "per_task": {
+      "3.3": "2 of 2",
+      "3.7": "5 of 6 (was 1 of 4 in R6)",
+      "4.8": "1 of 2"
+     }
+    }
+   },
+   "saturation_cap_effect": {
+    "cap": 3,
+    "saturated_anchors": 28,
+    "anchors_in_use": 103,
+    "opus_survival_r6": 0.583,
+    "opus_survival_r7": 0.8,
+    "same_anchor_judge_pairs_r6": 138,
+    "same_anchor_judge_pairs_r7": 50,
+    "note": "Opus survival rose 58% -> 80% on the SAME three tasks, and same-anchor judge pairs fell 138 -> 50. Handed an unused passage instead of an exhausted one the writer produces items that survive, and the instrument that cost more than half of generation has less to read."
+   },
+   "tripwire": {
+    "new_hits": [],
+    "note": "Four tasks returned 0 (1.3, 1.5, 2.1, 5.4) but every one was an ask of ONE, which the tripwire does not count and should not."
+   },
+   "judge_model_test": {
+    "set": "159 cases: 53 positives (the PROMPT-130 set plus every upheld duplicate and twin call from R5 and R6, plus the 50cb8b61/735ed831 miss) and 106 negatives. 53 of 53 and 106 of 106 resolved, nothing skipped.",
+    "claude-opus-5": {
+     "positives_caught": 48,
+     "of": 53,
+     "false_positives": 16,
+     "of_negatives": 106,
+     "false_positive_rate": 0.1509,
+     "could_not_answer_rate": 0.1006,
+     "usd": 5.9587
+    },
+    "claude-sonnet-5-5": {
+     "positives_caught": 48,
+     "of": 53,
+     "false_positives": 16,
+     "of_negatives": 106,
+     "false_positive_rate": 0.1509,
+     "could_not_answer_rate": 0.0063,
+     "usd": 0.5065
+    },
+    "verdict_agreement": "134 of 159 = 84%. The equal totals are a COINCIDENCE of counts, not equal behaviour: the five misses overlap on two and the sixteen false positives on twelve.",
+    "outcome": "Sonnet is level on positives (48 of 53 each) and IDENTICAL on false positives (16 of 106 = 15.09% each), beats Opus on unanswered (1% against 10%) and costs $0.51 against $5.96. It fails the under-15% false-positive bar by ONE PAIR -- and so does Opus, at the same rate, so that bar cannot discriminate between them. PROMPT-132 s3 says 'if not, Opus stays', so OPUS REMAINS THE DEFAULT and R7 was judged on Opus. Recommended to the director: switch.",
+    "unanswered_diagnosis": "11 raw responses captured: 7 EMPTY (no text block -- the only real non-answer), 3 TRUNCATED MID-JSON with the verdict readable and discarded by JSON.parse, 1 prose reasoning that hit max_tokens before the JSON. Diagnosis only; nothing changed."
+   },
+   "judge": {
+    "ran": true,
+    "model": "claude-opus-5",
+    "pairs": 152,
+    "judged": 152,
+    "flagged": 9,
+    "usd": 5.4171,
+    "unanswered": 7
+   },
+   "remaining_shortfall_if_all_r7_accepted": {
+    "tasks_short": 19,
+    "items_short": 34,
+    "cannot_be_generated_closed": 13,
+    "room_left": 6,
+    "note": "UPPER BOUND -- counts every R7 survivor as accepted, which the director has not read."
    }
   }
  ],

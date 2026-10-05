@@ -28,6 +28,25 @@
 
 export const CAP = 2;
 
+/* ============ AND A CERTIFICATION-WIDE SATURATION CAP (ruled PROMPT-132 s2) ============
+ *
+ * CAP is per task. SATURATION_CAP is per certification, and it exists because the per-task cap cannot
+ * see that a passage is used up.
+ *
+ * MEASURED ON R6: 16 of 53 survivors repeated a point already live -- 30%, up from 18% in R5 -- and
+ * 13 of the 18 judge flags were SAME-ANCHOR pairs against live items. The writer was shown the keys
+ * already written on that anchor by the ALREADY TESTED block and wrote the point again anyway. That is
+ * not the writer ignoring the block: a passage that already carries three distinct keys has very few
+ * distinct points left, so every remaining reading is near one that is taken.
+ *
+ * So the fix is upstream of the writer: an anchor carrying SATURATION_CAP or more live grounded items
+ * ACROSS THE WHOLE CERTIFICATION is not assignable for a new key. It still supports distractors -- a
+ * distractor's reason may cite any passage, and nothing about saturation makes the text less true.
+ *
+ * A task left with no assignable anchor is a FLOOR QUESTION, not a generation question, and is
+ * reported by name rather than worked around. */
+export const SATURATION_CAP = 3;
+
 /* The cap key IS the passage key: (source, edition, clause). It was (source, clause), which shares a
  * cap between two editions of one standard -- the same shape as the 3.4 collision one level up. */
 export { passageKey as anchorKey, parseKey } from "./passage-key.mjs";

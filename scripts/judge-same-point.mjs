@@ -34,6 +34,7 @@ import { makePassageIndex } from "./lib/passage-index.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 let CERT = null, ARTS = [], ACCEPTS = [], MAXUSD = null, LIMIT = 0, CONTROL = false, OUT = null;
 let NEIGHBOURS = 3;   /* PROMPT-131 s3: live key-term neighbours per candidate, any anchor. 0 disables. */
+let JUDGE_MODEL = null;   /* PROMPT-132 s3: the judge model, flagged so a cheaper one can be measured. */
 let ARM = "both";    /* which arm(s) to run: the s3 control measures the neighbour arm on its own. */
 const AV = process.argv.slice(2);
 for (let i = 0; i < AV.length; i++) {
@@ -50,6 +51,7 @@ for (let i = 0; i < AV.length; i++) {
   if ((m = /^--limit=([0-9]+)$/.exec(a))) { LIMIT = Number(m[1]); continue; }
   if ((m = /^--neighbours=([0-9]+)$/.exec(a))) { NEIGHBOURS = Number(m[1]); continue; }
   if ((m = /^--arm=(same-anchor|neighbour|both)$/.exec(a))) { ARM = m[1]; continue; }
+  if ((m = /^--judge-model=(.+)$/.exec(a))) { JUDGE_MODEL = m[1]; continue; }
   if ((m = /^--out=(.+)$/.exec(a))) { OUT = m[1]; continue; }
   console.error("unrecognised flag: " + a);
   process.exit(2);
@@ -57,8 +59,24 @@ for (let i = 0; i < AV.length; i++) {
 if (!CERT) { console.error("--cert is required"); process.exit(2); }
 if (MAXUSD === null) { console.error("--max-usd is required (PROMPT-117 s3)"); process.exit(2); }
 
-const MODEL = "claude-opus-5";              /* the SOLVER model: this is a judgement, not writing */
-const PRICE = { input: 15, output: 75 };
+/* ============ THE JUDGE'S MODEL IS A FLAG, AND ITS PRICE COMES WITH IT (PROMPT-132 s3) ============
+ *
+ * It was pinned to Opus because a judgement is not writing. R6 priced that: the judge cost $10.94
+ * against $18.82 for the whole round, so more than half of generation went on reading for
+ * duplicates. --judge-model lets the control measure a cheaper one against the same set; an
+ * unpriced model is refused, because a run that cannot price itself cannot respect --max-usd. */
+const JUDGE_PRICES = {
+  "claude-opus-5": { input: 15, output: 75 },
+  "claude-sonnet-5": { input: 3, output: 15 },
+  "claude-sonnet-5-5": { input: 2, output: 10 },
+  "claude-haiku-4-5-20251001": { input: 1, output: 5 },
+};
+const MODEL = JUDGE_MODEL || "claude-opus-5";
+if (!JUDGE_PRICES[MODEL]) {
+  console.error("unpriced judge model " + MODEL + ". Known: " + Object.keys(JUDGE_PRICES).join(", "));
+  process.exit(2);
+}
+const PRICE = JUDGE_PRICES[MODEL];
 const AK = process.env.ANTHROPIC_API_KEY ||
   (readFileSync(join(ROOT, "scripts", ".env"), "utf8").match(/^ANTHROPIC_API_KEY=(.+)$/m) || [])[1];
 if (!AK) { console.error("ANTHROPIC_API_KEY not found"); process.exit(2); }
@@ -271,8 +289,14 @@ if (CONTROL) {
     for (const [x, y] of list) {
       const a = anyById(x), b = anyById(y);
       if (!a || !b) { cases.push({ kind, x, y, skip: "one side not found" }); continue; }
-      if (a.anchorK !== b.anchorK) { cases.push({ kind, x, y, skip: "different anchors" }); continue; }
-      cases.push({ kind, x, y, a, b });
+      /* ============ CROSS-ANCHOR PAIRS ARE NO LONGER SKIPPED (PROMPT-132 s3) ============
+       *
+       * This skipped any pair whose two items sit on different anchors, which was right while the
+       * judge only ever saw same-anchor pairs. PROMPT-131 s3 gave it both passages and a neighbour
+       * arm, and five of R6's eighteen upheld flags were cross-anchor. Keeping the skip would have
+       * dropped the 50cb8b61/735ed831 MISS -- the one pair this control exists to test -- out of the
+       * set, and reported a score over a denominator that excluded the hard cases. */
+      cases.push({ kind, x, y, a, b, crossAnchor: a.anchorK !== b.anchorK });
     }
   }
   const runnable = cases.filter((c) => !c.skip);
@@ -301,9 +325,23 @@ if (CONTROL) {
   console.log("  POSITIVES CAUGHT   " + caught + " of " + pos.length + " judged (ruling's bar: 20 of 24)");
   console.log("  FALSE POSITIVES    " + fp + " of " + neg.length + " = " +
     (neg.length ? Math.round((fp / neg.length) * 100) : 0) + "%   (bar: under 15%)");
-  console.log("  could-not-answer   " + res.filter((r) => r.verdict === "COULD-NOT-ANSWER").length);
+  const cna = res.filter((r) => r.verdict === "COULD-NOT-ANSWER").length;
+  console.log("  could-not-answer   " + cna + " of " + res.length + " = " +
+    (res.length ? Math.round((cna / res.length) * 100) : 0) + "%   (PROMPT-132 s3 bar: under 5%)");
   console.log("  spend              $" + usd().toFixed(4) + " over " + CALLS + " call(s)");
+  /* the cross-anchor half, reported separately: it is the half the neighbour arm added and the half
+   * a cheaper judge is most likely to get wrong. */
+  const xa = res.filter((r) => r.crossAnchor);
+  console.log("  cross-anchor pairs " + xa.length + " judged; positives caught " +
+    xa.filter((r) => r.kind === "POSITIVE" && r.verdict === "SAME_POINT").length + " of " +
+    xa.filter((r) => r.kind === "POSITIVE").length);
+  const theMiss = res.find((r) => (r.x === "50cb8b61" && r.y === "735ed831") ||
+    (r.x === "735ed831" && r.y === "50cb8b61"));
+  console.log("  THE PROMPT-132 s1 MISS (50cb8b61 ~ 735ed831): " +
+    (theMiss ? theMiss.verdict + " -- " + (theMiss.verdict === "SAME_POINT" ? "NOW CAUGHT" : "still missed")
+      : "not in the judged set"));
   const misses = pos.filter((r) => r.verdict !== "SAME_POINT");
+  void 0;
   if (misses.length) {
     console.log("");
     console.log("  EACH MISSED POSITIVE, WITH THE JUDGE'S OWN REASON:");
@@ -314,7 +352,10 @@ if (CONTROL) {
     negatives_judged: neg.length, spend_usd: Number(usd().toFixed(4)),
     verdicts: res.map((r) => ({ kind: r.kind, a: r.x, b: r.y, verdict: r.verdict, reason: r.reason })),
   }, null, 2) + "\n");
-  const passBar = caught >= 20 && neg.length && (fp / neg.length) < 0.15;
+  /* PROMPT-132 s3 reads the bar RELATIVE to Opus on the same set, which this run cannot know on its
+   * own. So it reports the three numbers and judges only what it can: false positives and unanswered.
+   * The caught-count comparison is made by the director from the two runs. */
+  const passBar = neg.length && (fp / neg.length) < 0.15 && res.length && (cna / res.length) < 0.05;
   console.log("");
   console.log("  " + (passBar ? "CLEARS THE BAR" : "DOES NOT CLEAR THE BAR -- reported, not tuned"));
   process.exitCode = passBar ? 0 : 1;
@@ -380,6 +421,7 @@ if (CONTROL) {
   const flags = [];
   let judged = 0;
   let unanswered = 0;
+  const unansweredPairs = [];   /* PROMPT-132 s3: the third state, with its evidence */
   const byArm = {};
   for (const [a, b, arm, kshare] of pairs) {
     if (usd() >= MAXUSD) { console.log("  STOPPED at the ceiling after " + judged + " of " + pairs.length); break; }
@@ -388,7 +430,17 @@ if (CONTROL) {
     judged++;
     byArm[arm] = byArm[arm] || { judged: 0, flagged: 0 };
     byArm[arm].judged++;
-    if (v.verdict === "COULD-NOT-ANSWER") unanswered++;
+    /* ============ AN UNANSWERED PAIR IS RECORDED, NOT JUST COUNTED (PROMPT-132 s3) ============
+     *
+     * R6 reported 27 of 297 unanswered and kept nothing: when the director asked for three raw
+     * responses they could not be produced, because round mode counted the third state and threw
+     * the evidence away. A count with no instance behind it cannot be diagnosed -- the same reason
+     * the control carries the raw text. */
+    if (v.verdict === "COULD-NOT-ANSWER") {
+      unanswered++;
+      unansweredPairs.push({ a: a.id, aTask: a.task, b: b.id, bTask: b.task, arm,
+        anchor: a.anchor, anchorB: b.anchor, raw: v.reason });
+    }
     if (v.verdict === "SAME_POINT") {
       byArm[arm].flagged++;
       flags.push({ a: a.id, aTask: a.task, aWhere: a.where, b: b.id, bTask: b.task, bWhere: b.where,
@@ -407,5 +459,6 @@ if (CONTROL) {
     "   could not answer " + unanswered + "   spend $" + usd().toFixed(4));
   console.log("  FLAG-ONLY: nothing is rejected or withheld here. A human rules.");
   if (OUT) writeFileSync(join(ROOT, OUT), JSON.stringify({ cert: CERT, model: MODEL,
-    pairs: pairs.length, judged, flagged: flags, spend_usd: Number(usd().toFixed(4)) }, null, 2) + "\n");
+    pairs: pairs.length, judged, flagged: flags, spend_usd: Number(usd().toFixed(4)),
+    unanswered: unansweredPairs.length, unanswered_pairs: unansweredPairs }, null, 2) + "\n");
 }

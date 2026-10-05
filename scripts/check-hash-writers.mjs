@@ -199,6 +199,18 @@ const REVIEW_RECORDERS = {
   "release-aimsf-translations.mjs":
     "CLEARANCE. Asserts every en_hash matches the live English and aborts otherwise -- it READS " +
     "the gate's copy and never assigns it. Writes the pair into the review row it records.",
+  /* DECLARED PROMPT-132 s4. It writes item_translation_reviews and nothing else, and it RECOMPUTES
+   * the en_hash from the live English row with the shared itemHash8 -- the same function verify-cert
+   * uses -- rather than taking it as an argument, which is the property that makes a recorder's hash
+   * a record instead of a restatement. Found undeclared in PROMPT-131 only because the census
+   * ARTIFACT was stale: the detector widened in bfedd6d and nothing re-ran it, so a committed file
+   * carried "undeclared_recorders: []" while this was already one. */
+  "record-translation-review.mjs":
+    "REVIEW-ROW RECORDER for a director translation review. Writes item_translation_reviews ONLY " +
+    "and touches no gate-stored column. The en_hash is recomputed from the English row AS IT IS NOW " +
+    "via lib/item-hash.mjs, never copied from an argument -- a review recorded against a hash " +
+    "nobody recomputed is the stale approval that sent 87c740c9 back to retired. A row already " +
+    "current with an approved verdict is a counted no-op rather than a rewrite.",
   "record-own-work-review.mjs":
     "CLEARANCE for the own-work attribution fix. Writes lesson_translation_reviews ONLY. " +
     "Scoped by MAY_CLEAR to 05-02, whose translated bodies were read in full for batch " +
