@@ -120,6 +120,28 @@
       "flagged_by": "THE DIRECTOR",
       "anchor": "ISO 19011 3.8",
       "reason": "twin of ea523ed8 -- the same point, anchored on 19011 3.8's note. THE JUDGE MISSED THIS: the anchors differ and the keys share few terms. Sound item, may serve later."
+    },
+    {
+      "item_id": "c27f72f1",
+      "artifact": "AIMSIA-R3-sonnet.json",
+      "ruled_in": "PROMPT-139 s1",
+      "kind": "twin-within-round",
+      "twin_of": "be33793b",
+      "flagged_by": "judge",
+      "cross_anchor": true,
+      "anchor": "ISO 19011 6.3.2.1",
+      "reason": "twin of be33793b -- 19011 6.3.2.1: plan for the risk the team's presence poses to the auditee -- it is PLANNING, so the keeper belongs under 3.2. Sound item, may serve later."
+    },
+    {
+      "item_id": "bed60375",
+      "artifact": "AIMSIA-R3-sonnet.json",
+      "ruled_in": "PROMPT-139 s1",
+      "kind": "twin-within-round",
+      "twin_of": "822cfbb1",
+      "flagged_by": "judge",
+      "cross_anchor": true,
+      "anchor": "ISO 19011 A.6.1",
+      "reason": "twin of 822cfbb1 -- 19011 A.6.1: poor record quality limits what a sample can show -- it is SAMPLING, so the keeper belongs under 3.3. Sound item, may serve later."
     }
   ]
 }

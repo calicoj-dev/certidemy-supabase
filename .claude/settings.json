@@ -1,4 +1,5 @@
 {
+  "_hooks_why": "The no-heredoc hook was invoked by the RELATIVE path `.claude/hooks/no-heredoc.mjs`. The Bash tool's working directory PERSISTS between calls, so the moment a command ended in a subdirectory (scripts/scratch, a git worktree), the next command's hook resolved the path against that subdirectory and died with `Cannot find module ...\\scratch\\.claude\\hooks\\no-heredoc.mjs`. A PreToolUse hook that cannot load does not block, so those commands ran UNCHECKED. $CLAUDE_PROJECT_DIR is absolute and cwd-independent. Found and fixed PROMPT-139a s1.",
   "hooks": {
     "PreToolUse": [
       {
@@ -6,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/no-heredoc.mjs"
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/no-heredoc.mjs\""
           }
         ]
       }

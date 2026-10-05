@@ -110,6 +110,23 @@ export function floorFor(taskCode, floors, effectivePrimaries = null) {
 }
 
 /** Both directions, and the two cases PROMPT-109 s4 names by number. */
+/**
+ * THE ONE DEFINITION of a task's floor state (ruled PROMPT-139 s3). check-task-map called this
+ * inline, so a control could only test a copy of it.
+ *
+ * `too_thin` means "fewer than minEffective keyable primaries AND nobody has ruled a floor". Once
+ * the director has ruled one, the ruling governs and the task is generated against it -- otherwise a
+ * ruled floor on a thin task is a decision nothing acts on, which is exactly what happened to
+ * AIMS-IA 4.5 and 5.6 (floors of 4, held 0, excluded from every round).
+ *
+ * A DERIVED floor is not a ruling: `floorFor` returns `why` starting "min(" for those.
+ */
+export function stateOf({ effective, minEffective, floor, minHeld }) {
+  const ruledFloor = !!(floor && floor.ruled_in && !String(floor.why || "").startsWith("min("));
+  if (effective < minEffective && !ruledFloor) return "too_thin";
+  return minHeld >= floor.floor ? "at_floor" : "short";
+}
+
 export function taskFloorControls() {
   const cases = [];
   const ok = (what, pass) => cases.push({ what, pass });
@@ -173,6 +190,33 @@ export function taskFloorControls() {
   const missing = loadTaskFloors("NO-SUCH-CERT-ZZ");
   ok("a cert with no floors file gets default 8 and no error",
     missing.defaultFloor === 8 && missing.overrides.size === 0 && missing.errors.length === 0);
+
+  /* ============ A RULED FLOOR OVERRIDES too_thin (PROMPT-139 s3), BOTH DIRECTIONS ============
+   *
+   * THE CASE THE RULING EXISTS FOR: a task the director has RULED a floor for, which is still under
+   * MIN_EFFECTIVE and holds fewer items than its floor, MUST be generated for. AIMS-IA 4.5 and 5.6
+   * had floors of 4 and held 0, and `too_thin` kept them out of every round -- a ruling nothing
+   * acted on. `stateOf` is the one definition check-task-map reads, so a control over it is a
+   * control over the real decision.
+   *
+   * The negative arm matters as much: an UNRULED thin task is still too_thin, because that label is
+   * how a map question reaches the director in the first place. */
+  {
+    const MIN_EFF = 3;
+    const ruled = { floor: 4, why: "override PROMPT-138 s2", ruled_in: "PROMPT-138 s2" };
+    const derived = { floor: 4, why: "min(8, 2 x 2 effective)" };
+    ok("a RULED floor, thin and below floor: state is SHORT, so the task is asked",
+      stateOf({ effective: 2, minEffective: MIN_EFF, floor: ruled, minHeld: 0 }) === "short");
+    ok("...and at its floor it reads at_floor, not too_thin",
+      stateOf({ effective: 2, minEffective: MIN_EFF, floor: ruled, minHeld: 4 }) === "at_floor");
+    ok("an UNRULED thin task is STILL too_thin -- that is how a map question reaches the director",
+      stateOf({ effective: 2, minEffective: MIN_EFF, floor: derived, minHeld: 0 }) === "too_thin");
+    ok("a DERIVED floor is not a ruling even when it carries a number",
+      stateOf({ effective: 1, minEffective: MIN_EFF, floor: derived, minHeld: 0 }) === "too_thin");
+    ok("a task with enough effective primaries is unaffected either way",
+      stateOf({ effective: 5, minEffective: MIN_EFF, floor: derived, minHeld: 0 }) === "short" &&
+      stateOf({ effective: 5, minEffective: MIN_EFF, floor: ruled, minHeld: 9 }) === "at_floor");
+  }
 
   return { examined: cases.length, fails: cases.filter((c) => !c.pass).map((c) => c.what) };
 }

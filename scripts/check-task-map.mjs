@@ -18,7 +18,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
-import { loadTaskFloors, floorFor } from "./lib/task-floors.mjs";
+import { loadTaskFloors, floorFor, stateOf } from "./lib/task-floors.mjs";
 import { classifyPrimaries, effectivePrimaryControls, MIN_EFFECTIVE } from "./lib/effective-primary.mjs";
 import { tierOf, keyMayAnchor } from "./lib/tier-anchoring.mjs";
 
@@ -193,8 +193,10 @@ for (const t of inScope) {
   const f = floorFor(t.code, floors, effective);
   const held = Object.fromEntries(LANGS.map((l) => [l, countHeld(t.id, l)]));
   const minHeld = Math.min(...LANGS.map((l) => held[l]));
-  const tooThin = effective < MIN_EFFECTIVE;
-  const state = tooThin ? "too_thin" : (minHeld >= f.floor ? "at_floor" : "short");
+  /* A RULED FLOOR OVERRIDES too_thin (ruled PROMPT-139 s3). `stateOf` in lib/task-floors.mjs is the
+   * ONE definition, so the control over it is a control over this decision rather than over a copy. */
+  const state = stateOf({ effective, minEffective: MIN_EFFECTIVE, floor: f, minHeld });
+  const tooThin = state === "too_thin";
   summary[state]++;
   detail.push({ code: t.code, mapped: mine.length, effective, floor: f.floor, why: f.why, held, state });
   const minLang = LANGS.filter((l) => held[l] === minHeld).join(",");

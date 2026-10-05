@@ -22,6 +22,45 @@
    "ruled_in": "PROMPT-138 s2",
    "temporary": false,
    "reason": "2 key-anchorable passages (42001 10.2 and 19011 6.7), and 4 is twice that. Both clauses the PROMPT-137 s3 ruling named were ALREADY primaries, so that ruling was a no-op for this task; its other two primaries, 42001 3.16 and 3.17, are definitions and carry no key on this tier."
+  },
+  "4.1": {
+   "floor": 6,
+   "ruled_in": "PROMPT-139 s4",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "NO ASSIGNABLE ANCHOR: every under-cap primary is saturated certification-wide (19011 6.4.7 and A.5 both at 3) and the rest of its map cannot carry a key on this tier -- five ISO/IEC 22989 passages, all informative or `can`. The task holds 6 and no further round can add to it, so the floor is set to the held count. Same pattern as ISMS-IA 4.7."
+  }
+ },
+ "not_ruled_pending_mapping": {
+  "_what": "Tasks with NO ASSIGNABLE ANCHOR that hold FEWER than 4. PROMPT-139 s4 directs that these get no floor and are reported with their statement for a mapping ruling: a floor at 2 would freeze a task the director may still want widened.",
+  "5.2": {
+   "held": 2,
+   "floor_today": 8,
+   "floor_source": "min(8, 2 x 6 effective)",
+   "statement": "Select the nonconformity statement that correctly links evidence to the requirement",
+   "saturated": [
+    "19011 A.18.3 live 3",
+    "19011 3.11 live 3",
+    "19011 6.4.8 live 3"
+   ],
+   "room_left": [
+    "19011 3.8 live 2 (room 1)",
+    "19011 3.10 live 2 (room 1)",
+    "19011 3.22 live 0 (room 3)"
+   ]
+  },
+  "5.3": {
+   "held": 2,
+   "floor_today": 6,
+   "floor_source": "min(8, 2 x 3 effective)",
+   "statement": "Analyze a finding that engages more than one audit criterion",
+   "saturated": [
+    "19011 A.18.3 live 3",
+    "19011 6.4.8 live 3"
+   ],
+   "room_left": [
+    "19011 A.18.4 live 2 (room 1)"
+   ]
   }
  }
 }

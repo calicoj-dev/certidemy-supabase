@@ -682,6 +682,36 @@
    "seconds": 3,
    "note": null,
    "recorded_at": "2026-10-05T19:49:27.843Z"
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-05T20:18:55.105Z"
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 6,
+   "note": null,
+   "recorded_at": "2026-10-05T20:30:16.546Z"
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 5,
+   "note": null,
+   "recorded_at": "2026-10-05T21:59:15.612Z"
   }
  ],
  "costs_usd": [
@@ -1930,6 +1960,130 @@
     "tasks": 30,
     "too_thin": 3,
     "note": "UPPER BOUND: counts every R3 survivor as accepted, which the director has not read."
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 5,
+   "stage_name": "director verdicts R3",
+   "ruled_in": "PROMPT-139 s1",
+   "usd_generation": 17.39,
+   "usd_judge": 0.8996,
+   "usd_translation": 7.049,
+   "usd_drift_repair": 0.2292,
+   "survivors": 60,
+   "accepted": 40,
+   "rejected": 18,
+   "withheld": 2,
+   "rejects_by_kind": {
+    "quality": 0,
+    "duplicate-of-live": 18
+   },
+   "usd_per_accepted_including_judge": 0.4572,
+   "judge": {
+    "flags": 18,
+    "flags_upheld": 17,
+    "flags_overruled": 1,
+    "unanswered": 1,
+    "misses": 3,
+    "misses_detail": "the 1a7df349 cluster (3 candidates on one live point), 5ab97cea against a7f03c03 (unanswered), 38d7c5ed against 5503a528 (nearly the same scenario)."
+   },
+   "duplicates_are_the_limit": {
+    "quality": 0,
+    "duplicates": 20,
+    "of_survivors": 60,
+    "share": 0.333,
+    "r2_share": 0.191,
+    "all_cross_anchor": true,
+    "note": "ZERO quality rejects for the second round running, and duplicates rose 19% -> 33%. EVERY rejection and both withholds were CROSS-ANCHOR repeats. The bank now repeats its own points faster than the passages run out, which is what ended this certification."
+   },
+   "drift": {
+    "findings": 6,
+    "non_stem": 5,
+    "repaired": 8,
+    "remeasured": 0,
+    "note": "The worst drift of any round -- 5 non-stem against a target of 0. All 8 fields repaired for $0.23 and re-measured 0 of 0 over 516 sentences."
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 4,
+   "stage_name": "generation R4",
+   "ruled_in": "PROMPT-139 s5",
+   "usd": 10.984,
+   "ceiling": 30,
+   "attempted": 122,
+   "generated": 61,
+   "survivors": 32,
+   "design": "THE LAST GENERATION ROUND. The whole remaining shortfall, with the PROMPT-139 s2 notes, the s3 tasks (4.5, 5.6, 4.11 -- reachable because a ruled floor now overrides too_thin) and the PROMPT-139a tasks (5.2, 5.3).",
+   "by_writer": {
+    "claude-sonnet-5-5": {
+     "asked": 114,
+     "generated": 57,
+     "survivors": 29,
+     "usd": 8.2719,
+     "usd_per_survivor": 0.2852
+    },
+    "claude-opus-5": {
+     "tasks": [
+      "5.4",
+      "4.9"
+     ],
+     "asked": 8,
+     "generated": 4,
+     "survivors": 3,
+     "usd": 2.7121,
+     "per_task": {
+      "5.4": "3 of 4 -- 0 accepted in R2, 1 survivor in R3, 3 here: the Opus ruling worked",
+      "4.9": "COULD NOT BE ASKED -- joined the exhausted set"
+     }
+    }
+   },
+   "exhausted": {
+    "tasks_with_no_assignable_anchor": 9,
+    "which": [
+     "1.5",
+     "4.5",
+     "4.9",
+     "4.10",
+     "4.11",
+     "4.12",
+     "5.1",
+     "5.2",
+     "5.3"
+    ],
+    "asked": 122,
+    "generated": 61,
+    "note": "122 asked, 61 generated. The gap is not writer failure: the generator refused to spend on items the saturation cap would reject. FOUR of the nine (4.5, 4.11, 5.2, 5.3) were named explicitly by the director in PROMPT-139 s3 and 139a and STILL could not be asked. That is the answer to whether another round would help."
+   },
+   "judge": {
+    "model": "claude-sonnet-5-5",
+    "pairs": 135,
+    "flagged": 10,
+    "usd": 0.4887,
+    "unanswered": 1,
+    "arms": {
+     "same-anchor": {
+      "judged": 39,
+      "flagged": 4
+     },
+     "key-term-neighbour": {
+      "judged": 96,
+      "flagged": 6
+     }
+    }
+   },
+   "tripwire": {
+    "hits": [
+     "5.6 (0 of 4)"
+    ],
+    "note": "5.6 was reachable for the first time thanks to the PROMPT-139 s3 rule and returned 0 of 4."
+   },
+   "remaining_shortfall_if_all_r4_accepted": {
+    "items": 70,
+    "tasks": 24,
+    "exhausted_among_them": 9,
+    "note": "UPPER BOUND. These are the floors to set to held counts before the cutover dry run."
    }
   }
  ],

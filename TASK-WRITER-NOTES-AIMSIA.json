@@ -9,16 +9,16 @@
    "instruction": "The key anchors on the 4.1 climate sentence or the 4.2 climate note. Distractor support comes from 4.3 or 6.1.1. Note that 4.2's climate line is a NOTE, so a key on it states what interested parties CAN have, never what the organization MUST do."
   },
   "1.2": {
-   "ruled_in": "PROMPT-138 s3",
-   "instruction": "Don't key on risk-based sampling being reconciled with evidence-based conclusions. That point is already tested."
+   "ruled_in": "PROMPT-138 s3, extended PROMPT-139 s2",
+   "instruction": "Don't key on risk-based sampling being reconciled with evidence-based conclusions. That point is already tested. Don't key on weighting audit time or effort toward high-risk or poorly performing areas. That point is already tested."
   },
   "2.3": {
    "ruled_in": "PROMPT-138 s3",
    "instruction": "Don't key on the technical expert's role relative to the auditors. That point is already tested."
   },
   "2.5": {
-   "ruled_in": "PROMPT-138 s3",
-   "instruction": "Don't key on statutory findings being called non-compliance. That point is already tested."
+   "ruled_in": "PROMPT-138 s3, extended PROMPT-139 s2",
+   "instruction": "Don't key on statutory findings being called non-compliance. That point is already tested. Don't key on statutory findings being called non-compliance, or on the organization's own procedures counting as audit criteria. That point is already tested."
   },
   "3.8": {
    "ruled_in": "PROMPT-138 s3",
@@ -29,28 +29,68 @@
    "instruction": "Don't key on a scope exclusion failing for want of interested-party analysis. That point is already tested."
   },
   "4.6": {
-   "ruled_in": "PROMPT-138 s3",
-   "instruction": "Don't key on the impact assessment feeding the risk assessment, or on an impact assessment missing societal impacts. Both are already tested."
+   "ruled_in": "PROMPT-138 s3, extended PROMPT-139 s2",
+   "instruction": "Don't key on the impact assessment feeding the risk assessment, or on an impact assessment missing societal impacts. Both are already tested. Don't key on an impact assessment that is really a risk register, or on an impact assessment never revisited after significant change. That point is already tested."
   },
   "4.9": {
-   "ruled_in": "PROMPT-138 s3",
-   "instruction": "Don't key on guidance not being a requirement, or on an Annex A or B departure not being a nonconformity. That point is already tested."
+   "ruled_in": "PROMPT-138 s3, extended PROMPT-139 s2",
+   "instruction": "Don't key on guidance not being a requirement, or on an Annex A or B departure not being a nonconformity. That point is already tested. Don't key on statutory findings being called non-compliance, or on the organization's own procedures counting as audit criteria. That point is already tested."
   },
   "5.1": {
-   "ruled_in": "PROMPT-138 s3",
-   "instruction": "Don't key on statutory findings being called non-compliance. That point is already tested."
+   "ruled_in": "PROMPT-138 s3, extended PROMPT-139 s2",
+   "instruction": "Don't key on statutory findings being called non-compliance. That point is already tested. Don't key on conformity not depending on a document's title, or on an observation outside the criteria becoming an OFI. That point is already tested."
   },
   "5.2": {
-   "ruled_in": "PROMPT-138 s3",
-   "instruction": "Don't key on recording an unresolved disagreement. That point is tested twice already. Don't key on statutory findings being called non-compliance. That point is already tested."
+   "ruled_in": "PROMPT-138 s3, extended PROMPT-139a s2",
+   "instruction": "Don't key on recording an unresolved disagreement. That point is tested twice already. Don't key on statutory findings being called non-compliance. That point is already tested. Don't key on departing from guidance not being a nonconformity. That point is already tested."
   },
   "5.4": {
-   "ruled_in": "PROMPT-138 s3",
-   "instruction": "Don't key on guidance not being a requirement, or on an Annex A or B departure not being a nonconformity. That point is already tested."
+   "ruled_in": "PROMPT-138 s3, extended PROMPT-139 s2",
+   "instruction": "Don't key on guidance not being a requirement, or on an Annex A or B departure not being a nonconformity. That point is already tested. Don't key on statutory findings being called non-compliance, or on the organization's own procedures counting as audit criteria. That point is already tested."
   },
   "5.5": {
    "ruled_in": "PROMPT-138 s3",
    "instruction": "Don't key on recording an unresolved disagreement. That point is tested twice already."
+  },
+  "1.3": {
+   "ruled_in": "PROMPT-139 s2",
+   "instruction": "Don't key on statutory findings being called non-compliance, or on the organization's own procedures counting as audit criteria. That point is already tested."
+  },
+  "1.4": {
+   "ruled_in": "PROMPT-139 s2",
+   "instruction": "Don't key on reallocating work mid-audit to protect objectivity. That point is already tested."
+  },
+  "2.1": {
+   "ruled_in": "PROMPT-139 s2",
+   "instruction": "Don't key on weighting audit time or effort toward high-risk or poorly performing areas. That point is already tested."
+  },
+  "2.2": {
+   "ruled_in": "PROMPT-139 s2",
+   "instruction": "Don't key on weighting audit time or effort toward high-risk or poorly performing areas. That point is already tested."
+  },
+  "3.1": {
+   "ruled_in": "PROMPT-139 s2",
+   "instruction": "Don't key on document review continuing during the audit. That point is already tested."
+  },
+  "3.4": {
+   "ruled_in": "PROMPT-139 s2",
+   "instruction": "Don't key on observation or a test as a source of objective evidence, on a verifiable statement of fact counting as evidence, or on combining methods when a screen-share falls short. That point is already tested."
+  },
+  "3.5": {
+   "ruled_in": "PROMPT-139 s2",
+   "instruction": "Don't key on observation or a test as a source of objective evidence, on a verifiable statement of fact counting as evidence, or on combining methods when a screen-share falls short. That point is already tested."
+  },
+  "3.6": {
+   "ruled_in": "PROMPT-139 s2",
+   "instruction": "Don't key on observation or a test as a source of objective evidence, on a verifiable statement of fact counting as evidence, or on combining methods when a screen-share falls short. That point is already tested."
+  },
+  "3.7": {
+   "ruled_in": "PROMPT-139 s2",
+   "instruction": "Don't key on finding tools and evaluation methods in the tooling resources record. That point is already tested."
+  },
+  "4.8": {
+   "ruled_in": "PROMPT-139 s2",
+   "instruction": "Don't key on changes to the AIMS being carried out in a planned way. That point is already tested."
   }
  }
 }
