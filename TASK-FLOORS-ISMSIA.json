@@ -1,5 +1,5 @@
 {
- "ruled": "2026-10-04, PROMPT-126 s3",
+ "ruled": "2026-10-05, PROMPT-133 s2 -- generation for ISMS-IA is CLOSED",
  "certification": "ISMS-IA",
  "default_floor": 8,
  "why_this_file_exists": "THE ONE PLACE A PER-TASK FLOOR IS RECORDED for ISMS-IA. Read by lib/task-floors.mjs, which verify-cert and check-task-map both call. An override with no `ruled_in` is an ERROR, not a pass.",
@@ -20,7 +20,135 @@
   "3.5": {
    "floor": 4,
    "ruled_in": "PROMPT-126 s3",
-   "reason": "floor = 2 x effective. With the PROMPT-126 s1 rule ISO 19011 A.17 (Conducting interviews) is a valid key anchor, so the task re-counts from 0 keyable primaries to 2 -- but 2 is still under MIN_EFFECTIVE, so it stays labelled too_thin and takes the ruled floor the derivation produces. Its other primary, 19011 3.10, is a DEFINITION: keyable under the tier rule, weak as a key, and worth knowing when the round is read."
+   "reason": "floor = 2 x effective. With the PROMPT-126 s1 rule ISO 19011 A.17 (Conducting interviews) is a valid key anchor, so the task re-counts from 0 keyable primaries to 2 -- but 2 is still under MIN_EFFECTIVE, so it stays labelled too_thin and takes the ruled floor the derivation produces. Its other primary, 19011 3.10, is a DEFINITION: keyable under the tier rule, weak as a key, and worth knowing when the round is read.",
+   "held_at_PROMPT_133": 0,
+   "not_ruled_in_PROMPT_133": "LEFT ALONE DELIBERATELY: holds 0, so floor = held would be 0 -- a task examinable with no items is not a floor. The director reserved every task held below 3 for an individual look before cutover; this is the only one. Its existing override and too_thin label stay so the signal is not erased."
+  },
+  "1.1": {
+   "floor": 6,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "ROOM LEFT, closed. Floor set to the held count (6) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats. This task had assignable capacity left; the director closed it anyway -- one more item is not worth another round, judge and read.  (supersedes the floor of 6)"
+  },
+  "1.2": {
+   "floor": 7,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "CLOSED: at its held count after the last round. Floor set to the held count (7) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 7)"
+  },
+  "1.3": {
+   "floor": 6,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "CAPACITY BOUND. Floor set to the held count (6) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 6)"
+  },
+  "1.4": {
+   "floor": 7,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "CLOSED: at its held count after the last round. Floor set to the held count (7) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 7)"
+  },
+  "1.5": {
+   "floor": 6,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "CAPACITY BOUND. Floor set to the held count (6) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 6)"
+  },
+  "2.1": {
+   "floor": 7,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "CAPACITY BOUND. Floor set to the held count (7) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 7)"
+  },
+  "2.3": {
+   "floor": 6,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "CAPACITY BOUND. Floor set to the held count (6) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 6)"
+  },
+  "2.6": {
+   "floor": 7,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "SATURATED. Floor set to the held count (7) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 7)"
+  },
+  "3.1": {
+   "floor": 5,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "CAPACITY BOUND. Floor set to the held count (5) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 5)"
+  },
+  "3.3": {
+   "floor": 6,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "CAPACITY BOUND. Floor set to the held count (6) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 6)"
+  },
+  "3.4": {
+   "floor": 4,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "SATURATED. Floor set to the held count (4) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 4)"
+  },
+  "3.6": {
+   "floor": 6,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "ROOM LEFT, closed. Floor set to the held count (6) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats. This task had assignable capacity left; the director closed it anyway -- one more item is not worth another round, judge and read.  (supersedes the floor of 6)"
+  },
+  "3.8": {
+   "floor": 6,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "CLOSED: at its held count after the last round. Floor set to the held count (6) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 6)"
+  },
+  "4.5": {
+   "floor": 7,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "ROOM LEFT, closed. Floor set to the held count (7) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats. This task had assignable capacity left; the director closed it anyway -- one more item is not worth another round, judge and read.  (supersedes the floor of 7)"
+  },
+  "4.9": {
+   "floor": 6,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "ROOM LEFT, closed. Floor set to the held count (6) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats. This task had assignable capacity left; the director closed it anyway -- one more item is not worth another round, judge and read.  (supersedes the floor of 6)"
+  },
+  "5.3": {
+   "floor": 4,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "SATURATED. Floor set to the held count (4) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 4)"
+  },
+  "5.4": {
+   "floor": 3,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "CAPACITY BOUND. Floor set to the held count (3) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 3)"
+  },
+  "5.5": {
+   "floor": 6,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "SATURATED. Floor set to the held count (6) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 6)"
+  },
+  "5.6": {
+   "floor": 7,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "SATURATED. Floor set to the held count (7) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats.  (supersedes the floor of 7)"
+  },
+  "5.7": {
+   "floor": 7,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "ROOM LEFT, closed. Floor set to the held count (7) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats. This task had assignable capacity left; the director closed it anyway -- one more item is not worth another round, judge and read.  (supersedes the floor of 7)"
+  },
+  "4.4": {
+   "floor": 4,
+   "ruled_in": "PROMPT-133 s2",
+   "temporary": false,
+   "reason": "SATURATED. Floor set to the held count (4) after R7's inserts. NO FURTHER GENERATION ROUNDS for ISMS-IA: R7's 13 rejects were ALL repeats and none was a quality reject, so the source material is used up and another round would mostly buy repeats."
   }
  },
  "map_changes_ruled_here": [

@@ -2,6 +2,80 @@
 
 ---
 
+## ISMS-IA: what the third certification taught the line
+
+**Generation closed 2026-10-05, PROMPT-133.** 242 accepted items, 926 approved rows per language,
+**37 of 38 tasks at floor**, verify-cert **56 pass / 0 fail / 3 warn**. Seven rounds, **$109.59
+known spend, $0.42 per accepted item** (generation only). The director read **317 items and
+rejected 61 — but the split is the story: 7 quality (2.2%) and 54 duplicates (17.0%).**
+
+**Sonnet 5.5 won twice.** As WRITER, settled by a same-task crossover in R2 (PROMPT-128): survival
+within noise of Opus at a sixth of the cost, and it has written every round since at $0.26-0.30 a
+survivor against Opus's $0.57-1.76. As JUDGE, settled in PROMPT-133 on 159 identical cases: both
+models caught 48 of 53 positives and both returned 16 false positives, Sonnet left 1% of calls
+unanswered against 10%, and it cost $0.51 against $5.96. **The lesson about bars:** the
+under-15%-false-positive bar failed the INCUMBENT at the same rate, so it could not separate the
+two. A new judge model must now match or beat the current one on each criterion, not clear a fixed
+number. Both defaults live in code, not in an invocation — PROMPT-128 ruled the writer default and a
+flag carried it for four rounds, so a forgotten flag silently bought Opus at six times the price.
+
+**The tripwires worked, and they are cheap insurance.** A task returning 0 survivors from 4+ asked
+moves to Opus for its next round. **3.3 went 0 of 4 → 4 of 4. 3.7 went 0 of 4 → 2 of 4 → 1 of 4 →
+5 of 6. 4.8 went 0 of 4 → 2 of 4.** The price is visible and was kept as its own metrics line:
+Opus-fallback items cost $1.29-2.34 each against Sonnet's $0.34-0.44. **4.7 is the one it could not
+save** — three rounds at 0 of 4 across both writers, closed at its held count of 2.
+
+**THE DUPLICATE PROBLEM IS THE REAL STORY OF THIS CERTIFICATION, and it took four fixes in order.**
+Quality was solved by R5; repetition then became the whole of the waste, and each fix exposed the
+next:
+
+1. **`ALREADY TESTED` block** (PROMPT-129): show the writer the keys already live on its
+   anchor. It leaked because a flat 6-line cap cut by INSERTION ORDER and dropped whole anchors —
+   measured, 6 of 8 leaks were the cap, not the writer. Fixed to round-robin per anchor.
+2. **The semantic judge** (PROMPT-130): the block cannot stop what the writer has already read and
+   ignored. A model reads two items on one anchor and answers one question. 20 of 24 on its control.
+   Key-share was retired as a gate — across 14 director calls it ranged 8% to 57%, which is no
+   threshold — and kept only as a sort order.
+3. **The key-term neighbour arm** (PROMPT-131): the judge only saw SAME-ANCHOR pairs, so a duplicate
+   written from a different passage was invisible. Three live neighbours per candidate by key-share,
+   any anchor. It found 5 of R6's 18 upheld flags.
+4. **The saturation cap** (PROMPT-132) — the one that actually worked. 13 of R6's 18 flags were
+   same-anchor pairs against LIVE items: the writer had been shown the keys and wrote the point
+   again, because a passage carrying three keys has almost no distinct points left. An anchor
+   holding 3+ live items certification-wide is no longer assignable for a key (distractors still
+   use it). **It made the writer BETTER, not just smaller: Opus survival 58% → 80%, 3.7 from 1 of 4
+   to 5 of 6, same-anchor judge pairs 138 → 50.** It also closed 6 tasks outright, which is a floor
+   question and was ruled as one.
+5. **The running count** (PROMPT-133): the cap read the census BEFORE the round, so three tasks each
+   took the same fresh anchor — `ISO 19011 3.9` held 2, took 4 survivors across 3 tasks,
+   and three of R7's nine flags were that one passage. The assignment now spends its own
+   assignments as it goes. Replaying R7: 4 anchors pushed over the cap without it, 0 with it.
+
+**The arc in one line:** duplicates went 18% of survivors (R5) → 30% (R6) → 26% (R7, cap on), and
+R7's rejects were **13 duplicates and ZERO quality**. That is what a used-up source library looks
+like, and it is why there is no R8.
+
+**4.7 and the clause-number collision.** Task 4.7's map holds `27001:2022 4.1` and
+`19011:2026 4.1`, and the writer prompt listed assigned anchors as a bare `4.1`.
+Two of four items anchored on the 19011 clause — a source the task does not map. **A clause number
+is not an address; `(source, edition, clause)` is**, which is what `lib/passage-key.mjs`
+exists to say, and the prompt was the one place still ignoring it. Every assigned anchor, assigned
+list and at-cap list now carries its full address. The AIMS-F cap list now separates
+`42001:2023 3.4` from `17021-1 3.4` — the original collision — for free.
+
+**What ISMS-IA cost, honestly:** $109.59 known, of which $102.51 is generation and $7.08 the
+opening audit. Instrument spend is listed separately in `PIPELINE-METRICS.json` and
+deliberately NOT folded into the per-item figure: the judge alone cost $4.45 + $10.94 + $5.42
+across R5-R7, plus $14.89 of control runs, because it buys a measurement rather than an item. The
+judge cost MORE THAN HALF of generation in R6, which is what forced the model test.
+
+**What AIMS-IA inherits:** the saturation cap and its running count; the Sonnet writer and judge
+defaults in code; the full-address label; `propose-task-floors.mjs` (which separates
+SATURATED from THIN MAP from CAPACITY BOUND, because "generate more" is the wrong answer to the
+first two for opposite reasons); and one warning — **a bar that the incumbent also fails is not a
+test of the challenger.**
+
+---
 ## ISMS-F: what the second certification taught the line
 
 **Closed 2026-10-04, PROMPT-125.** 263 grounded items, 896 approved rows per language, 47 of 49 tasks at

@@ -1332,6 +1332,10 @@ const RUN_ID = OUT.replace(/\.json$/, "");
 const assignmentByTask = new Map();
 /* tasks the saturation cap left with no assignable anchor -- a FLOOR question, named in the report */
 const NO_ASSIGNABLE = [];
+/* ONE running certification-wide tally for the whole run (ruled PROMPT-133 s4). Every anchor handed
+ * out adds one, so three tasks cannot all take the same fresh passage -- R7's ISO 19011 3.9, which
+ * held 2 live, took four survivors across three tasks and would have landed at 6. */
+const RUN_ANCHOR_TALLY = new Map();
 /* --saturation-report: the assignment verdict per task, no model call. PROMPT-132 s2. */
 const SAT_ROWS = [];
 const resumed = new Map();
@@ -1476,6 +1480,9 @@ if (FROM) {
       censusMap: capCensus.get(t.code) || new Map(),
       /* PROMPT-129 s3: prefer the passage the CERTIFICATION has used least, after the task's own count */
       certCensus: CERT_ANCHOR_USE,
+      /* ONE tally for the whole run, so an anchor spent by an earlier task is spent for the later
+       * ones too (ruled PROMPT-133 s4). It starts empty and CERT_ANCHOR_USE is never written back. */
+      runTally: RUN_ANCHOR_TALLY,
       want: k,
     });
     /* ASSERTED, not assumed: every assigned clause must be one the library holds, or the writer is being

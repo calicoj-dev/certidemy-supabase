@@ -397,8 +397,18 @@ console.log("");
 console.log("4. PRE-WRITE GATE   " + FORMS + " forms per language, target_count=" + TARGETN +
   ", difficulty_mix=" + (MIX ? JSON.stringify(MIX) : "legacy 30/50/20"));
 let gateFail = 0;
+/* ============ WHAT THE DRAW ACTUALLY REACHES, PER DOMAIN (ruled PROMPT-133 s5.2) ============
+ *
+ * "20 of 20 forms filled" says a form can be built; it does not say how much of the pool the forms
+ * reach. A domain whose quota is 10 and whose pool is 10 fills every form with THE SAME TEN ITEMS,
+ * which is a pool that passes the gate and teaches the bank. So the distinct items each domain
+ * contributes per form are counted across the 20 draws, and the MINIMUM and MEDIAN reported --
+ * the minimum because one bad form is the one a candidate sits. */
+const perDomainDraw = new Map();   /* lang -> domain code -> [distinct per form] */
+const reached = new Map();         /* lang -> domain code -> Set of every id the 20 forms touched */
 for (const l of LANGS) {
   const shortByDomain = new Map();
+  const drawn = new Map();
   let filled = 0, minSel = Infinity, cands = 0;
   for (let i = 0; i < FORMS; i++) {
     const r = assemble(l, all);
@@ -406,12 +416,78 @@ for (const l of LANGS) {
     minSel = Math.min(minSel, r.selected.length);
     if (r.selected.length === TARGETN && !r.shortfalls.length) filled++;
     for (const s of r.shortfalls) shortByDomain.set(s.code, (shortByDomain.get(s.code) || 0) + 1);
+    const byDom = new Map();
+    for (const q of r.selected) {
+      const d = domains.find((x) => x.id === q.domain_id);
+      const code = d ? d.code : "(no domain)";
+      if (!byDom.has(code)) byDom.set(code, new Set());
+      byDom.get(code).add(q.id);
+    }
+    for (const [code, ids] of byDom) {
+      if (!drawn.has(code)) drawn.set(code, []);
+      drawn.get(code).push(ids.size);
+      /* THE UNION ACROSS ALL 20 FORMS. Headroom says the pool is big; this says whether the selector
+       * REACHES it. Six distinct items in every form can still be the same six items twenty times. */
+      if (!reached.has(l)) reached.set(l, new Map());
+      if (!reached.get(l).has(code)) reached.get(l).set(code, new Set());
+      for (const id of ids) reached.get(l).get(code).add(id);
+    }
   }
+  perDomainDraw.set(l, drawn);
   const ok = filled === FORMS;
   if (!ok) gateFail++;
   console.log("   " + l.padEnd(7) + " candidates " + String(cands).padStart(4) + "   forms filled " +
     filled + "/" + FORMS + "   smallest form " + minSel + "   " + (ok ? "ok" : "SHORT") +
     (shortByDomain.size ? "   short by domain " + JSON.stringify(Object.fromEntries(shortByDomain)) : ""));
+}
+
+/* ---- COVERAGE: the pool against the blueprint, and what the 20 draws reached ---- */
+console.log("");
+console.log("4b. COVERAGE AGAINST THE EXAM BLUEPRINT   (pool = the dry-run target pool)");
+{
+  const poolRows = candidatesFor(LANGS[0], all);
+  const countByDomain = new Map();
+  for (const q of poolRows) {
+    const d = domains.find((x) => x.id === q.domain_id);
+    const code = d ? d.code : "(no domain)";
+    countByDomain.set(code, (countByDomain.get(code) || 0) + 1);
+  }
+  const alloc = allocateByWeight(domains, TARGETN);
+  const med = (xs) => {
+    if (!xs || !xs.length) return null;
+    const s = [...xs].sort((a, b) => a - b);
+    return s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2;
+  };
+  console.log("   domain  weight%  per-form quota   pool items   draw distinct: min / median   headroom");
+  for (const d of domains) {
+    const pool = countByDomain.get(d.code) || 0;
+    const quota = alloc.get(d.id) ?? 0;
+    const xs = (perDomainDraw.get(LANGS[0]) || new Map()).get(d.code) || [];
+    const mn = xs.length ? Math.min(...xs) : null;
+    console.log("   " + String(d.code).padEnd(8) + String(d.weight_pct).padStart(6) +
+      String(quota).padStart(15) + String(pool).padStart(13) + "        " +
+      String(mn == null ? "-" : mn).padStart(3) + " / " + String(med(xs) ?? "-").padStart(6) +
+      "      " + (quota ? (pool - quota) + " spare" : "no quota") +
+      "   reached " + ((reached.get(LANGS[0]) || new Map()).get(d.code) || new Set()).size + " of " + pool);
+  }
+  /* A DOMAIN WHOSE POOL EQUALS ITS QUOTA REUSES EVERY ITEM ON EVERY FORM. Named, not averaged away. */
+  const tight = domains.filter((d) => {
+    const quota = alloc.get(d.id) ?? 0;
+    return quota > 0 && (countByDomain.get(d.code) || 0) <= quota;
+  });
+  console.log("   domains whose pool is NOT larger than their per-form quota (every form reuses the" +
+    " same items): " + (tight.length ? tight.map((d) => d.code).join(", ") : "none"));
+  /* and the same numbers for the other two languages, because "counts agree" is a claim to check */
+  for (const l of LANGS.slice(1)) {
+    const drawn = perDomainDraw.get(l) || new Map();
+    const same = domains.every((d) => {
+      const a = (perDomainDraw.get(LANGS[0]) || new Map()).get(d.code) || [];
+      const b = drawn.get(d.code) || [];
+      return a.length === b.length;
+    });
+    console.log("   " + l + ": draws every domain the same number of times as " + LANGS[0] + ": " +
+      (same ? "yes" : "NO"));
+  }
 }
 if (gateFail || dupProblem) {
   console.error("");

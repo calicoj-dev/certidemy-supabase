@@ -71,7 +71,20 @@ const JUDGE_PRICES = {
   "claude-sonnet-5-5": { input: 2, output: 10 },
   "claude-haiku-4-5-20251001": { input: 1, output: 5 },
 };
-const MODEL = JUDGE_MODEL || "claude-opus-5";
+/* ============ SONNET 5.5 IS THE JUDGE (ruled PROMPT-133 s3) ============
+ *
+ * MEASURED ON 159 IDENTICAL CASES: both models caught 48 of 53 positives and both returned 16 false
+ * positives of 106. Sonnet left 1% of calls unanswered against Opus's 10%, and cost $0.51 against
+ * $5.96. The under-15% false-positive bar PROMPT-132 s3 set failed the incumbent at exactly the same
+ * rate, so it could not separate them -- which is why the rule for the next comparison changed:
+ *
+ *   A NEW JUDGE MODEL MUST MATCH OR BEAT THE CURRENT ONE ON EACH CRITERION -- positives caught,
+ *   false positives, unanswered rate, cost -- rather than clear a fixed number. A fixed threshold
+ *   that the incumbent also fails is not a test of the challenger.
+ *
+ * All 7 of R7's unanswered calls were EMPTY responses on Opus. Closed by the switch: Sonnet returned
+ * one unanswered call in 159. Nothing else was done about it. */
+const MODEL = JUDGE_MODEL || "claude-sonnet-5-5";
 if (!JUDGE_PRICES[MODEL]) {
   console.error("unpriced judge model " + MODEL + ". Known: " + Object.keys(JUDGE_PRICES).join(", "));
   process.exit(2);

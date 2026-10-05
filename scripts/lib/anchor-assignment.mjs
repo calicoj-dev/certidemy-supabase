@@ -65,8 +65,30 @@ function h32(s) {
  *            order: [string], why: string }}
  */
 export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap = CAP,
-  certCensus = null, satCap = SATURATION_CAP }) {
+  certCensus = null, satCap = SATURATION_CAP, runTally = null }) {
   const held = (p) => censusMap.get(anchorKey(p.source_id, p.edition, p.clause)) || 0;
+  /* ============ THE RUN'S OWN ASSIGNMENTS COUNT TOWARD SATURATION (ruled PROMPT-133 s4) ============
+   *
+   * `certCensus` is the LIVE census, read once before the round. So R7 found ISO 19011 3.9 holding 2,
+   * handed it to tasks 3.1, 3.3 and 3.6, and it would have landed at 6 -- three of the nine judge
+   * flags were that one anchor. The per-task cap of 2 stops pile-up WITHIN a task and cannot see
+   * three tasks each taking the same fresh passage.
+   *
+   * `runTally` is a Map the CALLER creates once per run and passes to every task. Each anchor handed
+   * out adds one to it, and saturation is measured against live + tally, continuously -- so the
+   * second task asking for an anchor already spent by the first sees the higher number.
+   *
+   * IT ONLY CHANGES WITHIN THE RUN. The tally starts empty and the live census is never mutated, so
+   * nothing is written back and a second run re-reads the truth. With no certCensus there is no
+   * saturation at all, so ISMS-F and AIMS-F -- both complete -- cannot move. */
+  const tallyOf = (p) => (runTally
+    ? Number(runTally.get(anchorKey(p.source_id, p.edition, p.clause)) || 0)
+    : 0);
+  const spend = (p) => {
+    if (!runTally) return;
+    const k = anchorKey(p.source_id, p.edition, p.clause);
+    runTally.set(k, (runTally.get(k) || 0) + 1);
+  };
   /* ============ SATURATION IS A HARD CAP, NOT A PREFERENCE (PROMPT-132 s2) ============
    *
    * certCensus arrived in PROMPT-129 s3 as a TIE-BREAK -- prefer the least-used anchor -- and a
@@ -76,8 +98,10 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
    *
    * It needs certCensus to fire, so a caller that passes none is unchanged -- which is how ISMS-F and
    * AIMS-F stay exactly as they were. */
+  /* live + what this run has already spent. ONE definition, read by the eligibility filter, the
+   * round-robin's re-check and the tie-break, so the three cannot disagree. */
   const certHeldRaw = (p) => (certCensus
-    ? Number(certCensus.get(anchorKey(p.source_id, p.edition, p.clause)) || 0)
+    ? Number(certCensus.get(anchorKey(p.source_id, p.edition, p.clause)) || 0) + tallyOf(p)
     : 0);
   const saturated = (p) => certCensus != null && satCap > 0 && certHeldRaw(p) >= satCap;
   const underTaskCap = (primaries || []).filter((p) => held(p) < cap);
@@ -117,8 +141,11 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
   while (assignments.length < want && seeded.length) {
     const p = seeded[i % seeded.length];
     const k = anchorKey(p.source_id, p.edition, p.clause);
-    if ((room.get(k) || 0) > 0) {
+    /* RE-CHECKED AT THE MOMENT OF HANDING IT OUT, not only at the filter above: within one task the
+     * round-robin can come back to a clause, and `spend` has moved its count since. */
+    if ((room.get(k) || 0) > 0 && !saturated(p)) {
       room.set(k, room.get(k) - 1);
+      spend(p);
       assignments.push({ index: assignments.length, source_id: p.source_id, edition: p.edition, clause: p.clause });
     }
     i++;
@@ -343,6 +370,71 @@ export function anchorAssignmentControls({ quiet = false } = {}) {
     ok("...and satCap=0 turns the cap off explicitly as well",
       assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]), want: 2,
         certCensus: cens([["9.1", 9], ["9.2", 9]]), satCap: 0 }).eligible === 2);
+
+    /* ============ THE RUNNING COUNT (PROMPT-133 s4), BOTH DIRECTIONS ============
+     *
+     * THE RULED CASE: three tasks, ONE shared primary already holding 2 live. The first takes it to
+     * 3; the next two must be refused. Before this, all three got it and the anchor landed at 5. */
+    {
+      const shared = [P("3.9")];
+      const live = cens([["3.9", 2]]);
+      const tally = new Map();
+      const r1 = assignAnchors({ taskCode: "3.1", runId: "rr", primaries: shared, censusMap: cens([]),
+        want: 1, certCensus: live, runTally: tally });
+      const r2 = assignAnchors({ taskCode: "3.3", runId: "rr", primaries: shared, censusMap: cens([]),
+        want: 1, certCensus: live, runTally: tally });
+      const r3 = assignAnchors({ taskCode: "3.6", runId: "rr", primaries: shared, censusMap: cens([]),
+        want: 1, certCensus: live, runTally: tally });
+      ok("three tasks on one anchor at 2 live: the FIRST gets it",
+        r1.assignments.length === 1 && r1.assignments[0].clause === "3.9",
+        JSON.stringify(r1.assignments));
+      ok("...and the SECOND does not", r2.assignments.length === 0 && r2.eligible === 0,
+        JSON.stringify({ n: r2.assignments.length, why: r2.why }));
+      ok("...nor the THIRD", r3.assignments.length === 0 && r3.eligible === 0);
+      ok("...and the refusal is reported as SATURATION, not as a thin map",
+        /NO ASSIGNABLE ANCHOR/.test(r2.why) && /SATURATED/.test(r2.why), r2.why);
+      ok("the tally counts exactly what was handed out, and only that",
+        tally.size === 1 && [...tally.values()][0] === 1, JSON.stringify([...tally]));
+      /* THE LIVE CENSUS IS NEVER WRITTEN BACK: a second run must re-read the truth. */
+      ok("the live census is NOT mutated -- the count changes only within the run",
+        live.get(anchorKey("ISO/IEC 42001", "2023", "3.9")) === 2,
+        String(live.get(anchorKey("ISO/IEC 42001", "2023", "3.9"))));
+    }
+    /* A FRESH anchor still takes its legitimate within-task pair: the tally must not over-restrict. */
+    {
+      const tally = new Map();
+      const r = assignAnchors({ taskCode: "2.4", runId: "rr", primaries: [P("3.4")],
+        censusMap: cens([]), want: 2, certCensus: cens([]), runTally: tally });
+      ok("a FRESH anchor still takes its full within-task pair under the per-task cap",
+        r.assignments.length === 2, JSON.stringify(r.assignments.map((a) => a.clause)));
+      ok("...and the tally records both", [...tally.values()][0] === 2, JSON.stringify([...tally]));
+    }
+    /* ONE BELOW: an anchor at 1 live can take two more before it saturates, and no more. */
+    {
+      const tally = new Map();
+      const live = cens([["9.9", 1]]);
+      const got = [1, 2, 3].map((n) => assignAnchors({ taskCode: "t" + n, runId: "rr",
+        primaries: [P("9.9")], censusMap: cens([]), want: 1, certCensus: live, runTally: tally })
+        .assignments.length);
+      ok("an anchor at 1 live is handed out TWICE across tasks and then refused",
+        JSON.stringify(got) === JSON.stringify([1, 1, 0]), JSON.stringify(got));
+    }
+    /* AND WITH NO certCensus THE TALLY CHANGES NOTHING -- the complete certifications cannot move. */
+    {
+      const tally = new Map();
+      const got = [1, 2, 3].map(() => assignAnchors({ taskCode: "t", runId: "rr",
+        primaries: [P("9.9")], censusMap: cens([]), want: 1, runTally: tally }).assignments.length);
+      ok("no certCensus: every task still gets the anchor, tally or not",
+        JSON.stringify(got) === JSON.stringify([1, 1, 1]), JSON.stringify(got));
+    }
+    /* A CALLER PASSING NO TALLY IS UNCHANGED, which is what keeps --saturation-report comparable. */
+    {
+      const live = cens([["3.9", 2]]);
+      const got = [1, 2, 3].map(() => assignAnchors({ taskCode: "t", runId: "rr",
+        primaries: [P("3.9")], censusMap: cens([]), want: 1, certCensus: live }).assignments.length);
+      ok("no runTally: the old behaviour exactly -- every task gets it (this is the DEFECT, pinned)",
+        JSON.stringify(got) === JSON.stringify([1, 1, 1]), JSON.stringify(got));
+    }
     /* and with NO certCensus every existing caller is unchanged */
     const a = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]), want: 2 });
     const b = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]), want: 2,

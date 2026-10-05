@@ -106,6 +106,26 @@
       "rejected": 3,
       "withheld": 0,
       "note": "Writer claude-opus-5. ALL 18 JUDGE FLAGS UPHELD across both arms (13 same-anchor, 5 key-term neighbour). One miss: 50cb8b61 against 735ed831, a cross-anchor pair (4.3 against 4.2) that the neighbour arm did not rank into its top 3 either. SATURATION is now the dominant waste: 16 of 53 survivors repeated a live point, 30 percent against 18 in R5."
+    },
+    {
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "report": "ISMSIA-ROLLOUT-R7.md",
+      "ruled": "2026-10-05, PROMPT-133 s1",
+      "read": 26,
+      "accepted": 16,
+      "rejected": 10,
+      "withheld": 0,
+      "note": "Writer claude-sonnet-5-5. THE LAST GENERATION ROUND. All 9 judge flags upheld; 4 duplicates missed, 2 of those because the judge returned no answer. ZERO QUALITY REJECTS: every one of the 13 is a REPEAT, which is the finding -- ISMS-IA has used up its source material and another round would mostly buy repeats."
+    },
+    {
+      "artifact": "ISMSIA-R7-opus.json",
+      "report": "ISMSIA-ROLLOUT-R7.md",
+      "ruled": "2026-10-05, PROMPT-133 s1",
+      "read": 8,
+      "accepted": 5,
+      "rejected": 3,
+      "withheld": 0,
+      "note": "Writer claude-opus-5. THE LAST GENERATION ROUND. All 9 judge flags upheld; 4 duplicates missed, 2 of those because the judge returned no answer. ZERO QUALITY REJECTS: every one of the 13 is a REPEAT, which is the finding -- ISMS-IA has used up its source material and another round would mostly buy repeats."
     }
   ],
   "rejections": [
@@ -116,7 +136,9 @@
       "anchor": "ISO/IEC 27001 9.2.2",
       "writer_model": "claude-sonnet-5-5",
       "why": "RULED reject (PROMPT-127 s1): two of the three distractors are not answers anyone would pick (\"visit calendar the certification body sets\", \"headcount\"). That is recall with filler.",
-      "ruled_in": "PROMPT-127 s1"
+      "ruled_in": "PROMPT-127 s1",
+      "kind": "quality",
+      "kind_derived": "PROMPT-133 s6: read off this entry's own `why`; the field did not exist when it was ruled. Not a new ruling."
     },
     {
       "item_id": "d2afc15d",
@@ -125,7 +147,9 @@
       "anchor": "ISO/IEC 27001 9.2.1",
       "writer_model": "claude-sonnet-5-5",
       "why": "RULED reject (PROMPT-127 s1): same key text as 95bc0088, which the solver rejected. One distractor (\"the cheapest controls available\") is not a plausible answer.",
-      "ruled_in": "PROMPT-127 s1"
+      "ruled_in": "PROMPT-127 s1",
+      "kind": "duplicate-of-live",
+      "kind_derived": "PROMPT-133 s6: read off this entry's own `why`; the field did not exist when it was ruled. Not a new ruling."
     },
     {
       "item_id": "11d7d55d",
@@ -134,7 +158,9 @@
       "anchor": "ISO/IEC 27001 9.3.1",
       "writer_model": "claude-sonnet-5-5",
       "why": "RULED reject (PROMPT-127 s1): two options both name top management, and the fourth (\"only after a certification body issued major nonconformities\") is a strawman. The item is answered by eliminating the strawman, not by knowing 9.3.",
-      "ruled_in": "PROMPT-127 s1"
+      "ruled_in": "PROMPT-127 s1",
+      "kind": "quality",
+      "kind_derived": "PROMPT-133 s6: read off this entry's own `why`; the field did not exist when it was ruled. Not a new ruling."
     },
     {
       "item_id": "ab6095d6",
@@ -143,7 +169,9 @@
       "anchor": "ISO/IEC 27001 9.3.3",
       "writer_model": "claude-sonnet-5-5",
       "why": "RULED reject (PROMPT-128 s1): it tests the same 9.3.3 point, with the same key, as Opus 22090360, and it is the plain-recall version of it. Stem overlap is 41 percent so no stem rule sees it; the anchor-and-key signal added in PROMPT-128 s2 measures 67 percent and flags it.",
-      "ruled_in": "PROMPT-128 s1"
+      "ruled_in": "PROMPT-128 s1",
+      "kind": "duplicate-of-live",
+      "kind_derived": "PROMPT-133 s6: read off this entry's own `why`; the field did not exist when it was ruled. Not a new ruling."
     },
     {
       "item_id": "ad3da8d3",
@@ -647,6 +675,162 @@
       "kind": "quality",
       "why": "RULED reject (PROMPT-132 s1): \"not fine\" for the sole competent auditor CONTRADICTS WHAT THE BANK TEACHES (740d9999, 6b73a816: proceed with measures against bias). Same conflict as 3f9a949a in R3. The judge also flagged it as a duplicate of 09c6f6b5, which is true as well -- it is rejected on the conflict.",
       "ruled_in": "PROMPT-132 s1"
+    },
+    {
+      "item_id": "d6d4c85b",
+      "artifact": "ISMSIA-R7-opus.json",
+      "task": "3.3",
+      "anchor": "ISO 19011 3.9",
+      "writer_model": "claude-opus-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "c06d84f5",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item c06d84f5 -- judge -- also duplicates R7's own 13ef35fe (19011 3.9: something observed is objective evidence)",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "aa835a37",
+      "artifact": "ISMSIA-R7-opus.json",
+      "task": "3.7",
+      "anchor": "ISO/IEC 27001 A.8.34",
+      "writer_model": "claude-opus-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "8243dc25",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item 8243dc25 -- judge -- A.8.34",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "5bac7140",
+      "artifact": "ISMSIA-R7-opus.json",
+      "task": "3.7",
+      "anchor": "ISO 19011 6.2.3",
+      "writer_model": "claude-opus-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "2d6d0c2d",
+      "flagged_by": "director",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item 2d6d0c2d -- THE DIRECTOR -- JUDGE MISSED IT: same 'provider refuses access' scenario, same feasibility reasoning",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "db29a5ad",
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "task": "4.9",
+      "anchor": "ISO 19011 A.3",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "746ce4e2",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item 746ce4e2 -- judge",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "7521f193",
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "task": "3.6",
+      "anchor": "ISO 19011 3.9",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "c06d84f5",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item c06d84f5 -- judge",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "37e4f130",
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "task": "3.8",
+      "anchor": "ISO 19011 A.6.1",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "d0cbb7a4",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item d0cbb7a4 -- judge",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "f0b3cc05",
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "task": "1.2",
+      "anchor": "ISO 19011 4.1",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "7b136259",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item 7b136259 -- judge",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "add38990",
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "task": "2.3",
+      "anchor": "ISO 19011 3.6",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "2fcb240c",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item 2fcb240c -- judge -- the FOURTH scope-content item",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "085dedde",
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "task": "1.1",
+      "anchor": "ISO 19011 3.13",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "8ba52401",
+      "flagged_by": "director",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item 8ba52401 -- THE DIRECTOR: also duplicates 2afcd159, itself rejected in R6 (prospective customer as client)",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "1ff3f36c",
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "task": "1.2",
+      "anchor": "ISO 19011 4.8",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "24f80b60",
+      "flagged_by": "director",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item 24f80b60 -- THE DIRECTOR: diligence still applies to a minor area under the risk-based approach",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "11b8bc77",
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "task": "1.4",
+      "anchor": "ISO 19011 7.1",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "8509e03c",
+      "flagged_by": "director",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item 8509e03c -- THE DIRECTOR: the team's combined competence; anchors 7.1 and 7.2.3.3",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "5964e8dd",
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "task": "3.8",
+      "anchor": "ISO 19011 4.4",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "bbd75219",
+      "flagged_by": "director",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item bbd75219 -- THE DIRECTOR -- THE JUDGE RETURNED NO ANSWER: AI output needs the auditor's own judgement",
+      "ruled_in": "PROMPT-133 s1"
+    },
+    {
+      "item_id": "7003921b",
+      "artifact": "ISMSIA-R7-sonnet.json",
+      "task": "5.7",
+      "anchor": "ISO/IEC 27001 9.3.3",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "22090360",
+      "flagged_by": "director",
+      "why": "RULED reject (PROMPT-133 s1): duplicates the live item 22090360 -- THE DIRECTOR -- THE JUDGE RETURNED NO ANSWER: review results must be documented",
+      "ruled_in": "PROMPT-133 s1"
     }
   ]
 }
