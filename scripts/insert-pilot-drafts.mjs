@@ -371,7 +371,8 @@ const groundingRows = inserted.map(({ id, it, spec }) => ({
   gates: it.gates ?? [],
   solver: it.solver ?? null,
   generator: "gen-grounded-items.mjs",
-  model: art.model ?? null,
+  /* spend.writer_model first: an artifact written before PROMPT-140 has the base default in `model`. */
+  model: art.spend?.writer_model ?? art.model ?? null,
   grounding_family: it.grounding_family ?? it.item.key_support_clause,
   reviewed_by: "director, ruled " + RULED,
   reviewed_at: stamp,

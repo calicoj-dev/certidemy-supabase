@@ -2085,6 +2085,120 @@
     "exhausted_among_them": 9,
     "note": "UPPER BOUND. These are the floors to set to held counts before the cutover dry run."
    }
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 5,
+   "stage_name": "director verdicts R4",
+   "ruled_in": "PROMPT-140 s1",
+   "usd_generation": 10.984,
+   "usd_judge": 0.4887,
+   "usd_translation": 4.4801,
+   "survivors": 32,
+   "accepted": 24,
+   "rejected": 8,
+   "withheld": 0,
+   "rejects_by_kind": {
+    "quality": 0,
+    "duplicate-of-live": 8
+   },
+   "judge": {
+    "flags": 10,
+    "over_items": 9,
+    "flags_upheld": 9,
+    "flags_overruled": 1,
+    "unanswered": 1,
+    "misses": 0,
+    "note": "The cleanest round on the duplicate checker: every flag upheld but one, nothing missed. The unanswered pair was moot -- its item was rejected on another flag anyway."
+   },
+   "duplicates_are_the_limit": {
+    "quality": 0,
+    "duplicates": 8,
+    "of_survivors": 32,
+    "share": 0.25,
+    "r3_share": 0.333,
+    "note": "ZERO quality rejects for the FOURTH round running. Duplicates fell 33% -> 25%: the PROMPT-139 s2 notes worked."
+   },
+   "overruled": {
+    "item": "2b057ad8",
+    "task": "4.3",
+    "why": "b8556d1d keys on audit programme objectives fitting strategic direction under 19011; 2b057ad8 keys on top management's AI objectives fitting the organization's own strategy. Different requirements, different people accountable."
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 4,
+   "stage_name": "generation R4b",
+   "ruled_in": "PROMPT-140 s2",
+   "usd": 1.0088,
+   "ceiling": 6,
+   "attempted": 6,
+   "generated": 4,
+   "survivors": 1,
+   "design": "A cleanup run for the only two tasks holding 0 items, using the two levers not yet tried on them: Opus for 5.6, and a per-task anchor cap override for 4.5.",
+   "by_task": {
+    "5.6": {
+     "writer": "claude-opus-5",
+     "asked": 4,
+     "generated": 4,
+     "survivors": 1,
+     "usd": 1.0088,
+     "note": "0 of 4 on Sonnet in R4, 1 of 4 on Opus here. The lever worked."
+    },
+    "4.5": {
+     "writer": "claude-sonnet-5-5",
+     "asked": 0,
+     "generated": 0,
+     "survivors": 0,
+     "usd": 0,
+     "note": "NOT ASKABLE. The per-task cap override made 6.1.3 and 8.3 under-cap primaries, but the SATURATION cap (3 certification-wide) still closes them -- a separate mechanism. anchor-assignment.mjs:111 filters under-cap primaries through !saturated(p). $0 spent."
+    }
+   },
+   "judge": {
+    "model": "claude-sonnet-5-5",
+    "pairs": 4,
+    "flagged": 0,
+    "usd": 0.0142,
+    "arms": {
+     "same-anchor": {
+      "judged": 1,
+      "flagged": 0
+     },
+     "key-term-neighbour": {
+      "judged": 3,
+      "flagged": 0
+     }
+    }
+   },
+   "zero_item_tasks": {
+    "which": [
+     "4.5",
+     "5.6"
+    ],
+    "floors_not_set": true,
+    "measured": "verify-cert does NOT fail (54 pass, 0 fail, 5 warn); form assembly does NOT skip (20/20 forms per language); the draw is by DOMAIN weight so siblings absorb the share. No instrument reports a task the exam never tests except check-task-map."
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 4,
+   "stage_name": "writer attribution defect",
+   "ruled_in": "PROMPT-140, found in s1",
+   "usd": 0,
+   "what": "gen-grounded-items wrote the artifact's top-level `model` as MODEL, the BASE DEFAULT, not the --writer-model actually used. insert-pilot-drafts copies that field into item_grounding.model, so ALL 900 live grounded rows across four certifications read claude-opus-5 -- the column looked like provenance and was a constant.",
+   "scope": {
+    "artifacts_wrong": 13,
+    "survivors_behind_them": 524,
+    "live_rows_affected": 900,
+    "certifications": [
+     "AIMS-F",
+     "ISMS-F",
+     "ISMS-IA",
+     "AIMS-IA"
+    ]
+   },
+   "fix": "Top-level `model` is now WRITER_MODEL, with the default kept as `base_model_default`; insert-pilot-drafts prefers spend.writer_model so an OLD artifact re-inserted also gets the truth. Proven on the discriminating case: the Sonnet R4b artifact now records claude-sonnet-5-5 where it would have said claude-opus-5.",
+   "open": "THE 900 LIVE ROWS ARE STILL WRONG. Backfilling them rewrites live grounding rows and was not ruled, so it is left for the director. Nothing downstream of the bank reads this column; the cost-per-writer figures in this file came from the separate artifacts and are correct."
   }
  ],
  "not_instrumented": [

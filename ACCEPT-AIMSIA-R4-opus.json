@@ -1,0 +1,21 @@
+{
+ "_what": "PROMPT-140 s1: the R4 items the director accepted from claude-opus-5. Nothing else is inserted.",
+ "accepts": [
+  {
+   "item_id": "cd778d29",
+   "task": "5.4",
+   "ruled_in": "PROMPT-140 s1",
+   "writer_model": "claude-opus-5",
+   "verdict": "accept",
+   "note": "accepted PROMPT-140 s1 | ISO 19011 3.24"
+  },
+  {
+   "item_id": "d9b5bfbe",
+   "task": "5.4",
+   "ruled_in": "PROMPT-140 s1",
+   "writer_model": "claude-opus-5",
+   "verdict": "accept",
+   "note": "accepted PROMPT-140 s1 | ISO 19011 1"
+  }
+ ]
+}

@@ -1692,7 +1692,11 @@ if (FROM) {
 const RAW = OUT.replace(/\.json$/, "") + "-raw.json";
 if (!FROM) {
   writeFileSync(join(ROOT, RAW), JSON.stringify({
-    certification: CERT, model: MODEL, standard: mapping.standard, edition: mapping.edition,
+    /* `model` is the WRITER, not the base default. It was MODEL until PROMPT-140, so every artifact
+   * written with --writer-model recorded the default -- and insert-pilot-drafts copies this field into
+   * item_grounding.model, which made all 900 live grounded rows read claude-opus-5. */
+  certification: CERT, model: WRITER_MODEL, base_model_default: MODEL,
+  standard: mapping.standard, edition: mapping.edition,
     spend: { calls: SPEND.calls, input_tokens: SPEND.input, output_tokens: SPEND.output,
       usd: Number(spendUSD().toFixed(4)), writer_model: WRITER_MODEL, solver_model: SOLVER_MODEL,
       price_per_mtok: { writer: priceOf(WRITER_MODEL), solver: priceOf(SOLVER_MODEL) },
@@ -2417,7 +2421,11 @@ if (MAXUSD) {
 }
 
 writeFileSync(OUT_PATH, JSON.stringify({
-  certification: CERT, model: MODEL, standard: mapping.standard, edition: mapping.edition,
+  /* `model` is the WRITER, not the base default. It was MODEL until PROMPT-140, so every artifact
+   * written with --writer-model recorded the default -- and insert-pilot-drafts copies this field into
+   * item_grounding.model, which made all 900 live grounded rows read claude-opus-5. */
+  certification: CERT, model: WRITER_MODEL, base_model_default: MODEL,
+  standard: mapping.standard, edition: mapping.edition,
   /* the FINAL spend, after gating. The raw artifact carries only the writer calls, because it is written
    * before any gate runs -- so a cost read off that one would omit every solver call. */
   spend: { calls: SPEND.calls, input_tokens: SPEND.input, output_tokens: SPEND.output,
