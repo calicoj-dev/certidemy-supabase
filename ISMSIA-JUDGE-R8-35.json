@@ -1,0 +1,10 @@
+{
+  "cert": "ISMS-IA",
+  "model": "claude-sonnet-5-5",
+  "pairs": 3,
+  "judged": 3,
+  "flagged": [],
+  "spend_usd": 0.0136,
+  "unanswered": 0,
+  "unanswered_pairs": []
+}

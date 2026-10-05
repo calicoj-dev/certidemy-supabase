@@ -1,7 +1,7 @@
 {
  "cert": "ISMS-IA",
  "saturation_cap": 3,
- "anchors_in_use": 103,
+ "anchors_in_use": 107,
  "saturated": [
   {
    "anchor": "ISO/IEC 27001:2022:9.2.2",
@@ -36,6 +36,10 @@
    "live_items": 5
   },
   {
+   "anchor": "ISO 19011:2026:3.9",
+   "live_items": 4
+  },
+  {
    "anchor": "ISO/IEC 27001:2022:4.2",
    "live_items": 4
   },
@@ -52,6 +56,14 @@
    "live_items": 3
   },
   {
+   "anchor": "ISO 19011:2026:7.2.3.3",
+   "live_items": 3
+  },
+  {
+   "anchor": "ISO 19011:2026:5.5.2",
+   "live_items": 3
+  },
+  {
    "anchor": "ISO 19011:2026:6.7",
    "live_items": 3
   },
@@ -64,6 +76,10 @@
    "live_items": 3
   },
   {
+   "anchor": "ISO 19011:2026:5.5.4",
+   "live_items": 3
+  },
+  {
    "anchor": "ISO/IEC 27001:2022:8.2",
    "live_items": 3
   },
@@ -72,7 +88,19 @@
    "live_items": 3
   },
   {
+   "anchor": "ISO/IEC 27001:2022:6.1.2",
+   "live_items": 3
+  },
+  {
+   "anchor": "ISO 19011:2026:A.6.1",
+   "live_items": 3
+  },
+  {
    "anchor": "ISO/IEC 27001:2022:9.3.2",
+   "live_items": 3
+  },
+  {
+   "anchor": "ISO 19011:2026:4.6",
    "live_items": 3
   },
   {
@@ -119,484 +147,20 @@
  "tasks": [
   {
    "task": "1.1",
-   "asked": 4,
+   "asked": 1,
    "effective": 5,
    "eligible": 2,
    "capacity": 2,
-   "assignable": 2,
+   "assignable": 1,
    "saturated": [
     "9.2.1 x6",
     "9.2.2 x9"
    ],
    "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
    "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "1.2",
-   "asked": 4,
-   "effective": 8,
-   "eligible": 6,
-   "capacity": 8,
-   "assignable": 4,
-   "saturated": [
-    "4.7 x4",
-    "4.3 x3"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "1.3",
-   "asked": 4,
-   "effective": 4,
-   "eligible": 1,
-   "capacity": 1,
-   "assignable": 1,
-   "saturated": [
-    "9.2.2 x9"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "1.4",
-   "asked": 4,
-   "effective": 13,
-   "eligible": 11,
-   "capacity": 18,
-   "assignable": 4,
-   "saturated": [
-    "A.16 x3"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "1.5",
-   "asked": 4,
-   "effective": 5,
-   "eligible": 1,
-   "capacity": 1,
-   "assignable": 1,
-   "saturated": [
-    "10.2 x7",
-    "3.8 x5",
-    "3.1 x6"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "2.1",
-   "asked": 4,
-   "effective": 5,
-   "eligible": 1,
-   "capacity": 1,
-   "assignable": 1,
-   "saturated": [
-    "9.2.1 x6",
-    "9.2.2 x9",
-    "5.1 x3"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "2.2",
-   "asked": 4,
-   "effective": 6,
-   "eligible": 2,
-   "capacity": 2,
-   "assignable": 2,
-   "saturated": [
-    "5.1 x3",
-    "9.2.2 x9"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 7,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "2.3",
-   "asked": 4,
-   "effective": 5,
-   "eligible": 1,
-   "capacity": 1,
-   "assignable": 1,
-   "saturated": [
-    "3.8 x5",
-    "9.2.1 x6",
-    "9.2.2 x9"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "2.4",
-   "asked": 4,
-   "effective": 4,
-   "eligible": 1,
-   "capacity": 2,
-   "assignable": 2,
-   "saturated": [],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "2.6",
-   "asked": 4,
-   "effective": 4,
-   "eligible": 0,
-   "capacity": 0,
-   "assignable": 0,
-   "saturated": [
-    "9.2.2 x9"
-   ],
-   "why": "NO ASSIGNABLE ANCHOR: all 1 under-cap primary(ies) are SATURATED certification-wide (3 or more live grounded items each: 9.2.2 holds 9). A FLOOR question, not a generation one -- the passages are used up.",
-   "held": 7,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "3.1",
-   "asked": 4,
-   "effective": 7,
-   "eligible": 1,
-   "capacity": 1,
-   "assignable": 1,
-   "saturated": [
-    "4.7 x4",
-    "3.11 x3",
-    "6.4.8 x7",
-    "6.4.7 x5",
-    "3.1 x6",
-    "3.10 x3"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 4,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "3.2",
-   "asked": 4,
-   "effective": 5,
-   "eligible": 2,
-   "capacity": 2,
-   "assignable": 2,
-   "saturated": [
-    "4.7 x4"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "3.3",
-   "asked": 4,
-   "effective": 6,
-   "eligible": 1,
-   "capacity": 2,
-   "assignable": 2,
-   "saturated": [
-    "4.7 x4",
-    "6.4.7 x5",
-    "3.10 x3",
-    "A.16 x3"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 4,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "3.4",
-   "asked": 4,
-   "effective": 3,
-   "eligible": 0,
-   "capacity": 0,
-   "assignable": 0,
-   "saturated": [
-    "6.4.7 x5"
-   ],
-   "why": "NO ASSIGNABLE ANCHOR: all 1 under-cap primary(ies) are SATURATED certification-wide (3 or more live grounded items each: 6.4.7 holds 5). A FLOOR question, not a generation one -- the passages are used up.",
-   "held": 4,
    "floor": 6,
-   "floor_source": null
-  },
-  {
-   "task": "3.6",
-   "asked": 4,
-   "effective": 9,
-   "eligible": 2,
-   "capacity": 3,
-   "assignable": 3,
-   "saturated": [
-    "4.7 x4",
-    "3.8 x5",
-    "6.4.8 x7",
-    "6.4.7 x5",
-    "A.5 x5",
-    "3.10 x3",
-    "6.1.3 x4"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "3.7",
-   "asked": 4,
-   "effective": 8,
-   "eligible": 8,
-   "capacity": 11,
-   "assignable": 4,
-   "saturated": [],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 5,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "3.8",
-   "asked": 4,
-   "effective": 8,
-   "eligible": 2,
-   "capacity": 2,
-   "assignable": 2,
-   "saturated": [
-    "4.7 x4",
-    "A.1 x3",
-    "6.4.7 x5",
-    "A.5 x5",
-    "3.10 x3"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "4.1",
-   "asked": 4,
-   "effective": 5,
-   "eligible": 1,
-   "capacity": 1,
-   "assignable": 1,
-   "saturated": [
-    "4.3 x3"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 7,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "4.2",
-   "asked": 4,
-   "effective": 4,
-   "eligible": 2,
-   "capacity": 3,
-   "assignable": 3,
-   "saturated": [],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 5,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "4.3",
-   "asked": 4,
-   "effective": 8,
-   "eligible": 3,
-   "capacity": 4,
-   "assignable": 4,
-   "saturated": [
-    "6.2 x3",
-    "8.1 x3",
-    "8.2 x3",
-    "6.1.3 x4",
-    "8.3 x3"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "4.4",
-   "asked": 4,
-   "effective": 3,
-   "eligible": 0,
-   "capacity": 0,
-   "assignable": 0,
-   "saturated": [
-    "6.4.8 x7",
-    "6.1.3 x4",
-    "8.3 x3"
-   ],
-   "why": "NO ASSIGNABLE ANCHOR: all 3 under-cap primary(ies) are SATURATED certification-wide (3 or more live grounded items each: 6.4.8 holds 7, 6.1.3 holds 4, 8.3 holds 3). A FLOOR question, not a generation one -- the passages are used up.",
-   "held": 3,
-   "floor": 6,
-   "floor_source": null
-  },
-  {
-   "task": "4.5",
-   "asked": 4,
-   "effective": 5,
-   "eligible": 4,
-   "capacity": 5,
-   "assignable": 4,
-   "saturated": [],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 5,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "4.8",
-   "asked": 4,
-   "effective": 5,
-   "eligible": 3,
-   "capacity": 3,
-   "assignable": 3,
-   "saturated": [],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 7,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "4.9",
-   "asked": 4,
-   "effective": 11,
-   "eligible": 5,
-   "capacity": 6,
-   "assignable": 4,
-   "saturated": [
-    "4.7 x4",
-    "6.4.7 x5",
-    "A.5 x5",
-    "8.1 x3",
-    "8.2 x3",
-    "9.1 x3"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "5.3",
-   "asked": 4,
-   "effective": 6,
-   "eligible": 0,
-   "capacity": 0,
-   "assignable": 0,
-   "saturated": [
-    "A.18.3 x3",
-    "3.8 x5",
-    "3.11 x3",
-    "6.4.8 x7",
-    "3.10 x3",
-    "4.3 x3"
-   ],
-   "why": "NO ASSIGNABLE ANCHOR: all 6 under-cap primary(ies) are SATURATED certification-wide (3 or more live grounded items each: A.18.3 holds 3, 3.8 holds 5, 3.11 holds 3, 6.4.8 holds 7, 3.10 holds 3, 4.3 holds 3). A FLOOR question, not a generation one -- the passages are used up.",
-   "held": 4,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "5.4",
-   "asked": 4,
-   "effective": 3,
-   "eligible": 1,
-   "capacity": 1,
-   "assignable": 1,
-   "saturated": [
-    "6.4.7 x5",
-    "4.3 x3"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 3,
-   "floor": 6,
-   "floor_source": null
-  },
-  {
-   "task": "5.5",
-   "asked": 4,
-   "effective": 5,
-   "eligible": 0,
-   "capacity": 0,
-   "assignable": 0,
-   "saturated": [
-    "A.18.3 x3",
-    "6.4.8 x7",
-    "A.18.1 x3",
-    "6.7 x3"
-   ],
-   "why": "NO ASSIGNABLE ANCHOR: all 4 under-cap primary(ies) are SATURATED certification-wide (3 or more live grounded items each: A.18.3 holds 3, 6.4.8 holds 7, A.18.1 holds 3, 6.7 holds 3). A FLOOR question, not a generation one -- the passages are used up.",
-   "held": 5,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "5.6",
-   "asked": 4,
-   "effective": 4,
-   "eligible": 0,
-   "capacity": 0,
-   "assignable": 0,
-   "saturated": [
-    "A.5 x5"
-   ],
-   "why": "NO ASSIGNABLE ANCHOR: all 1 under-cap primary(ies) are SATURATED certification-wide (3 or more live grounded items each: A.5 holds 5). A FLOOR question, not a generation one -- the passages are used up.",
-   "held": 7,
-   "floor": 8,
-   "floor_source": null
-  },
-  {
-   "task": "5.7",
-   "asked": 4,
-   "effective": 5,
-   "eligible": 2,
-   "capacity": 3,
-   "assignable": 3,
-   "saturated": [
-    "9.2.1 x6",
-    "9.2.2 x9"
-   ],
-   "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 5,
-   "floor": 8,
    "floor_source": null
   }
  ],
- "tasks_with_no_assignable_anchor": [
-  "2.6",
-  "3.4",
-  "4.4",
-  "5.3",
-  "5.5",
-  "5.6"
- ]
+ "tasks_with_no_assignable_anchor": []
 }

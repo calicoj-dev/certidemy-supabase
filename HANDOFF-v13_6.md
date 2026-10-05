@@ -341,6 +341,45 @@ By name, the things that must change:
   items. Fix: resolve a container citation to the single child holding the quote verbatim, or refuse
   when more than one child matches.
 
+## 5a. Jev as the duplicate judge (RECORDED PROMPT-134 s3, NOT BUILT)
+
+**Status: not started. Needs a Cloudflare token Juan supplies. Nothing here has been run.**
+
+**What Jev is.** TypeSafe's classifier, available on Cloudflare Workers AI. It answers a typed
+Choice/Score question with a **calibrated probability** instead of free text.
+
+**Why it is worth testing.** The same-point question is a two-way Choice. A probability would let
+us flag confident duplicates automatically and send only the uncertain middle to the director.
+**That cuts his reading, which is now the bottleneck -- not the cost.** Sonnet already took the
+judge to $0.51 a control run, so the remaining prize is his time, not the bill.
+
+**The test.** The 159-case control in `ISMSIA-JUDGE-CONTROL.json`: **53 positives, 106
+negatives**, both arms (same-anchor and key-term neighbour). Every positive is a call the director
+actually made.
+
+**The rule (PROMPT-133).** A challenger must **match or beat the current judge on each criterion**,
+not clear a fixed number. Sonnet 5.5 is the incumbent at **48 of 53 positives, 16 false positives
+of 106, 1 unanswered of 159**. A fixed false-positive bar is what failed in PROMPT-132: it failed
+the incumbent at the same rate and so tested nothing.
+
+**Also report -- this is the whole point of a probability, and it has no equivalent today:**
+- at what threshold do the pairs ABOVE it contain **no false positives**;
+- what **share of all pairs falls in the uncertain band** between that threshold and the
+  corresponding one below. That band is what the director would still have to read.
+
+**Needs.**
+- A Cloudflare API token with Workers AI access. **Juan supplies it.** Never printed (standing rule).
+- **The model version pinned and logged** -- ISO/IEC 17024 auditability: a scoring component whose
+  version is not recorded cannot be evidenced at audit.
+
+**Risk, and how to measure it rather than assume it.** Jev is a fast single-pass model with no
+step-by-step reasoning, so subtle **cross-anchor** duplicates -- two clauses teaching one lesson --
+may slip past it. That is exactly the class the neighbour arm was added for in PROMPT-131, and the
+class the Opus judge missed twice in R7. **The control holds 5 cross-anchor positives: score them
+SEPARATELY and report that number on its own**, because 5 of 159 cannot move the headline and is
+the half that matters most.
+
+---
 ## 5. Open backlogs
 
 | backlog | size | where |

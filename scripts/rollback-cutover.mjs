@@ -6,12 +6,21 @@
  * It reads the id list from the file rather than re-deriving it. A rollback that recomputes its own
  * target set can restore a row the cutover never touched -- the file IS the record of what was done.
  */
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 
-let APPLY = false, FILE = "AIMSF-CUTOVER-RETIRED.json", ONLY = null;
+/* ============ NO DEFAULT FILE WHILE MORE THAN ONE CUTOVER IS RECORDED (PROMPT-134 s1) ============
+ *
+ * FILE defaulted to AIMSF-CUTOVER-RETIRED.json. After the ISMS-IA cutover, running this script the
+ * way its own caller printed it -- no `--file` -- resolved to AIMS-F's 356 ids and offered to
+ * un-retire a certification nobody was rolling back. A rollback is the command reached for in a
+ * hurry, so it must not have a silent default pointing at the wrong certification.
+ *
+ * The default is kept ONLY while it is the single recorded cutover; with two or more, the script
+ * refuses and names them. */
+let APPLY = false, FILE = null, ONLY = null;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
   let m = a.match(/^--file=(.+)$/);
@@ -25,6 +34,23 @@ for (const a of process.argv.slice(2)) {
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
+if (!FILE) {
+  /* which cutovers are actually recorded, read off the directory rather than assumed */
+  const found = readdirSync(ROOT).filter((f) => /-CUTOVER-RETIRED\.json$/.test(f)).sort();
+  if (found.length === 1) {
+    FILE = found[0];
+    console.log("one recorded cutover, using " + FILE);
+  } else {
+    console.error(found.length
+      ? "REFUSING: " + found.length + " recorded cutover(s) exist and --file was not given. Name one:"
+      : "No *-CUTOVER-RETIRED.json. There is no recorded cutover to roll back.");
+    for (const f of found) console.error("   --file=" + f);
+    console.error("");
+    console.error("A rollback is reached for in a hurry. It will not guess which certification you");
+    console.error("meant: the old default pointed at AIMS-F and would have un-retired the wrong one.");
+    process.exit(2);
+  }
+}
 const path = join(ROOT, FILE);
 if (!existsSync(path)) {
   console.error("No " + FILE + ". There is no recorded cutover to roll back.");

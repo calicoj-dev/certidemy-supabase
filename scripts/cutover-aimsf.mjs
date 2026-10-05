@@ -575,8 +575,21 @@ for (const l of LANGS) {
   console.log("   post-write assembly, " + l.padEnd(7) + " " + filled + "/" + FORMS);
 }
 console.log("");
+/* ============ THE PRINTED ROLLBACK MUST NAME ITS FILE (fixed PROMPT-134 s1) ============
+ *
+ * It printed `rollback-cutover.mjs --apply` with no `--file`, and that script's default is
+ * AIMSF-CUTOVER-RETIRED.json. Run after the ISMS-IA cutover, the command as printed resolved to
+ * AIMS-F's 356 recorded ids and would have UN-RETIRED A DIFFERENT CERTIFICATION'S CUTOVER -- while
+ * the line underneath it said it reads the ISMS-IA file. The message and the command disagreed, and
+ * the message was the true one.
+ *
+ * Same defect class as the hard-coded keep list and rollback filename this script already carries a
+ * comment about (PROMPT-120 s4.2): a `--cert` script with an AIMS-F default somewhere in it. Found
+ * by RUNNING the printed command rather than reading it. */
 console.log("ROLLBACK (one command):");
-console.log("   node --dns-result-order=ipv4first scripts/rollback-cutover.mjs --apply");
+console.log("   node --dns-result-order=ipv4first scripts/rollback-cutover.mjs --file=" +
+  RETIRED_FILE.split(/[\\/]/).pop() + " --apply");
 console.log("   reads " + RETIRED_FILE + " and sets retired_at = null on exactly those " + retireIds.size + " id(s).");
+console.log("   THE --file FLAG IS NOT OPTIONAL: rollback-cutover defaults to AIMS-F's file.");
 if (bad || !straySum || gateFail2 || wrote !== retireIds.size ||
   JSON.stringify(practiceBefore) !== JSON.stringify(practiceAfter)) process.exitCode = 2;
