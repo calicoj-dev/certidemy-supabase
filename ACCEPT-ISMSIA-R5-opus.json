@@ -1,0 +1,30 @@
+{
+  "_what": "PROMPT-131 s1: 3 accept(s) from ISMSIA-R5-opus.json.",
+  "_writer_model": "claude-opus-5",
+  "accepts": [
+    {
+      "item_id": "83bd13f5",
+      "report_number": 1,
+      "task": "3.7",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-opus-5 | ISO 19011 6.4.4"
+    },
+    {
+      "item_id": "7a7f06de",
+      "report_number": 2,
+      "task": "4.8",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-opus-5 | ISO/IEC 27001 A.5.13"
+    },
+    {
+      "item_id": "69fc0ae4",
+      "report_number": 3,
+      "task": "4.8",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-opus-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-opus-5 | ISO/IEC 27001 4.3"
+    }
+  ]
+}

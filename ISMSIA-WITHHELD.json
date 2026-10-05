@@ -83,6 +83,33 @@
       "twin_of": "952228e6",
       "anchor": "ISO 19011 A.16",
       "reason": "twin of 952228e6 on ISO 19011 A.16 (permission before screenshots): same anchor, same point. The director keeps 952228e6. Sound item, may serve later."
+    },
+    {
+      "item_id": "ba7ba955",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "ruled_in": "PROMPT-131 s1",
+      "kind": "twin-within-round",
+      "twin_of": "b9500dc3",
+      "anchor": "ISO/IEC 27001 8.3",
+      "reason": "twin of b9500dc3: same anchor, same point, flagged by the judge and upheld. The director keeps b9500dc3. Sound item, may serve later."
+    },
+    {
+      "item_id": "26960e4e",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "ruled_in": "PROMPT-131 s1",
+      "kind": "twin-within-round",
+      "twin_of": "4481e168",
+      "anchor": "ISO/IEC 27001 9.2.1",
+      "reason": "twin of 4481e168: same anchor, same point, flagged by the judge and upheld. The director keeps 4481e168. Sound item, may serve later."
+    },
+    {
+      "item_id": "ad88f63c",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "ruled_in": "PROMPT-131 s1",
+      "kind": "twin-within-round",
+      "twin_of": "71cb5f4e",
+      "anchor": "ISO/IEC 27001 9.2.2",
+      "reason": "twin of 71cb5f4e: same anchor, same point, flagged by the judge and upheld. The director keeps 71cb5f4e. Sound item, may serve later."
     }
   ],
   "_translation_lint_note": "Three R3 items are withheld for a TRANSLATION defect rather than an item defect. The English explanations were checked and name no option by letter, so the letter reference is the translator introducing one. Re-rolling reproduced both problems identically, so no further spend was made. They become approvable the moment a clean sibling pair exists.",

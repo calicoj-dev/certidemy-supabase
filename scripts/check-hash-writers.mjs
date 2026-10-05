@@ -577,8 +577,14 @@ for (const [n, why] of Object.entries(DUAL_ROLE)) {
 
 if (recorders.length) {
   console.log("");
-  console.log("REVIEW-ROW RECORDERS (write a *_reviews hash -- legitimate, this is the record):");
-  for (const r of recorders) console.log("  " + r.name.padEnd(42) + r.positions + " position(s)  " + r.targets.join(","));
+  /* DETECTED, not declared. This list is every recorder FOUND; the heading used to call them all
+   * "legitimate", so an undeclared one appeared here under a reassuring label and again below as a
+   * finding. One name in two lists with opposite meanings is how a finding gets read as noise. */
+  console.log("REVIEW-ROW RECORDERS DETECTED (a *_reviews hash write; declared ones are legitimate):");
+  for (const r of recorders) {
+    console.log("  " + r.name.padEnd(42) + r.positions + " position(s)  " + r.targets.join(",") +
+      (REVIEW_RECORDERS[r.name] ? "" : "   <-- NOT DECLARED"));
+  }
 }
 
 if (undeclaredRecorders.length) {

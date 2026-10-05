@@ -236,3 +236,11 @@ ISMSIA-INFLATION-*
 # A duplicate report that embeds whole items reproduces licensed key text. Fixed at source in
 # PROMPT-129 s2 (ids and reasons only); the pattern stays because the embedding is one edit away.
 *-CROSSDUP-*.json
+
+# The GENERATOR'S DEFAULT ARTIFACT NAME had no pattern, found by check-licensed-text in PROMPT-131
+# with 1435 runs of held text in it. Three insert runs passed no `--out`, so the gated artifact landed
+# at PILOT-GROUNDED-ISMS-IA.json -- which the AIMS-F-era PILOT-GROUNDED-*.json files are tracked
+# under, so a broad pattern would untrack nine files and read as a deletion of the record (the same
+# reason AIMSF-R6* names rounds from R6 on rather than AIMSF-R*). Named per certification instead.
+PILOT-GROUNDED-ISMS-IA*
+PILOT-GROUNDED-ISMS-F*

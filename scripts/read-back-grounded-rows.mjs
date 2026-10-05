@@ -13,13 +13,18 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, getAllIn } from "./_pg.mjs";
 
-let RECENT = 0;
+let RECENT = 0, EXPECT_STATUS = "pending_review";
 const IDS = [];
 for (const a of process.argv.slice(2)) {
   let m;
   if ((m = /^--recent=(\d+)$/.exec(a))) { RECENT = Number(m[1]); continue; }
+  /* The status to ASSERT. It was hard-coded to pending_review, which is right before the approval step
+   * and wrong after it: a post-approval read reported 42 mismatches on 42 correct rows (PROMPT-131).
+   * An instrument that cannot be told what state to expect reports the wrong one confidently. */
+  if ((m = /^--expect-status=(.+)$/.exec(a))) { EXPECT_STATUS = m[1]; continue; }
   if (/^--/.test(a)) {
-    console.error("Unrecognised flag: " + a + ". Known: --recent=N, or bare item ids.");
+    console.error("Unrecognised flag: " + a +
+      ". Known: --recent=N, --expect-status=<status> (default pending_review), or bare item ids.");
     process.exit(2);
   }
   IDS.push(...a.split(",").map((x) => x.trim()).filter(Boolean));
@@ -78,12 +83,12 @@ for (const r of want) {
   console.log("      grounding      " + r.g.source_id + " " + r.g.edition + " :: " + r.g.key_support_clause);
   console.log("      written by     " + r.g.generator + (r.g.model ? " / " + r.g.model : ""));
   /* the three the standing rule names, asserted rather than only printed */
-  const expect = { status: "pending_review", pool: "secure", is_exam_scope: true, retired_at: null };
+  const expect = { status: EXPECT_STATUS, pool: "secure", is_exam_scope: true, retired_at: null };
   for (const [k, v] of Object.entries(expect)) {
     if (q[k] !== v) { console.log("      MISMATCH " + k + ": " + q[k] + " (expected " + v + ")"); bad++; }
   }
   console.log("");
 }
 console.log(bad ? bad + " column mismatch(es)" :
-  "every row: status=pending_review, pool=secure, is_exam_scope=true, retired_at=null");
+  "every row: status=" + EXPECT_STATUS + ", pool=secure, is_exam_scope=true, retired_at=null");
 if (bad) process.exitCode = 1;

@@ -30,17 +30,22 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 
-let APPLY = false;
+/* --cert was added in PROMPT-131: an ISMS-IA insert that omitted the generator's --exam-scope left 42
+ * accepted rows at false, and record-grounded-verdicts' accept post-condition is what caught it. The
+ * population stays a PROPERTY, now per certification. Default unchanged, so no caller moves. */
+let APPLY = false, CERT = "AIMS-F";
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
-  console.error("Unrecognised flag: " + a + ". Known: --apply (dry by default).");
+  const m = /^--cert=(.+)$/.exec(a);
+  if (m) { CERT = m[1]; continue; }
+  console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE> (default AIMS-F), --apply (dry by default).");
   process.exit(2);
 }
 const HERE = dirname(fileURLToPath(import.meta.url));
 const KEY = requireKey(HERE);
 const H = { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json" };
 
-const cert = (await getAll(KEY, "certifications?select=id,code&code=eq.AIMS-F"))[0];
+const cert = (await getAll(KEY, "certifications?select=id,code&code=eq." + CERT))[0];
 const qs = await getAll(KEY, "quiz_questions?select=id,status,visibility,pool,is_exam_scope,created_at" +
   "&certification_id=eq." + cert.id + "&language=eq.en&retired_at=is.null&order=created_at");
 const ig = new Map((await getAll(KEY,
@@ -53,7 +58,7 @@ const rejectedIds = new Set(rejected.map((q) => q.id));
 const inScope = grounded.filter((q) => !rejectedIds.has(q.id));
 const toChange = inScope.filter((q) => q.is_exam_scope !== true);
 
-console.log("is_exam_scope = true ON EVERY GROUNDED AIMS-F ROW EXCEPT REJECTED");
+console.log("is_exam_scope = true ON EVERY GROUNDED " + CERT + " ROW EXCEPT REJECTED");
 console.log("");
 console.log("  grounded rows          " + grounded.length);
 console.log("  excluded as rejected   " + rejected.length +

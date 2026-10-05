@@ -47,6 +47,7 @@
  */
 import { createHash } from "node:crypto";
 import { CAP, anchorKey } from "./anchor-cap.mjs";
+import { labelOf } from "./passage-key.mjs";
 
 /** deterministic 32-bit hash, for the tie-break */
 function h32(s) {
@@ -134,8 +135,19 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
    * getting wrong: that a reused clause belongs to one item rather than to the round. */
   const repeats = assignments.length > eligible.length;
   const allowedSet = seeded.map((p) => String(p.clause));
+  /* ============ THE PROMPT LABELS A CLAUSE WITH ITS SOURCE AND EDITION; THE GATE STILL COMPARES CLAUSES ===
+   *
+   * Ruled PROMPT-131 s2. Task 4.7's map holds ISO/IEC 27001:2022 4.1 and ISO 19011:2026 4.1, and this list
+   * went into the prompt as a bare "4.1". Two of its four R5 items anchored on 19011 4.1 -- a source the
+   * task does not map -- having read the number and picked the wrong standard. The clause number alone is
+   * not an address: `(source, edition, clause)` is, which is what lib/passage-key.mjs exists to say.
+   *
+   * LABEL ONLY. `allowed` keeps bare clause strings because gateAnchorAssignment compares against them and
+   * a stored artifact carries them; `allowedLabels` is the display form, used nowhere but the prompt. */
+  const allowedLabels = seeded.map((p) => labelOf(p.source_id, p.edition, p.clause));
   for (const a of assignments) {
     a.allowed = repeats ? allowedSet.slice() : [String(a.clause)];
+    a.allowedLabels = repeats ? allowedLabels.slice() : [labelOf(a.source_id, a.edition, a.clause)];
   }
   return {
     assignments,
@@ -172,10 +184,18 @@ export function assignmentInstruction(assignments) {
     : "\n\nEACH ITEM'S KEY IS ASSIGNED A CLAUSE, and code refuses a key anchored anywhere else." +
       " This is not a preference: a writer handed a list of passages picks the most salient one repeatedly," +
       " and four items on one clause means three rejections.\n";
-  const body = assignments.map((a) => "  item " + (a.index + 1) + ": anchor its `key_support` in clause " +
-    a.clause + " (" + a.source_id + ")").join("\n");
+  /* FULL ADDRESS, NOT A BARE CLAUSE NUMBER -- see the allowedLabels comment above. The edition matters:
+   * 4.7's map holds 27001:2022 4.1 and 27001:2022/Amd1:2024 4.1, which are different passages. */
+  /* An assignment with no edition must not print "ISO/IEC 42001:undefined 9.1" at a writer: a label with a
+   * fabricated component is worse than a shorter true one. labelOf stays the labeller where it can be used. */
+  const addr = (a) => (a.edition == null || a.edition === ""
+    ? String(a.source_id) + " " + String(a.clause)
+    : labelOf(a.source_id, a.edition, a.clause));
+  const body = assignments.map((a) => "  item " + (a.index + 1) + ": anchor its `key_support` in " +
+    addr(a)).join("\n");
   const tail = (wide
-      ? "\nTHE ASSIGNED LIST for this task: " + assignments[0].allowed.join(", ") + "."
+      ? "\nTHE ASSIGNED LIST for this task: " +
+        (assignments[0].allowedLabels || assignments[0].allowed).join(", ") + "."
       : "") +
     "\nA DISTRACTOR's support may cite any passage above, primary or supporting. Only the KEY's anchor is" +
     " assigned.";
@@ -361,12 +381,16 @@ export function anchorAssignmentControls({ quiet = false } = {}) {
 
   /* ---- the instruction the writer receives must NAME every item and every clause ---- */
   {
-    const asg = [{ index: 0, source_id: "ISO/IEC 42001", clause: "9.1" },
-      { index: 1, source_id: "ISO/IEC 42001", clause: "9.2" }];
+    const asg = [{ index: 0, source_id: "ISO/IEC 42001", edition: "2023", clause: "9.1" },
+      { index: 1, source_id: "ISO/IEC 42001", edition: "2023", clause: "9.2" }];
     const s = assignmentInstruction(asg);
-    ok("the instruction names item 1 and item 2 with their clauses",
-      /item 1: anchor its `key_support` in clause 9\.1/.test(s) &&
-      /item 2: anchor its `key_support` in clause 9\.2/.test(s), JSON.stringify(s.slice(0, 200)));
+    ok("the instruction names item 1 and item 2 with their FULL addresses",
+      /item 1: anchor its `key_support` in ISO\/IEC 42001:2023 9\.1/.test(s) &&
+      /item 2: anchor its `key_support` in ISO\/IEC 42001:2023 9\.2/.test(s), JSON.stringify(s.slice(0, 200)));
+    /* a label with a fabricated component is worse than a shorter true one */
+    const noEd = assignmentInstruction([{ index: 0, source_id: "ISO/IEC 42001", clause: "9.1" }]);
+    ok("an assignment missing its edition prints no fabricated edition",
+      !/undefined|:null/.test(noEd) && /ISO\/IEC 42001 9\.1/.test(noEd), JSON.stringify(noEd.slice(0, 160)));
     ok("...and says a DISTRACTOR is unconstrained, so the writer does not over-apply it",
       /Only the KEY's anchor is assigned/.test(s));
     ok("an empty assignment list produces NO instruction rather than an empty heading",
@@ -422,6 +446,31 @@ export function anchorAssignmentControls({ quiet = false } = {}) {
       /repeat/i.test(instr) && /THE ASSIGNED LIST/.test(instr), instr.slice(0, 160));
     ok("...and the narrow instruction still says code refuses anything else",
       /refuses a key anchored anywhere else/.test(assignmentInstruction(narrow.assignments)));
+
+    /* ============ THE LABEL, BOTH DIRECTIONS (PROMPT-131 s2) ============
+     * Two standards holding the same clause number must not reach the writer as one bare number. The
+     * positive arm proves the full address is there; the negative arm proves no line offers a clause
+     * number with nothing in front of it, which is the form 4.7 was misread from. */
+    const coll = [
+      { source_id: "ISO/IEC 27001", edition: "2022", clause: "4.1", held: 0, normative: "shall" },
+      { source_id: "ISO 19011", edition: "2026", clause: "4.1", held: 0, normative: "should" },
+    ];
+    const cAsg = assignAnchors({ taskCode: "4.7", runId: "r6", primaries: coll, censusMap: cens([]), want: 4 });
+    const cInstr = assignmentInstruction(cAsg.assignments);
+    ok("the clause-number collision reaches the writer as TWO addresses, not one number",
+      cInstr.includes("ISO/IEC 27001:2022 4.1") && cInstr.includes("ISO 19011:2026 4.1"),
+      cInstr.slice(0, 200));
+    const bare = cInstr.split("\n").filter((l) => /key_support` in \d/.test(l) ||
+      /ASSIGNED LIST for this task: \d/.test(l));
+    ok("...and no assignment line names a clause with no source in front of it",
+      bare.length === 0, JSON.stringify(bare));
+    ok("every assignment carries allowedLabels alongside the bare allowed the GATE reads",
+      cAsg.assignments.every((a) => Array.isArray(a.allowedLabels) && a.allowedLabels.length === a.allowed.length &&
+        a.allowed.every((c) => /^[0-9.]+$/.test(String(c)))),
+      JSON.stringify({ allowed: cAsg.assignments[0].allowed, labels: cAsg.assignments[0].allowedLabels }));
+    ok("...so the gate still accepts a bare assigned clause and still refuses another",
+      gateAnchorAssignment({ key_support_clause: "4.1" }, cAsg.assignments[0]).pass === true &&
+      gateAnchorAssignment({ key_support_clause: "9.9" }, cAsg.assignments[0]).pass === false);
   }
   if (!quiet) for (const r of out) if (!r.pass) console.error("  anchor-assignment control FAIL: " + r.what);
   return { cases: out, examined: out.length, allPass: out.every((r) => r.pass) };

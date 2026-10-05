@@ -33,6 +33,8 @@ import { makePassageIndex } from "./lib/passage-index.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 let CERT = null, ARTS = [], ACCEPTS = [], MAXUSD = null, LIMIT = 0, CONTROL = false, OUT = null;
+let NEIGHBOURS = 3;   /* PROMPT-131 s3: live key-term neighbours per candidate, any anchor. 0 disables. */
+let ARM = "both";    /* which arm(s) to run: the s3 control measures the neighbour arm on its own. */
 const AV = process.argv.slice(2);
 for (let i = 0; i < AV.length; i++) {
   const a = AV[i]; let m;
@@ -46,6 +48,8 @@ for (let i = 0; i < AV.length; i++) {
   if ((m = /^--accept=(.+)$/.exec(a))) { ACCEPTS = m[1].split(",").map((s) => s.trim()).filter(Boolean); continue; }
   if ((m = /^--max-usd=([0-9.]+)$/.exec(a))) { MAXUSD = Number(m[1]); continue; }
   if ((m = /^--limit=([0-9]+)$/.exec(a))) { LIMIT = Number(m[1]); continue; }
+  if ((m = /^--neighbours=([0-9]+)$/.exec(a))) { NEIGHBOURS = Number(m[1]); continue; }
+  if ((m = /^--arm=(same-anchor|neighbour|both)$/.exec(a))) { ARM = m[1]; continue; }
   if ((m = /^--out=(.+)$/.exec(a))) { OUT = m[1]; continue; }
   console.error("unrecognised flag: " + a);
   process.exit(2);
@@ -81,8 +85,13 @@ async function claude(system, user, maxTokens = 400) {
  * what the passage says: two items can share an anchor and still examine different obligations
  * inside it. The examples are the director's own calls, stated as principles rather than as the
  * items, so the judge is not pattern-matching a list it will be scored on. */
-const SYSTEM = [
-  "You compare two examination items that are anchored on the SAME passage of a standard, and you",
+/* The opening sentence is the ONLY thing that varies by arm, and it varies because it would otherwise
+ * be FALSE on a cross-anchor pair. Every other line is byte-identical to the prompt that scored 20 of
+ * 24 in PROMPT-130 s3, so the same-anchor arm's control still describes the judge in use. */
+const SYSTEM_FOR = (crossAnchor) => [
+  crossAnchor
+    ? "You compare two examination items drawn from one certification's bank, and you"
+    : "You compare two examination items that are anchored on the SAME passage of a standard, and you",
   "answer one question: do they test the SAME POINT?",
   "",
   "SAME_POINT means a candidate who can answer one can answer the other for the same reason. The",
@@ -105,7 +114,34 @@ const SYSTEM = [
   '{ "verdict": "SAME_POINT" | "DIFFERENT_POINT", "reason": "one sentence" }',
 ].join("\n");
 
-const userFor = (p) => [
+/* ============ TWO ANCHORS, PROMPT-131 s3 ============
+ *
+ * The same-anchor arm shows one passage because both items rest on it. The key-term neighbour arm
+ * pairs items across DIFFERENT anchors -- 65362731 and 3da7fa4a were ISO 19011 3.11 and 3.8 -- so
+ * both passages have to be in front of the judge or it is reading one item against someone else's
+ * source. The question asked is identical; only the evidence shown widens. */
+const userFor = (p) => (p.anchorB && p.anchorB !== p.anchor ? [
+  "THESE TWO ITEMS ARE ANCHORED ON DIFFERENT PASSAGES. That is not evidence either way: two passages",
+  "of one standard can carry the same obligation, and a duplicate can be written from either.",
+  "",
+  "ITEM A's ANCHOR: " + p.anchor,
+  "THE PASSAGE, verbatim:",
+  (p.passage || "(not held)").slice(0, 1400),
+  "",
+  "ITEM B's ANCHOR: " + p.anchorB,
+  "THE PASSAGE, verbatim:",
+  (p.passageB || "(not held)").slice(0, 1400),
+  "",
+  "ITEM A" + (p.aWhere ? " (" + p.aWhere + ")" : "") + ", task " + p.aTask,
+  "STEM: " + p.aStem,
+  "KEY:  " + p.aKey,
+  "",
+  "ITEM B" + (p.bWhere ? " (" + p.bWhere + ")" : "") + ", task " + p.bTask,
+  "STEM: " + p.bStem,
+  "KEY:  " + p.bKey,
+  "",
+  "Do these test the same point?",
+].join("\n") : [
   "ANCHOR: " + p.anchor,
   "THE PASSAGE, verbatim:",
   (p.passage || "(not held)").slice(0, 1800),
@@ -119,7 +155,7 @@ const userFor = (p) => [
   "KEY:  " + p.bKey,
   "",
   "Do these test the same point?",
-].join("\n");
+].join("\n"));
 
 const parseObj = (t) => {
   const s = String(t || ""); const a = s.indexOf("{"), b = s.lastIndexOf("}");
@@ -189,9 +225,11 @@ const anyById = (id) => candById.get(id) || liveById.get(id);
 
 const judge = async (a, b) => {
   const p = { anchor: a.anchor, passage: passageFor(a.source_id, a.edition, a.clause),
+    anchorB: b.anchor, passageB: passageFor(b.source_id, b.edition, b.clause),
     aTask: a.task, aStem: a.stem, aKey: a.key, aWhere: a.where,
     bTask: b.task, bStem: b.stem, bKey: b.key, bWhere: b.where };
   const user = userFor(p);
+  const SYSTEM = SYSTEM_FOR(Boolean(p.anchorB && p.anchorB !== p.anchor));
   if (!PRINTED) {
     PRINTED = true;
     console.log("");
@@ -284,17 +322,21 @@ if (CONTROL) {
   /* ============ ROUND MODE: every same-anchor pair, candidates and live ============ */
   const pairs = [];
   const cands = [...candById.values()];
+  const sameAnchorPairs = [];
   for (let i = 0; i < cands.length; i++) {
     for (let j = i + 1; j < cands.length; j++) {
-      if (cands[i].anchorK === cands[j].anchorK) pairs.push([cands[i], cands[j]]);
+      if (cands[i].anchorK === cands[j].anchorK) sameAnchorPairs.push([cands[i], cands[j], "same-anchor"]);
     }
   }
   for (const c of cands) {
     for (const l of liveById.values()) {
       if (l.id === c.id) continue;                 /* a candidate is not its own duplicate */
-      if (l.anchorK === c.anchorK) pairs.push([c, l]);
+      if (l.anchorK === c.anchorK) sameAnchorPairs.push([c, l, "same-anchor"]);
     }
   }
+  /* The same-anchor pairs are always BUILT, because the neighbour arm must exclude them to avoid
+   * judging a pair twice. --arm decides only which are JUDGED. */
+  if (ARM !== "neighbour") pairs.push(...sameAnchorPairs);
   /* key-share is RETIRED as a gate and kept only as a SORT ORDER (PROMPT-130 s3): the likeliest
    * pairs are judged first, so a ceiling cuts the least interesting ones. */
   const nk = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
@@ -303,25 +345,66 @@ if (CONTROL) {
     const wb = new Set([...new Set(nk(b).split(" "))].filter((w) => w.length > 3));
     return wa.filter((w) => wb.has(w)).length / (Math.min(wa.length, wb.size) || 1);
   };
+  /* ============ THE KEY-TERM NEIGHBOUR ARM, PROMPT-131 s3 ============
+   *
+   * The same-anchor arm cannot see a duplicate written from a different passage. 65362731 duplicated
+   * the live 3da7fa4a across ISO 19011 3.11 and 3.8, the third time that point had been written, and
+   * the judge was never shown the pair.
+   *
+   * NOT WIDENED TO EVERY PAIR -- that is 55 x 870 and the director ruled it out. Instead each candidate
+   * gets its THREE nearest live items by key-share, any anchor. Key-share is no threshold for a
+   * duplicate (8% to 57% across the director's own 14 calls), but it is a reasonable way to pick three
+   * neighbours for the judge to read, which is all it is doing here. Same-anchor pairs are excluded so
+   * nothing is judged twice. */
+  const seen = new Set(sameAnchorPairs.map(([a, b]) => [a.id, b.id].sort().join("|")));
+  let neighbourPairs = 0;
+  if (NEIGHBOURS > 0 && ARM !== "same-anchor") {
+    for (const c of cands) {
+      const ranked = [...liveById.values()]
+        .filter((l) => l.id !== c.id && l.anchorK !== c.anchorK &&
+          !seen.has([c.id, l.id].sort().join("|")))
+        .map((l) => ({ l, s: share(c.key, l.key) }))
+        .sort((x, y) => y.s - x.s)
+        .slice(0, NEIGHBOURS);
+      for (const { l, s } of ranked) {
+        seen.add([c.id, l.id].sort().join("|"));
+        pairs.push([c, l, "key-term-neighbour", s]);
+        neighbourPairs++;
+      }
+    }
+  }
   pairs.sort((p, q) => share(q[0].key, q[1].key) - share(p[0].key, p[1].key));
-  console.log("JUDGE   " + CERT + "   " + pairs.length + " same-anchor pair(s), ceiling $" + MAXUSD);
+  console.log("JUDGE   " + CERT + "   " + pairs.length + " pair(s) = " +
+    (pairs.length - neighbourPairs) + " same-anchor + " + neighbourPairs +
+    " key-term neighbour(s), ceiling $" + MAXUSD);
   const flags = [];
   let judged = 0;
-  for (const [a, b] of pairs) {
+  let unanswered = 0;
+  const byArm = {};
+  for (const [a, b, arm, kshare] of pairs) {
     if (usd() >= MAXUSD) { console.log("  STOPPED at the ceiling after " + judged + " of " + pairs.length); break; }
     if (LIMIT && judged >= LIMIT) break;
     const v = await judge(a, b);
     judged++;
+    byArm[arm] = byArm[arm] || { judged: 0, flagged: 0 };
+    byArm[arm].judged++;
+    if (v.verdict === "COULD-NOT-ANSWER") unanswered++;
     if (v.verdict === "SAME_POINT") {
+      byArm[arm].flagged++;
       flags.push({ a: a.id, aTask: a.task, aWhere: a.where, b: b.id, bTask: b.task, bWhere: b.where,
-        anchor: a.anchor, reason: v.reason });
+        anchor: a.anchor, anchorB: b.anchor, arm,
+        key_share: kshare == null ? null : Number(kshare.toFixed(3)), reason: v.reason });
       console.log("  FLAG  " + a.id + " (" + a.task + ") ~ " + b.id + " (" + b.task + ")  " +
-        a.anchor + "   " + v.reason.slice(0, 100));
+        (arm === "same-anchor" ? a.anchor : a.anchor + " vs " + b.anchor + "  [neighbour]") +
+        "   " + v.reason.slice(0, 100));
     }
   }
   console.log("");
+  for (const [arm, n] of Object.entries(byArm)) {
+    console.log("  " + arm.padEnd(20) + " judged " + n.judged + "   flagged " + n.flagged);
+  }
   console.log("  judged " + judged + " of " + pairs.length + "   FLAGGED " + flags.length +
-    "   spend $" + usd().toFixed(4));
+    "   could not answer " + unanswered + "   spend $" + usd().toFixed(4));
   console.log("  FLAG-ONLY: nothing is rejected or withheld here. A human rules.");
   if (OUT) writeFileSync(join(ROOT, OUT), JSON.stringify({ cert: CERT, model: MODEL,
     pairs: pairs.length, judged, flagged: flags, spend_usd: Number(usd().toFixed(4)) }, null, 2) + "\n");

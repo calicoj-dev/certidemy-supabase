@@ -11,6 +11,12 @@
  },
  "per_task_overrides": {
   "_what": "Each entry is a director ruling with its reason. Empty at creation: PROMPT-126 s3 ruled that any task still thin after the s1 re-count comes back BY NAME next round rather than being given a floor now.",
+  "4.7": {
+   "floor": 2,
+   "ruled_in": "PROMPT-131 s2",
+   "temporary": false,
+   "reason": "map of three short passages; three rounds at 0 of 4 across both writers; the distractor note worked and the remaining failures are a clause-number collision with ISO 19011 4.1. Floor set to the held count (2). NOT temporary: the derivation would give 6, and the director ruled the task closed at what it holds rather than keeping a shortfall open against a map this thin."
+  },
   "3.5": {
    "floor": 4,
    "ruled_in": "PROMPT-126 s3",

@@ -1,0 +1,61 @@
+{
+  "cert": "ISMS-IA",
+  "model": "claude-opus-5",
+  "pairs": 165,
+  "judged": 165,
+  "flagged": [
+    {
+      "a": "12a1a2a6",
+      "aTask": "2.1",
+      "aWhere": "ISMSIA-R5-sonnet.json",
+      "b": "826470b2",
+      "bTask": "4.3",
+      "bWhere": "live",
+      "anchor": "ISO/IEC 27001 6.2",
+      "anchorB": "ISO/IEC 27001 6.1.1",
+      "arm": "key-term-neighbour",
+      "key_share": 0.429,
+      "reason": "Both keys assert the identical proposition — the plan is deficient solely because it omits how the results/effectiveness of the actions will be evaluated — and a candidate spots the same missing plann"
+    },
+    {
+      "a": "032f29c7",
+      "aTask": "5.3",
+      "aWhere": "ISMSIA-R5-sonnet.json",
+      "b": "35fe809a",
+      "bTask": "5.3",
+      "bWhere": "live",
+      "anchor": "ISO 19011 A.18.3",
+      "anchorB": "ISO 19011 4.3",
+      "arm": "key-term-neighbour",
+      "key_share": 0.25,
+      "reason": "Both keys assert the same proposition — a sound nonconformity statement states the applicable criterion and the actual sampled evidence without overstating — and the candidate selects the correctly fr"
+    },
+    {
+      "a": "65362731",
+      "aTask": "5.3",
+      "aWhere": "ISMSIA-R5-sonnet.json",
+      "b": "3da7fa4a",
+      "bTask": "5.1",
+      "bWhere": "live",
+      "anchor": "ISO 19011 3.11",
+      "anchorB": "ISO 19011 3.8",
+      "arm": "key-term-neighbour",
+      "key_share": 0.182,
+      "reason": "Both keys assert the same proposition — that when audit criteria are statutory/legal requirements, the finding is worded as 'non-compliance' — differing only in scenario detail."
+    },
+    {
+      "a": "e2d7cc1b",
+      "aTask": "5.3",
+      "aWhere": "ISMSIA-R5-sonnet.json",
+      "b": "35fe809a",
+      "bTask": "5.3",
+      "bWhere": "live",
+      "anchor": "ISO 19011 3.10",
+      "anchorB": "ISO 19011 4.3",
+      "arm": "key-term-neighbour",
+      "key_share": 0.125,
+      "reason": "Both keys assert the same proposition — that the nonconformity must state the specific, verifiable sampled records found deficient against the stated requirement without overgeneralizing — so the same"
+    }
+  ],
+  "spend_usd": 5.6138
+}

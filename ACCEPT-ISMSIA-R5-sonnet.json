@@ -1,0 +1,318 @@
+{
+  "_what": "PROMPT-131 s1: 39 accept(s) from ISMSIA-R5-sonnet.json.",
+  "_writer_model": "claude-sonnet-5-5",
+  "accepts": [
+    {
+      "item_id": "50658fa2",
+      "report_number": 1,
+      "task": "2.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 3.5"
+    },
+    {
+      "item_id": "02eba23f",
+      "report_number": 2,
+      "task": "2.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 5.1"
+    },
+    {
+      "item_id": "23401547",
+      "report_number": 3,
+      "task": "2.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 9.2.1"
+    },
+    {
+      "item_id": "c06d84f5",
+      "report_number": 4,
+      "task": "3.1",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 3.9"
+    },
+    {
+      "item_id": "b535a163",
+      "report_number": 5,
+      "task": "3.1",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 3.10"
+    },
+    {
+      "item_id": "a6c66772",
+      "report_number": 6,
+      "task": "4.10",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 A.18.4"
+    },
+    {
+      "item_id": "9e7d0baa",
+      "report_number": 7,
+      "task": "4.10",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 7.2.3.5"
+    },
+    {
+      "item_id": "b9500dc3",
+      "report_number": 8,
+      "task": "4.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 8.3"
+    },
+    {
+      "item_id": "297ff138",
+      "report_number": 9,
+      "task": "4.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 8.1"
+    },
+    {
+      "item_id": "93e05b56",
+      "report_number": 10,
+      "task": "4.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 A.4"
+    },
+    {
+      "item_id": "df497de3",
+      "report_number": 11,
+      "task": "4.9",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 9.1"
+    },
+    {
+      "item_id": "3b8b2ef4",
+      "report_number": 12,
+      "task": "5.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 A.5"
+    },
+    {
+      "item_id": "c918f70a",
+      "report_number": 13,
+      "task": "5.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 5.5.6"
+    },
+    {
+      "item_id": "6360b875",
+      "report_number": 14,
+      "task": "5.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 6.7"
+    },
+    {
+      "item_id": "954d0709",
+      "report_number": 15,
+      "task": "5.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 10.2"
+    },
+    {
+      "item_id": "4481e168",
+      "report_number": 16,
+      "task": "2.1",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 9.2.1"
+    },
+    {
+      "item_id": "71cb5f4e",
+      "report_number": 17,
+      "task": "2.1",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 9.2.2"
+    },
+    {
+      "item_id": "12a1a2a6",
+      "report_number": 18,
+      "task": "2.1",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 6.2"
+    },
+    {
+      "item_id": "aa6873e5",
+      "report_number": 19,
+      "task": "3.4",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 6.4.6"
+    },
+    {
+      "item_id": "ebb5bed6",
+      "report_number": 20,
+      "task": "3.4",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 A.14"
+    },
+    {
+      "item_id": "80c8311e",
+      "report_number": 21,
+      "task": "5.4",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 6.5.1"
+    },
+    {
+      "item_id": "e8a67ba3",
+      "report_number": 22,
+      "task": "1.5",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 9.2.2"
+    },
+    {
+      "item_id": "162e2080",
+      "report_number": 23,
+      "task": "2.3",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 9.2.2"
+    },
+    {
+      "item_id": "16bd198f",
+      "report_number": 24,
+      "task": "2.4",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 A.16"
+    },
+    {
+      "item_id": "3f775882",
+      "report_number": 25,
+      "task": "2.5",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 7.2.3.4"
+    },
+    {
+      "item_id": "a9d3bcb5",
+      "report_number": 26,
+      "task": "2.5",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 6.3.3"
+    },
+    {
+      "item_id": "69ab4904",
+      "report_number": 27,
+      "task": "2.5",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 3.15"
+    },
+    {
+      "item_id": "d469dbe5",
+      "report_number": 28,
+      "task": "2.7",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 A.5.23"
+    },
+    {
+      "item_id": "e2320a60",
+      "report_number": 29,
+      "task": "2.7",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 5.4.3"
+    },
+    {
+      "item_id": "41b84893",
+      "report_number": 30,
+      "task": "2.7",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 A.5.22"
+    },
+    {
+      "item_id": "77585383",
+      "report_number": 31,
+      "task": "2.7",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 A.12"
+    },
+    {
+      "item_id": "8f759a1a",
+      "report_number": 32,
+      "task": "3.2",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 A.6.2"
+    },
+    {
+      "item_id": "c6cc84d8",
+      "report_number": 33,
+      "task": "3.2",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 A.6.3"
+    },
+    {
+      "item_id": "fcbe0138",
+      "report_number": 34,
+      "task": "3.6",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 3.9"
+    },
+    {
+      "item_id": "57d0aeea",
+      "report_number": 35,
+      "task": "4.4",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO/IEC 27001 8.3"
+    },
+    {
+      "item_id": "30868102",
+      "report_number": 36,
+      "task": "5.2",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 6.4.7"
+    },
+    {
+      "item_id": "d77a620e",
+      "report_number": 37,
+      "task": "5.2",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 6.4.8"
+    },
+    {
+      "item_id": "9c047a2d",
+      "report_number": 38,
+      "task": "1.3",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 6.3.3"
+    },
+    {
+      "item_id": "f46e6719",
+      "report_number": 39,
+      "task": "2.2",
+      "ruled_in": "PROMPT-131 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "note": "accepted PROMPT-131 s1 | writer claude-sonnet-5-5 | ISO 19011 4.8"
+    }
+  ]
+}

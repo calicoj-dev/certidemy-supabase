@@ -1,1355 +1,1539 @@
 {
-  "_what": "Cost in USD, session time and director send-backs per pipeline stage. Ruled PROMPT-109 s7. Starts this round: earlier stages were not instrumented and are NOT back-filled from memory.",
-  "runs": [
+ "_what": "Cost in USD, session time and director send-backs per pipeline stage. Ruled PROMPT-109 s7. Starts this round: earlier stages were not instrumented and are NOT back-filled from memory.",
+ "runs": [
+  {
+   "cert": "ISMS-F",
+   "stage": 1,
+   "stage_name": "library completeness",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-03T21:05:18.579Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 1,
+   "stage_name": "library completeness",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-03T21:05:28.245Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 2,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 2,
+   "seconds": 0,
+   "note": null,
+   "recorded_at": "2026-10-03T21:05:33.046Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 2,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 1,
+   "seconds": 1,
+   "note": null,
+   "recorded_at": "2026-10-03T21:06:31.647Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 2,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 1,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-03T21:06:47.286Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 2,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 1,
+   "seconds": 2,
+   "note": null,
+   "recorded_at": "2026-10-03T21:07:02.723Z"
+  },
+  {
+   "cert": "AIMS-F",
+   "stage": 8,
+   "stage_name": "verify-cert",
+   "sent_back": 16,
+   "note": "verify-cert 8.1 found 16 cue escapes; 13 grounded revised, 1 retired on a solver split, 3 authored revised and held retired",
+   "recorded_at": "2026-10-03T21:07:31.454Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 2,
+   "stage_name": "existing-bank audit",
+   "applied": false,
+   "exit": 0,
+   "seconds": 1,
+   "note": null,
+   "recorded_at": "2026-10-03T22:05:14.843Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 2,
+   "stage_name": "existing-bank audit",
+   "sent_back": 0,
+   "note": "audit sample only: 37 of 391 measured, stopped on the $30 ceiling",
+   "recorded_at": "2026-10-03T22:07:37.054Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation rounds",
+   "sent_back": 0,
+   "note": "R1 generated, awaiting the director's read",
+   "recorded_at": "2026-10-03T23:37:43.254Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation rounds",
+   "sent_back": 3,
+   "note": "R1: 3 rejected of 23; R2 awaiting the read",
+   "recorded_at": "2026-10-04T01:00:21.230Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T02:40:00.791Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 2,
+   "note": null,
+   "recorded_at": "2026-10-04T02:40:07.535Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T04:01:34.359Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 2,
+   "note": null,
+   "recorded_at": "2026-10-04T04:16:05.561Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T05:33:13.293Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T06:38:30.806Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T08:06:24.766Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-04T09:26:29.111Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-04T10:05:16.759Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 2,
+   "note": null,
+   "recorded_at": "2026-10-04T10:06:38.860Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 5,
+   "note": null,
+   "recorded_at": "2026-10-04T17:31:18.568Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 5,
+   "note": null,
+   "recorded_at": "2026-10-04T17:40:05.745Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T17:49:47.455Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-04T18:40:55.440Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T18:41:08.460Z"
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T19:21:13.546Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 1,
+   "stage_name": "library completeness",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-04T19:26:52.439Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T19:27:43.372Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-04T20:09:34.845Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T20:10:38.353Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 2,
+   "note": null,
+   "recorded_at": "2026-10-04T21:54:31.696Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 2,
+   "note": null,
+   "recorded_at": "2026-10-04T21:54:51.575Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-04T22:35:42.924Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T22:36:02.476Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-04T22:36:05.451Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 2,
+   "note": null,
+   "recorded_at": "2026-10-04T23:32:29.575Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 6,
+   "note": null,
+   "recorded_at": "2026-10-04T23:45:36.006Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-05T01:30:47.769Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-05T02:07:20.475Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 5,
+   "note": null,
+   "recorded_at": "2026-10-05T03:26:46.280Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-05T03:39:42.450Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-05T04:05:15.343Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 2,
+   "note": null,
+   "recorded_at": "2026-10-05T04:05:28.153Z"
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 6,
+   "note": null,
+   "recorded_at": "2026-10-05T04:37:57.704Z"
+  }
+ ],
+ "costs_usd": [
+  {
+   "cert": "AIMS-F",
+   "stage": 5,
+   "stage_name": "translation",
+   "usd": 27.07,
+   "breakdown": [
     {
-      "cert": "ISMS-F",
-      "stage": 1,
-      "stage_name": "library completeness",
-      "applied": false,
-      "exit": 0,
-      "seconds": 4,
-      "note": null,
-      "recorded_at": "2026-10-03T21:05:18.579Z"
+     "usd": 23.55,
+     "where": "PROMPT-105 first pass, 200 items x2 languages (AIMSF-TRANSLATION-R1.md)"
     },
     {
-      "cert": "ISMS-F",
-      "stage": 1,
-      "stage_name": "library completeness",
-      "applied": false,
-      "exit": 0,
-      "seconds": 4,
-      "note": null,
-      "recorded_at": "2026-10-03T21:05:28.245Z"
+     "usd": 1.13,
+     "where": "PROMPT-106 roles/funcoes repair, 17 rows"
     },
     {
-      "cert": "ISMS-F",
-      "stage": 2,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 2,
-      "seconds": 0,
-      "note": null,
-      "recorded_at": "2026-10-03T21:05:33.046Z"
+     "usd": 0.43,
+     "where": "PROMPT-107 3 revised siblings"
     },
     {
-      "cert": "ISMS-F",
-      "stage": 2,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 1,
-      "seconds": 1,
-      "note": null,
-      "recorded_at": "2026-10-03T21:06:31.647Z"
+     "usd": 1.5,
+     "where": "PROMPT-109 12 revised siblings"
     },
     {
-      "cert": "ISMS-F",
-      "stage": 2,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 1,
-      "seconds": 4,
-      "note": null,
-      "recorded_at": "2026-10-03T21:06:47.286Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 2,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 1,
-      "seconds": 2,
-      "note": null,
-      "recorded_at": "2026-10-03T21:07:02.723Z"
-    },
-    {
-      "cert": "AIMS-F",
-      "stage": 8,
-      "stage_name": "verify-cert",
-      "sent_back": 16,
-      "note": "verify-cert 8.1 found 16 cue escapes; 13 grounded revised, 1 retired on a solver split, 3 authored revised and held retired",
-      "recorded_at": "2026-10-03T21:07:31.454Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 2,
-      "stage_name": "existing-bank audit",
-      "applied": false,
-      "exit": 0,
-      "seconds": 1,
-      "note": null,
-      "recorded_at": "2026-10-03T22:05:14.843Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 2,
-      "stage_name": "existing-bank audit",
-      "sent_back": 0,
-      "note": "audit sample only: 37 of 391 measured, stopped on the $30 ceiling",
-      "recorded_at": "2026-10-03T22:07:37.054Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation rounds",
-      "sent_back": 0,
-      "note": "R1 generated, awaiting the director's read",
-      "recorded_at": "2026-10-03T23:37:43.254Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation rounds",
-      "sent_back": 3,
-      "note": "R1: 3 rejected of 23; R2 awaiting the read",
-      "recorded_at": "2026-10-04T01:00:21.230Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T02:40:00.791Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 2,
-      "note": null,
-      "recorded_at": "2026-10-04T02:40:07.535Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T04:01:34.359Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 2,
-      "note": null,
-      "recorded_at": "2026-10-04T04:16:05.561Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T05:33:13.293Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T06:38:30.806Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T08:06:24.766Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 4,
-      "note": null,
-      "recorded_at": "2026-10-04T09:26:29.111Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 4,
-      "note": null,
-      "recorded_at": "2026-10-04T10:05:16.759Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 2,
-      "note": null,
-      "recorded_at": "2026-10-04T10:06:38.860Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 5,
-      "note": null,
-      "recorded_at": "2026-10-04T17:31:18.568Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 5,
-      "note": null,
-      "recorded_at": "2026-10-04T17:40:05.745Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T17:49:47.455Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 4,
-      "note": null,
-      "recorded_at": "2026-10-04T18:40:55.440Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T18:41:08.460Z"
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T19:21:13.546Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 1,
-      "stage_name": "library completeness",
-      "applied": false,
-      "exit": 0,
-      "seconds": 4,
-      "note": null,
-      "recorded_at": "2026-10-04T19:26:52.439Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T19:27:43.372Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 4,
-      "note": null,
-      "recorded_at": "2026-10-04T20:09:34.845Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T20:10:38.353Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 2,
-      "note": null,
-      "recorded_at": "2026-10-04T21:54:31.696Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 2,
-      "note": null,
-      "recorded_at": "2026-10-04T21:54:51.575Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 4,
-      "note": null,
-      "recorded_at": "2026-10-04T22:35:42.924Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T22:36:02.476Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-04T22:36:05.451Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 2,
-      "note": null,
-      "recorded_at": "2026-10-04T23:32:29.575Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 6,
-      "note": null,
-      "recorded_at": "2026-10-04T23:45:36.006Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 4,
-      "note": null,
-      "recorded_at": "2026-10-05T01:30:47.769Z"
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 3,
-      "stage_name": "task map and floors",
-      "applied": false,
-      "exit": 0,
-      "seconds": 3,
-      "note": null,
-      "recorded_at": "2026-10-05T02:07:20.475Z"
+     "usd": 0.46,
+     "where": "PROMPT-110 3 authored siblings"
     }
-  ],
-  "costs_usd": [
+   ],
+   "note": "R1 reports 23.55 because it is the FIRST PASS only. The metrics total is cumulative across repair rounds. Both are correct and measure different things."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 2,
+   "stage_name": "existing-bank audit",
+   "usd": 48.7129,
+   "items_measured": 190,
+   "of": 391,
+   "per_item": 0.2564,
+   "per_keep": 0.473,
+   "keeps": 103,
+   "drops": 78,
+   "unexamined": 210,
+   "batches": [
     {
-      "cert": "AIMS-F",
-      "stage": 5,
-      "stage_name": "translation",
-      "usd": 27.07,
-      "breakdown": [
-        {
-          "usd": 23.55,
-          "where": "PROMPT-105 first pass, 200 items x2 languages (AIMSF-TRANSLATION-R1.md)"
-        },
-        {
-          "usd": 1.13,
-          "where": "PROMPT-106 roles/funcoes repair, 17 rows"
-        },
-        {
-          "usd": 0.43,
-          "where": "PROMPT-107 3 revised siblings"
-        },
-        {
-          "usd": 1.5,
-          "where": "PROMPT-109 12 revised siblings"
-        },
-        {
-          "usd": 0.46,
-          "where": "PROMPT-110 3 authored siblings"
-        }
-      ],
-      "note": "R1 reports 23.55 because it is the FIRST PASS only. The metrics total is cumulative across repair rounds. Both are correct and measure different things."
+     "model": "claude-opus-5",
+     "items": 33,
+     "usd": 8.6031,
+     "note": "first sample; re-gated free after the source/edition fix"
     },
     {
-      "cert": "ISMS-F",
-      "stage": 2,
-      "stage_name": "existing-bank audit",
-      "usd": 48.7129,
-      "items_measured": 190,
-      "of": 391,
-      "per_item": 0.2564,
-      "per_keep": 0.473,
-      "keeps": 103,
-      "drops": 78,
-      "unexamined": 210,
-      "batches": [
-        {
-          "model": "claude-opus-5",
-          "items": 33,
-          "usd": 8.6031,
-          "note": "first sample; re-gated free after the source/edition fix"
-        },
-        {
-          "model": "claude-sonnet-5",
-          "items": 37,
-          "usd": 1.4308,
-          "note": "model comparison: 62.2% verdict / 83.8% keep-drop agreement, below the 90% bar -> stayed on Opus"
-        },
-        {
-          "model": "claude-opus-5",
-          "items": 153,
-          "usd": 38.679,
-          "note": "prioritised by task shortfall, capped to the remaining ceiling"
-        }
-      ],
-      "ceiling": 60,
-      "note": "Under ceiling. 210 items unaudited and count as 0 in stage 3, which is the existing rule."
+     "model": "claude-sonnet-5",
+     "items": 37,
+     "usd": 1.4308,
+     "note": "model comparison: 62.2% verdict / 83.8% keep-drop agreement, below the 90% bar -> stayed on Opus"
     },
     {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation R1",
-      "usd": 12.3256,
-      "ceiling": 25,
-      "probe": {
-        "items": 4,
-        "survivors": 4,
-        "usd": 2.3252,
-        "note": "exposed that --tasks=a,b,c is ONE item per task; counts need code:count"
-      },
-      "round": {
-        "tasks": [
-          "4.5:16",
-          "4.4:16"
-        ],
-        "attempted": 32,
-        "generated": 24,
-        "survivors": 23,
-        "usd": 10.0004,
-        "calls": 83
-      },
-      "survival_rate_of_generated": 0.958,
-      "survival_rate_of_attempted": 0.719,
-      "per_survivor": 0.536,
-      "note": "2x shortfall on the two largest gaps only: all four tasks at 2x projected ~$37, over the $25 ceiling. 24 of 32 generated -- the anchor cap of 2 per (source, edition, clause) per task bounds what a task can produce. Nothing inserted."
+     "model": "claude-opus-5",
+     "items": 153,
+     "usd": 38.679,
+     "note": "prioritised by task shortfall, capped to the remaining ceiling"
+    }
+   ],
+   "ceiling": 60,
+   "note": "Under ceiling. 210 items unaudited and count as 0 in stage 3, which is the existing rule."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation R1",
+   "usd": 12.3256,
+   "ceiling": 25,
+   "probe": {
+    "items": 4,
+    "survivors": 4,
+    "usd": 2.3252,
+    "note": "exposed that --tasks=a,b,c is ONE item per task; counts need code:count"
+   },
+   "round": {
+    "tasks": [
+     "4.5:16",
+     "4.4:16"
+    ],
+    "attempted": 32,
+    "generated": 24,
+    "survivors": 23,
+    "usd": 10.0004,
+    "calls": 83
+   },
+   "survival_rate_of_generated": 0.958,
+   "survival_rate_of_attempted": 0.719,
+   "per_survivor": 0.536,
+   "note": "2x shortfall on the two largest gaps only: all four tasks at 2x projected ~$37, over the $25 ceiling. 24 of 32 generated -- the anchor cap of 2 per (source, edition, clause) per task bounds what a task can produce. Nothing inserted."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation R2",
+   "usd": 10.2394,
+   "ceiling": 25,
+   "tasks": [
+    "3.3:16",
+    "3.2:16",
+    "5.1:14"
+   ],
+   "attempted": 46,
+   "generated": 40,
+   "survivors": 19,
+   "calls": 79,
+   "survival_rate_of_generated": 0.475,
+   "survival_rate_of_attempted": 0.413,
+   "per_survivor": 0.539,
+   "probe_flag_rate": "10/19 (52.6%)",
+   "probe_flag_rate_R1": "22/23 (95.7%)",
+   "note": "The PROMPT-114 s2 writer rules roughly HALVED the options-only cue rate. Survival fell from 95.8% to 47.5%, driven by gateNo27000: 17 of 21 code rejections name ISO/IEC 27000 in served text, because tasks 5.1 and 3.2 map 27000 passages and the learner-facing rule forbids naming it. Nothing inserted."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "odd-verdict de-cue (PROMPT-114 s2)",
+   "usd": 5.4895,
+   "ceiling": 8,
+   "items_targeted": 15,
+   "fixed": 0,
+   "probe_cleared_but_solver_split": 4,
+   "note": "0 fixed. .08 of the .49 went on three defects in the fixer, not on the items: the stored-row item shape assumed for a pre-insert item (no id, no correct_answer); liveStemsForTask and assignedAnchor omitted so two gates returned UNASSERTED; and ctx.passagesForTask which does not exist, so the solver received an empty passage list and rejected all 15. All three fixed and verified on single items."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation R3",
+   "usd": 29.4477,
+   "ceiling": null,
+   "tasks": "3.1,3.4,4.1,4.2,4.3,5.2",
+   "attempted": 64,
+   "generated": 56,
+   "survivors": 49,
+   "calls": 202,
+   "writer_model": "claude-opus-5",
+   "solver_model": "claude-opus-5",
+   "survival_rate_of_generated": 0.875,
+   "survival_rate_of_attempted": 0.766,
+   "per_survivor": 0.601,
+   "by_role_usd": {
+    "writer": 10.4339,
+    "paraphrase": 3.4725,
+    "solver": 11.6659,
+    "options-probe": 1.8532,
+    "de-cue": 1.1573,
+    "solver-recheck": 0.8649
+   },
+   "note": "Overspent the ruled 25 at 29.45 because nothing could stop a run mid-flight. --max-usd added in PROMPT-117 and made mandatory in the same prompt."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation R4",
+   "usd": 24.282,
+   "ceiling": 35,
+   "tasks": "1.1,1.2,1.3,2.1,2.2,5.4,5.6",
+   "attempted": 62,
+   "generated": 62,
+   "survivors": 48,
+   "calls": 147,
+   "writer_model": "claude-opus-5",
+   "solver_model": "claude-opus-5",
+   "survival_rate_of_generated": 0.774,
+   "survival_rate_of_attempted": 0.774,
+   "per_survivor": 0.506,
+   "by_role_usd": {
+    "writer": 8.9781,
+    "solver": 10.1224,
+    "de-cue": 1.6105,
+    "solver-recheck": 1.1485,
+    "paraphrase": 2.4224
+   },
+   "note": "The 2.4 lesson came out of this round: when ask > eligible primaries the generator asked for anchors it could not legally assign. Fixed in PROMPT-118 s3."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation R5",
+   "usd": 29.3883,
+   "ceiling": 40,
+   "tasks": "ten short tasks",
+   "attempted": 86,
+   "generated": 86,
+   "survivors": 68,
+   "calls": 204,
+   "writer_model": "claude-opus-5",
+   "solver_model": "claude-opus-5",
+   "survival_rate_of_generated": 0.791,
+   "survival_rate_of_attempted": 0.791,
+   "per_survivor": 0.432,
+   "by_role_usd": {
+    "writer": 13.0877,
+    "solver": 11.0482,
+    "paraphrase": 2.8281,
+    "de-cue": 1.6153,
+    "solver-recheck": 0.8089
+   },
+   "note": "Largest round. 68 survivors, 67 accepted on the read -- the lowest director-reject rate of the nine."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation R6",
+   "usd": 13.9799,
+   "ceiling": 35,
+   "tasks": "eight short tasks (Sonnet writer test)",
+   "attempted": 89,
+   "generated": 48,
+   "survivors": 29,
+   "calls": 134,
+   "writer_model": "claude-sonnet-5",
+   "solver_model": "claude-opus-5",
+   "survival_rate_of_generated": 0.604,
+   "survival_rate_of_attempted": 0.326,
+   "per_survivor": 0.482,
+   "by_role_usd": {
+    "writer": 4.0898,
+    "writer-retry": 2.9005,
+    "paraphrase": 0.5847,
+    "solver": 5.2615,
+    "de-cue": 0.5633,
+    "solver-recheck": 0.5801
+   },
+   "note": "THE SONNET-WRITER EXPERIMENT. 89 attempted, only 48 generated: Sonnet truncated or returned empty. Director rejected 9 of 29 survivors (31%) against ~3% for R3-R5, so the writer stayed on Opus. See model_decisions."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation R7",
+   "usd": 22.1254,
+   "ceiling": 30,
+   "tasks": "every remaining short task",
+   "attempted": 62,
+   "generated": 62,
+   "survivors": 25,
+   "calls": 83,
+   "writer_model": "claude-opus-5",
+   "solver_model": "claude-opus-5",
+   "survival_rate_of_generated": 0.403,
+   "survival_rate_of_attempted": 0.403,
+   "per_survivor": 0.885,
+   "by_role_usd": {
+    "writer": 12.0412,
+    "solver": 8.1507,
+    "paraphrase": 0.7675,
+    "de-cue": 0.589,
+    "solver-recheck": 0.577
+   },
+   "note": "Survival fell to 40% of generated because every remaining task was SHORT -- the easy anchors were already spent. Cost per survivor 0.89, the highest of the Opus rounds."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation R8",
+   "usd": 10.2299,
+   "ceiling": 15,
+   "tasks": "1.6,1.7,2.3,5.5,5.6",
+   "attempted": 31,
+   "generated": 31,
+   "survivors": 6,
+   "calls": 23,
+   "writer_model": "claude-opus-5",
+   "solver_model": "claude-opus-5",
+   "survival_rate_of_generated": 0.194,
+   "survival_rate_of_attempted": 0.194,
+   "per_survivor": 1.705,
+   "by_role_usd": {
+    "writer": 6.3668,
+    "writer-retry": 2.5223,
+    "solver": 1.1363,
+    "paraphrase": 0.2045
+   },
+   "note": "Four of the eight tasks produced nothing for a reason that was a CODE DEFECT, not exhaustion: normClause truncated NIST MANAGE addresses and ISO five-level clauses. Diagnosed here, fixed in PROMPT-122 s2."
+  },
+  {
+   "cert": "ISMS-F",
+   "stage": 4,
+   "stage_name": "generation R9",
+   "usd": 9.6365,
+   "ceiling": 15,
+   "tasks": "1.6,1.7,2.3,4.4,5.3,5.5",
+   "attempted": 27,
+   "generated": 27,
+   "survivors": 3,
+   "calls": 17,
+   "writer_model": "claude-opus-5",
+   "solver_model": "claude-opus-5",
+   "survival_rate_of_generated": 0.111,
+   "survival_rate_of_attempted": 0.111,
+   "per_survivor": 3.212,
+   "by_role_usd": {
+    "writer": 5.3443,
+    "writer-retry": 2.751,
+    "paraphrase": 0.893,
+    "solver": 0.6483
+   },
+   "note": "Last round. 3 survivors for 9.64. Both 5.5 survivors sit on five-level clauses (9.6.3.1.2, 9.6.3.1.1) that the pre-PROMPT-122 normaliser would have truncated to unheld containers -- the fix is what produced them."
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 2,
+   "stage_name": "existing-bank audit",
+   "usd": 7.0844,
+   "ceiling": 12,
+   "items_measured": 40,
+   "of": 304,
+   "per_item": 0.2214,
+   "keep": 11,
+   "keep_rate": 0.275,
+   "per_keep": 0.644,
+   "model": "claude-opus-5",
+   "note": "A 40-item SAMPLE ONLY, ruled PROMPT-125 s4. The director then ruled generate-fresh for the remaining 264 (PROMPT-126 s4): 28 percent keep at $0.644 per keep against roughly $0.50 per new survivor, and 15 of the 24 flags were modal-fidelity -- the existing items assert requirements their guidance anchors do not carry. The 264 are UNEXAMINED, not dropped, and count 0 in stage 3."
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 4,
+   "stage_name": "generation R1",
+   "usd": 11.6804,
+   "ceiling": 35,
+   "attempted": 48,
+   "generated": 48,
+   "survivors": 32,
+   "split": "ruled PROMPT-126 s5: 6 tasks each, 4 items per task, both audit-practice and requirements kinds on both sides, solver Opus for both",
+   "by_writer": {
+    "claude-opus-5": {
+     "tasks": 6,
+     "asked": 24,
+     "generated": 24,
+     "survivors": 19,
+     "survival_of_generated": 0.792,
+     "usd": 8.7198,
+     "writer_role_usd": 5.4017,
+     "writer_usd_per_item": 0.2251,
+     "usd_per_survivor": 0.4589,
+     "retries": 0
+    },
+    "claude-sonnet-5-5": {
+     "tasks": 6,
+     "asked": 24,
+     "generated": 24,
+     "survivors": 13,
+     "survival_of_generated": 0.542,
+     "usd": 2.9606,
+     "writer_role_usd": 0.5256,
+     "writer_usd_per_item": 0.0219,
+     "usd_per_survivor": 0.2277,
+     "retries": 0
+    }
+   },
+   "note": "FIRST test of claude-sonnet-5-5 as writer. Survival 54 vs 79 percent -- 25 points apart, outside the ~10-point band PROMPT-119 set for keeping a cheaper writer -- but cost per survivor is HALF. The director reads both sets blind to these totals and gives a reject rate per model before anything is settled. 0 of 32 survivors rest on a support-only source.",
+   "director_verdicts": {
+    "claude-opus-5": {
+     "read": 19,
+     "accepted": 19,
+     "rejected": 0,
+     "reject_rate": 0,
+     "usd_per_accepted": 0.459
+    },
+    "claude-sonnet-5-5": {
+     "read": 13,
+     "accepted": 10,
+     "rejected": 3,
+     "reject_rate": 0.231,
+     "usd_per_accepted": 0.296,
+     "why_rejected": "all three for IMPLAUSIBLE DISTRACTORS, not a wrong anchor: options rejectable on common sense, a strawman, a repeated key"
+    }
+   },
+   "verdict_note": "RULED PROMPT-127 s2: NOT DECIDED. Sonnet is about 35 percent cheaper per ACCEPTED item even after the rejects, but the two sides wrote DIFFERENT tasks and Sonnet drew the easier ones to write shallowly (1.1, 1.5, 5.7 -- definitions and the audit-to-review chain). R1 cannot separate the model from the task. R2 is a same-task crossover.",
+   "accepted_and_inserted": 29
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 4,
+   "stage_name": "generation R2",
+   "usd": 8.7186,
+   "ceiling": 35,
+   "attempted": 40,
+   "generated": 40,
+   "survivors": 26,
+   "design": "SAME-TASK CROSSOVER, ruled PROMPT-127 s5: both writers wrote the SAME 10 tasks, 2 items each, solver Opus for both. This is what removes R1 confound of model against task.",
+   "by_writer": {
+    "claude-opus-5": {
+     "tasks": 10,
+     "asked": 20,
+     "generated": 20,
+     "survivors": 13,
+     "survival_of_generated": 0.65,
+     "usd": 6.4926,
+     "writer_role_usd": 4.6709,
+     "writer_usd_per_item": 0.2335,
+     "usd_per_survivor": 0.4994,
+     "retries": 0
+    },
+    "claude-sonnet-5-5": {
+     "tasks": 10,
+     "asked": 20,
+     "generated": 20,
+     "survivors": 13,
+     "survival_of_generated": 0.65,
+     "usd": 2.226,
+     "writer_role_usd": 0.5579,
+     "writer_usd_per_item": 0.0279,
+     "usd_per_survivor": 0.1712,
+     "retries": 0
+    }
+   },
+   "note": "SURVIVAL IS IDENTICAL AT 65 PERCENT ON THE SAME TASKS -- R1 25-point gap was the task mix, not the model. Cost per survivor is 2.9x apart. Per-task survival differs by at most one item either way on 10 tasks. The director reads both sets before the writer is settled; the reject rate per model on the SAME tasks is the number that decides it.",
+   "director_verdicts": {
+    "claude-opus-5": {
+     "read": 13,
+     "accepted": 13,
+     "rejected": 0,
+     "reject_rate": 0
+    },
+    "claude-sonnet-5-5": {
+     "read": 13,
+     "accepted": 12,
+     "rejected": 1,
+     "reject_rate": 0.077,
+     "why_rejected": "a CROSS-WRITER duplicate: same 9.3.3 point, same key, plain-recall version of Opus 22090360. Stem overlap 41 percent so no stem rule saw it."
+    }
+   },
+   "accepted_and_inserted": 25
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 4,
+   "stage_name": "generation R3",
+   "usd": 14.878,
+   "ceiling": 30,
+   "attempted": 100,
+   "generated": 100,
+   "survivors": 60,
+   "writer_model": "claude-sonnet-5-5",
+   "solver_model": "claude-opus-5",
+   "survival_of_generated": 0.6,
+   "writer_role_usd": 2.51,
+   "writer_usd_per_item": 0.0251,
+   "usd_per_survivor": 0.248,
+   "retries": 0,
+   "tasks": 25,
+   "excluded": "4.7, pending the PROMPT-128 s5 diagnosis",
+   "tripwire_hit": {
+    "rule": "0 Sonnet survivors from 4 or more asked",
+    "task": "3.7",
+    "asked": 4,
+    "survivors": 0,
+    "action": "task 3.7 alone goes to Opus as writer for its next items (PROMPT-128 s4 tripwire 2)"
+   },
+   "note": "FIRST round with the writer decision in force. 60 percent survival on 25 tasks at $0.248 per survivor -- against Opus $0.499 in R2. structure is the dominant refusal at 21 per 100, which is the cue guard. The cross-artifact duplicate check ran against the CURRENT live bank (R3 generated while R2 was being inserted) and flagged nothing on either signal. | PROMPT-129: 3 further items withheld for a TRANSLATION lint defect (2 alinea-pin, 1 letter reference) -- the English items are sound and have no clean siblings, so 40 of 43 were approved.",
+   "director_verdicts": {
+    "claude-sonnet-5-5": {
+     "read": 60,
+     "accepted": 43,
+     "rejected_quality": 3,
+     "rejected_duplicate_of_live": 7,
+     "withheld_twins": 7,
+     "withheld_translation_lint": 3,
+     "inserted_and_approved": 40,
+     "quality_reject_rate": 0.05,
+     "all_reject_rate": 0.167,
+     "usd_per_accepted_item": 0.346
+    }
+   },
+   "tripwire_evaluated": {
+    "rule": "director reject rate above 15 percent in any round",
+    "measured": "3 of 60 = 5 percent on WRITER QUALITY; 10 of 60 = 17 percent if duplicates are counted",
+    "verdict": "NOT TRIPPED",
+    "reason": "RULED PROMPT-129 s1. The 7 duplicates are not a writer defect: no writer is shown what the bank already tests on its anchor. Opus wrote 6b73a816 and Sonnet wrote its twin 740d9999 a round later for the same reason. Only the 3 quality rejects are the writer, and 5 percent is well inside the band. PROMPT-129 s2/s3 address the cause -- an already-tested block in the prompt and a certification-wide anchor preference."
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 4,
+   "stage_name": "generation R4",
+   "usd": 15.519,
+   "ceiling": 30,
+   "attempted": 100,
+   "generated": 100,
+   "survivors": 57,
+   "design": "25 tasks, 4 items each. Task 3.7 on claude-opus-5 because the PROMPT-128 s4 tripwire fired on it in R3; every other task on claude-sonnet-5-5.",
+   "by_writer": {
+    "claude-sonnet-5-5": {
+     "tasks": 24,
+     "asked": 96,
+     "generated": 96,
+     "survivors": 54,
+     "survival_of_generated": 0.5625,
+     "usd": 13.7333,
+     "writer_role_usd": 2.291,
+     "writer_usd_per_item": 0.0239,
+     "usd_per_survivor": 0.2543,
+     "retries": 0
+    },
+    "claude-opus-5": {
+     "tasks": 1,
+     "asked": 4,
+     "generated": 4,
+     "survivors": 3,
+     "survival_of_generated": 0.75,
+     "usd": 1.7857,
+     "writer_role_usd": 1.1125,
+     "writer_usd_per_item": 0.2781,
+     "usd_per_survivor": 0.5952,
+     "retries": 0
+    }
+   },
+   "already_tested_block": {
+    "prompts_with_a_block": 20,
+    "prompts_total": 25,
+    "average_lines_where_present": 4.2,
+    "cap": 6,
+    "prompts_over_the_cap": 7,
+    "what": "PROMPT-129 s2: the writer is now shown the keys already live on its assigned anchors."
+   },
+   "tripwire": {
+    "task_3_7": "REVERTED TO OPUS AND RECOVERED: 3 of 4 on Opus against 0 of 4 on Sonnet in R3 -- the tripwire did its job",
+    "new_hits": [
+     "4.7 (0 of 4, Sonnet)",
+     "4.8 (0 of 4, Sonnet)"
+    ],
+    "note": "4.7 is NOT a model problem: it failed verbatim 4 of 4 again even after PROMPT-129 s3 added 4.3 and 6.1.1 as supporting, because the writer keeps citing the key clause 4.1 for its distractors instead of the new passages. 4.8 failed reproduction 3 of 4 on attributed quotations that name no clause."
+   },
+   "note": "Sonnet survival 56 percent against R3 60 percent on harder tasks. structure is still the dominant refusal at 19 per 100.",
+   "director_verdicts": {
+    "claude-sonnet-5-5": {
+     "read": 54,
+     "accepted": 44,
+     "rejected_quality": 0,
+     "rejected_duplicate_of_live": 8,
+     "withheld_twins": 2,
+     "quality_reject_rate": 0
+    },
+    "claude-opus-5": {
+     "read": 3,
+     "accepted": 3,
+     "rejected_quality": 0,
+     "task": "3.7"
+    }
+   },
+   "usd_per_accepted_item": 0.33,
+   "tripwire_evaluated": {
+    "verdict": "NOT TRIPPED",
+    "reason": "RULED PROMPT-130 s1. Sonnet quality rejects are 0 of 54. All 8 rejections duplicate a live item, and duplication is now the whole of the waste -- which is what the PROMPT-130 s3 semantic judge addresses."
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 4,
+   "stage_name": "generation R5",
+   "usd": 20.4484,
+   "ceiling": 30,
+   "attempted": 100,
+   "generated": 97,
+   "survivors": 55,
+   "design": "25 tasks. 3.7, 4.7 and 4.8 on claude-opus-5 after their tripwires, each with a PROMPT-130 s4 task note; the other 22 on claude-sonnet-5-5.",
+   "by_writer": {
+    "claude-sonnet-5-5": {
+     "tasks": 22,
+     "asked": 88,
+     "generated": 85,
+     "survivors": 51,
+     "survival_of_generated": 0.6,
+     "usd": 13.4284,
+     "usd_per_survivor": 0.2633,
+     "retries": 0
+    },
+    "claude-opus-5": {
+     "tasks": 3,
+     "asked": 12,
+     "generated": 12,
+     "survivors": 4,
+     "survival_of_generated": 0.333,
+     "usd": 7.02,
+     "usd_per_survivor": 1.755,
+     "retries": 2,
+     "per_task": {
+      "3.7": "2 of 4 (was 0 of 4 on Sonnet)",
+      "4.8": "2 of 4 (was 0 of 4 on Sonnet)",
+      "4.7": "0 of 4, THIRD consecutive round"
+     }
+    }
+   },
+   "judge": {
+    "ran": true,
+    "pairs": 113,
+    "judged": 113,
+    "flagged": 12,
+    "usd": 4.4456,
+    "control": "20 of 24 positives, 12 percent false positives -- cleared the PROMPT-130 s3 bar",
+    "note": "Flag-only. The spend is instrument spend and sits outside the generation ceiling."
+   },
+   "already_tested_block": {
+    "prompts_with_a_block": 23,
+    "prompts_total": 25,
+    "average_lines": 4.9,
+    "rule": "per-anchor cap of 2, ceiling 10 (PROMPT-130 s2)"
+   },
+   "tripwire": {
+    "new_hits": [
+     "3.3 (0 of 4, Sonnet)",
+     "4.7 (0 of 4, OPUS -- third round)"
+    ],
+    "note": "4.7 is not a writer or model problem. The PROMPT-130 s4 note WORKED -- distractors now cite 4.3 and 6.1.1 as instructed -- and what remains is two items citing ISO 19011 4.1, a source 4.7 does not map, confused with 27001 4.1, plus two keys not verbatim. A clause number shared between two held standards."
+   },
+   "remaining_shortfall_after": {
+    "items": 133,
+    "tasks": 37,
+    "at_floor": 0,
+    "too_thin": 1
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 5,
+   "stage_name": "director verdicts R5",
+   "ruled_in": "PROMPT-131 s1",
+   "usd_generation": 20.4484,
+   "usd_judge": 4.4456,
+   "usd_total": 24.894,
+   "survivors": 55,
+   "accepted": 42,
+   "rejected": 10,
+   "withheld": 3,
+   "rejects_by_kind": {
+    "quality": 1,
+    "duplicate-of-live": 9
+   },
+   "twins_withheld": 3,
+   "usd_per_accepted_including_judge": 0.5927,
+   "judge": {
+    "flags": 12,
+    "flags_upheld": 12,
+    "flags_overruled": 0,
+    "misses": 1,
+    "miss_detail": "65362731 against the live 3da7fa4a -- a CROSS-ANCHOR pair (ISO 19011 3.11 against 3.8), which a same-anchor judge cannot see. The director caught it. Third time that point had been written, after f12ad84a in R4.",
+    "note": "12 of 12 upheld: the director would have called every flag. Its remit, not its judgement, was the gap -- which PROMPT-131 s3 closes with key-term neighbours."
+   },
+   "opus_fallback": {
+    "tasks": [
+     "3.7",
+     "4.7",
+     "4.8"
+    ],
+    "asked": 12,
+    "survivors": 4,
+    "accepted": 3,
+    "usd": 7.02,
+    "usd_per_accepted": 2.34,
+    "against_sonnet_per_accepted": 0.3443,
+    "note": "3 accepted for $7.02 -- $2.34 each, against $0.34 for Sonnet's 39. What a tripwire costs."
+   },
+   "quality_reject_rate_sonnet": "1 of 51 = 2% (tripwire is >15%: NOT TRIPPED)",
+   "cumulative": {
+    "generation_usd": 71.2444,
+    "other_usd": 7.0844,
+    "known_usd": 78.3288,
+    "accepted_items": 186,
+    "usd_per_accepted_generation_only": 0.383,
+    "approved_rows_per_language": 870,
+    "note": "Instrument spend is listed separately and deliberately NOT folded into the per-item figure: it buys a measurement, not an item."
+   },
+   "instrument_usd_this_prompt": {
+    "judge_r5_round": 4.4456,
+    "judge_s3_neighbour_control": 5.6138,
+    "translation_r5": 7.3581,
+    "lint_guided_retry": 0.42,
+    "drift_repair_2_fields": 0.0628,
+    "solver_rerun_wasted_on_a_wrong_insert_flag": 0.5007
+   }
+  },
+  {
+   "cert": "ISMS-IA",
+   "stage": 4,
+   "stage_name": "generation R6",
+   "ruled_in": "PROMPT-131 s5",
+   "usd": 18.817,
+   "ceiling": 30,
+   "attempted": 97,
+   "generated": 94,
+   "survivors": 53,
+   "design": "20 tasks by largest remaining shortfall. 3.3, 3.7 and 4.8 on claude-opus-5 after their tripwires; the other 17 on claude-sonnet-5-5, which is now the CODE default writer (PROMPT-128 s3 ruled it the default and --writer-model had been carrying it). 4.7 left out: closed at its held count in PROMPT-131 s2.",
+   "by_writer": {
+    "claude-sonnet-5-5": {
+     "tasks": 17,
+     "asked": 85,
+     "generated": 82,
+     "survivors": 46,
+     "survival_of_generated": 0.561,
+     "usd": 13.6598,
+     "usd_per_survivor": 0.297,
+     "retries": 0
+    },
+    "claude-opus-5": {
+     "tasks": 3,
+     "asked": 12,
+     "generated": 12,
+     "survivors": 7,
+     "survival_of_generated": 0.5833,
+     "usd": 5.1572,
+     "usd_per_survivor": 0.7367,
+     "retries": 1,
+     "per_task": {
+      "3.3": "4 of 4 (was 0 of 4 on Sonnet -- RECOVERED)",
+      "3.7": "1 of 4 (was 2 of 4)",
+      "4.8": "2 of 4 (unchanged)"
+     },
+     "note": "$0.7367 a survivor against $1.7550 in R5 -- but NOT like for like: 4.7, which produced nothing in two Opus rounds, is out of the set."
+    }
+   },
+   "judge": {
+    "ran": true,
+    "pairs": 297,
+    "judged": 297,
+    "flagged": 18,
+    "usd": 10.9356,
+    "arms": {
+     "same-anchor": {
+      "judged": 138,
+      "flagged": 13
+     },
+     "key-term-neighbour": {
+      "judged": 159,
+      "flagged": 5
+     }
+    },
+    "could_not_answer": 27,
+    "control": "PROMPT-131 s3 neighbour control: 165 pairs, caught 65362731 against 3da7fa4a as required, 4 added flags of which 3 corroborate rejections already made and 1 is new. $5.6138.",
+    "note": "Flag-only. 27 of 297 unanswered (9.1%) against 4 of 165 on the control -- the highest unanswered rate of any run and reported as such. Instrument spend, outside the ceiling."
+   },
+   "tripwire": {
+    "new_hits": [],
+    "note": "No task returned 0 of its ask. 3.3 recovered on Opus."
+   },
+   "anchor_capacity_declined": {
+    "3.4": "short 2 of 5",
+    "5.4": "short 1 of 4",
+    "note": "3 calls not made rather than spent on items the cap would refuse."
+   },
+   "remaining_shortfall_before_verdicts": {
+    "items": 94,
+    "tasks": 32,
+    "at_floor": 5,
+    "too_thin": 1
+   }
+  }
+ ],
+ "not_instrumented": [
+  "AIMS-F stages 1-3 and 6-7 predate PIPELINE-METRICS.json; their cost is not recoverable and is left null rather than estimated."
+ ],
+ "library_findings": [
+  {
+   "found": "PROMPT-115 s2",
+   "what": "ISO/IEC 27000 3.77 (vulnerability, an 18-word definition) held 282 words: the extractor did not bound it at the next top-level heading, so it swallowed clause 4 and 4.1.",
+   "impact": "Two R2 survivors quoted that clause-4 text as support and both now FAIL verbatim: #10 in its KEY (the director spotted the symptom in the explanation) and #5 in a distractor support (not visible from the report).",
+   "repaired": "SOURCE-PASSAGES.json patched and recorded in PASSAGE-REPAIRS.json; the extractor itself is NOT yet fixed.",
+   "detector": "scripts/check-passage-runon.mjs, 6 controls. 48 passages flagged library-wide: 6 on the strong arm (an embedded later clause heading) and the rest on an annex cross-reference, which is usually legitimate."
+  }
+ ],
+ "model_decisions": [
+  {
+   "ruled": "2026-10-04, PROMPT-120 s1",
+   "decision": "The WRITER stays on claude-opus-5. The SOLVER was never in question.",
+   "tested": "claude-sonnet-5 as the writer, R6 (ISMSF-R6), solver held on claude-opus-5",
+   "measured": {
+    "survival_of_items_that_arrived": {
+     "sonnet_r6": "60%",
+     "opus_r3_r5": "77-88%"
+    },
+    "survival_against_what_was_asked": {
+     "sonnet_r6": "33%",
+     "opus_r3_r5": "77-79%"
+    },
+    "director_reject_rate": {
+     "sonnet_r6": "31% (9 of 29)",
+     "opus_r3_r5": "about 3%"
+    },
+    "gate_rejections_per_100_generated": {
+     "verbatim": {
+      "sonnet_r6": 29.2,
+      "opus_r3_r5": "1.6-8.1"
+     },
+     "modal_fidelity": {
+      "sonnet_r6": 20.8,
+      "opus_r3_r5": "1.2-4.8"
+     },
+     "reproduction": {
+      "sonnet_r6": 16.7,
+      "opus_r3_r5": "0-4.7"
+     }
+    },
+    "items_that_never_reached_a_gate": "41 of 89 (15 of 22 writer batches failed on the first call)",
+    "writer_share_of_a_round": "39.1% across R3-R5, so a 5x cheaper writer caps the saving at 31.3%"
+   },
+   "why": "The two gates Sonnet failed most ARE the grounding guarantee: verbatim means the quote is not in the passage, modal-fidelity means the item states as required what the standard recommends. The director's own read found the rest -- implausible distractors beside a sensible key. A cheaper writer whose characteristic failure is mis-quoting the source is not cheaper.",
+   "kept_from_the_experiment": [
+    "--writer-model and --solver-model: a model change is a flag, not a code change.",
+    "Spend metered PER MODEL, so a mixed run cannot be priced at one rate.",
+    "The balanced-bracket truncation test (the old one was defeated by the nested options array)."
+   ],
+   "not_pursued": "The empty-response mode (9 of 37 Sonnet writer calls returned no text). Ruled: it only occurred on Sonnet, so it is not chased.",
+   "measured_and_notable": "The director read the rejects as 'the key is far longer than the rest'. Measured, it is NOT a length effect: key-is-the-longest-option 44% on the 9 rejects against 50% on the 20 accepts, mean key/longest-rival 1.02 against 1.07. The existing length-cue rule correctly did not fire and no length rule would have caught these. The defect is distractor PLAUSIBILITY, which CLAUDE.md s13 already records as needing an SME rather than a gate."
+  },
+  {
+   "ruled_in": "PROMPT-128 s4",
+   "decided": "2026-10-04",
+   "certification_scope": "ISMS-IA and the certifications after it",
+   "decision": "DEFAULT WRITER IS claude-sonnet-5-5. The solver stays claude-opus-5.",
+   "evidence": {
+    "R1_plus_R2": {
+     "claude-opus-5": {
+      "survivors": 32,
+      "director_rejects": 0,
+      "spend_usd": 15.21,
+      "usd_per_accepted": 0.48
+     },
+     "claude-sonnet-5-5": {
+      "survivors": 26,
+      "director_rejects": 4,
+      "spend_usd": 5.19,
+      "usd_per_accepted": 0.23
+     }
+    },
+    "what_settled_it": "R2 was a SAME-TASK CROSSOVER and both writers survived 13 of 20 -- identical. R1 25-point gap was the task mix. After the PROMPT-127 s4 distractor-plausibility note the director rejects were 1 to 0, and that one was a cross-writer duplicate rather than a weak item.",
+    "what_is_given_up": "Opus scenarios are richer. The director judged Sonnet R2 items exam-grade."
+   },
+   "tripwires": [
+    {
+     "trip": "director reject rate on Sonnet items above 15 percent in any round",
+     "action": "that certification goes back to Opus as writer"
     },
     {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation R2",
-      "usd": 10.2394,
-      "ceiling": 25,
-      "tasks": [
-        "3.3:16",
-        "3.2:16",
-        "5.1:14"
-      ],
+     "trip": "a task gets 0 Sonnet survivors from 4 or more asked",
+     "action": "that task alone goes to Opus for its next items"
+    }
+   ]
+  }
+ ],
+ "certification_summaries": {
+  "ISMS-F": {
+   "_what": "Closed PROMPT-125 s3. ISMS-F is live: 263 grounded items, 896 approved rows per language.",
+   "session": {
+    "first_recorded_stage_run": "2026-10-03T21:05:18.579Z",
+    "last_recorded_stage_run": "2026-10-04T19:21:13.546Z",
+    "elapsed_hours": 22.3,
+    "_caveat": "WALL CLOCK between the first and last instrumented stage run, not time at the keyboard. Stages 5 to 9 are not instrumented, so work after the last stage-4 run is outside this window."
+   },
+   "spend_usd": {
+    "recorded_in_costs_usd": 215.86,
+    "de_cue_rounds_in_ISMSF_DECUED": 12.7539,
+    "rescue_solver_calls": 0.8826,
+    "_total_known": 229.49,
+    "_NOT_RECOVERABLE": "THE TRANSLATION STAGE. The spend happens on the run that makes the calls; the artifact is written by the run that writes the rows, which resumes from the checkpoint and legitimately spends $0. So every ISMSF-TRANSLATION-*.json records usd: 0 and the per-round translation cost is gone. 304 item-translations with no price on any of them. Three runs were observed live and are the only translation figures that exist: PROMPT-123 $0.7531 for 5 items, PROMPT-124 $0.2315 for 1, PROMPT-125 $0.8520 for 5. NOT extrapolated to the other 293: a rate times a count is an estimate, and this file does not carry estimates. FIXED for ISMS-IA: the checkpoint now carries usd_cumulative and the artifact carries spend.usd_round.",
+    "_also_not_instrumented": "Stages 1, 3, 5, 6, 7, 8 and 9 have no cost record for any certification."
+   },
+   "translation": {
+    "item_translations": 304,
+    "per_round": [
+     {
+      "file": "ISMSF-TRANSLATION-124",
+      "items": 1,
+      "usd": null
+     },
+     {
+      "file": "ISMSF-TRANSLATION-125",
+      "items": 5,
+      "usd": null
+     },
+     {
+      "file": "ISMSF-TRANSLATION-DECUE",
+      "items": 45,
+      "usd": null
+     },
+     {
+      "file": "ISMSF-TRANSLATION-R1",
+      "items": 46,
+      "usd": null
+     },
+     {
+      "file": "ISMSF-TRANSLATION-R3",
+      "items": 57,
+      "usd": null
+     },
+     {
+      "file": "ISMSF-TRANSLATION-R4",
+      "items": 53,
+      "usd": null
+     },
+     {
+      "file": "ISMSF-TRANSLATION-R5",
+      "items": 67,
+      "usd": null
+     },
+     {
+      "file": "ISMSF-TRANSLATION-R6",
+      "items": 20,
+      "usd": null
+     },
+     {
+      "file": "ISMSF-TRANSLATION-R7",
+      "items": 3,
+      "usd": null
+     },
+     {
+      "file": "ISMSF-TRANSLATION-R8",
+      "items": 2,
+      "usd": null
+     },
+     {
+      "file": "ISMSF-TRANSLATION-R9",
+      "items": 5,
+      "usd": null
+     }
+    ]
+   },
+   "director_verdicts": {
+    "per_round": [
+     {
+      "round": "R1",
+      "writer_model": "claude-opus-5",
+      "attempted": 32,
+      "generated": 24,
+      "survivors": 23,
+      "read": 23,
+      "accepted": 21,
+      "rejected": 3,
+      "director_reject_rate": 0.13,
+      "usd": 10.0004,
+      "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+     },
+     {
+      "round": "R2",
+      "writer_model": "claude-opus-5",
       "attempted": 46,
       "generated": 40,
       "survivors": 19,
-      "calls": 79,
-      "survival_rate_of_generated": 0.475,
-      "survival_rate_of_attempted": 0.413,
-      "per_survivor": 0.539,
-      "probe_flag_rate": "10/19 (52.6%)",
-      "probe_flag_rate_R1": "22/23 (95.7%)",
-      "note": "The PROMPT-114 s2 writer rules roughly HALVED the options-only cue rate. Survival fell from 95.8% to 47.5%, driven by gateNo27000: 17 of 21 code rejections name ISO/IEC 27000 in served text, because tasks 5.1 and 3.2 map 27000 passages and the learner-facing rule forbids naming it. Nothing inserted."
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "odd-verdict de-cue (PROMPT-114 s2)",
-      "usd": 5.4895,
-      "ceiling": 8,
-      "items_targeted": 15,
-      "fixed": 0,
-      "probe_cleared_but_solver_split": 4,
-      "note": "0 fixed. .08 of the .49 went on three defects in the fixer, not on the items: the stored-row item shape assumed for a pre-insert item (no id, no correct_answer); liveStemsForTask and assignedAnchor omitted so two gates returned UNASSERTED; and ctx.passagesForTask which does not exist, so the solver received an empty passage list and rejected all 15. All three fixed and verified on single items."
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation R3",
-      "usd": 29.4477,
-      "ceiling": null,
-      "tasks": "3.1,3.4,4.1,4.2,4.3,5.2",
+      "read": 19,
+      "accepted": 17,
+      "rejected": 2,
+      "director_reject_rate": 0.105,
+      "usd": 10.2394,
+      "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+     },
+     {
+      "round": "R3",
+      "writer_model": "claude-opus-5",
       "attempted": 64,
       "generated": 56,
       "survivors": 49,
-      "calls": 202,
+      "read": 49,
+      "accepted": 49,
+      "rejected": 0,
+      "director_reject_rate": 0,
+      "usd": 29.4477,
+      "source": "ACCEPT-ISMSF-R3.json (no round record: 0 rejections)"
+     },
+     {
+      "round": "R4",
       "writer_model": "claude-opus-5",
-      "solver_model": "claude-opus-5",
-      "survival_rate_of_generated": 0.875,
-      "survival_rate_of_attempted": 0.766,
-      "per_survivor": 0.601,
-      "by_role_usd": {
-        "writer": 10.4339,
-        "paraphrase": 3.4725,
-        "solver": 11.6659,
-        "options-probe": 1.8532,
-        "de-cue": 1.1573,
-        "solver-recheck": 0.8649
-      },
-      "note": "Overspent the ruled 25 at 29.45 because nothing could stop a run mid-flight. --max-usd added in PROMPT-117 and made mandatory in the same prompt."
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation R4",
-      "usd": 24.282,
-      "ceiling": 35,
-      "tasks": "1.1,1.2,1.3,2.1,2.2,5.4,5.6",
       "attempted": 62,
       "generated": 62,
       "survivors": 48,
-      "calls": 147,
+      "read": 48,
+      "accepted": 45,
+      "rejected": 3,
+      "director_reject_rate": 0.063,
+      "usd": 24.282,
+      "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+     },
+     {
+      "round": "R5",
       "writer_model": "claude-opus-5",
-      "solver_model": "claude-opus-5",
-      "survival_rate_of_generated": 0.774,
-      "survival_rate_of_attempted": 0.774,
-      "per_survivor": 0.506,
-      "by_role_usd": {
-        "writer": 8.9781,
-        "solver": 10.1224,
-        "de-cue": 1.6105,
-        "solver-recheck": 1.1485,
-        "paraphrase": 2.4224
-      },
-      "note": "The 2.4 lesson came out of this round: when ask > eligible primaries the generator asked for anchors it could not legally assign. Fixed in PROMPT-118 s3."
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation R5",
-      "usd": 29.3883,
-      "ceiling": 40,
-      "tasks": "ten short tasks",
       "attempted": 86,
       "generated": 86,
       "survivors": 68,
-      "calls": 204,
-      "writer_model": "claude-opus-5",
-      "solver_model": "claude-opus-5",
-      "survival_rate_of_generated": 0.791,
-      "survival_rate_of_attempted": 0.791,
-      "per_survivor": 0.432,
-      "by_role_usd": {
-        "writer": 13.0877,
-        "solver": 11.0482,
-        "paraphrase": 2.8281,
-        "de-cue": 1.6153,
-        "solver-recheck": 0.8089
-      },
-      "note": "Largest round. 68 survivors, 67 accepted on the read -- the lowest director-reject rate of the nine."
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation R6",
-      "usd": 13.9799,
-      "ceiling": 35,
-      "tasks": "eight short tasks (Sonnet writer test)",
+      "read": 68,
+      "accepted": 67,
+      "rejected": 1,
+      "director_reject_rate": 0.015,
+      "usd": 29.3883,
+      "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+     },
+     {
+      "round": "R6",
+      "writer_model": "claude-sonnet-5",
       "attempted": 89,
       "generated": 48,
       "survivors": 29,
-      "calls": 134,
-      "writer_model": "claude-sonnet-5",
-      "solver_model": "claude-opus-5",
-      "survival_rate_of_generated": 0.604,
-      "survival_rate_of_attempted": 0.326,
-      "per_survivor": 0.482,
-      "by_role_usd": {
-        "writer": 4.0898,
-        "writer-retry": 2.9005,
-        "paraphrase": 0.5847,
-        "solver": 5.2615,
-        "de-cue": 0.5633,
-        "solver-recheck": 0.5801
-      },
-      "note": "THE SONNET-WRITER EXPERIMENT. 89 attempted, only 48 generated: Sonnet truncated or returned empty. Director rejected 9 of 29 survivors (31%) against ~3% for R3-R5, so the writer stayed on Opus. See model_decisions."
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation R7",
-      "usd": 22.1254,
-      "ceiling": 30,
-      "tasks": "every remaining short task",
+      "read": 29,
+      "accepted": 20,
+      "rejected": 9,
+      "director_reject_rate": 0.31,
+      "usd": 13.9799,
+      "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+     },
+     {
+      "round": "R7",
+      "writer_model": "claude-opus-5",
       "attempted": 62,
       "generated": 62,
       "survivors": 25,
-      "calls": 83,
+      "read": 25,
+      "accepted": 23,
+      "rejected": 2,
+      "director_reject_rate": 0.08,
+      "usd": 22.1254,
+      "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+     },
+     {
+      "round": "R8",
       "writer_model": "claude-opus-5",
-      "solver_model": "claude-opus-5",
-      "survival_rate_of_generated": 0.403,
-      "survival_rate_of_attempted": 0.403,
-      "per_survivor": 0.885,
-      "by_role_usd": {
-        "writer": 12.0412,
-        "solver": 8.1507,
-        "paraphrase": 0.7675,
-        "de-cue": 0.589,
-        "solver-recheck": 0.577
-      },
-      "note": "Survival fell to 40% of generated because every remaining task was SHORT -- the easy anchors were already spent. Cost per survivor 0.89, the highest of the Opus rounds."
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation R8",
-      "usd": 10.2299,
-      "ceiling": 15,
-      "tasks": "1.6,1.7,2.3,5.5,5.6",
       "attempted": 31,
       "generated": 31,
       "survivors": 6,
-      "calls": 23,
+      "read": 6,
+      "accepted": 2,
+      "rejected": 4,
+      "director_reject_rate": 0.667,
+      "usd": 10.2299,
+      "source": "ISMSF-DIRECTOR-REJECTIONS.json"
+     },
+     {
+      "round": "R9",
       "writer_model": "claude-opus-5",
-      "solver_model": "claude-opus-5",
-      "survival_rate_of_generated": 0.194,
-      "survival_rate_of_attempted": 0.194,
-      "per_survivor": 1.705,
-      "by_role_usd": {
-        "writer": 6.3668,
-        "writer-retry": 2.5223,
-        "solver": 1.1363,
-        "paraphrase": 0.2045
-      },
-      "note": "Four of the eight tasks produced nothing for a reason that was a CODE DEFECT, not exhaustion: normClause truncated NIST MANAGE addresses and ISO five-level clauses. Diagnosed here, fixed in PROMPT-122 s2."
-    },
-    {
-      "cert": "ISMS-F",
-      "stage": 4,
-      "stage_name": "generation R9",
-      "usd": 9.6365,
-      "ceiling": 15,
-      "tasks": "1.6,1.7,2.3,4.4,5.3,5.5",
       "attempted": 27,
       "generated": 27,
       "survivors": 3,
-      "calls": 17,
-      "writer_model": "claude-opus-5",
-      "solver_model": "claude-opus-5",
-      "survival_rate_of_generated": 0.111,
-      "survival_rate_of_attempted": 0.111,
-      "per_survivor": 3.212,
-      "by_role_usd": {
-        "writer": 5.3443,
-        "writer-retry": 2.751,
-        "paraphrase": 0.893,
-        "solver": 0.6483
-      },
-      "note": "Last round. 3 survivors for 9.64. Both 5.5 survivors sit on five-level clauses (9.6.3.1.2, 9.6.3.1.1) that the pre-PROMPT-122 normaliser would have truncated to unheld containers -- the fix is what produced them."
+      "read": 6,
+      "accepted": 5,
+      "rejected": 1,
+      "director_reject_rate": 0.167,
+      "usd": 9.6365,
+      "source": "ISMSF-DIRECTOR-REJECTIONS.json",
+      "_read_includes": "The read of 6 covers R9 three survivors PLUS the three PROMPT-122 s2 rescues appended to ISMSF-ROLLOUT-R9.md for the same read. Survivors (3) and read (6) differ for that reason."
+     }
+    ],
+    "rescues": {
+     "round": "rescues",
+     "note": "Items rejected BY CODE in R8/R9 that passed every gate once the PROMPT-122 s2 normaliser and the PROMPT-123 s2a/s2b gate defects were fixed. Re-gated free, solved twice on the shuffled bar, read in PROMPT-125 s1.",
+     "read": 5,
+     "accepted": 5,
+     "rejected": 0,
+     "director_reject_rate": 0,
+     "usd": 0.8826,
+     "usd_what": "revise-artifact solver calls only; the gating was free"
     },
-    {
-      "cert": "ISMS-IA",
-      "stage": 2,
-      "stage_name": "existing-bank audit",
-      "usd": 7.0844,
-      "ceiling": 12,
-      "items_measured": 40,
-      "of": 304,
-      "per_item": 0.2214,
-      "keep": 11,
-      "keep_rate": 0.275,
-      "per_keep": 0.644,
-      "model": "claude-opus-5",
-      "note": "A 40-item SAMPLE ONLY, ruled PROMPT-125 s4. The director then ruled generate-fresh for the remaining 264 (PROMPT-126 s4): 28 percent keep at $0.644 per keep against roughly $0.50 per new survivor, and 15 of the 24 flags were modal-fidelity -- the existing items assert requirements their guidance anchors do not carry. The 264 are UNEXAMINED, not dropped, and count 0 in stage 3."
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 4,
-      "stage_name": "generation R1",
-      "usd": 11.6804,
-      "ceiling": 35,
-      "attempted": 48,
-      "generated": 48,
-      "survivors": 32,
-      "split": "ruled PROMPT-126 s5: 6 tasks each, 4 items per task, both audit-practice and requirements kinds on both sides, solver Opus for both",
-      "by_writer": {
-        "claude-opus-5": {
-          "tasks": 6,
-          "asked": 24,
-          "generated": 24,
-          "survivors": 19,
-          "survival_of_generated": 0.792,
-          "usd": 8.7198,
-          "writer_role_usd": 5.4017,
-          "writer_usd_per_item": 0.2251,
-          "usd_per_survivor": 0.4589,
-          "retries": 0
-        },
-        "claude-sonnet-5-5": {
-          "tasks": 6,
-          "asked": 24,
-          "generated": 24,
-          "survivors": 13,
-          "survival_of_generated": 0.542,
-          "usd": 2.9606,
-          "writer_role_usd": 0.5256,
-          "writer_usd_per_item": 0.0219,
-          "usd_per_survivor": 0.2277,
-          "retries": 0
-        }
-      },
-      "note": "FIRST test of claude-sonnet-5-5 as writer. Survival 54 vs 79 percent -- 25 points apart, outside the ~10-point band PROMPT-119 set for keeping a cheaper writer -- but cost per survivor is HALF. The director reads both sets blind to these totals and gives a reject rate per model before anything is settled. 0 of 32 survivors rest on a support-only source.",
-      "director_verdicts": {
-        "claude-opus-5": {
-          "read": 19,
-          "accepted": 19,
-          "rejected": 0,
-          "reject_rate": 0,
-          "usd_per_accepted": 0.459
-        },
-        "claude-sonnet-5-5": {
-          "read": 13,
-          "accepted": 10,
-          "rejected": 3,
-          "reject_rate": 0.231,
-          "usd_per_accepted": 0.296,
-          "why_rejected": "all three for IMPLAUSIBLE DISTRACTORS, not a wrong anchor: options rejectable on common sense, a strawman, a repeated key"
-        }
-      },
-      "verdict_note": "RULED PROMPT-127 s2: NOT DECIDED. Sonnet is about 35 percent cheaper per ACCEPTED item even after the rejects, but the two sides wrote DIFFERENT tasks and Sonnet drew the easier ones to write shallowly (1.1, 1.5, 5.7 -- definitions and the audit-to-review chain). R1 cannot separate the model from the task. R2 is a same-task crossover.",
-      "accepted_and_inserted": 29
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 4,
-      "stage_name": "generation R2",
-      "usd": 8.7186,
-      "ceiling": 35,
-      "attempted": 40,
-      "generated": 40,
-      "survivors": 26,
-      "design": "SAME-TASK CROSSOVER, ruled PROMPT-127 s5: both writers wrote the SAME 10 tasks, 2 items each, solver Opus for both. This is what removes R1 confound of model against task.",
-      "by_writer": {
-        "claude-opus-5": {
-          "tasks": 10,
-          "asked": 20,
-          "generated": 20,
-          "survivors": 13,
-          "survival_of_generated": 0.65,
-          "usd": 6.4926,
-          "writer_role_usd": 4.6709,
-          "writer_usd_per_item": 0.2335,
-          "usd_per_survivor": 0.4994,
-          "retries": 0
-        },
-        "claude-sonnet-5-5": {
-          "tasks": 10,
-          "asked": 20,
-          "generated": 20,
-          "survivors": 13,
-          "survival_of_generated": 0.65,
-          "usd": 2.226,
-          "writer_role_usd": 0.5579,
-          "writer_usd_per_item": 0.0279,
-          "usd_per_survivor": 0.1712,
-          "retries": 0
-        }
-      },
-      "note": "SURVIVAL IS IDENTICAL AT 65 PERCENT ON THE SAME TASKS -- R1 25-point gap was the task mix, not the model. Cost per survivor is 2.9x apart. Per-task survival differs by at most one item either way on 10 tasks. The director reads both sets before the writer is settled; the reject rate per model on the SAME tasks is the number that decides it.",
-      "director_verdicts": {
-        "claude-opus-5": {
-          "read": 13,
-          "accepted": 13,
-          "rejected": 0,
-          "reject_rate": 0
-        },
-        "claude-sonnet-5-5": {
-          "read": 13,
-          "accepted": 12,
-          "rejected": 1,
-          "reject_rate": 0.077,
-          "why_rejected": "a CROSS-WRITER duplicate: same 9.3.3 point, same key, plain-recall version of Opus 22090360. Stem overlap 41 percent so no stem rule saw it."
-        }
-      },
-      "accepted_and_inserted": 25
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 4,
-      "stage_name": "generation R3",
-      "usd": 14.878,
-      "ceiling": 30,
-      "attempted": 100,
-      "generated": 100,
-      "survivors": 60,
-      "writer_model": "claude-sonnet-5-5",
-      "solver_model": "claude-opus-5",
-      "survival_of_generated": 0.6,
-      "writer_role_usd": 2.51,
-      "writer_usd_per_item": 0.0251,
-      "usd_per_survivor": 0.248,
-      "retries": 0,
-      "tasks": 25,
-      "excluded": "4.7, pending the PROMPT-128 s5 diagnosis",
-      "tripwire_hit": {
-        "rule": "0 Sonnet survivors from 4 or more asked",
-        "task": "3.7",
-        "asked": 4,
-        "survivors": 0,
-        "action": "task 3.7 alone goes to Opus as writer for its next items (PROMPT-128 s4 tripwire 2)"
-      },
-      "note": "FIRST round with the writer decision in force. 60 percent survival on 25 tasks at $0.248 per survivor -- against Opus $0.499 in R2. structure is the dominant refusal at 21 per 100, which is the cue guard. The cross-artifact duplicate check ran against the CURRENT live bank (R3 generated while R2 was being inserted) and flagged nothing on either signal. | PROMPT-129: 3 further items withheld for a TRANSLATION lint defect (2 alinea-pin, 1 letter reference) -- the English items are sound and have no clean siblings, so 40 of 43 were approved.",
-      "director_verdicts": {
-        "claude-sonnet-5-5": {
-          "read": 60,
-          "accepted": 43,
-          "rejected_quality": 3,
-          "rejected_duplicate_of_live": 7,
-          "withheld_twins": 7,
-          "withheld_translation_lint": 3,
-          "inserted_and_approved": 40,
-          "quality_reject_rate": 0.05,
-          "all_reject_rate": 0.167,
-          "usd_per_accepted_item": 0.346
-        }
-      },
-      "tripwire_evaluated": {
-        "rule": "director reject rate above 15 percent in any round",
-        "measured": "3 of 60 = 5 percent on WRITER QUALITY; 10 of 60 = 17 percent if duplicates are counted",
-        "verdict": "NOT TRIPPED",
-        "reason": "RULED PROMPT-129 s1. The 7 duplicates are not a writer defect: no writer is shown what the bank already tests on its anchor. Opus wrote 6b73a816 and Sonnet wrote its twin 740d9999 a round later for the same reason. Only the 3 quality rejects are the writer, and 5 percent is well inside the band. PROMPT-129 s2/s3 address the cause -- an already-tested block in the prompt and a certification-wide anchor preference."
-      }
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 4,
-      "stage_name": "generation R4",
-      "usd": 15.519,
-      "ceiling": 30,
-      "attempted": 100,
-      "generated": 100,
-      "survivors": 57,
-      "design": "25 tasks, 4 items each. Task 3.7 on claude-opus-5 because the PROMPT-128 s4 tripwire fired on it in R3; every other task on claude-sonnet-5-5.",
-      "by_writer": {
-        "claude-sonnet-5-5": {
-          "tasks": 24,
-          "asked": 96,
-          "generated": 96,
-          "survivors": 54,
-          "survival_of_generated": 0.5625,
-          "usd": 13.7333,
-          "writer_role_usd": 2.291,
-          "writer_usd_per_item": 0.0239,
-          "usd_per_survivor": 0.2543,
-          "retries": 0
-        },
-        "claude-opus-5": {
-          "tasks": 1,
-          "asked": 4,
-          "generated": 4,
-          "survivors": 3,
-          "survival_of_generated": 0.75,
-          "usd": 1.7857,
-          "writer_role_usd": 1.1125,
-          "writer_usd_per_item": 0.2781,
-          "usd_per_survivor": 0.5952,
-          "retries": 0
-        }
-      },
-      "already_tested_block": {
-        "prompts_with_a_block": 20,
-        "prompts_total": 25,
-        "average_lines_where_present": 4.2,
-        "cap": 6,
-        "prompts_over_the_cap": 7,
-        "what": "PROMPT-129 s2: the writer is now shown the keys already live on its assigned anchors."
-      },
-      "tripwire": {
-        "task_3_7": "REVERTED TO OPUS AND RECOVERED: 3 of 4 on Opus against 0 of 4 on Sonnet in R3 -- the tripwire did its job",
-        "new_hits": [
-          "4.7 (0 of 4, Sonnet)",
-          "4.8 (0 of 4, Sonnet)"
-        ],
-        "note": "4.7 is NOT a model problem: it failed verbatim 4 of 4 again even after PROMPT-129 s3 added 4.3 and 6.1.1 as supporting, because the writer keeps citing the key clause 4.1 for its distractors instead of the new passages. 4.8 failed reproduction 3 of 4 on attributed quotations that name no clause."
-      },
-      "note": "Sonnet survival 56 percent against R3 60 percent on harder tasks. structure is still the dominant refusal at 19 per 100.",
-      "director_verdicts": {
-        "claude-sonnet-5-5": {
-          "read": 54,
-          "accepted": 44,
-          "rejected_quality": 0,
-          "rejected_duplicate_of_live": 8,
-          "withheld_twins": 2,
-          "quality_reject_rate": 0
-        },
-        "claude-opus-5": {
-          "read": 3,
-          "accepted": 3,
-          "rejected_quality": 0,
-          "task": "3.7"
-        }
-      },
-      "usd_per_accepted_item": 0.33,
-      "tripwire_evaluated": {
-        "verdict": "NOT TRIPPED",
-        "reason": "RULED PROMPT-130 s1. Sonnet quality rejects are 0 of 54. All 8 rejections duplicate a live item, and duplication is now the whole of the waste -- which is what the PROMPT-130 s3 semantic judge addresses."
-      }
-    },
-    {
-      "cert": "ISMS-IA",
-      "stage": 4,
-      "stage_name": "generation R5",
-      "usd": 20.4484,
-      "ceiling": 30,
-      "attempted": 100,
-      "generated": 97,
-      "survivors": 55,
-      "design": "25 tasks. 3.7, 4.7 and 4.8 on claude-opus-5 after their tripwires, each with a PROMPT-130 s4 task note; the other 22 on claude-sonnet-5-5.",
-      "by_writer": {
-        "claude-sonnet-5-5": {
-          "tasks": 22,
-          "asked": 88,
-          "generated": 85,
-          "survivors": 51,
-          "survival_of_generated": 0.6,
-          "usd": 13.4284,
-          "usd_per_survivor": 0.2633,
-          "retries": 0
-        },
-        "claude-opus-5": {
-          "tasks": 3,
-          "asked": 12,
-          "generated": 12,
-          "survivors": 4,
-          "survival_of_generated": 0.333,
-          "usd": 7.02,
-          "usd_per_survivor": 1.755,
-          "retries": 2,
-          "per_task": {
-            "3.7": "2 of 4 (was 0 of 4 on Sonnet)",
-            "4.8": "2 of 4 (was 0 of 4 on Sonnet)",
-            "4.7": "0 of 4, THIRD consecutive round"
-          }
-        }
-      },
-      "judge": {
-        "ran": true,
-        "pairs": 113,
-        "judged": 113,
-        "flagged": 12,
-        "usd": 4.4456,
-        "control": "20 of 24 positives, 12 percent false positives -- cleared the PROMPT-130 s3 bar",
-        "note": "Flag-only. The spend is instrument spend and sits outside the generation ceiling."
-      },
-      "already_tested_block": {
-        "prompts_with_a_block": 23,
-        "prompts_total": 25,
-        "average_lines": 4.9,
-        "rule": "per-anchor cap of 2, ceiling 10 (PROMPT-130 s2)"
-      },
-      "tripwire": {
-        "new_hits": [
-          "3.3 (0 of 4, Sonnet)",
-          "4.7 (0 of 4, OPUS -- third round)"
-        ],
-        "note": "4.7 is not a writer or model problem. The PROMPT-130 s4 note WORKED -- distractors now cite 4.3 and 6.1.1 as instructed -- and what remains is two items citing ISO 19011 4.1, a source 4.7 does not map, confused with 27001 4.1, plus two keys not verbatim. A clause number shared between two held standards."
-      },
-      "remaining_shortfall_after": {
-        "items": 133,
-        "tasks": 37,
-        "at_floor": 0,
-        "too_thin": 1
-      }
-    }
-  ],
-  "not_instrumented": [
-    "AIMS-F stages 1-3 and 6-7 predate PIPELINE-METRICS.json; their cost is not recoverable and is left null rather than estimated."
-  ],
-  "library_findings": [
-    {
-      "found": "PROMPT-115 s2",
-      "what": "ISO/IEC 27000 3.77 (vulnerability, an 18-word definition) held 282 words: the extractor did not bound it at the next top-level heading, so it swallowed clause 4 and 4.1.",
-      "impact": "Two R2 survivors quoted that clause-4 text as support and both now FAIL verbatim: #10 in its KEY (the director spotted the symptom in the explanation) and #5 in a distractor support (not visible from the report).",
-      "repaired": "SOURCE-PASSAGES.json patched and recorded in PASSAGE-REPAIRS.json; the extractor itself is NOT yet fixed.",
-      "detector": "scripts/check-passage-runon.mjs, 6 controls. 48 passages flagged library-wide: 6 on the strong arm (an embedded later clause heading) and the rest on an annex cross-reference, which is usually legitimate."
-    }
-  ],
-  "model_decisions": [
-    {
-      "ruled": "2026-10-04, PROMPT-120 s1",
-      "decision": "The WRITER stays on claude-opus-5. The SOLVER was never in question.",
-      "tested": "claude-sonnet-5 as the writer, R6 (ISMSF-R6), solver held on claude-opus-5",
-      "measured": {
-        "survival_of_items_that_arrived": {
-          "sonnet_r6": "60%",
-          "opus_r3_r5": "77-88%"
-        },
-        "survival_against_what_was_asked": {
-          "sonnet_r6": "33%",
-          "opus_r3_r5": "77-79%"
-        },
-        "director_reject_rate": {
-          "sonnet_r6": "31% (9 of 29)",
-          "opus_r3_r5": "about 3%"
-        },
-        "gate_rejections_per_100_generated": {
-          "verbatim": {
-            "sonnet_r6": 29.2,
-            "opus_r3_r5": "1.6-8.1"
-          },
-          "modal_fidelity": {
-            "sonnet_r6": 20.8,
-            "opus_r3_r5": "1.2-4.8"
-          },
-          "reproduction": {
-            "sonnet_r6": 16.7,
-            "opus_r3_r5": "0-4.7"
-          }
-        },
-        "items_that_never_reached_a_gate": "41 of 89 (15 of 22 writer batches failed on the first call)",
-        "writer_share_of_a_round": "39.1% across R3-R5, so a 5x cheaper writer caps the saving at 31.3%"
-      },
-      "why": "The two gates Sonnet failed most ARE the grounding guarantee: verbatim means the quote is not in the passage, modal-fidelity means the item states as required what the standard recommends. The director's own read found the rest -- implausible distractors beside a sensible key. A cheaper writer whose characteristic failure is mis-quoting the source is not cheaper.",
-      "kept_from_the_experiment": [
-        "--writer-model and --solver-model: a model change is a flag, not a code change.",
-        "Spend metered PER MODEL, so a mixed run cannot be priced at one rate.",
-        "The balanced-bracket truncation test (the old one was defeated by the nested options array)."
-      ],
-      "not_pursued": "The empty-response mode (9 of 37 Sonnet writer calls returned no text). Ruled: it only occurred on Sonnet, so it is not chased.",
-      "measured_and_notable": "The director read the rejects as 'the key is far longer than the rest'. Measured, it is NOT a length effect: key-is-the-longest-option 44% on the 9 rejects against 50% on the 20 accepts, mean key/longest-rival 1.02 against 1.07. The existing length-cue rule correctly did not fire and no length rule would have caught these. The defect is distractor PLAUSIBILITY, which CLAUDE.md s13 already records as needing an SME rather than a gate."
-    },
-    {
-      "ruled_in": "PROMPT-128 s4",
-      "decided": "2026-10-04",
-      "certification_scope": "ISMS-IA and the certifications after it",
-      "decision": "DEFAULT WRITER IS claude-sonnet-5-5. The solver stays claude-opus-5.",
-      "evidence": {
-        "R1_plus_R2": {
-          "claude-opus-5": {
-            "survivors": 32,
-            "director_rejects": 0,
-            "spend_usd": 15.21,
-            "usd_per_accepted": 0.48
-          },
-          "claude-sonnet-5-5": {
-            "survivors": 26,
-            "director_rejects": 4,
-            "spend_usd": 5.19,
-            "usd_per_accepted": 0.23
-          }
-        },
-        "what_settled_it": "R2 was a SAME-TASK CROSSOVER and both writers survived 13 of 20 -- identical. R1 25-point gap was the task mix. After the PROMPT-127 s4 distractor-plausibility note the director rejects were 1 to 0, and that one was a cross-writer duplicate rather than a weak item.",
-        "what_is_given_up": "Opus scenarios are richer. The director judged Sonnet R2 items exam-grade."
-      },
-      "tripwires": [
-        {
-          "trip": "director reject rate on Sonnet items above 15 percent in any round",
-          "action": "that certification goes back to Opus as writer"
-        },
-        {
-          "trip": "a task gets 0 Sonnet survivors from 4 or more asked",
-          "action": "that task alone goes to Opus for its next items"
-        }
-      ]
-    }
-  ],
-  "certification_summaries": {
-    "ISMS-F": {
-      "_what": "Closed PROMPT-125 s3. ISMS-F is live: 263 grounded items, 896 approved rows per language.",
-      "session": {
-        "first_recorded_stage_run": "2026-10-03T21:05:18.579Z",
-        "last_recorded_stage_run": "2026-10-04T19:21:13.546Z",
-        "elapsed_hours": 22.3,
-        "_caveat": "WALL CLOCK between the first and last instrumented stage run, not time at the keyboard. Stages 5 to 9 are not instrumented, so work after the last stage-4 run is outside this window."
-      },
-      "spend_usd": {
-        "recorded_in_costs_usd": 215.86,
-        "de_cue_rounds_in_ISMSF_DECUED": 12.7539,
-        "rescue_solver_calls": 0.8826,
-        "_total_known": 229.49,
-        "_NOT_RECOVERABLE": "THE TRANSLATION STAGE. The spend happens on the run that makes the calls; the artifact is written by the run that writes the rows, which resumes from the checkpoint and legitimately spends $0. So every ISMSF-TRANSLATION-*.json records usd: 0 and the per-round translation cost is gone. 304 item-translations with no price on any of them. Three runs were observed live and are the only translation figures that exist: PROMPT-123 $0.7531 for 5 items, PROMPT-124 $0.2315 for 1, PROMPT-125 $0.8520 for 5. NOT extrapolated to the other 293: a rate times a count is an estimate, and this file does not carry estimates. FIXED for ISMS-IA: the checkpoint now carries usd_cumulative and the artifact carries spend.usd_round.",
-        "_also_not_instrumented": "Stages 1, 3, 5, 6, 7, 8 and 9 have no cost record for any certification."
-      },
-      "translation": {
-        "item_translations": 304,
-        "per_round": [
-          {
-            "file": "ISMSF-TRANSLATION-124",
-            "items": 1,
-            "usd": null
-          },
-          {
-            "file": "ISMSF-TRANSLATION-125",
-            "items": 5,
-            "usd": null
-          },
-          {
-            "file": "ISMSF-TRANSLATION-DECUE",
-            "items": 45,
-            "usd": null
-          },
-          {
-            "file": "ISMSF-TRANSLATION-R1",
-            "items": 46,
-            "usd": null
-          },
-          {
-            "file": "ISMSF-TRANSLATION-R3",
-            "items": 57,
-            "usd": null
-          },
-          {
-            "file": "ISMSF-TRANSLATION-R4",
-            "items": 53,
-            "usd": null
-          },
-          {
-            "file": "ISMSF-TRANSLATION-R5",
-            "items": 67,
-            "usd": null
-          },
-          {
-            "file": "ISMSF-TRANSLATION-R6",
-            "items": 20,
-            "usd": null
-          },
-          {
-            "file": "ISMSF-TRANSLATION-R7",
-            "items": 3,
-            "usd": null
-          },
-          {
-            "file": "ISMSF-TRANSLATION-R8",
-            "items": 2,
-            "usd": null
-          },
-          {
-            "file": "ISMSF-TRANSLATION-R9",
-            "items": 5,
-            "usd": null
-          }
-        ]
-      },
-      "director_verdicts": {
-        "per_round": [
-          {
-            "round": "R1",
-            "writer_model": "claude-opus-5",
-            "attempted": 32,
-            "generated": 24,
-            "survivors": 23,
-            "read": 23,
-            "accepted": 21,
-            "rejected": 3,
-            "director_reject_rate": 0.13,
-            "usd": 10.0004,
-            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
-          },
-          {
-            "round": "R2",
-            "writer_model": "claude-opus-5",
-            "attempted": 46,
-            "generated": 40,
-            "survivors": 19,
-            "read": 19,
-            "accepted": 17,
-            "rejected": 2,
-            "director_reject_rate": 0.105,
-            "usd": 10.2394,
-            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
-          },
-          {
-            "round": "R3",
-            "writer_model": "claude-opus-5",
-            "attempted": 64,
-            "generated": 56,
-            "survivors": 49,
-            "read": 49,
-            "accepted": 49,
-            "rejected": 0,
-            "director_reject_rate": 0,
-            "usd": 29.4477,
-            "source": "ACCEPT-ISMSF-R3.json (no round record: 0 rejections)"
-          },
-          {
-            "round": "R4",
-            "writer_model": "claude-opus-5",
-            "attempted": 62,
-            "generated": 62,
-            "survivors": 48,
-            "read": 48,
-            "accepted": 45,
-            "rejected": 3,
-            "director_reject_rate": 0.063,
-            "usd": 24.282,
-            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
-          },
-          {
-            "round": "R5",
-            "writer_model": "claude-opus-5",
-            "attempted": 86,
-            "generated": 86,
-            "survivors": 68,
-            "read": 68,
-            "accepted": 67,
-            "rejected": 1,
-            "director_reject_rate": 0.015,
-            "usd": 29.3883,
-            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
-          },
-          {
-            "round": "R6",
-            "writer_model": "claude-sonnet-5",
-            "attempted": 89,
-            "generated": 48,
-            "survivors": 29,
-            "read": 29,
-            "accepted": 20,
-            "rejected": 9,
-            "director_reject_rate": 0.31,
-            "usd": 13.9799,
-            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
-          },
-          {
-            "round": "R7",
-            "writer_model": "claude-opus-5",
-            "attempted": 62,
-            "generated": 62,
-            "survivors": 25,
-            "read": 25,
-            "accepted": 23,
-            "rejected": 2,
-            "director_reject_rate": 0.08,
-            "usd": 22.1254,
-            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
-          },
-          {
-            "round": "R8",
-            "writer_model": "claude-opus-5",
-            "attempted": 31,
-            "generated": 31,
-            "survivors": 6,
-            "read": 6,
-            "accepted": 2,
-            "rejected": 4,
-            "director_reject_rate": 0.667,
-            "usd": 10.2299,
-            "source": "ISMSF-DIRECTOR-REJECTIONS.json"
-          },
-          {
-            "round": "R9",
-            "writer_model": "claude-opus-5",
-            "attempted": 27,
-            "generated": 27,
-            "survivors": 3,
-            "read": 6,
-            "accepted": 5,
-            "rejected": 1,
-            "director_reject_rate": 0.167,
-            "usd": 9.6365,
-            "source": "ISMSF-DIRECTOR-REJECTIONS.json",
-            "_read_includes": "The read of 6 covers R9 three survivors PLUS the three PROMPT-122 s2 rescues appended to ISMSF-ROLLOUT-R9.md for the same read. Survivors (3) and read (6) differ for that reason."
-          }
-        ],
-        "rescues": {
-          "round": "rescues",
-          "note": "Items rejected BY CODE in R8/R9 that passed every gate once the PROMPT-122 s2 normaliser and the PROMPT-123 s2a/s2b gate defects were fixed. Re-gated free, solved twice on the shuffled bar, read in PROMPT-125 s1.",
-          "read": 5,
-          "accepted": 5,
-          "rejected": 0,
-          "director_reject_rate": 0,
-          "usd": 0.8826,
-          "usd_what": "revise-artifact solver calls only; the gating was free"
-        },
-        "_totals": "273 items read, 248 accepted, 25 rejected: a 9 percent director reject rate across nine rounds. R6 (31 percent) is the Sonnet-writer experiment and R8 (67 percent of 6) is the round whose four empty tasks were a code defect rather than a thin map.",
-        "_rescues_are_separate": "The rescues entry is the five items read in PROMPT-125 s1. It is NOT part of the 273: those were rejected by code in R8/R9 and never reached a director read until the gate defects were fixed."
-      },
-      "outcome": {
-        "tasks_at_floor": "47 of 49; 1 too_thin (3.5, a map question); 1 at a ruled floor of 2 (1.6)",
-        "verify_cert": "58 pass, 0 fail, 2 warn (higher-order share; variant stems)",
-        "live_rows_per_language": 896,
-        "grounded_items": 263,
-        "withheld": 7,
-        "_withheld_why": "cue-guard failures: 5 untouched by ruling, 2 given a second attempt that failed or could not apply (absolute-word tell, not a length escape). Floors 2.4 and 3.6 are 7."
-      }
-    },
-    "ISMS-IA": {
-      "_what": "IN PROGRESS. Recorded PROMPT-130 s7.",
-      "spend_usd_to_date": 78.33,
-      "spend_breakdown": {
-        "existing-bank audit": 7.08,
-        "generation R1": 11.68,
-        "generation R2": 8.72,
-        "generation R3": 14.88,
-        "generation R4": 15.52,
-        "generation R5": 20.45
-      },
-      "accepted_items_to_date": 144,
-      "usd_per_accepted_item_cumulative": 0.544,
-      "approved_rows_per_language": 828,
-      "grounded_items": 97,
-      "withheld": 9,
-      "director_verdict_trend": "R1 3 rejects of 13 Sonnet items (before the distractor note); R2 1 of 13; R3 3 quality of 60; R4 0 quality of 54. Quality is settled; DUPLICATION is the remaining waste and PROMPT-130 s3 is the judge for it.",
-      "_not_in_this_total": "The judge control (.89 + .04 for the first, unparseable-heavy run) and the lint-guided retries are instrument spend, not generation. They are recorded here rather than folded into a round.",
-      "instrument_spend_usd": {
-        "judge_control_first_run": 4.0442,
-        "judge_control_rescored": 4.8869,
-        "lint_guided_retry": 0.4191,
-        "judge_R5": 4.4456
-      },
-      "remaining_shortfall": {
-        "items": 133,
-        "tasks": 37,
-        "estimate": "about two more rounds of 100 at R5 60 percent survival"
-      }
-    }
+    "_totals": "273 items read, 248 accepted, 25 rejected: a 9 percent director reject rate across nine rounds. R6 (31 percent) is the Sonnet-writer experiment and R8 (67 percent of 6) is the round whose four empty tasks were a code defect rather than a thin map.",
+    "_rescues_are_separate": "The rescues entry is the five items read in PROMPT-125 s1. It is NOT part of the 273: those were rejected by code in R8/R9 and never reached a director read until the gate defects were fixed."
+   },
+   "outcome": {
+    "tasks_at_floor": "47 of 49; 1 too_thin (3.5, a map question); 1 at a ruled floor of 2 (1.6)",
+    "verify_cert": "58 pass, 0 fail, 2 warn (higher-order share; variant stems)",
+    "live_rows_per_language": 896,
+    "grounded_items": 263,
+    "withheld": 7,
+    "_withheld_why": "cue-guard failures: 5 untouched by ruling, 2 given a second attempt that failed or could not apply (absolute-word tell, not a length escape). Floors 2.4 and 3.6 are 7."
+   }
+  },
+  "ISMS-IA": {
+   "_what": "IN PROGRESS. Recorded PROMPT-130 s7.",
+   "spend_usd_to_date": 78.33,
+   "spend_breakdown": {
+    "existing-bank audit": 7.08,
+    "generation R1": 11.68,
+    "generation R2": 8.72,
+    "generation R3": 14.88,
+    "generation R4": 15.52,
+    "generation R5": 20.45
+   },
+   "accepted_items_to_date": 144,
+   "usd_per_accepted_item_cumulative": 0.544,
+   "approved_rows_per_language": 828,
+   "grounded_items": 97,
+   "withheld": 9,
+   "director_verdict_trend": "R1 3 rejects of 13 Sonnet items (before the distractor note); R2 1 of 13; R3 3 quality of 60; R4 0 quality of 54. Quality is settled; DUPLICATION is the remaining waste and PROMPT-130 s3 is the judge for it.",
+   "_not_in_this_total": "The judge control (.89 + .04 for the first, unparseable-heavy run) and the lint-guided retries are instrument spend, not generation. They are recorded here rather than folded into a round.",
+   "instrument_spend_usd": {
+    "judge_control_first_run": 4.0442,
+    "judge_control_rescored": 4.8869,
+    "lint_guided_retry": 0.4191,
+    "judge_R5": 4.4456
+   },
+   "remaining_shortfall": {
+    "items": 133,
+    "tasks": 37,
+    "estimate": "about two more rounds of 100 at R5 60 percent survival"
+   }
   }
+ }
 }

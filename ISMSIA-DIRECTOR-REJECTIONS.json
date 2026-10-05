@@ -66,6 +66,26 @@
       "accepted": 3,
       "rejected": 0,
       "note": "Writer claude-opus-5 on task 3.7 alone, reverted by the PROMPT-128 s4 tripwire. All 3 accepted: 3 of 4 survived where Sonnet had produced 0 of 4 in R3."
+    },
+    {
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "report": "ISMSIA-ROLLOUT-R5.md",
+      "ruled": "2026-10-04, PROMPT-131 s1",
+      "read": 51,
+      "accepted": 39,
+      "rejected": 9,
+      "withheld": 3,
+      "note": "Writer claude-sonnet-5-5. THE JUDGE'S 12 FLAGS WERE ALL UPHELD -- the director would have called every one. Its single miss (65362731 against 3da7fa4a) is a CROSS-ANCHOR pair, which a same-anchor judge cannot see; PROMPT-131 s3 adds key-term neighbours for exactly that."
+    },
+    {
+      "artifact": "ISMSIA-R5-opus.json",
+      "report": "ISMSIA-ROLLOUT-R5.md",
+      "ruled": "2026-10-04, PROMPT-131 s1",
+      "read": 4,
+      "accepted": 3,
+      "rejected": 1,
+      "withheld": 0,
+      "note": "Writer claude-opus-5. THE JUDGE'S 12 FLAGS WERE ALL UPHELD -- the director would have called every one. Its single miss (65362731 against 3da7fa4a) is a CROSS-ANCHOR pair, which a same-anchor judge cannot see; PROMPT-131 s3 adds key-term neighbours for exactly that."
     }
   ],
   "rejections": [
@@ -299,6 +319,124 @@
       "duplicates": "df1baea4",
       "why": "RULED reject (PROMPT-130 s1): duplicates the live item df1baea4 -- 9.2.2 requires objectivity but names no ban on self-audit (same task, same anchor)",
       "ruled_in": "PROMPT-130 s1"
+    },
+    {
+      "item_id": "654ba222",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "task": "5.4",
+      "anchor": "ISO 19011 4.3",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "a4ea9bcd",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-131 s1): duplicates the live item a4ea9bcd -- judge",
+      "ruled_in": "PROMPT-131 s1"
+    },
+    {
+      "item_id": "15d159d9",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "task": "4.4",
+      "anchor": "ISO/IEC 27001 6.1.3",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "026bdcb9",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-131 s1): duplicates the live item 026bdcb9 -- judge",
+      "ruled_in": "PROMPT-131 s1"
+    },
+    {
+      "item_id": "9d924b76",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "task": "3.1",
+      "anchor": "ISO 19011 4.7",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "a01e5a70",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-131 s1): duplicates the live item a01e5a70 -- judge -- and 4a9fba74 too: 19011 4.7 now has enough",
+      "ruled_in": "PROMPT-131 s1"
+    },
+    {
+      "item_id": "032f29c7",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "task": "5.3",
+      "anchor": "ISO 19011 A.18.3",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "db491785",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-131 s1): duplicates the live item db491785 -- judge",
+      "ruled_in": "PROMPT-131 s1"
+    },
+    {
+      "item_id": "e2d7cc1b",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "task": "5.3",
+      "anchor": "ISO 19011 3.10",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "40ba9efd",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-131 s1): duplicates the live item 40ba9efd -- judge",
+      "ruled_in": "PROMPT-131 s1"
+    },
+    {
+      "item_id": "12370d1f",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "task": "2.3",
+      "anchor": "ISO 19011 3.6",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "2fcb240c",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-131 s1): duplicates the live item 2fcb240c -- judge",
+      "ruled_in": "PROMPT-131 s1"
+    },
+    {
+      "item_id": "32cb6e5f",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "task": "5.2",
+      "anchor": "ISO 19011 3.10",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "be735bc0",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-131 s1): duplicates the live item be735bc0 -- judge -- also against 40ba9efd",
+      "ruled_in": "PROMPT-131 s1"
+    },
+    {
+      "item_id": "65362731",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "task": "5.3",
+      "anchor": "ISO 19011 3.11",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "3da7fa4a",
+      "flagged_by": "director",
+      "why": "RULED reject (PROMPT-131 s1): duplicates the live item 3da7fa4a -- THE DIRECTOR, not the judge: different anchors (19011 3.11 against 3.8), so the same-anchor judge never saw the pair. Third time this point has been written, after f12ad84a in R4. This is the miss PROMPT-131 s3 addresses.",
+      "ruled_in": "PROMPT-131 s1"
+    },
+    {
+      "item_id": "fcd56f6c",
+      "artifact": "ISMSIA-R5-opus.json",
+      "task": "3.7",
+      "anchor": "ISO 19011 3.17",
+      "writer_model": "claude-opus-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "a1839818",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-131 s1): duplicates the live item a1839818 -- judge -- the bank already has THREE items saying the technical expert advises and the auditors judge conformity (a1839818, 8509e03c, 091a60ae)",
+      "ruled_in": "PROMPT-131 s1"
+    },
+    {
+      "item_id": "0fd44cf9",
+      "artifact": "ISMSIA-R5-sonnet.json",
+      "task": "4.10",
+      "anchor": "ISO 19011 7.2.3.3",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "quality",
+      "why": "RULED reject (PROMPT-131 s1): recall, with two distractors no auditor would pick (\"approve the risk treatment plan on the risk owners' behalf\", \"replace the auditee's monitoring approach\")",
+      "ruled_in": "PROMPT-131 s1"
     }
   ]
 }

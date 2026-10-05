@@ -1,6 +1,6 @@
 {
-  "measured": "2026-10-03",
-  "candidates_examined": 51,
+  "measured": "2026-10-05",
+  "candidates_examined": 52,
   "writer_positions": 29,
   "generators": {
     "stamp-proved-provenance.mjs": "GENERATOR-CLASS. Writes lessons.en_content_hash and nothing else, and only where it HOLDS THE PROOF: it replays every declared English edit BACKWARD over the live body and requires translation_hash(reversed) to equal the stored stamp, which an undeclared change anywhere in 12,000 characters would break. It additionally requires every reversed edit to fall inside a block the batch rewrote in that language, because English that moved in an untranslated paragraph means the translation does not track it there and the hash equality cannot see that. A row failing either test is REFUSED and named. A positive control tampers one byte of a replayed English in memory and the run aborts unless that is rejected. This is the second writer the column has ever had; 367 was the first.",
@@ -232,7 +232,15 @@
     }
   ],
   "undeclared_scripts": [],
-  "undeclared_recorders": [],
+  "undeclared_recorders": [
+    {
+      "name": "record-translation-review.mjs",
+      "positions": 1,
+      "targets": [
+        "item_translation_reviews"
+      ]
+    }
+  ],
   "local_hash_formulas": [
     {
       "file": "apply-batch-a.mjs",

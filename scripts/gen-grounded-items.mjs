@@ -175,7 +175,7 @@ let CEILING_STOPPED = 0;
  * silent second bill. */
 const writerRetried = new Set();
 let writerRetrySaved = 0;
-let REUSE_SOLVER = false;
+let REUSE_SOLVER = false, RESOLVE_FRESH = false;
 for (const a of process.argv.slice(2)) {
   let m;
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
@@ -219,6 +219,7 @@ for (const a of process.argv.slice(2)) {
    * It REFUSES an item carrying no recorded verdict rather than solving it quietly, because a partial reuse
    * would mix judged and unjudged rows with nothing in the output saying which is which. */
   if (a === "--reuse-solver") { REUSE_SOLVER = true; continue; }
+  if (a === "--resolve-fresh") { RESOLVE_FRESH = true; continue; }
   if (a === "--apply") { APPLY = true; continue; }
   console.error("unknown flag " + JSON.stringify(a));
   console.error("");
@@ -244,6 +245,21 @@ if (MAXUSD === null) {
   console.error("R3 spent $29.45 against a ruled $25 because nothing here could stop it.");
   process.exit(2);
 }
+/* ============ AN INSERT OF NAMED ITEMS MUST SAY WHOSE SOLVER VERDICT IT WRITES ============
+ *
+ * `--apply --from --ids` is the INSERT of items a director read. Without `--reuse-solver` it re-solved
+ * them and stamped a fresh verdict over the approved one -- the very thing the --reuse-solver comment
+ * above forbids -- and in PROMPT-131 that fresh verdict REJECTED an accepted item, so 2 of 3 went in.
+ * The default was the unsafe direction, silently. Now the choice has to be typed either way. */
+if (APPLY && FROM && IDS && !REUSE_SOLVER && !RESOLVE_FRESH) {
+  console.error("--apply --from --ids is an INSERT of items someone already read. Say whose solver");
+  console.error("verdict the row gets:");
+  console.error("  --reuse-solver   carry the recorded verdict forward (what an insert wants)");
+  console.error("  --resolve-fresh  re-solve now and overwrite it (what a REVISED stem wants)");
+  console.error("Neither was given. PROMPT-131: the silent default re-judged an accepted item and");
+  console.error("dropped it, and the fresh verdict nobody read would have been the row's record.");
+  process.exit(2);
+}
 
 /* MODEL stays as the artifact's `model` field and the default for both roles; the two role settings
  * override it. GROUNDED_MODEL still works and still moves both, so no existing caller changes. */
@@ -266,7 +282,17 @@ const priceOf = (model) => PRICES[model] || PRICES["claude-opus-5"];
  * after the prompt block it would have been a temporal-dead-zone ReferenceError on the first call. */
 const TIER = tierOf(CERT);
 const MODEL = process.env.GROUNDED_MODEL || "claude-opus-5";
-const WRITER_MODEL = WRITER_MODEL_FLAG || MODEL;
+/* ============ THE WRITER DEFAULT IS SONNET 5.5 IN THE CODE, NOT IN THE INVOCATION ============
+ *
+ * PROMPT-128 s3 ruled Sonnet 5.5 the default writer on a same-task crossover (survivor rate within
+ * noise of Opus at a sixth of the cost). It was carried by `--writer-model` on every call, which is
+ * not a default: a run that forgets the flag silently gets Opus and bills six times as much. The
+ * SOLVER stays on MODEL -- Opus -- because the solver is a judgement.
+ *
+ * GROUNDED_MODEL still moves BOTH roles, so the one env override that existed is unchanged, and the
+ * run prints both models before spending anything. */
+const WRITER_MODEL = WRITER_MODEL_FLAG ||
+  (process.env.GROUNDED_MODEL ? MODEL : "claude-sonnet-5-5");
 const SOLVER_MODEL = SOLVER_MODEL_FLAG || MODEL;
 {
   /* AN UNKNOWN MODEL HAS NO PRICE, and a run that cannot price itself cannot respect a ceiling. */
@@ -1215,7 +1241,8 @@ function writerUser(task, domain, passages, k, assignments) {
     " does not support the point you want to make, make a different point: do not anchor in a" +
     " SUPPORTING passage and do not paraphrase a primary one to fit." +
     (full.length ? "\n\nAT THE ANCHOR CAP for this task -- do NOT anchor any key in these; they" +
-      " already carry " + CAP + " item(s) each: " + full.map((f) => f.clause).join(", ") : "") +
+      " already carry " + CAP + " item(s) each: " +
+      full.map((f) => labelOf(f.source_id, f.edition, f.clause)).join(", ") : "") +
     assignmentInstruction(assignments) +
     /* ============ THE DISTRACTOR-BREADTH INSTRUCTION WAS REVERTED, PROMPT-94 s2 ============
      *
