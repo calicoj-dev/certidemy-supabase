@@ -2386,6 +2386,26 @@
      "source": "ISO/IEC 27001"
     }
    ]
+  },
+  {
+   "at": "2026-10-05T14:49:23.129Z",
+   "cert": "ISMS-IA",
+   "from": "ISMSIA-R8-35.json",
+   "accept_list": "ACCEPT-ISMSIA-R8-35.json",
+   "note": "",
+   "ids": [
+    "00b07ac7-147d-49bf-82aa-d1c8c282c028"
+   ],
+   "rows": [
+    {
+     "id": "00b07ac7-147d-49bf-82aa-d1c8c282c028",
+     "item_id": "d0e2c99d",
+     "report_number": 1,
+     "task": "3.5",
+     "anchor": "A.17",
+     "source": "ISO 19011"
+    }
+   ]
   }
  ]
 }

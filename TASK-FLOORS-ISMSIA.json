@@ -18,11 +18,15 @@
    "reason": "map of three short passages; three rounds at 0 of 4 across both writers; the distractor note worked and the remaining failures are a clause-number collision with ISO 19011 4.1. Floor set to the held count (2). NOT temporary: the derivation would give 6, and the director ruled the task closed at what it holds rather than keeping a shortfall open against a map this thin."
   },
   "3.5": {
-   "floor": 4,
-   "ruled_in": "PROMPT-126 s3",
-   "reason": "floor = 2 x effective. With the PROMPT-126 s1 rule ISO 19011 A.17 (Conducting interviews) is a valid key anchor, so the task re-counts from 0 keyable primaries to 2 -- but 2 is still under MIN_EFFECTIVE, so it stays labelled too_thin and takes the ruled floor the derivation produces. Its other primary, 19011 3.10, is a DEFINITION: keyable under the tier rule, weak as a key, and worth knowing when the round is read.",
-   "held_at_PROMPT_133": 0,
-   "not_ruled_in_PROMPT_133": "LEFT ALONE DELIBERATELY: holds 0, so floor = held would be 0 -- a task examinable with no items is not a floor. The director reserved every task held below 3 for an individual look before cutover; this is the only one. Its existing override and too_thin label stay so the signal is not erased."
+   "floor": 1,
+   "ruled_in": "PROMPT-136 s1",
+   "temporary": false,
+   "reason": "A.17's lettered points overlap, so further items on it fail the solver for a second defensible answer (3 of 3 in PROMPT-135); one clean item held. In scope because interviewing is a core IA competence. This SUPERSEDES the PROMPT-135 minimum of 2: the passage cannot support it, and a floor the map cannot reach is a shortfall that never closes.",
+   "supersedes": {
+    "floor": 4,
+    "ruled_in": "PROMPT-126 s3"
+   },
+   "held_at_PROMPT_136": 1
   },
   "1.1": {
    "floor": 6,

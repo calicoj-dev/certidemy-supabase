@@ -1,0 +1,15 @@
+{
+  "_what": "PROMPT-136 s1: task 3.5's one accepted item. The task is closed at 1 -- A.17's lettered points overlap, so three further items all failed the solver for a second defensible answer (PROMPT-135 s1).",
+  "_writer_model": "claude-opus-5",
+  "accepts": [
+    {
+      "item_id": "d0e2c99d",
+      "report_number": 1,
+      "task": "3.5",
+      "ruled_in": "PROMPT-136 s1",
+      "writer_model": "claude-opus-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-136 s1 | writer claude-opus-5 | ISO 19011 A.17 | tests the interviewing point that an auditor asks the interviewee to DESCRIBE their work and then traces what is described back to the records, rather than taking confirmation"
+    }
+  ]
+}

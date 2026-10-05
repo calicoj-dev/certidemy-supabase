@@ -1163,7 +1163,15 @@ const TASK_NOTES = (() => {
   const p = join(ROOT, "TASK-WRITER-NOTES-" + CERT.replace(/-/g, "") + ".json");
   if (!existsSync(p)) return { file: null, notes: {}, cert: "" };
   const j = JSON.parse(readFileSync(p, "utf8"));
-  return { file: p.split(/[\\/]/).pop(), notes: j.notes || {},
+  /* A `_`-PREFIXED KEY IS DOCUMENTATION, NOT A TASK (fixed PROMPT-136 s2). The floors file has always
+   * skipped them; this did not, so AIMS-IA's notes reported "1 task(s): _what" -- and a task code
+   * that happened to collide would have had its prose appended to the writer's prompt. */
+  const notes = {};
+  for (const [code, v] of Object.entries(j.notes || {})) {
+    if (code.startsWith("_")) continue;
+    notes[code] = v;
+  }
+  return { file: p.split(/[\\/]/).pop(), notes,
     cert: String(j.cert_notes || "").trim() };
 })();
 if (TASK_NOTES.file) {
@@ -1196,7 +1204,7 @@ function writerUser(task, domain, passages, k, assignments) {
    * anchor the gate will refuse. The cap still overrides everything -- a passage at the cap is
    * closed to a key however anchorable its source. */
   const tierMark = (p) => anchorMarkFor(p,
-    { tier: TIER, primaryClauses: primaryOf(task.code), isPrimary: isPrim(p) });
+    { tier: TIER, primaryClauses: primaryOf(task.code), isPrimary: isPrim(p), cert: CERT });
   /* SATURATION, ruled PROMPT-132 s2: an anchor carrying SATURATION_CAP or more live grounded items
    * ACROSS THE CERTIFICATION is closed to a new key and still open to a distractor. It is marked
    * before the tier rule for the same reason the task cap is -- no mark may promise what code refuses. */

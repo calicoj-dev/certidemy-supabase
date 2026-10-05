@@ -572,6 +572,26 @@
       "seconds": 2,
       "note": null,
       "recorded_at": "2026-10-05T14:20:46.278Z"
+    },
+    {
+      "cert": "AIMS-IA",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 3,
+      "note": null,
+      "recorded_at": "2026-10-05T14:55:20.563Z"
+    },
+    {
+      "cert": "AIMS-IA",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 4,
+      "note": null,
+      "recorded_at": "2026-10-05T14:55:53.033Z"
     }
   ],
   "costs_usd": [

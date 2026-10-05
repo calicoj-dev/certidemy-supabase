@@ -175,9 +175,9 @@ export function keyMayAnchor(anchor, { tier, primaryClauses, cert = null } = {})
 }
 
 /** The label the writer prompt puts beside each passage. One computation for prompt and gate. */
-export function anchorMarkFor(passage, { tier, primaryClauses, isPrimary } = {}) {
+export function anchorMarkFor(passage, { tier, primaryClauses, isPrimary, cert = null } = {}) {
   if (!isPrimary) return "SUPPORT ONLY -- a key may not anchor here";
-  const r = keyMayAnchor(passage, { tier, primaryClauses });
+  const r = keyMayAnchor(passage, { tier, primaryClauses, cert });
   return r.ok ? "KEY MAY ANCHOR HERE" : "SUPPORT ONLY -- " + r.why.replace(/^IA: /, "");
 }
 

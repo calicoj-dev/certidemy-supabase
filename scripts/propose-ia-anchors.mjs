@@ -65,6 +65,37 @@ for (const r of ts) {
 const lib = JSON.parse(readFileSync(join(ROOT, "SOURCE-PASSAGES.json"), "utf8"));
 const held = lib.passages;
 
+/* ============ A CONTAINER IS NOT A CANDIDATE (ruled PROMPT-136 s3) ============
+ *
+ * `ISO/IEC 42001:2023 3` ranked top on most thin tasks and is useless as an anchor: it is the WHOLE
+ * terms-and-definitions section, 1,346 words concatenated, and it scores high precisely because it
+ * contains every term the task statement uses. A key anchored there points at a section, not a rule.
+ *
+ * THE TEST IS STRUCTURAL, NOT A WORD COUNT. "Only a heading" would miss this one -- its text is long.
+ * A clause is a CONTAINER when the library holds at least one clause beneath it in the same (source,
+ * edition): `3` is a container because `3.1` is held. That is the same reading of the map CLAUDE.md
+ * states -- "A.6's children are held, the heading has no row" -- applied to the case where the
+ * heading DOES have a row.
+ */
+const childIndex = (() => {
+  const kids = new Map();
+  for (const p of held) {
+    const k = p.source_id + "|" + p.edition;
+    if (!kids.has(k)) kids.set(k, new Set());
+    kids.get(k).add(String(p.clause));
+  }
+  return kids;
+})();
+function isContainerClause(p, index = childIndex) {
+  const set = index.get(p.source_id + "|" + p.edition);
+  if (!set) return false;
+  const me = String(p.clause);
+  for (const other of set) {
+    if (other !== me && other.startsWith(me + ".")) return true;
+  }
+  return false;
+}
+
 const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
 const STOP = new Set(("the a an and or of to for in on with by is are be as at from that this it its " +
   "which who whom shall should may can will would must not no any all each other than then").split(" "));
@@ -86,6 +117,35 @@ const keyable = (t) => {
   return n;
 };
 
+/* ---- CONTROLS FIRST, both directions. A proposal list nobody checked is a list of guesses. ---- */
+{
+  const cs = [];
+  const add = (what, pass, detail) => cs.push({ what, pass: !!pass, detail });
+  const F = (source_id, edition, clause) => ({ source_id, edition, clause });
+  add("42001:2023 `3` IS a container (3.1 is held)",
+    isContainerClause(F("ISO/IEC 42001", "2023", "3")));
+  add("42001:2023 `3.1` is NOT a container",
+    isContainerClause(F("ISO/IEC 42001", "2023", "3.1")) === false);
+  add("a leaf requirements clause is NOT a container",
+    isContainerClause(F("ISO/IEC 42001", "2023", "9.2.2")) === false);
+  /* THE PREFIX MUST BE DOTTED: `3` must not swallow `30`, nor `A.1` swallow `A.10`. */
+  {
+    const idx = new Map([["X|1", new Set(["3", "30", "A.1", "A.10"])]]);
+    add("`3` is not a container merely because `30` is held",
+      isContainerClause(F("X", "1", "3"), idx) === false);
+    add("`A.1` is not a container merely because `A.10` is held",
+      isContainerClause(F("X", "1", "A.1"), idx) === false);
+    const idx2 = new Map([["X|1", new Set(["3", "3.1"])]]);
+    add("...but `3` IS a container when `3.1` is held", isContainerClause(F("X", "1", "3"), idx2));
+  }
+  add("an unknown (source, edition) is not a container",
+    isContainerClause(F("NOPE", "9999", "1")) === false);
+  const bad = cs.filter((c) => !c.pass);
+  console.log("container controls: " + cs.length + " case(s), " + bad.length + " fail");
+  for (const b of bad) console.error("  FAIL " + b.what);
+  if (bad.length) { console.error("REFUSING: the container test is wrong, so the proposals would be."); process.exit(2); }
+}
+let containersSkipped = 0;
 console.log("IA ANCHOR PROPOSALS   " + CERT + "   tier " + TIER + "   READ-ONLY, nothing is mapped");
 console.log("  a key may rest on: 42001/27001 `shall`, or ISO 19011 on an audit-practice task.");
 console.log("  42001 Annex B and the 27000 family are SUPPORT ONLY on this tier and are not proposed.");
@@ -102,19 +162,53 @@ for (const t of thin) {
     const v = keyMayAnchor({ source_id: p.source_id, edition: p.edition, clause: p.clause,
       normative: p.normative }, { tier: TIER, primaryClauses: [p.clause], cert: CERT });
     if (!v.ok) continue;                      /* only clauses a KEY could actually rest on */
+    if (isContainerClause(p)) { containersSkipped++; continue; }
     const pw = words((p.title || "") + " " + (p.text || ""));
     const hit = pw.filter((x) => w.has(x)).length;
     if (!hit) continue;
     scored.push({ p, score: hit / Math.max(1, w.size) });
   }
   scored.sort((a, b) => b.score - a.score);
-  console.log("  " + t.code + "  keyable now " + keyable(t) +
-    "   \"" + String(t.statement || "").slice(0, 86) + "\"");
-  if (!scored.length) { console.log("      NO CANDIDATE a key could rest on. A MAP question for the director."); continue; }
-  for (const s of scored.slice(0, TOP)) {
-    console.log("      " + (s.p.source_id + ":" + s.p.edition + " " + s.p.clause).padEnd(30) +
-      " [" + s.p.normative + "]  " + String(s.p.title || "").slice(0, 44).padEnd(44) +
-      "  subject " + (s.score * 100).toFixed(0) + "%");
+  console.log("");
+  console.log("  " + t.code + "  keyable now " + keyable(t));
+  console.log("      STATEMENT: " + String(t.statement || "(none)"));
+  /* ============ AUDIT PRACTICE WITH NO 19011 PRIMARY, SAID OUT LOUD (PROMPT-136 s3) ============
+   *
+   * ISO 19011 may key only on a task that MAPS a 19011 primary. A task about audit practice that
+   * maps none therefore gets no 19011 candidate at all -- and the list would silently look as though
+   * 19011 had nothing to offer it. The 19011 candidates are shown SEPARATELY and labelled: they can
+   * only key if the director maps a 19011 primary first. */
+  const mapsPractice = (byTask.get(t.id) || [])
+    .some((r) => r.link_type === "primary" && /^ISO\s*19011/i.test(r.source_id));
+  const nineteen = [];
+  if (!mapsPractice) {
+    for (const p of held) {
+      if (!/^ISO\s*19011/i.test(p.source_id)) continue;
+      if (have.has(p.source_id + "|" + p.edition + "|" + p.clause)) continue;
+      if (isContainerClause(p)) continue;
+      const pw = words((p.title || "") + " " + (p.text || ""));
+      const hit = pw.filter((x) => w.has(x)).length;
+      if (hit) nineteen.push({ p, score: hit / Math.max(1, w.size) });
+    }
+    nineteen.sort((a, b) => b.score - a.score);
+  }
+  if (!scored.length) {
+    console.log("      NO CANDIDATE a key could rest on today. A MAP question for the director.");
+  } else {
+    for (const s of scored.slice(0, TOP)) {
+      console.log("      " + (s.p.source_id + ":" + s.p.edition + " " + s.p.clause).padEnd(30) +
+        " [" + s.p.normative + "]  " + String(s.p.title || "").slice(0, 40).padEnd(40) +
+        "  subject " + (s.score * 100).toFixed(0) + "%");
+    }
+  }
+  if (nineteen.length) {
+    console.log("      -- AUDIT-PRACTICE CANDIDATES: this task maps NO ISO 19011 primary, so these");
+    console.log("         CANNOT key until one is mapped. Listed because the task reads as practice:");
+    for (const s of nineteen.slice(0, TOP)) {
+      console.log("      " + (s.p.source_id + ":" + s.p.edition + " " + s.p.clause).padEnd(30) +
+        " [" + s.p.normative + "]  " + String(s.p.title || "").slice(0, 40).padEnd(40) +
+        "  subject " + (s.score * 100).toFixed(0) + "%");
+    }
   }
 }
 console.log("");

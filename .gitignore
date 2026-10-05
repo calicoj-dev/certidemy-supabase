@@ -244,3 +244,19 @@ ISMSIA-INFLATION-*
 # reason AIMSF-R6* names rounds from R6 on rather than AIMSF-R*). Named per certification instead.
 PILOT-GROUNDED-ISMS-IA*
 PILOT-GROUNDED-ISMS-F*
+
+# AIMS-IA's artifacts, added at its FIRST ROUND (PROMPT-136 s2). AIMSIA-R1.json carried 9,134 runs of
+# held ISO 19011 text in its `key_support` fields and nothing ignored it -- found by
+# check-licensed-text before the commit, which is the third time that check has caught a new
+# certification's artifacts arriving with no pattern (ISMS-F, ISMS-IA, now AIMS-IA). The lesson is
+# in CLAUDE.md already: the rule is enforced by CONTENT, not by name, and the name list is what
+# keeps being late.
+AIMSIA-R[0-9]*
+AIMSIA-ROLLOUT-*
+AIMSIA-JUDGE-*
+AIMSIA-SURVIVORS*
+AIMSIA-DECUED*
+AIMSIA-AUDIT-*
+AIMSIA-INFLATION-*
+AIMS-IA-SATURATION.json
+PILOT-GROUNDED-AIMS-IA*
