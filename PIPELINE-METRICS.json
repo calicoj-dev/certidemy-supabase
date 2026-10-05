@@ -632,6 +632,56 @@
    "seconds": 3,
    "note": null,
    "recorded_at": "2026-10-05T16:50:37.585Z"
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 4,
+   "note": null,
+   "recorded_at": "2026-10-05T18:48:45.870Z"
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-05T18:49:20.887Z"
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-05T19:04:34.618Z"
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 5,
+   "note": null,
+   "recorded_at": "2026-10-05T19:48:34.288Z"
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 3,
+   "stage_name": "task map and floors",
+   "applied": false,
+   "exit": 0,
+   "seconds": 3,
+   "note": null,
+   "recorded_at": "2026-10-05T19:49:27.843Z"
   }
  ],
  "costs_usd": [
@@ -1761,6 +1811,125 @@
      "odd-one-out": 2
     },
     "note": "Down from 17.6% with NO FIX MADE. PROMPT-137 s2 found nothing missing; this is the variance that finding predicted."
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 5,
+   "stage_name": "director verdicts R2",
+   "ruled_in": "PROMPT-138 s1",
+   "usd_generation": 21.3274,
+   "usd_judge": 1.197,
+   "usd_translation": 11.7359,
+   "survivors": 89,
+   "accepted": 72,
+   "rejected": 9,
+   "withheld": 8,
+   "rejects_by_kind": {
+    "quality": 0,
+    "duplicate-of-live": 9
+   },
+   "usd_per_accepted_including_judge": 0.3128,
+   "judge": {
+    "flags": 18,
+    "flags_upheld": 17,
+    "flags_overruled": 1,
+    "misses": 1,
+    "overruled": "da8a188d (4.8) accepted over the flag: its neighbour ab402c75 keys on 42001 8.2 (risk assessment results) where this keys on 8.4 (impact assessment results). The documented-information duty is separate per clause.",
+    "miss_detail": "ea523ed8/7266c77d -- cross-anchor AND few shared key terms, so neither arm ranked the pair."
+   },
+   "zero_quality_rejects": {
+    "quality": 0,
+    "duplicates": 9,
+    "twins": 8,
+    "of_survivors": 89,
+    "duplicate_share": 0.191,
+    "note": "NO ITEM WAS REJECTED FOR BEING WRONG. 17 of 89 = 19% lost to repetition, in line with ISMS-IA's 17%. Quality is solved on this line; repetition is the whole of the waste."
+   },
+   "cross_anchor_finding": {
+    "duplicate_rejections": 9,
+    "of_which_cross_anchor": 9,
+    "note": "EVERY ONE of the nine was a CROSS-ANCHOR neighbour, which the ALREADY TESTED block cannot show -- it lists same-anchor items only. PROMPT-138 s3 wrote eleven per-task notes as the stopgap and backlogged the real fix as handoff 5b."
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 4,
+   "stage_name": "generation R3",
+   "ruled_in": "PROMPT-138 s5",
+   "usd": 17.3978,
+   "ceiling": 30,
+   "attempted": 140,
+   "generated": 94,
+   "survivors": 60,
+   "design": "The shortfall after R2's inserts and the s2 floors. 5.4 to Opus (0 ACCEPTED of 4 in R2 -- the director counted a duplicate-only round as the tripwire); 4.9 stays on Opus. 4.10 and 5.7 stay on Sonnet, their losses being cue-guard only.",
+   "by_writer": {
+    "claude-sonnet-5-5": {
+     "asked": 132,
+     "generated": 88,
+     "survivors": 57,
+     "usd": 13.8733,
+     "usd_per_survivor": 0.2434
+    },
+    "claude-opus-5": {
+     "tasks": [
+      "5.4",
+      "4.9"
+     ],
+     "asked": 8,
+     "generated": 6,
+     "survivors": 3,
+     "usd": 3.5245,
+     "usd_per_survivor": 1.1748,
+     "per_task": {
+      "5.4": "1 of 4 -- produced a survivor where R2 accepted none",
+      "4.9": "2 of 2, its full capacity"
+     }
+    }
+   },
+   "saturation_is_binding": {
+    "tasks_with_no_assignable_anchor": 3,
+    "capacity_short_by": {
+     "1": 5,
+     "2": 6,
+     "3": 5,
+     "4": 3
+    },
+    "note": "THREE TASKS COULD NOT BE ASKED AT ALL: every primary saturated certification-wide. Nineteen more were asked less than 4. This is the shape ISMS-IA reached at R6-R7 and it is a FLOOR question, not a generation one."
+   },
+   "judge": {
+    "model": "claude-sonnet-5-5",
+    "pairs": 247,
+    "flagged": 18,
+    "usd": 0.8996,
+    "unanswered": 1,
+    "arms": {
+     "same-anchor": {
+      "judged": 67,
+      "flagged": 12
+     },
+     "key-term-neighbour": {
+      "judged": 180,
+      "flagged": 6
+     }
+    }
+   },
+   "cue_guard": {
+    "structure_rejections": 14,
+    "of_generated": 88,
+    "rate": 0.1591,
+    "by_arm": {
+     "key-length": 10,
+     "absolute word": 2,
+     "odd-one-out": 2
+    },
+    "trend": "R1 24/136 = 17.6%, R2 15/126 = 11.9%, R3 14/88 = 15.9%. All inside the Sonnet range PROMPT-137 s2 measured (5.0-21.0%, mean 14.4%). No fix was ever made."
+   },
+   "remaining_shortfall_if_all_r3_accepted": {
+    "items": 79,
+    "tasks": 30,
+    "too_thin": 3,
+    "note": "UPPER BOUND: counts every R3 survivor as accepted, which the director has not read."
    }
   }
  ],

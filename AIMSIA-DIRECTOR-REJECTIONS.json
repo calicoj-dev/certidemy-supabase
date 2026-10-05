@@ -10,6 +10,36 @@
       "rejected": 2,
       "withheld": 4,
       "note": "AIMS-IA's FIRST round, and the cleanest first round of any certification: 88 survivors of 136 generated at $0.2227 each, and only 2 of 88 rejected on quality (2%). All 3 judge flags upheld; 1 missed (ec6ba56a/61fabc8a), a CROSS-ANCHOR pair the neighbour arm could not see because the bank held no live items to draw neighbours from."
+    },
+    {
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "report": "AIMSIA-ROLLOUT-R2.md",
+      "ruled": "2026-10-05, PROMPT-138 s1",
+      "read": 85,
+      "accepted": 69,
+      "rejected": 8,
+      "withheld": 8,
+      "note": "ZERO QUALITY REJECTS across all three R2 artifacts: no item was refused for being wrong. Every loss is a REPEAT -- 17 of 89 = 19%, in line with ISMS-IA's 17%. Judge: 18 flagged, 17 upheld, 1 OVERRULED (da8a188d), 1 missed (ea523ed8/7266c77d, cross-anchor with few shared key terms)."
+    },
+    {
+      "artifact": "AIMSIA-R2-opus.json",
+      "report": "AIMSIA-ROLLOUT-R2.md",
+      "ruled": "2026-10-05, PROMPT-138 s1",
+      "read": 2,
+      "accepted": 1,
+      "rejected": 1,
+      "withheld": 0,
+      "note": "ZERO QUALITY REJECTS across all three R2 artifacts: no item was refused for being wrong. Every loss is a REPEAT -- 17 of 89 = 19%, in line with ISMS-IA's 17%. Judge: 18 flagged, 17 upheld, 1 OVERRULED (da8a188d), 1 missed (ea523ed8/7266c77d, cross-anchor with few shared key terms)."
+    },
+    {
+      "artifact": "AIMSIA-R2-411.json",
+      "report": "AIMSIA-ROLLOUT-R2.md",
+      "ruled": "2026-10-05, PROMPT-138 s1",
+      "read": 2,
+      "accepted": 2,
+      "rejected": 0,
+      "withheld": 0,
+      "note": "ZERO QUALITY REJECTS across all three R2 artifacts: no item was refused for being wrong. Every loss is a REPEAT -- 17 of 89 = 19%, in line with ISMS-IA's 17%. Judge: 18 flagged, 17 upheld, 1 OVERRULED (da8a188d), 1 missed (ea523ed8/7266c77d, cross-anchor with few shared key terms)."
     }
   ],
   "rejections": [
@@ -32,6 +62,124 @@
       "kind": "quality",
       "why": "RULED reject (PROMPT-137 s1): two distractors are not sources anyone would consider for measurement reliability (\"office layout\", \"register of licences and permits\")",
       "ruled_in": "PROMPT-137 s1"
+    },
+    {
+      "item_id": "f2c5b894",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "task": "2.3",
+      "anchor": "ISO 19011 3.17",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "5e37dda5",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-138 s1): duplicates the live item(s) 5e37dda5 -- the technical expert supplies knowledge, and the auditors own the findings",
+      "ruled_in": "PROMPT-138 s1"
+    },
+    {
+      "item_id": "296bdc88",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "task": "4.2",
+      "anchor": "ISO/IEC 42001 4.2",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "e8030d04",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-138 s1): duplicates the live item(s) e8030d04 -- a scope exclusion fails when interested parties were not considered",
+      "ruled_in": "PROMPT-138 s1"
+    },
+    {
+      "item_id": "5fdb6310",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "task": "4.6",
+      "anchor": "ISO/IEC 42001 A.5.2",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "b301eba8",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-138 s1): duplicates the live item(s) b301eba8 -- an impact assessment limited to individuals misses societal impacts",
+      "ruled_in": "PROMPT-138 s1"
+    },
+    {
+      "item_id": "282a5533",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "task": "4.6",
+      "anchor": "ISO/IEC 42001 6.1.2",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "8860f14d, 37932368",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-138 s1): duplicates the live item(s) 8860f14d, 37932368 -- the impact assessment feeds the risk assessment, and the two stay distinct",
+      "ruled_in": "PROMPT-138 s1"
+    },
+    {
+      "item_id": "20b2ef79",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "task": "5.4",
+      "anchor": "ISO 19011 3.21",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "e4c3fbb5",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-138 s1): duplicates the live item(s) e4c3fbb5 -- departing from guidance is not a nonconformity",
+      "ruled_in": "PROMPT-138 s1"
+    },
+    {
+      "item_id": "3319f9be",
+      "artifact": "AIMSIA-R2-opus.json",
+      "task": "4.9",
+      "anchor": "ISO 19011 3.11",
+      "writer_model": "claude-opus-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "e4c3fbb5",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-138 s1): duplicates the live item(s) e4c3fbb5 -- the same point as 20b2ef79",
+      "ruled_in": "PROMPT-138 s1"
+    },
+    {
+      "item_id": "353bd8a5",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "task": "3.8",
+      "anchor": "ISO 19011 6.4.10",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "b37ab099",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-138 s1): duplicates the live item(s) b37ab099 -- an unresolved disagreement is recorded -- the THIRD item on it",
+      "ruled_in": "PROMPT-138 s1"
+    },
+    {
+      "item_id": "b4c60c22",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "task": "1.2",
+      "anchor": "ISO 19011 4.8",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "f3a3153a",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-138 s1): duplicates the live item(s) f3a3153a -- risk directs sampling, and evidence still carries the conclusion",
+      "ruled_in": "PROMPT-138 s1"
+    },
+    {
+      "item_id": "f6aa8c34",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "task": "2.5",
+      "anchor": "ISO 19011 3.6",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "8454c8f2",
+      "flagged_by": "judge",
+      "why": "RULED reject (PROMPT-138 s1): duplicates the live item(s) 8454c8f2 -- the audit scope states the time period covered",
+      "ruled_in": "PROMPT-138 s1"
+    }
+  ],
+  "overruled_judge_flags": [
+    {
+      "item_id": "da8a188d",
+      "task": "4.8",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "ruled_in": "PROMPT-138 s1",
+      "disposition": "ACCEPTED",
+      "why": "ACCEPTED over the judge's flag: its neighbour ab402c75 keys on 42001 8.2, which covers RISK assessment results, while this keys on 8.4 and the results of every IMPACT assessment. The documented-information duty is separate per clause, so a candidate can know one and miss the other."
     }
   ]
 }

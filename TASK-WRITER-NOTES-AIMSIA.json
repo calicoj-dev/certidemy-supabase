@@ -7,6 +7,50 @@
   "4.11": {
    "ruled_in": "PROMPT-137a s3",
    "instruction": "The key anchors on the 4.1 climate sentence or the 4.2 climate note. Distractor support comes from 4.3 or 6.1.1. Note that 4.2's climate line is a NOTE, so a key on it states what interested parties CAN have, never what the organization MUST do."
+  },
+  "1.2": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on risk-based sampling being reconciled with evidence-based conclusions. That point is already tested."
+  },
+  "2.3": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on the technical expert's role relative to the auditors. That point is already tested."
+  },
+  "2.5": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on statutory findings being called non-compliance. That point is already tested."
+  },
+  "3.8": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on recording an unresolved disagreement. That point is tested twice already."
+  },
+  "4.2": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on a scope exclusion failing for want of interested-party analysis. That point is already tested."
+  },
+  "4.6": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on the impact assessment feeding the risk assessment, or on an impact assessment missing societal impacts. Both are already tested."
+  },
+  "4.9": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on guidance not being a requirement, or on an Annex A or B departure not being a nonconformity. That point is already tested."
+  },
+  "5.1": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on statutory findings being called non-compliance. That point is already tested."
+  },
+  "5.2": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on recording an unresolved disagreement. That point is tested twice already. Don't key on statutory findings being called non-compliance. That point is already tested."
+  },
+  "5.4": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on guidance not being a requirement, or on an Annex A or B departure not being a nonconformity. That point is already tested."
+  },
+  "5.5": {
+   "ruled_in": "PROMPT-138 s3",
+   "instruction": "Don't key on recording an unresolved disagreement. That point is tested twice already."
   }
  }
 }

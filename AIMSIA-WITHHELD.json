@@ -40,6 +40,86 @@
       "flagged_by": "THE DIRECTOR",
       "anchor": "ISO 19011 4.3",
       "reason": "twin of ec6ba56a -- 19011 4.3: record the unresolved disagreement. THREE items make this point (61fabc8a, b37ab099, ec6ba56a); ec6ba56a covers it best and b37ab099 keys on 6.4.8 and stays. THE JUDGE MISSED THIS ONE: a cross-anchor pair the neighbour arm cannot see with no live items to draw neighbours from. Sound item, may serve later."
+    },
+    {
+      "item_id": "e319a5c8",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "ruled_in": "PROMPT-138 s1",
+      "kind": "twin-within-round",
+      "twin_of": "6688ca8a",
+      "flagged_by": "judge",
+      "anchor": "ISO 19011 6.2.3",
+      "reason": "twin of 6688ca8a -- 19011 6.2.3: when the audit is not feasible, propose an alternative. Sound item, may serve later."
+    },
+    {
+      "item_id": "8ef6448b",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "ruled_in": "PROMPT-138 s1",
+      "kind": "twin-within-round",
+      "twin_of": "9b614159",
+      "flagged_by": "judge",
+      "anchor": "ISO 19011 A.8",
+      "reason": "twin of 9b614159 -- 19011 A.8 e): context is revisited, so the new provider role should be caught -- nearly the same scenario. Sound item, may serve later."
+    },
+    {
+      "item_id": "3aa51867",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "ruled_in": "PROMPT-138 s1",
+      "kind": "twin-within-round",
+      "twin_of": "59371c1d",
+      "flagged_by": "judge",
+      "anchor": "ISO/IEC 42001 9.2.1",
+      "reason": "twin of 59371c1d -- 42001 9.2.1: certification audits do not replace internal audits. Sound item, may serve later."
+    },
+    {
+      "item_id": "87f4e5fe",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "ruled_in": "PROMPT-138 s1",
+      "kind": "twin-within-round",
+      "twin_of": "e71b16bd",
+      "flagged_by": "judge",
+      "anchor": "ISO 19011 6.5.1",
+      "reason": "twin of e71b16bd -- 19011 6.5.1: a nonconformity not discussed with the auditee stays out of the report -- 6.5.1 is reporting, so the keeper sits under 5.5. Sound item, may serve later."
+    },
+    {
+      "item_id": "53c7a820",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "ruled_in": "PROMPT-138 s1",
+      "kind": "twin-within-round",
+      "twin_of": "686d65e4",
+      "flagged_by": "judge",
+      "anchor": "ISO 19011 3.9",
+      "reason": "twin of 686d65e4 -- 19011 3.9: what the auditor observes is objective evidence -- 686d65e4 adds the remote angle. Sound item, may serve later."
+    },
+    {
+      "item_id": "15785849",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "ruled_in": "PROMPT-138 s1",
+      "kind": "twin-within-round",
+      "twin_of": "cbecf21c",
+      "flagged_by": "judge",
+      "anchor": "ISO 19011 4.6",
+      "reason": "twin of cbecf21c -- 19011 4.6: when independence is impracticable, take measures against bias -- kept under 1.4, the thinner task. Sound item, may serve later."
+    },
+    {
+      "item_id": "f52d1d82",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "ruled_in": "PROMPT-138 s1",
+      "kind": "twin-within-round",
+      "twin_of": "ea523ed8",
+      "flagged_by": "judge",
+      "anchor": "ISO 19011 3.11",
+      "reason": "twin of ea523ed8 -- a statutory criterion that is not met is a 'non-compliance'. Sound item, may serve later."
+    },
+    {
+      "item_id": "7266c77d",
+      "artifact": "AIMSIA-R2-sonnet.json",
+      "ruled_in": "PROMPT-138 s1",
+      "kind": "twin-within-round",
+      "twin_of": "ea523ed8",
+      "flagged_by": "THE DIRECTOR",
+      "anchor": "ISO 19011 3.8",
+      "reason": "twin of ea523ed8 -- the same point, anchored on 19011 3.8's note. THE JUDGE MISSED THIS: the anchors differ and the keys share few terms. Sound item, may serve later."
     }
   ]
 }

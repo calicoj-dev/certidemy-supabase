@@ -1,0 +1,27 @@
+{
+ "ruled": "2026-10-05, PROMPT-138 s2",
+ "certification": "AIMS-IA",
+ "default_floor": 8,
+ "why_this_file_exists": "THE ONE PLACE A PER-TASK FLOOR IS RECORDED for AIMS-IA. Read by lib/task-floors.mjs, which verify-cert and check-task-map both call. An override with no `ruled_in` is an ERROR, not a pass. Created at PROMPT-138 s2: until then AIMS-IA ran on the default 8 with no overrides, which the stage 3 line said plainly ('no file (tried ...); default 8').",
+ "the_rule": {
+  "derivation": "min(default_floor, 2 x effective primaries). The cap of 2 items per (source, edition, clause) per task is what makes 2 x effective the ceiling a task can hold.",
+  "override": "A floor the derivation cannot produce, set by the director with the reason recorded. Named in every report that uses it, so a lowered floor can never pass as a met one.",
+  "effective_on_this_tier": "RULED PROMPT-126 s1 and made per-certification in PROMPT-135 s2. On the Internal Auditor tier an effective primary is one a KEY MAY ACTUALLY ANCHOR ON: for AIMS-IA that is an ISO/IEC 42001 `shall` passage (Annex A controls included), or an ISO 19011 passage on an audit-practice task. ISO/IEC 42001 Annex B and the whole 27000 family are support only here. lib/tier-anchoring.mjs is the one definition, read by the gate, the writer prompt and this floor.",
+  "temporary": "`temporary: true` means the task goes live BELOW its floor because the reason it is short is a defect being fixed, not a thin map. verify-cert reports it as a WARN and names it: never a pass, never a fail. It must carry a reason as well as a ruling."
+ },
+ "per_task_overrides": {
+  "_what": "Each entry is a director ruling with its reason.",
+  "4.5": {
+   "floor": 4,
+   "ruled_in": "PROMPT-138 s2",
+   "temporary": false,
+   "reason": "2 key-anchorable passages (42001 6.1.3 and 8.3), and 4 is twice that -- the derivation's own ceiling for a task this thin. Its other two primaries cannot carry a key on this tier: 42001 3.26 is `informative` and A.1 is `can`. PROMPT-137 s3 added 8.3 and took the task from 1 keyable passage to 2; it stayed too_thin because 2 is under MIN_EFFECTIVE 3, which is a MAP fact, not a generation one."
+  },
+  "5.6": {
+   "floor": 4,
+   "ruled_in": "PROMPT-138 s2",
+   "temporary": false,
+   "reason": "2 key-anchorable passages (42001 10.2 and 19011 6.7), and 4 is twice that. Both clauses the PROMPT-137 s3 ruling named were ALREADY primaries, so that ruling was a no-op for this task; its other two primaries, 42001 3.16 and 3.17, are definitions and carry no key on this tier."
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+  "_what": "PROMPT-138 s1: 2 accept(s) from AIMSIA-R2-411.json.",
+  "accepts": [
+    {
+      "item_id": "dfb03706",
+      "report_number": 1,
+      "task": "4.11",
+      "ruled_in": "PROMPT-138 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-138 s1 | ISO/IEC 42001 4.2"
+    },
+    {
+      "item_id": "c4bf6bab",
+      "report_number": 2,
+      "task": "4.11",
+      "ruled_in": "PROMPT-138 s1",
+      "writer_model": "claude-sonnet-5-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-138 s1 | ISO/IEC 42001 4.2"
+    }
+  ]
+}

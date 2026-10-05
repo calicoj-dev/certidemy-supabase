@@ -341,6 +341,38 @@ By name, the things that must change:
   items. Fix: resolve a container citation to the single child holding the quote verbatim, or refuse
   when more than one child matches.
 
+## 5b. The writer cannot see its neighbours' points (RECORDED PROMPT-138 s3, NOT BUILT)
+
+**Status: not started. No spend, no model change -- a prompt-assembly change.**
+
+**The defect, measured.** The `ALREADY TESTED` block lists items **on the same anchor**
+only. **Every one of AIMS-IA R2's nine duplicate rejections was a CROSS-ANCHOR neighbour**, so the
+writer could not see any of them: it was shown what its own passage already tests and nothing about
+the passage next door teaching the same lesson. Same shape in ISMS-IA, where the key-term neighbour
+arm of the judge found 10 flags against the same-anchor arm's 8 (PROMPT-137 s5).
+
+**So the judge catches these AFTER the money is spent.** The block is the only channel that could
+stop them being written, and it is blind in exactly the direction the duplicates come from.
+
+**The stopgap in use today:** per-task notes naming the points already taken (PROMPT-138 s3 wrote
+eleven). That works and does not scale -- each note is a director ruling after a round, so it only
+ever covers duplicates already paid for.
+
+**What to build.** Extend the block with the points made by the task's nearest cross-anchor
+neighbours. The machinery exists: `judge-same-point.mjs` already ranks a candidate's
+three nearest live items by key-share across any anchor (PROMPT-131 s3), and the same ranking over
+the TASK's assigned anchors would give the writer the same neighbourhood the judge reads.
+
+**The cap is the hard part, and it has a measured history.** The block was capped flat at 6 lines
+and that cap cut by INSERTION ORDER, dropping whole anchors -- 6 of 8 leaks in PROMPT-130 s2. It is
+now round-robin per anchor, 2 each, ceiling 10. Adding neighbours widens the input again, so the
+same question returns: **what gets cut, and does the cut drop a whole neighbour?** Do not add
+neighbours without re-measuring that.
+
+**How to know it worked:** the share of a round's rejections that are cross-anchor duplicates. R2
+was 9 of 9. Anything that does not move that number has not worked.
+
+---
 ## 5a. Jev as the duplicate judge (RECORDED PROMPT-134 s3, NOT BUILT)
 
 **Status: not started. Needs a Cloudflare token Juan supplies. Nothing here has been run.**

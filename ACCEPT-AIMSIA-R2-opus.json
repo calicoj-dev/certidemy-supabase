@@ -1,0 +1,14 @@
+{
+  "_what": "PROMPT-138 s1: 1 accept(s) from AIMSIA-R2-opus.json.",
+  "accepts": [
+    {
+      "item_id": "e2fca13d",
+      "report_number": 1,
+      "task": "4.9",
+      "ruled_in": "PROMPT-138 s1",
+      "writer_model": "claude-opus-5",
+      "verdict": "accept",
+      "note": "accepted PROMPT-138 s1 | ISO/IEC 42001 6.1.3"
+    }
+  ]
+}
