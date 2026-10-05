@@ -847,6 +847,60 @@
         "verdict": "NOT TRIPPED",
         "reason": "RULED PROMPT-129 s1. The 7 duplicates are not a writer defect: no writer is shown what the bank already tests on its anchor. Opus wrote 6b73a816 and Sonnet wrote its twin 740d9999 a round later for the same reason. Only the 3 quality rejects are the writer, and 5 percent is well inside the band. PROMPT-129 s2/s3 address the cause -- an already-tested block in the prompt and a certification-wide anchor preference."
       }
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 4,
+      "stage_name": "generation R4",
+      "usd": 15.519,
+      "ceiling": 30,
+      "attempted": 100,
+      "generated": 100,
+      "survivors": 57,
+      "design": "25 tasks, 4 items each. Task 3.7 on claude-opus-5 because the PROMPT-128 s4 tripwire fired on it in R3; every other task on claude-sonnet-5-5.",
+      "by_writer": {
+        "claude-sonnet-5-5": {
+          "tasks": 24,
+          "asked": 96,
+          "generated": 96,
+          "survivors": 54,
+          "survival_of_generated": 0.5625,
+          "usd": 13.7333,
+          "writer_role_usd": 2.291,
+          "writer_usd_per_item": 0.0239,
+          "usd_per_survivor": 0.2543,
+          "retries": 0
+        },
+        "claude-opus-5": {
+          "tasks": 1,
+          "asked": 4,
+          "generated": 4,
+          "survivors": 3,
+          "survival_of_generated": 0.75,
+          "usd": 1.7857,
+          "writer_role_usd": 1.1125,
+          "writer_usd_per_item": 0.2781,
+          "usd_per_survivor": 0.5952,
+          "retries": 0
+        }
+      },
+      "already_tested_block": {
+        "prompts_with_a_block": 20,
+        "prompts_total": 25,
+        "average_lines_where_present": 4.2,
+        "cap": 6,
+        "prompts_over_the_cap": 7,
+        "what": "PROMPT-129 s2: the writer is now shown the keys already live on its assigned anchors."
+      },
+      "tripwire": {
+        "task_3_7": "REVERTED TO OPUS AND RECOVERED: 3 of 4 on Opus against 0 of 4 on Sonnet in R3 -- the tripwire did its job",
+        "new_hits": [
+          "4.7 (0 of 4, Sonnet)",
+          "4.8 (0 of 4, Sonnet)"
+        ],
+        "note": "4.7 is NOT a model problem: it failed verbatim 4 of 4 again even after PROMPT-129 s3 added 4.3 and 6.1.1 as supporting, because the writer keeps citing the key clause 4.1 for its distractors instead of the new passages. 4.8 failed reproduction 3 of 4 on attributed quotations that name no clause."
+      },
+      "note": "Sonnet survival 56 percent against R3 60 percent on harder tasks. structure is still the dominant refusal at 19 per 100."
     }
   ],
   "not_instrumented": [
