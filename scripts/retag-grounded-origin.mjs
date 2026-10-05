@@ -12,12 +12,20 @@ import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 
-let APPLY = false, CERT = "AIMS-F";
+let APPLY = false, CERT = null;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
   const m = a.match(/^--cert=(.+)$/);
   if (m) { CERT = m[1]; continue; }
   console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE>, --apply (dry by default).");
+  process.exit(2);
+}
+
+if (!CERT) {
+  /* NO CERTIFICATION DEFAULT (PROMPT-135 s3). This defaulted to a literal, so a caller that
+   * forgot --cert operated on a different certification and said nothing. */
+  console.error("--cert=<CODE> is required. retag-grounded-origin.mjs used to default to a single\n" +
+    "certification, which is how the rollback command came to offer AIMS-F after an ISMS-IA cutover.");
   process.exit(2);
 }
 const HERE = dirname(fileURLToPath(import.meta.url));

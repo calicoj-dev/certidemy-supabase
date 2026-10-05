@@ -482,6 +482,37 @@ Object.assign(fetched, {
       failures.push("check-word-boundary-regexes.mjs exited non-zero: " + out.split(NEWLINE_RE).slice(-3).join(" | "));
     }
   }
+  /* ============ 15. NO --cert SCRIPT DEFAULTS A CERTIFICATION OR A STANDARD (PROMPT-135 s3) ======
+   *
+   * The sixth instance in a row is why this is an invariant rather than a habit. The baseline holds
+   * the ones the ruling left listed (off AIMS-IA's path); a NEW one fails. The sub-check carries its
+   * own self-test, so a green result here is backed by a planted case that was caught. */
+  {
+    const certFails = [];
+    let examinedCerts = 0;
+    try {
+      const out = execFileSync(process.execPath,
+        [join(HERE, "check-cert-hardcoding.mjs"), "--self-test"], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+      const m = /NEW DEFAULTS\s+(\d+)/.exec(out);
+      const d = /DEFAULT  \(a bug\)\s+(\d+)/.exec(out);
+      examinedCerts = d ? Number(d[1]) : 0;
+      if (!/SELF-TEST.*CAUGHT/.test(out)) certFails.push("the sweep's own self-test did not report CAUGHT");
+      if (m && Number(m[1]) > 0) {
+        for (const line of out.split(NEWLINE_RE)) if (/^\s+NEW\s/.test(line)) certFails.push(line.trim());
+      }
+    } catch (err) {
+      const out = String(err.stdout || "") + String(err.stderr || "");
+      for (const line of out.split(NEWLINE_RE)) if (/^\s+NEW\s/.test(line)) certFails.push(line.trim());
+      if (!certFails.length) certFails.push("check-cert-hardcoding exited non-zero: " + out.slice(-180));
+      const d = /DEFAULT  \(a bug\)\s+(\d+)/.exec(out);
+      examinedCerts = d ? Number(d[1]) : 0;
+    }
+    record("no cert defaults in --cert scripts", certFails,
+      "every certification code and standard id in a --cert script is a caller's input, a fixture or " +
+      "a comment; the ones the PROMPT-135 s3 ruling left listed are baselined and may shrink, never grow",
+      examinedCerts);
+  }
+
   record("no dead word boundaries", failures,
          "tracked .mjs/.ts/.js regex literals; a word-boundary escape is ASCII-only and is not a boundary next to an accent",
          examined);

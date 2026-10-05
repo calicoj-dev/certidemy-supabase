@@ -65,8 +65,11 @@ function h32(s) {
  *            order: [string], why: string }}
  */
 export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap = CAP,
-  certCensus = null, satCap = SATURATION_CAP, runTally = null }) {
+  certCensus = null, satCap = SATURATION_CAP, runTally = null, capOf = null }) {
   const held = (p) => censusMap.get(anchorKey(p.source_id, p.edition, p.clause)) || 0;
+  /* THE CAP IS PER (TASK, ANCHOR) WHERE AN OVERRIDE SAYS SO (PROMPT-135 s1). `capOf` is the resolver
+   * from lib/anchor-cap.mjs; with none, every anchor takes the flat `cap` and nothing changes. */
+  const capFor = (p) => (capOf ? capOf(p) : cap);
   /* ============ THE RUN'S OWN ASSIGNMENTS COUNT TOWARD SATURATION (ruled PROMPT-133 s4) ============
    *
    * `certCensus` is the LIVE census, read once before the round. So R7 found ISO 19011 3.9 holding 2,
@@ -104,13 +107,13 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
     ? Number(certCensus.get(anchorKey(p.source_id, p.edition, p.clause)) || 0) + tallyOf(p)
     : 0);
   const saturated = (p) => certCensus != null && satCap > 0 && certHeldRaw(p) >= satCap;
-  const underTaskCap = (primaries || []).filter((p) => held(p) < cap);
+  const underTaskCap = (primaries || []).filter((p) => held(p) < capFor(p));
   const eligible = underTaskCap.filter((p) => !saturated(p));
   const satBlocked = underTaskCap.filter((p) => saturated(p)).map((p) => ({
     source_id: p.source_id, edition: p.edition, clause: p.clause, cert_held: certHeldRaw(p) }));
 
   /* room left on each eligible clause, which is what bounds the whole assignment */
-  const capacity = eligible.reduce((s, p) => s + (cap - held(p)), 0);
+  const capacity = eligible.reduce((s, p) => s + (capFor(p) - held(p)), 0);
 
   /* fewest-held first; ties by a hash of (task, run, clause) so the order differs between runs and is
    * reproducible within one. The clause is IN the hash so two clauses with the same count do not have to
@@ -136,7 +139,7 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
   seeded.sort((a, b) => a.held - b.held || a.certHeld - b.certHeld || a.tie - b.tie);
 
   const assignments = [];
-  const room = new Map(seeded.map((p) => [anchorKey(p.source_id, p.edition, p.clause), cap - p.held]));
+  const room = new Map(seeded.map((p) => [anchorKey(p.source_id, p.edition, p.clause), capFor(p) - p.held]));
   let i = 0;
   while (assignments.length < want && seeded.length) {
     const p = seeded[i % seeded.length];
@@ -216,7 +219,8 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
           satBlocked.map((s) => s.clause + " holds " + s.cert_held).join(", ") +
           "). A FLOOR question, not a generation one -- the passages are used up."
         : (primaries || []).length
-          ? "no eligible primary: all " + primaries.length + " are at the cap of " + cap
+          ? "no eligible primary: all " + primaries.length + " are at their per-task cap (" +
+            (primaries || []).map((p) => p.clause + " cap " + capFor(p)).join(", ") + ")"
           : "THE TASK HAS NO PRIMARY PASSAGE IN THIS RUN'S STANDARD -- a MAP fact, not a cap fact, and no " +
             "amount of generation can close it",
   };
@@ -359,7 +363,7 @@ export function anchorAssignmentControls({ quiet = false } = {}) {
     const taskCapped = assignAnchors({ taskCode: "x.1", runId: "r1", primaries: [P("9.1")],
       censusMap: cens([["9.1", 2]]), want: 1, certCensus: cens([["9.1", 2]]) });
     ok("at the task cap but under saturation reports the CAP, not saturation",
-      /at the cap of 2/.test(taskCapped.why) && taskCapped.saturated_blocked.length === 0,
+      /per-task cap \(9\.1 cap 2\)/.test(taskCapped.why) && taskCapped.saturated_blocked.length === 0,
       taskCapped.why);
     /* ISMS-F AND AIMS-F ARE UNAFFECTED, and the mechanism is the reason: no certCensus, no cap. */
     const noCert = assignAnchors({ taskCode: "x.1", runId: "r1", primaries, censusMap: cens([]),
@@ -494,7 +498,7 @@ export function anchorAssignmentControls({ quiet = false } = {}) {
     const r = assignAnchors({ taskCode: "t", runId: "r", primaries,
       censusMap: cens([["A", CAP], ["B", CAP]]), want: 3 });
     ok("every primary at the cap assigns nothing and names why",
-      r.assignments.length === 0 && r.shortfall === 3 && /at the cap of/.test(r.why),
+      r.assignments.length === 0 && r.shortfall === 3 && /at their per-task cap/.test(r.why),
       JSON.stringify(r));
     /* AND IT MUST NOT SAY THE OTHER THING. The two zero-assignment reasons need opposite actions -- a full cap
      * is fine and a missing map is not -- so each control asserts its own reason AND the absence of the other.

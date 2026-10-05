@@ -1,0 +1,122 @@
+{
+ "_what": "Certification/standard DEFAULTS known at PROMPT-135 s3. Every one on AIMS-IA's path (stages 3 to 9) was FIXED; these are the rest, left listed by the ruling. May shrink, must NEVER grow -- a new entry is a new --cert script with a certification baked in.",
+ "baselined": "2026-10-05, PROMPT-135 s3",
+ "count": 23,
+ "entries": [
+  {
+   "sig": "scripts/anchor-existing-items.mjs :: let CERT = \"AIMS-F\", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false, ONLY = null, TAG = \"\", R",
+   "file": "scripts/anchor-existing-items.mjs",
+   "text": "let CERT = \"AIMS-F\", PINNED = false, LEGACY_KEYING = false, ALL_SECURE = false, ONLY = null, TAG = \"\", R"
+  },
+  {
+   "sig": "scripts/build-s2-insert-set.mjs :: const cert = (await getAll(KEY, \"certifications?select=id,code&code=eq.AIMS-F\"))[0];",
+   "file": "scripts/build-s2-insert-set.mjs",
+   "text": "const cert = (await getAll(KEY, \"certifications?select=id,code&code=eq.AIMS-F\"))[0];"
+  },
+  {
+   "sig": "scripts/check-duplicate-pairs.mjs :: let PAIRS = null, CERT = \"ISMS-F\";",
+   "file": "scripts/check-duplicate-pairs.mjs",
+   "text": "let PAIRS = null, CERT = \"ISMS-F\";"
+  },
+  {
+   "sig": "scripts/draft-iso-task-sources.mjs :: const aimsf = out.find((o) => o.cert === \"AIMS-F\");",
+   "file": "scripts/draft-iso-task-sources.mjs",
+   "text": "const aimsf = out.find((o) => o.cert === \"AIMS-F\");"
+  },
+  {
+   "sig": "scripts/emit-spotread.mjs :: let CERT = \"ISMS-F\", N_MISS = 10, N_INF = 8;",
+   "file": "scripts/emit-spotread.mjs",
+   "text": "let CERT = \"ISMS-F\", N_MISS = 10, N_INF = 8;"
+  },
+  {
+   "sig": "scripts/fix-odd-verdict.mjs :: let APPLY = false, CERT = \"ISMS-F\", IN = \"ISMSF-R1\", OUT = null, MAX_USD = 8, ACCEPT = null;",
+   "file": "scripts/fix-odd-verdict.mjs",
+   "text": "let APPLY = false, CERT = \"ISMS-F\", IN = \"ISMSF-R1\", OUT = null, MAX_USD = 8, ACCEPT = null;"
+  },
+  {
+   "sig": "scripts/judge-same-point.mjs :: const spec = JSON.parse(readFileSync(join(ROOT, \"ISMSIA-JUDGE-CONTROL.json\"), \"utf8\"));",
+   "file": "scripts/judge-same-point.mjs",
+   "text": "const spec = JSON.parse(readFileSync(join(ROOT, \"ISMSIA-JUDGE-CONTROL.json\"), \"utf8\"));"
+  },
+  {
+   "sig": "scripts/map-task-sources.mjs :: let APPLY = false, CERT = \"ISMS-F\", SPECFILE = null;",
+   "file": "scripts/map-task-sources.mjs",
+   "text": "let APPLY = false, CERT = \"ISMS-F\", SPECFILE = null;"
+  },
+  {
+   "sig": "scripts/post-conditions-107.mjs :: let CERT = \"AIMS-F\";",
+   "file": "scripts/post-conditions-107.mjs",
+   "text": "let CERT = \"AIMS-F\";"
+  },
+  {
+   "sig": "scripts/project-translation-spend.mjs :: let CEILING = null, CERT = \"AIMS-F\";",
+   "file": "scripts/project-translation-spend.mjs",
+   "text": "let CEILING = null, CERT = \"AIMS-F\";"
+  },
+  {
+   "sig": "scripts/prove-rekey-identical.mjs :: let CERT = \"AIMS-F\", OUT = null, CMP = null;",
+   "file": "scripts/prove-rekey-identical.mjs",
+   "text": "let CERT = \"AIMS-F\", OUT = null, CMP = null;"
+  },
+  {
+   "sig": "scripts/recheck-inflation.mjs :: let CERT = \"ISMS-F\";",
+   "file": "scripts/recheck-inflation.mjs",
+   "text": "let CERT = \"ISMS-F\";"
+  },
+  {
+   "sig": "scripts/regate-after-normclause.mjs :: let CERT = \"ISMS-F\";",
+   "file": "scripts/regate-after-normclause.mjs",
+   "text": "let CERT = \"ISMS-F\";"
+  },
+  {
+   "sig": "scripts/regate-pilot.mjs :: let IN = \"PILOT-GROUNDED-AIMSF-2.json\", CERT = \"AIMS-F\", OUT = null;",
+   "file": "scripts/regate-pilot.mjs",
+   "text": "let IN = \"PILOT-GROUNDED-AIMSF-2.json\", CERT = \"AIMS-F\", OUT = null;"
+  },
+  {
+   "sig": "scripts/report-survivors.mjs :: let N_READ = 20, SEED = 11, N_MODAL = 5, CERT = \"AIMS-F\";",
+   "file": "scripts/report-survivors.mjs",
+   "text": "let N_READ = 20, SEED = 11, N_MODAL = 5, CERT = \"AIMS-F\";"
+  },
+  {
+   "sig": "scripts/retire-groups.mjs :: let APPLY = false, CERT = \"AIMS-F\", REASON = null, FILE = \"AIMSF-CUTOVER-RETIRED.json\", IDS = [];",
+   "file": "scripts/retire-groups.mjs",
+   "text": "let APPLY = false, CERT = \"AIMS-F\", REASON = null, FILE = \"AIMSF-CUTOVER-RETIRED.json\", IDS = [];"
+  },
+  {
+   "sig": "scripts/retranslate-flagged.mjs :: let CERT = \"AIMS-F\", APPLY = false, ART = \"AIMSF-TRANSLATION-R1.json\", LANGS = ALL_LANGS, FORCE = null,",
+   "file": "scripts/retranslate-flagged.mjs",
+   "text": "let CERT = \"AIMS-F\", APPLY = false, ART = \"AIMSF-TRANSLATION-R1.json\", LANGS = ALL_LANGS, FORCE = null,"
+  },
+  {
+   "sig": "scripts/revise-artifact.mjs :: let APPLY = false, CERT = \"ISMS-F\", IN = \"ISMSF-R2\", SPECFILE = null, PRINTED = false, MAXUSD = 5;",
+   "file": "scripts/revise-artifact.mjs",
+   "text": "let APPLY = false, CERT = \"ISMS-F\", IN = \"ISMSF-R2\", SPECFILE = null, PRINTED = false, MAXUSD = 5;"
+  },
+  {
+   "sig": "scripts/revise-items.mjs :: let APPLY = false, CERT = \"AIMS-F\", SPECFILE = null;",
+   "file": "scripts/revise-items.mjs",
+   "text": "let APPLY = false, CERT = \"AIMS-F\", SPECFILE = null;"
+  },
+  {
+   "sig": "scripts/solve-audit-sample.mjs :: let CERT = \"AIMS-F\";",
+   "file": "scripts/solve-audit-sample.mjs",
+   "text": "let CERT = \"AIMS-F\";"
+  },
+  {
+   "sig": "scripts/verify-cutover-postchecks.mjs :: const rec = JSON.parse(readFileSync(join(ROOT, \"AIMSF-CUTOVER-RETIRED.json\"), \"utf8\"));",
+   "file": "scripts/verify-cutover-postchecks.mjs",
+   "text": "const rec = JSON.parse(readFileSync(join(ROOT, \"AIMSF-CUTOVER-RETIRED.json\"), \"utf8\"));"
+  },
+  {
+   "sig": "scripts/lib/anchor-layers.mjs :: export function anchorLayers(root, cert = \"AIMS-F\") {",
+   "file": "scripts/lib/anchor-layers.mjs",
+   "text": "export function anchorLayers(root, cert = \"AIMS-F\") {"
+  },
+  {
+   "sig": "scripts/lib/anchor-layers.mjs :: export function anchorIndex(root, cert = \"AIMS-F\", readJson) {",
+   "file": "scripts/lib/anchor-layers.mjs",
+   "text": "export function anchorIndex(root, cert = \"AIMS-F\", readJson) {"
+  }
+ ]
+}

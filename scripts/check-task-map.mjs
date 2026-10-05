@@ -180,7 +180,7 @@ for (const t of inScope) {
    * `keyMayAnchor` the gate and the writer prompt use. Foundation and general tiers are unchanged:
    * `keyMayAnchor` returns ok for everything there, so `keyable` is `mine`. */
   const TIER = tierOf(CERT);
-  const keyable = mine.filter((p) => keyMayAnchor(p, { tier: TIER, primaryClauses: mine }).ok);
+  const keyable = mine.filter((p) => keyMayAnchor(p, { tier: TIER, primaryClauses: mine, cert: CERT }).ok);
   const excluded = mine.length - keyable.length;
   /* group by (source, edition): the container test is per document */
   let effective = 0;

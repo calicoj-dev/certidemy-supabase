@@ -71,7 +71,16 @@ import { anchorLayers } from "./anchor-layers.mjs";
  * because a run's own survivors are not in any artifact yet.
  */
 export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert, excludeArtifacts = [],
-  standard = "ISO/IEC 42001", edition = "2023" }) {
+  standard = null, edition = null }) {
+  /* NO STANDARD DEFAULT (fixed PROMPT-135 s3). These were "ISO/IEC 42001" and "2023", so a caller
+   * that forgot them -- the generator did, for every ISMS-F and ISMS-IA round -- filed kept and
+   * awaiting anchors under a 42001 key nothing could match. It REFUSES now rather than guessing:
+   * a silent default is the defect class behind the rollback command. */
+  if (!standard || !edition) {
+    throw new Error("buildCapCensus: `standard` and `edition` are required for " + cert +
+      ". They used to default to ISO/IEC 42001 / 2023, which silently mis-keyed every anchor for " +
+      "any other certification. Pass the certification's own standard.");
+  }
   /* standard/edition are the KEPT and AWAITING layers' source: those artifacts record a clause and no
    * source. Parameters rather than literals so a second certification needs no edit here. */
   const entriesByTask = new Map();
@@ -103,8 +112,19 @@ export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert, e
 
   /* ---- kept audit items ---- */
   let fromKept = 0, unknownAnchor = [];
-  const survPath = join(ROOT, "AIMSF-SURVIVORS.json");
-  if (cert === "AIMS-F" && existsSync(survPath)) {
+  /* ============ BOTH LAYERS RAN FOR AIMS-F ONLY (fixed PROMPT-135 s3) ============
+   *
+   * `cert === "AIMS-F"` gated the kept-items layer AND the awaiting layer below. So every ISMS-F,
+   * ISMS-IA and AIMS-IA run printed "from 0 kept + N inserted + 0 awaiting" and the two zeros meant
+   * "not looked at" -- for ISMS-IA, a certification with ELEVEN kept audit items whose anchors the
+   * per-task cap therefore never counted. The line was reported round after round without anyone
+   * asking why a certification with keeps had none.
+   *
+   * The slug drives the filename now; an absent file is a legitimate "this certification has no
+   * keeps" and stays silent, which is different from not looking. */
+  const SLUG = String(cert || "").replace(/-/g, "");
+  const survPath = join(ROOT, SLUG + "-SURVIVORS.json");
+  if (existsSync(survPath)) {
     const surv = JSON.parse(readFileSync(survPath, "utf8"));
     const anchorOf = new Map(), taskOfPrefix = new Map();
     for (const f of anchorLayers(ROOT)) {
@@ -125,13 +145,13 @@ export async function buildCapCensus({ KEY, getAll, certId, tasks, ROOT, cert, e
 
   /* ---- survivors awaiting a read: written, gated, not inserted and not disposed ---- */
   let fromAwaiting = 0, awaitingDetail = [];
-  if (cert === "AIMS-F") {
+  {
     /* the stem ids of every grounded English row in the bank. `item_grounding` says what an INSERTED item
      * anchors on; this says WHICH artifact items are already inserted, which is the different question the
      * double-count turns on. */
     const insertedStems = new Set();
     for (const q of qs) insertedStems.add(itemIdOfStem(q.question_text));
-    const { awaiting, counts, withdrawn } = resolveDispositions(ROOT, { insertedStems });
+    const { awaiting, counts, withdrawn } = resolveDispositions(ROOT, { insertedStems, slugs: [SLUG] });
     const skip = new Set(excludeArtifacts.filter(Boolean));
     for (const a of awaiting) {
       if (skip.has(a.file)) continue;           /* the caller adds these at gate time */

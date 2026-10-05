@@ -170,5 +170,15 @@
    "ruled_in": "PROMPT-126 s3",
    "why": "Management review general and results, plus internal audit general -- all `shall`, all held. Takes the task from 2 effective to 5."
   }
- ]
+ ],
+ "per_task_anchor_cap_overrides": {
+  "_what": "THE PER-(TASK, ANCHOR) CAP. CAP is 2 everywhere else because a form carrying four items on one sentence teaches the sentence. An entry here raises it for ONE task on ONE passage, keyed on both, so it cannot leak to another task mapping the same passage nor to another passage of the same task. Read by lib/anchor-cap.mjs makeCapResolver, which THROWS on an entry with no `ruled_in`. The SATURATION cap (3 per passage certification-wide) is unaffected and still applies.",
+  "3.5": {
+   "ISO 19011|2026|A.17": {
+    "cap": 4,
+    "ruled_in": "PROMPT-135 s1",
+    "reason": "Task 3.5 maps ONE key-anchorable passage -- 19011 A.17, Conducting interviews -- and 3.10 is both saturated and barred as a key by the PROMPT-127 s3 note. At CAP 2 the task could hold at most 2 items against a floor of 4, so the BOUND was the cap and not the source. A.17 is a long clause with many distinct lettered points (a) to (j), which is exactly the case the flat cap was not written against. Raised to 4 for this pair only."
+   }
+  }
+ }
 }

@@ -16,11 +16,19 @@ import { stemIdentity } from "../functions/_shared/item-rules/stem-identity.mjs"
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
-let CERT = "AIMS-F", FORMS = 20;
+let CERT = null, FORMS = 20;
 for (const a of process.argv.slice(2)) {
   const m = a.match(/^--(cert|forms)=(.+)$/);
   if (m) { if (m[1] === "cert") CERT = m[2]; else FORMS = Number(m[2]); continue; }
   console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE>, --forms=<n>. READ-ONLY."); process.exit(2);
+}
+
+if (!CERT) {
+  /* NO CERTIFICATION DEFAULT (PROMPT-135 s3). This defaulted to a literal, so a caller that
+   * forgot --cert operated on a different certification and said nothing. */
+  console.error("--cert=<CODE> is required. verify-cutover-postchecks.mjs used to default to a single\n" +
+    "certification, which is how the rollback command came to offer AIMS-F after an ISMS-IA cutover.");
+  process.exit(2);
 }
 const LANGS = ["en", "es-419", "pt-BR"];
 const KEY = requireKey(HERE);

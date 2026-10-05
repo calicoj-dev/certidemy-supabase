@@ -13,7 +13,7 @@ import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { itemHash8 } from "./lib/item-hash.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-let APPLY = false, CERT = "AIMS-F", REVIEWER = null, RULED = null;
+let APPLY = false, CERT = null, REVIEWER = null, RULED = null;
 const IDS = [];
 const argv = process.argv.slice(2);
 for (let i = 0; i < argv.length; i++) {
@@ -31,6 +31,14 @@ for (let i = 0; i < argv.length; i++) {
     process.exit(2);
   }
   IDS.push(a);
+}
+
+if (!CERT) {
+  /* NO CERTIFICATION DEFAULT (PROMPT-135 s3). This defaulted to a literal, so a caller that
+   * forgot --cert operated on a different certification and said nothing. */
+  console.error("--cert=<CODE> is required. record-translation-review.mjs used to default to a single\n" +
+    "certification, which is how the rollback command came to offer AIMS-F after an ISMS-IA cutover.");
+  process.exit(2);
 }
 if (!IDS.length) { console.error("Name at least one group by uuid prefix."); process.exit(2); }
 if (!REVIEWER || !RULED) { console.error("--reviewer= and --ruled-in= are both required."); process.exit(2); }

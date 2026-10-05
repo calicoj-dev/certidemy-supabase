@@ -53,7 +53,10 @@ export function loadTaskFloors(certCode) {
     if (r.error) { errors.push(r.error); continue; }
     overrides.set(code, r.value);
   }
-  return { defaultFloor, overrides, source: found, errors };
+  /* `raw` carries the whole document so a caller can read a section this module does not model --
+   * per_task_anchor_cap_overrides (PROMPT-135 s1) is the first. Parsed ONCE, here, so no caller
+   * re-reads the file and they cannot disagree about what it says. */
+  return { defaultFloor, overrides, source: found, errors, raw: doc };
 }
 
 /**

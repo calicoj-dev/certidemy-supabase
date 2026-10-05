@@ -45,9 +45,67 @@ export function tierOf(cert) {
 export const is19011 = (src) => /^ISO\s*19011\b/i.test(String(src || ""));
 /** 27001 proper, including its amendments -- `ISO/IEC 27001` with edition `2022` or `2022/Amd1:2024`. */
 export const is27001 = (src) => /^ISO\/IEC\s*27001\b/i.test(String(src || ""));
-/** Support-only sources on IA. */
-export const isSupportOnlyOnIA = (src) =>
-  /^ISO\/IEC\s*27002\b/i.test(String(src || "")) || /^ISO\/IEC\s*27000\b/i.test(String(src || ""));
+/** 42001 proper, including any amendment edition. */
+export const is42001 = (src) => /^ISO\/IEC\s*42001\b/i.test(String(src || ""));
+
+/* ============ THE REQUIREMENTS STANDARD COMES FROM THE CERTIFICATION (ruled PROMPT-135 s2) ============
+ *
+ * THE DEFECT: this module hard-coded ISO/IEC 27001 as THE requirements standard for the Internal
+ * Auditor tier. Probed on AIMS-IA before a cent was spent, it REFUSED every ISO/IEC 42001 `shall`
+ * key and ALLOWED ISO/IEC 27001 keys -- exactly inverted for an ISO/IEC 42001 certification.
+ *
+ * THE RULE, STATED ONCE: an Internal Auditor certification keys REQUIREMENT items on its OWN
+ * management-system standard's `shall` passages (that standard's Annex A controls included), and
+ * AUDIT-PRACTICE items on ISO 19011. Everything else is support only -- which for AIMS-IA means
+ * 42001 Annex B (implementation guidance) and the whole 27000 family, and for ISMS-IA means 27002
+ * and 27000.
+ *
+ * AND IT REFUSES WHAT IT DOES NOT KNOW. An unrecognised IA code throws rather than falling back to
+ * 27001: a silent default is the defect class behind the rollback command that offered to un-retire
+ * a different certification. */
+export const REQUIREMENTS_STANDARD = Object.freeze({
+  "ISMS": "ISO/IEC 27001",
+  "AIMS": "ISO/IEC 42001",
+});
+export function requirementsStandardFor(cert) {
+  const c = String(cert || "").trim().toUpperCase();
+  const fam = c.split("-")[0];
+  const std = REQUIREMENTS_STANDARD[fam];
+  if (!std) {
+    throw new Error("tier-anchoring: no requirements standard is declared for certification '" +
+      cert + "'. Add it to REQUIREMENTS_STANDARD. It will NOT fall back to ISO/IEC 27001: that " +
+      "default is what made AIMS-IA refuse every 42001 key and allow 27001 keys.");
+  }
+  return std;
+}
+/** Is this source the certification's OWN requirements standard? */
+export const isRequirementsStandard = (src, cert) => {
+  const std = requirementsStandardFor(cert);
+  return std === "ISO/IEC 27001" ? is27001(src) : is42001(src);
+};
+
+/* ============ SUPPORT-ONLY IS RELATIVE TO THE CERTIFICATION TOO ============
+ *
+ * On ISMS-IA, 27002 and 27000 are support only. On AIMS-IA the 27000 FAMILY ENTIRE is support only
+ * -- including 27001, which is another management system's requirements -- and so is 42001 Annex B,
+ * which is implementation guidance for an Annex A control and never a requirement.
+ *
+ * Annex B is matched on the CLAUSE, not the source: it is part of 42001 itself. */
+export const isAnnexB = (clause) => /^B(\.|$)/i.test(String(clause || ""));
+export function isSupportOnlyOnIA(src, cert = null, clause = null) {
+  const s = String(src || "");
+  /* the 27000 family, excluding 27001 which is handled by the requirements test */
+  const family27000 = /^ISO\/IEC\s*270(0[02-9]|[1-9]\d)\b/i.test(s) || /^ISO\/IEC\s*27000\b/i.test(s);
+  if (family27000) return true;
+  if (!cert) return /^ISO\/IEC\s*27002\b/i.test(s) || /^ISO\/IEC\s*27000\b/i.test(s);
+  const std = requirementsStandardFor(cert);
+  /* another management system's requirements standard is support only here */
+  if (std === "ISO/IEC 42001" && is27001(s)) return true;
+  if (std === "ISO/IEC 27001" && is42001(s)) return true;
+  /* 42001 Annex B is guidance even though its source IS the requirements standard */
+  if (std === "ISO/IEC 42001" && is42001(s) && isAnnexB(clause)) return true;
+  return false;
+}
 
 /**
  * Is this task an audit-practice task? True when ISO 19011 is among its PRIMARY passages.
@@ -63,29 +121,44 @@ export function isAuditPracticeTask(primaryClauses) {
  * @param opts     {tier, primaryClauses}
  * @returns {{ok:boolean, why:string}}
  */
-export function keyMayAnchor(anchor, { tier, primaryClauses } = {}) {
+export function keyMayAnchor(anchor, { tier, primaryClauses, cert = null } = {}) {
   const src = anchor && anchor.source_id;
   if (tier !== TIERS.INTERNAL_AUDITOR) {
     /* Foundation and general tiers are UNCHANGED by this ruling: their anchoring is decided by the
      * task map alone (gateAnchorIsPrimary) and by the Foundation modal narrowing. */
     return { ok: true, why: "tier " + String(tier) + ": this rule does not narrow where a key anchors" };
   }
-  if (isSupportOnlyOnIA(src)) {
+  /* THE CERTIFICATION'S OWN REQUIREMENTS STANDARD (PROMPT-135 s2). `cert` is optional only so the
+   * pre-existing callers keep working: without it the standard is ISO/IEC 27001, which is what the
+   * rule said for its whole life and is right for ISMS-IA. An AIMS-* caller MUST pass it, and
+   * `requirementsStandardFor` throws on a family it does not know rather than falling back. */
+  const std = cert ? requirementsStandardFor(cert) : "ISO/IEC 27001";
+  const isReq = std === "ISO/IEC 27001" ? is27001 : is42001;
+  /* ============ THE WORDING IS BYTE-IDENTICAL ON THE 27001 PATH, DELIBERATELY ============
+   *
+   * These `why` strings reach the WRITER PROMPT through anchorMarkFor. My first version inserted the
+   * certification code and the full standard id, which changed every ISMS-IA mark -- the verdicts
+   * were unchanged and the prompt was not, and `prove-ismsia-unmoved.mjs` caught it on 11 passages.
+   * The short standard name keeps the 27001 text exactly as it has always read. */
+  const sh = std === "ISO/IEC 27001" ? "27001" : "42001";
+  if (isSupportOnlyOnIA(src, cert, anchor && anchor.clause)) {
     /* the remedy differs by source, and a message naming 27002 while refusing a 27000 passage reads
      * like the rule is about a document it is not */
     const remedy = /27002/.test(String(src))
-      ? "the key for a control question anchors on the matching 27001 Annex A control"
-      : "state the definition in your own words and key on the 27001 `shall` clause that uses it";
+      ? "the key for a control question anchors on the matching " + sh + " Annex A control"
+      : isAnnexB(anchor && anchor.clause)
+        ? "Annex B is implementation GUIDANCE for an Annex A control: key on the control itself"
+        : "state the definition in your own words and key on the " + sh + " `shall` clause that uses it";
     return { ok: false,
       why: "IA: " + String(src) + " is SUPPORT ONLY -- distractor support and context, never the " +
         "key. Instead, " + remedy };
   }
-  if (is27001(src)) {
+  if (isReq(src)) {
     if (anchor.normative === "shall") {
-      return { ok: true, why: "IA: a 27001 `shall` passage -- what the ISMS must do" };
+      return { ok: true, why: "IA: a " + sh + " `shall` passage -- what the ISMS must do" };
     }
     return { ok: false,
-      why: "IA: " + labelOf(src, anchor.edition, anchor.clause) + " is 27001 but carries `" +
+      why: "IA: " + labelOf(src, anchor.edition, anchor.clause) + " is " + sh + " but carries `" +
         String(anchor.normative) + "`, not `shall`. A requirements key anchors on a `shall` passage" };
   }
   if (is19011(src)) {
@@ -97,8 +170,8 @@ export function keyMayAnchor(anchor, { tier, primaryClauses } = {}) {
       why: "IA: ISO 19011 may key only on an AUDIT-PRACTICE task, and this task maps no 19011 primary" };
   }
   return { ok: false,
-    why: "IA: " + String(src) + " is not a key-anchorable source on this tier (27001 `shall` for " +
-      "requirements, ISO 19011 for audit practice)" };
+    why: "IA: " + String(src) + " is not a key-anchorable source on this tier (" + sh +
+      " `shall` for requirements, ISO 19011 for audit practice)" };
 }
 
 /** The label the writer prompt puts beside each passage. One computation for prompt and gate. */
@@ -136,6 +209,52 @@ export function tierAnchoringControls() {
   const IA = TIERS.INTERNAL_AUDITOR;
   const practice = [P("ISO 19011", "6.4.7", "should", "2026")];
   const reqs = [P("ISO/IEC 27001", "9.3.2", "shall")];
+
+  /* ============ THE REQUIREMENTS STANDARD IS THE CERTIFICATION'S (PROMPT-135 s2) ============
+   * Every arm the ruling names, for BOTH certifications, plus the refusal. */
+  {
+    const A = (clause, normative) => ({ source_id: "ISO/IEC 42001", edition: "2023", clause, normative });
+    const prac42 = [{ source_id: "ISO 19011", edition: "2026", clause: "6.4.7", normative: "should" }];
+    const at = (cert) => (anchor, prim = []) => keyMayAnchor(anchor, { tier: IA, primaryClauses: prim, cert });
+    const aims = at("AIMS-IA"), isms = at("ISMS-IA");
+
+    ok("AIMS-IA: a 42001 `shall` key PASSES", aims(A("9.2.2", "shall")).ok);
+    ok("AIMS-IA: a 42001 Annex A control key PASSES", aims(A("A.6.2.2", "shall")).ok);
+    ok("AIMS-IA: a 42001 ANNEX B key FAILS", aims(A("B.6.2.2", "should")).ok === false);
+    ok("...and names Annex B as guidance for the control",
+      /Annex B is implementation GUIDANCE/.test(aims(A("B.6.2.2", "should")).why));
+    ok("AIMS-IA: a 27001 key FAILS -- another management system's requirements",
+      isms === aims ? false : aims(P("ISO/IEC 27001", "9.2.2", "shall")).ok === false);
+    ok("AIMS-IA: a 19011 key on an audit-practice task PASSES",
+      aims({ source_id: "ISO 19011", edition: "2026", clause: "6.4.7", normative: "should" }, prac42).ok);
+    ok("AIMS-IA: a 42001 non-`shall` key FAILS", aims(A("4.1", "should")).ok === false);
+
+    /* MIRRORED, and ISMS-IA MUST NOT MOVE */
+    ok("ISMS-IA: a 27001 `shall` key PASSES", isms(P("ISO/IEC 27001", "9.2.2", "shall")).ok);
+    ok("ISMS-IA: a 27001 Annex A control key PASSES", isms(P("ISO/IEC 27001", "A.5.12", "shall")).ok);
+    ok("ISMS-IA: a 42001 key FAILS -- the other standard", isms(A("9.2.2", "shall")).ok === false);
+    ok("ISMS-IA: 27002 still SUPPORT ONLY", isms(P("ISO/IEC 27002", "5.9", "should")).ok === false);
+    ok("ISMS-IA: 27000 still SUPPORT ONLY", isms(P("ISO/IEC 27000", "3.1", "n/a", "2018")).ok === false);
+    ok("ISMS-IA: a 19011 key on an audit-practice task PASSES",
+      isms({ source_id: "ISO 19011", edition: "2026", clause: "6.4.7", normative: "should" }, practice).ok);
+
+    /* OMITTING `cert` KEEPS THE OLD BEHAVIOUR EXACTLY, which is what makes ISMS-IA immovable */
+    ok("no cert given: 27001 `shall` passes, as it always did",
+      keyMayAnchor(P("ISO/IEC 27001", "9.2.2", "shall"), { tier: IA, primaryClauses: reqs }).ok);
+
+    /* AND AN UNKNOWN IA CERTIFICATION REFUSES RATHER THAN FALLING BACK TO 27001 */
+    ok("an unknown IA family THROWS rather than defaulting", (() => {
+      try { requirementsStandardFor("QMS-IA"); return false; }
+      catch (e) { return /no requirements standard is declared/.test(e.message); }
+    })());
+    ok("...and the message says it will NOT fall back", (() => {
+      try { requirementsStandardFor("ZZZ-IA"); return false; }
+      catch (e) { return /NOT fall back/.test(e.message); }
+    })());
+    ok("the table resolves both known families",
+      requirementsStandardFor("ISMS-IA") === "ISO/IEC 27001" &&
+      requirementsStandardFor("AIMS-F") === "ISO/IEC 42001");
+  }
 
   ok("tierOf reads -IA", tierOf("ISMS-IA") === IA);
   ok("tierOf reads -F", tierOf("ISMS-F") === TIERS.FOUNDATION);

@@ -23,7 +23,7 @@ import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { enemyKeyOf, enemyReason, markEnemy, enemyRuleControls } from "../functions/_shared/item-rules/enemy-rule.mjs";
 import { stemIdentity, stemIdentityControls } from "../functions/_shared/item-rules/stem-identity.mjs";
 
-let APPLY = false, CERT = "AIMS-F", FORMS = 20;
+let APPLY = false, CERT = null, FORMS = 20;
 /* ============ --assume-approved: WHAT THE CUTOVER WILL LOOK LIKE AFTER APPROVAL ============
  *
  * Ruled by necessity in PROMPT-121 s4. Target pool = APPROVED grounded + kept, so before the approval
@@ -42,6 +42,14 @@ for (const a of process.argv.slice(2)) {
   const m = a.match(/^--(cert|forms)=(.+)$/);
   if (m) { if (m[1] === "cert") CERT = m[2]; else FORMS = Number(m[2]); continue; }
   console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE>, --forms=<n>, --assume-approved, --apply.");
+  process.exit(2);
+}
+
+if (!CERT) {
+  /* NO CERTIFICATION DEFAULT (PROMPT-135 s3). This defaulted to a literal, so a caller that
+   * forgot --cert operated on a different certification and said nothing. */
+  console.error("--cert=<CODE> is required. cutover-aimsf.mjs used to default to a single\n" +
+    "certification, which is how the rollback command came to offer AIMS-F after an ISMS-IA cutover.");
   process.exit(2);
 }
 if (ASSUME_APPROVED && APPLY) {

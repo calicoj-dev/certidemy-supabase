@@ -42,11 +42,23 @@ const readJson = (p) => JSON.parse(readFileSync(p, "utf8"));
  * `anchor-layers.mjs`. An artifact is a JSON object with an `items` array whose entries carry `item_id` and
  * `verdict` -- which no report, shortfall or census file does.
  */
-export function generatorArtifacts(root) {
+/* ============ THE ARTIFACT PREFIX FOLLOWS THE CERTIFICATION (fixed PROMPT-135 s3) ============
+ *
+ * This matched `^(AIMSF|PILOT)` only, so NO ISMS-F, ISMS-IA or AIMS-IA artifact was ever visible to
+ * it -- and the cap census's "survivors awaiting a read" layer reads this list. Every ISMS-F and
+ * ISMS-IA round therefore reported "0 awaiting" and meant "I did not look", which is the layer
+ * PROMPT-97 addendum s1 added precisely to stop two runs filling one clause before either inserts.
+ *
+ * `slugs` is the caller's certification slug list. The AIMSF/PILOT default is kept ONLY for the
+ * callers that pass nothing, and a caller that passes a slug gets exactly that slug.
+ */
+export function generatorArtifacts(root, slugs = null) {
+  const pats = (slugs && slugs.length ? slugs : ["AIMSF", "PILOT"])
+    .map((s) => String(s).toUpperCase());
   const out = [];
   for (const f of readdirSync(root)) {
     if (!f.endsWith(".json")) continue;
-    if (!/^(AIMSF|PILOT)/.test(f)) continue;
+    if (!pats.some((p) => f.toUpperCase().startsWith(p))) continue;
     if (/-raw\.json$/.test(f)) continue;        /* the raw writer output is pre-gate: no verdicts to read */
     let j;
     try { j = readJson(join(root, f)); } catch { continue; }
@@ -67,7 +79,7 @@ export function generatorArtifacts(root) {
  *          disposed  Map id8 -> reason
  *          awaiting  [{ id, task, clause, file, stem }] survivors with no disposition
  */
-export function resolveDispositions(root, { insertedStems, inject } = {}) {
+export function resolveDispositions(root, { insertedStems, inject, slugs = null } = {}) {
   if (!(insertedStems instanceof Set)) {
     throw new Error("resolveDispositions: insertedStems is required. Without it every inserted item counts " +
       "as awaiting and the cap double-counts.");
@@ -84,21 +96,32 @@ export function resolveDispositions(root, { insertedStems, inject } = {}) {
 
   /* ---- WITHDRAWN: whole artifacts declared superseded ---- */
   const withdrawn = new Map();          /* file -> reason */
-  const declared = src ? (src.dispositions || {}) : (existsSync(join(root, "AIMSF-ARTIFACT-DISPOSITIONS.json"))
-    ? readJson(join(root, "AIMSF-ARTIFACT-DISPOSITIONS.json")) : {});
+  /* BOTH FILENAMES FOLLOW THE SLUG (fixed PROMPT-135 s3). They were AIMSF-only, so for ISMS-IA this
+   * module read AIMS-F's rejection list -- a different certification's rulings -- and found none of
+   * ISMS-IA's 61. The slug comes from the caller; with none, the AIMSF names are kept. */
+  const slug = (slugs && slugs.length ? String(slugs[0]).toUpperCase() : "AIMSF");
+  const pick = (name) => {
+    const own = join(root, slug + name);
+    return existsSync(own) ? own : join(root, "AIMSF" + name);
+  };
+  const dispPath = pick("-ARTIFACT-DISPOSITIONS.json");
+  const declared = src ? (src.dispositions || {}) : (existsSync(dispPath) ? readJson(dispPath) : {});
   for (const w of (declared.withdrawn || [])) {
     if (w && w.file && w.why) withdrawn.set(w.file, w.why);
   }
 
   /* ---- the standing rejection list ---- */
-  const standing = src ? (src.rejections || {}) : (existsSync(join(root, "AIMSF-DIRECTOR-REJECTIONS.json"))
-    ? readJson(join(root, "AIMSF-DIRECTOR-REJECTIONS.json")) : {});
+  const rejPath = pick("-DIRECTOR-REJECTIONS.json");
+  const standing = src ? (src.rejections || {}) : (existsSync(rejPath) ? readJson(rejPath) : {});
   for (const r of (standing.rejections || [])) {
-    if (r && r.id) dispose(r.id, "REJECTED by ruling (" + (r.ruled || "?") + "): " + (r.why || ""));
+    /* AIMS-F's entries key on `id`; ISMS-F's and ISMS-IA's key on `item_id`. Reading only `id` found
+     * none of the 61 ISMS-IA rejections and disposed nothing -- a silent empty, not an error. */
+    const id = r && (r.id || r.item_id);
+    if (id) dispose(id, "REJECTED by ruling (" + (r.ruled || r.ruled_in || "?") + "): " + (r.why || ""));
   }
 
   /* ---- per-artifact: reject blocks, revisions, and gate verdicts ---- */
-  const artifacts = src ? Object.keys(src.artifacts || {}).sort() : generatorArtifacts(root);
+  const artifacts = src ? Object.keys(src.artifacts || {}).sort() : generatorArtifacts(root, slugs);
   const survivors = [];
   for (const f of artifacts) {
     const j = src ? src.artifacts[f] : readJson(join(root, f));

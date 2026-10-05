@@ -33,12 +33,20 @@ import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 /* --cert was added in PROMPT-131: an ISMS-IA insert that omitted the generator's --exam-scope left 42
  * accepted rows at false, and record-grounded-verdicts' accept post-condition is what caught it. The
  * population stays a PROPERTY, now per certification. Default unchanged, so no caller moves. */
-let APPLY = false, CERT = "AIMS-F";
+let APPLY = false, CERT = null;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
   const m = /^--cert=(.+)$/.exec(a);
   if (m) { CERT = m[1]; continue; }
   console.error("Unrecognised flag: " + a + ". Known: --cert=<CODE> (default AIMS-F), --apply (dry by default).");
+  process.exit(2);
+}
+
+if (!CERT) {
+  /* NO CERTIFICATION DEFAULT (PROMPT-135 s3). This defaulted to a literal, so a caller that
+   * forgot --cert operated on a different certification and said nothing. */
+  console.error("--cert=<CODE> is required. set-exam-scope-all-grounded.mjs used to default to a single\n" +
+    "certification, which is how the rollback command came to offer AIMS-F after an ISMS-IA cutover.");
   process.exit(2);
 }
 const HERE = dirname(fileURLToPath(import.meta.url));

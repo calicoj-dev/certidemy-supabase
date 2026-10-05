@@ -80,7 +80,7 @@ const keyable = (t) => {
       x.clause === r.clause);
     if (!p) continue;
     const v = keyMayAnchor({ source_id: r.source_id, edition: r.edition, clause: r.clause,
-      normative: p.normative }, { tier: TIER, primaryClauses: prim });
+      normative: p.normative }, { tier: TIER, primaryClauses: prim, cert: CERT });
     if (v.ok) n++;
   }
   return n;
@@ -100,7 +100,7 @@ for (const t of thin) {
   for (const p of held) {
     if (have.has(p.source_id + "|" + p.edition + "|" + p.clause)) continue;
     const v = keyMayAnchor({ source_id: p.source_id, edition: p.edition, clause: p.clause,
-      normative: p.normative }, { tier: TIER, primaryClauses: [p.clause] });
+      normative: p.normative }, { tier: TIER, primaryClauses: [p.clause], cert: CERT });
     if (!v.ok) continue;                      /* only clauses a KEY could actually rest on */
     const pw = words((p.title || "") + " " + (p.text || ""));
     const hit = pw.filter((x) => w.has(x)).length;

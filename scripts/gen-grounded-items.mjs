@@ -52,7 +52,7 @@ import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { runCodeGates, normClause } from "./lib/grounded-gates.mjs";
 import { blindPayload, assertBlind, solverUser, solverVerdict, SOLVER_SYSTEM, blindSolverControls } from "./lib/blind-solver.mjs";
 import { createHash } from "node:crypto";
-import { CAP, SATURATION_CAP, atCap, applyCap, anchorKey, anchorCapControls } from "./lib/anchor-cap.mjs";
+import { CAP, SATURATION_CAP, atCap, applyCap, anchorKey, makeCapResolver, anchorCapControls } from "./lib/anchor-cap.mjs";
 import { passageKey, keyOfPassage, labelOf, passageKeyControls } from "./lib/passage-key.mjs";
 import { makePassageIndex, passageIndexControls } from "./lib/passage-index.mjs";
 /* PROMPT-96 s2. ONE implementation of the assignment, imported by the writer prompt AND by the gate, so the
@@ -156,7 +156,7 @@ const ROOT = join(HERE, "..");
  * it -- so the rule lives in one place rather than at each flag. */
 const underRoot = (p) => (isAbsolute(p) ? p : join(ROOT, p));
 
-let CERT = "AIMS-F", N = 40, APPLY = false, OUT = null, FROM = null, ONLY = null, IDS = null, EXAM_SCOPE = false;
+let CERT = null, N = 40, APPLY = false, OUT = null, FROM = null, ONLY = null, IDS = null, EXAM_SCOPE = false;
 /* ============ A CEILING THE RUN CANNOT PASS ============
  *
  * R3 was ruled at $25 (PROMPT-116 s5) and spent $29.45, because nothing here could stop it. The
@@ -229,6 +229,13 @@ for (const a of process.argv.slice(2)) {
   console.error("  --apply family  dry by default, --apply writes   <- this script");
   console.error("  --dry family    LIVE by default, --dry is safe");
   console.error("A flag someone believed in that silently did nothing is how a generator runs live.");
+  process.exitCode = 2; process.exit();
+}
+if (!CERT) {
+  /* NO CERTIFICATION DEFAULT (PROMPT-135 s3). It defaulted to AIMS-F, so a forgotten --cert would
+   * generate against a complete certification's map and bill for it. */
+  console.error("--cert=<CODE> is required. This defaulted to AIMS-F, which is a COMPLETE");
+  console.error("certification: a forgotten flag would have generated against its map and billed for it.");
   process.exitCode = 2; process.exit();
 }
 OUT = OUT || ("PILOT-GROUNDED-" + CERT.replace(/[^A-Za-z0-9-]/g, "") + ".json");
@@ -766,7 +773,7 @@ const classifyFor = (code) => {
     const held = passageIndex.get(p.source_id, p.edition, p.clause);
     return held ? { ...p, normative: held.normative } : p;
   });
-  const keyable = allPrim.filter((p) => keyMayAnchor(p, { tier: TIER, primaryClauses: allPrim }).ok);
+  const keyable = allPrim.filter((p) => keyMayAnchor(p, { tier: TIER, primaryClauses: allPrim, cert: CERT }).ok);
   const groups = new Map();
   for (const p of keyable) {
     const se = String(p.source_id) + "|" + String(p.edition);
@@ -879,9 +886,16 @@ const mapByCode = new Map((mapping.tasks || []).map((t) => [t.code, t]));
 /* THE ARTIFACT BEING INSERTED IS EXCLUDED FROM THE AWAITING LAYER: its survivors are added by applyCap at
  * gate time, and counting them here as well would refuse every one of them for being already present.
  * Generation passes nothing, because its survivors are in no artifact yet. */
+/* STANDARD AND EDITION ARE PASSED (fixed PROMPT-135 s3). buildCapCensus defaults them to
+ * ISO/IEC 42001 / 2023, so for ISMS-F and ISMS-IA its kept and awaiting layers filed every anchor
+ * under a 42001 key that nothing else could match -- counting toward nothing while reporting a
+ * number. A literal standard as a default is the same defect class as the rollback's file. */
 const capInfo = await buildCapCensus({ KEY, getAll, certId: cert.id, tasks, ROOT, cert: CERT,
+  standard: STANDARD_OF[CERT], edition: EDITION_OF[CERT],
   excludeArtifacts: FROM ? [FROM] : [] });
 const capCensus = capInfo.byTask;
+/* the per-(task, anchor) cap overrides, read once from the floors file (PROMPT-135 s1). */
+const ANCHOR_CAP_OVERRIDES = (loadTaskFloors(CERT).raw || {}).per_task_anchor_cap_overrides || {};
 const atCapFor = (code) => atCap(capCensus.get(code) || new Map(), CAP);
 
 /* ============ WHAT THE CERTIFICATION ALREADY TESTS ON EACH ANCHOR (PROMPT-129 s2/s3) ============
@@ -1478,6 +1492,9 @@ if (FROM) {
       taskCode: t.code, runId: RUN_ID,
       primaries: primariesForAssignment,
       censusMap: capCensus.get(t.code) || new Map(),
+      /* the per-(task, anchor) cap override, PROMPT-135 s1. One resolver, built per task from the
+       * floors file, so the cap the writer is assigned under is the cap the gate enforces. */
+      capOf: makeCapResolver(t.code, ANCHOR_CAP_OVERRIDES),
       /* PROMPT-129 s3: prefer the passage the CERTIFICATION has used least, after the task's own count */
       certCensus: CERT_ANCHOR_USE,
       /* ONE tally for the whole run, so an anchor spent by an earlier task is spent for the later

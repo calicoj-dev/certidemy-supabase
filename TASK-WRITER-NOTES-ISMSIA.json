@@ -1,19 +1,20 @@
 {
-  "_what": "Per-task and per-certification writer instructions for ISMS-IA, printed into the writer prompt. A ruling about CONTENT does not belong in a code edit, and a note nobody can see in the artifact is a note nobody can check: the notes used are listed at the top of every run.",
-  "_cert_notes_what": "`cert_notes` reaches THIS certification only. The mechanism exists because two ISMS-F rulings were sitting in the shared system prompt and were printed into an ISMS-IA prompt (found PROMPT-125 s5, moved PROMPT-126 s2). The tier's anchoring rule is NOT here -- it is computed from the certification code in lib/tier-anchoring.mjs, so it cannot drift from the gate.",
-  "cert_notes": "EVERY DISTRACTOR MUST BE A MISTAKE SOMEONE COULD ACTUALLY MAKE (ruled PROMPT-127 s4):\n\n- Every distractor must be a mistake a working auditor or ISMS manager could plausibly make. No\n  option may be rejectable on common sense alone. Prefer a short scenario that requires applying\n  the clause over asking for the definition.\n- This is why three of thirteen items were rejected on the first ISMS-IA round: a \"visit calendar\n  the certification body sets\", \"headcount\", \"the cheapest controls available\", and a strawman\n  naming a certification body's major nonconformities. Each was answerable by elimination without\n  knowing the clause, which makes the item measure nothing.",
-  "notes": {
-    "3.5": {
-      "ruled_in": "PROMPT-127 s3",
-      "instruction": "This task is about INTERVIEW PRACTICE: which question form elicits evidence rather than confirmation. Key on ISO 19011 A.17 (Conducting interviews). ISO 19011 3.10 is a DEFINITION of audit evidence and a key resting on 3.10 alone is not interview practice -- use it for context or distractor support, not as the key's anchor."
-    },
-    "4.7": {
-      "ruled_in": "PROMPT-130 s4",
-      "instruction": "Distractor support should come from 27001 4.3 or 6.1.1; the key own clause cannot hold three distractor pointers."
-    },
-    "4.8": {
-      "ruled_in": "PROMPT-130 s4",
-      "instruction": "An attributed quotation must name its clause, e.g. \"Annex A 5.12 states...\"."
-    }
+ "_what": "Per-task and per-certification writer instructions for ISMS-IA, printed into the writer prompt. A ruling about CONTENT does not belong in a code edit, and a note nobody can see in the artifact is a note nobody can check: the notes used are listed at the top of every run.",
+ "_cert_notes_what": "`cert_notes` reaches THIS certification only. The mechanism exists because two ISMS-F rulings were sitting in the shared system prompt and were printed into an ISMS-IA prompt (found PROMPT-125 s5, moved PROMPT-126 s2). The tier's anchoring rule is NOT here -- it is computed from the certification code in lib/tier-anchoring.mjs, so it cannot drift from the gate.",
+ "cert_notes": "EVERY DISTRACTOR MUST BE A MISTAKE SOMEONE COULD ACTUALLY MAKE (ruled PROMPT-127 s4):\n\n- Every distractor must be a mistake a working auditor or ISMS manager could plausibly make. No\n  option may be rejectable on common sense alone. Prefer a short scenario that requires applying\n  the clause over asking for the definition.\n- This is why three of thirteen items were rejected on the first ISMS-IA round: a \"visit calendar\n  the certification body sets\", \"headcount\", \"the cheapest controls available\", and a strawman\n  naming a certification body's major nonconformities. Each was answerable by elimination without\n  knowing the clause, which makes the item measure nothing.",
+ "notes": {
+  "3.5": {
+   "ruled_in": "PROMPT-127 s3, extended PROMPT-135 s1",
+   "instruction": "This task is about INTERVIEW PRACTICE: which question form elicits evidence rather than confirmation. Key on ISO 19011 A.17 (Conducting interviews). ISO 19011 3.10 is a DEFINITION of audit evidence and a key resting on 3.10 alone is not interview practice -- use it for context or distractor support, not as the key's anchor. ALREADY WRITTEN ON A.17 AND AWAITING A READ, so do NOT write it again: the point that an auditor should ask the interviewee to DESCRIBE their work (A.17 e)), because a description yields statements that can be traced to records while a yes/no question yields assent. A.17 carries several other distinct points -- who should be interviewed and at what level, putting the interviewee at ease, explaining the reason for the interview, avoiding leading questions, and summarising results with the interviewee. Key on one of THOSE.",
+   "_note": "The second half is a PROMPT-135 s1 addition and is removable once d0e2c99d is inserted: the ALREADY TESTED block reads the bank and will then carry the point by itself."
+  },
+  "4.7": {
+   "ruled_in": "PROMPT-130 s4",
+   "instruction": "Distractor support should come from 27001 4.3 or 6.1.1; the key own clause cannot hold three distractor pointers."
+  },
+  "4.8": {
+   "ruled_in": "PROMPT-130 s4",
+   "instruction": "An attributed quotation must name its clause, e.g. \"Annex A 5.12 states...\"."
   }
+ }
 }

@@ -146,19 +146,18 @@
  ],
  "tasks": [
   {
-   "task": "1.1",
-   "asked": 1,
-   "effective": 5,
-   "eligible": 2,
-   "capacity": 2,
-   "assignable": 1,
+   "task": "3.5",
+   "asked": 3,
+   "effective": 2,
+   "eligible": 1,
+   "capacity": 4,
+   "assignable": 3,
    "saturated": [
-    "9.2.1 x6",
-    "9.2.2 x9"
+    "3.10 x3"
    ],
    "why": "fewest-held first, ties by hash(task|run|clause), round-robin",
-   "held": 6,
-   "floor": 6,
+   "held": 1,
+   "floor": 4,
    "floor_source": null
   }
  ],

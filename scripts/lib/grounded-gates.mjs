@@ -1041,7 +1041,9 @@ export function gateAnchorIsPrimary(item, primaryClauses, supportingClauses, opt
   const tier = tierOf(cert);
   const verdict = keyMayAnchor(
     { source_id: item.source_id, edition: item.edition, clause, normative: keyNormative },
-    { tier, primaryClauses: primaryClauses || [] });
+    /* `cert` is passed so the requirements standard is the CERTIFICATION'S (PROMPT-135 s2), not a
+     * 27001 literal. Without it AIMS-IA refuses every 42001 key and allows 27001 keys. */
+    { tier, primaryClauses: primaryClauses || [], cert });
   if (!verdict.ok) {
     return { id: "anchor-is-primary", pass: false, examined: prim.size, reason: verdict.why };
   }

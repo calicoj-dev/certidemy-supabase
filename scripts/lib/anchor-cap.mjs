@@ -47,6 +47,50 @@ export const CAP = 2;
  * reported by name rather than worked around. */
 export const SATURATION_CAP = 3;
 
+/* ============ A PER-(TASK, ANCHOR) CAP OVERRIDE (ruled PROMPT-135 s1) ============
+ *
+ * CAP is 2 because a form carrying four items on one sentence teaches the sentence. Task 3.5 is the
+ * case where that bound, not the source, is the whole constraint: it maps ONE key-anchorable passage,
+ * ISO 19011 A.17, which is a long clause with many distinct lettered points -- and 2 items against a
+ * floor of 4 made the task unfillable.
+ *
+ * So the cap can be RAISED for a NAMED (task, anchor) pair, recorded in the floors file with its
+ * ruling. Nothing else moves:
+ *
+ *   - the SATURATION cap still applies certification-wide and is unaffected;
+ *   - the override is keyed on BOTH the task and the anchor, so it cannot leak to another task that
+ *     maps the same passage, nor to another passage of the same task;
+ *   - an override with no `ruled_in` is an error, the same discipline the floors file already uses.
+ *
+ * `capOf` is the ONE resolver. Every consumer takes it rather than a scalar, so the cap the writer is
+ * assigned under and the cap the gate enforces cannot differ. */
+export function makeCapResolver(taskCode, overrides, base = CAP) {
+  const table = new Map();
+  for (const [task, entries] of Object.entries(overrides || {})) {
+    if (task.startsWith("_")) continue;
+    for (const [anchor, v] of Object.entries(entries || {})) {
+      if (anchor.startsWith("_")) continue;
+      const cap = typeof v === "number" ? v : (v && v.cap);
+      const ruled = typeof v === "number" ? null : (v && v.ruled_in);
+      if (!Number.isFinite(cap) || cap < 1) {
+        throw new Error("anchor-cap override " + task + "/" + anchor + " has no usable cap");
+      }
+      if (!ruled) {
+        throw new Error("anchor-cap override " + task + "/" + anchor +
+          " has no `ruled_in`. An override nobody ruled is an error, not a default.");
+      }
+      table.set(task + "||" + anchor, cap);
+    }
+  }
+  return (p) => {
+    if (!p) return base;
+    const k = String(taskCode) + "||" + passageKey(p.source_id, p.edition, p.clause);
+    return table.has(k) ? table.get(k) : base;
+  };
+}
+/** the flat resolver, for every caller that has no overrides to apply */
+export const flatCap = (cap = CAP) => () => cap;
+
 /* The cap key IS the passage key: (source, edition, clause). It was (source, clause), which shares a
  * cap between two editions of one standard -- the same shape as the 3.4 collision one level up. */
 export { passageKey as anchorKey, parseKey } from "./passage-key.mjs";
@@ -153,6 +197,40 @@ export function anchorCapControls({ quiet = false } = {}) {
     applyCap(four, c);
     return c.size;
   });
+
+  /* ============ THE PER-(TASK, ANCHOR) OVERRIDE APPLIES TO ONE PAIR (PROMPT-135 s1) ============
+   *
+   * Both directions, because an override that leaked would raise the cap on a passage nobody ruled on
+   * and the only symptom would be four items on one sentence. */
+  {
+    const OV = { "3.5": { "ISO 19011|2026|A.17": { cap: 4, ruled_in: "PROMPT-135 s1" } } };
+    const A17 = { source_id: "ISO 19011", edition: "2026", clause: "A.17" };
+    const other = { source_id: "ISO 19011", edition: "2026", clause: "3.10" };
+    const at35 = makeCapResolver("3.5", OV);
+    const at36 = makeCapResolver("3.6", OV);
+    add("the override raises 3.5 on A.17", 4, () => at35(A17));
+    add("...and NOT another passage of the same task", CAP, () => at35(other));
+    add("...and NOT the same passage on another task", CAP, () => at36(A17));
+    add("...and NOT a different EDITION of the same clause", CAP,
+      () => at35({ source_id: "ISO 19011", edition: "2018", clause: "A.17" }));
+    add("...and NOT the same clause number in another source", CAP,
+      () => at35({ source_id: "ISO/IEC 27001", edition: "2022", clause: "A.17" }));
+    add("a task with no entry gets the flat cap", CAP, () => makeCapResolver("9.9", OV)(A17));
+    add("no overrides at all: the flat cap", CAP, () => makeCapResolver("3.5", {})(A17));
+    add("a `_what` documentation key is not read as a task", CAP,
+      () => makeCapResolver("_what", { _what: "prose" })(A17));
+    /* AN OVERRIDE WITH NO RULING IS AN ERROR, NOT A DEFAULT -- the floors file's own discipline. */
+    add("an override with no `ruled_in` THROWS", true, () => {
+      try { makeCapResolver("3.5", { "3.5": { "ISO 19011|2026|A.17": { cap: 4 } } }); return false; }
+      catch (e) { return /ruled_in/.test(e.message); }
+    });
+    add("an override with an unusable cap THROWS", true, () => {
+      try { makeCapResolver("3.5", { "3.5": { "ISO 19011|2026|A.17": { ruled_in: "x" } } }); return false; }
+      catch (e) { return /usable cap/.test(e.message); }
+    });
+    /* AND THE OVERRIDE DOES NOT TOUCH SATURATION: that cap is certification-wide and separate. */
+    add("SATURATION_CAP is unchanged by any per-task override", 3, () => SATURATION_CAP);
+  }
 
   const fails = [];
   for (const [what, expect, fn] of cases) {
