@@ -1160,23 +1160,43 @@ function writerUser(task, domain, passages, k, assignments) {
    * known. Capped at 6 lines (ruled): the block is a warning, not a reading list. */
   const alreadyBlock = (() => {
     if (!assignments || !assignments.length) return "";
+    /* ============ THE CAP IS PER ANCHOR, ROUND-ROBIN (PROMPT-130 s2) ============
+     *
+     * MEASURED: of the 8 duplicates R4 let through, SIX were cut by a flat 6-line cap and only two
+     * were in the block and ignored. None was on a different anchor and none was missing from the
+     * census. The block is built from the union of a task's assignments, so with four items it ran
+     * 7 to 11 lines -- and a flat cap cut by INSERTION ORDER, which dropped whole anchors.
+     *
+     * So: the lines are taken ROUND-ROBIN across the assigned anchors, at most 2 per anchor, to a
+     * ceiling of 10. Every anchor the writer is told to use is represented before anything is cut,
+     * which is the property the flat cap did not have. It stays a warning rather than a reading
+     * list -- the ruling's reason for a cap at all. */
+    const PER_ANCHOR = 2, CEILING = 10;
+    const perAnchor = [];
     const seen = new Set();
-    const lines = [];
     for (const a of assignments) {
       const k = anchorKey(a.source_id, a.edition, a.clause);
-      for (const e of (CERT_ANCHOR_KEYS.get(k) || [])) {
-        const line = "- " + labelOf(a.source_id, a.edition, a.clause) + " (task " + e.task + "): " +
-          e.key.slice(0, 150);
-        if (seen.has(line)) continue;
-        seen.add(line);
-        lines.push(line);
+      if (seen.has(k)) continue;
+      seen.add(k);
+      const lines = (CERT_ANCHOR_KEYS.get(k) || []).map((e) =>
+        "- " + labelOf(a.source_id, a.edition, a.clause) + " (task " + e.task + "): " +
+        e.key.slice(0, 150));
+      if (lines.length) perAnchor.push(lines);
+    }
+    if (!perAnchor.length) return "";
+    const shown = [];
+    let dropped = 0;
+    for (let round = 0; round < PER_ANCHOR; round++) {
+      for (const lines of perAnchor) {
+        if (lines.length <= round) continue;
+        if (shown.length < CEILING) shown.push(lines[round]); else dropped++;
       }
     }
-    if (!lines.length) return "";
-    const shown = lines.slice(0, 6);
-    const more = lines.length - shown.length;
+    for (const lines of perAnchor) dropped += Math.max(0, lines.length - PER_ANCHOR);
     return "\n\nALREADY TESTED ON THIS PASSAGE: test a different point or decline.\n" +
-      shown.join("\n") + (more ? "\n- ...and " + more + " more on these passages." : "");
+      shown.join("\n") +
+      (dropped ? "\n- ...and " + dropped + " more already tested on these passages. Assume every " +
+        "obvious reading of them is taken." : "");
   })();
 
   /* the ruled note for THIS task, if any. Placed last so it is the final instruction read. */

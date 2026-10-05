@@ -372,6 +372,16 @@
       "seconds": 6,
       "note": null,
       "recorded_at": "2026-10-04T23:45:36.006Z"
+    },
+    {
+      "cert": "ISMS-IA",
+      "stage": 3,
+      "stage_name": "task map and floors",
+      "applied": false,
+      "exit": 0,
+      "seconds": 4,
+      "note": null,
+      "recorded_at": "2026-10-05T01:30:47.769Z"
     }
   ],
   "costs_usd": [
@@ -900,7 +910,28 @@
         ],
         "note": "4.7 is NOT a model problem: it failed verbatim 4 of 4 again even after PROMPT-129 s3 added 4.3 and 6.1.1 as supporting, because the writer keeps citing the key clause 4.1 for its distractors instead of the new passages. 4.8 failed reproduction 3 of 4 on attributed quotations that name no clause."
       },
-      "note": "Sonnet survival 56 percent against R3 60 percent on harder tasks. structure is still the dominant refusal at 19 per 100."
+      "note": "Sonnet survival 56 percent against R3 60 percent on harder tasks. structure is still the dominant refusal at 19 per 100.",
+      "director_verdicts": {
+        "claude-sonnet-5-5": {
+          "read": 54,
+          "accepted": 44,
+          "rejected_quality": 0,
+          "rejected_duplicate_of_live": 8,
+          "withheld_twins": 2,
+          "quality_reject_rate": 0.0
+        },
+        "claude-opus-5": {
+          "read": 3,
+          "accepted": 3,
+          "rejected_quality": 0,
+          "task": "3.7"
+        }
+      },
+      "usd_per_accepted_item": 0.33,
+      "tripwire_evaluated": {
+        "verdict": "NOT TRIPPED",
+        "reason": "RULED PROMPT-130 s1. Sonnet quality rejects are 0 of 54. All 8 rejections duplicate a live item, and duplication is now the whole of the waste -- which is what the PROMPT-130 s3 semantic judge addresses."
+      }
     }
   ],
   "not_instrumented": [
@@ -1212,6 +1243,29 @@
         "grounded_items": 263,
         "withheld": 7,
         "_withheld_why": "cue-guard failures: 5 untouched by ruling, 2 given a second attempt that failed or could not apply (absolute-word tell, not a length escape). Floors 2.4 and 3.6 are 7."
+      }
+    },
+    "ISMS-IA": {
+      "_what": "IN PROGRESS. Recorded PROMPT-130 s7.",
+      "spend_usd_to_date": 57.88,
+      "spend_breakdown": {
+        "existing-bank audit": 7.08,
+        "generation R1": 11.68,
+        "generation R2": 8.72,
+        "generation R3": 14.88,
+        "generation R4": 15.52
+      },
+      "accepted_items_to_date": 141,
+      "usd_per_accepted_item_cumulative": 0.41,
+      "approved_rows_per_language": 781,
+      "grounded_items": 97,
+      "withheld": 9,
+      "director_verdict_trend": "R1 3 rejects of 13 Sonnet items (before the distractor note); R2 1 of 13; R3 3 quality of 60; R4 0 quality of 54. Quality is settled; DUPLICATION is the remaining waste and PROMPT-130 s3 is the judge for it.",
+      "_not_in_this_total": "The judge control (.89 + .04 for the first, unparseable-heavy run) and the lint-guided retries are instrument spend, not generation. They are recorded here rather than folded into a round.",
+      "instrument_spend_usd": {
+        "judge_control_first_run": 4.0442,
+        "judge_control_rescored": 4.8869,
+        "lint_guided_retry": 0.4191
       }
     }
   }

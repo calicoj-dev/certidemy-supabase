@@ -47,6 +47,25 @@
       "rejected": 10,
       "withheld": 7,
       "note": "Writer claude-sonnet-5-5. THREE dispositions, and the distinction is the point: 3 rejects are the writer's fault, 7 are duplicates of items already live, and 7 are twins within the round. The director ruled the tripwire NOT tripped because only the first 3 are a writer defect -- 5% of 60 -- and a writer is never shown what the bank already tests on its anchor."
+    },
+    {
+      "artifact": "ISMSIA-R4-sonnet.json",
+      "report": "ISMSIA-ROLLOUT-R4.md",
+      "ruled": "2026-10-04, PROMPT-130 s1",
+      "read": 54,
+      "accepted": 44,
+      "rejected": 8,
+      "withheld": 2,
+      "note": "Writer claude-sonnet-5-5. ZERO quality rejects. All 8 rejections duplicate a live item, so the whole of the waste is now duplication rather than item quality -- which is what the PROMPT-130 s3 semantic judge is for."
+    },
+    {
+      "artifact": "ISMSIA-R4-opus37.json",
+      "report": "ISMSIA-ROLLOUT-R4.md",
+      "ruled": "2026-10-04, PROMPT-130 s1",
+      "read": 3,
+      "accepted": 3,
+      "rejected": 0,
+      "note": "Writer claude-opus-5 on task 3.7 alone, reverted by the PROMPT-128 s4 tripwire. All 3 accepted: 3 of 4 survived where Sonnet had produced 0 of 4 in R3."
     }
   ],
   "rejections": [
@@ -192,6 +211,94 @@
       "duplicates": "5a5e1d83",
       "why": "RULED reject (PROMPT-129 s1): duplicates the live item 5a5e1d83 on ISO/IEC 27001 9.2.2 -- equal treatment is neutral programme -- DIFFERENT TASK, same item. NOT a writer defect: no writer is shown what the bank already tests on its anchor.",
       "ruled_in": "PROMPT-129 s1"
+    },
+    {
+      "item_id": "f12ad84a",
+      "artifact": "ISMSIA-R4-sonnet.json",
+      "task": "5.1",
+      "anchor": "ISO 19011 3.8",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "3da7fa4a",
+      "why": "RULED reject (PROMPT-130 s1): duplicates the live item 3da7fa4a -- statutory criteria, so the finding is worded \"non-compliance\" (the cross-artifact check flagged this one)",
+      "ruled_in": "PROMPT-130 s1"
+    },
+    {
+      "item_id": "588ec8e3",
+      "artifact": "ISMSIA-R4-sonnet.json",
+      "task": "2.6",
+      "anchor": "ISO 19011 3.5",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "b0d976bb",
+      "why": "RULED reject (PROMPT-130 s1): duplicates the live item b0d976bb -- definition of audit programme (same task, same anchor)",
+      "ruled_in": "PROMPT-130 s1"
+    },
+    {
+      "item_id": "5a94c9bd",
+      "artifact": "ISMSIA-R4-sonnet.json",
+      "task": "5.6",
+      "anchor": "ISO 19011 5.5.6",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "4b9fedbc",
+      "why": "RULED reject (PROMPT-130 s1): duplicates the live item 4b9fedbc -- programme manager determines whether follow-up is needed (19011 5.5.6)",
+      "ruled_in": "PROMPT-130 s1"
+    },
+    {
+      "item_id": "10b11d41",
+      "artifact": "ISMSIA-R4-sonnet.json",
+      "task": "5.1",
+      "anchor": "ISO 19011 3.21",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "20ee9bc7",
+      "why": "RULED reject (PROMPT-130 s1): duplicates the live item 20ee9bc7 -- requirement fulfilled, so conformity whatever the auditor prefers (19011 3.21)",
+      "ruled_in": "PROMPT-130 s1"
+    },
+    {
+      "item_id": "f5163d5d",
+      "artifact": "ISMSIA-R4-sonnet.json",
+      "task": "1.5",
+      "anchor": "ISO 19011 1",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "1c2b4a83",
+      "why": "RULED reject (PROMPT-130 s1): duplicates the live item 1c2b4a83 -- 19011 is guidance, not certifiable (same task, same anchor)",
+      "ruled_in": "PROMPT-130 s1"
+    },
+    {
+      "item_id": "5d8d1fb0",
+      "artifact": "ISMSIA-R4-sonnet.json",
+      "task": "2.3",
+      "anchor": "ISO 19011 3.6",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "2fcb240c",
+      "why": "RULED reject (PROMPT-130 s1): duplicates the live item 2fcb240c -- scope includes the time period (same task, same anchor)",
+      "ruled_in": "PROMPT-130 s1"
+    },
+    {
+      "item_id": "90dfe638",
+      "artifact": "ISMSIA-R4-sonnet.json",
+      "task": "3.2",
+      "anchor": "ISO 19011 4.7",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "4a9fba74",
+      "why": "RULED reject (PROMPT-130 s1): duplicates the live item 4a9fba74 -- conclusions rest on samples; confidence depends on the sampling (19011 4.7)",
+      "ruled_in": "PROMPT-130 s1"
+    },
+    {
+      "item_id": "f631acba",
+      "artifact": "ISMSIA-R4-sonnet.json",
+      "task": "1.3",
+      "anchor": "ISO/IEC 27001 9.2.2",
+      "writer_model": "claude-sonnet-5-5",
+      "kind": "duplicate-of-live",
+      "duplicates": "df1baea4",
+      "why": "RULED reject (PROMPT-130 s1): duplicates the live item df1baea4 -- 9.2.2 requires objectivity but names no ban on self-audit (same task, same anchor)",
+      "ruled_in": "PROMPT-130 s1"
     }
   ]
 }

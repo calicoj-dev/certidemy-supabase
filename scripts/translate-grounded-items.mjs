@@ -20,6 +20,7 @@ import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { translateSystem } from "./lib/item-translation.mjs";
 import { graftTranslation, translateUser, translateItemControls } from "./lib/translate-item.mjs";
+import { lintRow } from "./lib/translation-term-lint.mjs";
 import { checkPins, PIN_RULES } from "./lib/pin-compliance.mjs";
 import { driftInItem, MODAL_BRIEF, modalDriftControls } from "./lib/modal-drift.mjs";
 import { explanationOptionRef, explanationOptionRefControls } from "./lib/explanation-option-ref.mjs";
@@ -79,6 +80,12 @@ async function claude(system, user, maxTokens = 8000) {
     } catch (e) { if (attempt >= 3) throw e; await new Promise((r) => setTimeout(r, 900 * attempt)); }
   }
 }
+/* the retry below returns ONE object, not an array; parseArray cannot read it */
+const parseObject = (t) => {
+  const s2 = String(t || ""); const i = s2.indexOf("{"), j = s2.lastIndexOf("}");
+  if (i < 0 || j <= i) return null;
+  try { return JSON.parse(s2.slice(i, j + 1)); } catch { return null; }
+};
 const parseArray = (t) => {
   const s = String(t || ""); const a = s.indexOf("["), b = s.lastIndexOf("]");
   if (a < 0 || b < a) return null; try { return JSON.parse(s.slice(a, b + 1)); } catch { return null; }
@@ -334,13 +341,74 @@ if (!APPLY) {
     for (const p of lint[lang.code].pins) flagged.add(p.id);
     for (const p of lint[lang.code].letters) flagged.add(p.id);
   }
+  /* ============ A LINT-GUIDED SECOND ATTEMPT (ruled PROMPT-130 s5) ============
+   *
+   * A PLAIN re-roll does not work: PROMPT-129 re-rolled three flagged items and got the same two
+   * faults back, because the model is never told what was wrong. Fed the finding itself, all three
+   * came back clean on one attempt. So the retry happens HERE, in the one writer of sibling rows,
+   * rather than in a separate script whose output something else would have to insert.
+   *
+   * ONE attempt per language per item. The lint is re-run on the result and a rendering that still
+   * trips it is NOT written -- the item stays held, which is the behaviour this replaces, not
+   * removes. */
+  const findingsFor = (id8) => {
+    const out = [];
+    for (const lang of LANGS) {
+      for (const p of lint[lang.code].pins) if (p.id === id8) out.push(lang.code + ": " + (p.why || p.rule || p.term));
+      for (const p of lint[lang.code].letters) if (p.id === id8) out.push(lang.code + ": " + (p.why || "names an option by its letter"));
+    }
+    return out;
+  };
+  let retried = 0, recovered = 0;
+  for (const r of ok) {
+    const id8 = String(r.en_id).slice(0, 8);
+    if (!flagged.has(id8)) continue;
+    const found = findingsFor(id8);
+    if (!found.length) continue;
+    retried++;
+    const enRow = en.find((x) => x.id === r.en_id);
+    if (!enRow) continue;
+    let allClean = true;
+    for (const lang of LANGS) {
+      const mine = found.filter((f) => f.startsWith(lang.code + ":"));
+      if (!mine.length) continue;
+      const sys = "You are re-translating an examination item whose previous translation was REFUSED " +
+        "by a lint rule. The refusal is given verbatim. Produce a translation that does not trip it " +
+        "again, and change nothing else: same meaning, same option ids, the same option correct, " +
+        "same register.\n\nReturn ONE JSON object and nothing else:\n" +
+        '{ "question_text": "...", "options": [{"id":"a","text":"..."}, ...], "explanation": "..." }';
+      const usr = ["TARGET LANGUAGE: " + lang.name + " (" + lang.code + ")", "",
+        "THE LINT REFUSAL THAT MUST NOT RECUR:", ...mine, "",
+        "ENGLISH ITEM:", "STEM: " + enRow.question_text, "OPTIONS:",
+        ...(enRow.options || []).map((o) => "  " + o.id + ") " + o.text),
+        "CORRECT: " + JSON.stringify(enRow.correct_answer),
+        "EXPLANATION: " + enRow.explanation].join("\n");
+      let cand = null;
+      try { cand = parseObject(await claude(sys, usr, 2500)); } catch { cand = null; }
+      const grafted = cand ? graftTranslation(enRow, cand) : null;
+      if (!grafted) { allClean = false; continue; }
+      const re = lintRow({ ...grafted, language: lang.code }, lang.code, enRow);
+      const still = [...(re.forbidden || []), ...(re.mixed || []), ...(re.untranslated || [])];
+      if (still.length) {
+        console.log("  lint-guided retry  " + id8 + " " + lang.code + ": STILL FLAGGED, not written");
+        allClean = false; continue;
+      }
+      r.langs[lang.code] = grafted;
+      console.log("  lint-guided retry  " + id8 + " " + lang.code + ": clean");
+    }
+    if (allClean) { flagged.delete(id8); recovered++; }
+  }
+  if (retried) {
+    console.log("  LINT-GUIDED RETRY: " + recovered + " of " + retried + " item(s) recovered");
+  }
+
   const clean = ok.filter((r) => !flagged.has(String(r.en_id).slice(0, 8)));
   const held = ok.filter((r) => flagged.has(String(r.en_id).slice(0, 8)));
   if (held.length) {
     console.log("");
-    console.log("  HELD BACK, lint-flagged: " + held.length + " item(s) -- " +
+    console.log("  HELD BACK, lint-flagged after a lint-guided retry: " + held.length + " item(s) -- " +
       held.map((r) => String(r.en_id).slice(0, 8)).join(", "));
-    console.log("  These are NOT inserted. Re-translate them with the rule named, then re-run.");
+    console.log("  These are NOT inserted.");
   }
   if (broken.length) { console.error("\nREFUSING TO WRITE: " + broken.length + " item(s) did not translate into both languages."); process.exitCode = 2; }
   else {

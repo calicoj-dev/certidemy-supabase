@@ -6,6 +6,14 @@
     "3.5": {
       "ruled_in": "PROMPT-127 s3",
       "instruction": "This task is about INTERVIEW PRACTICE: which question form elicits evidence rather than confirmation. Key on ISO 19011 A.17 (Conducting interviews). ISO 19011 3.10 is a DEFINITION of audit evidence and a key resting on 3.10 alone is not interview practice -- use it for context or distractor support, not as the key's anchor."
+    },
+    "4.7": {
+      "ruled_in": "PROMPT-130 s4",
+      "instruction": "Distractor support should come from 27001 4.3 or 6.1.1; the key own clause cannot hold three distractor pointers."
+    },
+    "4.8": {
+      "ruled_in": "PROMPT-130 s4",
+      "instruction": "An attributed quotation must name its clause, e.g. \"Annex A 5.12 states...\"."
     }
   }
 }

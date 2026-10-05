@@ -1,0 +1,907 @@
+{
+  "cert": "ISMS-IA",
+  "model": "claude-opus-5",
+  "positives_caught": 20,
+  "positives_judged": 24,
+  "false_positives": 12,
+  "negatives_judged": 104,
+  "spend_usd": 4.8869,
+  "verdicts": [
+    {
+      "kind": "POSITIVE",
+      "a": "5a766530",
+      "b": "79687a7a",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the identical proposition — that the auditor must collect objective evidence on the process/method, contributor competence, and application of results to the scope — with only the sur"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "237256ee",
+      "b": "058c46cf",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the identical proposition that unlisted AI artefacts (model, dataset, store/API) with no named owner constitute a gap against the A.5.9 inventory-and-owners requirement, differing onl"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "54fd74d5",
+      "b": "8ba52401",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the identical proposition from Note 1 — that in an internal audit the audit client may be the auditee or the individual(s) managing the audit programme."
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "45220642",
+      "b": "3abae3c4",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert that a significant change triggers an independent review immediately rather than waiting for the next planned interval, differing only in scenario detail."
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "03c453a4",
+      "b": "d107e62b",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the identical proposition from Note 1 — an audit conducted on the organization's own behalf by an external consultancy is still an internal audit — differing only in surface scenario "
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "740d9999",
+      "b": "6b73a816",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition from the final sentence of 4.6 — that where internal auditor independence is not achievable, the audit may proceed provided every effort is made to remove bias an"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "4f4e9379",
+      "b": "5a5e1d83",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert that a uniform audit programme is deficient because the organization must consider process importance and previous audit results, differing only in scenario detail."
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "68037836",
+      "b": "6cbb37e3",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the identical proposition that audit programme resources should be weighted toward areas of higher inherent risk and lower performance, with Item A merely dressing that same judgement"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "4a9fba74",
+      "b": "1fcd8f53",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition — that an audit conclusion drawn from a small sample of a large population is only as reliable as the appropriateness of the sampling — differing only in sample s"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "0f7709e7",
+      "b": "daa27099",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: (empty)"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "4428d26d",
+      "b": "31c5c679",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert that inconsistent, non-comparable results from repeated assessments violate the 6.1.2 b) consistency requirement, differing only in scenario and in whether the breach is labelled a no"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "41987c68",
+      "b": "c935a095",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the identical proposition that nonconformities must be reviewed with the auditee to obtain acknowledgement that the evidence is accurate and the nonconformity understood, differing on"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "a41dec11",
+      "b": "c2ede142",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the identical proposition that the auditor should verify the completion and effectiveness of the auditee's actions, possibly as part of a subsequent audit, differing only in the closu"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "a09604bd",
+      "b": "b3d7170f",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the identical proposition that weakly verified information should be weighed by professional judgement to determine the degree of reliance placed on it, differing only in scenario."
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "f12ad84a",
+      "b": "3da7fa4a",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition from Note 1 — that findings against legal/statutory criteria are worded as 'non-compliance' — with only the scenario details differing."
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "588ec8e3",
+      "b": "b0d976bb",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests recall of the definition and the distinction between a programme and a single audit's plan, while Item B tests application of the definition's 'defined time frame and specific purpose' cr"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "5a94c9bd",
+      "b": "4b9fedbc",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition — that the individual managing the audit programme reviews the effectiveness of actions taken and determines whether a follow-up audit is necessary — differing on"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "10b11d41",
+      "b": "20ee9bc7",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition — the stated requirement is fulfilled so the finding is conformity, and the auditor's personal expectation or preference beyond the requirement cannot make it a n"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "f5163d5d",
+      "b": "1c2b4a83",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A turns on the document's normative status (guidance rather than requirements, hence not certifiable), while Item B turns on the scope of topics the guidance covers, so each is answered correctly"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "5d8d1fb0",
+      "b": "2fcb240c",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys rest on the same proposition — that the Note's enumerated scope elements (physical/virtual locations and the time period covered) belong in a scope statement — with Item A asking which enume"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "90dfe638",
+      "b": "4a9fba74",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests that sampling is legitimate and a census is not required given finite resources, while Item B tests the opposite half of the rule — judging that a particular sample was too small to suppo"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "f631acba",
+      "b": "df1baea4",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition about clause 9.2.2 b) — that it mandates an objectivity/impartiality outcome in auditor selection without stating any explicit prohibition on auditing one's own w"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "a7594c74",
+      "b": "ce07708f",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the identical proposition that audits must also inform on whether the ISMS is effectively implemented and maintained, not merely documentary conformity, differing only in scenario fra"
+    },
+    {
+      "kind": "POSITIVE",
+      "a": "952228e6",
+      "b": "f7bd5a5f",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the identical proposition — that screenshots during remote audits require advance permission from the auditee plus consideration of confidentiality/security — differing only in the su"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "eda3a540",
+      "b": "8304e207",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert that a customer auditing its supplier is a second-party (external) audit, requiring the identical Note 2 understanding applied to essentially the same scenario."
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "2ecd8f34",
+      "b": "ebba5a50",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition — that competence rests on demonstrated application of knowledge and skills to achieve intended results rather than on holding a certificate — with only the scena"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "34b2c894",
+      "b": "724a6c77",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key turns on the rule that unresolved diverging opinions must be recorded in the audit report, while Item B's key turns on evaluating evidence against criteria and reviewing the nonconformity"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "5deb4e84",
+      "b": "4733b95e",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert that conformity requires demonstrated understanding of all three awareness elements — policy, contribution to the ISMS, and implications of nonconformity — rather than mere receipt of"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "e4456bbd",
+      "b": "6b73a816",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition — that where internal auditor independence is unattainable the audit may proceed provided deliberate measures are taken to remove bias and reinforce objectivity —"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a01e5a70",
+      "b": "4a9fba74",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: (empty)"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a01e5a70",
+      "b": "01c9ded2",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: (empty)"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a01e5a70",
+      "b": "7c69407b",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the sampling half of the evidence-based approach — that a well-drawn sample can support a conclusion without 100% examination — whereas Item B tests the verifiability half, that an unconf"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "d509a957",
+      "b": "af670af2",
+      "verdict": "SAME_POINT",
+      "reason": "Both turn on the same judgement under 4.2 c) — whether the organization has determined which interested-party requirements the ISMS will address — with one presenting the omission and the other the sa"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "d509a957",
+      "b": "3926f1ac",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same deficiency under 4.2 c): interested parties and their requirements were recorded but the organization never determined which of those requirements the ISMS will address."
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "d509a957",
+      "b": "735ed831",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: { \"verdict\": \"SAME_POINT\", \"re"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "af670af2",
+      "b": "3926f1ac",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys turn on the same proposition from 4.2 c) — that the organization must determine which of the interested parties' recorded requirements the ISMS will address — with one item showing complianc"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "af670af2",
+      "b": "735ed831",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests that an organization may legitimately decide only some interested-party requirements fall to the ISMS (the permissive side of 4.2 c), while Item B tests the obligation to identify a contr"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "091a60ae",
+      "b": "d853f12b",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition—that a competence gap in the audit team should be filled by adding a technical expert to support the team—differing only in surface scenario details."
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "eb1ab5db",
+      "b": "5ae0312d",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests that the audit programme must be driven by process importance and prior audit results, while Item B tests the separate obligation in c) to report audit results to relevant management."
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "eb1ab5db",
+      "b": "5a5e1d83",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition — that the audit programme must be shaped by the importance of the processes and the results of previous audits, which a uniform/fixed-rotation schedule fails to "
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "eb1ab5db",
+      "b": "df1baea4",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the requirement to base programme design on process importance and prior audit results, while Item B keys on the separate obligation to select auditors so as to ensure objectivity and i"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "eb1ab5db",
+      "b": "be1c2c70",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the requirement that programme design consider process importance and prior audit results, while Item B tests the source of the audit-programme obligation (ISO/IEC 27001 versus ISO 19011 "
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "eb1ab5db",
+      "b": "bd379f15",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the requirement to base the programme on process importance and prior audit results, while Item B keys on the required programme content elements (methods and planning requirements), wh"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "dd6288af",
+      "b": "952228e6",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key asserts joint provision of resources with pre-audit technical checks and contingency plans, while Item B's key asserts the separate obligation to seek advance permission for screenshots a"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "fa058c8a",
+      "b": "d2169939",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the joint-audit provision requiring the different programme managers to agree methods and consider resourcing/planning impacts, while Item B keys on the general criterion for balancing "
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "ae831776",
+      "b": "9f8879d2",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key asserts that a multi-member team may run on-site and remote methods simultaneously, while Item B's key asserts that auditor competence and method-related uncertainty must be weighed when "
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "ae831776",
+      "b": "4a40bb73",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key asserts that a multi-member team may run on-site and remote methods simultaneously when methods fit objectives/scope/criteria, while Item B's key names the level of confidence between aud"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "5ae0312d",
+      "b": "5a5e1d83",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the obligation to report audit results to relevant management, while Item B keys on the requirement to weigh process importance and prior audit results when designing the programme — tw"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "5ae0312d",
+      "b": "df1baea4",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key asserts the reporting obligation in clause c), while Item B's key asserts the objectivity/impartiality outcome requirement in clause b), which are distinct obligations within the same pas"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "5ae0312d",
+      "b": "be1c2c70",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the specific obligation to report audit results to relevant management, whereas Item B tests the source of the audit programme requirement (27001 mandate vs ISO 19011 guidance), a differe"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "5ae0312d",
+      "b": "bd379f15",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the obligation to report audit results to relevant management, while Item B tests the required content elements (methods and planning requirements) of the audit programme itself."
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "d107e62b",
+      "b": "eda3a540",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests Note 1 — that an audit conducted on the organization's own behalf remains internal — while Item B tests Note 2's criterion for second-party external audits conducted by an interested part"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "d107e62b",
+      "b": "8304e207",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests Note 1's point that an audit done on the organization's behalf by outsiders is still internal, while Item B tests Note 2's distinction identifying a customer-conducted audit as second-par"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "d107e62b",
+      "b": "bac89c90",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on Note 1's classification rule that an audit conducted on the organization's behalf is still internal, while Item B keys on the core definition's purpose of objectively evaluating evidenc"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "d107e62b",
+      "b": "02efb819",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on Note 1 (an audit conducted on the organization's behalf is still internal), while Item B keys on Note 2's third-party category plus the separate ISO/IEC 17021-1 governance point, so the"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "d107e62b",
+      "b": "09c6f6b5",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the Note 1 classification rule that an audit done on the organization's behalf is still internal, while Item B tests the 'independent' attribute in the core definition of audit — differen"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "9e39b25b",
+      "b": "3da7fa4a",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the core definition of audit criteria as the reference requirements evidence is compared against, while Item B keys on Note 1's separate rule that findings against legal criteria are wo"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "9e39b25b",
+      "b": "5b846ff4",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A asks for the general definition of audit criteria, while Item B requires applying the concept to identify which specific requirement in a scenario serves as the criterion against the observed e"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "9e39b25b",
+      "b": "1ac57b82",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: { \"verdict\": \"DIFFERENT_POINT\", \"reason\": \"Item A asks for recall of the definition of audit criteria, while Item B requires applying the definition to discriminate criteria from ev"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "7763fc0e",
+      "b": "1bd45e45",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests recognizing a scope definition (locations, activities, time period) that is consistent with the audit objectives and programme, while Item B tests the procedural response to a requested s"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "cdab7e11",
+      "b": "a7efedea",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition — that internal audit conformity criteria comprise the organization's own ISMS requirements as well as the standard's — with Item B merely applying it to a scenar"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "cdab7e11",
+      "b": "a7594c74",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key asserts the dual conformity criteria of 9.2.1 a), while Item B's key asserts the separate requirement in 9.2.1 b) that audits also cover effective implementation and maintenance — differe"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "3926f1ac",
+      "b": "735ed831",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: (empty)"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "058c46cf",
+      "b": "fdc409e9",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: (empty)"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "b0c1862c",
+      "b": "9dd0237b",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key turns on factoring in prior audit records and conclusions when a closed finding recurs (with evidence sufficiency as a secondary element), whereas Item B's key turns solely on whether sam"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "eda3a540",
+      "b": "bac89c90",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests classification of audit parties under the notes to entry, while Item B tests the core definition's purpose clause (objective evaluation to determine fulfilment of audit criteria)."
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "eda3a540",
+      "b": "02efb819",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on recognizing a customer-commissioned audit as second-party, while Item B keys on the third-party classification plus the separate fact that ISO/IEC 17021-1 governs certification-body aud"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "eda3a540",
+      "b": "09c6f6b5",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests classification of audit types under the notes to entry (second-party external based on interest), while Item B tests recognition of the 'independent' attribute within the core definition "
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "5a5e1d83",
+      "b": "df1baea4",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the programme-planning duty to weigh process importance and prior audit results, while Item B keys on the separate clause (b) requirement that auditor selection achieve objectivity and "
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "5a5e1d83",
+      "b": "be1c2c70",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the substantive requirement that programme design weigh process importance and prior audit results, while Item B tests which standard imposes the obligation versus merely offering guidanc"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "5a5e1d83",
+      "b": "bd379f15",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the requirement to weigh process importance and prior audit results when establishing the programme, while Item B tests the separate requirement that the programme specify its mandated el"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "24f80b60",
+      "b": "bbd75219",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests that due care is undiminished by the task's low importance (sampling extent set by reasoned judgement), while Item B tests the other half of the clause — that confidence placed in the aud"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a048d3ee",
+      "b": "9902d6d8",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: (empty)"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a048d3ee",
+      "b": "f10eda8f",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys assert the same proposition — that an adequate nonconformity response requires not just correcting the instance but genuine cause analysis plus checking whether the same gap exists elsewhere"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a048d3ee",
+      "b": "bdf32e89",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the substantive corrective-action sequence (correct the instance, find causes, check elsewhere, review effectiveness), while Item B tests the documented-information requirement that resul"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "db491785",
+      "b": "0e204a35",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on including the criteria and an explanation of why the evidence fails them (elements a and c), while Item B keys on cross-referencing related audit findings (element d), which are distinc"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "8304e207",
+      "b": "bac89c90",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests classification of audit parties under Notes 1-2 (second-party audit), while Item B tests the core definitional purpose of evaluating objective evidence against audit criteria."
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "8304e207",
+      "b": "02efb819",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key asserts the second-party classification rule (auditor has a commercial interest in the auditee), while Item B's key asserts the third-party classification plus the separate fact that cert"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "8304e207",
+      "b": "09c6f6b5",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the Note 2 classification scheme (identifying a customer-conducted audit as second-party), while Item B tests the definitional requirement that an audit be independent, i.e. an auditor ca"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a7efedea",
+      "b": "a7594c74",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key asserts the audit scope includes conformity to the organization's own ISMS requirements (a)1)), while Item B's key asserts audits must also address effective implementation and maintenanc"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "4f3f59bc",
+      "b": "35fe809a",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the obligation to resist auditee pressure and report unresolved diverging opinions and sampling limitations, while Item B tests phrasing a finding so it accurately reflects the evidence a"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "4f3f59bc",
+      "b": "a4ea9bcd",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: { \"verdict\": \"DIFFERENT_POINT\", \"reason\": \"Item A turns on refusing to soften a conclusion to suit the auditee and recording an unresolved diverging opinion, while Item B turns on discl"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "df1baea4",
+      "b": "be1c2c70",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the impartiality/objectivity requirement as an outcome the organization must judge, while Item B tests which document imposes the audit-programme obligation versus merely offering guidanc"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "df1baea4",
+      "b": "bd379f15",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the objectivity/impartiality requirement in b) and its outcome-based (not prescriptive) nature, while Item B tests the required content elements of the audit programme (methods and planni"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "833828b1",
+      "b": "05517160",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the definition of an audit finding as evaluation of evidence against criteria and the resulting dependence on evidence verification, whereas Item B tests applying Notes 1 and 2 to classif"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "833828b1",
+      "b": "a844f3b0",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests that a finding is the evaluation of evidence against criteria and thus inherits the reliability of that evidence, while Item B tests Note 1's point that findings include conforming outcom"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "ab9f9ebf",
+      "b": "0f7709e7",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the 'current' quality criterion for documented information, while Item B tests the separate obligations to assess evidence integrity when information arrives by an unexpected route and to"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "4a9fba74",
+      "b": "01c9ded2",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: { \"verdict\": \"SAME_POINT\", \"reason\": \"Both keys assert the same proposition — that a narrow, unrepresentative sample cannot support a conclusion about the whole population, so approp"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "4a9fba74",
+      "b": "7c69407b",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the sampling-adequacy half of the evidence-based approach (sample size must support confidence in the conclusion), while Item B tests the verifiability requirement (an unconfirmable state"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "724a6c77",
+      "b": "41987c68",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: (empty)"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "724a6c77",
+      "b": "b96aa2be",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: (empty)"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "724a6c77",
+      "b": "427e8f1b",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the evaluate-record-review-with-auditee sequence for a nonconformity, while Item B tests the separate requirement that grading criteria be defined and communicated, so different obligatio"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "9f8879d2",
+      "b": "4a40bb73",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on auditor competence and method-related uncertainty as considerations in method selection, while Item B keys on the level of confidence between auditors and auditee personnel as a factor "
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "d0cbb7a4",
+      "b": "eb554e34",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on sampling risk (the sample may not represent the population so the conclusion could differ), while Item B keys on the prerequisite of data quality (inaccurate source data yields no usefu"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "927f39e2",
+      "b": "54702739",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the missing determination of who analyses and evaluates results (9.1 f), while Item B keys on the methods requirement that results be comparable and reproducible to be valid (9.1 b) — d"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "4428d26d",
+      "b": "5c809913",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key concerns clause 6.1.2 b) consistency and comparability of repeated assessments, while Item B's key concerns the omission of the clause 6.1.2 e) evaluation step (comparison with criteria a"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "f02970b5",
+      "b": "9b66b6c7",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the unintended-change obligation (review consequences and mitigate adverse effects), while Item B keys on the process-criteria obligation (defined criteria plus control exercised agains"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "01c9ded2",
+      "b": "7c69407b",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item B keys on the verifiability requirement (an unconfirmable statement is not yet audit evidence), while Item A keys on the sampling requirement (extending the sample so conclusions about extent res"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "9902d6d8",
+      "b": "f10eda8f",
+      "verdict": "SAME_POINT",
+      "reason": "Both keys fault the same omission under 10.2 b)3) — the organization never determined whether similar nonconformities exist or could occur elsewhere — with only the scenario (suppliers vs. backup syst"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "9902d6d8",
+      "b": "bdf32e89",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the failure to determine whether similar nonconformities exist elsewhere (10.2 b)3)), while Item B keys on the absence of documented information evidencing the results of the corrective"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "40ba9efd",
+      "b": "be735bc0",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: {"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "41987c68",
+      "b": "b96aa2be",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the obligation to review nonconformities with the auditee to obtain acknowledgement of accuracy and understanding, while Item B tests the separate requirement that nonconformities be reco"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "41987c68",
+      "b": "427e8f1b",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the obligation to review nonconformities with the auditee to confirm evidence accuracy and understanding, while Item B tests the separate requirement that grading criteria be defined and "
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "41987c68",
+      "b": "34b2c894",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the obligation to review nonconformities with the auditee to obtain acknowledgement of accuracy and understanding, while Item B keys on the separate downstream rule that diverging opini"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "be1c2c70",
+      "b": "bd379f15",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests which document imposes the audit-programme obligation (27001 requirement vs ISO 19011 guidance), whereas Item B tests whether a programme contains the required elements (methods and plann"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "68037836",
+      "b": "bab45e68",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the risk/performance-based prioritization of audit programme resources, while Item B tests the separate guidance that programme extent be scaled to the organization's size and complexity."
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "47b3fec9",
+      "b": "88136647",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the trigger obligation (significant change requires a fresh assessment outside the planned interval), while Item B tests the separate obligation to retain documented information of assess"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a09604bd",
+      "b": "e4015e58",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the rule on applying professional judgement to the degree of reliance placed on weakly verifiable evidence, while Item B tests the requirement to collect information about interfaces betw"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a09604bd",
+      "b": "0cf45b42",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item B tests the obligation to verify claims through appropriate sampling rather than accept verbal assurance, while Item A tests the separate rule that when verification is weak the auditor applies p"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "b96aa2be",
+      "b": "427e8f1b",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the requirement that nonconformities be recorded together with their supporting audit evidence, while Item B tests the separate requirement that grading criteria be defined and communicat"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "b96aa2be",
+      "b": "34b2c894",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests that a nonconformity record must be accompanied by its supporting evidence to be relied upon, while Item B tests the separate provision that diverging opinions which cannot be resolved mu"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "3da7fa4a",
+      "b": "5b846ff4",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests Note 1's wording convention (legal criteria yield 'non-compliance'), while Item B tests identifying and stating the criterion (an internal work instruction per Note 2) against which evide"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "3da7fa4a",
+      "b": "1ac57b82",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests Note 1's rule that findings against legal criteria are expressed as compliance/non-compliance, while Item B tests Note 2's scope of what counts as criteria (a work instruction) versus evi"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "427e8f1b",
+      "b": "34b2c894",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the requirement to define and communicate nonconformity grading criteria, while Item B tests the separate obligation to record unresolved diverging opinions in the audit report."
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a41dec11",
+      "b": "30f74229",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key asserts the duty to verify completion and effectiveness of actions (possibly in a later audit), while Item B's key asserts the separate downstream obligation to report the verification ou"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "f10eda8f",
+      "b": "bdf32e89",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key concerns the inadequacy of root-cause analysis and failure to check similar nonconformities elsewhere (10.2 b), while Item B's key concerns the missing documented evidence of corrective a"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "bac89c90",
+      "b": "02efb819",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the core definitional purpose of evaluating objective evidence (determining the extent to which audit criteria are fulfilled), while Item B tests the Note 2 classification of audit types "
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "bac89c90",
+      "b": "09c6f6b5",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on the purpose of evaluation — determining the extent to which audit criteria are fulfilled, judged objectively — while Item B keys on the separate 'independent' attribute of the audit def"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a6d392aa",
+      "b": "ab9aea39",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests clause 6.1.3 f)'s requirement that risk owners themselves approve the plan and accept residual risk, while Item B tests how to verify an SoA's 'implemented' claim under 6.1.3 d) — differe"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "a6d392aa",
+      "b": "026bdcb9",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A's key asserts the 6.1.3 f) requirement that risk owners themselves must approve the plan and accept residual risk, while Item B's key asserts a 6.1.3 c)/d) defect in the Statement of Applicabil"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "9388af3f",
+      "b": "67611ea7",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: (empty)"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "05517160",
+      "b": "a844f3b0",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: (empty)"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "35fe809a",
+      "b": "a4ea9bcd",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests accurate, non-overstated wording of a finding relative to the evidence sampled, while Item B tests the separate obligation to report significant obstacles/limits on audit coverage."
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "5b846ff4",
+      "b": "1ac57b82",
+      "verdict": "COULD-NOT-ANSWER",
+      "reason": "unparseable: { \"verdict\": \"SAME_POINT\", \"reason\": \"Both keys rest on the same judgement that an organization's internal"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "02efb819",
+      "b": "09c6f6b5",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A keys on classifying an audit by party (third-party) and the governing standard for certification bodies, while Item B keys on the independence requirement within the audit definition — differen"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "e0d73d3d",
+      "b": "2d6d0c2d",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests that ICT access counts as a resource factor within the feasibility determination, while Item B tests the consequent action when the audit is found infeasible — proposing an alternative to"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "e4015e58",
+      "b": "0cf45b42",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests the requirement to collect evidence about interfaces/handoffs between functions, while Item B tests that information must be verifiable and verified by direct sampling rather than accepte"
+    },
+    {
+      "kind": "NEGATIVE",
+      "a": "ab9aea39",
+      "b": "026bdcb9",
+      "verdict": "DIFFERENT_POINT",
+      "reason": "Item A tests that an SoA 'implemented' status must be corroborated by operating evidence, while Item B tests the consistency and justification of an Annex A exclusion against the treatment plan — diff"
+    }
+  ]
+}
