@@ -95,6 +95,10 @@
   "4.5": {
    "ruled_in": "PROMPT-140 s2",
    "instruction": "The key must anchor on ISO/IEC 42001 6.1.3 or 8.3. These points are ALREADY TESTED on those two passages and must not be the key: that a documented justification for excluding a control is acceptable when it traces to that system's risk assessment; that a control neither documented nor communicated is unsupported; that 6.1.3 asks for guidance to be taken into account and the organization may implement a control in its own way; that a changed treatment option needs evidence of review and revalidation with the plan updated; that implementation without verification of effectiveness leaves a declaration unsupported; and that a register entry with an owner is not a risk treatment process. Key on something else in those two clauses."
+  },
+  "5.6": {
+   "ruled_in": "PROMPT-141 s3",
+   "instruction": "Don't key on where a follow-up verification outcome goes -- that it is reported to the individual managing the audit programme and to the audit client so it can feed into management review. That point is already tested (5e0eb62c)."
   }
  }
 }

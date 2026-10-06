@@ -52,7 +52,7 @@ import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { runCodeGates, normClause } from "./lib/grounded-gates.mjs";
 import { blindPayload, assertBlind, solverUser, solverVerdict, SOLVER_SYSTEM, blindSolverControls } from "./lib/blind-solver.mjs";
 import { createHash } from "node:crypto";
-import { CAP, SATURATION_CAP, atCap, applyCap, anchorKey, makeCapResolver, anchorCapControls } from "./lib/anchor-cap.mjs";
+import { CAP, SATURATION_CAP, atCap, applyCap, anchorKey, makeCapResolver, makeSatCapResolver, anchorCapControls } from "./lib/anchor-cap.mjs";
 import { passageKey, keyOfPassage, labelOf, passageKeyControls } from "./lib/passage-key.mjs";
 import { makePassageIndex, passageIndexControls } from "./lib/passage-index.mjs";
 /* PROMPT-96 s2. ONE implementation of the assignment, imported by the writer prompt AND by the gate, so the
@@ -157,6 +157,7 @@ const ROOT = join(HERE, "..");
 const underRoot = (p) => (isAbsolute(p) ? p : join(ROOT, p));
 
 let CERT = null, N = 40, APPLY = false, OUT = null, FROM = null, ONLY = null, IDS = null, EXAM_SCOPE = false;
+let N_GIVEN = false;   /* --tasks OVERWRITES N, so the two together must refuse (PROMPT-141 s2) */
 /* ============ A CEILING THE RUN CANNOT PASS ============
  *
  * R3 was ruled at $25 (PROMPT-116 s5) and spent $29.45, because nothing here could stop it. The
@@ -180,7 +181,7 @@ let REUSE_SOLVER = false, RESOLVE_FRESH = false, SAT_REPORT = false;
 for (const a of process.argv.slice(2)) {
   let m;
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
-  if ((m = /^--n=(\d+)$/.exec(a))) { N = Number(m[1]); continue; }
+  if ((m = /^--n=(\d+)$/.exec(a))) { N = Number(m[1]); N_GIVEN = true; continue; }
   if ((m = /^--out=(.+)$/.exec(a))) { OUT = m[1]; continue; }
   if ((m = /^--max-usd=([0-9.]+)$/.exec(a))) { MAXUSD = Number(m[1]); continue; }
   if ((m = /^--writer-model=(.+)$/.exec(a))) { WRITER_MODEL_FLAG = m[1]; continue; }
@@ -974,6 +975,22 @@ if (HELD_TASKS.length) {
 
 const alloc = new Map();
 if (ONLY) {
+  /* ============ --n AND --tasks TOGETHER ARE REFUSED (PROMPT-141 s2) ============
+   *
+   * N is RECOMPUTED from the --tasks allocation below, so --n was silently discarded. Measured
+   * PROMPT-140: `--tasks=5.6 --n=4` asked ONE item and read as though it had asked four, and the
+   * round was reported as 1-of-4 capacity until the artifact was opened. A flag that is accepted and
+   * ignored is worse than one that is rejected. */
+  if (N_GIVEN) {
+    console.error("--n and --tasks cannot be combined: --tasks sets the count itself and --n would be");
+    console.error("silently discarded. Name the count on the task instead:");
+    console.error("");
+    console.error("    --tasks=<code>:<count>        e.g. --tasks=5.6:4");
+    console.error("    --tasks=<code>:<n>,<code>:<m> e.g. --tasks=4.5:2,5.6:3");
+    console.error("");
+    console.error("Bare --tasks=<code> means ONE item for that task.");
+    process.exitCode = 2; process.exit();
+  }
   /* One item per named task, in the order given -- or `code:count` for several against one task.
    * Refilling a task to its floor needs N items on ONE task, and the bare form could not express
    * that: repeating the code collapses in this Map and would have produced one item while looking
@@ -1503,6 +1520,9 @@ if (FROM) {
       /* the per-(task, anchor) cap override, PROMPT-135 s1. One resolver, built per task from the
        * floors file, so the cap the writer is assigned under is the cap the gate enforces. */
       capOf: makeCapResolver(t.code, ANCHOR_CAP_OVERRIDES),
+      /* and the SAME override lifts that pair's saturation ceiling (PROMPT-141 s3). Lifting only the
+       * per-task cap left 4.5 unaskable in PROMPT-140: both ceilings guard the same passage. */
+      satCapOf: makeSatCapResolver(t.code, ANCHOR_CAP_OVERRIDES),
       /* PROMPT-129 s3: prefer the passage the CERTIFICATION has used least, after the task's own count */
       certCensus: CERT_ANCHOR_USE,
       /* ONE tally for the whole run, so an anchor spent by an earlier task is spent for the later
@@ -2215,7 +2235,11 @@ if (SAT_REPORT) {
       (r.assignable === 0 ? "   <-- NO ASSIGNABLE ANCHOR" : ""));
   }
   writeFileSync(join(ROOT, CERT.replace(/[^A-Za-z0-9-]/g, "") + "-SATURATION.json"), JSON.stringify({
-    cert: CERT, saturation_cap: SATURATION_CAP, anchors_in_use: CERT_ANCHOR_USE.size,
+    /* generated_at lets a reader tell a census that predates an insert from a current one. Without it,
+     * propose-task-floors read a census written before any insert and reported every task at held 0
+     * (PROMPT-140). It is the FILE's own claim about when it was built. */
+    cert: CERT, generated_at: new Date().toISOString(),
+    saturation_cap: SATURATION_CAP, anchors_in_use: CERT_ANCHOR_USE.size,
     saturated: sat.map(([k, n]) => ({ anchor: k.replace(/\|/g, ":"), live_items: n })),
     tasks: SAT_ROWS.map((r) => {
       const f = floorFor(r.task, floors, effectiveCountOf(r.task));

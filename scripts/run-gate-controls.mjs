@@ -22,6 +22,8 @@ import { expectedHashControls } from "./lib/expected-review-hashes.mjs";
 import { explanationOptionRefControls } from "./lib/explanation-option-ref.mjs";
 import { heavyReaderLockControls } from "./lib/heavy-reader-lock.mjs";
 import { itemDispositionControls } from "./lib/item-disposition.mjs";
+import { censusFreshnessControls } from "./lib/census-freshness.mjs";
+import { writerAttributionControls } from "./lib/writer-attribution.mjs";
 import { itemIdControls } from "./lib/item-id.mjs";
 import { jsSourceControls } from "./lib/js-source.mjs";
 import { quotationModeControls } from "./lib/leak-score.mjs";
@@ -56,6 +58,8 @@ const SUITES = [
   ["declared-edits", declaredEditControls], ["definition-boundary", definitionBoundaryControls],
   ["expected-hashes", expectedHashControls], ["explanation-option-ref", explanationOptionRefControls],
   ["heavy-reader-lock", heavyReaderLockControls], ["item-disposition", itemDispositionControls],
+  ["writer-attribution", writerAttributionControls],
+  ["census-freshness", censusFreshnessControls],
   ["item-id", itemIdControls], ["js-source", jsSourceControls],
   ["quotation-mode", quotationModeControls], ["options-probe", optionsProbeControls],
   ["passage-runon", runOnControls], ["refusal-pattern", refusalControls],

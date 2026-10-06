@@ -57,7 +57,9 @@ export const SATURATION_CAP = 3;
  * So the cap can be RAISED for a NAMED (task, anchor) pair, recorded in the floors file with its
  * ruling. Nothing else moves:
  *
- *   - the SATURATION cap still applies certification-wide and is unaffected;
+ *   - the SATURATION cap is raised for THAT PAIR ONLY, by `makeSatCapResolver` (ruled PROMPT-141 s3);
+ *     measured PROMPT-140: raising the per-task cap alone left 4.5 unaskable, because both of its
+ *     primaries were at the certification-wide ceiling of 3 and `saturated()` removed them again;
  *   - the override is keyed on BOTH the task and the anchor, so it cannot leak to another task that
  *     maps the same passage, nor to another passage of the same task;
  *   - an override with no `ruled_in` is an error, the same discipline the floors file already uses.
@@ -86,6 +88,29 @@ export function makeCapResolver(taskCode, overrides, base = CAP) {
     if (!p) return base;
     const k = String(taskCode) + "||" + passageKey(p.source_id, p.edition, p.clause);
     return table.has(k) ? table.get(k) : base;
+  };
+}
+
+/* ============ A RULED OVERRIDE ALSO RAISES THE SATURATION CEILING, FOR THAT PAIR ONLY ============
+ *
+ * Ruled PROMPT-141 s3. Measured in PROMPT-140: task 4.5 held 0 items and the per-task cap was raised
+ * to 4 on 42001 6.1.3 and 8.3, which made both of them UNDER-CAP primaries -- and the run still asked
+ * nothing, because each held 3 certification-wide and `saturated()` filtered them straight back out.
+ * Two ceilings guarded the same passage and lifting one achieved nothing.
+ *
+ * So the override now lifts both, keyed on the SAME (task, anchor) pair. The ceiling it lifts to is
+ * the override's own `cap`: a pair ruled to hold 4 items for this task may also pass 4 certification-
+ * wide. Every other task still sees SATURATION_CAP on that passage, which is the point -- 4.5 may take
+ * a fourth item on 6.1.3, and 4.9, 4.10 and 4.12, which supplied the first three, may not.
+ *
+ * It shares `makeCapResolver`'s table, so an override with no `ruled_in` throws here too. */
+export function makeSatCapResolver(taskCode, overrides, base = SATURATION_CAP) {
+  /* the same validation and the same keying, so the two ceilings cannot disagree about a pair */
+  const capOf = makeCapResolver(taskCode, overrides, base);
+  return (p) => {
+    const v = capOf(p);
+    /* an anchor with no override keeps the certification-wide ceiling, never the per-task cap */
+    return v === base ? base : Math.max(base, v);
   };
 }
 /** the flat resolver, for every caller that has no overrides to apply */
@@ -228,8 +253,45 @@ export function anchorCapControls({ quiet = false } = {}) {
       try { makeCapResolver("3.5", { "3.5": { "ISO 19011|2026|A.17": { ruled_in: "x" } } }); return false; }
       catch (e) { return /usable cap/.test(e.message); }
     });
-    /* AND THE OVERRIDE DOES NOT TOUCH SATURATION: that cap is certification-wide and separate. */
-    add("SATURATION_CAP is unchanged by any per-task override", 3, () => SATURATION_CAP);
+    /* ============ THE OVERRIDE ALSO LIFTS SATURATION, FOR THAT PAIR ONLY (PROMPT-141 s3) ============
+     *
+     * Both directions, because PROMPT-140 proved that lifting one ceiling and not the other achieves
+     * exactly nothing: 4.5 may take a 4th item on 6.1.3 and 8.3, and no other task may. */
+    const OV45 = { "4.5": {
+      "ISO/IEC 42001|2023|6.1.3": { cap: 4, ruled_in: "PROMPT-141 s3" },
+      "ISO/IEC 42001|2023|8.3": { cap: 4, ruled_in: "PROMPT-141 s3" },
+    } };
+    const p42 = (cl) => ({ source_id: "ISO/IEC 42001", edition: "2023", clause: cl });
+    const sat45 = makeSatCapResolver("4.5", OV45);
+    const sat49 = makeSatCapResolver("4.9", OV45);
+    const sat412 = makeSatCapResolver("4.12", OV45);
+    /* -- it IS lifted, for the ruled pairs -- */
+    add("4.5 on 6.1.3: ceiling raised to 4", 4, () => sat45(p42("6.1.3")));
+    add("4.5 on 8.3: ceiling raised to 4", 4, () => sat45(p42("8.3")));
+    /* -- and NOT for anybody else: the three tasks that supplied the first three items -- */
+    add("4.9 on 6.1.3 keeps the certification ceiling", 3, () => sat49(p42("6.1.3")));
+    add("4.10 on 6.1.3 keeps the certification ceiling", 3,
+      () => makeSatCapResolver("4.10", OV45)(p42("6.1.3")));
+    add("4.12 on 6.1.3 keeps the certification ceiling", 3, () => sat412(p42("6.1.3")));
+    add("4.12 on 8.3 keeps the certification ceiling", 3, () => sat412(p42("8.3")));
+    /* -- nor for another passage of the SAME task -- */
+    add("4.5 on an unlisted passage keeps the certification ceiling", 3, () => sat45(p42("6.1.2")));
+    add("4.5 on a different SOURCE keeps the certification ceiling", 3,
+      () => sat45({ source_id: "ISO 19011", edition: "2026", clause: "6.1.3" }));
+    /* -- an override must never LOWER the certification-wide ceiling -- */
+    add("an override whose cap is BELOW the ceiling does not lower it", 3,
+      () => makeSatCapResolver("4.5", { "4.5": { "ISO/IEC 42001|2023|6.1.3":
+        { cap: 2, ruled_in: "x" } } })(p42("6.1.3")));
+    /* -- no overrides at all: every anchor keeps the flat ceiling -- */
+    add("no overrides: the flat saturation cap", 3, () => makeSatCapResolver("4.5", {})(p42("6.1.3")));
+    add("a null passage gets the flat saturation cap", 3, () => makeSatCapResolver("4.5", OV45)(null));
+    /* -- and the same ruling discipline applies here -- */
+    add("a saturation override with no `ruled_in` THROWS", true, () => {
+      try { makeSatCapResolver("4.5", { "4.5": { "ISO/IEC 42001|2023|8.3": { cap: 4 } } }); return false; }
+      catch (e) { return /ruled_in/.test(e.message); }
+    });
+    /* THE FLAT CONSTANT ITSELF NEVER MOVES. */
+    add("SATURATION_CAP the constant is unchanged by any per-task override", 3, () => SATURATION_CAP);
   }
 
   const fails = [];

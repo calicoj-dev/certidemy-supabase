@@ -1,0 +1,2465 @@
+{
+ "_what": "Pre-image for backfill-writer-attribution, ruled PROMPT-141 s1. Each entry is the value item_grounding.model held BEFORE the backfill. To undo: PATCH each question_id back to `old`.",
+ "ruled_in": "PROMPT-141 s1",
+ "rows": 409,
+ "left_alone": {
+  "no_artifact": 304,
+  "ambiguous": 0
+ },
+ "preimage": [
+  {
+   "question_id": "00b7287d-2510-4a93-bb8b-b14b6690b994",
+   "item_id": "c0f436c1",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "00f95ca1-3087-47f1-bde9-a3544442534f",
+   "item_id": "c9de473d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "04111c60-64bd-45f1-a532-dd1663217c30",
+   "item_id": "3dbdab10",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "04455044-b955-482b-89f7-eb73ae232f92",
+   "item_id": "eb2356db",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "069018ba-f73f-445a-a46a-b5b43bf917d1",
+   "item_id": "2b057ad8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "08d06678-57fe-4897-99e4-a1d5e2be98b2",
+   "item_id": "c4ebf469",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "0b50bbe1-dd64-4fb8-8fac-6dbf9fd9d1c4",
+   "item_id": "8550c598",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "0c9fda65-782e-42bc-99bd-de0a0c924cfd",
+   "item_id": "37932368",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "0cc96fef-91c1-4c9b-9fb7-7ad35a4dde98",
+   "item_id": "716c597e",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "0ea46de3-3124-4680-9c70-3939ef51e82f",
+   "item_id": "78d5eb00",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "128d2f1e-9981-4d21-b38d-5f6b24003bc0",
+   "item_id": "94914786",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "13614285-135c-4ce8-af06-e1bf89ab0db6",
+   "item_id": "72bfb656",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "13bf37e1-7150-43c3-af55-f445db459055",
+   "item_id": "5b739e39",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "141a9c5a-ac97-4453-93b9-6eb8249f7d1b",
+   "item_id": "de3b8ea9",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "1593e35e-8051-4883-a3cd-58c798f37352",
+   "item_id": "5c870fce",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "19c4f7ed-9234-4e04-b43d-851ed97b6f20",
+   "item_id": "2d6f8fe1",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "1c0d4083-cb1a-4114-b3d7-ca2c5ba624d2",
+   "item_id": "bf523b69",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "1e026e94-c80f-408e-bbd3-b9b67739bd95",
+   "item_id": "bd9d6a92",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "21d6532b-8ba2-44dd-b5da-a7d7a806a536",
+   "item_id": "d55349e0",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "22826aff-f632-41a9-aff5-fb42e30ffae8",
+   "item_id": "f5e681bb",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "229fdee0-c84b-4388-87c4-6c054364bc33",
+   "item_id": "47bc6055",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2340adba-6495-4cf2-91d4-465883c9e293",
+   "item_id": "e71b16bd",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2370907b-ac5f-4230-8ab4-d14871834d8c",
+   "item_id": "e8030d04",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2631cc48-663f-411d-b83c-6d43424d5206",
+   "item_id": "c9c00d08",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2634a6c5-86cf-4561-890a-183bae7c6e98",
+   "item_id": "8454c8f2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "269f420a-eeab-4c99-b4ad-4f8153f98a2f",
+   "item_id": "7e063061",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "295a17db-b73e-4b31-a0f3-be3536a292dc",
+   "item_id": "e23330e7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "295af477-c747-4b2f-8349-c4cd20d19763",
+   "item_id": "fc21f27f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2a85d25f-0437-4ba9-86d5-ac29a3864061",
+   "item_id": "385f5860",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2f8a8244-d741-47c2-a435-e037b6b24f4f",
+   "item_id": "a2ec7fe5",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3021ad9e-391e-4ac8-ba19-f224cb294e14",
+   "item_id": "52bed07c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3120132f-f958-4518-8e73-7cacf7686c80",
+   "item_id": "3e6a226d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "32b5b43d-2225-42e7-a5bf-ab20c6b96d40",
+   "item_id": "707a7464",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "32d885b8-95d9-492b-aaf3-7433d26166ec",
+   "item_id": "adb2be85",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "346ef753-e954-4e08-bf69-266582a18473",
+   "item_id": "b02d4d33",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "35bd3ae8-85be-4856-a9e5-8678a84cc759",
+   "item_id": "1a7df349",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "36a28051-203b-404f-a38e-399a33c4a4fa",
+   "item_id": "399babd2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "36b65508-cc42-484a-8f7b-37b6f900eae0",
+   "item_id": "f68fa627",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "38211f93-29e2-4e60-8055-e5caabedf743",
+   "item_id": "a7f03c03",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3a54e29e-9ff4-4c7c-a55c-f2fc27e26843",
+   "item_id": "a283104a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3c1477bc-ddee-4e28-9fc1-c1d5ffb4369d",
+   "item_id": "6bc18747",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3c9acd17-6662-4487-adb3-5229aad871be",
+   "item_id": "8860f14d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3d40976d-9421-439c-97a2-710f43a6fd98",
+   "item_id": "0598bfe1",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3f1bf37f-8b9f-455e-b73e-2b411ef0d5a2",
+   "item_id": "b0fd1ccc",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3f37856e-74cc-41a9-81b6-3679b83de4f4",
+   "item_id": "f0f97715",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4037280c-e59f-486f-9c0d-2b1b27add1aa",
+   "item_id": "f3a3153a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4070158c-a67e-4855-be8e-7e8a3b4096ae",
+   "item_id": "3aa3122e",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "40b75fd6-e24b-4051-915a-b74dc446b12b",
+   "item_id": "59371c1d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "412a96a7-d1a3-4ab7-8818-dddf6d3f082e",
+   "item_id": "fd5df515",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "41546c87-378b-4aed-b3e3-fb4798f88589",
+   "item_id": "ab402c75",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "42d7c684-138d-462a-84ad-0f8e26e5eaa0",
+   "item_id": "4e44294a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "42f69799-f3d4-4e76-bee2-50aaad74f6b7",
+   "item_id": "05a03dbb",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "43f64b35-a264-40b4-a292-54c280ca2abc",
+   "item_id": "ef629dda",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "44840ace-0684-4c2a-b86f-c985b37b62a8",
+   "item_id": "66b35c30",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "45928e36-fc2e-451e-80cb-00fe4dd2617e",
+   "item_id": "2ea2eb5b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "482fca31-eedb-4d12-98a0-3f4d609edb4b",
+   "item_id": "728fdb67",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "49e4bbab-fa42-4895-9047-c71863ef363c",
+   "item_id": "dd887362",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "49f9ea77-d9be-4772-8cf2-48b691bf4b7b",
+   "item_id": "950d94af",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4abe0380-c90a-4150-851a-e0b2e42b6659",
+   "item_id": "1e4bdf33",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4bda08fa-50b3-4e64-88d8-10348aa86fe2",
+   "item_id": "620d5114",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4bfdfd57-7b24-43de-8b55-eaa9fba25ee3",
+   "item_id": "08699b5c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4fa59b26-31b5-44bb-8f7a-91fcacb84636",
+   "item_id": "c435043c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "505689fb-b644-452c-a3b8-cfa3c446e89a",
+   "item_id": "7abd85be",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "513ce757-84ed-4c0d-89d8-904ec49d588e",
+   "item_id": "9e3fe5cf",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "5150a2a2-b8f6-4c13-995b-c340a5bd5c1f",
+   "item_id": "d2eb5004",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "555ed839-cbe7-4be1-b3db-c34eec8bcd83",
+   "item_id": "58411e20",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "559b98ea-36f1-4478-9529-991d32f2b4db",
+   "item_id": "e0608aa3",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "56ea813e-f9d4-4883-907a-d0189315c279",
+   "item_id": "be33793b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "5706be52-f8ad-4544-9a18-0d946ca05acb",
+   "item_id": "9c91fd81",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "571800dd-1d70-4fa5-9873-f60702e491b7",
+   "item_id": "b3532f1f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "57be4374-c07c-4a69-a298-87181967347e",
+   "item_id": "e4c15701",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "5906691c-775d-4ee0-8e41-d76fbba464d4",
+   "item_id": "080a993f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "5a08419c-6d35-46d5-8cb6-1ae49894e367",
+   "item_id": "f25e04d8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "6066e6f4-5675-4ddb-af47-e57139e57a62",
+   "item_id": "2b2017c3",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "607dccdb-2c9f-4248-8db8-380433045a28",
+   "item_id": "dfb4e6e1",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "65d302b7-dc14-4fb9-afb0-68d8f92177bd",
+   "item_id": "158d473f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "669c6414-154f-4a22-800c-e585f8e77edc",
+   "item_id": "4e862171",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "6d1c7ca7-5cbc-4e18-999a-b2419492e9fa",
+   "item_id": "8339ec40",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "6e02680e-a654-4d00-8ccf-36cdf0271ffa",
+   "item_id": "b32b145a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "6e20811c-be04-4fd1-934c-e9abf7c77b0c",
+   "item_id": "e630a60e",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "6f2b435d-67d3-48cd-b132-fb8c543cc086",
+   "item_id": "9b614159",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "6f817256-ebd2-4df6-b503-1157f69ba4c9",
+   "item_id": "686d65e4",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7007b016-6786-4eed-96f5-6899fb8370ab",
+   "item_id": "6688ca8a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "70518837-ae84-443e-a72f-70fa42c8ec46",
+   "item_id": "2c43f13c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7062d32b-fff4-4097-a0c1-9907834e1a25",
+   "item_id": "9b999100",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7098aec6-57cd-4e5c-a2d8-e906eb77a19b",
+   "item_id": "ef137313",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7169454d-3a5a-48d1-8edf-a7047f495fe4",
+   "item_id": "63f26967",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "73b13e47-adde-4be3-9edb-b1d71369ca85",
+   "item_id": "ffb5fbf3",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "74a60592-cac9-496a-a7b7-e8607d07795f",
+   "item_id": "0fe4de01",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "754f7237-a402-4df1-9bf2-780849d0048d",
+   "item_id": "8bb53215",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "770b2132-e90a-4960-9f3f-67e8f91758fb",
+   "item_id": "50143cb6",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "779d64d1-9ab0-44fd-99a0-04d8a53f692e",
+   "item_id": "750445b8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "77cb47ec-2c0b-4a6e-a19c-276d1e540635",
+   "item_id": "c721132f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7b237d46-74c5-475f-9a21-0caae514b5cc",
+   "item_id": "b8556d1d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7b3209c1-5f5c-4df4-a27f-a4e51d7f85fe",
+   "item_id": "922a0aa2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7b556dfe-27ba-42bf-9134-edbab78cdee2",
+   "item_id": "0d841a49",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7c3ffd49-8350-425f-905f-d13aeb940da5",
+   "item_id": "d9f7a5fd",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7cdd539e-e456-419c-ae9a-fb19f34b51fa",
+   "item_id": "f30b1796",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7ce6615f-98e5-44f9-8a5b-f20a49b2f4df",
+   "item_id": "67358474",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7f716750-1448-4ec0-a692-36e9acbe0a7a",
+   "item_id": "755ace32",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "80390380-4d10-495e-8149-2a995e736da6",
+   "item_id": "31a581dd",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "80c505ac-62c7-4e8e-ae2a-13ba634deb72",
+   "item_id": "a18d4141",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8354429c-98e7-44c9-99de-74831864b66e",
+   "item_id": "c8caed33",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "84a7ae8f-a9cb-4ea2-a787-54fbd772b19a",
+   "item_id": "3f638d59",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "85ce5adc-aa1d-4ef1-96d8-c9047bcafe47",
+   "item_id": "ac5c1f60",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "85fa9653-79e1-4394-8935-bc3f008a5e03",
+   "item_id": "070146b2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "87313994-729d-49bd-9e60-25b21ff4610f",
+   "item_id": "b60d9258",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "87685754-3945-40f1-b1e6-298f10305f11",
+   "item_id": "a54be569",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "892a369d-2174-4701-945e-2add66c43c0b",
+   "item_id": "e4c3fbb5",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "89d316d1-60d9-4dac-a30f-7b52a9111663",
+   "item_id": "21c2f89d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8c4ac5c9-a141-4c86-bf66-23a725f97330",
+   "item_id": "5fd4eb4d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8c694250-766c-462a-8b73-295b9a70a6c5",
+   "item_id": "8c3c192a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8d9e0428-6f75-4cdf-8eb4-642ccc4a3120",
+   "item_id": "8461aac9",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8dc861cc-1bc5-4a88-bde9-4eeeacdd7148",
+   "item_id": "a0d7fab4",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8e9c7b56-3752-412e-9ac5-5d11556cdf1e",
+   "item_id": "b0c354ec",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8efd5c6a-3b1a-4afe-ba42-43d1b1f81103",
+   "item_id": "8dc9d62c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8f2e6025-c11c-457e-a4e7-d8531bec2923",
+   "item_id": "f60e1b8e",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "90acdc96-8cdd-476a-bb4e-69ff97fd81d0",
+   "item_id": "c72697b9",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "919267f2-c40f-478a-84d8-bffea4d4cff1",
+   "item_id": "6981fc6c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9271b1ac-c9a9-4bf0-a06b-a02e85385178",
+   "item_id": "b3b28b1c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "93649540-c695-4459-8fbb-8ff1b8a191b7",
+   "item_id": "74db1465",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "93be6991-000a-46da-9fdc-f51c930e90a4",
+   "item_id": "3416d4f2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "961899b3-3f5d-4806-849a-0187076a53c0",
+   "item_id": "7dbd60d0",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "98a99b3e-5be0-4dbf-9f1f-6153986e1934",
+   "item_id": "487bac1a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9af00871-cc7a-4a8b-b77e-66ce07c4f5ca",
+   "item_id": "ff941631",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9b2b4015-3dc9-445b-8af5-b8a9264f91be",
+   "item_id": "ea523ed8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9ba5d975-140b-4911-8f3b-5db6b0832622",
+   "item_id": "8cb086d4",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9d205061-8896-4303-b7b5-bfda9b4cab9a",
+   "item_id": "6346cd20",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9d6daefc-deee-44f1-8039-5cbdca38fd5f",
+   "item_id": "b2776404",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9d9dffaf-812a-46ca-be32-0821abfab997",
+   "item_id": "6bebe7a4",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9ec87a06-530e-4980-86da-b5e3e26b1ffe",
+   "item_id": "31b29fa7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a0a1d115-f216-44cf-80ef-c69cad9789b9",
+   "item_id": "71b6f1c7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a16d446e-2616-41dc-aa27-cdfd655c16eb",
+   "item_id": "65a7e616",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a1897d82-280b-45c2-8db6-76f2496c6eab",
+   "item_id": "8d858f8d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a40ca341-a9a4-4b51-8fa7-5da2b3572db0",
+   "item_id": "5e37dda5",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a63791df-8e2e-4214-8b67-0e72d7bd92fd",
+   "item_id": "842feb3e",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a91a04f5-9503-4d67-98eb-4ede58e68b59",
+   "item_id": "ec6ba56a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "acf741a7-cfb1-44c0-aef5-8ec153216c60",
+   "item_id": "ca53ce6b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ad58d7b8-9f2a-451b-b39c-1582e3cb1e55",
+   "item_id": "af061982",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ad975e1d-170a-4871-a27a-7756233adedd",
+   "item_id": "5513608f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "af6004ed-c101-47d4-93fe-40b842ff7e4f",
+   "item_id": "c8cbc650",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "af8b4f8b-cae3-4a8a-9d29-74887c313fd4",
+   "item_id": "b37ab099",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b05db15b-741a-4314-bf34-9ce5e5b8d2b8",
+   "item_id": "2611cb1b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b0c8528f-679d-4d6a-9f1b-9c624febb207",
+   "item_id": "2b61438f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b167b3a9-199c-41fb-8d44-7f0008ba1513",
+   "item_id": "3678c308",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b43377b8-603d-4627-a0f7-94596ce8ef7a",
+   "item_id": "6c19b76d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b47e4ce2-1494-49d8-acc7-aea6ea69df98",
+   "item_id": "b7452488",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b75d611e-9a7b-46e2-9b8f-9d4ae6cd6b4b",
+   "item_id": "dfb03706",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b79700f5-ce03-42d8-b829-a14e51e012bc",
+   "item_id": "c94b3bfc",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b94b61e8-fb4e-4d1d-80b3-5d62decb6591",
+   "item_id": "0ca4fbbc",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b9d5110d-0314-44f7-a668-51054784eeda",
+   "item_id": "78a1c054",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ba0b1d58-15c3-4f60-8c28-73b913509d11",
+   "item_id": "88119088",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ba16102e-067a-4c22-a565-ad3b572606f1",
+   "item_id": "cd7d15fb",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "bbe10c0b-9a6c-49a8-88a7-e93c33b6a865",
+   "item_id": "b59ac1ea",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "be20f93e-337b-4343-9c89-727cfeec968b",
+   "item_id": "d916276a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "bf388a56-3224-411f-b391-8063c9de526e",
+   "item_id": "b4b286d6",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "bf7dc08a-04d5-4099-b937-db7f3dcaf546",
+   "item_id": "534b18bb",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "bf8b827d-a182-4c84-92ec-ea7ecba23170",
+   "item_id": "fd985802",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c0a07431-c335-48f0-b401-e7a1534ad688",
+   "item_id": "d5625fc7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c106fdc2-3172-47fd-9e9d-178a3f2ded90",
+   "item_id": "7316ba49",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c34be73f-4918-4135-b3ed-c6db0575fee2",
+   "item_id": "3ed2be26",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c3857f9b-7cb1-4ae4-90af-48528ce882e5",
+   "item_id": "8762933d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c4bab625-0b91-4d7a-8861-d522ca227019",
+   "item_id": "0720fdd3",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c5b3178f-e221-48f6-a49f-e771436786ea",
+   "item_id": "56864742",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c5cf5ca2-1835-4d66-bccf-bdd39324565c",
+   "item_id": "9b7393a1",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c69ad62e-74cc-4bd7-8cd7-ab2c76d39cfc",
+   "item_id": "02d71e00",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c7c379fb-48ae-460c-9f06-b8370b866a70",
+   "item_id": "6cefc52c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c7cc348d-d0e9-467d-ae6c-552fdac45a88",
+   "item_id": "f814eb12",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c87225cb-be15-4526-8730-35ee45613ee8",
+   "item_id": "25cf5c68",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c980a2f4-5425-414a-ac69-45c506a31e43",
+   "item_id": "e3736e8b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ca4f35df-922f-407c-906c-4c96641f2567",
+   "item_id": "5bf61030",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "cb54eb09-b37e-4e2c-ade6-0af0c895e4f7",
+   "item_id": "7a13cfde",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "cb6fb386-acba-4c11-891a-716b571a2e63",
+   "item_id": "7a71af3b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ce05a871-0bf9-43ed-b7cf-fef764ce220c",
+   "item_id": "7deb68c8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ce81f973-115f-4433-8325-087628285a5f",
+   "item_id": "e6a7f307",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "cf3b8ccf-16eb-43d7-a875-b62236510fa9",
+   "item_id": "94eb0e37",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "d124f13f-970f-48d2-bba3-cd951b81098d",
+   "item_id": "5486e3d9",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "d3ee28cb-b4cc-4c44-bab9-05c382428108",
+   "item_id": "c37fb2f8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "d784e904-c7b6-4ed8-9da9-0cbc63f2a2f2",
+   "item_id": "b2a31685",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "dab5794d-ba15-478e-b6e1-5947d30ee822",
+   "item_id": "45edc0a0",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "dbfde6a8-5284-4be1-8575-416f25a2eb1e",
+   "item_id": "1bad6cdd",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "de6f8516-b3d9-471f-8335-0ccd51c9df71",
+   "item_id": "293831a8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "def427d8-35c4-4b8b-88ea-63be850db077",
+   "item_id": "c4bf6bab",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e0eef0e3-bc61-4967-a673-006b1b973522",
+   "item_id": "c30d2c2f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e10d26aa-5ec7-4e0d-a09f-c4b524789247",
+   "item_id": "9c590d40",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e2275183-3204-472f-9288-98e8d799b955",
+   "item_id": "2eb7f8cf",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e497bab6-6536-475d-9ae2-6e0a1df2b245",
+   "item_id": "cbecf21c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e625b2d1-9797-4185-8b08-82b1464b8150",
+   "item_id": "b53707b1",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ea4d2eba-0cff-4549-a39e-705b3693a35e",
+   "item_id": "e7a3ea42",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ead90723-a4c6-4502-9ec4-e392e097afc8",
+   "item_id": "30797b39",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "eb4695c1-09e2-40a0-9a15-05c27a63de69",
+   "item_id": "eca174a7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "eb53fede-6545-457e-a036-9e7aed128db3",
+   "item_id": "8070f854",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ec504e92-6418-4d1e-a078-31f3829e99b3",
+   "item_id": "da8a188d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ecf2e568-cc8a-4b9f-a935-fba15de3fbee",
+   "item_id": "822cfbb1",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ed107f61-5538-4b5c-a697-7839a6f9adb1",
+   "item_id": "a7e4cb31",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ed3947bb-9007-452a-9d76-4231f1955d21",
+   "item_id": "720abc66",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "edebf73e-72e0-4436-89ab-3936a112035b",
+   "item_id": "5503a528",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ee0ae856-ae21-49b0-a794-d211ad03fea0",
+   "item_id": "f5b0586f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ee9af312-edd6-45ca-bf91-25294555b2ee",
+   "item_id": "b8135e8d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f0517b41-0735-447a-9e21-2e0aaca53eef",
+   "item_id": "e6fcc796",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f0bb015c-580c-4f20-81c3-b5a398cffe7a",
+   "item_id": "b491cb1b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f3308835-4ed7-4bdd-a2b8-facad6f42fed",
+   "item_id": "c919d028",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f4768e9c-f53a-4d4e-973f-0918149f017b",
+   "item_id": "f3f2e933",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f4cccdd6-cef2-47f8-8993-86dfa7138104",
+   "item_id": "6eb239de",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f6edcad0-7c06-4833-9ad6-1d344adcd66f",
+   "item_id": "478256a0",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f8593797-4ba1-4367-8557-2a30449c85bc",
+   "item_id": "2308bee7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f9a9bc2c-24ab-4d1c-9f0a-a4dadfac19bd",
+   "item_id": "b301eba8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "fba7bc87-c73e-42f4-90f0-cd7215c8029b",
+   "item_id": "9a88691c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "fc8d34ac-adfa-4c00-87d6-afc63687ef92",
+   "item_id": "ddf73147",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "fc91521c-06df-4590-8187-4bf483de3c4d",
+   "item_id": "a333dab2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "fe12d833-8f6f-464e-b44d-fbd7188678b3",
+   "item_id": "62f33108",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "fee052c5-1e64-452f-8bc2-c5cb795d06ad",
+   "item_id": "1eeaa633",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "fee95d29-e4b2-42e4-9f7c-cca704bc841e",
+   "item_id": "8f5e46e7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ff442640-d1ba-4a34-9c54-d4155de3c9e9",
+   "item_id": "194bb6e1",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "06103fa5-0c8e-4632-952a-c02a46ada189",
+   "item_id": "4f3f59bc",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "072bcfd0-e9cd-4529-8dcd-0ca2b67511d7",
+   "item_id": "30f74229",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "07577010-d6a7-4b00-b841-1895ce7e0e85",
+   "item_id": "77585383",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "0a87ce37-d31f-47ea-8433-118c213a8db0",
+   "item_id": "41b84893",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "0f7df514-9ba7-46df-a651-c834b861075e",
+   "item_id": "6a98a4af",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "12f3eaff-302e-4692-98ff-1cd6a53d2dc6",
+   "item_id": "9c047a2d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "136e0c37-ed5b-4452-83c5-3f428de6f6d5",
+   "item_id": "5b81bec7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "14983e42-f690-48f0-8891-97eb2ae31899",
+   "item_id": "fdc409e9",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "156de870-6345-4be7-b495-936cd2243d74",
+   "item_id": "073c2074",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "183e2c45-0a1a-4747-a3e0-6985f8cadcd1",
+   "item_id": "19f31db7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "19560b5a-bdfa-43b6-8f7e-6e21e17b4d84",
+   "item_id": "30868102",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "199ea6aa-86d7-411b-8d1e-35853dfadc38",
+   "item_id": "952228e6",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "1a5cb843-884f-444b-ae53-3cb856653f74",
+   "item_id": "bbd75219",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "1ad94e69-57c0-459d-9693-b15f98261876",
+   "item_id": "746ce4e2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "1bd4402f-ff45-46a5-8704-9a3cf0ad8ca4",
+   "item_id": "a7594c74",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "1ead2f57-fae1-48e5-96bc-605aa3791e14",
+   "item_id": "e2320a60",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "1f4a1d98-2ccf-497c-918b-93d7a65a7aac",
+   "item_id": "d2169939",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "1f9d4347-bed8-4e65-b65b-dae2596f5187",
+   "item_id": "a7efedea",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "1fc979bb-9e00-4c30-a8ec-e842065f811e",
+   "item_id": "427e8f1b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2274605e-e7bd-4cd6-8910-ceef544efa22",
+   "item_id": "40d5c91b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "240631b9-b2d1-40ed-9231-ec81ffa52e4a",
+   "item_id": "a41dec11",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "25810e04-89a4-4305-9aa1-22c03fe26435",
+   "item_id": "d853f12b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2979c257-6123-425d-8819-200bc3dd0140",
+   "item_id": "f5883cc8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2aaa62df-5724-4dd0-bd60-c8f4ae3580b8",
+   "item_id": "7763fc0e",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2b0c7625-043e-4428-82c4-e279b216d156",
+   "item_id": "3abae3c4",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2bfc719d-6789-4c23-ae2d-8912b24dad01",
+   "item_id": "88a58f85",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2c6112f0-46c4-4d01-bb1c-879d70f1f001",
+   "item_id": "c6cc84d8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2cb982d8-a736-4e32-a4fb-b12f7bc33588",
+   "item_id": "a6d392aa",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "2cf2ac88-ff9d-41fb-a7a7-bddc41fcfc6f",
+   "item_id": "14ad781d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3070e5f5-6950-4c20-8ff1-a978300c9adf",
+   "item_id": "aa6873e5",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "30734e5f-a185-429b-a6a5-e780ed1bb8f9",
+   "item_id": "34b2c894",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3143f4c6-3168-4674-8215-bdda82c1cbbb",
+   "item_id": "88136647",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "320dd46d-064a-4181-b522-fc85ec50a084",
+   "item_id": "b75ba7ea",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3713bcfd-2efe-4763-8186-0740d35772c0",
+   "item_id": "5db3d078",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3771ea4b-7bff-4798-b1a2-53f1c0ed5a07",
+   "item_id": "67ffdfca",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "38dc61e6-e6e5-4e12-9ab8-5868db94364a",
+   "item_id": "2fcb240c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "39b02ed4-4e78-4cb5-81ac-700116062d6e",
+   "item_id": "47b3fec9",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "39b80057-4aa8-473c-a0d7-593b4a2c9d8c",
+   "item_id": "a8e9ac2f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "39e08871-a9b9-48c0-bc55-6a45e6f1f33c",
+   "item_id": "0f7709e7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3a503d7f-f021-49e0-bc0e-7ebbaaa04d02",
+   "item_id": "e8a67ba3",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3a50e108-1784-4e3e-8a99-c62f971f2f3f",
+   "item_id": "5c809913",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3c70bf6a-adf2-49bb-941a-6dfec5ba21d2",
+   "item_id": "bdf32e89",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3d74b082-dddf-46c7-949b-0afa61cb18e3",
+   "item_id": "20ee9bc7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3eb25918-18b7-4560-8098-6cb809e6d9e5",
+   "item_id": "95fa2b50",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3ec22415-49dd-4485-8114-90ace29404d3",
+   "item_id": "f10eda8f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3f1f5373-c242-42f6-b3cb-56883e0195f1",
+   "item_id": "8f759a1a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "3f1f7af9-095a-4671-ac13-1b407d0904f8",
+   "item_id": "05fe1229",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "40cd78c8-4c46-49b5-a200-926185b85d49",
+   "item_id": "417c1411",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "41d05160-4a86-48f7-b990-1fec20683fcf",
+   "item_id": "80c8311e",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "420b0da0-fc4a-4bd3-8984-50792f89696a",
+   "item_id": "3b51777f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "42ac8af5-843d-4e3d-810b-4294fd940b5e",
+   "item_id": "1bd45e45",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "44349ece-f237-460a-949c-968d91c6ebf6",
+   "item_id": "4a9fba74",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "44fa3386-29f3-4fd2-9dca-a589a43dd5aa",
+   "item_id": "4428d26d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "454833c6-6e22-423f-bef4-a2fde7cb4609",
+   "item_id": "8304e207",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "46df71bc-b513-46bb-9b59-18168e19104a",
+   "item_id": "d0cbb7a4",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4768929c-94aa-4ebf-bbb1-80e9dd4b569b",
+   "item_id": "527cfef4",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "47fb007b-ae7b-4577-a238-1e1f7bdbfb25",
+   "item_id": "74feba9e",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "48870cb3-e32b-453c-9bd4-c2c995821c46",
+   "item_id": "df1baea4",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4a183155-0c59-4d23-85a3-33d3c1df1734",
+   "item_id": "d107e62b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4a8a473c-266e-4e1e-bb2a-3ed47f85efe6",
+   "item_id": "93e05b56",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4bcdfeb6-e3b9-4bbd-93a4-06eebbbbc365",
+   "item_id": "b787e5d0",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4dd314e0-0aca-4b8e-9adf-8aa12231017d",
+   "item_id": "9902d6d8",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "4eae5980-db92-4be4-a2f2-d40a9f73c3b5",
+   "item_id": "87e3be55",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "5037486c-24ff-43a6-b006-ff238ecf3e6e",
+   "item_id": "d469dbe5",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "510d48a0-cbb4-43a6-be13-4304ca4b7c92",
+   "item_id": "22d337bd",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "515ec40d-70ef-41e7-9220-07f6c21cd1f0",
+   "item_id": "9e88bd19",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "522297ac-1ad0-4c72-8af7-f13f48e50e03",
+   "item_id": "7406e152",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "523d523a-0891-45ea-81ac-afdfed219dff",
+   "item_id": "a09604bd",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "52b73b84-4749-460c-942f-7996f9e0d65a",
+   "item_id": "23401547",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "55e12e57-4106-48a9-a041-661c14b16598",
+   "item_id": "5b846ff4",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "57a6fcab-b609-4c57-b6d8-9b8b9abec3b0",
+   "item_id": "b96aa2be",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "57d18ea8-9b3f-4fbd-bc6d-6dd756ab6773",
+   "item_id": "07da88d3",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "595df266-6787-4053-87e3-01869e5eb52a",
+   "item_id": "8b7ad617",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "5a1d8fb1-bcc4-49ed-b07f-6727469f274c",
+   "item_id": "9b66b6c7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "5ac48c81-d025-433d-8d88-a8f14f71f6e7",
+   "item_id": "0ab53ec7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "5bc586fb-b20f-43bc-b2c9-fa8b24d4d85c",
+   "item_id": "cdab7e11",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "5d80980e-72f8-40e0-b059-8614dda4f2d1",
+   "item_id": "d2b5a4b3",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "611d99bc-1acf-452e-af0e-303e66b6b23e",
+   "item_id": "972a6f9a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "6308f615-994f-47ab-ab46-77959ade75d1",
+   "item_id": "df497de3",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "6551298d-78fa-4c90-92c1-aeebe1412c12",
+   "item_id": "99f4bf00",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "6b904b13-97df-4b2b-adbe-bf63f9153126",
+   "item_id": "6640e828",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "6c231ed6-4107-4d08-a360-821a4500eb3d",
+   "item_id": "9388af3f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "70f1c107-7167-4403-ba4f-d25ec870eea8",
+   "item_id": "161cc2ef",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "738ed907-51fa-4375-a5e7-b6bcc383e2cc",
+   "item_id": "1c2b4a83",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "76dcf79b-cdbd-4fab-b506-060e250f0b0e",
+   "item_id": "62a57b36",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "78e4775b-3923-4600-805a-ea3f7534c4cb",
+   "item_id": "711848f6",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7ab988ce-c16b-4014-b2e1-b057caddc733",
+   "item_id": "189e3d8a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7be099a8-55e1-4a8d-bc6c-027cfdfe029d",
+   "item_id": "31349161",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7c4f113f-e350-4d65-a905-97d32462c28a",
+   "item_id": "1ac57b82",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7cb6f50a-6b36-40c6-88e1-76d8282c0e83",
+   "item_id": "961d4be2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "7dd57766-84bd-4069-859a-923433a583c2",
+   "item_id": "54702739",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "80f32263-44ca-492a-9692-963c6f3e7a44",
+   "item_id": "ab9f9ebf",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "83766c13-c428-4c94-b932-5d298fa526ea",
+   "item_id": "8f01f6d1",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "839cf794-5a8e-462e-b1dd-9126f2afd4d6",
+   "item_id": "ab9aea39",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "849688ef-2780-4f1f-8b5b-f99214ac58f8",
+   "item_id": "80eec410",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "849c9604-079c-4500-ad94-9edfa58b0797",
+   "item_id": "b9500dc3",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "84ace215-a4d1-43d2-a217-7295da30c01a",
+   "item_id": "12a1a2a6",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "85036f23-b307-4e60-b4c2-bbf8191b0af5",
+   "item_id": "3f775882",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "852cd849-0a8e-42c3-8d42-1dedfdd1ca0c",
+   "item_id": "67611ea7",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8835d731-5322-44eb-b230-bb04e935dd6c",
+   "item_id": "cdead9cb",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8adfab46-036b-417e-9f77-ce09b3423ff6",
+   "item_id": "57d0aeea",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8ba7f943-2d95-4c37-b1b9-a394851b702c",
+   "item_id": "50658fa2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8eba092b-c1ec-4180-ad9d-507f8f384c11",
+   "item_id": "f02970b5",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "8ec48ff6-7a04-4af9-a343-403bc1b4e2a3",
+   "item_id": "05517160",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9116ca3b-2b32-4a47-a21e-83fa3667cf1b",
+   "item_id": "a6c66772",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "91fa2b43-7637-492d-8592-096e9e6d7105",
+   "item_id": "91e4eb77",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "94f58876-a353-4378-8f70-82dabbeb6f8c",
+   "item_id": "f46e6719",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "954633d0-c7ee-414e-9afb-180c60d3fb19",
+   "item_id": "3b8b2ef4",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "970baacf-90a7-4eda-90c2-f6243de7f708",
+   "item_id": "1d7a7213",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "97710dfb-94b1-4ce0-8a4f-e0cd842e32bd",
+   "item_id": "e4015e58",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "97abf186-8b13-4b2d-b424-c93b052fd419",
+   "item_id": "297ff138",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "99b1156b-627e-4df6-b146-e1e708cc6dc1",
+   "item_id": "c0a43470",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9a27816c-13bd-4e01-bc96-cbae5d28ec74",
+   "item_id": "9e7d0baa",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9adfa319-3af0-4de1-b4b0-7dd22f0e86c0",
+   "item_id": "4208f60d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9dc849d4-5de5-4007-869f-5fab3064337b",
+   "item_id": "d346c365",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9f135935-f212-46de-9d78-2b3a047d59fa",
+   "item_id": "9f8879d2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9fc1a4c3-65ec-409a-8a40-809917aa6a45",
+   "item_id": "bd379f15",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "9ffe0c6d-f69d-46a0-a826-89e9e6bee740",
+   "item_id": "c918f70a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a00691a2-0c64-4067-97f3-68f51f24044d",
+   "item_id": "5ae0312d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a0e8a021-8b98-45cc-af9b-4b3d7ed087da",
+   "item_id": "35fe809a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a1126076-8556-4982-8828-0d92b96763d6",
+   "item_id": "2fe7040a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a3cecfa4-929d-4bc8-b8e8-2cf667518c4d",
+   "item_id": "9f8dcf56",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a3e0de8f-e2c6-4234-a5f3-333fbb347745",
+   "item_id": "193d2756",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a4d89e4e-5614-438c-a5b7-7fdf9ef2233d",
+   "item_id": "21bcc74a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a53e55f9-f92f-42b3-8cb3-90ae2b2ba3c1",
+   "item_id": "0a30f241",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "a9331d7c-7cb0-41b0-a13d-350770feebc7",
+   "item_id": "162e2080",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "aa9bdb5a-605f-4b69-b913-fe7cf38a895a",
+   "item_id": "0cf45b42",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "abc39f42-59c1-4795-9b5c-701afd2a3e32",
+   "item_id": "927f39e2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ad71cf36-0356-4432-83a5-6da507f32504",
+   "item_id": "a844f3b0",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ae5a1a13-efdb-4317-b901-6d458270752e",
+   "item_id": "a1839818",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ae899807-d0b6-47bc-bc85-8043455d93fa",
+   "item_id": "a4ea9bcd",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "af3865a5-ba5f-451d-9a7b-797efa92211d",
+   "item_id": "3da6a18b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "af960a80-7df5-4d18-99f8-ce068f01f720",
+   "item_id": "9e39b25b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b380bd9b-8bbc-4faa-a8ce-3a4a6159d76d",
+   "item_id": "02eba23f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b40a0105-dfa7-417e-8c70-2a136d1a2626",
+   "item_id": "4a40bb73",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b458c8f4-0712-410b-a5d6-406d38e89c3a",
+   "item_id": "bab45e68",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b50de828-ee40-4bea-b83b-140ec2217e03",
+   "item_id": "954d0709",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b762df89-0083-4d46-bed2-1903b9126d16",
+   "item_id": "68037836",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b94e8159-ff55-4d2c-86ae-6c0f0ae9df97",
+   "item_id": "6ec34765",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "b99c6e33-66e8-4230-b682-a41d1ab9d504",
+   "item_id": "65e3d050",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ba0e7c48-aa74-427c-97f2-8f48443b762a",
+   "item_id": "a9d3bcb5",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "bca7b588-823a-4156-949e-e89770a888dd",
+   "item_id": "db491785",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "bd6894f2-b1bd-4478-906d-d9967e908e26",
+   "item_id": "7789eb67",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "bdf88afd-25d0-457d-b09a-d0086dcf4690",
+   "item_id": "3da7fa4a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "be0afc82-97b1-484c-a74f-3d9d8d41e1e0",
+   "item_id": "4481e168",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c1774534-0acc-4a37-bcd0-2889f3450dd8",
+   "item_id": "75d5fe7a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c3fde56c-2bac-4b29-ba02-fa86b00c9f16",
+   "item_id": "eb554e34",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c5bd9026-65dc-4047-a777-6146bf26204f",
+   "item_id": "6360b875",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c6df3473-959b-4e45-999e-36ca415157e3",
+   "item_id": "be1c2c70",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c7aa7bc9-9ef9-4d75-8818-46e9c44faf18",
+   "item_id": "7b566e30",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c855a944-67f3-48b9-a2d0-7c4919e9806c",
+   "item_id": "ebb5bed6",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "c9e8906f-1d53-49cc-8007-9c7ebfe6ebf8",
+   "item_id": "dc951c81",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "cae972e6-54e9-4d05-b53e-6384240d5247",
+   "item_id": "02efb819",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "cce663ab-eff2-4f24-87f4-c3725ac3dca8",
+   "item_id": "8ba52401",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ce09eef9-6bcf-4a4c-a76c-ae0d14ab7939",
+   "item_id": "735ed831",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "cefe05a9-9bb4-4625-881d-4dabfef9dd3c",
+   "item_id": "bac89c90",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "d12295cc-0684-44a0-a9bc-6dd52670eecb",
+   "item_id": "b0d976bb",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "d43a76ac-d4bf-402b-86df-adc1103e3dfc",
+   "item_id": "86499455",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "d48498e5-642b-43f6-8ce1-08009b01c01e",
+   "item_id": "0e204a35",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "d7a739ab-3bce-4c65-9ad2-d33f1403e5be",
+   "item_id": "26e5817b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "d9e75aba-68f3-4133-9175-0cdbb36dbf39",
+   "item_id": "826470b2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "da57fb5d-3210-42fa-9ce1-ff749af2bca3",
+   "item_id": "c7579093",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "dbd3b997-9eaf-43a0-8fe5-5c2c313c4575",
+   "item_id": "826aa122",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "dda52367-056b-4b46-a734-9aa9ac2d46bf",
+   "item_id": "048b083b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ddf16f75-7b9b-43e2-9618-969ddf6d34b2",
+   "item_id": "768d3f33",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "dfde7681-278b-4160-be18-99308a3918e3",
+   "item_id": "71cb5f4e",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e03c32a3-4b71-486f-acf4-890a8e72afc8",
+   "item_id": "fcbe0138",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e1a36e82-79cc-4d64-a6a5-4cd658c20f06",
+   "item_id": "9dd0237b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e265c41f-508a-4c20-8bba-3f3cb5c5c4c0",
+   "item_id": "d7a10293",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e36718e8-41dc-4218-8ac0-ed3b1d791cce",
+   "item_id": "4b9fedbc",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e614f949-f60f-42de-991c-6d83ce2c4e2b",
+   "item_id": "203f3a4c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e63ba315-e95e-4c08-bcd1-0c23b42dc940",
+   "item_id": "16bd198f",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e6e37e1c-e834-407e-86f1-804a2224c1a4",
+   "item_id": "01c9ded2",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e7ae0791-ecf3-49d5-ade3-6263adf4d4e3",
+   "item_id": "be735bc0",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e8e4bcd1-af89-4b47-94d7-5e7898aa6f3b",
+   "item_id": "41987c68",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "e8fc191c-7c69-419c-891a-b12bec9c1fa4",
+   "item_id": "69ab4904",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ea0f83eb-1aac-46f0-b784-03eb7eed6ab1",
+   "item_id": "b535a163",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ecdc1729-86b0-400f-a754-83232db3ffc0",
+   "item_id": "898d046c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ee44510c-038f-4920-8f63-8a2a9c5eec6a",
+   "item_id": "d78e3d80",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ef961002-1294-406e-96d9-2cbed4b95b6e",
+   "item_id": "3f37052c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "efc648dd-559d-4619-8a63-fe33bad287f0",
+   "item_id": "09c6f6b5",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f005fd27-cb07-4d0c-b4a4-5b26dfa317e4",
+   "item_id": "40ba9efd",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f02a59eb-7680-4d50-926b-71693a57bba8",
+   "item_id": "78570971",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f03bb9d5-3aca-43e7-97b1-e121a90aee6c",
+   "item_id": "e0d73d3d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f352dc61-bfc2-4d2e-b05d-59fe9a16bed5",
+   "item_id": "a048d3ee",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f385dcf1-5145-4a2c-bffb-8e89727e7d62",
+   "item_id": "ebba5a50",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f648bce3-dbc2-4eeb-bb20-7eb88fe29d9d",
+   "item_id": "833828b1",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f64b00a7-11e5-4992-90bf-94197c700a19",
+   "item_id": "c06d84f5",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f7d296c8-2b0a-4fb1-827a-2b4fb7383bc2",
+   "item_id": "026bdcb9",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f7f82d81-5217-4d03-bc3f-8d57de17cbcc",
+   "item_id": "79687a7a",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "f85cfb93-1e10-400e-b350-0406d921a0a8",
+   "item_id": "060e6b8c",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "fb0c2372-6a6c-4d05-a338-74437d29a688",
+   "item_id": "d77a620e",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "fb9936b8-521a-4696-af27-7893e1b75b9a",
+   "item_id": "46c5f82d",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "fccf4343-e1bb-4967-a5d6-98e9e635f558",
+   "item_id": "7c69407b",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  },
+  {
+   "question_id": "ff8ecde0-464d-474c-bfc3-dd2bf093403c",
+   "item_id": "724a6c77",
+   "old": "claude-opus-5",
+   "next": "claude-sonnet-5-5"
+  }
+ ]
+}

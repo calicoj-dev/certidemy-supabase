@@ -1205,3 +1205,48 @@ every instrumented ISMS-F stage.** R6 is the Sonnet experiment and is labelled a
 - 8 `structure` refusals block approval: 4 de-cue failures, 4 with a second gate failure too.
 - 17 kept-item modal-drift findings for the post-cutover repair (ruled PROMPT-118 s4).
 - The PROMPT-104 container-citation backlog item.
+
+## PROMPT-141: the generate-without-insert pattern, and three named coverage gaps
+
+### How to generate a round WITHOUT inserting (ruled PROMPT-141 s2)
+
+`gen-grounded-items.mjs` has THREE modes, and the obvious reading of the middle one is wrong:
+
+| invocation | what happens |
+|---|---|
+| no `--apply` | prints the first item's full prompt and **stops**. No model call, $0, no artifact |
+| `--apply`, no `--from` | **generates, gates, writes the artifact, then REFUSES the DB write** (exit 2) |
+| `--apply --from=<artifact>` | inserts the rows that artifact already recorded |
+
+So **a round that must produce survivors without inserting is `--apply` with no `--from`**, and
+its exit 2 is the expected outcome, not a failure. Every AIMS-IA round from R1 to R4c was run
+this way. A dry run is NOT a cheap preview of a round: it spends nothing because it generates
+nothing, and `--tasks=<code>` without `:<count>` asks ONE item (`--n` is refused alongside
+`--tasks` since PROMPT-141 s2).
+
+### Three coverage gaps, named rather than floored (ruled PROMPT-141 s4)
+
+A task holding 0 gets **no floor of 0**: a floor of 0 reads as a satisfied requirement, and
+`verify-cert` passes 0 fail while the exam never tests the task. Measured PROMPT-140: form
+assembly draws by DOMAIN weight, so a 0-item task's share is absorbed by its siblings and
+**only `check-task-map` reports it**. For an ISO/IEC 17024-aligned scheme that means a published
+task goes unexamined.
+
+| task | holds | what was tried |
+|---|---|---|
+| **4.5** | 0 (2 R4c survivors awaiting a ruling) | Its only two keyable primaries, 42001 6.1.3 and 8.3, were saturated by OTHER tasks. PROMPT-140 raised the per-task cap and nothing changed, because the SATURATION ceiling is a second mechanism. PROMPT-141 s3 made a ruled override lift both, for that (task, anchor) pair only, and 4.5 produced 2 of 2. |
+| **5.6** | 0 (2 R4c + 1 R4b survivors awaiting a ruling) | 0 of 4 on Sonnet in R4; 1 of 4 on Opus in R4b; 2 of 3 on Opus in R4c. A thin map -- 2 keyable primaries, 42001 10.2 and 19011 6.7 -- so Opus was the lever that worked. |
+| **4.9** | 2, floor 6 | NEVER PUT TO THE DIRECTOR. It was absent from the saturation census, so `propose-task-floors` could not see it (below). Exhausted: a floor of 2 is the only lever. |
+
+### THE SATURATION CENSUS COVERS ONLY THE TASKS `--n` HAPPENS TO FUND
+
+`--saturation-report` emits a row per task **in the weight allocation**, so with the default
+`--n=40` across 40 AIMS-IA tasks one task drew 0 items and got no row: **39 of 40**. At
+`--n=200` the census holds all 40 and task 4.9 appears, short by 4. A task missing from the
+census is invisible to the floor proposal and reads as *not short* -- a coverage gap that
+reports clean, which is the defect class `docs/CLAUDE-METHOD.md` opens with.
+
+**Until it is fixed, run `--saturation-report` with `--n` well above the task count.** The fix
+is to iterate every mapped task in the census path regardless of allocation; it was found while
+applying the PROMPT-141 s4 floors and is NOT yet done.
+

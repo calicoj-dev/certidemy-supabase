@@ -2199,6 +2199,122 @@
    },
    "fix": "Top-level `model` is now WRITER_MODEL, with the default kept as `base_model_default`; insert-pilot-drafts prefers spend.writer_model so an OLD artifact re-inserted also gets the truth. Proven on the discriminating case: the Sonnet R4b artifact now records claude-sonnet-5-5 where it would have said claude-opus-5.",
    "open": "THE 900 LIVE ROWS ARE STILL WRONG. Backfilling them rewrites live grounding rows and was not ruled, so it is left for the director. Nothing downstream of the bank reads this column; the cost-per-writer figures in this file came from the separate artifacts and are correct."
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 4,
+   "stage_name": "generation R4c",
+   "ruled_in": "PROMPT-141 s3",
+   "usd": 3.4849,
+   "ceiling": 6,
+   "attempted": 13,
+   "generated": 13,
+   "survivors": 8,
+   "design": "THE LAST GENERATION OF AIMS-IA. Ruled on the principle that every JTA task must be examined by at least one item: a 0-item task disappears silently into its domain's draw, so an ISO/IEC 17024-aligned exam would not cover a task the scheme publishes.",
+   "by_task": {
+    "4.5": {
+     "writer": "claude-sonnet-5-5",
+     "asked": 2,
+     "survivors": 2,
+     "note": "OFF ZERO AT LAST. PROMPT-140 raised the per-task cap and 4.5 still could not be asked, because SATURATION is a second ceiling on the same passage. PROMPT-141 s3 made a ruled override lift both for that (task, anchor) pair only: 2 of 2 survived."
+    },
+    "5.6": {
+     "writer": "claude-opus-5",
+     "asked": 3,
+     "survivors": 2,
+     "note": "0 of 4 Sonnet (R4), 1 of 4 Opus (R4b), 2 of 3 Opus (R4c). Opus was the lever."
+    },
+    "1.3": {
+     "writer": "claude-sonnet-5-5",
+     "asked": 2,
+     "survivors": 1
+    },
+    "2.2": {
+     "writer": "claude-sonnet-5-5",
+     "asked": 2,
+     "survivors": 1
+    },
+    "2.4": {
+     "writer": "claude-sonnet-5-5",
+     "asked": 2,
+     "survivors": 2
+    },
+    "3.6": {
+     "writer": "claude-sonnet-5-5",
+     "asked": 2,
+     "survivors": 0
+    }
+   },
+   "judge": {
+    "model": "claude-sonnet-5-5",
+    "pairs": 43,
+    "flagged": 4,
+    "usd": 0.1594,
+    "unanswered": 0,
+    "arms": {
+     "same-anchor": {
+      "judged": 16,
+      "flagged": 4
+     },
+     "key-term-neighbour": {
+      "judged": 27,
+      "flagged": 0
+     }
+    },
+    "note": "All four flags are SAME-ANCHOR and none is a neighbour. One of them, 59897391 (4.5) against b53707b1 (4.8) on 42001 8.3, is exactly the duplicate risk the director named when ruling the saturation lift."
+   },
+   "saturation_lift": {
+    "ruled_in": "PROMPT-141 s3",
+    "task": "4.5",
+    "anchors": [
+     "ISO/IEC 42001 6.1.3",
+     "ISO/IEC 42001 8.3"
+    ],
+    "ceiling": 4,
+    "mechanism": "lib/anchor-cap.mjs makeSatCapResolver, keyed on (task, anchor) exactly as the per-task cap is, so 4.9/4.10/4.12 -- which supplied the first three items on 6.1.3 -- still see SATURATION_CAP. 12 controls, both directions."
+   }
+  },
+  {
+   "cert": "ALL",
+   "stage": 4,
+   "stage_name": "writer attribution backfill",
+   "ruled_in": "PROMPT-141 s1",
+   "usd": 0,
+   "rows_examined": 931,
+   "rows_changed": 409,
+   "already_correct": 218,
+   "left_alone": 304,
+   "by_cert": {
+    "AIMS-IA": "214 -> sonnet",
+    "ISMS-IA": "195 -> sonnet",
+    "ISMS-F": "270 unchanged (262 ids in no artifact, 8 unresolvable writer)",
+    "AIMS-F": "169 opus + 31 null unchanged (34 ids in no artifact)"
+   },
+   "after": {
+    "sonnet": 409,
+    "opus": 491,
+    "other": 31
+   },
+   "preimage": "ATTRIBUTION-BACKFILL-PREIMAGE.json, 409 rows, written before the first PATCH",
+   "note": "The 524 figure in PROMPT-140 counted SURVIVORS of the 13 mis-attributed artifacts; 409 is the subset the director accepted and inserted. Rows whose id appears in NO artifact on disk were left alone and listed rather than guessed."
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 3,
+   "stage_name": "task floors applied",
+   "ruled_in": "PROMPT-141 s4",
+   "usd": 0,
+   "floors_written": 18,
+   "read_back_correct": 18,
+   "withheld": {
+    "4.5": 0,
+    "5.6": 0,
+    "rule": "a task holding fewer than 2 gets NO floor and becomes a named coverage gap in the handoff"
+   },
+   "not_put_to_the_director": {
+    "4.9": "held 2, floor 6, exhausted -- ABSENT FROM THE CENSUS, so the proposal never listed it. The census emits a row only per task the --n weight allocation funds: 39 of 40 at --n=40, all 40 at --n=200."
+   },
+   "after": "check-task-map at_floor 32, short 8, too_thin 0 (was 25 short / 1 too_thin); verify-cert 54 pass, 0 fail, 5 warn"
   }
  ],
  "not_instrumented": [

@@ -65,7 +65,7 @@ function h32(s) {
  *            order: [string], why: string }}
  */
 export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap = CAP,
-  certCensus = null, satCap = SATURATION_CAP, runTally = null, capOf = null }) {
+  certCensus = null, satCap = SATURATION_CAP, runTally = null, capOf = null, satCapOf = null }) {
   const held = (p) => censusMap.get(anchorKey(p.source_id, p.edition, p.clause)) || 0;
   /* THE CAP IS PER (TASK, ANCHOR) WHERE AN OVERRIDE SAYS SO (PROMPT-135 s1). `capOf` is the resolver
    * from lib/anchor-cap.mjs; with none, every anchor takes the flat `cap` and nothing changes. */
@@ -106,11 +106,16 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
   const certHeldRaw = (p) => (certCensus
     ? Number(certCensus.get(anchorKey(p.source_id, p.edition, p.clause)) || 0) + tallyOf(p)
     : 0);
-  const saturated = (p) => certCensus != null && satCap > 0 && certHeldRaw(p) >= satCap;
+  /* THE CEILING IS PER (TASK, ANCHOR) WHERE AN OVERRIDE SAYS SO (PROMPT-141 s3). With no resolver
+   * every anchor keeps the flat `satCap`, so a caller that passes none is unchanged. */
+  const satCapFor = (p) => (satCapOf ? satCapOf(p) : satCap);
+  const saturated = (p) => certCensus != null && satCapFor(p) > 0 && certHeldRaw(p) >= satCapFor(p);
   const underTaskCap = (primaries || []).filter((p) => held(p) < capFor(p));
   const eligible = underTaskCap.filter((p) => !saturated(p));
   const satBlocked = underTaskCap.filter((p) => saturated(p)).map((p) => ({
-    source_id: p.source_id, edition: p.edition, clause: p.clause, cert_held: certHeldRaw(p) }));
+    source_id: p.source_id, edition: p.edition, clause: p.clause, cert_held: certHeldRaw(p),
+    /* its OWN ceiling, which an override may have raised for this task alone */
+    ceiling: satCapFor(p) }));
 
   /* room left on each eligible clause, which is what bounds the whole assignment */
   const capacity = eligible.reduce((s, p) => s + (capFor(p) - held(p)), 0);
@@ -215,8 +220,8 @@ export function assignAnchors({ taskCode, runId, primaries, censusMap, want, cap
       ? "fewest-held first, ties by hash(task|run|clause), round-robin"
       : satBlocked.length
         ? "NO ASSIGNABLE ANCHOR: all " + satBlocked.length + " under-cap primary(ies) are SATURATED " +
-          "certification-wide (" + satCap + " or more live grounded items each: " +
-          satBlocked.map((s) => s.clause + " holds " + s.cert_held).join(", ") +
+          "certification-wide (" +
+          satBlocked.map((s) => s.clause + " holds " + s.cert_held + " of a ceiling of " + s.ceiling).join(", ") +
           "). A FLOOR question, not a generation one -- the passages are used up."
         : (primaries || []).length
           ? "no eligible primary: all " + primaries.length + " are at their per-task cap (" +
