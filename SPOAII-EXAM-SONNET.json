@@ -1,0 +1,1326 @@
+{
+ "_what": "SPO-AI-I authored practice quality. READ-ONLY: nothing in the bank was changed. A solver disagreement is EVIDENCE for an SME, not a verdict on the item.",
+ "cert": "SPO-AI-I",
+ "ruled_in": "PROMPT-142 s5, extended to all four certifications by PROMPT-142a",
+ "model": "claude-sonnet-5-5",
+ "population": 388,
+ "sampled": 40,
+ "solved": 40,
+ "by_domain": {
+  "D1": 5,
+  "D2": 7,
+  "D3": 7,
+  "D4": 11,
+  "D5": 10
+ },
+ "summary": {
+  "solver": {
+   "over": 40,
+   "agree_both_orders": 27,
+   "agree_one_order_only": 3,
+   "picked_different": 0,
+   "second_defensible": 4,
+   "passages_do_not_settle": 9,
+   "could_not_run": 0,
+   "error_rate": "33%",
+   "by_cause": {
+    "agreed with the stored key": 27,
+    "passages do not settle it": 9,
+    "named a second defensible option": 4
+   }
+  },
+  "clauses": {
+   "over": 40,
+   "address_no_source_holds": 0,
+   "container_heading": 0
+  }
+ },
+ "spend": {
+  "usd": 0.8334,
+  "calls": 80,
+  "model": "claude-sonnet-5-5"
+ },
+ "solver_stopped_at_ceiling": false,
+ "items": [
+  {
+   "item": "00879ab3",
+   "task": "1.4",
+   "domain": "D1",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 0,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "1e60cf10",
+   "task": "1.2",
+   "domain": "D1",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 1,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "685b6844",
+   "task": "1.4",
+   "domain": "D1",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 1,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "a58fcdaf",
+   "task": "1.5",
+   "domain": "D1",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 1,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "rejected",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "c550b0c2",
+   "task": "1.6",
+   "domain": "D1",
+   "grounding_class": "none",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 3,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "rejected",
+     "answered": "D",
+     "second_defensible": "B",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "rejected",
+     "answered": "C",
+     "second_defensible": "A",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "0246d9f1",
+   "task": "2.1",
+   "domain": "D2",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 2,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "rejected",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "238f60f7",
+   "task": "2.8",
+   "domain": "D2",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 3,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "5086a879",
+   "task": "2.8",
+   "domain": "D2",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 0,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "rejected",
+     "answered": "A",
+     "second_defensible": "C",
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "rejected",
+     "answered": "D",
+     "second_defensible": "B",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "7b6e088b",
+   "task": "2.3",
+   "domain": "D2",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 2,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "a0e0439e",
+   "task": "2.4",
+   "domain": "D2",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 1,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "b467d303",
+   "task": "2.5",
+   "domain": "D2",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 0,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "dcda6e8b",
+   "task": "2.4",
+   "domain": "D2",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 3,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "00f3acb2",
+   "task": "3.1",
+   "domain": "D3",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 2,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "rejected",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "2008bb11",
+   "task": "3.1",
+   "domain": "D3",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 2,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "rejected",
+     "answered": "C",
+     "second_defensible": "D",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": "C",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "5637f2e7",
+   "task": "3.6",
+   "domain": "D3",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 1,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": "C",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "7b379738",
+   "task": "3.7",
+   "domain": "D3",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 0,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "8cafc2d2",
+   "task": "3.5",
+   "domain": "D3",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 0,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "a817cc40",
+   "task": "3.6",
+   "domain": "D3",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 1,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "c58b0a67",
+   "task": "3.2",
+   "domain": "D3",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 0,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "03a918b2",
+   "task": "4.5",
+   "domain": "D4",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 3,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "1700f075",
+   "task": "4.8",
+   "domain": "D4",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 2,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "28dc3896",
+   "task": "4.9",
+   "domain": "D4",
+   "grounding_class": "ai-held",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 1,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": "A",
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "rejected",
+     "answered": "A",
+     "second_defensible": "D",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "47ce7aef",
+   "task": "4.4",
+   "domain": "D4",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 3,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "54584444",
+   "task": "4.12",
+   "domain": "D4",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 3,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "rejected",
+     "answered": "C",
+     "second_defensible": "B",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "72e4ba4e",
+   "task": "4.6",
+   "domain": "D4",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 1,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "85618d98",
+   "task": "4.8",
+   "domain": "D4",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 0,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "98ec324f",
+   "task": "4.10",
+   "domain": "D4",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 3,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "rejected",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "rejected",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "afef2ca2",
+   "task": "4.7",
+   "domain": "D4",
+   "grounding_class": "ai-held",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 2,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "c5dc5028",
+   "task": "4.6",
+   "domain": "D4",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 0,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "e01b3fe2",
+   "task": "4.7",
+   "domain": "D4",
+   "grounding_class": "ai-held",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 2,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "00f2cebe",
+   "task": "5.3",
+   "domain": "D5",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 1,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": "C",
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "rejected",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "16534296",
+   "task": "5.4",
+   "domain": "D5",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 2,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "3f953ec3",
+   "task": "5.2",
+   "domain": "D5",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 1,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "61950acf",
+   "task": "5.12",
+   "domain": "D5",
+   "grounding_class": "ebm",
+   "judged_against": "EBM Guide (38 passages)",
+   "key_index": 1,
+   "passages": 38,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "712ed2f7",
+   "task": "5.4",
+   "domain": "D5",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 0,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "7ecb226f",
+   "task": "5.7",
+   "domain": "D5",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 0,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "93d295ab",
+   "task": "5.2",
+   "domain": "D5",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 1,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "acbfeb4e",
+   "task": "5.3",
+   "domain": "D5",
+   "grounding_class": "scrum-guide",
+   "judged_against": "Scrum Guide (26 passages)",
+   "key_index": 2,
+   "passages": 26,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "rejected",
+     "answered": "C",
+     "second_defensible": "A",
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": "D",
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "cb291e64",
+   "task": "5.2",
+   "domain": "D5",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 1,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "db74d55f",
+   "task": "5.6",
+   "domain": "D5",
+   "grounding_class": "agile-general",
+   "judged_against": "accepted practice (no passages)",
+   "key_index": 0,
+   "passages": 0,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  }
+ ]
+}

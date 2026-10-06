@@ -25,23 +25,44 @@ import { writeFileSync, readFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
-import { blindPayload, assertBlind, SOLVER_SYSTEM, solverUser, solverVerdict } from "./lib/blind-solver.mjs";
+import { blindPayload, assertBlind, SOLVER_SYSTEM, SOLVER_SYSTEM_PRACTICE, solverUser,
+  solverUserNoPassages, solverVerdict } from "./lib/blind-solver.mjs";
 import { normClause } from "./lib/grounded-gates.mjs";   /* gateClauseExists is not used: it answers per (source, edition), and this check accepts an address held by ANY source */
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 let CERT = null, N = 40, MAX_USD = null, OUT = null, CLAUSES_ONLY = false, m;
+let POOL = "practice", SOLVER = "claude-opus-5", ONLY = null, CLASSES = null;
 for (const a of process.argv.slice(2)) {
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
   if ((m = /^--n=(\d+)$/.exec(a))) { N = Number(m[1]); continue; }
   if ((m = /^--max-usd=([\d.]+)$/.exec(a))) { MAX_USD = Number(m[1]); continue; }
   if ((m = /^--out=(.+)$/.exec(a))) { OUT = m[1]; continue; }
+  /* --pool: which half of the bank. The exam pool is `secure`; the default stays `practice` so no
+   * existing invocation changes meaning. */
+  if ((m = /^--pool=(secure|practice)$/.exec(a))) { POOL = m[1]; continue; }
+  if ((m = /^--solver-model=(.+)$/.exec(a))) { SOLVER = m[1]; continue; }
+  /* --only=<file>: a JSON array of 8-char item ids, or a comma list. Pass 2 re-solves ONLY what pass
+   * 1 flagged, on a stronger model, so the cheap solver's flags are confirmed rather than trusted. */
+  if ((m = /^--only=(.+)$/.exec(a))) {
+    const v = m[1];
+    ONLY = new Set(existsSync(v)
+      ? JSON.parse(readFileSync(v, "utf8"))
+      : v.split(",").map((s) => s.trim()).filter(Boolean));
+    continue;
+  }
+  /* --classes=<file>: TASK-GROUNDING-CLASSES.json. With it, an item whose task is classed
+   * `scrum-guide` or `ebm` is solved AGAINST THOSE PASSAGES and everything else is solved against
+   * accepted practice with no passages at all (ruled PROMPT-145 s2). */
+  if ((m = /^--classes=(.+)$/.exec(a))) { CLASSES = m[1]; continue; }
   /* --clauses-only runs the FREE half over the whole sample and makes no model call. It is a flag
    * rather than --max-usd=0 on purpose: in gen-grounded-items `--max-usd=0` means NO CEILING, and
    * borrowing that spelling for "spend nothing" would be the opposite of what the other script does. */
   if (a === "--clauses-only") { CLAUSES_ONLY = true; continue; }
   console.error("measure-practice-quality: unrecognised flag " + a);
-  console.error("  --cert=<CODE> --n=40 --max-usd=<n> [--out=<file>]   READ-ONLY on the bank");
+  console.error("  --cert=<CODE> --n=40 --max-usd=<n> [--out=<file>] [--pool=secure|practice]");
+  console.error("  [--solver-model=<model>] [--only=<ids.json|a,b>] [--classes=<file>] [--clauses-only]");
+  console.error("  READ-ONLY on the bank.");
   process.exitCode = 2; process.exit();
 }
 if (!CERT) { console.error("--cert is required"); process.exit(2); }
@@ -51,8 +72,18 @@ if (MAX_USD == null && !CLAUSES_ONLY) {
 }
 OUT = OUT || (CERT.replace(/[^A-Za-z0-9-]/g, "") + "-PRACTICE-QUALITY.json");
 
-const MODEL = "claude-opus-5";
-const PRICE = { input: 15, output: 75 };
+const MODEL = SOLVER;
+/* one price per model, so the ceiling means the same thing whichever solver runs */
+const PRICES = {
+  "claude-opus-5": { input: 15, output: 75 },
+  "claude-sonnet-5-5": { input: 2, output: 10 },
+};
+const PRICE = PRICES[MODEL];
+if (!PRICE) {
+  console.error("no price declared for solver model " + MODEL + ". A run whose cost cannot be");
+  console.error("computed cannot honour --max-usd, so it is refused rather than run uncapped.");
+  process.exit(2);
+}
 const KEY = requireKey(HERE);
 /* the key lives in scripts/.env, not the environment -- same reader as gen-grounded-items */
 function env(k) {
@@ -100,8 +131,11 @@ const tasks = (await getAll(KEY, "tasks?select=id,code,domain_id&order=id")).fil
 const domOf = new Map(tasks.map((t) => [t.id, (doms.find((d) => d.id === t.domain_id) || {}).code]));
 const qs = await getAll(KEY, "quiz_questions?select=id,task_id,question_text,options,correct_answer," +
   "explanation,pool,status,retired_at,item_origin,language&certification_id=eq." + cert.id +
-  "&language=eq.en&pool=eq.practice&order=id");
-const live = qs.filter((q) => q.retired_at === null && q.status === "approved" && q.item_origin === "authored");
+  "&language=eq.en&pool=eq." + POOL + "&order=id");
+/* ORIGIN IS NOT FILTERED FOR THE SECURE POOL. The practice measurement was about the AUTHORED items
+ * a learner sees; an exam pool is judged as served, whatever wrote each row. */
+const live = qs.filter((q) => q.retired_at === null && q.status === "approved" &&
+  (POOL === "practice" ? q.item_origin === "authored" : true));
 
 /* ---- the library and the task map, for the passages and the clause gate ---- */
 const ps = await getAll(KEY, "source_passages?select=id,source_id,edition,clause,title,text,normative&order=id");
@@ -134,15 +168,37 @@ if (assigned !== N) {
   const big = order.sort((a, b) => byDom.get(b).length - byDom.get(a).length)[0];
   want.set(big, want.get(big) + (N - assigned));
 }
-const sample = [];
+let sample = [];
 for (const d of [...want.keys()].sort()) {
   const pool = byDom.get(d);
   const k = want.get(d);
   const stride = Math.max(1, Math.floor(pool.length / k));
   for (let i = 0, n = 0; i < pool.length && n < k; i += stride, n++) sample.push(pool[i]);
 }
-console.log("PRACTICE QUALITY   " + CERT + "   READ-ONLY on the bank");
-console.log("  authored practice items, en, live: " + total);
+/* ---- the grounding class per task, and the Guide passages the classed items are solved against ---- */
+const classOfTask = new Map();
+if (CLASSES) {
+  const G = JSON.parse(readFileSync(join(ROOT, CLASSES), "utf8"));
+  for (const rows of Object.values(G.by_cert || {})) {
+    for (const r of rows) classOfTask.set(String(r.code), r.class);
+  }
+}
+/* THE WHOLE GUIDE, because Scrum has no task_sources yet. 26 passages is ~4,000 words, which is
+ * cheaper than it looks and avoids pretending to a mapping that does not exist. */
+const guideFor = (cls) => cls === "scrum-guide"
+  ? ps.filter((p) => p.source_id === "Scrum Guide")
+  : cls === "ebm" ? ps.filter((p) => p.source_id === "EBM Guide") : [];
+
+/* --only: pass 2 re-solves just the flagged ids, on a stronger model */
+if (ONLY) {
+  const before = sample.length;
+  sample = sample.filter((q) => ONLY.has(q.id.slice(0, 8)));
+  console.log("  --only: " + sample.length + " of " + before + " sampled item(s) re-solved");
+}
+console.log((POOL === "secure" ? "EXAM POOL QUALITY   " : "PRACTICE QUALITY   ") + CERT +
+  "   READ-ONLY on the bank");
+console.log("  live approved " + POOL + " items, en: " + total +
+  (POOL === "practice" ? " (authored only)" : " (any origin)"));
 console.log("  sample " + sample.length + " of " + N + " requested, by domain: " +
   [...want.keys()].sort().map((d) => d + "=" + want.get(d)).join(" "));
 console.log("  solver " + MODEL + ", two runs per item (stored order, then rotated)   ceiling $" + MAX_USD);
@@ -198,8 +254,17 @@ for (const q of sample) {
     const ca = Array.isArray(q.correct_answer) ? q.correct_answer[0] : q.correct_answer;
     keyIdx = opts.findIndex((o, i) => (o && o.id === ca) || String.fromCharCode(97 + i) === String(ca).toLowerCase());
   }
-  const passages = (mapOf.get(q.task_id) || []);
+  /* ============ WHAT THIS ITEM IS JUDGED AGAINST (ruled PROMPT-145 s2) ============
+   *
+   * With --classes, a task classed `scrum-guide` or `ebm` is solved AGAINST THAT GUIDE and everything
+   * else -- agile-general, ai-held, none -- is solved against accepted professional practice with no
+   * passages at all. Without --classes the old behaviour stands: the task's own mapped passages. */
+  const cls = code ? (classOfTask.get(String(code.code)) || null) : null;
+  const passages = CLASSES ? guideFor(cls) : (mapOf.get(q.task_id) || []);
+  const byPractice = CLASSES && passages.length === 0;
   const rec = { item: q.id.slice(0, 8), task: code ? code.code : "?", domain: domOf.get(q.task_id) || "?",
+    grounding_class: cls, judged_against: byPractice ? "accepted practice (no passages)"
+      : (passages.length ? (passages[0].source_id + " (" + passages.length + " passages)") : "no passages"),
     key_index: keyIdx, passages: passages.length, runs: [], clause_problems: [], container_citations: [] };
 
   for (const pass of solverBudgetLeft ? [0, 1] : []) {
@@ -215,7 +280,11 @@ for (const q of sample) {
     }
     const keyLabel = String.fromCharCode(65 + (pass === 0 ? keyIdx : (keyIdx - 1 + o.length) % o.length));
     let txt;
-    try { txt = await claude(SOLVER_SYSTEM, solverUser(payload, passages)); }
+    try {
+      txt = byPractice
+        ? await claude(SOLVER_SYSTEM_PRACTICE, solverUserNoPassages(payload))
+        : await claude(SOLVER_SYSTEM, solverUser(payload, passages));
+    }
     catch (e) { rec.runs.push({ pass, state: "could-not-run", reason: String(e.message).slice(0, 120) }); continue; }
     const parsed = parseObj(txt);
     const v = solverVerdict(parsed, keyLabel);

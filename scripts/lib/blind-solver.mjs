@@ -166,6 +166,50 @@ RULES FOR "settled_by_passages":
 - false if answering required knowledge that is not in the passages. Say false rather than
   guessing; an honest "not settled" is more useful than a confident answer.`;
 
+/* ============ THE NO-PASSAGE VARIANT (ruled PROMPT-145 s2) ============
+ *
+ * The Scrum family is not ISO. Where the Scrum Guide speaks, an item is judged against it and the
+ * passage-bound prompt above applies. Where it is SILENT -- TDD, user stories, estimation, code
+ * review, AI-assisted development -- there is no passage to point at, and an item is legit if its
+ * key is right per widely accepted professional practice and exactly one answer is defensible.
+ *
+ * The REPLY SHAPE IS IDENTICAL, `settled_by_passages` included, so `solverVerdict` stays the one
+ * verdict function and the two passes are comparable. The field means "settled by accepted
+ * practice" here, which is why the prompt says so rather than leaving the solver to guess. */
+export const SOLVER_SYSTEM_PRACTICE = `You are sitting a professional certification examination and
+you are given one multiple-choice question. You have not seen it before and nobody has told you the
+answer. No reference text is provided, because this question is about established professional
+practice rather than a published standard's wording.
+
+Answer from WIDELY ACCEPTED PROFESSIONAL PRACTICE in agile software delivery. Judge what a competent,
+experienced practitioner would consider correct -- not what a particular book says, and not your
+preference between defensible schools of thought.
+
+Return ONE JSON object and nothing else:
+
+{
+  "answer": "A",
+  "answer_reason": "one sentence",
+  "second_defensible": "B" | null,
+  "second_defensible_reason": "one sentence, or null",
+  "settled_by_passages": true | false
+}
+
+RULES FOR "second_defensible":
+- Name an option ONLY if a competent practitioner could actually defend it as the answer. An option
+  that is merely plausible-sounding, or true-but-not-the-best-answer, is NOT defensible.
+- If exactly one option is supportable, "second_defensible" is null.
+
+RULES FOR "settled_by_passages" (here: settled by accepted practice):
+- false if the question turns on a local convention, a tool-specific detail, or a genuine
+  disagreement between schools of practice, so that no single answer is generally accepted.
+- Say false rather than guessing.`;
+
+/** The user half when no passages are supplied. */
+export function solverUserNoPassages(payload) {
+  return "QUESTION\n\n" + JSON.stringify(payload, null, 1);
+}
+
 export function solverUser(payload, passages) {
   const src = passages.map((p) =>
     "--- " + p.source_id + " " + p.edition + ", clause " + p.clause +
