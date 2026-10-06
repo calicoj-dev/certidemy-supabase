@@ -2503,6 +2503,106 @@
    },
    "aims_ia_caveat": "AIMS-IA's cause split is derived from its REJECTED runs' classification strings, because PROMPT-142 s5 recorded prose rather than the structured fields and the prose was then stripped for licensed text. For a rejected run those strings are distinct and reliable; it was the ACCEPTED runs' classification that was unreliable, and agreement needs no cause. The other three read the cause from the response's own fields.",
    "clause_instrument_fixed": "The extractor now requires a dotted or Annex-letter address and accepts one held by ANY source, and reports containers separately. AIMS-IA's clause half was re-run over all 40 under --clauses-only, free: 0 missing, 3 containers."
+  },
+  {
+   "cert": "SCRUM (all four)",
+   "stage": 0,
+   "stage_name": "Scrum stage 0 survey",
+   "ruled_in": "PROMPT-144",
+   "usd": 0.1226,
+   "ceiling": 2,
+   "licences": {
+    "ruled_in": "PROMPT-144 s1",
+    "where": "LICENCES in scripts/extract-source-passages.mjs, beside SOURCES -- the single place a source is defined. licenceOf() throws for a source with no entry.",
+    "read_from": "each document's own text, never memory",
+    "all_rights_reserved": 11,
+    "cc_by_sa_4_0": [
+     "Scrum Guide 2020 (pp 2, 14)",
+     "EBM Guide 2024 (p 1)"
+    ],
+    "unstated": [
+     "EU AI Act 2024/1689 -- no statement on any of 144 pages",
+     "NIST AI RMF 1.0 -- p2 says only 'available free of charge'"
+    ],
+    "note": "`unstated` means the document does not say, NOT that there is no licence. The NIST RMF is a US government work and the OJ has reuse terms on EUR-Lex, but neither fact is in the file.",
+    "check_licensed_text": "STAYS STRICT for every source. Nothing here loosens it.",
+    "open_obligations": [
+     "CC BY-SA requires ATTRIBUTION: a served item quoting Scrum/EBM needs an attribution line, and the format must be designed before the first Scrum item ships. The renderer carries none today.",
+     "SHARE-ALIKE ON DERIVED EXAM ITEMS IS A LEGAL QUESTION FOR COUNSEL, NOT SETTLED."
+    ],
+    "library_field_note": "SOURCE-PASSAGES.json's `sources` array carries `licence` only after the next extraction, which was deliberately NOT run: re-extracting moves the library under finished measurements."
+   },
+   "grounding_classes": {
+    "model": "claude-sonnet-5-5",
+    "tasks": 188,
+    "usd": 0.1226,
+    "method": "statements only, never passage text",
+    "counts": {
+     "agile-general": 44,
+     "scrum-guide": 127,
+     "ai-held": 5,
+     "none": 8,
+     "ebm": 4
+    },
+    "no_held_source_by_cert": {
+     "SM-AI-I": "6 of 53 (11%)",
+     "SM-AI-II": "1 of 44 (2%)",
+     "SPO-AI-I": "19 of 46 (41%)",
+     "SD-AI-I": "26 of 45 (58%)"
+    },
+    "finding": "THE TWO SCRUM MASTER CERTIFICATIONS ARE GROUNDABLE; THE PRODUCT OWNER AND DEVELOPER ONES ARE NOT. 52 of 188 tasks (28%) have no held source. SD-AI-I's missing tasks are software-engineering practice (TDD, CI/CD, code review, refactoring, version control, pairing) and AI-assisted-development practice; no held source contains either, and 42001/22989 are governance standards rather than engineering ones.",
+    "cheapest_addition": "The Agile Manifesto is cited by 3 tasks, is not held, and is short and freely available."
+   },
+   "cross_certification_overlap": {
+    "method": "code only, no model: identical normalised statement, or key-term Jaccard >= 0.5",
+    "pairs": 10,
+    "identical": 0,
+    "tasks_with_a_cross_cert_near_duplicate": {
+     "SM-AI-I": "8 of 53 (15%)",
+     "SM-AI-II": "0 of 44 (0%)",
+     "SPO-AI-I": "5 of 46 (11%)",
+     "SD-AI-I": "4 of 45 (9%)"
+    },
+    "note": "Low. 17 of 188 tasks, no identical statement, and SM-AI-II shares nothing at all."
+   },
+   "passage_ceiling": {
+    "scrum_guide": {
+     "passages": 26,
+     "words": 4007,
+     "mean_words": 154,
+     "ceiling_at_cap_3": 78
+    },
+    "ebm_guide": {
+     "passages": 38,
+     "words": 4349,
+     "mean_words": 114,
+     "ceiling_at_cap_3": 114
+    },
+    "against": "SM-AI-I's exam holds 452 per language today",
+    "paragraph_split_is_impossible_as_stored": "Every passage of both guides is ONE paragraph in the stored text -- no internal line or blank-line breaks survive extraction -- so a paragraph-level split yields 26 and 38 again. Finer passages need a re-extraction with paragraphGrain: true.",
+    "projected_if_regrained": {
+     "scrum_at_40_words": {
+      "passages": 89,
+      "ceiling": 267
+     },
+     "scrum_at_80_words": {
+      "passages": 44,
+      "ceiling": 132
+     },
+     "ebm_at_40_words": {
+      "passages": 112,
+      "ceiling": 336
+     },
+     "ebm_at_80_words": {
+      "passages": 68,
+      "ceiling": 204
+     }
+    }
+   },
+   "sm_ai_i_practice_imbalance": {
+    "finding": "All 10 extra es-419 rows are item_origin='generated', each ALONE in its question_group_id with no English row and no duplicate stem. Of 30 generated practice rows (en 5, es-419 25, pt-BR 0) exactly these 10 are live and approved.",
+    "changed": "nothing"
+   }
   }
  ],
  "not_instrumented": [

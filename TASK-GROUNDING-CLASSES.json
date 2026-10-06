@@ -1,0 +1,1360 @@
+{
+ "_what": "Which held source could ground each task. The model saw STATEMENTS ONLY -- never any passage text -- so a verdict is an expectation about where the answer lives, not a clause match.",
+ "ruled_in": "PROMPT-144 s2",
+ "model": "claude-sonnet-5-5",
+ "held_sources": [
+  "EBM Guide 2024",
+  "EU AI Act 2024/1689",
+  "ISO 19011 2026",
+  "ISO/IEC 17021-1 2015",
+  "ISO/IEC 22989 2022",
+  "ISO/IEC 27000 2018",
+  "ISO/IEC 27001 2022",
+  "ISO/IEC 27001 2022/Amd1:2024",
+  "ISO/IEC 27002 2022",
+  "ISO/IEC 42001 2023",
+  "ISO/IEC 42006 2025",
+  "ITIL 4 Foundation 2019",
+  "NIST AI RMF 1.0",
+  "Scrum Guide 2020"
+ ],
+ "spend": {
+  "usd": 0.1226,
+  "calls": 11,
+  "model": "claude-sonnet-5-5"
+ },
+ "stopped_at_ceiling": false,
+ "counts": {
+  "agile-general": 44,
+  "scrum-guide": 127,
+  "ai-held": 5,
+  "none": 8,
+  "ebm": 4
+ },
+ "by_cert": {
+  "SM-AI-I": [
+   {
+    "code": "1.1",
+    "class": "agile-general",
+    "source": null,
+    "why": "Agile Manifesto values and principles are not in the Scrum Guide",
+    "statement": "Articulate the Agile Manifesto's four values and twelve principles"
+   },
+   {
+    "code": "1.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Three pillars of empiricism are defined in the Scrum Guide",
+    "statement": "Apply the three pillars of empirical process control (Transparency, Inspection, Adaptation) to diagnose which pillar is broken"
+   },
+   {
+    "code": "1.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Five Scrum Values are in the Scrum Guide",
+    "statement": "Identify the five Scrum Values in workplace behaviors"
+   },
+   {
+    "code": "1.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Complex problems and empirical process are in Scrum Guide theory",
+    "statement": "Distinguish complex problems suited to Scrum from problems suited to predictive approaches"
+   },
+   {
+    "code": "1.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Lean thinking is mentioned in Scrum Guide theory section",
+    "statement": "Explain lean thinking principles as they apply to Scrum"
+   },
+   {
+    "code": "1.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Transparency as a pillar, with consequences when compromised",
+    "statement": "Recognize when transparency is compromised and trace consequences"
+   },
+   {
+    "code": "1.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Mostly empiricism and Scrum Master role with AI framing",
+    "statement": "Analyze how AI-accelerated output can threaten empiricism, and how the Scrum Master safeguards inspection and adaptation"
+   },
+   {
+    "code": "2.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Team composition and size are in the Scrum Guide",
+    "statement": "Define the Scrum Team's composition and size constraints"
+   },
+   {
+    "code": "2.10",
+    "class": "ai-held",
+    "source": "NIST AI RMF 1.0",
+    "why": "Human accountability and oversight of AI agents is an AI governance question",
+    "statement": "Explain how AI agents participate in a Scrum Team as tools, and which accountabilities must remain human"
+   },
+   {
+    "code": "2.11",
+    "class": "ai-held",
+    "source": "NIST AI RMF 1.0",
+    "why": "Delegation to AI versus retained human accountability is governance",
+    "statement": "Distinguish work a team may delegate to AI from the accountabilities it must retain"
+   },
+   {
+    "code": "2.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master accountability is defined in the Scrum Guide",
+    "statement": "Explain the Scrum Master's accountability for the Scrum Team's effectiveness"
+   },
+   {
+    "code": "2.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master services are listed in the Scrum Guide",
+    "statement": "List the three services the Scrum Master provides: to the Team, to the Product Owner, to the organization"
+   },
+   {
+    "code": "2.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Owner accountability is in the Scrum Guide",
+    "statement": "Explain the Product Owner's accountability for maximizing product value"
+   },
+   {
+    "code": "2.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developers' accountabilities are in the Scrum Guide",
+    "statement": "Explain the Developers' four accountabilities"
+   },
+   {
+    "code": "2.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Self-managing Scrum Team is a Scrum Guide concept",
+    "statement": "Apply \"self-managing\" to a described team scenario"
+   },
+   {
+    "code": "2.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Accountability boundaries come from the Scrum Guide roles",
+    "statement": "Identify accountability boundary violations"
+   },
+   {
+    "code": "2.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Cross-functionality of the Scrum Team is in the Scrum Guide",
+    "statement": "Explain cross-functionality as a property of the whole Scrum Team"
+   },
+   {
+    "code": "2.9",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developers definition is in the Scrum Guide",
+    "statement": "Recognize that \"Developer\" applies to any team member, not just software engineers"
+   },
+   {
+    "code": "3.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Event timeboxes are in the Scrum Guide",
+    "statement": "State the maximum timebox for each event"
+   },
+   {
+    "code": "3.10",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Event anti-patterns are judged against the Scrum Guide's event definitions",
+    "statement": "Recognize event anti-patterns"
+   },
+   {
+    "code": "3.11",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Inspection and team decision-making in Scrum events, with AI framing",
+    "statement": "Use AI-generated signal as input to inspection without ceding the team's decision-making"
+   },
+   {
+    "code": "3.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint as container for events is in the Scrum Guide",
+    "statement": "Explain the Sprint as the container for all other events"
+   },
+   {
+    "code": "3.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Planning topics are defined in the Scrum Guide",
+    "statement": "Recall the three topics of Sprint Planning (Why, What, How)"
+   },
+   {
+    "code": "3.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Daily Scrum purpose and rules are in the Guide",
+    "statement": "Explain the Daily Scrum's purpose and rules"
+   },
+   {
+    "code": "3.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Review is a Scrum event, working session",
+    "statement": "Describe the Sprint Review as a working session, not a status report"
+   },
+   {
+    "code": "3.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Retrospective is a Scrum event",
+    "statement": "Facilitate the Sprint Retrospective with a focus on team process"
+   },
+   {
+    "code": "3.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint cancellation by the Product Owner is in the Guide",
+    "statement": "Identify when a Sprint can be canceled and by whom"
+   },
+   {
+    "code": "3.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Event timeboxes are defined in the Scrum Guide",
+    "statement": "Apply timebox rules to scenarios"
+   },
+   {
+    "code": "3.9",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Goal vs. selected PBIs is Scrum Guide content",
+    "statement": "Select a Sprint Goal that is coherent and outcome-focused, and distinguish it from the Product Backlog items selected for the Sprint"
+   },
+   {
+    "code": "4.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Artifact commitments are defined in the Guide",
+    "statement": "Identify each artifact's commitment"
+   },
+   {
+    "code": "4.10",
+    "class": "agile-general",
+    "source": null,
+    "why": "INVEST criteria are not in the Scrum Guide",
+    "statement": "Apply INVEST criteria to Product Backlog Items"
+   },
+   {
+    "code": "4.11",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "DoD and transparency are Scrum; AI is only framing",
+    "statement": "Apply the Definition of Done and artifact transparency to work generated or assisted by AI"
+   },
+   {
+    "code": "4.13",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Definition of Done and releasable Increment are in the Guide",
+    "statement": "Apply the Definition of Done to determine whether work is releasable"
+   },
+   {
+    "code": "4.14",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Inspection and adaptation, empiricism pillars in the Guide",
+    "statement": "Diagnose why a team that runs the events correctly is still not adapting"
+   },
+   {
+    "code": "4.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Backlog description is in the Guide",
+    "statement": "Explain the Product Backlog as an emergent, ordered list owned by the PO"
+   },
+   {
+    "code": "4.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Backlog ownership by Developers is in the Guide",
+    "statement": "Explain that the Sprint Backlog is created by and for the Developers"
+   },
+   {
+    "code": "4.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Increment and Definition of Done are in the Guide",
+    "statement": "Recall the Increment and the Definition of Done"
+   },
+   {
+    "code": "4.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Applying the DoD to completion is in the Guide",
+    "statement": "Apply the DoD to determine completion"
+   },
+   {
+    "code": "4.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Goal is a Scrum Guide commitment",
+    "statement": "Explain the Product Goal as the long-term objective"
+   },
+   {
+    "code": "4.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Transparency is a Scrum pillar",
+    "statement": "Distinguish artifact transparency from artifact perfection"
+   },
+   {
+    "code": "4.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Refinement is described in the Guide as an activity",
+    "statement": "Explain refinement as an ongoing activity (NOT a formal event)"
+   },
+   {
+    "code": "4.9",
+    "class": "agile-general",
+    "source": null,
+    "why": "Burndown charts and velocity are not in the Guide",
+    "statement": "Interpret burndown charts and velocity metrics"
+   },
+   {
+    "code": "5.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Impediment removal is the Scrum Master's role in the Guide",
+    "statement": "Identify impediments and choose removal strategies"
+   },
+   {
+    "code": "5.10",
+    "class": "none",
+    "source": null,
+    "why": "AI-augmented team impediments too vague to pin to a source",
+    "statement": "Identify the new impediments that arise in AI-augmented teams"
+   },
+   {
+    "code": "5.11",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Empiricism and self-management are Scrum Guide themes; AI is only framing.",
+    "statement": "Diagnose an AI-augmentation anti-pattern and coach the team back toward empiricism and self-management"
+   },
+   {
+    "code": "5.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master role: removing impediments versus team self-managing resolution.",
+    "statement": "Distinguish impediments from problems the team should resolve themselves"
+   },
+   {
+    "code": "5.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master serves team; self-managing teams are defined in the Guide.",
+    "statement": "Coach a Scrum Team toward greater self-management"
+   },
+   {
+    "code": "5.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master as true leader who serves; stated in the Guide.",
+    "statement": "Apply servant leadership behaviors"
+   },
+   {
+    "code": "5.5",
+    "class": "agile-general",
+    "source": null,
+    "why": "Psychological safety is a team dynamics concept absent from the Guide.",
+    "statement": "Recognize psychological safety and how SM behavior affects it"
+   },
+   {
+    "code": "5.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master's service to the Product Owner is described in the Guide.",
+    "statement": "Coach the Product Owner"
+   },
+   {
+    "code": "5.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Compares legacy terms against the 2020 Scrum Guide content.",
+    "statement": "Translate between legacy training terminology and the 2020 Scrum Guide"
+   },
+   {
+    "code": "5.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master's service to the organization is in the Guide.",
+    "statement": "Coach the organization on Scrum adoption"
+   },
+   {
+    "code": "5.9",
+    "class": "agile-general",
+    "source": null,
+    "why": "Scaling anti-patterns involve scaling frameworks the Guide does not cover.",
+    "statement": "Recognize scaling anti-patterns at a foundational level"
+   }
+  ],
+  "SM-AI-II": [
+   {
+    "code": "1.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Goal and mid-Sprint change rules are in the Guide",
+    "statement": "Determine whether a proposed mid-Sprint change threatens the Sprint Goal"
+   },
+   {
+    "code": "1.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developers size their own items; Guide covers this",
+    "statement": "Analyze a situation in which the Developers' sizing of an item has been set by someone else"
+   },
+   {
+    "code": "1.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Definition of Done and organizational standards are in the Guide",
+    "statement": "Distinguish permitted additions to the Definition of Done from weakening of an organizational standard"
+   },
+   {
+    "code": "1.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Goal versus forecast scope is Guide content",
+    "statement": "Analyze a Sprint in which the Sprint Goal was met and the scope selected at Sprint Planning was not all delivered"
+   },
+   {
+    "code": "1.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Self-management and organizational constraints are covered in the Guide",
+    "statement": "Diagnose a self-management decision that conflicts with an organizational constraint"
+   },
+   {
+    "code": "1.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint cancellation authority is defined in the Guide",
+    "statement": "Analyze pressure to cancel a Sprint while the Sprint Goal remains attainable"
+   },
+   {
+    "code": "1.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Definition of Done and forecasting are Guide concepts",
+    "statement": "Determine whether an item incomplete at Sprint end is a Definition of Done failure or a forecasting failure"
+   },
+   {
+    "code": "1.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Daily Scrum plan and Sprint Backlog are in the Guide",
+    "statement": "Diagnose divergence between the Developers' daily plan and the Sprint Backlog"
+   },
+   {
+    "code": "1.9",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Retrospective and Scrum framework integrity are Guide topics",
+    "statement": "Analyze a Retrospective improvement that would require the team to depart from Scrum"
+   },
+   {
+    "code": "2.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master service and proportionate intervention within Scrum",
+    "statement": "Determine how large an intervention a team dysfunction actually requires"
+   },
+   {
+    "code": "2.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Retrospective purpose and improvement follow-through are in the Guide",
+    "statement": "Diagnose why a Retrospective produces actions that are never completed"
+   },
+   {
+    "code": "2.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Empiricism and inspect-adapt pillars in the Guide",
+    "statement": "Analyze events that run correctly and produce no change across multiple Sprints"
+   },
+   {
+    "code": "2.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Self-management and Scrum Master role in the Guide",
+    "statement": "Determine whether a self-managing team's decision should be allowed to run to its consequence"
+   },
+   {
+    "code": "2.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Daily Scrum purpose and Developers' ownership are in the Guide",
+    "statement": "Diagnose why a Daily Scrum meeting every formal requirement continues to function as a status report"
+   },
+   {
+    "code": "2.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developers accountability and Scrum Master response in the Guide",
+    "statement": "Determine a proportionate response to a Developer consistently excluded from the Developers' planning"
+   },
+   {
+    "code": "2.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Goal coherence and commitment are Guide concepts",
+    "statement": "Analyze a team whose Sprint Goals are consistently a list of unrelated items"
+   },
+   {
+    "code": "2.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master service, impediments, self-management in the Guide",
+    "statement": "Determine whether reduced delivery is an impediment, a capability gap, or a self-management failure"
+   },
+   {
+    "code": "2.9",
+    "class": "agile-general",
+    "source": null,
+    "why": "Non-Scrum practice coaching; Guide doesn't define the practice",
+    "statement": "Determine how to coach a team that has adopted a practice that works and is not part of Scrum"
+   },
+   {
+    "code": "3.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Owner accountability for ordering is in the Guide",
+    "statement": "Determine the Scrum Master's response when the Product Owner delegates Product Backlog ordering to the Scrum Master"
+   },
+   {
+    "code": "3.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master serving the organization; Developers' autonomy",
+    "statement": "Analyze a situation in which a functional manager assigns work directly to Developers"
+   },
+   {
+    "code": "3.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Empiricism failure and Scrum Master organizational service",
+    "statement": "Diagnose which organizational structure is producing a specific empirical failure the Scrum Team cannot resolve"
+   },
+   {
+    "code": "3.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master removing impediments beyond the team",
+    "statement": "Determine a proportionate intervention for an impediment lying outside the Scrum Team"
+   },
+   {
+    "code": "3.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Owner is one person, not a committee",
+    "statement": "Analyze a Product Owner accountability being exercised by a committee"
+   },
+   {
+    "code": "3.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Master response to absent PO; Product Backlog ordering",
+    "statement": "Determine the Scrum Master's next move when the Product Owner is absent and the Developers are proceeding without ordering decisions"
+   },
+   {
+    "code": "3.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "One Product Backlog per product, one PO",
+    "statement": "Diagnose a shared-product situation in which two teams maintain separate Product Backlogs"
+   },
+   {
+    "code": "3.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Shared product, PO engagement, Scrum Master service",
+    "statement": "Determine the Scrum Master's response when one team on a shared product loses Product Owner engagement"
+   },
+   {
+    "code": "4.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Review purpose: adjust Product Backlog",
+    "statement": "Diagnose a Sprint Review that no longer changes the Product Backlog"
+   },
+   {
+    "code": "4.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Transparency of artifacts and progress; empiricism",
+    "statement": "Analyze metrics reported to management that no longer describe the team's actual progress"
+   },
+   {
+    "code": "4.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Artifact transparency is a Scrum Guide concept",
+    "statement": "Determine whether an artifact's transparency has been compromised"
+   },
+   {
+    "code": "4.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Backlog ordering and Product Goal",
+    "statement": "Diagnose a Product Backlog whose ordering no longer reflects value"
+   },
+   {
+    "code": "4.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Definition of Done and Increment usability",
+    "statement": "Analyze a Definition of Done that is satisfied while the Increment is not usable"
+   },
+   {
+    "code": "4.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Inspection frequency enabling adaptation; pillars",
+    "statement": "Diagnose inspection occurring too infrequently to permit adaptation"
+   },
+   {
+    "code": "4.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Artifact commitments: Product Goal, Sprint Goal, DoD",
+    "statement": "Determine how a Scrum Master re-establishes a commitment a team has been operating without"
+   },
+   {
+    "code": "4.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Backlog forecast versus commitment; Sprint Goal",
+    "statement": "Analyze a forecast that has become a performance target"
+   },
+   {
+    "code": "4.9",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Review stakeholder feedback and empiricism",
+    "statement": "Diagnose stakeholder feedback that is collected and never acted upon"
+   },
+   {
+    "code": "5.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Definition of Done applied to AI-generated work",
+    "statement": "Determine what the Definition of Done must cover when implementation is AI-generated"
+   },
+   {
+    "code": "5.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Review inspection of the Increment",
+    "statement": "Diagnose a Sprint Review at which the Increment can no longer be meaningfully inspected within the event"
+   },
+   {
+    "code": "5.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developers accountable for quality of the Increment",
+    "statement": "Analyze accountability for a defect in AI-authored work the Developers accepted"
+   },
+   {
+    "code": "5.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Forecast versus commitment; Scrum Master serves organization",
+    "statement": "Determine the Scrum Master's response when model-produced estimates are read by management as commitments"
+   },
+   {
+    "code": "5.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Retrospective inputs and improvement actions in Sprint Backlog",
+    "statement": "Diagnose a Retrospective whose inputs are model-summarised and whose actions nobody owns"
+   },
+   {
+    "code": "5.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developers' ability to meet Definition of Done",
+    "statement": "Analyze a decline in the Developers' ability to meet the Definition of Done without generation"
+   },
+   {
+    "code": "5.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Increment usability and Definition of Done versus output",
+    "statement": "Analyze rising throughput accompanied by falling Increment usability"
+   },
+   {
+    "code": "5.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Transparency and inspection pillars in Scrum",
+    "statement": "Diagnose transparency loss when work is produced faster than the team can inspect it"
+   },
+   {
+    "code": "5.9",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developers' accountability; Scrum Master coaching on self-management",
+    "statement": "Determine the Scrum Master's response when a Developer cannot explain work they submitted"
+   }
+  ],
+  "SPO-AI-I": [
+   {
+    "code": "1.1",
+    "class": "agile-general",
+    "source": null,
+    "why": "Agile vs waterfall comparison is outside the Scrum Guide",
+    "statement": "Explain the meaning of agile and distinguish it from predictive (waterfall) delivery"
+   },
+   {
+    "code": "1.2",
+    "class": "agile-general",
+    "source": null,
+    "why": "Agile Manifesto is not in the Scrum Guide",
+    "statement": "Apply the Agile Manifesto values and principles to product decisions"
+   },
+   {
+    "code": "1.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Three pillars of empiricism: transparency, inspection, adaptation",
+    "statement": "Explain the three pillars of empiricism and their role in product decisions"
+   },
+   {
+    "code": "1.4",
+    "class": "agile-general",
+    "source": null,
+    "why": "Lean product thinking is not defined in Scrum Guide",
+    "statement": "Explain lean product thinking"
+   },
+   {
+    "code": "1.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum relevance with AI framing; mostly Scrum framework",
+    "statement": "Explain why Scrum remains relevant in the AI era and how AI agents impact product development"
+   },
+   {
+    "code": "1.6",
+    "class": "agile-general",
+    "source": null,
+    "why": "Spec-Driven Development is practice not in held sources",
+    "statement": "Describe Spec-Driven Development and the role of executable specifications"
+   },
+   {
+    "code": "2.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum framework and product definition",
+    "statement": "Describe the Scrum framework and what a product is"
+   },
+   {
+    "code": "2.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum Team composition and Product Owner",
+    "statement": "Explain the Scrum Team composition and the PO's place in it"
+   },
+   {
+    "code": "2.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Three artifacts and commitments",
+    "statement": "Explain the three Scrum artifacts and their commitments"
+   },
+   {
+    "code": "2.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Five Scrum events",
+    "statement": "Explain the five Scrum events from the PO's perspective"
+   },
+   {
+    "code": "2.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Pillars applied to artifacts",
+    "statement": "Apply Transparency, Inspection, and Adaptation to artifacts"
+   },
+   {
+    "code": "2.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Artifacts as instruction for agents; Scrum framing dominant",
+    "statement": "Explain how Scrum artifacts serve as a source of instruction for AI agents"
+   },
+   {
+    "code": "2.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Definition of Done applied to Increment",
+    "statement": "Apply the Definition of Done to an Increment partly built by an AI agent"
+   },
+   {
+    "code": "2.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Scrum anti-patterns relative to the framework",
+    "statement": "Recognize Scrum framework anti-patterns relevant to the PO"
+   },
+   {
+    "code": "3.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Owner accountability for maximizing value",
+    "statement": "Explain the PO's central accountability: maximizing product value"
+   },
+   {
+    "code": "3.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "One Product Owner, not a committee",
+    "statement": "Apply the one-Product-Owner rule: a single accountable person, not a committee or a proxy"
+   },
+   {
+    "code": "3.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Owner authority over backlog and Sprint",
+    "statement": "Explain the PO's authority over the Product Backlog and the Sprint"
+   },
+   {
+    "code": "3.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Accountability boundaries among Scrum roles",
+    "statement": "Distinguish PO boundaries from Scrum Master and Developer accountabilities"
+   },
+   {
+    "code": "3.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Owner and Developers collaboration on backlog",
+    "statement": "Explain the PO's collaboration with Developers on the backlog"
+   },
+   {
+    "code": "3.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "PO value decisions retained; Scrum accountability with AI framing",
+    "statement": "Determine which value decisions the Product Owner retains when incorporating AI inputs"
+   },
+   {
+    "code": "3.7",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Stakeholders and product ecosystem in Scrum context",
+    "statement": "Describe the product ecosystem and stakeholder relationships"
+   },
+   {
+    "code": "3.9",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Owner is one person, not committee",
+    "statement": "Recall that the Product Owner is one accountable person, not a committee"
+   },
+   {
+    "code": "4.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Backlog definition: emergent, ordered, single source of work",
+    "statement": "Explain the Product Backlog as an emergent, ordered, single source"
+   },
+   {
+    "code": "4.10",
+    "class": "none",
+    "source": null,
+    "why": "AI-assisted refinement; no specific held AI source evident",
+    "statement": "Apply AI-assisted backlog refinement"
+   },
+   {
+    "code": "4.11",
+    "class": "none",
+    "source": null,
+    "why": "AI for user research; too vague, no held source",
+    "statement": "Use AI for user research and feedback analysis"
+   },
+   {
+    "code": "4.12",
+    "class": "none",
+    "source": null,
+    "why": "Feature waiter anti-pattern is not in any held source",
+    "statement": "Recognize the feature waiter anti-pattern amplified by AI agents"
+   },
+   {
+    "code": "4.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Backlog ordering is Product Owner responsibility in Guide",
+    "statement": "Apply Product Backlog ordering to maximize value"
+   },
+   {
+    "code": "4.3",
+    "class": "agile-general",
+    "source": null,
+    "why": "User stories and epic splitting are not in Scrum Guide",
+    "statement": "Select a well-formed user story, and an epic split that preserves value"
+   },
+   {
+    "code": "4.4",
+    "class": "agile-general",
+    "source": null,
+    "why": "INVEST criteria are not in Scrum Guide",
+    "statement": "Apply INVEST criteria to PBI quality"
+   },
+   {
+    "code": "4.5",
+    "class": "agile-general",
+    "source": null,
+    "why": "Acceptance criteria as artifacts are outside Scrum Guide",
+    "statement": "Select acceptance criteria that are clear and testable for a described Product Backlog item"
+   },
+   {
+    "code": "4.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Backlog refinement is described in the Scrum Guide",
+    "statement": "Explain backlog refinement as an ongoing activity"
+   },
+   {
+    "code": "4.7",
+    "class": "agile-general",
+    "source": null,
+    "why": "Estimation techniques are not defined in Scrum Guide",
+    "statement": "Apply estimation techniques to PBIs"
+   },
+   {
+    "code": "4.8",
+    "class": "agile-general",
+    "source": null,
+    "why": "Story mapping is not in Scrum Guide",
+    "statement": "Apply story mapping to structure the backlog"
+   },
+   {
+    "code": "4.9",
+    "class": "agile-general",
+    "source": null,
+    "why": "Spec-driven development with stories is outside held sources",
+    "statement": "Apply Spec-Driven Development: stories as agent-executable specifications"
+   },
+   {
+    "code": "5.1",
+    "class": "agile-general",
+    "source": null,
+    "why": "Product vision is not defined in the Scrum Guide",
+    "statement": "Select a product vision that fits a described context, and distinguish it from a goal or a feature list"
+   },
+   {
+    "code": "5.10",
+    "class": "none",
+    "source": null,
+    "why": "AI for roadmaps; vague, no held AI source fits",
+    "statement": "Apply AI to roadmap construction and strategic analysis"
+   },
+   {
+    "code": "5.11",
+    "class": "none",
+    "source": null,
+    "why": "Strategic vision in AI era; not groundable in held sources",
+    "statement": "Explain why strategic vision is more critical in the AI era"
+   },
+   {
+    "code": "5.12",
+    "class": "ebm",
+    "source": null,
+    "why": "Shipping without value: value measures and Key Value Areas",
+    "statement": "Diagnose why a product that is shipping steadily is still not creating value"
+   },
+   {
+    "code": "5.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Product Goal as commitment for Product Backlog",
+    "statement": "Explain the Product Goal as a commitment to the Product Backlog"
+   },
+   {
+    "code": "5.3",
+    "class": "ebm",
+    "source": null,
+    "why": "Value maximization and ROI, value measures",
+    "statement": "Apply value-maximization concepts and ROI"
+   },
+   {
+    "code": "5.4",
+    "class": "ebm",
+    "source": null,
+    "why": "Measuring value and outcomes via Key Value Areas",
+    "statement": "Measure product value and outcomes"
+   },
+   {
+    "code": "5.5",
+    "class": "agile-general",
+    "source": null,
+    "why": "Forecasting and release planning, velocity-based, not in Guide",
+    "statement": "Apply forecasting and release planning"
+   },
+   {
+    "code": "5.6",
+    "class": "agile-general",
+    "source": null,
+    "why": "Outcome-based roadmap structure is not in Scrum Guide",
+    "statement": "Determine an outcome-based roadmap structure for a described product context"
+   },
+   {
+    "code": "5.7",
+    "class": "ebm",
+    "source": null,
+    "why": "Aligning decisions to strategic goals; EBM goal setting",
+    "statement": "Align product decisions to business strategy"
+   },
+   {
+    "code": "5.8",
+    "class": "none",
+    "source": null,
+    "why": "Too vague; no framework, practice, or source indicated.",
+    "statement": "Manage stakeholders and collaborate across the ecosystem"
+   },
+   {
+    "code": "5.9",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Review is a Scrum event defined in the Scrum Guide.",
+    "statement": "Facilitate the Sprint Review as the PO's key value-inspection event"
+   }
+  ],
+  "SD-AI-I": [
+   {
+    "code": "1.1",
+    "class": "agile-general",
+    "source": null,
+    "why": "Agile Manifesto is not in the Scrum Guide",
+    "statement": "Articulate the Agile Manifesto's values and principles from a Developer's perspective"
+   },
+   {
+    "code": "1.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Three pillars of empiricism are in the Scrum Guide",
+    "statement": "Apply the three pillars of empiricism to engineering work and to AI-generated output"
+   },
+   {
+    "code": "1.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Five Scrum Values are in the Scrum Guide",
+    "statement": "Live the five Scrum Values as a Developer"
+   },
+   {
+    "code": "1.4",
+    "class": "agile-general",
+    "source": null,
+    "why": "Lean and flow thinking are not in the Scrum Guide",
+    "statement": "Explain lean and flow thinking, and how AI shifts the bottleneck from authoring to reviewing"
+   },
+   {
+    "code": "1.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developer definition is in the Scrum Guide",
+    "statement": "Classify who is and is not a Developer under the 2020 Scrum Guide"
+   },
+   {
+    "code": "1.6",
+    "class": "none",
+    "source": null,
+    "why": "Too vague; no clear source for matching AI assistance",
+    "statement": "Match AI assistance to the complexity of the work"
+   },
+   {
+    "code": "1.9",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developers accountability is in the Scrum Guide",
+    "statement": "Recall who the Developers are under the 2020 Scrum Guide"
+   },
+   {
+    "code": "2.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developers' accountabilities are defined in the Scrum Guide",
+    "statement": "Describe the Developers' accountabilities"
+   },
+   {
+    "code": "2.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Backlog planning is Sprint Planning content",
+    "statement": "Turn the Sprint Goal and selected items into a Sprint Backlog (the how)"
+   },
+   {
+    "code": "2.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Backlog is a Scrum Guide artifact",
+    "statement": "Own and maintain the Sprint Backlog as a living plan"
+   },
+   {
+    "code": "2.4",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Daily Scrum is a Scrum event",
+    "statement": "Run the Daily Scrum as the Developers' event"
+   },
+   {
+    "code": "2.5",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Review is a Scrum event",
+    "statement": "Explain the Developers' part in the Sprint Review: showing a Done Increment and absorbing feedback"
+   },
+   {
+    "code": "2.6",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Sprint Retrospective is a Scrum event",
+    "statement": "Engage in the Sprint Retrospective and commit to improvement"
+   },
+   {
+    "code": "2.7",
+    "class": "agile-general",
+    "source": null,
+    "why": "Estimation techniques are not defined in the Scrum Guide",
+    "statement": "Apply estimation and forecasting, treating AI estimates as input not authority"
+   },
+   {
+    "code": "2.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Self-management of Developers is in the Scrum Guide",
+    "statement": "Self-manage: decide who does what, when, and how"
+   },
+   {
+    "code": "3.1",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Definition of Done is a Scrum commitment",
+    "statement": "Apply the Definition of Done as the quality bar for every Increment, including AI output"
+   },
+   {
+    "code": "3.10",
+    "class": "agile-general",
+    "source": null,
+    "why": "Test suite analysis is engineering practice, not Scrum",
+    "statement": "Analyze whether a test suite actually constrains behavior, including AI-generated tests"
+   },
+   {
+    "code": "3.2",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Done-ness of the Increment is in the Scrum Guide",
+    "statement": "Distinguish Done from looks-done"
+   },
+   {
+    "code": "3.3",
+    "class": "agile-general",
+    "source": null,
+    "why": "TDD is an engineering practice outside the Scrum Guide",
+    "statement": "Practice test-first / test-driven development"
+   },
+   {
+    "code": "3.4",
+    "class": "agile-general",
+    "source": null,
+    "why": "CI/CD is not defined in the Scrum Guide",
+    "statement": "Keep the Increment releasable with continuous integration and delivery"
+   },
+   {
+    "code": "3.5",
+    "class": "agile-general",
+    "source": null,
+    "why": "Technical debt is engineering practice, not in Scrum Guide",
+    "statement": "Surface and pay down technical debt, including AI-generated debt"
+   },
+   {
+    "code": "3.6",
+    "class": "agile-general",
+    "source": null,
+    "why": "Refactoring is an engineering practice outside Scrum Guide",
+    "statement": "Refactor safely toward maintainability"
+   },
+   {
+    "code": "3.7",
+    "class": "agile-general",
+    "source": null,
+    "why": "Version control practice; not defined in Scrum Guide",
+    "statement": "Apply version-control discipline to structure work into reviewable units"
+   },
+   {
+    "code": "3.8",
+    "class": "agile-general",
+    "source": null,
+    "why": "Code review practice is absent from Scrum Guide",
+    "statement": "Conduct effective code review as a team practice"
+   },
+   {
+    "code": "3.9",
+    "class": "agile-general",
+    "source": null,
+    "why": "Pairing and mobbing are engineering practices outside Scrum Guide",
+    "statement": "Collaborate through pairing and mobbing; situate AI pair-programming within them"
+   },
+   {
+    "code": "4.1",
+    "class": "agile-general",
+    "source": null,
+    "why": "Executable specification and PBI implementation with AI; engineering practice",
+    "statement": "Implement against a PBI as an executable specification, with AI assistance"
+   },
+   {
+    "code": "4.10",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Increment accountability belongs to Developers and Scrum Team",
+    "statement": "Keep accountability for the Increment human and collective"
+   },
+   {
+    "code": "4.11",
+    "class": "agile-general",
+    "source": null,
+    "why": "AI-assisted debugging and comprehension is engineering practice, not governance",
+    "statement": "Use AI for debugging and comprehension without outsourcing understanding"
+   },
+   {
+    "code": "4.12",
+    "class": "agile-general",
+    "source": null,
+    "why": "Velocity and integration debt are not in Scrum Guide",
+    "statement": "Recognize when AI velocity is creating review/integration debt and adjust"
+   },
+   {
+    "code": "4.2",
+    "class": "agile-general",
+    "source": null,
+    "why": "Prompt and context selection is tooling practice",
+    "statement": "Select the implementation prompt and context most likely to produce correct, verifiable output"
+   },
+   {
+    "code": "4.3",
+    "class": "agile-general",
+    "source": null,
+    "why": "Finding defects in AI code is engineering skill",
+    "statement": "Analyze plausible-looking AI-generated code to find the subtle defect"
+   },
+   {
+    "code": "4.4",
+    "class": "agile-general",
+    "source": null,
+    "why": "Generate-then-verify loop is a development practice",
+    "statement": "Apply the generate-then-verify loop and own the verification"
+   },
+   {
+    "code": "4.5",
+    "class": "agile-general",
+    "source": null,
+    "why": "Test adequacy analysis of AI-generated tests; engineering practice",
+    "statement": "Analyze AI-generated tests to identify the cases they miss"
+   },
+   {
+    "code": "4.6",
+    "class": "agile-general",
+    "source": null,
+    "why": "Agentic dev workflows with human oversight; tooling practice",
+    "statement": "Operate agentic, multi-step AI dev workflows with a human in the loop"
+   },
+   {
+    "code": "4.7",
+    "class": "ai-held",
+    "source": "NIST AI RMF 1.0",
+    "why": "Risks specific to AI-generated outputs; risk management",
+    "statement": "Recognize and mitigate risks specific to AI-generated code"
+   },
+   {
+    "code": "4.8",
+    "class": "agile-general",
+    "source": null,
+    "why": "Judgment on AI use in development; not governance-specific",
+    "statement": "Decide when NOT to use AI"
+   },
+   {
+    "code": "4.9",
+    "class": "ai-held",
+    "source": "EU AI Act 2024/1689",
+    "why": "Provenance, attribution, licensing obligations for AI outputs",
+    "statement": "Explain provenance, attribution, and licensing obligations for AI-assisted work"
+   },
+   {
+    "code": "5.1",
+    "class": "agile-general",
+    "source": null,
+    "why": "T-shaped skills is a team dynamics concept outside the Guide",
+    "statement": "Collaborate across a cross-functional team and develop T-shaped skills"
+   },
+   {
+    "code": "5.2",
+    "class": "agile-general",
+    "source": null,
+    "why": "Acceptance criteria clarification and scope negotiation technique",
+    "statement": "Determine how to clarify criteria, surface constraints, and negotiate scope with the Product Owner"
+   },
+   {
+    "code": "5.3",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Developers and Scrum Master, impediments, improvement",
+    "statement": "Explain how Developers work with the Scrum Master: surfacing impediments early and engaging in improvement"
+   },
+   {
+    "code": "5.4",
+    "class": "agile-general",
+    "source": null,
+    "why": "Feedback technique is facilitation and team practice",
+    "statement": "Give and receive technical feedback professionally"
+   },
+   {
+    "code": "5.5",
+    "class": "ai-held",
+    "source": "NIST AI RMF 1.0",
+    "why": "Professional responsibility and accountability for AI use",
+    "statement": "Uphold professional responsibility, including for AI-assisted work"
+   },
+   {
+    "code": "5.6",
+    "class": "agile-general",
+    "source": null,
+    "why": "Skill erosion from AI over-reliance; not in held AI sources",
+    "statement": "Explain how over-reliance on AI erodes the fundamentals that make AI safe to use"
+   },
+   {
+    "code": "5.7",
+    "class": "agile-general",
+    "source": null,
+    "why": "Sharing practices across team; team practice, not Scrum events",
+    "statement": "Share and standardize good AI-assisted practices across the team"
+   },
+   {
+    "code": "5.8",
+    "class": "scrum-guide",
+    "source": null,
+    "why": "Canonical 2020 Scrum Guide terminology (e.g., Developers, Product Goal, Sprint Goal) is de",
+    "statement": "Translate legacy Scrum terminology to the 2020 Guide's canonical terms"
+   }
+  ]
+ }
+}

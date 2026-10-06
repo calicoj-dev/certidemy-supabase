@@ -1354,3 +1354,72 @@ Whichever is chosen: **practice must never draw on the secure grounded bank**, b
 an exam item as practice exposes it. That is why (b) needs saturation counting of its own
 rather than sharing the exam bank's.
 
+
+## PROMPT-144: Scrum stage 0 -- licences recorded, and the family's grounding measured
+
+### s1 -- the licence of every source is declared, and two of them are NOT ISO-like
+
+`LICENCES` in `scripts/extract-source-passages.mjs`, beside `SOURCES`, which is the single
+place a source is defined. Each entry was READ OFF THE DOCUMENT'S OWN TEXT and records where
+the statement is. `licenceOf()` THROWS for a source with no entry: an unrecorded licence must
+not default to `unstated`, because that would claim the document had been read.
+
+| source | licence | stated at |
+|---|---|---|
+| the ten ISO/BSI documents and ITIL 4 | `all-rights-reserved` | page 2 mostly; 42006 p4, 17021-1 p5, ITIL p3 |
+| **Scrum Guide 2020** | **`CC BY-SA 4.0`** | pages 2 and 14 |
+| **EBM Guide 2024** | **`CC BY-SA 4.0`** | **page 1** -- checked, not inherited from Scrum |
+| EU AI Act 2024/1689 | `unstated` | no statement on any of its 144 pages |
+| NIST AI RMF 1.0 | `unstated` | p2 says only "available free of charge" |
+
+`unstated` means **this document does not say**, never "there is no licence". The NIST RMF is
+a US government work and the Official Journal has reuse terms on EUR-Lex -- but neither fact is
+IN the file, so neither was recorded from outside knowledge.
+
+**`check-licensed-text` STAYS STRICT FOR EVERY SOURCE.** The field exists so obligations can be
+designed, not so a check can be skipped. Nothing about it loosens the gate.
+
+#### TWO OBLIGATIONS, BOTH OPEN
+
+1. **CC BY-SA requires ATTRIBUTION.** Any served item or explanation that quotes the Scrum
+   Guide or the EBM Guide must carry an attribution line, and **the format has to be designed
+   before the first Scrum item ships.** Nothing in the renderer carries one today.
+2. **SHARE-ALIKE ON DERIVED EXAM ITEMS IS A LEGAL QUESTION FOR COUNSEL, NOT SETTLED.** Whether
+   an examination item written from a CC BY-SA source is a derivative work that must itself be
+   CC BY-SA is not a question this project can answer for itself.
+
+### s2/s3 -- the Scrum family cannot be grounded on what we hold
+
+188 tasks classified by Sonnet from their STATEMENTS ONLY, never passage text, for $0.12:
+
+| certification | scrum-guide | ebm | ai-held | **agile-general** | **none** | **no held source** |
+|---|---|---|---|---|---|---|
+| SM-AI-I | 45 | 0 | 2 | 5 | 1 | **6 of 53 (11%)** |
+| SM-AI-II | 43 | 0 | 0 | 1 | 0 | **1 of 44 (2%)** |
+| SPO-AI-I | 23 | 4 | 0 | 13 | 6 | **19 of 46 (41%)** |
+| SD-AI-I | 16 | 0 | 3 | 25 | 1 | **26 of 45 (58%)** |
+| **all** | **127** | **4** | **5** | **44** | **8** | **52 of 188 (28%)** |
+
+**The two Scrum Master certifications are groundable; the Product Owner and Developer ones are
+not.** SD-AI-I's missing tasks are software-engineering practice -- TDD, CI/CD, code review,
+refactoring, version control, pairing -- and AI-assisted-development practice. No held source
+contains either, and 42001/22989 are governance standards, not engineering ones.
+
+**The Agile Manifesto is cited by three tasks and is not held.** It is short and freely
+available, so it is the cheapest possible addition to the library.
+
+**THE PASSAGE CEILING IS THE OTHER HALF.** The Scrum Guide is 26 passages / 4,007 words and the
+EBM Guide 38 / 4,349. At a saturation cap of 3 that is **78 and 114 items per certification**,
+against SM-AI-I's current 452. And **the stored text carries NO internal paragraph breaks** --
+every passage is one paragraph -- so splitting at the paragraph level yields nothing without
+RE-EXTRACTING with `paragraphGrain: true`. Re-grained at about 40 words a passage the Scrum
+Guide would give 89 passages (267 items) and EBM 112 (336).
+
+### s4 -- the SM-AI-I practice imbalance is 10 orphaned `generated` rows
+
+All 10 extra es-419 rows are `item_origin='generated'`, each ALONE in its `question_group_id`
+with no English row at all, and no duplicate stem. Of the 30 generated practice rows in this
+certification -- en 5, es-419 25, pt-BR 0 -- exactly these 10 are live and approved. They are
+the residue of `generate-practice-questions`, the writer already named in the AIE-I backlog.
+**Not touched.**
+

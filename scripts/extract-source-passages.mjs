@@ -54,6 +54,60 @@ for (const a of process.argv.slice(2)) {
 }
 const VERBOSE = process.argv.includes("--verbose");
 
+/* ============ THE LICENCE OF EVERY SOURCE (ruled PROMPT-144 s1) ============
+ *
+ * One entry per (source, edition), READ OFF EACH DOCUMENT'S OWN TEXT and not from memory. The
+ * `located` field says WHERE the statement is, so the next reader can check it without being told
+ * what it says -- a licence line in an ISO document is still that document's text.
+ *
+ * NOT ALL OF THESE ARE WHAT YOU WOULD GUESS, which is why they were read:
+ *
+ *   - the EBM Guide carries CC BY-SA 4.0 like the Scrum Guide, but on PAGE 1 rather than the back
+ *     matter, and it was checked rather than inherited from Scrum;
+ *   - the NIST AI RMF states only that it is available free of charge. A NIST publication is a US
+ *     government work, but THIS DOCUMENT DOES NOT SAY SO, so it is recorded `unstated` rather than
+ *     classified from outside knowledge;
+ *   - the EU AI Act PDF carries NO licence or reuse statement on any of its 144 pages. The Official
+ *     Journal's reuse terms live on EUR-Lex, not in the file, so it too is `unstated`.
+ *
+ * `unstated` means "this document does not say", never "there is no licence".
+ *
+ * check-licensed-text STAYS STRICT FOR EVERY SOURCE regardless of this field (ruled PROMPT-144 s1):
+ * over-strict is safe, and nothing here loosens it. The field exists so the obligations can be
+ * designed, not so a check can be skipped.
+ */
+const LICENCES = {
+  "ISO/IEC 42001|2023": { licence: "all-rights-reserved", located: "page 2" },
+  "ISO/IEC 27001|2022": { licence: "all-rights-reserved", located: "page 2" },
+  "ISO/IEC 27001|2022/Amd1:2024": { licence: "all-rights-reserved", located: "page 2" },
+  "ISO/IEC 27002|2022": { licence: "all-rights-reserved", located: "page 2" },
+  "ISO/IEC 27000|2018": { licence: "all-rights-reserved", located: "page 2" },
+  "ISO/IEC 22989|2022": { licence: "all-rights-reserved", located: "page 2" },
+  "ISO 19011|2026": { licence: "all-rights-reserved", located: "page 2" },
+  "ISO/IEC 42006|2025": { licence: "all-rights-reserved", located: "page 4 (BSI adoption front matter)" },
+  "ISO/IEC 17021-1|2015": { licence: "all-rights-reserved", located: "page 5 (BSI adoption front matter)" },
+  "ITIL 4 Foundation|2019": { licence: "all-rights-reserved", located: "page 3" },
+  "Scrum Guide|2020": { licence: "CC BY-SA 4.0",
+    located: "page 2 and page 14, both naming Creative Commons Attribution Share-Alike 4.0 with the creativecommons.org URL" },
+  "EBM Guide|2024": { licence: "CC BY-SA 4.0",
+    located: "page 1, naming Creative Commons Attribution Share-Alike 4.0 with the creativecommons.org URL" },
+  "EU AI Act|2024/1689": { licence: "unstated",
+    located: "no licence or reuse statement on any of the 144 pages; the Official Journal's reuse terms are on EUR-Lex, not in this file" },
+  "NIST AI RMF|1.0": { licence: "unstated",
+    located: "page 2 states only that the publication is available free of charge; no copyright or public-domain statement appears" },
+};
+/* A SOURCE WITH NO LICENCE ENTRY IS AN ERROR, NOT AN UNKNOWN. A new source added without reading its
+ * licence would otherwise be recorded as though its licence had been checked and found absent. */
+function licenceOf(id, edition) {
+  const e = LICENCES[id + "|" + edition];
+  if (!e) {
+    throw new Error("extract-source-passages: no licence recorded for " + id + " " + edition +
+      ". Read the document's own licence statement and add it to LICENCES (ruled PROMPT-144 s1). " +
+      "An unrecorded licence must not default to `unstated`: that would claim the document was read.");
+  }
+  return { licence: e.licence, licence_located: e.located };
+}
+
 const SOURCES = [
   { id: "ISO/IEC 42001", edition: "2023", path: PDFS["42001:2023"], kind: "iso" },
   /* 27001 RUNS BOTH MODES, and an attempt to make it layout-only is recorded here so nobody repeats it.
@@ -1698,7 +1752,8 @@ for (const s of SOURCES) {
     });
   }
   perSource.push({ id: s.id, edition: s.edition, passages: best.got.length,
-    chars: best.got.reduce((a, b) => a + b.text.length, 0), mode: best.modes });
+    chars: best.got.reduce((a, b) => a + b.text.length, 0), mode: best.modes,
+    ...licenceOf(s.id, s.edition) });
 }
 
 /* ============ PARALLEL TEXT, KEYED TO THE ENGLISH PASSAGE ID ============
