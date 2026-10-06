@@ -1,0 +1,720 @@
+{
+ "_what": "AIMS-F authored practice quality. READ-ONLY: nothing in the bank was changed. A solver disagreement is EVIDENCE for an SME, not a verdict on the item.",
+ "cert": "AIMS-F",
+ "ruled_in": "PROMPT-142 s5, extended to all four certifications by PROMPT-142a",
+ "model": "claude-opus-5",
+ "population": 350,
+ "sampled": 40,
+ "solved": 12,
+ "by_domain": {
+  "D1": 7,
+  "D2": 9,
+  "D3": 9,
+  "D4": 8,
+  "D5": 7
+ },
+ "summary": {
+  "solver": {
+   "over": 12,
+   "agree_both_orders": 9,
+   "agree_one_order_only": 2,
+   "picked_different": 0,
+   "second_defensible": 2,
+   "passages_do_not_settle": 1,
+   "could_not_run": 0,
+   "error_rate": "25%",
+   "by_cause": {
+    "agreed with the stored key": 9,
+    "passages do not settle it": 1,
+    "named a second defensible option": 2
+   }
+  },
+  "clauses": {
+   "over": 40,
+   "address_no_source_holds": 0,
+   "container_heading": 0
+  }
+ },
+ "spend": {
+  "usd": 3.0613,
+  "calls": 24,
+  "model": "claude-opus-5"
+ },
+ "solver_stopped_at_ceiling": true,
+ "items": [
+  {
+   "item": "00199588",
+   "task": "1.3",
+   "domain": "D1",
+   "key_index": 2,
+   "passages": 24,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "234cd7a2",
+   "task": "1.6",
+   "domain": "D1",
+   "key_index": 1,
+   "passages": 16,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": false,
+     "cause": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "42aeca31",
+   "task": "1.5",
+   "domain": "D1",
+   "key_index": 2,
+   "passages": 22,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "6e0c68ff",
+   "task": "1.4",
+   "domain": "D1",
+   "key_index": 2,
+   "passages": 21,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "91cff986",
+   "task": "1.5",
+   "domain": "D1",
+   "key_index": 3,
+   "passages": 22,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "bd3c51ac",
+   "task": "1.5",
+   "domain": "D1",
+   "key_index": 2,
+   "passages": 22,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "dfe1788a",
+   "task": "1.1",
+   "domain": "D1",
+   "key_index": 1,
+   "passages": 13,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "06145413",
+   "task": "2.6",
+   "domain": "D2",
+   "key_index": 2,
+   "passages": 13,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "answered": "B",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "1f52b073",
+   "task": "2.7",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 6,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": "A",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "rejected",
+     "answered": "A",
+     "second_defensible": "D",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "414d77f6",
+   "task": "2.4",
+   "domain": "D2",
+   "key_index": 0,
+   "passages": 7,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "5.3"
+   ]
+  },
+  {
+   "item": "6283cb41",
+   "task": "2.2",
+   "domain": "D2",
+   "key_index": 0,
+   "passages": 7,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "A",
+     "state": "accepted",
+     "answered": "A",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "D",
+     "state": "accepted",
+     "answered": "D",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "76ecf791",
+   "task": "2.6",
+   "domain": "D2",
+   "key_index": 2,
+   "passages": 13,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "answered": "C",
+     "second_defensible": null,
+     "settled_by_passages": true,
+     "cause": "agreed with the stored key"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "rejected",
+     "answered": "B",
+     "second_defensible": "D",
+     "settled_by_passages": true,
+     "cause": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "84f1992f",
+   "task": "2.5",
+   "domain": "D2",
+   "key_index": 3,
+   "passages": 25,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "a1e7c347",
+   "task": "2.6",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 13,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "d5e6ff34",
+   "task": "2.2",
+   "domain": "D2",
+   "key_index": 0,
+   "passages": 7,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "e6d33a8b",
+   "task": "2.6",
+   "domain": "D2",
+   "key_index": 3,
+   "passages": 13,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "040bd8a1",
+   "task": "3.1",
+   "domain": "D3",
+   "key_index": 3,
+   "passages": 13,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "1f91d7fc",
+   "task": "3.4",
+   "domain": "D3",
+   "key_index": 3,
+   "passages": 6,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "37ca8749",
+   "task": "3.5",
+   "domain": "D3",
+   "key_index": 3,
+   "passages": 11,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "46d66a6c",
+   "task": "3.6",
+   "domain": "D3",
+   "key_index": 3,
+   "passages": 16,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "5b005059",
+   "task": "3.4",
+   "domain": "D3",
+   "key_index": 1,
+   "passages": 6,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "743dbb7b",
+   "task": "3.6",
+   "domain": "D3",
+   "key_index": 3,
+   "passages": 16,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "8f39b9c2",
+   "task": "3.3",
+   "domain": "D3",
+   "key_index": 2,
+   "passages": 18,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "b761baa0",
+   "task": "3.8",
+   "domain": "D3",
+   "key_index": 3,
+   "passages": 7,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "d4cdca91",
+   "task": "3.2",
+   "domain": "D3",
+   "key_index": 0,
+   "passages": 5,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "04336827",
+   "task": "4.5",
+   "domain": "D4",
+   "key_index": 2,
+   "passages": 20,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "1f820ea0",
+   "task": "4.1",
+   "domain": "D4",
+   "key_index": 2,
+   "passages": 14,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "4208ad67",
+   "task": "4.1",
+   "domain": "D4",
+   "key_index": 2,
+   "passages": 14,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "5d5511d5",
+   "task": "4.2",
+   "domain": "D4",
+   "key_index": 0,
+   "passages": 5,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "7fc6ed17",
+   "task": "4.6",
+   "domain": "D4",
+   "key_index": 0,
+   "passages": 21,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "96b600ec",
+   "task": "4.3",
+   "domain": "D4",
+   "key_index": 3,
+   "passages": 23,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "bc03c40b",
+   "task": "4.6",
+   "domain": "D4",
+   "key_index": 3,
+   "passages": 21,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "ced44d90",
+   "task": "4.5",
+   "domain": "D4",
+   "key_index": 0,
+   "passages": 20,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "003faf78",
+   "task": "5.2",
+   "domain": "D5",
+   "key_index": 3,
+   "passages": 3,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "35feffcd",
+   "task": "5.1",
+   "domain": "D5",
+   "key_index": 2,
+   "passages": 8,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "54c708a0",
+   "task": "5.4",
+   "domain": "D5",
+   "key_index": 1,
+   "passages": 11,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "10.2"
+   ]
+  },
+  {
+   "item": "67b523e9",
+   "task": "5.4",
+   "domain": "D5",
+   "key_index": 2,
+   "passages": 11,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "10.2"
+   ]
+  },
+  {
+   "item": "8f3e6156",
+   "task": "5.3",
+   "domain": "D5",
+   "key_index": 0,
+   "passages": 4,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "aa165184",
+   "task": "5.3",
+   "domain": "D5",
+   "key_index": 1,
+   "passages": 4,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  },
+  {
+   "item": "d2b7df76",
+   "task": "5.5",
+   "domain": "D5",
+   "key_index": 0,
+   "passages": 52,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": []
+  }
+ ]
+}

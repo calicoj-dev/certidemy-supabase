@@ -2410,6 +2410,99 @@
    },
    "withdrawn": "The first pass reported 15 of 15 items citing a missing clause; that was the clause extractor matching bare digits and guessing the source. Recomputed to 0.",
    "backlog": "A grounded PRACTICE pool for all four ISO certifications, with its own saturation counting, kept separate from the exam bank. Practice must never draw on the secure grounded bank. Recorded in the handoff."
+  },
+  {
+   "cert": "ALL",
+   "stage": 9,
+   "stage_name": "practice quality, all four",
+   "ruled_in": "PROMPT-142a",
+   "usd": 9.1322,
+   "ceiling": 9,
+   "ceiling_note": "The $9 ceiling is checked BETWEEN items, so each run overshoots by one item's two calls: $3.0298 + $3.0613 + $3.0411 = $9.1322. AIMS-IA's $3.1596 was spent under PROMPT-142 s5 and is not counted here.",
+   "design": "40 items per certification, stratified by domain in proportion to the pool, English, authored practice only. Blind solver on Opus, twice per item with the options rotated on the second run. The clause check is free and ran over all 160 sampled items; the solver stopped at each ceiling, so 58 of the 160 were solved.",
+   "requested_per_cert": 40,
+   "solved_total": 58,
+   "sampled_total": 160,
+   "cost_per_item_solved": 0.2126,
+   "full_160_projects_to": 34,
+   "rows": [
+    {
+     "cert": "ISMS-F",
+     "practice_per_language": 490,
+     "sampled": 40,
+     "solved": 15,
+     "agree_both_orders": 10,
+     "picked_different": 0,
+     "second_defensible": 3,
+     "passages_do_not_settle": 2,
+     "agree_one_order_only": 2,
+     "error_rate": "33%",
+     "cited_address_no_source_holds": 0,
+     "cited_container_heading": 0,
+     "usd": 3.0298
+    },
+    {
+     "cert": "AIMS-F",
+     "practice_per_language": 350,
+     "sampled": 40,
+     "solved": 12,
+     "agree_both_orders": 9,
+     "picked_different": 0,
+     "second_defensible": 2,
+     "passages_do_not_settle": 1,
+     "agree_one_order_only": 2,
+     "error_rate": "25%",
+     "cited_address_no_source_holds": 0,
+     "cited_container_heading": 0,
+     "usd": 3.0613
+    },
+    {
+     "cert": "ISMS-IA",
+     "practice_per_language": 380,
+     "sampled": 40,
+     "solved": 16,
+     "agree_both_orders": 11,
+     "picked_different": 0,
+     "second_defensible": 5,
+     "passages_do_not_settle": 0,
+     "agree_one_order_only": 3,
+     "error_rate": "31%",
+     "cited_address_no_source_holds": 0,
+     "cited_container_heading": 6,
+     "usd": 3.0411
+    },
+    {
+     "cert": "AIMS-IA",
+     "practice_per_language": 400,
+     "sampled": 15,
+     "solved": 15,
+     "agree_both_orders": 11,
+     "picked_different": 0,
+     "second_defensible": 3,
+     "passages_do_not_settle": 1,
+     "agree_one_order_only": 0,
+     "error_rate": "27%",
+     "cited_address_no_source_holds": 0,
+     "cited_container_heading": 3,
+     "usd": 3.1596
+    }
+   ],
+   "pooled": {
+    "solved": 58,
+    "agree": 41,
+    "agree_rate": "71%",
+    "error_rate": "29%",
+    "picked_a_different_option": 0,
+    "note": "NOT ONE of the 58 solved items had the solver pick a different option. Every disagreement is the solver naming a SECOND DEFENSIBLE option (13) or saying the passages do not settle it (4). That is a different defect from a wrong key: it points at distractors that are not clearly wrong, which is the same finding that produced the cert_notes rule about every distractor being a mistake someone could actually make."
+   },
+   "clauses": {
+    "over": 160,
+    "address_no_source_holds": 0,
+    "container_heading": 9,
+    "note": "ZERO items across all four certifications cite a clause address no source holds. The 9 container citations (3 AIMS-IA, 6 ISMS-IA) name a heading whose children are held and whose own row does not exist -- the PROMPT-104 container-citation backlog item, not an item defect."
+   },
+   "aims_ia_caveat": "AIMS-IA's cause split is derived from its REJECTED runs' classification strings, because PROMPT-142 s5 recorded prose rather than the structured fields and the prose was then stripped for licensed text. For a rejected run those strings are distinct and reliable; it was the ACCEPTED runs' classification that was unreliable, and agreement needs no cause. The other three read the cause from the response's own fields.",
+   "clause_instrument_fixed": "The extractor now requires a dotted or Annex-letter address and accepts one held by ANY source, and reports containers separately. AIMS-IA's clause half was re-run over all 40 under --clauses-only, free: 0 missing, 3 containers."
   }
  ],
  "not_instrumented": [

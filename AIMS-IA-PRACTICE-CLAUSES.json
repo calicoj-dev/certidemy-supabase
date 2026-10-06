@@ -1,0 +1,613 @@
+{
+ "_what": "AIMS-IA authored practice quality. READ-ONLY: nothing in the bank was changed. A solver disagreement is EVIDENCE for an SME, not a verdict on the item.",
+ "cert": "AIMS-IA",
+ "ruled_in": "PROMPT-142 s5, extended to all four certifications by PROMPT-142a",
+ "model": "claude-opus-5",
+ "population": 400,
+ "sampled": 40,
+ "solved": 0,
+ "by_domain": {
+  "D1": 5,
+  "D2": 7,
+  "D3": 8,
+  "D4": 13,
+  "D5": 7
+ },
+ "summary": {
+  "solver": {
+   "over": 0,
+   "agree_both_orders": 0,
+   "agree_one_order_only": 0,
+   "picked_different": 0,
+   "second_defensible": 0,
+   "passages_do_not_settle": 0,
+   "could_not_run": 0,
+   "error_rate": "n/a",
+   "by_cause": {}
+  },
+  "clauses": {
+   "over": 40,
+   "address_no_source_holds": 0,
+   "container_heading": 3
+  }
+ },
+ "spend": {
+  "usd": 0,
+  "calls": 0,
+  "model": "claude-opus-5"
+ },
+ "solver_stopped_at_ceiling": true,
+ "items": [
+  {
+   "item": "0b95f555",
+   "task": "1.3",
+   "domain": "D1",
+   "key_index": 3,
+   "passages": 13,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [
+    "9.2"
+   ],
+   "cited_clauses": [
+    "9.2"
+   ]
+  },
+  {
+   "item": "32b87064",
+   "task": "1.2",
+   "domain": "D1",
+   "key_index": 2,
+   "passages": 9,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "4.3",
+    "4.5",
+    "4.2"
+   ]
+  },
+  {
+   "item": "5e8627e4",
+   "task": "1.2",
+   "domain": "D1",
+   "key_index": 3,
+   "passages": 9,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "4.6",
+    "4.1"
+   ]
+  },
+  {
+   "item": "856f637f",
+   "task": "1.3",
+   "domain": "D1",
+   "key_index": 1,
+   "passages": 13,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [
+    "9.2"
+   ],
+   "cited_clauses": [
+    "9.2",
+    "3.8"
+   ]
+  },
+  {
+   "item": "c3cf36b6",
+   "task": "1.3",
+   "domain": "D1",
+   "key_index": 3,
+   "passages": 13,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [
+    "9.2"
+   ],
+   "cited_clauses": [
+    "9.2",
+    "3.18",
+    "6.1.3"
+   ]
+  },
+  {
+   "item": "06efb263",
+   "task": "2.3",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 23,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "7.2.2",
+    "7.2.3",
+    "3.17"
+   ]
+  },
+  {
+   "item": "31cf0428",
+   "task": "2.4",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 22,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "4.3",
+    "4.1"
+   ]
+  },
+  {
+   "item": "596172b1",
+   "task": "2.5",
+   "domain": "D2",
+   "key_index": 2,
+   "passages": 8,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "9.2.2"
+   ]
+  },
+  {
+   "item": "8693fea4",
+   "task": "2.3",
+   "domain": "D2",
+   "key_index": 3,
+   "passages": 23,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "7.2",
+    "3.17",
+    "9.2.2",
+    "5.5"
+   ]
+  },
+  {
+   "item": "ad1ec194",
+   "task": "2.2",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 9,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "4.8",
+    "4.7"
+   ]
+  },
+  {
+   "item": "cedff920",
+   "task": "2.1",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 6,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "5.2",
+    "5.5.2"
+   ]
+  },
+  {
+   "item": "e53bea8a",
+   "task": "2.4",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 22,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "4.3",
+    "4.1"
+   ]
+  },
+  {
+   "item": "03689a97",
+   "task": "3.7",
+   "domain": "D3",
+   "key_index": 2,
+   "passages": 15,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "A.7",
+    "A.4",
+    "A.14"
+   ]
+  },
+  {
+   "item": "1e15ac87",
+   "task": "3.8",
+   "domain": "D3",
+   "key_index": 1,
+   "passages": 3,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.4.10"
+   ]
+  },
+  {
+   "item": "3e84242e",
+   "task": "3.6",
+   "domain": "D3",
+   "key_index": 2,
+   "passages": 13,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "A.5",
+    "A.16"
+   ]
+  },
+  {
+   "item": "6515603a",
+   "task": "3.5",
+   "domain": "D3",
+   "key_index": 3,
+   "passages": 6,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "A.17"
+   ]
+  },
+  {
+   "item": "8f1657d2",
+   "task": "3.6",
+   "domain": "D3",
+   "key_index": 0,
+   "passages": 13,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "A.5"
+   ]
+  },
+  {
+   "item": "a99e16b8",
+   "task": "3.1",
+   "domain": "D3",
+   "key_index": 2,
+   "passages": 21,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.2"
+   ]
+  },
+  {
+   "item": "bca6bc46",
+   "task": "3.7",
+   "domain": "D3",
+   "key_index": 2,
+   "passages": 15,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.1.4"
+   ]
+  },
+  {
+   "item": "da5b5064",
+   "task": "3.8",
+   "domain": "D3",
+   "key_index": 3,
+   "passages": 3,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.4.10"
+   ]
+  },
+  {
+   "item": "000055bd",
+   "task": "4.1",
+   "domain": "D4",
+   "key_index": 2,
+   "passages": 16,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "4.1",
+    "4.3",
+    "6.1.4"
+   ]
+  },
+  {
+   "item": "12d5a80b",
+   "task": "4.5",
+   "domain": "D4",
+   "key_index": 0,
+   "passages": 6,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.1.3",
+    "A.1"
+   ]
+  },
+  {
+   "item": "1d2da98a",
+   "task": "4.3",
+   "domain": "D4",
+   "key_index": 3,
+   "passages": 13,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "5.1"
+   ]
+  },
+  {
+   "item": "2d9f9a6e",
+   "task": "4.7",
+   "domain": "D4",
+   "key_index": 3,
+   "passages": 9,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "7.3",
+    "7.4"
+   ]
+  },
+  {
+   "item": "3a45b672",
+   "task": "4.10",
+   "domain": "D4",
+   "key_index": 3,
+   "passages": 6,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.1.3",
+    "8.1",
+    "A.1"
+   ]
+  },
+  {
+   "item": "4e2535d6",
+   "task": "4.5",
+   "domain": "D4",
+   "key_index": 2,
+   "passages": 6,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.1.3"
+   ]
+  },
+  {
+   "item": "8184c1c2",
+   "task": "4.1",
+   "domain": "D4",
+   "key_index": 0,
+   "passages": 16,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "4.1",
+    "4.3"
+   ]
+  },
+  {
+   "item": "9b61df00",
+   "task": "4.5",
+   "domain": "D4",
+   "key_index": 1,
+   "passages": 6,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.1.3",
+    "A.1"
+   ]
+  },
+  {
+   "item": "adc9a299",
+   "task": "4.8",
+   "domain": "D4",
+   "key_index": 2,
+   "passages": 5,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.3",
+    "8.2",
+    "8.1",
+    "6.1.4"
+   ]
+  },
+  {
+   "item": "bd95ed5b",
+   "task": "4.7",
+   "domain": "D4",
+   "key_index": 3,
+   "passages": 9,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "7.5.1",
+    "7.5.3",
+    "7.5.2"
+   ]
+  },
+  {
+   "item": "d3f47645",
+   "task": "4.3",
+   "domain": "D4",
+   "key_index": 1,
+   "passages": 13,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "5.3"
+   ]
+  },
+  {
+   "item": "de3d0aa6",
+   "task": "4.2",
+   "domain": "D4",
+   "key_index": 3,
+   "passages": 9,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "4.3",
+    "6.1.3",
+    "4.1"
+   ]
+  },
+  {
+   "item": "f2a1f59f",
+   "task": "4.1",
+   "domain": "D4",
+   "key_index": 2,
+   "passages": 16,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "4.1"
+   ]
+  },
+  {
+   "item": "07c569f2",
+   "task": "5.7",
+   "domain": "D5",
+   "key_index": 0,
+   "passages": 4,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "9.3.2"
+   ]
+  },
+  {
+   "item": "2eab850a",
+   "task": "5.7",
+   "domain": "D5",
+   "key_index": 0,
+   "passages": 4,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "9.3.1",
+    "9.2.2",
+    "9.3.3",
+    "9.3.2"
+   ]
+  },
+  {
+   "item": "66d35fb1",
+   "task": "5.3",
+   "domain": "D5",
+   "key_index": 2,
+   "passages": 5,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "8.4",
+    "A.18.3",
+    "A.18.4",
+    "A.1"
+   ]
+  },
+  {
+   "item": "8b75948e",
+   "task": "5.6",
+   "domain": "D5",
+   "key_index": 0,
+   "passages": 6,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.1.4",
+    "10.2"
+   ]
+  },
+  {
+   "item": "9cd49957",
+   "task": "5.3",
+   "domain": "D5",
+   "key_index": 2,
+   "passages": 5,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.1.2",
+    "A.18.4",
+    "A.18.3"
+   ]
+  },
+  {
+   "item": "b5bbdc6f",
+   "task": "5.1",
+   "domain": "D5",
+   "key_index": 3,
+   "passages": 9,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "6.1.3",
+    "3.16",
+    "A.18.3"
+   ]
+  },
+  {
+   "item": "c75eda4b",
+   "task": "5.7",
+   "domain": "D5",
+   "key_index": 3,
+   "passages": 4,
+   "runs": [],
+   "clause_problems": [],
+   "container_citations": [],
+   "cited_clauses": [
+    "9.3.2",
+    "9.3.3"
+   ]
+  }
+ ]
+}
