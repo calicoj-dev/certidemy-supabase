@@ -1,0 +1,1070 @@
+{
+ "_what": "SM-AI-I retirement plan, ruled PROMPT-146 s4. DRY RUN: no bank row was written. Stems are deliberately NOT stored -- an item quoting the Scrum Guide shares 12-gram runs with the library and would trip check-licensed-text. Read them live.",
+ "cert": "SM-AI-I",
+ "ruled_in": "PROMPT-146 s4",
+ "confirmed_from": "SMAII-FULL-OPUS.json",
+ "min_per_task": 4,
+ "live_secure_before": {
+  "en": 452,
+  "es-419": 452,
+  "pt-BR": 452
+ },
+ "live_secure_after": {
+  "en": 387,
+  "es-419": 387,
+  "pt-BR": 387
+ },
+ "opus_judged": 141,
+ "confirmed": 69,
+ "retire": 65,
+ "repair": 4,
+ "skipped": 0,
+ "by_cause": {
+  "not settled": 22,
+  "named a second defensible option": 42,
+  "picked a different option": 4,
+  "could-not-run": 1
+ },
+ "tasks_under_min_after": 1,
+ "plan": [
+  {
+   "item": "06a37d7e",
+   "task": "2.6",
+   "domain": "D2",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "43dd85e7-9d70-4ad9-be5b-d4941f06ad6a",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "0770997d",
+   "task": "2.1",
+   "domain": "D2",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "d0cc8cf5-01e3-439c-b372-95beab578ecb",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "0b977dbc",
+   "task": "4.10",
+   "domain": "D4",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "d2723fea-0110-4329-845a-f9c18a2eb4aa",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "1716581c",
+   "task": "1.5",
+   "domain": "D1",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "08367ac6-4de1-40ec-be71-a834cd28e21b",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "1bcece77",
+   "task": "5.3",
+   "domain": "D5",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "088f6b29-eb77-4911-bbf3-c6cba5f7e476",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "200ce97c",
+   "task": "1.5",
+   "domain": "D1",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "5e074daa-4e8b-4cff-8384-4cf9862ffc2c",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "2044cc6b",
+   "task": "4.10",
+   "domain": "D4",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "36457dda-9737-4a53-a585-dd2d9f14b8ee",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "222c7a72",
+   "task": "5.8",
+   "domain": "D5",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "85182704-3b31-413e-b7b0-6d95758eb0c7",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "23a48d5f",
+   "task": "5.10",
+   "domain": "D5",
+   "cause": "named a second defensible option",
+   "grounding_class": "none",
+   "question_group_id": "4b83d76c-d5c6-47e8-b19e-1446f6d92f27",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "274f07f1",
+   "task": "1.2",
+   "domain": "D1",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "a07133e4-892b-4dd0-94f3-7edca9cd3db1",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "329fa4b5",
+   "task": "1.3",
+   "domain": "D1",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "4744b5a6-7a83-4024-829f-2be573ece188",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "374e6036",
+   "task": "4.10",
+   "domain": "D4",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "94b857f6-aea0-46a7-8999-a2549a0ded53",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "37deff5b",
+   "task": "4.10",
+   "domain": "D4",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "5799dbc6-e859-4100-aa7b-c0607c350ce4",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "405aa3ca",
+   "task": "1.3",
+   "domain": "D1",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "dd0411ef-784e-45f1-ae89-ac3c31e4dd62",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "41099eea",
+   "task": "1.7",
+   "domain": "D1",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "5218f711-20a8-4df3-890e-42872ffd3260",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "433eea57",
+   "task": "2.5",
+   "domain": "D2",
+   "cause": "picked a different option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "59466516-60bd-4b46-93e6-c86f9dfc4f2f",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "460e33b7",
+   "task": "3.2",
+   "domain": "D3",
+   "cause": "could-not-run",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "4ea7db9f-281a-4d84-8084-bfda70e27dfa",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "4b1e25ea",
+   "task": "3.2",
+   "domain": "D3",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "ce227a7e-c4f5-4f3a-a4fa-426af60fb3f7",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "4d556f58",
+   "task": "4.14",
+   "domain": "D4",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "a070f490-ff11-4c56-ad5b-cadece747e00",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "4e8cbf76",
+   "task": "5.8",
+   "domain": "D5",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "ab07513e-1824-4342-9ee6-912182896469",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "4ee6b808",
+   "task": "3.10",
+   "domain": "D3",
+   "cause": "named a second defensible option",
+   "grounding_class": "agile-general",
+   "question_group_id": "eadbe294-0260-4125-a23c-0e193cb1eae8",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "552a67c6",
+   "task": "3.5",
+   "domain": "D3",
+   "cause": "named a second defensible option",
+   "grounding_class": "agile-general",
+   "question_group_id": "5918ba7c-244d-42ed-ae71-83ea9e4d8f2d",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "55b6894b",
+   "task": "5.3",
+   "domain": "D5",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "1411e371-852a-4edd-872f-5062cea451a0",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "572cd7e7",
+   "task": "5.3",
+   "domain": "D5",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "d49d0596-3baf-4ae0-97e6-663435911d1f",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "58323fd7",
+   "task": "2.3",
+   "domain": "D2",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "d1fed2f0-ee0e-4259-9d4f-0f9882d5e529",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "59c4cd39",
+   "task": "2.7",
+   "domain": "D2",
+   "cause": "named a second defensible option",
+   "grounding_class": "agile-general",
+   "question_group_id": "03049ae9-d2c2-45c0-9b6d-20e2c5bd3ee7",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "69615db0",
+   "task": "1.7",
+   "domain": "D1",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "4d2046d4-c642-41db-a9da-eec55590c84a",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "719d0b94",
+   "task": "1.3",
+   "domain": "D1",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "3f90ca1b-9757-4411-a101-a13bc60f19ce",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "72284f45",
+   "task": "3.1",
+   "domain": "D3",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "29dbdd57-c041-4daf-bccf-25ee289ac90a",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "77365d4f",
+   "task": "4.10",
+   "domain": "D4",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "9adef6b9-b421-41d8-a6e7-81bfd724a1b6",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "7aa53499",
+   "task": "3.1",
+   "domain": "D3",
+   "cause": "picked a different option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "1b85ad1c-b940-4bcd-b3bb-112e1cadcbb9",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "812a3c77",
+   "task": "2.6",
+   "domain": "D2",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "b65d8c23-947e-4212-a25d-85584607e8e8",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "83471a46",
+   "task": "2.4",
+   "domain": "D2",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "61f04156-060e-43c0-917f-c2485dde7d3e",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "853a8de8",
+   "task": "5.9",
+   "domain": "D5",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "6f41ed00-e307-482d-9083-ccc1d4fbb5a2",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "940709f5",
+   "task": "2.11",
+   "domain": "D2",
+   "cause": "picked a different option",
+   "grounding_class": "ai-held",
+   "question_group_id": "7f7c5d9d-93b7-402f-8bd3-8f01cdd0a85d",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "97aa8682",
+   "task": "5.3",
+   "domain": "D5",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "81695a48-6caa-4981-a158-ae0540786240",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "99a94c9e",
+   "task": "2.10",
+   "domain": "D2",
+   "cause": "named a second defensible option",
+   "grounding_class": "ai-held",
+   "question_group_id": "bae1ef25-4d3d-4283-9b17-48bf580302e6",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "9e2fb400",
+   "task": "1.6",
+   "domain": "D1",
+   "cause": "picked a different option",
+   "grounding_class": "none",
+   "question_group_id": "d09aa727-aee9-4341-b006-06d9e695ce1f",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "9ffe2198",
+   "task": "5.3",
+   "domain": "D5",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "85976c7f-b7e6-4080-abb5-8eb1ea5c2064",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "a612beb3",
+   "task": "1.5",
+   "domain": "D1",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "71f3b2a7-90c0-4dce-b0fe-e36a309564e8",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "ac695f51",
+   "task": "2.8",
+   "domain": "D2",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "53ee03ee-8b50-41c5-8370-11d890dedf48",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "afd0126b",
+   "task": "3.6",
+   "domain": "D3",
+   "cause": "named a second defensible option",
+   "grounding_class": "agile-general",
+   "question_group_id": "3d371360-5ab8-40b0-875f-aa36cf5fe899",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "b33f6f7b",
+   "task": "3.6",
+   "domain": "D3",
+   "cause": "named a second defensible option",
+   "grounding_class": "agile-general",
+   "question_group_id": "be4075b2-b9f9-4632-9186-83b10baffe6d",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "b373e197",
+   "task": "4.14",
+   "domain": "D4",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "1b8c0d93-5a20-47de-9057-77ed3b51e70e",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "b6d9620e",
+   "task": "2.2",
+   "domain": "D2",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "b252ad6f-6a2f-4bd8-b5f5-1ebdcc6d2c48",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "b76a8667",
+   "task": "5.10",
+   "domain": "D5",
+   "cause": "named a second defensible option",
+   "grounding_class": "none",
+   "question_group_id": "c94e431d-d13f-40de-975d-9ff00663a428",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "b8c82f34",
+   "task": "1.5",
+   "domain": "D1",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "6334e974-1384-4c46-9df9-5738b082d605",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "c0e2014f",
+   "task": "2.1",
+   "domain": "D2",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "00cb87de-bef5-426e-a539-335ee91a2e3d",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "c2438fce",
+   "task": "4.3",
+   "domain": "D4",
+   "cause": "named a second defensible option",
+   "grounding_class": "agile-general",
+   "question_group_id": "df1754e9-da0b-43f3-bc9c-218c8a647e0b",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "c49c5746",
+   "task": "5.8",
+   "domain": "D5",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "377056b0-686a-4f2f-bdf8-21e926ffccbf",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "ca537704",
+   "task": "5.3",
+   "domain": "D5",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "e5445603-11fc-4966-89f6-f362e481fa53",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "repair",
+   "why": "retiring it would leave task 5.3 under 4 live secure items in en"
+  },
+  {
+   "item": "d12caae3",
+   "task": "1.3",
+   "domain": "D1",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "f7f38275-69c2-484c-a9a1-8544043f24df",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "d286e278",
+   "task": "4.5",
+   "domain": "D4",
+   "cause": "named a second defensible option",
+   "grounding_class": "agile-general",
+   "question_group_id": "32104593-6dfa-4456-b52b-c7873e48a500",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "d3000f98",
+   "task": "4.6",
+   "domain": "D4",
+   "cause": "named a second defensible option",
+   "grounding_class": "agile-general",
+   "question_group_id": "b9b6e026-bee7-484d-9880-6acbf882600a",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "de78b5f3",
+   "task": "3.11",
+   "domain": "D3",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "e1058f3c-fb28-4f78-8c24-7aebe9b5395c",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "e0c4f492",
+   "task": "5.9",
+   "domain": "D5",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "e6715ccc-5b29-4274-884a-f45d35aaab83",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "e15e7ecb",
+   "task": "3.11",
+   "domain": "D3",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "5b5dfac3-d7e0-4010-b87e-f2c041e136ec",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "e1b79cf6",
+   "task": "2.4",
+   "domain": "D2",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "6a7d4fe2-dfab-4c60-b903-91334b8b05e9",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "e2c40c3c",
+   "task": "3.1",
+   "domain": "D3",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "bb8ad833-8e58-457c-b0ae-019ce0236816",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "e46369f6",
+   "task": "1.3",
+   "domain": "D1",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "cfd18006-dbeb-43e1-bd39-e8349d935f87",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "repair",
+   "why": "retiring it would leave task 1.3 under 4 live secure items in en"
+  },
+  {
+   "item": "e4f5f9ee",
+   "task": "4.10",
+   "domain": "D4",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "5b80f00f-8d30-45a1-b349-72db5235afe2",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "repair",
+   "why": "retiring it would leave task 4.10 under 4 live secure items in en"
+  },
+  {
+   "item": "e7a1975d",
+   "task": "4.10",
+   "domain": "D4",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "dea7cca2-af14-4d37-88e7-6f8fb82475af",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "repair",
+   "why": "retiring it would leave task 4.10 under 4 live secure items in en"
+  },
+  {
+   "item": "f042e3d1",
+   "task": "5.10",
+   "domain": "D5",
+   "cause": "named a second defensible option",
+   "grounding_class": "none",
+   "question_group_id": "68c746c8-beef-4550-8392-35d308006735",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "f1476c8b",
+   "task": "4.13",
+   "domain": "D4",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "c364b7e1-5a4e-43b1-af4c-12c356b33b10",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "f4470632",
+   "task": "5.9",
+   "domain": "D5",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "255c9b98-6d96-4cec-b36d-7128d8197921",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "f9ab0ece",
+   "task": "1.7",
+   "domain": "D1",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "16686e52-5c0a-4e16-8f0a-c3b10485b56b",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "fb7765e8",
+   "task": "1.2",
+   "domain": "D1",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "d8d98d67-f9bc-455f-8104-0358f35a07a7",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "fddfc65c",
+   "task": "3.11",
+   "domain": "D3",
+   "cause": "named a second defensible option",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "45d41d1e-0f32-4674-bd4e-3eee6df33b88",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  },
+  {
+   "item": "fe279edd",
+   "task": "1.5",
+   "domain": "D1",
+   "cause": "not settled",
+   "grounding_class": "scrum-guide",
+   "question_group_id": "1080940a-811f-4e08-8fbe-fb5c89ff8ae7",
+   "rows": 3,
+   "langs": [
+    "en",
+    "es-419",
+    "pt-BR"
+   ],
+   "disposition": "retire"
+  }
+ ]
+}

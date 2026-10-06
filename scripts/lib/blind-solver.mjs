@@ -210,12 +210,55 @@ export function solverUserNoPassages(payload) {
   return "QUESTION\n\n" + JSON.stringify(payload, null, 1);
 }
 
-export function solverUser(payload, passages) {
+/* ============ THE SAME USER HALF, SPLIT FOR PROMPT CACHING (ruled PROMPT-146 s1) ============
+ *
+ * The passage block is identical for every item of a certification -- the whole Scrum Guide, about
+ * 4,000 words -- and was being resent on every call. Split in two so the caller can mark the
+ * PASSAGES cacheable and keep the QUESTION last and uncached.
+ *
+ * THE ORDER MATTERS AND IS NOT A STYLE CHOICE: a cache entry is keyed on the exact prefix, so
+ * anything that varies per item must come AFTER everything cached. A question inside the cached
+ * block would make every call a cache write and cost more than no caching at all.
+ *
+ * `solverUser` is kept and now composes these two, so the uncached path cannot drift from the
+ * cached one. */
+export function solverBlocks(payload, passages) {
   const src = passages.map((p) =>
     "--- " + p.source_id + " " + p.edition + ", clause " + p.clause +
     (p.title ? " (" + p.title + ")" : "") + " [" + p.normative + "] ---\n" + p.text
   ).join("\n\n");
-  return "PASSAGES\n\n" + src + "\n\nQUESTION\n\n" + JSON.stringify(payload, null, 1);
+  return {
+    passages: "PASSAGES\n\n" + src,
+    question: "\n\nQUESTION\n\n" + JSON.stringify(payload, null, 1),
+  };
+}
+
+/* composed from solverBlocks, so the uncached string and the cached pair cannot drift apart */
+export function solverUser(payload, passages) {
+  const b = solverBlocks(payload, passages);
+  return b.passages + b.question;
+}
+
+/** Controls for the cache layout. The question must never sit inside a cacheable block. */
+export function solverCacheControls() {
+  const cases = [];
+  const add = (name, pass) => cases.push({ name, pass: !!pass });
+  const ps = [{ source_id: "Scrum Guide", edition: "2020", clause: "The Sprint", title: "The Sprint",
+    normative: "informative", text: "word ".repeat(200) }];
+  const payload = { question: "Which statement is correct?", options: [{ label: "A", text: "x" }] };
+  const b = solverBlocks(payload, ps);
+
+  add("the passage block carries the passages", /Scrum Guide 2020, clause The Sprint/.test(b.passages));
+  add("the passage block does NOT carry the question", !/Which statement is correct/.test(b.passages));
+  add("the question block carries the question", /Which statement is correct/.test(b.question));
+  add("the question block carries NO passage text", !/word word word/.test(b.question));
+  /* the composed string must be byte-identical to passages + question, in that order */
+  add("composed order is passages THEN question",
+    solverUser(payload, ps) === b.passages + b.question);
+  add("...and the question is the TAIL, so a cached prefix ends before it",
+    solverUser(payload, ps).endsWith(b.question));
+  add("an empty passage list still yields a question block", solverBlocks(payload, []).question.length > 10);
+  return { cases, examined: cases.length, allPass: cases.every((c) => c.pass) };
 }
 
 /**

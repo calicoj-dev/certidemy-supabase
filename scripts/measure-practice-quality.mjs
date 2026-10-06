@@ -25,14 +25,15 @@ import { writeFileSync, readFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
-import { blindPayload, assertBlind, SOLVER_SYSTEM, SOLVER_SYSTEM_PRACTICE, solverUser,
+import { blindPayload, assertBlind, SOLVER_SYSTEM, SOLVER_SYSTEM_PRACTICE, solverBlocks, solverUser,
   solverUserNoPassages, solverVerdict } from "./lib/blind-solver.mjs";
 import { normClause } from "./lib/grounded-gates.mjs";   /* gateClauseExists is not used: it answers per (source, edition), and this check accepts an address held by ANY source */
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 let CERT = null, N = 40, MAX_USD = null, OUT = null, CLAUSES_ONLY = false, m;
-let POOL = "practice", SOLVER = "claude-opus-5", ONLY = null, CLASSES = null;
+let POOL = "practice", SOLVER = "claude-opus-5", ONLY = null, CLASSES = null, CACHE_PROOF = false;
+let ALL = false, REUSE = null;
 for (const a of process.argv.slice(2)) {
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
   if ((m = /^--n=(\d+)$/.exec(a))) { N = Number(m[1]); continue; }
@@ -59,6 +60,19 @@ for (const a of process.argv.slice(2)) {
    * rather than --max-usd=0 on purpose: in gen-grounded-items `--max-usd=0` means NO CEILING, and
    * borrowing that spelling for "spend nothing" would be the opposite of what the other script does. */
   if (a === "--clauses-only") { CLAUSES_ONLY = true; continue; }
+  /* --cache-proof prints the API usage block for every call, so a cache read can be SEEN rather
+   * than assumed. Ruled PROMPT-146 s1: if reads come back 0, the big pass must not run. */
+  if (a === "--cache-proof") { CACHE_PROOF = true; continue; }
+  /* --all takes EVERY live item instead of a stratified sample. The sampler is still the default,
+   * because a sample is what every measurement before this one needed. */
+  if (a === "--all") { ALL = true; continue; }
+  /* --reuse=<file,...>: prior artifacts whose fully-solved items are NOT re-solved. Ruled
+   * PROMPT-146 s2 -- 80 items were already judged and must not be paid for twice. An item counts as
+   * reused only when it carries BOTH runs; a half-solved item is re-solved. */
+  if ((m = /^--reuse=(.+)$/.exec(a))) {
+    REUSE = m[1].split(",").map((s) => s.trim()).filter(Boolean);
+    continue;
+  }
   console.error("measure-practice-quality: unrecognised flag " + a);
   console.error("  --cert=<CODE> --n=40 --max-usd=<n> [--out=<file>] [--pool=secure|practice]");
   console.error("  [--solver-model=<model>] [--only=<ids.json|a,b>] [--classes=<file>] [--clauses-only]");
@@ -98,21 +112,59 @@ function env(k) {
 }
 const AK = env("ANTHROPIC_API_KEY");
 if (!AK) { console.error("ANTHROPIC_API_KEY not found (scripts/.env or env)"); process.exit(2); }
-let inTok = 0, outTok = 0, calls = 0;
-const usd = () => (inTok / 1e6) * PRICE.input + (outTok / 1e6) * PRICE.output;
+let inTok = 0, outTok = 0, calls = 0, cacheWriteTok = 0, cacheReadTok = 0;
+/* ============ CACHE READS AND WRITES ARE PRICED AT THEIR REAL RATES (PROMPT-146 s1) ============
+ *
+ * A write costs 1.25x the base input rate and a read 0.1x. Counting a cache read as a normal input
+ * token would make --max-usd mean roughly ten times the money it says, in the safe direction -- but
+ * counting it as FREE would make the ceiling meaningless in the dangerous one. Both are priced. */
+const usd = () => (inTok / 1e6) * PRICE.input + (outTok / 1e6) * PRICE.output +
+  (cacheWriteTok / 1e6) * PRICE.input * 1.25 + (cacheReadTok / 1e6) * PRICE.input * 0.1;
 
-async function claude(system, user, maxTokens = 1500) {
+/** The last call's usage block, for the cache proof. */
+let LAST_USAGE = null;
+
+/**
+ * `blocks` is either a plain string (one uncached user block) or
+ * { cacheable: string, question: string } -- the cacheable part first and marked, the question last
+ * and never inside a cached block.
+ */
+async function claude(system, blocks, maxTokens = 1500) {
+  const sysBlocks = [{ type: "text", text: system }];
+  let content;
+  if (typeof blocks === "string") {
+    content = [{ type: "text", text: blocks }];
+  } else {
+    /* THE CACHEABLE BLOCK CARRIES THE BREAKPOINT, not the system prompt: the system prompt alone is
+     * a few hundred tokens, under the 1024-token minimum, so marking it would cache nothing. The
+     * passage block is ~5,000 tokens and is the same for every item of a certification. */
+    content = [
+      { type: "text", text: blocks.cacheable, cache_control: { type: "ephemeral" } },
+      { type: "text", text: blocks.question },
+    ];
+  }
   const r = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: { "x-api-key": AK, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-    body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, system,
-      messages: [{ role: "user", content: user }] }),
+    body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, system: sysBlocks,
+      messages: [{ role: "user", content }] }),
   });
   if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 200));
   const j = await r.json();
   calls++;
-  inTok += j.usage?.input_tokens || 0;
-  outTok += j.usage?.output_tokens || 0;
+  const u = j.usage || {};
+  LAST_USAGE = u;
+  inTok += u.input_tokens || 0;
+  outTok += u.output_tokens || 0;
+  cacheWriteTok += u.cache_creation_input_tokens || 0;
+  cacheReadTok += u.cache_read_input_tokens || 0;
+  if (CACHE_PROOF) {
+    console.log("    call " + calls + "   input " + String(u.input_tokens || 0).padStart(6) +
+      "   cache_write " + String(u.cache_creation_input_tokens || 0).padStart(6) +
+      "   cache_read " + String(u.cache_read_input_tokens || 0).padStart(6) +
+      "   output " + String(u.output_tokens || 0).padStart(5) +
+      "   $" + usd().toFixed(4));
+  }
   return (j.content || []).map((c) => c.text || "").join("");
 }
 const parseObj = (s) => {
@@ -169,12 +221,27 @@ if (assigned !== N) {
   want.set(big, want.get(big) + (N - assigned));
 }
 let sample = [];
-for (const d of [...want.keys()].sort()) {
-  const pool = byDom.get(d);
-  const k = want.get(d);
-  const stride = Math.max(1, Math.floor(pool.length / k));
-  for (let i = 0, n = 0; i < pool.length && n < k; i += stride, n++) sample.push(pool[i]);
+if (ALL) {
+  sample = live.slice();
+} else {
+  for (const d of [...want.keys()].sort()) {
+    const pool = byDom.get(d);
+    const k = want.get(d);
+    const stride = Math.max(1, Math.floor(pool.length / k));
+    for (let i = 0, n = 0; i < pool.length && n < k; i += stride, n++) sample.push(pool[i]);
+  }
 }
+
+/* ---- prior results carried forward, so nothing is paid for twice ---- */
+const REUSED = new Map();
+for (const f of REUSE || []) {
+  if (!existsSync(join(ROOT, f))) { console.error("  --reuse: " + f + " is absent"); continue; }
+  const prior = JSON.parse(readFileSync(join(ROOT, f), "utf8"));
+  for (const r of prior.items || []) {
+    if ((r.runs || []).length === 2) REUSED.set(r.item, { ...r, reused_from: f });
+  }
+}
+if (REUSE) console.log("  --reuse: " + REUSED.size + " item(s) already solved, carried forward unpaid");
 /* ---- the grounding class per task, and the Guide passages the classed items are solved against ---- */
 const classOfTask = new Map();
 if (CLASSES) {
@@ -242,6 +309,9 @@ const rotate = (opts) => opts.slice(1).concat(opts.slice(0, 1));
 const results = [];
 let stopped = false;
 for (const q of sample) {
+  /* an item a prior run already solved is carried forward verbatim and costs nothing */
+  const prior = REUSED.get(q.id.slice(0, 8));
+  if (prior) { results.push(prior); continue; }
   /* THE CLAUSE CHECK IS FREE, SO THE CEILING MUST NOT TRUNCATE IT. Only the solver costs money; a
    * budget that stops both leaves the cheap measurement partial for no reason. */
   const solverBudgetLeft = !CLAUSES_ONLY && usd() < MAX_USD;
@@ -281,9 +351,13 @@ for (const q of sample) {
     const keyLabel = String.fromCharCode(65 + (pass === 0 ? keyIdx : (keyIdx - 1 + o.length) % o.length));
     let txt;
     try {
-      txt = byPractice
-        ? await claude(SOLVER_SYSTEM_PRACTICE, solverUserNoPassages(payload))
-        : await claude(SOLVER_SYSTEM, solverUser(payload, passages));
+      if (byPractice) {
+        /* nothing big to cache: the whole request is a few hundred tokens */
+        txt = await claude(SOLVER_SYSTEM_PRACTICE, solverUserNoPassages(payload));
+      } else {
+        const b = solverBlocks(payload, passages);
+        txt = await claude(SOLVER_SYSTEM, { cacheable: b.passages, question: b.question });
+      }
     }
     catch (e) { rec.runs.push({ pass, state: "could-not-run", reason: String(e.message).slice(0, 120) }); continue; }
     const parsed = parseObj(txt);

@@ -22,6 +22,7 @@ import { expectedHashControls } from "./lib/expected-review-hashes.mjs";
 import { explanationOptionRefControls } from "./lib/explanation-option-ref.mjs";
 import { heavyReaderLockControls } from "./lib/heavy-reader-lock.mjs";
 import { itemDispositionControls } from "./lib/item-disposition.mjs";
+import { solverCacheControls } from "./lib/blind-solver.mjs";
 import { censusFreshnessControls } from "./lib/census-freshness.mjs";
 import { writerAttributionControls } from "./lib/writer-attribution.mjs";
 import { itemIdControls } from "./lib/item-id.mjs";
@@ -60,6 +61,7 @@ const SUITES = [
   ["heavy-reader-lock", heavyReaderLockControls], ["item-disposition", itemDispositionControls],
   ["writer-attribution", writerAttributionControls],
   ["census-freshness", censusFreshnessControls],
+  ["solver-cache-layout", solverCacheControls],
   ["item-id", itemIdControls], ["js-source", jsSourceControls],
   ["quotation-mode", quotationModeControls], ["options-probe", optionsProbeControls],
   ["passage-runon", runOnControls], ["refusal-pattern", refusalControls],

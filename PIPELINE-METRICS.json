@@ -2721,6 +2721,99 @@
     "SD-AI-I": "2 of 29 = 7%"
    },
    "changed": "nothing -- no row in any bank was written"
+  },
+  {
+   "cert": "SM-AI-I + SM-AI-II",
+   "stage": 9,
+   "stage_name": "SM exam pools screened",
+   "ruled_in": "PROMPT-146",
+   "usd_total_spent": 32.26,
+   "ceilings": {
+    "pass1_sonnet": 20,
+    "pass2_opus": 70
+   },
+   "caching": {
+    "ruled_in": "PROMPT-146 s1",
+    "proven": true,
+    "measurement": "On a 4-item Opus run: call 1 wrote 9,731 tokens, calls 2-8 each READ 9,731 and wrote 0. $0.6208 for 8 calls = $0.0776 an item, against $1.5024 uncached -- a 59% saving. A cache read costs 30% of an uncached call at Opus rates.",
+    "design": "The breakpoint is on the PASSAGE block, not the system prompt: the system prompt is a few hundred tokens, under the 1024-token minimum, so marking it would have cached nothing. The question is always the tail, because a cache entry is keyed on the exact prefix and anything per-item inside the cached block would make every call a write.",
+    "priced": "writes at 1.25x input, reads at 0.1x, so --max-usd still means real dollars",
+    "control": "solver-cache-layout, 7 arms: the question is never inside the cacheable block"
+   },
+   "pass1_sonnet": {
+    "usd": 5.7532,
+    "ceiling": 20,
+    "items": 804,
+    "solved": 804,
+    "reused_unpaid": 80,
+    "SM-AI-I": {
+     "items": 452,
+     "agree_both": 305,
+     "flagged": 147,
+     "picked_different": 7,
+     "second_defensible": 69,
+     "not_settled": 71,
+     "one_order_only": 40,
+     "usd": 2.9818
+    },
+    "SM-AI-II": {
+     "items": 352,
+     "agree_both": 145,
+     "flagged": 207,
+     "picked_different": 10,
+     "second_defensible": 104,
+     "not_settled": 93,
+     "one_order_only": 59,
+     "usd": 2.7714
+    },
+    "finding": "THE 40-ITEM SAMPLES WERE TOO SMALL. PROMPT-145 found 0 of 160 items where the solver picked a different option; the full pools find 17 of 804. `Zero wrong keys` was a sample-size artifact. SM-AI-II is far worse than SM-AI-I: 59% flagged against 33%."
+   },
+   "pass2_opus": {
+    "usd_kept": 13.5053,
+    "usd_lost": 13.03,
+    "ceiling": 70,
+    "SM-AI-I": {
+     "status": "COMPLETE",
+     "flags_judged": 141,
+     "confirmed": 69,
+     "cleared": 72,
+     "causes": {
+      "picked_different": 4,
+      "second_defensible": 42,
+      "not_settled": 22,
+      "could_not_run": 1
+     },
+     "usd": 13.5053,
+     "per_item": 0.0958
+    },
+    "SM-AI-II": {
+     "status": "KILLED MID-RUN at 136 of 199 flags",
+     "lost": "The script writes its artifact only at the end, so all 136 Opus verdicts were lost with the process. Estimated $13.03 at SM-AI-I's measured $0.0958 an item.",
+     "remaining": "199 flags, about $19 of the $43.5 still unspent under the $70 ceiling",
+     "dispositions_planned": 0,
+     "why_not_restarted": "The background task was stopped rather than failing. Re-spending after an interruption is the director's call, not a retry."
+    },
+    "sonnet_reliability": "Over SM-AI-I's 141 flags Opus CLEARED 72 (51%) and confirmed 69 (49%) -- closer than PROMPT-145's 22-flag read of 59% cleared, and still too close to act on a Sonnet-only flag."
+   },
+   "rate_with_unjudged_estimated": {
+    "ruled_in": "PROMPT-146 preamble -- never count an unjudged flag as agreement",
+    "SM-AI-I": "MEASURED, not estimated: every one of its 147 flags was judged. 69 confirmed of 452 items = 15.3%.",
+    "SM-AI-II": "ESTIMATED: 207 flags, none with a surviving verdict. At SM-AI-I's confirm rate of 49% that is about 101 of 352 = 29%. At PROMPT-145's SM-AI-II sample rate it would be higher. Reported as an estimate because it is one.",
+    "pooled_estimate": "about 170 of 804 = 21%"
+   },
+   "plan_sm_ai_i": {
+    "file": "SMAII-RETIRE-PLAN.json",
+    "dry_run": true,
+    "confirmed": 69,
+    "retire": 65,
+    "repair": 4,
+    "before": 452,
+    "after": 387,
+    "repair_reason": "retiring them would leave their task under 4 live secure items in some language",
+    "tasks_under_4_after": "only 5.11, which is NOT exam scope and already held 0 -- the plan did not cause it",
+    "form_assembly": "every domain's pool still exceeds its per-form quota in all three languages; tightest D5 at 73 items for an 18-item quota = 4.1x. The full 20-of-20 assembler is the cutover gate's job and runs at apply time; it was NOT re-implemented here."
+   },
+   "changed": "nothing -- no bank row was written, and there is no --apply in plan-item-retirement.mjs"
   }
  ],
  "not_instrumented": [
