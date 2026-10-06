@@ -1282,6 +1282,8 @@ never `keyMayAnchor` from `lib/tier-anchoring.mjs`, so it counts a primary that 
 key on the internal-auditor tier. 1.1 maps five primaries: one is under the 15-word floor, and
 at least one more cannot be keyed on this tier.
 
+**FIXED PROMPT-143 s1** -- one `effectiveCountOf` in `lib/effective-primary.mjs`, called by both, with an invariant. verify-cert reads 0 fail on all four. Originally recorded as:
+
 **NOT FIXED, and deliberately so.** Changing a conformance gate's arithmetic so that it
 reports green is the one move the standing rules forbid without a ruling, however well
 evidenced. The exam is not short of items for 1.1 -- 6 is what its map supports -- but
@@ -1301,4 +1303,54 @@ That is a project, not a step, and it is for all four certifications together.
 
 The urgency is set by `AIMS-IA-PRACTICE-QUALITY.json` (PROMPT-142 s5): a 40-item stratified
 sample of what learners see today, blind-solved twice per item.
+
+
+## PROMPT-143: the practice pool measured, and one definition of effective primary
+
+### s1 -- effective primary has ONE definition now
+
+`lib/effective-primary.mjs` exports `effectiveCountOf({primaries, clauseIndexBySource, cert})`;
+it applies the 15-word floor AND `keyMayAnchor`, and it IMPORTS the tier rule rather than
+taking it from a caller -- a caller able to pass its own rule is how the two diverged.
+`check-task-map`, `verify-cert` and `gen-grounded-items` all call it. **Only ONE floor moved:**
+AIMS-IA 1.1, 8 -> 6. No Foundation task changed even its effective count, because
+`keyMayAnchor` admits everything on that tier.
+
+A third implementation turned up in `gen-grounded-items`, under the same name, agreeing only
+because its classifier happened to apply the tier rule too. The invariant caught it on its
+first run. It offends when a file builds its own count AND calls `floorFor`; `classifyPrimaries`
+itself stays public, because six scripts legitimately use it to explain WHY a clause is thin.
+
+### s2 -- BACKLOG: the grounded practice pool, now with the measurement behind it
+
+**Measured PROMPT-142 s5 and 142a. No more measurement spend: the decision does not change.**
+
+| certification | practice / language | sampled | solved | agree | picked different | 2nd defensible | not settled | error rate | bad clause |
+|---|---|---|---|---|---|---|---|---|---|
+| ISMS-F | 490 | 40 | 15 | 10 | **0** | 3 | 2 | **33%** | 0 |
+| AIMS-F | 350 | 40 | 12 | 9 | **0** | 2 | 1 | **25%** | 0 |
+| ISMS-IA | 380 | 40 | 16 | 11 | **0** | 5 | 0 | **31%** | 0 |
+| AIMS-IA | 400 | 40 | 15 | 11 | **0** | 3 | 1 | **27%** | 0 |
+| **pooled** | **1,620** | **160** | **58** | **41** | **0** | **13** | **4** | **29%** | **0** |
+
+**0 WRONG KEYS. THE DEFECT IS DISTRACTOR DISCRIMINATION.** In 0 of 58 did the solver pick a
+different answer, so the old practice items are not teaching wrong answers. 13 had a second
+defensible option and 4 were not settled by the passages, and 7 more agreed with the stored key
+in only ONE of the two option orders -- which means they agreed with the POSITION, not the
+content. Zero items across all four cite a clause address no source holds.
+
+**The cost basis.** $0.21 per item solved with Opus and the task's full passage context; about
+$0.25 per new grounded item plus translation (AIMS-IA closed at $0.3294 per accepted item
+including every rejected round, and translation ran about $0.19 an item).
+
+**Two options, for whenever Juan takes it up. It blocks no certification.**
+
+| | what | cost shape |
+|---|---|---|
+| **(a) Repair** | blind-solve all 1,620 per language with a CHEAPER solver, then rewrite distractors only on the flagged items | a cheap sweep over everything, then writer spend on roughly a third |
+| **(b) Replace** | generate a grounded practice pool with its OWN saturation counting, and retire the authored one | the full grounded path again, four certifications, but it ends with a bank built the way the exam banks are |
+
+Whichever is chosen: **practice must never draw on the secure grounded bank**, because serving
+an exam item as practice exposes it. That is why (b) needs saturation counting of its own
+rather than sharing the exam bank's.
 

@@ -29,6 +29,10 @@
  * source begins with this clause plus a dot. That is a fact about the document, not a guess about the text.
  */
 
+/* tier-anchoring is imported, NOT injected: a caller able to pass its own rule is exactly how the two
+ * definitions diverged (PROMPT-143 s1). */
+import { tierOf, keyMayAnchor } from "./tier-anchoring.mjs";
+
 /** Is this clause a container -- does the library hold clauses nested under it? */
 export function isContainer(clause, clausesOfSameSource) {
   const c = String(clause || "");
@@ -98,6 +102,54 @@ export function effectivePrimaryCount(primaryClauses, passageOf, allClauses) {
  * Controls, both directions. A container test that silently stopped matching would make every thin map look
  * healthy, which is the direction nobody investigates.
  */
+/**
+ * ============ THE ONE DEFINITION OF "HOW MANY EFFECTIVE PRIMARIES" (ruled PROMPT-143 s1) ============
+ *
+ * Two instruments answered this question with two definitions, and both reported confidently.
+ * `check-task-map` applied the 15-word floor AND the per-certification tier rule; `verify-cert` s8
+ * applied the word floor alone. Measured PROMPT-142: AIMS-IA task 1.1 therefore had a floor of 6 in
+ * one and 8 in the other, and the cutover turned that into a FAIL -- on a task holding exactly what
+ * its map supports.
+ *
+ * A primary a key cannot anchor on is not effective. On the internal-auditor tier that excludes the
+ * 27000 family outright and admits 19011 only on an audit-practice task, so a floor derived without
+ * `keyMayAnchor` asks a task for items its passages cannot carry.
+ *
+ * @param primaries  the task's PRIMARY passages: [{source_id, edition, clause, text, normative}]
+ * @param clauseIndexBySource  Map "<source_id>|<edition>" -> Map clause -> passage, the whole document,
+ *                             so the container test can see a clause's children
+ * @param cert       the certification code. REQUIRED: the tier rule is per-certification, and
+ *                   `keyMayAnchor` refuses an IA certification it does not know rather than
+ *                   defaulting (PROMPT-135 s2).
+ * @returns {{effective, keyable, excluded_by_tier, exclusions}}
+ */
+export function effectiveCountOf({ primaries, clauseIndexBySource, cert }) {
+  const mine = (primaries || []).filter((p) => p && p.source_id);
+  if (!mine.length) return { effective: 0, keyable: 0, excluded_by_tier: 0, exclusions: [] };
+  const tier = tierOf(cert);
+  const exclusions = [];
+  const keyable = mine.filter((p) => {
+    const v = keyMayAnchor(p, { tier, primaryClauses: mine, cert });
+    if (!v.ok) exclusions.push({ clause: p.clause, source_id: p.source_id, why: v.why || "" });
+    return v.ok;
+  });
+  /* grouped by (source, edition): the container test is per document */
+  const bySrc = new Map();
+  for (const p of keyable) {
+    const k = p.source_id + "|" + p.edition;
+    if (!bySrc.has(k)) bySrc.set(k, []);
+    bySrc.get(k).push(p);
+  }
+  let effective = 0;
+  for (const [k, group] of bySrc) {
+    const idx = (clauseIndexBySource && clauseIndexBySource.get(k)) || new Map();
+    const all = [...idx.keys()];
+    effective += classifyPrimaries(group.map((p) => String(p.clause)),
+      (c) => idx.get(String(c)) || null, all).filter((r) => r.effective).length;
+  }
+  return { effective, keyable: keyable.length, excluded_by_tier: mine.length - keyable.length, exclusions };
+}
+
 export function effectivePrimaryControls({ quiet = false } = {}) {
   const lib = new Map([
     /* real shapes from the AIMS-F library, including the two containers that defeat a length test */
@@ -135,6 +187,74 @@ export function effectivePrimaryControls({ quiet = false } = {}) {
       effectivePrimaryCount(["8.1", "A.6.1", "A.6.2", "B.6.1.1", "B.6.2.1", "C.3.6",
         "A.6.2.2", "A.6.2.3", "A.6.2.4", "A.6.2.5", "A.6.2.6", "A.6.2.7", "A.6.2.8"],
       (c) => lib.get(c) || { clause: c, text: "w ".repeat(40) }, all) >= 11],
+
+    /* ============ effectiveCountOf: THE TIER RULE IS PART OF THE COUNT (PROMPT-143 s1) ============
+     *
+     * The AIMS-IA task 1.1 shape, which is what made the two instruments disagree: five primaries,
+     * one under the word floor, and 42001 3.18 `informative` so no requirements key may rest on it.
+     * A count without the tier rule says 4 and derives a floor of 8; with it the count is lower and
+     * the floor is one the map can actually meet. */
+    ...(() => {
+      const long = "word ".repeat(40);
+      /* `normative` holds the MODAL -- shall / should / informative / can -- not the word
+       * "normative". A fixture saying "normative" excluded even the `shall` clause. */
+      const P = (s, e, c, normative = "shall") => ({ source_id: s, edition: e, clause: c,
+        text: long, normative });
+      const idx = (rows) => {
+        const m = new Map();
+        for (const r of rows) {
+          const k = r.source_id + "|" + r.edition;
+          if (!m.has(k)) m.set(k, new Map());
+          m.get(k).set(String(r.clause), r);
+        }
+        return m;
+      };
+      /* a 42001 `shall` clause and a 42001 definition, on the IA tier */
+      const shall = P("ISO/IEC 42001", "2023", "9.2.1");
+      const info = P("ISO/IEC 42001", "2023", "3.18", "informative");
+      const both = [shall, info];
+      /* the same two on a FOUNDATION certification, where keyMayAnchor admits everything */
+      return [
+        ["effectiveCountOf on AIMS-IA counts the `shall` clause and NOT the definition", 1,
+          () => effectiveCountOf({ primaries: both, clauseIndexBySource: idx(both),
+            cert: "AIMS-IA" }).effective],
+        ["...and it says the definition was excluded BY THE TIER, not by length", 1,
+          () => effectiveCountOf({ primaries: both, clauseIndexBySource: idx(both),
+            cert: "AIMS-IA" }).excluded_by_tier],
+        ["the same two primaries on AIMS-F count 2: Foundation admits guidance", 2,
+          () => effectiveCountOf({ primaries: both, clauseIndexBySource: idx(both),
+            cert: "AIMS-F" }).effective],
+        ["...so NO Foundation task can lose a primary to the tier rule", 0,
+          () => effectiveCountOf({ primaries: both, clauseIndexBySource: idx(both),
+            cert: "AIMS-F" }).excluded_by_tier],
+        ["a primary under the 15-word floor is not effective even when the tier admits it", 0,
+          () => effectiveCountOf({
+            primaries: [{ source_id: "ISO/IEC 42001", edition: "2023", clause: "3.9",
+              text: "five words only here", normative: "shall" }],
+            clauseIndexBySource: idx([{ source_id: "ISO/IEC 42001", edition: "2023", clause: "3.9",
+              text: "five words only here" }]), cert: "AIMS-F" }).effective],
+        ["a CONTAINER is not effective: its children are held", 1,
+          () => {
+            const parent = P("ISO/IEC 42001", "2023", "A.6");
+            const child = P("ISO/IEC 42001", "2023", "A.6.1");
+            return effectiveCountOf({ primaries: [parent, child],
+              clauseIndexBySource: idx([parent, child]), cert: "AIMS-F" }).effective;
+          }],
+        ["no primaries at all counts 0 rather than throwing", 0,
+          () => effectiveCountOf({ primaries: [], clauseIndexBySource: new Map(),
+            cert: "AIMS-IA" }).effective],
+        /* A SCRUM CODE IS THE `general` TIER, SO IT DOES NOT THROW -- measured PROMPT-143: tierOf
+         * returns "general" for SM-AI-I and keyMayAnchor admits everything there. Only the
+         * internal-auditor tier reaches requirementsStandardFor, which is where an unknown family
+         * throws. So the control is that a general-tier certification loses NOTHING to the tier. */
+        ["a general-tier certification (SM-AI-I) excludes nothing by tier", 0,
+          () => effectiveCountOf({ primaries: both, clauseIndexBySource: idx(both),
+            cert: "SM-AI-I" }).excluded_by_tier],
+        ["...and counts both primaries", 2,
+          () => effectiveCountOf({ primaries: both, clauseIndexBySource: idx(both),
+            cert: "SM-AI-I" }).effective],
+      ];
+    })(),
   ];
   const fails = [];
   for (const [what, expect, fn] of cases) {

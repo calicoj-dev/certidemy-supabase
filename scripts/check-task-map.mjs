@@ -19,8 +19,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { requireKey, getAll } from "./_pg.mjs";
 import { loadTaskFloors, floorFor, stateOf } from "./lib/task-floors.mjs";
-import { classifyPrimaries, effectivePrimaryControls, MIN_EFFECTIVE } from "./lib/effective-primary.mjs";
-import { tierOf, keyMayAnchor } from "./lib/tier-anchoring.mjs";
+import { effectiveCountOf, effectivePrimaryControls, MIN_EFFECTIVE } from "./lib/effective-primary.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
@@ -179,17 +178,11 @@ for (const t of inScope) {
    * every mapped primary would report a task as thick when no key may rest on most of it. The same
    * `keyMayAnchor` the gate and the writer prompt use. Foundation and general tiers are unchanged:
    * `keyMayAnchor` returns ok for everything there, so `keyable` is `mine`. */
-  const TIER = tierOf(CERT);
-  const keyable = mine.filter((p) => keyMayAnchor(p, { tier: TIER, primaryClauses: mine, cert: CERT }).ok);
-  const excluded = mine.length - keyable.length;
-  /* group by (source, edition): the container test is per document */
-  let effective = 0;
-  for (const [k, group] of groupBy(keyable, (p) => p.source_id + "|" + p.edition)) {
-    const idx = bySrc.get(k) || new Map();
-    const all = [...idx.keys()];
-    const res = classifyPrimaries(group.map((p) => String(p.clause)), (c) => idx.get(String(c)) || null, all);
-    effective += res.filter((r) => r.effective).length;
-  }
+  /* ONE DEFINITION, shared with verify-cert (ruled PROMPT-143 s1). This script's inline version and
+   * verify-cert's differed by exactly the tier rule, and AIMS-IA task 1.1 got two floors. */
+  const ec = effectiveCountOf({ primaries: mine, clauseIndexBySource: bySrc, cert: CERT });
+  const effective = ec.effective;
+  const excluded = ec.excluded_by_tier;
   const f = floorFor(t.code, floors, effective);
   const held = Object.fromEntries(LANGS.map((l) => [l, countHeld(t.id, l)]));
   const minHeld = Math.min(...LANGS.map((l) => held[l]));
@@ -207,12 +200,6 @@ for (const t of inScope) {
     (tooThin ? " (" + effective + " effective < " + MIN_EFFECTIVE + " -- a MAP question, not work)" : "") +
     (f.why.startsWith("override") ? "   floor " + f.why : "")
     + (excluded ? "   [" + excluded + " primary(ies) not key-anchorable on this tier]" : ""));
-}
-
-function groupBy(arr, keyOf) {
-  const m = new Map();
-  for (const x of arr) { const k = keyOf(x); if (!m.has(k)) m.set(k, []); m.get(k).push(x); }
-  return m;
 }
 
 console.log("");

@@ -63,7 +63,8 @@ import { tierOf, tierAnchoringBrief, anchorMarkFor, keyMayAnchor, tierAnchoringC
 import { assignAnchors, assignmentInstruction, gateAnchorAssignment, anchorAssignmentControls }
   from "./lib/anchor-assignment.mjs";
 import { buildCapCensus } from "./lib/anchor-cap-census.mjs";
-import { classifyPrimaries, effectivePrimaryCount, effectivePrimaryControls, MIN_WORDS }
+import { classifyPrimaries, effectivePrimaryCount, effectivePrimaryControls, MIN_WORDS,
+  effectiveCountOf as sharedEffectiveCount }
   from "./lib/effective-primary.mjs";
 import { groundedGateControls } from "./lib/grounded-gates.mjs";
 import { balanceKeyOrder, balancedKeyOrderControls } from "./lib/balanced-key-order.mjs";
@@ -795,7 +796,30 @@ const classifyFor = (code) => {
 };
 const effectivePrimariesOf = (code) => classifyFor(code).filter((r) => r.effective)
   .map((r) => ({ source_id: r.source_id, edition: r.edition, clause: r.clause }));
-const effectiveCountOf = (code) => classifyFor(code).filter((r) => r.effective).length;
+/* ============ THE COUNT DELEGATES, IT IS NOT RE-IMPLEMENTED (ruled PROMPT-143 s1) ============
+ *
+ * This used to be `classifyFor(code).filter(r => r.effective).length` -- a third implementation of
+ * the same count, agreeing with the other two only because `classifyFor` happens to apply
+ * `keyMayAnchor` too. It derives a FLOOR (the saturation census, which propose-task-floors reads),
+ * so a drift here would move floors. `classifyFor` stays: the per-clause classification is what
+ * explains WHY a task is thin, and the assignment path needs it. */
+const CLAUSE_INDEX_BY_SOURCE = (() => {
+  const m = new Map();
+  for (const p of lib.passages) {
+    const k = p.source_id + "|" + p.edition;
+    if (!m.has(k)) m.set(k, new Map());
+    m.get(k).set(String(p.clause), p);
+  }
+  return m;
+})();
+const effectiveCountOf = (code) => sharedEffectiveCount({
+  primaries: primaryOf(code).map((p) => {
+    const held = passageIndex.get(p.source_id, p.edition, p.clause);
+    return held ? { ...p, normative: held.normative, text: held.text } : p;
+  }),
+  clauseIndexBySource: CLAUSE_INDEX_BY_SOURCE,
+  cert: CERT,
+}).effective;
 const mappedFromTable = tasks.filter((t) => effectiveCountOf(t.code));
 /* PRINTED, and no longer EXCLUDED: since the re-key a cross-source primary resolves in its own document.
  * It is reported because it changes which tasks can generate, and 5.5 is the case. */

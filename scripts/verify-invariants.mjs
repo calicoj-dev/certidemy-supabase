@@ -678,6 +678,132 @@ Object.assign(fetched, {
 }
 
 // ---------------------------------------------------------------------------
+// EFFECTIVE PRIMARY: ONE DEFINITION, AND NO SECOND IMPLEMENTATION (PROMPT-143 s1)
+//
+// check-task-map and verify-cert both derive a task's floor from how many of its
+// primaries can carry a key. They did it with two definitions: one applied the
+// 15-word floor AND the per-certification tier rule, the other the word floor
+// alone. AIMS-IA task 1.1 therefore had a floor of 6 in one instrument and 8 in
+// the other, and the cutover turned that disagreement into a FAIL on a task
+// holding exactly what its map supports.
+//
+// TWO INSTRUMENTS THAT DISAGREE IS A DEFECT, WHICHEVER ONE IS GREEN. So this
+// asserts both halves:
+//
+//   BEHAVIOUR  for every exam-scope task of every certification with a map, the
+//              shared effectiveCountOf and the floor it derives are computed
+//              once and compared against check-task-map's own printed table.
+//   SOURCE     no file outside lib/effective-primary.mjs calls classifyPrimaries
+//              to build a count of its own. A second implementation is how the
+//              first divergence happened, and it would pass the behaviour arm on
+//              the day it was written.
+{
+  const failures = [];
+  let examined = 0;
+  const { effectiveCountOf } = await import("./lib/effective-primary.mjs");
+  const { loadTaskFloors, floorFor } = await import("./lib/task-floors.mjs");
+  const { readdirSync, readFileSync: rfs } = await import("node:fs");
+  const { join: pjoin, dirname: pdir } = await import("node:path");
+  const { fileURLToPath: f2p } = await import("node:url");
+  const SDIR = pdir(f2p(import.meta.url));
+
+  /* ---- SOURCE ARM: one implementation OF THE COUNT ----
+   *
+   * `classifyPrimaries` is a legitimate public export: it explains, per clause, WHY a primary is not
+   * effective, and six scripts use it for exactly that. What must not be re-implemented is the COUNT
+   * a FLOOR is derived from. So a file offends only if it builds its own count
+   * (`.filter(... .effective).length`) AND calls `floorFor`. Measured PROMPT-143: that caught
+   * gen-grounded-items, which had a third `effectiveCountOf` of its own name -- agreeing with the
+   * other two only because its classifier happened to apply the tier rule as well. */
+  const offenders = [];
+  for (const dir of [SDIR, pjoin(SDIR, "lib")]) {
+    for (const f of readdirSync(dir)) {
+      if (!/\.mjs$/.test(f)) continue;
+      if (f === "effective-primary.mjs") continue;
+      /* COMMENTS ARE STRIPPED FIRST. The first version of this flagged gen-grounded-items on the
+       * strength of a comment QUOTING the expression it had just removed. A source check a comment
+       * can trip is a check that punishes documenting the fix. */
+      const src = rfs(pjoin(dir, f), "utf8")
+        .replace(/\/\*[\s\S]*?\*\//g, " ")
+        .replace(/(^|[^:"'`\\])\/\/[^\n]*/g, "$1 ");
+      const ownCount = /\.filter\(\s*\(?\s*\w+\s*\)?\s*=>\s*\w+\.effective\s*\)\s*\.length/.test(src);
+      const derivesFloor = /\bfloorFor\s*\(/.test(src);
+      if (ownCount && derivesFloor) offenders.push(f);
+    }
+  }
+  examined++;
+  if (offenders.length) {
+    failures.push("a second effective-primary implementation lives in: " + offenders.join(", ") +
+      " -- call effectiveCountOf instead");
+  }
+  /* AND BOTH INSTRUMENTS MUST ACTUALLY CALL IT. "Nobody has a second copy" is satisfied by a script
+   * that derives no floor at all, so the two that DO are named explicitly. */
+  for (const f of ["check-task-map.mjs", "verify-cert.mjs"]) {
+    examined++;
+    const src = rfs(pjoin(SDIR, f), "utf8");
+    if (!/effectiveCountOf/.test(src)) {
+      failures.push(f + " does not call effectiveCountOf, so it derives the floor some other way");
+    }
+  }
+
+  /* ---- BEHAVIOUR ARM: the shared definition agrees with check-task-map ---- */
+  const passRows = await get("source_passages?select=id,source_id,edition,clause,text,normative&order=id");
+  const pById = new Map(passRows.map((p) => [p.id, p]));
+  const idxBySrc = new Map();
+  for (const p of passRows) {
+    const k = p.source_id + "|" + p.edition;
+    if (!idxBySrc.has(k)) idxBySrc.set(k, new Map());
+    idxBySrc.get(k).set(String(p.clause), p);
+  }
+  const tsRows = await get("task_sources?select=task_id,passage_id,role&order=task_id,passage_id");
+  const primOf = new Map();
+  for (const r of tsRows) {
+    if (r.role !== "primary") continue;
+    if (!primOf.has(r.task_id)) primOf.set(r.task_id, []);
+    const p = pById.get(r.passage_id);
+    if (p) primOf.get(r.task_id).push(p);
+  }
+  const domRows = await get("domains?select=id,certification_id&order=id");
+  const taskRows = await get("tasks?select=id,code,domain_id,is_exam_scope&order=code");
+
+  for (const c of certs) {
+    const mineDom = new Set(domRows.filter((d) => d.certification_id === c.id).map((d) => d.id));
+    const mine = taskRows.filter((t) => mineDom.has(t.domain_id) && t.is_exam_scope);
+    if (!mine.length) continue;
+    let floors;
+    try { floors = loadTaskFloors(c.code); } catch { continue; }   /* no floors file: nothing to compare */
+    for (const t of mine) {
+      const prim = primOf.get(t.id) || [];
+      if (!prim.length) continue;                 /* no map: the default floor stands, nothing derived */
+      examined++;
+      let eff;
+      try {
+        eff = effectiveCountOf({ primaries: prim, clauseIndexBySource: idxBySrc, cert: c.code }).effective;
+      } catch (e) {
+        failures.push(c.code + " " + t.code + ": effectiveCountOf threw -- " + e.message.slice(0, 80));
+        continue;
+      }
+      /* THE FLOOR MUST BE MEETABLE BY THE MAP. A derived floor above 2 x effective is the shape of
+       * the PROMPT-142 defect: a task asked for more items than its keyable passages can carry at
+       * the cap. An explicitly ruled floor is exempt -- the director may rule a floor below the
+       * derivation, and 4.5 at 1 is exactly that. */
+      const f = floorFor(t.code, floors, eff);
+      const ruled = !!(f && f.ruled_in);
+      if (!ruled && f && f.floor > 2 * eff) {
+        failures.push(c.code + " " + t.code + ": derived floor " + f.floor +
+          " exceeds 2 x " + eff + " effective primaries, so its map cannot meet it");
+      }
+    }
+  }
+  record("effective primary: one definition", failures,
+    offenders.length
+      ? "a second implementation exists"
+      : "one implementation; " + (examined - 1) + " mapped exam-scope task(s) derive one floor each " +
+        "from it, across " + certs.length + " certification(s)",
+    examined);
+}
+
+// ---------------------------------------------------------------------------
 // MIGRATION TIP MATCHES THE DISK -- DELETED 2026-09-22. SUCCEEDED, NOT DROPPED.
 //
 // This asserted that CLAUDE.md carried a parseable

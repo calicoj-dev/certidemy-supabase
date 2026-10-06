@@ -47,7 +47,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { cueConfigFor, keyLengthEscape } from "./lib/item-cue-guard.mjs";
 import { loadTaskFloors, floorFor, taskFloorControls } from "./lib/task-floors.mjs";
-import { classifyPrimaries } from "./lib/effective-primary.mjs";
+import { effectiveCountOf } from "./lib/effective-primary.mjs";
 import { isServed, isCueJudgeable, populationControls } from "./lib/verify-cert-population.mjs";
 import { RETIRED_HARD, RETIRED_SOFT } from "./lib/item-translation.mjs";
 import { buildIndex, analyseText, newSink, sourcesAvailable, loadExemptions } from "./lib/citation-index.mjs";
@@ -280,7 +280,11 @@ async function verify(cert) {
     }
     for (let from = 0; ; from += 1000) {
       const { data } = await must(`source_passages[${from}]`, db.from("source_passages")
-        .select("id, source_id, edition, clause, text").order("id").range(from, from + 999));
+        /* `normative` IS SELECTED. The tier rule in effectiveCountOf asserts on it, and a predicate
+         * that cannot see the column it tests reads every passage as "not `shall`" and excludes the
+         * lot -- which would drive every IA floor to 0. Fifth instance of that defect here, so it is
+         * named at the select rather than trusted (PROMPT-143 s1). */
+        .select("id, source_id, edition, clause, text, normative").order("id").range(from, from + 999));
       if (!data || data.length === 0) break;
       for (const p of data) {
         LIBRARY_ADDRESSES.add(p.source_id + "|" + p.edition + "|" + String(p.clause));
@@ -507,26 +511,21 @@ async function verify(cert) {
    * to prevent. So the derivation is applied ONLY where that task actually has primaries and the
    * library is non-empty; anywhere else the default stands and the reason is reported. */
   const libraryUsable = LIBRARY_ADDRESSES.size > 0 && PRIMARY_PASSAGE_IDS_BY_TASK.size > 0;
+  /* ============ ONE DEFINITION, SHARED WITH check-task-map (ruled PROMPT-143 s1) ============
+   *
+   * This used to count with the 15-word floor ALONE, while check-task-map also applied the
+   * per-certification tier rule. Two instruments, one question, two answers: AIMS-IA task 1.1 read
+   * 4 effective here and 3 there, so this script demanded a floor of 8 for a task whose map supports
+   * 6, and the cutover turned the disagreement into a FAIL. `effectiveCountOf` is now the only
+   * implementation and it imports the tier rule rather than taking it from a caller. */
   const effectiveOf = (t) => {
     if (!libraryUsable) return null;
     const ids = PRIMARY_PASSAGE_IDS_BY_TASK.get(t.id) || [];
     if (!ids.length) return null;                   /* no map: the default stands, not a floor of 0 */
     const mine = ids.map((i) => PASSAGE_BY_ID.get(i)).filter(Boolean);
     if (!mine.length) return null;
-    const bySrc = new Map();
-    for (const p of mine) {
-      const k = p.source_id + "|" + p.edition;
-      if (!bySrc.has(k)) bySrc.set(k, []);
-      bySrc.get(k).push(p);
-    }
-    let effective = 0;
-    for (const [k, group] of bySrc) {
-      const idx = CLAUSES_BY_SRC.get(k) || new Map();
-      const all = [...idx.keys()];
-      effective += classifyPrimaries(group.map((p) => String(p.clause)),
-        (c) => idx.get(String(c)) || null, all).filter((r) => r.effective).length;
-    }
-    return effective;
+    return effectiveCountOf({ primaries: mine, clauseIndexBySource: CLAUSES_BY_SRC, cert: cert.code })
+      .effective;
   };
   if (!libraryUsable) {
     R.warn("floors.derivation", "§8", "The derived floor could not be computed",
