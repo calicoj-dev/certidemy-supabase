@@ -2049,6 +2049,84 @@
      "source": "ISO 19011"
     }
    ]
+  },
+  {
+   "at": "2026-10-06T00:23:47.488Z",
+   "cert": "AIMS-IA",
+   "from": "AIMSIA-R4c-sonnet.json",
+   "accept_list": "ACCEPT-AIMSIA-R4c-sonnet.json",
+   "note": "",
+   "ids": [
+    "187ab763-721d-481c-b477-390c376829ff",
+    "a1d0329f-7ef5-44a6-a792-de84a3876a3d"
+   ],
+   "rows": [
+    {
+     "id": "187ab763-721d-481c-b477-390c376829ff",
+     "item_id": "a8966014",
+     "report_number": null,
+     "task": "4.5",
+     "anchor": "6.1.3",
+     "source": "ISO/IEC 42001"
+    },
+    {
+     "id": "a1d0329f-7ef5-44a6-a792-de84a3876a3d",
+     "item_id": "ed418dbe",
+     "report_number": null,
+     "task": "2.2",
+     "anchor": "5.1",
+     "source": "ISO 19011"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-06T00:23:55.978Z",
+   "cert": "AIMS-IA",
+   "from": "AIMSIA-R4c-opus.json",
+   "accept_list": "ACCEPT-AIMSIA-R4c-opus.json",
+   "note": "",
+   "ids": [
+    "39406da7-6c2e-49b9-930a-78fa7a820b5f",
+    "7a313c60-b7a7-4d40-947f-f4050c4bcf73"
+   ],
+   "rows": [
+    {
+     "id": "39406da7-6c2e-49b9-930a-78fa7a820b5f",
+     "item_id": "c3342745",
+     "report_number": null,
+     "task": "5.6",
+     "anchor": "6.7",
+     "source": "ISO 19011"
+    },
+    {
+     "id": "7a313c60-b7a7-4d40-947f-f4050c4bcf73",
+     "item_id": "a50161af",
+     "report_number": null,
+     "task": "5.6",
+     "anchor": "10.2",
+     "source": "ISO/IEC 42001"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-06T00:24:02.828Z",
+   "cert": "AIMS-IA",
+   "from": "AIMSIA-R4b-56.json",
+   "accept_list": "ACCEPT-AIMSIA-R4b-56.json",
+   "note": "",
+   "ids": [
+    "49c06436-daeb-499e-b5b2-4972d6062847"
+   ],
+   "rows": [
+    {
+     "id": "49c06436-daeb-499e-b5b2-4972d6062847",
+     "item_id": "5e0eb62c",
+     "report_number": null,
+     "task": "5.6",
+     "anchor": "6.7",
+     "source": "ISO 19011"
+    }
+   ]
   }
  ]
 }

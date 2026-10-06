@@ -1,0 +1,755 @@
+{
+ "_what": "AIMS-IA authored practice quality, measured PROMPT-142 s5. READ-ONLY: nothing in the bank was changed. A solver disagreement is EVIDENCE for an SME, not a verdict on the item.",
+ "cert": "AIMS-IA",
+ "ruled_in": "PROMPT-142 s5",
+ "model": "claude-opus-5",
+ "population": 400,
+ "sampled": 15,
+ "by_domain": {
+  "D1": 5,
+  "D2": 7,
+  "D3": 8,
+  "D4": 13,
+  "D5": 7
+ },
+ "summary": {
+  "_what": "Trustworthy counts are the STATES. The two prose-derived counts from the first pass were wrong and are recorded as such below.",
+  "sampled": 15,
+  "requested": 40,
+  "stopped_at_ceiling": true,
+  "agree_both_orders": 11,
+  "disagree_both_orders": 4,
+  "split_by_order": 0,
+  "agree_rate": "11 of 15 = 73%",
+  "disagree_rate": "4 of 15 = 27%",
+  "could_not_run": 0,
+  "cited_clause_missing_from_the_standard": 0,
+  "cited_container_heading_not_held_as_a_row": 3,
+  "withdrawn_counts": {
+   "bad_clause_15": "WRONG. The first pass matched bare digits after \"section\" and checked each clause against the task first mapped source only. Recomputed: 0 items cite a clause absent from the standard; 3 cite 42001 9.2, a CONTAINER whose children 9.2.1 and 9.2.2 are held and whose heading has no row (CLAUDE.md s13).",
+   "second_defensible_14": "NOT SEPARABLE. It was a regex over the solver prose and fired on ACCEPTED runs too (28 of 30 runs). An item can be accepted and still have the solver remark on a second option, so this is a soft signal, not a count."
+  }
+ },
+ "spend": {
+  "usd": 3.1596,
+  "calls": 30,
+  "model": "claude-opus-5"
+ },
+ "stopped_at_ceiling": true,
+ "items": [
+  {
+   "item": "0b95f555",
+   "task": "1.3",
+   "domain": "D1",
+   "key_index": 3,
+   "passages": 13,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "rejected",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "rejected",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "5",
+     "why": "5 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "1",
+     "why": "1 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "9.2",
+     "why": "9.2 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "5",
+    "1",
+    "9.2"
+   ]
+  },
+  {
+   "item": "32b87064",
+   "task": "1.2",
+   "domain": "D1",
+   "key_index": 2,
+   "passages": 9,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "4.3",
+     "why": "4.3 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "4.5",
+     "why": "4.5 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "4.3",
+    "4.5"
+   ]
+  },
+  {
+   "item": "5e8627e4",
+   "task": "1.2",
+   "domain": "D1",
+   "key_index": 3,
+   "passages": 9,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "rejected",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "rejected",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "4",
+     "why": "4 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "4.6",
+     "why": "4.6 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "4.1",
+     "why": "4.1 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "4",
+    "4.6",
+    "4.1"
+   ]
+  },
+  {
+   "item": "856f637f",
+   "task": "1.3",
+   "domain": "D1",
+   "key_index": 1,
+   "passages": 13,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "6",
+     "why": "6 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "9.2",
+     "why": "9.2 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "3.8",
+     "why": "3.8 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "6",
+    "9.2",
+    "3.8"
+   ]
+  },
+  {
+   "item": "c3cf36b6",
+   "task": "1.3",
+   "domain": "D1",
+   "key_index": 3,
+   "passages": 13,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "9.2",
+     "why": "9.2 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "1",
+     "why": "1 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "3.18",
+     "why": "3.18 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "6.1.3",
+     "why": "6.1.3 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "9.2",
+    "1",
+    "3.18",
+    "6.1.3"
+   ]
+  },
+  {
+   "item": "06efb263",
+   "task": "2.3",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 23,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "7.2.2",
+     "why": "7.2.2 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "7.2.3",
+     "why": "7.2.3 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "3.17",
+     "why": "3.17 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "7.2.2",
+    "7.2.3",
+    "3.17"
+   ]
+  },
+  {
+   "item": "31cf0428",
+   "task": "2.4",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 22,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "4.3",
+     "why": "4.3 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "4.1",
+     "why": "4.1 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "4.3",
+    "4.1"
+   ]
+  },
+  {
+   "item": "596172b1",
+   "task": "2.5",
+   "domain": "D2",
+   "key_index": 2,
+   "passages": 8,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "rejected",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "rejected",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "9.2.2",
+     "why": "9.2.2 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "9.2.2"
+   ]
+  },
+  {
+   "item": "8693fea4",
+   "task": "2.3",
+   "domain": "D2",
+   "key_index": 3,
+   "passages": 23,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "D",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "C",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "7.2",
+     "why": "7.2 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "3.17",
+     "why": "3.17 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "9.2.2",
+     "why": "9.2.2 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "5.5",
+     "why": "5.5 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "7.2",
+    "3.17",
+    "9.2.2",
+    "5.5"
+   ]
+  },
+  {
+   "item": "ad1ec194",
+   "task": "2.2",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 9,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "rejected",
+     "classification": "said the passages do not settle it"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "rejected",
+     "classification": "said the passages do not settle it"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "4.8",
+     "why": "4.8 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "4.7",
+     "why": "4.7 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "4.8",
+    "4.7"
+   ]
+  },
+  {
+   "item": "cedff920",
+   "task": "2.1",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 6,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "5.2",
+     "why": "5.2 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "5.5.2",
+     "why": "5.5.2 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "5.2",
+    "5.5.2"
+   ]
+  },
+  {
+   "item": "e53bea8a",
+   "task": "2.4",
+   "domain": "D2",
+   "key_index": 1,
+   "passages": 22,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "4.3",
+     "why": "4.3 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "4.1",
+     "why": "4.1 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "4.3",
+    "4.1"
+   ]
+  },
+  {
+   "item": "03689a97",
+   "task": "3.7",
+   "domain": "D3",
+   "key_index": 2,
+   "passages": 15,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "A.7",
+     "why": "A.7 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "A.4",
+     "why": "A.4 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "A.14",
+     "why": "A.14 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "A.7",
+    "A.4",
+    "A.14"
+   ]
+  },
+  {
+   "item": "1e15ac87",
+   "task": "3.8",
+   "domain": "D3",
+   "key_index": 1,
+   "passages": 3,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "B",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "A",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "6.4.10",
+     "why": "6.4.10 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "6.4.10"
+   ]
+  },
+  {
+   "item": "3e84242e",
+   "task": "3.6",
+   "domain": "D3",
+   "key_index": 2,
+   "passages": 13,
+   "runs": [
+    {
+     "pass": 0,
+     "key_label": "C",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    },
+    {
+     "pass": 1,
+     "key_label": "B",
+     "state": "accepted",
+     "classification": "named a second defensible option"
+    }
+   ],
+   "clause_problems": [
+    {
+     "clause": "A.5",
+     "why": "A.5 is not in the library and the library does not declare it missing"
+    },
+    {
+     "clause": "A.16",
+     "why": "A.16 is not in the library and the library does not declare it missing"
+    }
+   ],
+   "cited_clauses": [
+    "A.5",
+    "A.16"
+   ]
+  }
+ ],
+ "cited_clause_recheck": {
+  "ruled_in": "PROMPT-142 s5, recomputed",
+  "why": "The first pass matched bare digits after 'section' and checked each clause only against the task's first mapped source, so it reported 15 of 15 items citing a missing clause. That was an instrument failure. This pass requires a dotted or Annex-letter address and accepts a clause held by ANY source in the library.",
+  "items_measured": 15,
+  "citing_any": 15,
+  "citing_missing": 3,
+  "detail": [
+   {
+    "item": "0b95f555",
+    "task": "1.3",
+    "cited": [
+     "9.2"
+    ],
+    "missing": [
+     "9.2"
+    ]
+   },
+   {
+    "item": "32b87064",
+    "task": "1.2",
+    "cited": [
+     "4.3",
+     "4.5",
+     "4.2"
+    ],
+    "missing": []
+   },
+   {
+    "item": "5e8627e4",
+    "task": "1.2",
+    "cited": [
+     "4.6",
+     "4.1"
+    ],
+    "missing": []
+   },
+   {
+    "item": "856f637f",
+    "task": "1.3",
+    "cited": [
+     "9.2",
+     "3.8"
+    ],
+    "missing": [
+     "9.2"
+    ]
+   },
+   {
+    "item": "c3cf36b6",
+    "task": "1.3",
+    "cited": [
+     "9.2",
+     "3.18",
+     "6.1.3"
+    ],
+    "missing": [
+     "9.2"
+    ]
+   },
+   {
+    "item": "06efb263",
+    "task": "2.3",
+    "cited": [
+     "7.2.2",
+     "7.2.3",
+     "3.17"
+    ],
+    "missing": []
+   },
+   {
+    "item": "31cf0428",
+    "task": "2.4",
+    "cited": [
+     "4.3",
+     "4.1"
+    ],
+    "missing": []
+   },
+   {
+    "item": "596172b1",
+    "task": "2.5",
+    "cited": [
+     "9.2.2"
+    ],
+    "missing": []
+   },
+   {
+    "item": "8693fea4",
+    "task": "2.3",
+    "cited": [
+     "7.2",
+     "3.17",
+     "9.2.2",
+     "5.5"
+    ],
+    "missing": []
+   },
+   {
+    "item": "ad1ec194",
+    "task": "2.2",
+    "cited": [
+     "4.8",
+     "4.7"
+    ],
+    "missing": []
+   },
+   {
+    "item": "cedff920",
+    "task": "2.1",
+    "cited": [
+     "5.2",
+     "5.5.2"
+    ],
+    "missing": []
+   },
+   {
+    "item": "e53bea8a",
+    "task": "2.4",
+    "cited": [
+     "4.3",
+     "4.1"
+    ],
+    "missing": []
+   },
+   {
+    "item": "03689a97",
+    "task": "3.7",
+    "cited": [
+     "A.7",
+     "A.4",
+     "A.14"
+    ],
+    "missing": []
+   },
+   {
+    "item": "1e15ac87",
+    "task": "3.8",
+    "cited": [
+     "6.4.10"
+    ],
+    "missing": []
+   },
+   {
+    "item": "3e84242e",
+    "task": "3.6",
+    "cited": [
+     "A.5",
+     "A.16"
+    ],
+    "missing": []
+   }
+  ]
+ },
+ "_licensed_text_note": "The solver's free-text reasons were REMOVED (PROMPT-142 s5): it was given the passages and quoted them, and check-licensed-text found 11 runs of ISO 19011 5.1. Each run keeps its state and a fixed classification."
+}

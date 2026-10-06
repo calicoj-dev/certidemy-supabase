@@ -1038,6 +1038,19 @@ if (!ONLY)
   }
 }
 
+/* ============ THE CENSUS COVERS EVERY TASK, WHATEVER --n FUNDS (ruled PROMPT-142 s2) ============
+ *
+ * The census rows are emitted from this allocation, so a task the weight split gave 0 items had no
+ * row at all. Measured PROMPT-141: at the default --n=40 across AIMS-IA's 40 tasks the census held
+ * 39, and the missing one was 4.9 -- which held 2 against a floor of 6 and was invisible to
+ * propose-task-floors for three prompts. A task with no allocation still has a held count, a floor
+ * and a state; omitting it is a coverage gap that reports clean.
+ *
+ * `asked: 0` is the honest value for such a task, and the saturation verdict is still computed. */
+if (SAT_REPORT) {
+  for (const t of mappedTasks) if (!alloc.has(t.id)) alloc.set(t.id, 0);
+}
+
 console.log("");
 console.log("GROUNDED GENERATION  " + CERT + (APPLY ? "  --apply (WILL WRITE draft rows)" : "  dry run (default)"));
 console.log("  model              " + MODEL);

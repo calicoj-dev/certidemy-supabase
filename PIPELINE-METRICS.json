@@ -2315,6 +2315,101 @@
     "4.9": "held 2, floor 6, exhausted -- ABSENT FROM THE CENSUS, so the proposal never listed it. The census emits a row only per task the --n weight allocation funds: 39 of 40 at --n=40, all 40 at --n=200."
    },
    "after": "check-task-map at_floor 32, short 8, too_thin 0 (was 25 short / 1 too_thin); verify-cert 54 pass, 0 fail, 5 warn"
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 5,
+   "stage_name": "director verdicts R4c",
+   "ruled_in": "PROMPT-142 s1",
+   "usd_generation": 3.4797,
+   "usd_judge": 0.1594,
+   "usd_translation": 0.9735,
+   "survivors": 9,
+   "accepted": 5,
+   "rejected": 4,
+   "withheld": 0,
+   "rejects_by_kind": {
+    "quality": 0,
+    "duplicate-of-live": 4
+   },
+   "judge": {
+    "flags": 4,
+    "flags_upheld": 4,
+    "flags_overruled": 0,
+    "unanswered": 0,
+    "note": "All four same-anchor flags upheld, including 59897391 on 42001 8.3 -- the duplicate risk the director named when ruling the saturation lift in PROMPT-141 s3."
+   },
+   "closed_the_coverage_gaps": {
+    "4.5": "held 0 -> 1",
+    "5.6": "held 0 -> 3"
+   },
+   "quality_rejects_whole_certification": {
+    "quality": 2,
+    "of_survivors": 330,
+    "note": "2 of 330 survivors across R1 to R4c were rejected on QUALITY. Every other rejection was a duplicate of a live item."
+   }
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 8,
+   "stage_name": "AIMS-IA cutover applied",
+   "ruled_in": "PROMPT-142 s4",
+   "usd": 0,
+   "retired": 960,
+   "retired_per_language": 320,
+   "keep_per_language": 223,
+   "secure_pool_after": {
+    "en": 223,
+    "es-419": 223,
+    "pt-BR": 223,
+    "origins": "100% grounded, 0 authored"
+   },
+   "forms": "20/20 per language pre-write and post-write; a live draw through the deployed function returned 50 of 50 at exact blueprint weights in all three languages",
+   "protected_rows": 1869,
+   "checksum": "21d8614808b03f1e (UNCHANGED across the write)",
+   "practice": "UNTOUCHED, 400 per language -- the same treatment as the other three cutovers",
+   "rollback": "AIMSIA-CUTOVER-RETIRED.json, 960 ids, accepted as a dry run; --file is mandatory now that FOUR cutovers are recorded",
+   "all_four_iso_certifications_are_now_live": true,
+   "open": "verify-cert reads 1 FAIL on task 1.1 (holds 6, demands 8). The two instruments derive the floor from different effective-primary counts: check-task-map applies the IA tier rule and gets 3 (floor 6), verify-cert applies the 15-word floor alone and gets 4 (floor 8). NOT fixed -- changing a conformance gate's arithmetic to make it green needs a ruling."
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 3,
+   "stage_name": "task floors closed",
+   "ruled_in": "PROMPT-142 s3",
+   "usd": 0,
+   "floors_written": 8,
+   "read_back_correct": 8,
+   "superseded": {
+    "4.5": "4 -> 1",
+    "5.6": "4 -> 3"
+   },
+   "after": "check-task-map at_floor 40, short 0, too_thin 0; every one of the 40 tasks now has a floor it meets",
+   "census_fix": "The census now emits a row per task in the certification rather than per task the --n allocation funds (PROMPT-142 s2). Re-run over all four ISO certifications: AIMS-IA was missing 1 task (4.9), ISMS-F was missing 9, ISMS-IA and AIMS-F were complete. None of the 9 ISMS-F tasks is uncovered -- it kept authored items at its cutover and each holds 3 to 10 live secure items."
+  },
+  {
+   "cert": "AIMS-IA",
+   "stage": 9,
+   "stage_name": "practice quality measured",
+   "ruled_in": "PROMPT-142 s5",
+   "usd": 3.1596,
+   "ceiling": 3,
+   "population": 400,
+   "requested": 40,
+   "sampled": 15,
+   "stopped_at_ceiling": true,
+   "note": "$3 buys 15 items at Opus with the task's full passage context, not 40. A full 40 projects to about $8.40.",
+   "result": {
+    "agree_both_orders": 11,
+    "disagree_both_orders": 4,
+    "split_by_order": 0,
+    "agree_rate": "73%",
+    "disagree_rate": "27%",
+    "cited_clause_missing": 0,
+    "cited_container_heading": 3
+   },
+   "withdrawn": "The first pass reported 15 of 15 items citing a missing clause; that was the clause extractor matching bare digits and guessing the source. Recomputed to 0.",
+   "backlog": "A grounded PRACTICE pool for all four ISO certifications, with its own saturation counting, kept separate from the exam bank. Practice must never draw on the secure grounded bank. Recorded in the handoff."
   }
  ],
  "not_instrumented": [

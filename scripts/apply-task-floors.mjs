@@ -27,9 +27,23 @@ import { execFileSync } from "node:child_process";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 
-let CERT = null, RULED = null, MIN_HELD = 2, APPLY = false, m;
+let CERT = null, RULED = null, MIN_HELD = 2, APPLY = false, CLOSE_ROOM = false, m;
+let SUPERSEDE = new Set();
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
+  /* ============ --close-room-left: A CERTIFICATION CAN BE CLOSED WHILE ITS MAP STILL HAS ROOM ======
+   *
+   * A task with assignable slots left is NOT exhausted: more generation would work. Normally that is
+   * a reason to leave its floor alone, because setting it to the held count records "this is all the
+   * passages allow" when the truth is "we stopped asking". Ruled PROMPT-142 s3 for AIMS-IA, whose
+   * last round was R4c -- so the floor is set and the reason says CLOSED, not exhausted. */
+  if (a === "--close-room-left") { CLOSE_ROOM = true; continue; }
+  /* --supersede=4.5,5.6 NAMES the earlier rulings this one replaces. Without it a task already ruled
+   * at a different floor is reported as a CONFLICT and left alone: overwriting a recorded ruling
+   * silently is how a record stops being one. Naming each task is the point -- there is no --force. */
+  if ((m = /^--supersede=(.+)$/.exec(a))) {
+    SUPERSEDE = new Set(m[1].split(",").map((s) => s.trim()).filter(Boolean)); continue;
+  }
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
   if ((m = /^--ruled-in=(.+)$/.exec(a))) { RULED = m[1]; continue; }
   if ((m = /^--min-held=(\d+)$/.exec(a))) { MIN_HELD = Number(m[1]); continue; }
@@ -67,6 +81,8 @@ for (const line of out.split(/\r?\n/)) {
 }
 if (!rows.length) { console.error("parsed no rows from propose-task-floors -- refusing"); process.exit(2); }
 
+/* with --close-room-left a room-left task is treated as proposing its own held count */
+for (const r of rows) if (CLOSE_ROOM && r.proposal === null) r.proposal = r.held;
 const toSet = rows.filter((r) => r.proposal !== null && r.held >= MIN_HELD);
 const withheld = rows.filter((r) => r.proposal !== null && r.held < MIN_HELD);
 const roomLeft = rows.filter((r) => r.proposal === null);
@@ -95,14 +111,18 @@ doc.per_task_overrides = doc.per_task_overrides || {};
 
 /* a floor already ruled at the same value is not rewritten; a DIFFERENT ruled value is reported and
  * left alone, because overwriting someone's ruling silently is how a record stops being one */
-const wrote = [], same = [], conflict = [];
+const wrote = [], same = [], conflict = [], superseded = [];
 for (const r of toSet) {
   const prev = doc.per_task_overrides[r.code];
   if (prev && prev.floor === r.proposal) { same.push(r.code); continue; }
   if (prev && prev.floor !== r.proposal) {
-    conflict.push(r.code + ": ruled " + prev.floor + " in " + (prev.ruled_in || "?") +
-      ", proposal says " + r.proposal);
-    continue;
+    if (!SUPERSEDE.has(r.code)) {
+      conflict.push(r.code + ": ruled " + prev.floor + " in " + (prev.ruled_in || "?") +
+        ", proposal says " + r.proposal + "   -- pass --supersede=" + r.code + " to replace it");
+      continue;
+    }
+    superseded.push(r.code + ": " + prev.floor + " (" + (prev.ruled_in || "?") + ") -> " + r.proposal);
+    r.supersedes = { floor: prev.floor, ruled_in: prev.ruled_in || null };
   }
   wrote.push(r);
 }
@@ -119,6 +139,7 @@ if (!APPLY) {
   for (const r of wrote) {
     doc.per_task_overrides[r.code] = {
       floor: r.proposal, ruled_in: RULED, temporary: false, held_at_ruling: r.held,
+      ...(r.supersedes ? { supersedes: r.supersedes } : {}),
       reason: (r.kind === "exhausted"
         ? "NO ASSIGNABLE ANCHOR: every under-cap primary is saturated certification-wide, so no " +
           "further round can add to this task. "
@@ -126,7 +147,11 @@ if (!APPLY) {
           ? "CAPACITY BOUND: " + r.cap + " assignable slot(s) left against a shortfall of " + r.short + ". "
           : r.kind === "thin map"
             ? "THIN MAP: fewer keyable primaries on this tier than MIN_EFFECTIVE. "
-            : "") +
+            : r.kind === "room left"
+              ? "NOT EXHAUSTED: " + r.cap + " assignable slot(s) remain and more generation would " +
+                "work. The CERTIFICATION is closed -- its last round was the one ruled in " + RULED +
+                " -- so the floor records what it holds, not what the map allows. "
+              : "") +
         "Floor set to the held count of " + r.held + " (was " + r.floor + "), ruled " + RULED + " s4.",
     };
   }

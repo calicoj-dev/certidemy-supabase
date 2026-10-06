@@ -23,6 +23,21 @@ export function censusIsStale({ censusAt, latestInsertAt }) {
   return c < l;
 }
 
+/* ============ A CENSUS MUST COVER EVERY TASK, NOT EVERY FUNDED TASK (PROMPT-142 s2) ============
+ *
+ * The allocation decides how many ITEMS a task is asked for; it must not decide whether the task is
+ * DESCRIBED. Measured PROMPT-141: at --n=40 over 40 tasks the census held 39 rows and task 4.9 was
+ * invisible to the floor proposal for three prompts. `asked: 0` is the honest value for an unfunded
+ * task; an absent row reads as "not short".
+ *
+ * @param census   the parsed <CERT>-SATURATION.json
+ * @param taskCodes every task code the certification has
+ */
+export function censusCoverageGap(census, taskCodes) {
+  const have = new Set(((census && census.tasks) || []).map((t) => t && t.task));
+  return (taskCodes || []).filter((c) => !have.has(c));
+}
+
 export function censusFreshnessControls() {
   const cases = [];
   const add = (name, pass) => cases.push({ name, pass: !!pass });
@@ -55,6 +70,21 @@ export function censusFreshnessControls() {
   add("one millisecond older is still stale",
     censusIsStale({ censusAt: "2026-10-05T19:09:00.000Z",
       latestInsertAt: "2026-10-05T19:09:00.001Z" }) === true);
+
+  /* ---- COVERAGE: the PROMPT-141 gap, as a control ---- */
+  const forty = Array.from({ length: 40 }, (_, i) => "t" + (i + 1));
+  const rows = (codes, asked) => ({ tasks: codes.map((c) => ({ task: c, asked })) });
+  add("a census missing one task of 40 NAMES it",
+    JSON.stringify(censusCoverageGap(rows(forty.slice(0, 39), 1), forty)) === JSON.stringify(["t40"]));
+  add("a complete census at asked=0 reports NO gap (the --n=1 case)",
+    censusCoverageGap(rows(forty, 0), forty).length === 0);
+  add("...so asked:0 is coverage, not absence",
+    censusCoverageGap({ tasks: [{ task: "4.9", asked: 0 }] }, ["4.9"]).length === 0);
+  add("an empty census reports every task as a gap",
+    censusCoverageGap({ tasks: [] }, ["1.1", "1.2"]).length === 2);
+  add("a null census reports every task as a gap",
+    censusCoverageGap(null, ["1.1"]).length === 1);
+  add("no task list: nothing to be missing", censusCoverageGap(rows(forty, 1), []).length === 0);
 
   return { cases, examined: cases.length, allPass: cases.every((c) => c.pass) };
 }

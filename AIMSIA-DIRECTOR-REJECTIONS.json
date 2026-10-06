@@ -555,6 +555,63 @@
    ],
    "point": "evidence has to be verifiable as well as relevant",
    "judge_status": "flagged by claude-sonnet-5-5 and UPHELD"
+  },
+  {
+   "item_id": "59897391",
+   "task": "4.5",
+   "round": "R4c",
+   "ruled_in": "PROMPT-142 s1",
+   "writer_model": "claude-sonnet-5-5",
+   "kind": "duplicate-of-live",
+   "cross_anchor": true,
+   "duplicates_live": [
+    "b53707b1"
+   ],
+   "point": "Both key on a new risk having to go through the treatment process. Recording a control or an owner isn't that process. The 8.3 risk the director named when ruling the saturation lift.",
+   "judge_status": "flagged by claude-sonnet-5-5 and UPHELD"
+  },
+  {
+   "item_id": "f67e9115",
+   "task": "1.3",
+   "round": "R4c",
+   "ruled_in": "PROMPT-142 s1",
+   "writer_model": "claude-sonnet-5-5",
+   "kind": "duplicate-of-live",
+   "cross_anchor": true,
+   "duplicates_live": [
+    "62f33108",
+    "7dbd60d0"
+   ],
+   "point": "19011 governs method and the requirement standard is the criterion -- 62f33108's point from the other side.",
+   "judge_status": "flagged by claude-sonnet-5-5 and UPHELD"
+  },
+  {
+   "item_id": "749891ef",
+   "task": "2.4",
+   "round": "R4c",
+   "ruled_in": "PROMPT-142 s1",
+   "writer_model": "claude-sonnet-5-5",
+   "kind": "duplicate-of-live",
+   "cross_anchor": true,
+   "duplicates_live": [
+    "e6fcc796"
+   ],
+   "point": "Upheld on the judge's record this certification (35 of 37 flags upheld). The fine-tune-and-provide scenario is used up in the live bank.",
+   "judge_status": "flagged by claude-sonnet-5-5 and UPHELD"
+  },
+  {
+   "item_id": "fdddf579",
+   "task": "2.4",
+   "round": "R4c",
+   "ruled_in": "PROMPT-142 s1",
+   "writer_model": "claude-sonnet-5-5",
+   "kind": "duplicate-of-live",
+   "cross_anchor": true,
+   "duplicates_live": [
+    "8f5e46e7"
+   ],
+   "point": "The same reasoning, on A.8.",
+   "judge_status": "flagged by claude-sonnet-5-5 and UPHELD"
   }
  ],
  "overruled_judge_flags": [

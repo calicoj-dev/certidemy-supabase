@@ -1234,9 +1234,9 @@ task goes unexamined.
 
 | task | holds | what was tried |
 |---|---|---|
-| **4.5** | 0 (2 R4c survivors awaiting a ruling) | Its only two keyable primaries, 42001 6.1.3 and 8.3, were saturated by OTHER tasks. PROMPT-140 raised the per-task cap and nothing changed, because the SATURATION ceiling is a second mechanism. PROMPT-141 s3 made a ruled override lift both, for that (task, anchor) pair only, and 4.5 produced 2 of 2. |
-| **5.6** | 0 (2 R4c + 1 R4b survivors awaiting a ruling) | 0 of 4 on Sonnet in R4; 1 of 4 on Opus in R4b; 2 of 3 on Opus in R4c. A thin map -- 2 keyable primaries, 42001 10.2 and 19011 6.7 -- so Opus was the lever that worked. |
-| **4.9** | 2, floor 6 | NEVER PUT TO THE DIRECTOR. It was absent from the saturation census, so `propose-task-floors` could not see it (below). Exhausted: a floor of 2 is the only lever. |
+| ~~4.5~~ **CLOSED PROMPT-142 s1** -- holds **1** | Its only two keyable primaries, 42001 6.1.3 and 8.3, were saturated by OTHER tasks. PROMPT-140 raised the per-task cap and nothing changed, because the SATURATION ceiling is a second mechanism. PROMPT-141 s3 made a ruled override lift both, for that (task, anchor) pair only, and 4.5 produced 2 of 2. |
+| ~~5.6~~ **CLOSED PROMPT-142 s1** -- holds **3** | 0 of 4 on Sonnet in R4; 1 of 4 on Opus in R4b; 2 of 3 on Opus in R4c. A thin map -- 2 keyable primaries, 42001 10.2 and 19011 6.7 -- so Opus was the lever that worked. |
+| ~~4.9~~ **CLOSED PROMPT-142 s3** -- floor set to 2 | NEVER PUT TO THE DIRECTOR. It was absent from the saturation census, so `propose-task-floors` could not see it (below). Exhausted: a floor of 2 is the only lever. |
 
 ### THE SATURATION CENSUS COVERS ONLY THE TASKS `--n` HAPPENS TO FUND
 
@@ -1249,4 +1249,56 @@ reports clean, which is the defect class `docs/CLAUDE-METHOD.md` opens with.
 **Until it is fixed, run `--saturation-report` with `--n` well above the task count.** The fix
 is to iterate every mapped task in the census path regardless of allocation; it was found while
 applying the PROMPT-141 s4 floors and is NOT yet done.
+
+
+## PROMPT-142: AIMS-IA IS LIVE
+
+### The cutover, applied 2026-10-06
+
+| | |
+|---|---|
+| retired | **960 rows** (320 per language x 3) |
+| secure pool now | **223 per language, 100% grounded** -- 0 authored, read back per language |
+| forms | 20/20 assemble per language; a live draw through the deployed function gives 50 of 50 at exact blueprint weights in all three |
+| protected rows | 1869, checksum `21d8614808b03f1e` UNCHANGED across the write |
+| practice | **UNTOUCHED, 400 per language**, as at the other three cutovers |
+| rollback | `node --dns-result-order=ipv4first scripts/rollback-cutover.mjs --file=AIMSIA-CUTOVER-RETIRED.json --apply` -- accepted as a dry run, 960 of 960 restorable. **The --file flag is not optional: there are now FOUR recorded cutovers.** |
+
+**All four ISO certifications are now cut over**: AIMS-F, ISMS-F, ISMS-IA, AIMS-IA.
+Every one retired SECURE rows only.
+
+### verify-cert AIMS-IA reads 1 FAIL, and the failure is the INSTRUMENT'S
+
+**Task 1.1 holds 6. `check-task-map` calls that at_floor; `verify-cert` calls it 2 below a
+floor of 8.** The two derive the floor from different effective-primary counts:
+
+| instrument | effective | derived floor | verdict on 1.1 |
+|---|---|---|---|
+| `check-task-map` | **3** -- the 15-word floor AND the IA tier rule | `min(8, 2x3)` = **6** | at_floor |
+| `verify-cert` s8 | **4** -- the 15-word floor ALONE | `min(8, 2x4)` = **8** | 2 below floor |
+
+`verify-cert`'s `effectiveOf` calls `classifyPrimaries` from `lib/effective-primary.mjs` but
+never `keyMayAnchor` from `lib/tier-anchoring.mjs`, so it counts a primary that cannot carry a
+key on the internal-auditor tier. 1.1 maps five primaries: one is under the 15-word floor, and
+at least one more cannot be keyed on this tier.
+
+**NOT FIXED, and deliberately so.** Changing a conformance gate's arithmetic so that it
+reports green is the one move the standing rules forbid without a ruling, however well
+evidenced. The exam is not short of items for 1.1 -- 6 is what its map supports -- but
+`verify-cert` will keep saying DO NOT PUBLISH until the director rules on which derivation is
+right. **This blocks nothing that has already shipped; it blocks the next clean bill of health.**
+
+### BACKLOG: a grounded PRACTICE pool, all four ISO certifications at once
+
+Ruled PROMPT-142 s5. The cutover left practice exactly as it was -- **1200 authored rows per
+certification (400 per language), the same population whose quality problems started this
+rebuild.** A learner on AIMS-IA practice today sees 100% authored items and 0 grounded ones.
+
+**Practice must never draw on the secure grounded bank**, because serving an exam item as
+practice exposes it. So practice cannot simply switch to the new questions: it needs its own
+generation, with its **own saturation counting**, kept fully separate from the exam bank.
+That is a project, not a step, and it is for all four certifications together.
+
+The urgency is set by `AIMS-IA-PRACTICE-QUALITY.json` (PROMPT-142 s5): a 40-item stratified
+sample of what learners see today, blind-solved twice per item.
 
