@@ -2,6 +2,63 @@
 
 ---
 
+## STATE OF THE BANK — as at 2026-10-07
+
+**Read this first.** Counts are LIVE + APPROVED, English (the three languages are equal unless
+noted). `verify-cert` is per certification; `--all` cannot finish — it times out reading
+SM-AI-II and aborts rather than reporting a dropped read as a defect.
+
+| certification | secure | practice | grounded | retired (all langs) | verify-cert | note |
+|---|---|---|---|---|---|---|
+| **AIMS-F** | 360 | 350 | 199 | 365 | **59 / 0 / 2** | cut over; kept authored items |
+| **ISMS-F** | 406 | 490 | 263 | 789 | **58 / 0 / 2** | cut over; kept authored items |
+| **ISMS-IA** | 254 | 380 | 243 | 879 | **56 / 0 / 3** | cut over; 11 kept authored |
+| **AIMS-IA** | 223 | 400 | **223** | 960 | **55 / 0 / 4** | cut over; **100% grounded** |
+| **SM-AI-I** | **387** | 520 | 0 | 299 | **59 / 0 / 6** | 65 groups retired PROMPT-147; floors set |
+| **SM-AI-II** | **265** | 440 | 0 | 271 | 56 / **1** / 4 | 87 groups retired PROMPT-148; **pre-existing length cue** |
+| SPO-AI-I | 388 | 460 | 0 | 39 | 57 / **2** / 5 | never screened; no floors file |
+| SD-AI-I | 359 | 450 | 0 | 54 | 57 / **2** / 5 | never screened; no floors file |
+| AIGRM-I | 457 | 510 | 0 | 6 | **57 / 0 / 3** | — |
+| AISM-I | 487 | 610 | 0 | 21 | 56 / **1** / 2 | no floors file |
+| AIHR-I | 223 | 280 | 0 | 26 | 55 / **1** / 2 | no floors file |
+| AIE-I | 143 | 185 | 0 | 171 | 55 / **1** / 3 | no floors file |
+| ZZ-TEST-I | 1 | 0 | 0 | 0 | fails, EXPECTED | the deliberate control certification |
+
+**Every certification serves exactly 6 public sample groups** (18 rows across three languages),
+72 groups and 216 rows in total, all `pool='practice'`. **No row in the bank is both `public`
+and `secure`** — that is what makes a secure-pool retirement safe for the marketing site.
+
+**FIVE OF THE SIX REMAINING `verify-cert` FAILURES HAVE ONE CAUSE: NO FLOORS FILE.** SPO-AI-I,
+SD-AI-I, AISM-I, AIHR-I and AIE-I each default every task to a floor of 8 and sit 3 tasks below
+it. That is exactly the condition SM-AI-I was in before PROMPT-148 s1, and the fix is the same
+and free: `apply-task-floors.mjs --cert=<C> --from-held --min-held=4 --ruled-in=<PROMPT>`.
+SPO-AI-I and SD-AI-I carry a second, separate failure: their scheme document claims one item
+more per language than the database holds (389 vs 388, 360 vs 359).
+
+### PARKED WORK, every item with its cost
+
+| # | item | cost | blocks? |
+|---|---|---|---|
+| 1 | **The 5 no-floors-file certifications** above | **FREE** | 5 of 6 open `verify-cert` fails |
+| 2 | SPO-AI-I + SD-AI-I scheme-claim drift (1 item each) | **FREE** | 2 open fails |
+| 3 | **150 live items carrying 2017 Scrum wording**, unflagged | FREE to rule; writer time to rewrite | nothing yet; **2 are outright wrong** |
+| 4 | **SM-AI-II's length cue**: strict-longest 50.6% vs 25% chance | distractor rewriting (spend) | its 1 remaining fail |
+| 5 | **SPO-AI-I and SD-AI-I never screened** | **~$20–30** with caching | — |
+| 6 | **The 72 public sample groups**, never model-checked | **~$7** with caching | **the marketing site** |
+| 7 | 4 SM-AI-I + 9 SM-AI-II **repair** items | writer time | — |
+| 8 | **Practice-pool rebuild**, all four ISO certs: repair or replace | $0.21/item to re-screen; ~$0.25/item to regenerate | — |
+| 9 | **Scrum mapping, stages 1–3** — all 188 tasks have ZERO `task_sources` | free to map, then generation | any grounded Scrum work |
+| 10 | **CC BY-SA attribution line** for Scrum/EBM quotations | design work | **the first Scrum item that ships** |
+| 11 | **Share-alike on derived exam items** | legal counsel | same |
+| 12 | Re-grain Scrum Guide + EBM at paragraph level | free re-extraction | the 78/114-item ceiling |
+| 13 | The **Agile Manifesto** is cited by 3 tasks and not held | free to add | 3 tasks |
+| 14 | `retire_item` (migration 089) **cannot run** — sets `status='retired'`, which the CHECK forbids | free: fix the constraint or retire the function | anyone reaching for it |
+| 15 | 10 orphaned es-419 `generated` practice rows in SM-AI-I | free | the 520/530/520 imbalance |
+| 16 | 900-row `item_grounding.model` backfill — **DONE PROMPT-141**; 304 rows remain unknowable | — | nothing |
+
+**Juan has paused all model spend.** Items 1, 2, 9, 12, 13, 14 and 15 need none.
+
+---
 ## ISMS-IA: what the third certification taught the line
 
 **Generation closed 2026-10-05, PROMPT-133.** 242 accepted items, 926 approved rows per language,
@@ -1513,4 +1570,87 @@ artifact only at the end, so an interruption that DOES land loses everything. It
 happen here.
 
 **SM-AI-II's 87 retirements are NOT applied.** PROMPT-147's GO covered SM-AI-I only.
+
+
+## PROMPT-148: SM-AI-I at 0 fail, SM-AI-II's 87 retired, and the 2017 scan
+
+Zero model calls.
+
+### s1 — floors for a certification with NO TASK MAP
+
+`apply-task-floors.mjs` REFUSED for SM-AI-I, correctly: its chain runs through
+`propose-task-floors` -> a saturation census -> `task_sources`, and **the Scrum family has
+zero `task_sources` rows**. So the script gained **`--from-held`**: the floor is the live,
+approved, SECURE count per task, taken at the MINIMUM across languages -- precisely the number
+`verify-cert` s8 compares a floor against. No census, no derivation, no model.
+
+**52 floors for SM-AI-I and 44 for SM-AI-II**, read back, 0 tasks under 4. Task 5.11 is out of
+exam scope and was skipped: a floor on a task the exam never draws from is a claim about nothing.
+
+### s1 — THE 458 WAS CORRECT WHEN WRITTEN, AND THE 6-ITEM GAP WAS REAL
+
+`SCHEME-SM-AI-I.md` is dated 2026-09-08 and says 33 secure rows were retired. **That 33 is an
+ALL-LANGUAGES total** -- 11 a language -- so 469 total minus 11 gives exactly the **458** it
+claimed. The document was right. Then on **2026-09-26 eighteen more rows, 6 a language**, were
+retired and took the live count to 452. **So the 6-item gap was drift, not a count error.**
+
+Every figure in the inventory is now DERIVED from the database rather than typed: secure 387,
+practice 520/530/520, retired 246 secure and 53 practice across all languages, D3's
+over-coverage 84, and the as-at date. The historical "raw count returns 469 / 536 / 546 / 531"
+sentence was LEFT ALONE on purpose: it records what the table used to carry and says so.
+
+**verify-cert SM-AI-I: 59 pass, 0 FAIL, 6 warn.**
+
+### s2 — SM-AI-II: 87 groups retired under four gates
+
+| gate | result |
+|---|---|
+| 0 per-task floor | 0 tasks to zero, 0 below 4, lowest exam-scope task **1.2 at 4** |
+| 1 public re-check, at write time | 0 planned groups public; 0 rows both public and secure |
+| 2 form gate (`lib/form-assembler.mjs`) | **20/20 per language**, 265 candidates, smallest form 50 |
+| apply | **261 of 261** (87 x 3) |
+
+Live secure **352 -> 265** a language. The **9 repair groups stay live** (27 rows). 216 public
+rows unchanged. Rollback `SMAIII-RETIRE-RETIRED.json` accepted as a dry run, **261 of 261
+restorable**.
+
+**GATE 0 WAS VACUOUS AND NEARLY SHIPPED.** The below-4 arm tested `t.is_exam_scope` on a `tasks`
+select that never asked for the column, so it reported 0 over nothing. The tell was the
+lowest-task line printing **"null at Infinity"**. SEVENTH instance in this repository of a
+predicate that cannot see the column it tests -- it is now named at the select.
+
+Separately, `retire_reason` hardcoded `PROMPT-147` and stamped it onto 261 **PROMPT-148** rows.
+The prompt id is now `--ruled-in` and REQUIRED; all 261 were corrected.
+
+### s2 — SM-AI-II's REMAINING FAIL IS PRE-EXISTING
+
+A length cue: **strict-longest 50.6%** against a chance of 25%. Reconstructed from the rollback
+file, it was **49.1% BEFORE** the retirement over 352 items, and the 87 retired groups were
+**less** cued (44.8%) -- which is why removing them nudged it UP 1.5 points. **Not caused here.**
+Fixing it means rewriting distractors, which needs model calls.
+
+### s3 — THE 2017 WORDING SCAN: 150 unflagged, 0 public
+
+21 patterns, whole words, case-insensitive, over stem + every option + explanation, all four
+Scrum certifications, both pools, three languages. Free, read-only.
+
+| | |
+|---|---|
+| distinct LIVE items with a hit | **217** |
+| flagged `retired_vocabulary_intent='quoted'` (deliberate) | 57 |
+| **UNFLAGGED -- the actionable number** | **150** = 58 secure + 92 practice |
+| by certification | SM-AI-I 73, SPO-AI-I 34, SD-AI-I 27, SM-AI-II 16 |
+| **among the 72 public sample groups** | **0 -- the marketing site is clean** |
+| on items PROMPT-147/148 retired | only 5 |
+
+Terms beyond the director's list, each named: *three questions*, *ScrumMaster* (one word),
+*grooming*, *three roles*, *Sprint Zero*, *hardening Sprint*, and the Spanish/Portuguese
+equivalents. **`role` and `ceremony` were deliberately NOT scanned**: verify-cert already
+measured that a hard pattern on those fails correct content six times in seven.
+
+**TWO ARE WRONG, NOT MERELY DATED, AND NEITHER IS FLAGGED.** A **live secure** item asks which
+three **ROLES** make up a Scrum Team, when 2020 replaced roles with accountabilities. A practice
+item states the Guide **REQUIRES** the three Daily Scrum questions, which 2020 removed. The
+remaining 148 need a ruling: flag `quoted` where the term is the misconception under test, or
+rewrite where it is a defect. `scripts/scan-2017-scrum-wording.mjs` re-runs free.
 
