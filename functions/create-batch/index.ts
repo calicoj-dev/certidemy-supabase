@@ -1,19 +1,13 @@
 // POST /functions/v1/create-batch
 //
-// Body: { company_id, certification_id, seats, attempts_per_seat?, invoice_ref?, expires_at? }
+// Body: { company_id, seats, attempts_per_seat?, invoice_ref?, expires_at? }
 // Auth: Bearer JWT — MUST be platform_admin.
 //
-// Adds seat inventory to a company's entitlement for a cert. Ensures the
-// entitlement (company_certifications) row exists, then:
-//   - finds an existing batch with the SAME terms (same attempts_per_seat,
-//     ignoring null-vs-null as equal) and grows its `seats`, OR
-//   - creates a NEW batch row for different terms.
-//
-// "Same terms" = same attempts_per_seat ONLY. invoice_ref/expires_at are
-// per-purchase metadata; a top-up to the same attempt-terms grows the batch and
-// (optionally) updates invoice_ref to the latest. attempts_per_seat NULL =
-// unlimited (a per-seat license; never a top-up source — enforced in the future
-// top-up function, not here).
+// Adds vouchers to a company's POOL (migration 387). A batch carries no cert: the
+// partner picks one per voucher at assignment. Finds the company's pool with the
+// SAME attempts_per_seat (null = unlimited, equal to null) and grows it, or creates
+// a new pool for new terms. invoice_ref/expires_at are per-purchase metadata; a
+// top-up refreshes them to the latest. A certification_id in the body is ignored.
 //
 // Audit-logged.
 
@@ -27,7 +21,6 @@ import {
 
 interface Body {
   company_id?: string;
-  certification_id?: string;
   seats?: number;
   attempts_per_seat?: number | null;
   invoice_ref?: string | null;
@@ -58,13 +51,10 @@ serve(async (req) => {
 
     const body = (await req.json()) as Body;
     const companyId = body.company_id?.trim();
-    const certId = body.certification_id?.trim();
     const seats = body.seats;
 
     if (!companyId || !UUID_RE.test(companyId))
       throw new HttpError(400, "valid company_id required");
-    if (!certId || !UUID_RE.test(certId))
-      throw new HttpError(400, "valid certification_id required");
     if (typeof seats !== "number" || !Number.isInteger(seats) || seats <= 0)
       throw new HttpError(400, "seats must be a positive integer");
 
@@ -79,7 +69,6 @@ serve(async (req) => {
     const invoiceRef = body.invoice_ref?.trim() || null;
     const expiresAt = body.expires_at?.trim() || null;
 
-    // Verify company + cert.
     const { data: company } = await svc
       .from("companies")
       .select("id, name")
@@ -87,44 +76,30 @@ serve(async (req) => {
       .maybeSingle();
     if (!company) throw new HttpError(404, "company not found");
 
-    const { data: cert } = await svc
-      .from("certifications")
-      .select("id, name")
-      .eq("id", certId)
-      .maybeSingle();
-    if (!cert) throw new HttpError(404, "certification not found");
-
-    // Ensure the entitlement (company_certifications) exists — upsert on the
-    // unique (company_id, certification_id). Keep legacy columns harmless.
-    const { data: cc, error: ccErr } = await svc
-      .from("company_certifications")
-      .upsert(
-        { company_id: companyId, certification_id: certId },
-        { onConflict: "company_id,certification_id", ignoreDuplicates: false },
-      )
-      .select("id")
-      .single();
-    if (ccErr || !cc) {
-      console.error("entitlement upsert failed", ccErr);
-      throw new HttpError(500, "failed to ensure entitlement");
-    }
-
-    // Find an existing batch with the SAME attempt terms.
+    // The company's pool with the SAME attempt terms. Pools only: a batch that
+    // still carries a cert predates 387 and is never grown.
     const sameTerms = svc
       .from("seat_batches")
       .select("id, seats")
-      .eq("company_certification_id", cc.id);
-    const { data: existingBatch } =
+      .eq("company_id", companyId)
+      .is("certification_id", null)
+      .order("created_at", { ascending: true })
+      .limit(1);
+    const { data: existingRows, error: findErr } =
       attempts === null
-        ? await sameTerms.is("attempts_per_seat", null).maybeSingle()
-        : await sameTerms.eq("attempts_per_seat", attempts).maybeSingle();
+        ? await sameTerms.is("attempts_per_seat", null)
+        : await sameTerms.eq("attempts_per_seat", attempts);
+    if (findErr) {
+      console.error("pool lookup failed", findErr);
+      throw new HttpError(500, "failed to look up the pool");
+    }
+    const existingBatch = existingRows?.[0] ?? null;
 
     const now = new Date().toISOString();
     let batchId: string;
     let action: string;
 
     if (existingBatch) {
-      // Grow the existing batch's seats; refresh invoice/expiry to latest.
       const { data: grown, error: gErr } = await svc
         .from("seat_batches")
         .update({
@@ -143,18 +118,17 @@ serve(async (req) => {
       batchId = grown.id;
       action = "grow_batch";
     } else {
-      // New batch for these terms.
+      // expires_at omitted when absent so the column default (12 months, 137) applies.
+      const insert: Record<string, unknown> = {
+        company_id: companyId,
+        seats,
+        attempts_per_seat: attempts,
+        invoice_ref: invoiceRef,
+      };
+      if (expiresAt) insert.expires_at = expiresAt;
       const { data: created, error: cErr } = await svc
         .from("seat_batches")
-        .insert({
-          company_certification_id: cc.id,
-          company_id: companyId,
-          certification_id: certId,
-          seats,
-          attempts_per_seat: attempts,
-          invoice_ref: invoiceRef,
-          expires_at: expiresAt,
-        })
+        .insert(insert)
         .select("id")
         .single();
       if (cErr || !created) {
@@ -173,7 +147,6 @@ serve(async (req) => {
       reason: null,
       metadata: {
         company_name: company.name,
-        certification_name: cert.name,
         seats_added: seats,
         attempts_per_seat: attempts,
         invoice_ref: invoiceRef,

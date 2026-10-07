@@ -1,12 +1,12 @@
 // POST /functions/v1/assign-voucher
 //
-// Body: { batch_id, assigned_email }
+// Body: { batch_id, assigned_email, certification_id }
 // Auth: Bearer JWT
 //
-// A team_admin assigns one seat from a specific SEAT BATCH to a person by email
-// (pre-assignment — they need not have signed up). Mints a voucher in status
-// 'assigned', linked to the batch (inherits its attempt terms), assigned_email
-// set, assigned_user_id NULL (bound at signup by the claim trigger).
+// A team_admin assigns one voucher from their company's POOL to a person by email,
+// for the cert THEY choose (migration 387; changeable until the first real exam via
+// change-voucher-cert). The person need not have signed up. Mints a voucher in status
+// 'assigned', linked to the batch (inherits its attempt terms).
 //
 // Security: authenticate → load the batch → derive company_id from the batch
 // ROW (never trust the body) → verify caller is a team_admin of that company.
@@ -23,13 +23,18 @@ import {
   getServiceClient,
   HttpError,
 } from "../_shared/supabase.ts";
-import { makeVoucherCode, hasUsableVoucherByEmail } from "../_shared/vouchers.ts";
+import {
+  hasUsableVoucherByEmail,
+  loadSittableCert,
+  makeVoucherCode,
+} from "../_shared/vouchers.ts";
 
 interface Body {
   batch_id?: string;
   assigned_email?: string;
-  // Direct-issue path only:
+  // Both paths: the cert this voucher is for.
   certification_id?: string;
+  // Direct-issue path only:
   attempts_allowed?: number;
   order_ref?: string;
 }
@@ -58,10 +63,9 @@ serve(async (req) => {
 
     // TWO WAYS A SEAT IS ISSUED, and they authorize differently.
     //
-    //   PARTNER  { batch_id, assigned_email }
-    //     A team_admin draws one seat from a batch their company bought.
-    //     Certification, company and terms all come from the batch ROW, never
-    //     from the request body.
+    //   PARTNER  { batch_id, assigned_email, certification_id }
+    //     A team_admin draws one voucher from a pool their company bought. Company
+    //     and terms come from the batch ROW, never the body; the cert is theirs to pick.
     //
     //   DIRECT   { certification_id, assigned_email, attempts_allowed, order_ref }
     //     A Certidemy platform admin issues one seat to an individual who bought
@@ -125,7 +129,19 @@ serve(async (req) => {
         throw new HttpError(409, "no seats available in this batch");
       }
 
-      certificationId = batch.certification_id as string;
+      // A pool (387) takes the partner's cert. A pre-387 batch keeps its own.
+      const picked = body.certification_id?.trim() || null;
+      if (batch.certification_id) {
+        if (picked && picked !== batch.certification_id) {
+          throw new HttpError(409, "this batch is for a single certification");
+        }
+        certificationId = batch.certification_id as string;
+      } else {
+        if (!picked || !UUID_RE.test(picked)) {
+          throw new HttpError(400, "valid certification_id required");
+        }
+        certificationId = picked;
+      }
       companyCertificationId = batch.company_certification_id as string | null;
       companyId = batch.company_id as string | null;
       resolvedBatchId = batch.id as string;
@@ -144,21 +160,6 @@ serve(async (req) => {
       const role = (profile as { platform_role?: string } | null)?.platform_role;
       if (role !== "platform_admin") {
         throw new HttpError(403, "only a platform admin can issue a direct seat");
-      }
-
-      // The certification must exist and be sittable. Issuing against a draft
-      // cert sells a seat for an exam the assembler would refuse to build.
-      const { data: directCert } = await svc
-        .from("certifications")
-        .select("id, status")
-        .eq("id", certId)
-        .maybeSingle();
-      if (!directCert) throw new HttpError(404, "certification not found");
-      if (directCert.status !== "available") {
-        throw new HttpError(
-          409,
-          `this certification is '${directCert.status}' and cannot be sold yet`,
-        );
       }
 
       // ATTEMPTS MUST BE EXPLICIT ON THIS PATH. With no batch and no per-voucher
@@ -186,6 +187,11 @@ serve(async (req) => {
       certificationId = certId;
     }
 
+    // The certification must exist and be sittable, on BOTH paths. Issuing against a
+    // draft cert sells a seat for an exam the assembler would refuse to build.
+    const sittable = await loadSittableCert(svc, certificationId);
+    if (!sittable.ok) throw new HttpError(sittable.status, sittable.error);
+
     // 5. Double-assign guard: this email must not already hold a non-revoked
     //    voucher for this certification (any batch).
     const held = await hasUsableVoucherByEmail(svc, email, certificationId);
@@ -199,14 +205,6 @@ serve(async (req) => {
       );
     }
 
-    // 6. Cert code for the voucher code prefix.
-    const { data: cert } = await svc
-      .from("certifications")
-      .select("code, name")
-      .eq("id", certificationId)
-      .maybeSingle();
-    const certCode = (cert?.code as string | undefined) ?? "EXAM";
-
     // 6b. If this email already belongs to a registered user, bind the voucher
     //     to them now (the signup claim trigger only fires for FUTURE signups).
     const { data: existingProfile } = await svc
@@ -218,7 +216,7 @@ serve(async (req) => {
 
     // 7. Mint, linked to the batch (inherits its terms).
     const now = new Date().toISOString();
-    const voucher_code = makeVoucherCode(certCode);
+    const voucher_code = makeVoucherCode();
 
     const { data: inserted, error: insErr } = await svc
       .from("vouchers")
@@ -243,6 +241,11 @@ serve(async (req) => {
       .select("id, voucher_code, assigned_email, status")
       .single();
 
+    if (insErr?.code === "23505" && insErr.message.includes("vouchers_email_cert_active_uniq")) {
+      // vouchers_email_cert_active_uniq: an assigned voucher the guard above did not
+      // count as usable (e.g. expired) still holds this email + cert.
+      throw new HttpError(409, "this email already holds an assigned voucher for this certification");
+    }
     if (insErr || !inserted) {
       console.error("voucher insert failed", insErr);
       throw new HttpError(500, "failed to create voucher");
@@ -254,7 +257,7 @@ serve(async (req) => {
         id: inserted.id,
         voucher_code: inserted.voucher_code,
         assigned_email: inserted.assigned_email,
-        certification_name: (cert?.name as string | undefined) ?? null,
+        certification_name: sittable.name,
         status: inserted.status,
       },
     });

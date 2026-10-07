@@ -807,3 +807,8 @@ verify_jwt = true
 # against the database on every cold start.
 [functions.courseware-read]
 verify_jwt = false
+
+# Re-points an assigned voucher at another cert until its first real exam (387).
+# platform_admin or the company's team_admin, enforced in-function.
+[functions.change-voucher-cert]
+verify_jwt = true

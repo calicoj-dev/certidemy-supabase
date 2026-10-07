@@ -650,31 +650,54 @@ serve(async (req) => {
       let company_id: string | null = null;
       let company_id_status = "unreadable";
       try {
-        const { data: memberships, error: memErr } = await svc
-          .from("team_members")
-          .select("company_id")
-          .eq("user_id", user_id);
-        if (memErr) {
-          console.warn("team_members lookup errored (recorded unreadable):", memErr.message);
-        } else {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const myCompanies = (memberships ?? []).map((m: any) => m.company_id);
-          if (myCompanies.length === 0) {
-            // Read fine, nothing to attribute. B2C self-pay.
-            company_id_status = "not_applicable";
+        // A partner voucher names its company (387: pools have no company_certifications row).
+        let voucherCompany: string | null = null;
+        let voucherReadFailed = false;
+        if (session.voucher_id) {
+          const { data: vRow, error: vErr } = await svc
+            .from("vouchers")
+            .select("company_id")
+            .eq("id", session.voucher_id)
+            .maybeSingle();
+          if (vErr) {
+            voucherReadFailed = true;
+            console.warn("voucher company lookup errored (recorded unreadable):", vErr.message);
           } else {
-            const { data: sponsor, error: spErr } = await svc
-              .from("company_certifications")
-              .select("company_id")
-              .eq("certification_id", session.certification_id)
-              .in("company_id", myCompanies)
-              .limit(1)
-              .maybeSingle();
-            if (spErr) {
-              console.warn("sponsor lookup errored (recorded unreadable):", spErr.message);
+            voucherCompany = (vRow?.company_id as string | null | undefined) ?? null;
+          }
+        }
+        if (voucherCompany) {
+          company_id = voucherCompany;
+          company_id_status = "stamped";
+        } else if (voucherReadFailed) {
+          // stays "unreadable"
+        } else {
+          const { data: memberships, error: memErr } = await svc
+            .from("team_members")
+            .select("company_id")
+            .eq("user_id", user_id);
+          if (memErr) {
+            console.warn("team_members lookup errored (recorded unreadable):", memErr.message);
+          } else {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const myCompanies = (memberships ?? []).map((m: any) => m.company_id);
+            if (myCompanies.length === 0) {
+              // Read fine, nothing to attribute. B2C self-pay.
+              company_id_status = "not_applicable";
             } else {
-              company_id = sponsor?.company_id ?? null;
-              company_id_status = company_id ? "stamped" : "not_applicable";
+              const { data: sponsor, error: spErr } = await svc
+                .from("company_certifications")
+                .select("company_id")
+                .eq("certification_id", session.certification_id)
+                .in("company_id", myCompanies)
+                .limit(1)
+                .maybeSingle();
+              if (spErr) {
+                console.warn("sponsor lookup errored (recorded unreadable):", spErr.message);
+              } else {
+                company_id = sponsor?.company_id ?? null;
+                company_id_status = company_id ? "stamped" : "not_applicable";
+              }
             }
           }
         }

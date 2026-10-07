@@ -28,15 +28,35 @@ export interface VoucherEligibility {
   source: "partner" | "b2c" | null;
 }
 
-/** Human-friendly voucher code, e.g. SM-I-V-7K2M-9DQ4 (no 0/O/1/I). */
-export function makeVoucherCode(certCode: string): string {
+/** Human-friendly voucher code, e.g. CDY-7K2M-9DQ4 (no 0/O/1/I). Carries no cert:
+ *  a voucher's cert can change until its first exam attempt (change-voucher-cert, 387).
+ *  Codes minted before 387 keep their cert prefix. */
+export function makeVoucherCode(): string {
   const alphabet = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
   const block = () =>
     Array.from(
       crypto.getRandomValues(new Uint8Array(4)),
       (b) => alphabet[b % alphabet.length],
     ).join("");
-  return `${certCode.toUpperCase()}-V-${block()}-${block()}`;
+  return `CDY-${block()}-${block()}`;
+}
+
+/** A cert a voucher may point at: exists and is sittable. Throws-free; caller maps to HTTP. */
+export async function loadSittableCert(
+  svc: SupabaseClient,
+  certificationId: string,
+): Promise<{ ok: true; code: string; name: string } | { ok: false; status: number; error: string }> {
+  const { data: cert, error } = await svc
+    .from("certifications")
+    .select("id, code, name, status")
+    .eq("id", certificationId)
+    .maybeSingle();
+  if (error) return { ok: false, status: 500, error: "failed to load certification" };
+  if (!cert) return { ok: false, status: 404, error: "certification not found" };
+  if (cert.status !== "available") {
+    return { ok: false, status: 409, error: `this certification is '${cert.status}' and cannot be sold yet` };
+  }
+  return { ok: true, code: cert.code as string, name: cert.name as string };
 }
 
 interface VoucherRow {
