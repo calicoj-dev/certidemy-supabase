@@ -999,6 +999,17 @@ const FINGERPRINTS = {
         : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
     };
   },
+  387: async () => {
+    /* 387 creates v_company_pool_usage and makes every seat batch a cert-agnostic pool.
+     * The view answering is the fingerprint; a batch still carrying a cert contradicts it. */
+    const view = await rest("v_company_pool_usage?select=company_id&limit=1");
+    if (!Array.isArray(view)) return { ran: false, why: "v_company_pool_usage does not answer" };
+    const tied = await rest("seat_batches?select=id&certification_id=not.is.null");
+    if (!Array.isArray(tied)) return { ran: false, why: "seat_batches is not selectable" };
+    return tied.length === 0
+      ? { ran: true, why: "v_company_pool_usage answers and no seat batch carries a cert" }
+      : { ran: false, why: "v_company_pool_usage answers but " + tied.length + " batch(es) still carry a cert" };
+  },
 
   379: async () => {
     /* 379 gives a human's read of an ENGLISH item somewhere to live: four columns on
