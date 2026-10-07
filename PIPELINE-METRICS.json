@@ -2770,7 +2770,7 @@
    },
    "pass2_opus": {
     "usd_kept": 13.5053,
-    "usd_lost": 13.03,
+    "usd_lost": 0,
     "ceiling": 70,
     "SM-AI-I": {
      "status": "COMPLETE",
@@ -2787,19 +2787,28 @@
      "per_item": 0.0958
     },
     "SM-AI-II": {
-     "status": "KILLED MID-RUN at 136 of 199 flags",
-     "lost": "The script writes its artifact only at the end, so all 136 Opus verdicts were lost with the process. Estimated $13.03 at SM-AI-I's measured $0.0958 an item.",
-     "remaining": "199 flags, about $19 of the $43.5 still unspent under the $70 ceiling",
-     "dispositions_planned": 0,
-     "why_not_restarted": "The background task was stopped rather than failing. Re-spending after an interruption is the director's call, not a retry."
+     "status": "COMPLETE -- the earlier `killed mid-run` report was WRONG",
+     "flags_judged": 199,
+     "confirmed": 96,
+     "cleared": 103,
+     "usd": 19.2638,
+     "causes": {
+      "picked_different": 10,
+      "second_defensible": 78,
+      "not_settled": 5,
+      "could_not_run": 3
+     },
+     "correction": "The three kill notifications were for the WATCHER commands waiting on the chain, not the chain, which completed and wrote SMAIII-FULL-OPUS.json (199 of 199, stopped_at_ceiling false) and SMAIII-RETIRE-PLAN.json at 02:48. Nothing was lost."
     },
-    "sonnet_reliability": "Over SM-AI-I's 141 flags Opus CLEARED 72 (51%) and confirmed 69 (49%) -- closer than PROMPT-145's 22-flag read of 59% cleared, and still too close to act on a Sonnet-only flag."
+    "sonnet_reliability": "Over SM-AI-I's 141 flags Opus CLEARED 72 (51%) and confirmed 69 (49%) -- closer than PROMPT-145's 22-flag read of 59% cleared, and still too close to act on a Sonnet-only flag.",
+    "usd_total": 32.7691
    },
    "rate_with_unjudged_estimated": {
     "ruled_in": "PROMPT-146 preamble -- never count an unjudged flag as agreement",
     "SM-AI-I": "MEASURED, not estimated: every one of its 147 flags was judged. 69 confirmed of 452 items = 15.3%.",
-    "SM-AI-II": "ESTIMATED: 207 flags, none with a surviving verdict. At SM-AI-I's confirm rate of 49% that is about 101 of 352 = 29%. At PROMPT-145's SM-AI-II sample rate it would be higher. Reported as an estimate because it is one.",
-    "pooled_estimate": "about 170 of 804 = 21%"
+    "SM-AI-II": "MEASURED, not estimated: 96 confirmed of 352 items = 27%. The earlier ~29% estimate was close but stood in for data that already existed.",
+    "pooled_estimate": "about 170 of 804 = 21%",
+    "pooled_measured": "165 of 804 = 21%"
    },
    "plan_sm_ai_i": {
     "file": "SMAII-RETIRE-PLAN.json",
@@ -2814,6 +2823,24 @@
     "form_assembly": "every domain's pool still exceeds its per-form quota in all three languages; tightest D5 at 73 items for an 18-item quota = 4.1x. The full 20-of-20 assembler is the cutover gate's job and runs at apply time; it was NOT re-implemented here."
    },
    "changed": "nothing -- no bank row was written, and there is no --apply in plan-item-retirement.mjs"
+  },
+  {
+   "cert": "SM-AI-I",
+   "stage": 8,
+   "stage_name": "SM-AI-I retirement applied",
+   "ruled_in": "PROMPT-147 s1",
+   "usd": 0,
+   "model_calls": 0,
+   "retired_rows": 195,
+   "groups": 65,
+   "repair_left_live": 4,
+   "live_secure_before": 452,
+   "live_secure_after": 387,
+   "gates": "public re-check at write time (0 planned groups public, 0 rows both public and secure); form gate 20/20 per language from 387 candidates, smallest form 80",
+   "rollback": "SMAII-RETIRE-RETIRED.json, accepted by rollback-cutover.mjs as a dry run, 195 of 195",
+   "retire_item_is_dead_code": "migration 089's retire_item sets status='retired' and quiz_questions_status_check allows only pending_review|approved|rejected, so all 195 calls failed 23514 and nothing was written. The write took cutover-aimsf's path -- PATCH retired_at, status passed back unchanged -- plus retire_reason.",
+   "selector_extracted": "lib/form-assembler.mjs, moved verbatim from cutover-aimsf.mjs and verified byte-identical before the originals were deleted. Positive control: the rewired cutover still reports 223 candidates and 20/20 for AIMS-IA. 13 controls.",
+   "verify_cert": "57 pass, 2 FAIL, 6 warn. Both bookkeeping: the scheme document claims 458 secure items a language against a database that held 452 BEFORE this prompt (pre-existing, widened to 387), and the per-task floor failure went from 9 (task, language) pairs below the default 8 to 72 with 21 tasks crossing. SM-AI-I has NO TASK-FLOORS file. Neither fix was ruled."
   }
  ],
  "not_instrumented": [

@@ -1474,7 +1474,7 @@ item, and the lowest exam-scope task keeps 4.
 
 | # | work | cost | note |
 |---|---|---|---|
-| 1 | **SM-AI-II: 207 Sonnet flags, never confirmed** | **$19-25** with caching | **CHECKPOINT PER ITEM FIRST.** The solver writes its artifact only at the end; a kill at 136 of 199 cost $13 and lost every verdict. `translate-grounded-items` already does per-item checkpointing -- copy that. |
+| 1 | ~~SM-AI-II: 207 Sonnet flags, never confirmed~~ **DONE -- see the correction below** | **$0 owed** | It completed: 199 flags judged, 96 confirmed, $19.26. |
 | 2 | the 4 SM-AI-I **repair** items | writer time | retiring them would take their task under 4 in some language |
 | 3 | **2017 Scrum Guide wording scan**, all four Scrum certifications | **FREE** | a text search; migration 298's `teaches_retired_vocabulary` already distinguishes a deliberate quotation from a defect |
 | 4 | **SPO-AI-I and SD-AI-I**, never screened | ~$20-30 | 46 + 45 tasks; SD-AI-I is 58% ungroundable (PROMPT-144) |
@@ -1483,4 +1483,34 @@ item, and the lowest exam-scope task keeps 4.
 Item 5 is the one with public exposure: `visibility='public'` practice rows served through the
 `get_public_samples` SECURITY DEFINER rpc to `components/marketing/sample-questions.tsx`. 216
 rows, 72 groups, unchanged by this prompt and confirmed so at write time.
+
+
+### CORRECTION, same prompt: SM-AI-II's Opus pass COMPLETED
+
+I reported in PROMPT-146 that it was killed at 136 of 199 and that about $13 was lost. **That
+was wrong.** The three kill notifications were for the WATCHER commands waiting on the chain,
+not for the chain itself, which ran to the end and wrote all three remaining artifacts at
+02:48. `SMAIII-FULL-OPUS.json` holds **199 of 199 flags fully judged, `stopped_at_ceiling:
+false`, $19.2638** -- and `SMAIII-RETIRE-PLAN.json` was written from it.
+
+**Nothing was lost, and nothing is owed for it.** Opus pass 2 cost $13.51 + $19.26 = **$32.77
+of the $70 ceiling**, for both certifications.
+
+| SM-AI-II | |
+|---|---|
+| Sonnet flags | 207 |
+| Opus judged | **199** (8 already judged in PROMPT-145 and reused) |
+| **confirmed** | **96** |
+| cleared by Opus | 103 (52%) |
+| causes | **10 picked a different option**, 78 second-defensible, 5 not-settled, 3 could-not-run |
+| plan | **87 retire, 9 repair** -- `SMAIII-RETIRE-PLAN.json`, DRY RUN, nothing written |
+
+**SM-AI-II's measured rate is 96 of 352 = 27%**, no longer an estimate. My PROMPT-146 estimate
+of ~29% was close, but it was an estimate standing in for data that already existed.
+
+**The per-item checkpoint lesson still stands** and is still worth doing: the solver writes its
+artifact only at the end, so an interruption that DOES land loses everything. It simply did not
+happen here.
+
+**SM-AI-II's 87 retirements are NOT applied.** PROMPT-147's GO covered SM-AI-I only.
 
