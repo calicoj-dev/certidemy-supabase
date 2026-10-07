@@ -22,6 +22,7 @@ import { fileURLToPath } from "node:url";
 import { requireKey, getAll, REST_URL } from "./_pg.mjs";
 import { enemyKeyOf, enemyReason, markEnemy, enemyRuleControls } from "../functions/_shared/item-rules/enemy-rule.mjs";
 import { stemIdentity, stemIdentityControls } from "../functions/_shared/item-rules/stem-identity.mjs";
+import { assembleForm, formAssemblerControls } from "./lib/form-assembler.mjs";
 
 let APPLY = false, CERT = null, FORMS = 20;
 /* ============ --assume-approved: WHAT THE CUTOVER WILL LOOK LIKE AFTER APPROVAL ============
@@ -301,80 +302,6 @@ if (dupProblem) {
 }
 
 /* ============ 4. THE PRE-WRITE GATE: 20 forms per language ============ */
-function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } }
-function allocateByWeight(doms, total) {
-  const sum = doms.reduce((s, d) => s + d.weight_pct, 0) || 1;
-  const floored = doms.map((d) => { const raw = (d.weight_pct / sum) * total;
-    return { id: d.id, n: Math.floor(raw), rem: raw - Math.floor(raw) }; });
-  let assigned = floored.reduce((s, f) => s + f.n, 0);
-  const order = [...floored].sort((a, b) => b.rem - a.rem);
-  let i = 0;
-  while (assigned < total && order.length > 0) { order[i % order.length].n += 1; assigned += 1; i += 1; }
-  return new Map(floored.map((f) => [f.id, f.n]));
-}
-function pickBalancedDifficulty(pool, quota) {
-  const easy = pool.filter((q) => q.difficulty <= 2), medium = pool.filter((q) => q.difficulty === 3),
-    hard = pool.filter((q) => q.difficulty >= 4);
-  const e = Math.round(quota * 0.3), m = Math.round(quota * 0.5), h = quota - e - m;
-  const picked = [...easy.slice(0, e), ...medium.slice(0, m), ...hard.slice(0, h)];
-  if (picked.length < quota) {
-    const used = new Set(picked.map((p) => p.id));
-    for (const q of pool) { if (picked.length >= quota) break; if (!used.has(q.id)) { used.add(q.id); picked.push(q); } }
-  }
-  return picked.slice(0, quota);
-}
-function pickByMix(pool, quota, mix) {
-  if (!pool.length || !quota) return [];
-  const levels = Object.keys(mix).map(Number).filter(Number.isFinite).sort((a, b) => a - b);
-  if (!levels.length) return pickBalancedDifficulty(pool, quota);
-  const sumPct = levels.reduce((s, l) => s + (mix[String(l)] ?? 0), 0) || 1;
-  const seats = levels.map((l) => { const raw = ((mix[String(l)] ?? 0) / sumPct) * quota;
-    return { level: l, n: Math.floor(raw), rem: raw - Math.floor(raw) }; });
-  let assigned = seats.reduce((s, x) => s + x.n, 0);
-  const byRem = [...seats].sort((a, b) => b.rem - a.rem);
-  let i = 0;
-  while (assigned < quota && byRem.length > 0) { byRem[i % byRem.length].n += 1; assigned += 1; i += 1; }
-  const byLevel = new Map();
-  for (const q of pool) { const d = Number(q.difficulty); if (!byLevel.has(d)) byLevel.set(d, []); byLevel.get(d).push(q); }
-  const picked = [], used = new Set();
-  for (const s of seats) {
-    let taken = 0;
-    for (const q of (byLevel.get(s.level) || [])) {
-      if (taken >= s.n) break;
-      if (used.has(q.id)) continue;
-      used.add(q.id); picked.push(q); taken += 1;
-    }
-  }
-  if (picked.length < quota) {
-    for (const q of pool) { if (picked.length >= quota) break; if (!used.has(q.id)) { used.add(q.id); picked.push(q); } }
-  }
-  return picked.slice(0, quota);
-}
-function pickAcrossTasksBalanced(pool, quota, mix, usedEnemy, usedOptionText) {
-  if (!pool.length || !quota) return [];
-  const stemShuffled = [...pool]; shuffle(stemShuffled);
-  const seenStem = new Set();
-  const local = { enemy: new Set(), optionText: new Set() };
-  const deduped = [];
-  for (const q of stemShuffled) {
-    if (seenStem.has(q.dedupe_key)) continue;
-    if (enemyReason(q, { enemy: usedEnemy, optionText: usedOptionText })) continue;
-    if (enemyReason(q, local)) continue;
-    seenStem.add(q.dedupe_key); markEnemy(q, local); deduped.push(q);
-  }
-  pool = deduped;
-  const byTask = new Map();
-  for (const q of pool) { const k = q.task_id ?? "none"; if (!byTask.has(k)) byTask.set(k, []); byTask.get(k).push(q); }
-  for (const arr of byTask.values()) shuffle(arr);
-  const queues = [...byTask.values()]; shuffle(queues);
-  const rr = [];
-  let added = true;
-  while (added) { added = false; for (const q of queues) { const n = q.shift(); if (n) { rr.push(n); added = true; } } }
-  const n = Math.min(quota, rr.length);
-  const out = mix ? pickByMix(rr, n, mix) : pickBalancedDifficulty(rr, n);
-  for (const q of out) markEnemy(q, { enemy: usedEnemy, optionText: usedOptionText });
-  return out;
-}
 const candidatesFor = (l, rows) => rows.filter((r) => inLivePool(r, l) &&
   !retire.some((x) => x.r.id === r.id)).map((q) => ({
     id: q.id, options: q.options, difficulty: q.difficulty, task_id: q.task_id,
@@ -384,21 +311,9 @@ const candidatesFor = (l, rows) => rows.filter((r) => inLivePool(r, l) &&
   }));
 
 function assemble(l, rows) {
-  const candidates = candidatesFor(l, rows);
-  const alloc = allocateByWeight(domains, TARGETN);
-  const byDomain = new Map();
-  for (const q of candidates) { if (!q.domain_id) continue; if (!byDomain.has(q.domain_id)) byDomain.set(q.domain_id, []); byDomain.get(q.domain_id).push(q); }
-  const selected = [], chosen = new Set(), shortfalls = [];
-  const usedEnemy = new Set(), usedOptionText = new Set();
-  for (const d of domains) {
-    const quota = alloc.get(d.id) ?? 0;
-    if (!quota) continue;
-    const poolForDomain = (byDomain.get(d.id) ?? []).filter((q) => !chosen.has(q.id));
-    const picked = pickAcrossTasksBalanced(poolForDomain, quota, MIX, usedEnemy, usedOptionText);
-    for (const q of picked) { chosen.add(q.id); selected.push(q); }
-    if (picked.length < quota) shortfalls.push({ code: d.code, need: quota, have: picked.length });
-  }
-  return { selected, shortfalls, candidates: candidates.length };
+  /* the SELECTOR lives in lib/form-assembler.mjs (PROMPT-147 s1); WHICH rows are candidates is
+   * still this script's own question, and `candidatesFor` answers it. */
+  return assembleForm({ candidates: candidatesFor(l, rows), domains, targetN: TARGETN, mix: MIX });
 }
 
 console.log("");

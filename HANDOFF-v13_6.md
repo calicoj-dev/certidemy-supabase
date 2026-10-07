@@ -1423,3 +1423,64 @@ certification -- en 5, es-419 25, pt-BR 0 -- exactly these 10 are live and appro
 the residue of `generate-practice-questions`, the writer already named in the AIE-I backlog.
 **Not touched.**
 
+
+## PROMPT-147: SM-AI-I's 65 confirmed items are retired, and verify-cert now reads 2 fail
+
+### What was done
+
+195 rows retired (65 groups x 3 languages), secure pool only, each carrying
+`retire_reason = 'PROMPT-147: Opus-confirmed <cause> (PROMPT-146)'`. Live secure: **452 -> 387**
+per language. The 4 repair items stay live. Rollback: `SMAII-RETIRE-RETIRED.json`, accepted by
+`rollback-cutover.mjs --file=SMAII-RETIRE-RETIRED.json` as a dry run, 195 of 195 restorable.
+
+### TWO THINGS THE WRITE PATH TAUGHT US
+
+**`retire_item` (migration 089) IS DEAD CODE.** It sets `status = 'retired'`, and
+`quiz_questions_status_check` allows only `pending_review | approved | rejected`. All 195
+calls failed `23514` and NOTHING was written. The constraint was tightened after 089 and the
+function never updated. `cutover-aimsf.mjs` has always PATCHed `retired_at` and passed
+`status` back unchanged, which is why four cutovers worked. The retirement took that same
+path and added `retire_reason`, a plain column. **Anyone reaching for `retire_item` will
+find it cannot run; either fix the constraint or retire the function.**
+
+**THE FORM SELECTOR NOW LIVES IN `lib/form-assembler.mjs`.** It was inside
+`cutover-aimsf.mjs`, and the cutover's gate could not be reused for this job because the
+cutover's `retire` set is "live minus approved-grounded minus kept" -- for a wholly authored
+certification that is the entire pool. The five functions MOVED verbatim (verified
+byte-identical before the originals were deleted) and both callers import them. Positive
+control: the rewired cutover still reports 223 candidates and 20/20 forms for AIMS-IA,
+exactly as it did at apply time. 13 controls.
+
+### verify-cert SM-AI-I READS 2 FAIL, AND NEITHER IS A BROKEN BANK
+
+| failure | before this prompt | after | verdict |
+|---|---|---|---|
+| §8 scheme claim: secure items per language | document 458 vs database **452** | 458 vs **387** | **PRE-EXISTING** -- already wrong by 6; the retirement widened it |
+| §8 secure floor per task, default 8 | **9** (task, language) pairs below floor | **72** | **PART PRE-EXISTING** -- 9 were already short, and 21 tasks crossed from at-floor to below-floor |
+
+**SM-AI-I HAS NO `TASK-FLOORS-SMAII.json`,** so every task defaults to a floor of 8 while its
+tasks held 7 to 9. Both failures are bookkeeping, not coverage: 20 of 20 forms still assemble
+in all three languages, the tightest domain has 4.1x its per-form quota, no task lost its last
+item, and the lowest exam-scope task keeps 4.
+
+**Two fixes, neither applied because neither was ruled:**
+
+1. a floors ruling for SM-AI-I -- `TASK-FLOORS-SMAII.json` with floors at held counts, exactly
+   what PROMPT-141 and PROMPT-142 did for AIMS-IA. `apply-task-floors.mjs --cert=SM-AI-I
+   --close-room-left` does it once the director rules;
+2. the scheme document's "458 secure items per language" corrected to 387.
+
+### PARKED: open, unfunded, PAUSED BY JUAN
+
+| # | work | cost | note |
+|---|---|---|---|
+| 1 | **SM-AI-II: 207 Sonnet flags, never confirmed** | **$19-25** with caching | **CHECKPOINT PER ITEM FIRST.** The solver writes its artifact only at the end; a kill at 136 of 199 cost $13 and lost every verdict. `translate-grounded-items` already does per-item checkpointing -- copy that. |
+| 2 | the 4 SM-AI-I **repair** items | writer time | retiring them would take their task under 4 in some language |
+| 3 | **2017 Scrum Guide wording scan**, all four Scrum certifications | **FREE** | a text search; migration 298's `teaches_retired_vocabulary` already distinguishes a deliberate quotation from a defect |
+| 4 | **SPO-AI-I and SD-AI-I**, never screened | ~$20-30 | 46 + 45 tasks; SD-AI-I is 58% ungroundable (PROMPT-144) |
+| 5 | **the 72 public sample groups** | **~$7** with caching | 6 per certification, authored practice items NO MODEL HAS EVER CHECKED, and they are the face of the marketing site. **Worth doing before any other practice work.** |
+
+Item 5 is the one with public exposure: `visibility='public'` practice rows served through the
+`get_public_samples` SECURITY DEFINER rpc to `components/marketing/sample-questions.tsx`. 216
+rows, 72 groups, unchanged by this prompt and confirmed so at write time.
+
