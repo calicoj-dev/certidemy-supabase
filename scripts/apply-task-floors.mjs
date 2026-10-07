@@ -29,6 +29,7 @@ const ROOT = join(HERE, "..");
 
 let CERT = null, RULED = null, MIN_HELD = 2, APPLY = false, CLOSE_ROOM = false, m;
 let SUPERSEDE = new Set();
+let FROM_HELD = false;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
   /* ============ --close-room-left: A CERTIFICATION CAN BE CLOSED WHILE ITS MAP STILL HAS ROOM ======
@@ -47,6 +48,16 @@ for (const a of process.argv.slice(2)) {
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
   if ((m = /^--ruled-in=(.+)$/.exec(a))) { RULED = m[1]; continue; }
   if ((m = /^--min-held=(\d+)$/.exec(a))) { MIN_HELD = Number(m[1]); continue; }
+  /* ============ --from-held: FLOORS FOR A CERTIFICATION WITH NO TASK MAP (PROMPT-148 s1) ============
+   *
+   * The default path re-runs propose-task-floors, which needs a saturation census, which needs
+   * `task_sources`. The Scrum family has ZERO task_sources rows, so that chain refuses -- correctly,
+   * because there is no map to derive an effective-primary count from.
+   *
+   * With this flag the floor comes from what the bank ACTUALLY HOLDS: live, approved, secure rows per
+   * task, counted per language and taken at the MINIMUM, which is the number verify-cert's own s8
+   * check compares a floor against. No derivation, no census, no model. */
+  if (a === "--from-held") { FROM_HELD = true; continue; }
   console.error("apply-task-floors: unrecognised flag " + a);
   console.error("This script opts into WRITING: --apply (dry by default). CLAUDE.md s15.");
   process.exitCode = 2; process.exit();
@@ -57,29 +68,61 @@ if (!RULED) {
   process.exit(2);
 }
 
-/* ---- the proposal, from the one instrument that makes it ---- */
-let out;
-try {
-  out = execFileSync(process.execPath, ["--dns-result-order=ipv4first",
-    join(HERE, "propose-task-floors.mjs"), "--cert=" + CERT],
-    { cwd: ROOT, encoding: "utf8", maxBuffer: 1 << 24 });
-} catch (e) {
-  console.error("propose-task-floors REFUSED, so there is nothing to apply. Its reason:");
-  console.error((e.stderr || e.stdout || String(e.message)).trim());
-  process.exitCode = 2; process.exit();
-}
-
 const rows = [];
-for (const line of out.split(/\r?\n/)) {
-  const mm = /^ {2}(\d+\.\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(floor -> \d+|\(none\))\s+(.*)$/.exec(line);
-  if (!mm) continue;
-  const why = mm[9].trim();
-  rows.push({ code: mm[1], held: +mm[2], floor: +mm[5], short: +mm[6], cap: +mm[7],
-    proposal: mm[8].startsWith("floor") ? +mm[8].replace(/\D+/g, "") : null,
-    kind: /SATURATED/.test(why) ? "exhausted" : /CAPACITY BOUND/.test(why) ? "capacity-bound"
-      : /THIN MAP/.test(why) ? "thin map" : /TRIPWIRE/.test(why) ? "tripwire" : "room left" });
+if (FROM_HELD) {
+  /* ---- the floor comes from the BANK: live, approved, secure, per task, min across languages ---- */
+  const { requireKey, getAll } = await import("./_pg.mjs");
+  const { loadTaskFloors, floorFor } = await import("./lib/task-floors.mjs");
+  const KEY = requireKey(HERE);
+  const LANGS = ["en", "es-419", "pt-BR"];
+  const cert = (await getAll(KEY, "certifications?select=id,code&code=eq." + CERT))[0];
+  if (!cert) { console.error("no certification " + CERT); process.exit(2); }
+  const doms = (await getAll(KEY, "domains?select=id,certification_id&order=id"))
+    .filter((d) => d.certification_id === cert.id);
+  const tasks = (await getAll(KEY, "tasks?select=id,code,domain_id,is_exam_scope&order=code"))
+    .filter((t) => doms.some((d) => d.id === t.domain_id));
+  const qs = await getAll(KEY, "quiz_questions?select=id,language,pool,status,retired_at,task_id" +
+    "&certification_id=eq." + cert.id + "&order=id");
+  const floorsNow = loadTaskFloors(CERT);
+  let outOfScope = 0;
+  for (const t of tasks) {
+    /* OUT-OF-SCOPE TASKS ARE NOT GIVEN A FLOOR. verify-cert only checks in-scope tasks, and a floor
+     * on a task the exam never draws from would be a claim about nothing. */
+    if (!t.is_exam_scope) { outOfScope++; continue; }
+    const per = LANGS.map((l) => qs.filter((q) => q.task_id === t.id && q.language === l &&
+      q.pool === "secure" && q.retired_at === null && q.status === "approved").length);
+    const held = Math.min(...per);
+    const was = floorFor(t.code, floorsNow, null);
+    rows.push({ code: t.code, held, floor: was && was.floor != null ? was.floor : null,
+      short: Math.max(0, (was && was.floor != null ? was.floor : 0) - held),
+      cap: 0, proposal: held, kind: "held count (no task map; --from-held)", per });
+  }
+  console.log("  --from-held: floors derived from the BANK, not from a census.");
+  console.log("  " + rows.length + " exam-scope task(s); " + outOfScope + " out of scope and skipped.");
+  if (!rows.length) { console.error("no exam-scope task has a count -- refusing"); process.exit(2); }
+} else {
+  /* ---- the proposal, from the one instrument that makes it ---- */
+  let out;
+  try {
+    out = execFileSync(process.execPath, ["--dns-result-order=ipv4first",
+      join(HERE, "propose-task-floors.mjs"), "--cert=" + CERT],
+      { cwd: ROOT, encoding: "utf8", maxBuffer: 1 << 24 });
+  } catch (e) {
+    console.error("propose-task-floors REFUSED, so there is nothing to apply. Its reason:");
+    console.error((e.stderr || e.stdout || String(e.message)).trim());
+    process.exitCode = 2; process.exit();
+  }
+  for (const line of out.split(/\r?\n/)) {
+    const mm = /^ {2}(\d+\.\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(floor -> \d+|\(none\))\s+(.*)$/.exec(line);
+    if (!mm) continue;
+    const why = mm[9].trim();
+    rows.push({ code: mm[1], held: +mm[2], floor: +mm[5], short: +mm[6], cap: +mm[7],
+      proposal: mm[8].startsWith("floor") ? +mm[8].replace(/\D+/g, "") : null,
+      kind: /SATURATED/.test(why) ? "exhausted" : /CAPACITY BOUND/.test(why) ? "capacity-bound"
+        : /THIN MAP/.test(why) ? "thin map" : /TRIPWIRE/.test(why) ? "tripwire" : "room left" });
+  }
+  if (!rows.length) { console.error("parsed no rows from propose-task-floors -- refusing"); process.exit(2); }
 }
-if (!rows.length) { console.error("parsed no rows from propose-task-floors -- refusing"); process.exit(2); }
 
 /* with --close-room-left a room-left task is treated as proposing its own held count */
 for (const r of rows) if (CLOSE_ROOM && r.proposal === null) r.proposal = r.held;
@@ -152,7 +195,11 @@ if (!APPLY) {
                 "work. The CERTIFICATION is closed -- its last round was the one ruled in " + RULED +
                 " -- so the floor records what it holds, not what the map allows. "
               : "") +
-        "Floor set to the held count of " + r.held + " (was " + r.floor + "), ruled " + RULED + " s4.",
+        /* `--ruled-in` carries the section already; a hardcoded " s4" here was left over from
+         * PROMPT-141 s4 and stamped "PROMPT-148 s4" onto 52 PROMPT-148 s1 rulings. */
+        "Floor set to the held count of " + r.held +
+        (r.floor == null ? " (no floor was set before)" : " (was " + r.floor + ")") +
+        ", ruled " + RULED + ".",
     };
   }
   writeFileSync(FP, JSON.stringify(doc, null, 1) + "\n");

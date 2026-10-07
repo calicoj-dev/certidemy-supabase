@@ -1,0 +1,374 @@
+{
+ "ruled": "PROMPT-148 s1",
+ "certification": "SM-AI-I",
+ "default_floor": 8,
+ "why_this_file_exists": "SM-AI-I had NO floors file, so every one of its 52 exam-scope tasks defaulted to a floor of 8 while the bank held 7 to 9 per task. verify-cert's s8 check was therefore already failing on 9 (task, language) pairs BEFORE anything was retired, and PROMPT-147's 65 retirements took it to 72. The floors here are what the bank holds after that retirement.",
+ "the_rule": "floor = the live, approved, SECURE row count for the task, counted per language and taken at the MINIMUM -- the same number verify-cert's s8 check compares a floor against. Derived from the BANK and not from a saturation census: the Scrum family has zero `task_sources` rows, so there is no map to derive an effective-primary count from and `propose-task-floors` correctly refuses. Written by `apply-task-floors.mjs --from-held`.",
+ "_what_this_floor_does_not_mean": "It is NOT a statement that the task cannot hold more. Nothing has been generated for SM-AI-I, so every task could be refilled by authoring or by a grounded path once the family is mapped. The floor records what is served today so that a real shortfall is visible against it, instead of 52 tasks sitting permanently below a default nobody set.",
+ "per_task_overrides": {
+  "1.1": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "1.2": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "1.3": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "1.4": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "1.5": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "1.6": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "1.7": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.1": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.2": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.3": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.4": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.5": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.6": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.7": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.8": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.9": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.10": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "2.11": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.1": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.2": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.3": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.4": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.5": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.6": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.7": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.8": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.9": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.10": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "3.11": {
+   "floor": 5,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 5,
+   "reason": "Floor set to the held count of 5 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.1": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.2": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.3": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.4": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.5": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.6": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.7": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.8": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.9": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.10": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.11": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.13": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "4.14": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "5.1": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "5.2": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "5.3": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "5.4": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "5.5": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "5.6": {
+   "floor": 9,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 9,
+   "reason": "Floor set to the held count of 9 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "5.7": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "5.8": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "5.9": {
+   "floor": 5,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 5,
+   "reason": "Floor set to the held count of 5 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  },
+  "5.10": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148 s1 -- floor = the live approved secure count, derived from the bank."
+  }
+ }
+}

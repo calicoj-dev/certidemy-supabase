@@ -34,18 +34,22 @@ import { stemIdentity, stemIdentityControls } from "../functions/_shared/item-ru
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..");
 const LANGS = ["en", "es-419", "pt-BR"];
-let CERT = null, PLAN = null, FORMS = 20, APPLY = false, m;
+let CERT = null, PLAN = null, FORMS = 20, APPLY = false, RULED = null, m;
 for (const a of process.argv.slice(2)) {
   if (a === "--apply") { APPLY = true; continue; }
   if ((m = /^--cert=(.+)$/.exec(a))) { CERT = m[1]; continue; }
   if ((m = /^--plan=(.+)$/.exec(a))) { PLAN = m[1]; continue; }
   if ((m = /^--forms=(\d+)$/.exec(a))) { FORMS = Number(m[1]); continue; }
+  /* --ruled-in stamps the reason on every row. It was hardcoded to "PROMPT-147" and stamped that
+   * onto 261 rows retired under PROMPT-148: a reason naming the wrong ruling is a wrong record. */
+  if ((m = /^--ruled-in=(.+)$/.exec(a))) { RULED = m[1]; continue; }
   console.error("retire-confirmed-items: unrecognised flag " + a);
   console.error("This script opts into WRITING: --apply (dry by default). CLAUDE.md s15.");
-  console.error("  --cert=<CODE> --plan=<file> [--forms=20] [--apply]");
+  console.error("  --cert=<CODE> --plan=<file> --ruled-in=<PROMPT> [--forms=20] [--apply]");
   process.exitCode = 2; process.exit();
 }
 if (!CERT || !PLAN) { console.error("--cert and --plan are required"); process.exit(2); }
+if (!RULED) { console.error("--ruled-in is required: a retirement nobody ruled is an error."); process.exit(2); }
 
 /* ============ CONTROLS FIRST, AND A ZERO DENOMINATOR IS A REFUSAL ============
  *
@@ -95,7 +99,11 @@ const TARGETN = cert.num_questions ?? 40;
 const MIX = (cert.exam_blueprint && cert.exam_blueprint.difficulty_mix) || null;
 const domains = (await getAll(KEY, "domains?select=id,code,weight_pct,certification_id&order=code"))
   .filter((d) => d.certification_id === cert.id);
-const tasks = (await getAll(KEY, "tasks?select=id,code,domain_id,certification_id&order=code"))
+/* `is_exam_scope` IS SELECTED. Gate 0 tests it, and without it every `t.is_exam_scope` was
+ * undefined, so the below-4 arm reported 0 over nothing and the lowest-task line printed
+ * "null at Infinity" -- the tell that caught it. Sixth instance in this repository of a predicate
+ * that cannot see the column it tests, so it is named at the select rather than trusted. */
+const tasks = (await getAll(KEY, "tasks?select=id,code,domain_id,certification_id,is_exam_scope&order=code"))
   .filter((t) => domains.some((d) => d.id === t.domain_id));
 const domainByTask = new Map(tasks.map((t) => [t.id, t.domain_id]));
 const codeOfTask = new Map(tasks.map((t) => [t.id, t.code]));
@@ -129,6 +137,39 @@ const targetRows = all.filter((r) => retireGroups.has(r.question_group_id) && r.
   r.retired_at === null);
 console.log("  rows it would touch: " + targetRows.length + "   (" +
   LANGS.map((l) => l + " " + targetRows.filter((r) => r.language === l).length).join(", ") + ")");
+
+/* ---- GATE 0: NO TASK LOSES ITS LAST ITEM, and none drops below MIN_PER_TASK (PROMPT-148 s2) ----
+ *
+ * The planner already routes a breach to `repair`, so this should never fire. It is here because
+ * "the planner should have handled it" is an assumption, and this is the gate that turns it into a
+ * checked fact immediately before the write. */
+const MIN_PER_TASK = 4;
+console.log("");
+console.log("0. PER-TASK FLOOR, before and after, per language   (minimum " + MIN_PER_TASK + ")");
+const heldBefore = (tid, l) => all.filter((r) => r.task_id === tid && inLivePool(r, l)).length;
+const heldAfter = (tid, l) => all.filter((r) => r.task_id === tid && inLivePool(r, l) &&
+  !retireGroups.has(r.question_group_id)).length;
+const toZero = [], belowMin = [];
+let lowest = { code: null, n: Infinity };
+for (const t of tasks) {
+  for (const l of LANGS) {
+    const b = heldBefore(t.id, l), a = heldAfter(t.id, l);
+    if (b >= 1 && a === 0) toZero.push(t.code + "/" + l + ": " + b + " -> 0");
+    if (t.is_exam_scope && a < MIN_PER_TASK) belowMin.push(t.code + "/" + l + ": " + b + " -> " + a);
+    if (t.is_exam_scope && a < lowest.n) lowest = { code: t.code, n: a };
+  }
+}
+console.log("   tasks losing their LAST live secure item: " + toZero.length +
+  (toZero.length ? "   " + toZero.join(", ") : "   (none)"));
+console.log("   exam-scope (task, language) pairs below " + MIN_PER_TASK + " after: " + belowMin.length +
+  (belowMin.length ? "   " + belowMin.slice(0, 12).join(", ") : "   (none)"));
+console.log("   lowest exam-scope task after the plan: " + lowest.code + " at " + lowest.n);
+if (toZero.length || belowMin.length) {
+  console.error("");
+  console.error("REFUSING: the plan would take " + (toZero.length ? "a task to zero" : "an exam-scope task below " + MIN_PER_TASK) +
+    ". The planner should have routed it to `repair`. NOTHING WRITTEN.");
+  process.exit(2);
+}
 
 /* ---- GATE 1: the public re-check, read now ---- */
 const pubViolations = all.filter((r) => retireGroups.has(r.question_group_id) && r.visibility === "public");
@@ -197,7 +238,7 @@ if (!APPLY) {
       RB.split(/[\\/]/).pop() + " --apply",
     count: targetRows.length,
     ids: targetRows.map((r) => ({ id: r.id, language: r.language,
-      why: "PROMPT-147: Opus-confirmed " + (causeOfGroup.get(r.question_group_id) || "unstated") +
+      why: RULED + ": Opus-confirmed " + (causeOfGroup.get(r.question_group_id) || "unstated") +
         " (PROMPT-146)" })),
   }, null, 1) + "\n");
   console.log("");
@@ -216,7 +257,7 @@ if (!APPLY) {
   const H = { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json" };
   let wrote = 0, failed = 0;
   for (const r of targetRows) {
-    const reason = "PROMPT-147: Opus-confirmed " +
+    const reason = RULED + ": Opus-confirmed " +
       (causeOfGroup.get(r.question_group_id) || "unstated") + " (PROMPT-146)";
     const res = await fetch(REST_URL + "/quiz_questions?id=eq." + r.id, {
       method: "PATCH", headers: H,

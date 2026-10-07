@@ -1,0 +1,1314 @@
+{
+ "cert": "SM-AI-II",
+ "ruled_in": "PROMPT-148 s2",
+ "retired_at": "2026-10-07T04:07:49.999Z",
+ "rollback": "node --dns-result-order=ipv4first scripts/rollback-cutover.mjs --file=SMAIII-RETIRE-RETIRED.json --apply",
+ "count": 261,
+ "ids": [
+  {
+   "id": "009766ea-3585-42ef-b1e2-c07bd1e30e1a",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "02371d77-facb-44d9-807d-896e75c018a8",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "023cda3f-6fa3-4d5c-85bf-410b6e5be48e",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "024bdcdc-b3a1-44b8-a1c2-8e69280d83e1",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "02e859dc-c69e-4b10-9edf-29ce9583584e",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "0316be30-313f-45b7-821c-9c184f998940",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "0353f7df-6f2f-40e9-a630-8e6d66accee8",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "044d8ce5-9818-4f56-9ab1-56e650eb640c",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "04ff736b-006c-4cae-ae9a-cd8abb62007d",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "0965e947-efa9-4f30-a8c1-9bf800c18702",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "0a98e227-31e4-4437-a4dd-6ad1c09efb9e",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "0ba3f193-e9d3-4d07-985c-43f5a4a56f4d",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "0f62bbaa-d630-4184-8d76-cea2b4aa7ce6",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "1036d28c-8372-4c71-a6e5-28cdd4d64860",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "104b57cc-f86b-460f-b20d-435c8b36caf5",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "11072453-58a2-4242-84cc-94ab5918d18c",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "11549423-95fe-4d8d-9cd5-b0d22d1825e5",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "11bb245f-2b04-4091-a8e1-38969173d324",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "11cefa2b-f8cb-4223-a25c-12d5a856c463",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "1350c721-ff2d-4fa5-94b7-2d9c2822e452",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "1574c553-47ce-4a85-8fdd-0b4b4124a940",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "192bc887-8a13-4877-9881-52e5081635d7",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "1995379f-ee4f-4d30-a403-bf1ab25c2135",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "1a44273a-b4c1-402e-8d0c-3fa10dbfa5c2",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "1a74f011-6390-4454-aff6-6cb416e79624",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "1a89c16c-26d7-43e0-8ab7-36e98d5bcc53",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "1bb958ca-0114-491e-9a96-892b4ade1c02",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "1be111a5-5a6a-4177-b842-c5b2c10f82a6",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "1c4abfa2-4219-408b-9693-0bb2e96f068d",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "1d7943b8-89f1-4fd8-9175-cefec812f0d3",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "1e697967-97c4-4536-b963-1e3423abd388",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "1ead62c1-67ef-4bfa-bccb-c27958d5cd59",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "21857331-b2ba-4cb6-b2d1-8f0c6dba3179",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "22d92f98-e3a8-410f-a1b0-b9c2bd8b3462",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "233dc3eb-9445-4642-b381-d05e856ca4c1",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "23b27846-a3f8-4345-b9bf-7577cf17c60b",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "241b6339-d824-41c0-9c01-ae8a8045ca36",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "24ab3b5e-bda6-41fe-abaa-2ea4b222ca28",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "257adb26-c9e4-4071-ad9f-735c98815d1c",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "261c8c99-6616-4358-a2da-73b530c09e04",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "26a77a72-a2dd-4995-aacd-eaa1cc995e15",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "2921155f-f62c-46c7-932e-d1c35f300945",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "2aa4ad77-758a-465c-b35d-43626e2495b1",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "2b021e63-04b8-4c40-9769-fda2e3c4f61a",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "2bb908b7-877f-454c-8a80-60ce6ecad3c9",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "2bcd0fbf-3b6e-425c-a533-8bc5526840b9",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "2f184762-099a-40e4-9d60-2597426eb6b0",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "2f78a41a-aba8-4cb0-a932-24a9221f189a",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed could-not-run (PROMPT-146)"
+  },
+  {
+   "id": "310ad0ca-ce34-460c-af34-bef2a36f342f",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "317cb458-5d88-4972-8871-a8b3d9c6dcc2",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "32ab7e3f-e8b2-4915-990b-e62d78cc4af6",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "33793574-9d83-404b-a8c3-ff6fdccb1275",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "34e43260-f8f1-406c-b908-03c74d644477",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "36892f2c-a9e7-4ef5-a84a-4f24f28d3975",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed could-not-run (PROMPT-146)"
+  },
+  {
+   "id": "37048060-cdeb-4d11-bc2f-3536013d2057",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "390000e8-84d1-4efe-8757-0e5e29fb0d8c",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "396d6a20-f081-4d3a-986a-a262eb929c55",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "397f5bdf-3822-402a-97ed-966a744a21b2",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "39893b2f-661e-4195-88a3-4e0cd8842b89",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "3a01d7a1-06e0-464f-8c40-74f4b82c3967",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "3a7dde53-a942-4494-a08c-e6d9e074605d",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "3a825dd4-c743-41fd-9b30-58190c23ed9f",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "3b79c23a-bce9-4d6b-ad1b-b42d036021ea",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "3cc36f19-6865-4b61-bb84-5d54638ac8f1",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "3ec8ffcf-1943-48d9-a526-a36f7bfcdd76",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "3ef85e8d-2a00-4353-99ad-d29dec6e1829",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "3ff46c52-70ad-49c1-ac97-a412148a7b28",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "402eef77-c648-4479-873b-e1b1269ccb36",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "404e6bee-e34f-49ab-9c61-d51cecd211fd",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "4086bde2-944b-48d7-938d-b36ec8f52cf4",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "412befd6-af49-4efd-af6e-f63cb2dffe5c",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "41ecd2b9-17ac-40ad-a170-59eab261cad0",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "41f9e580-eb00-4839-a416-ed6e22cfcb6b",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed could-not-run (PROMPT-146)"
+  },
+  {
+   "id": "45bf1793-7096-4d8e-823e-9e2f0ac8f278",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "46acd14c-9359-4ba7-a2dc-ada8c9cc5891",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "49fca896-5b4e-4c6e-9108-25896dfb0278",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "4ae53c9c-c8d0-4c9b-a01f-81ae63037582",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "4c1134fd-6190-46e4-85d8-f92f2cff6c2c",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "4c72ef5e-9983-4b37-b3a9-f925bc5ffbb7",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "4ddc2a69-532e-46bc-bd21-8479c6b04213",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "4f003eb2-f53c-4aab-a82a-7345575babe0",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "53816a33-34b5-4566-9a72-1d7ebff78f82",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "557a3d96-17fb-49f0-93ff-0d2f578d629b",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "563d8f75-c7c6-447a-89ee-bf6bc1227111",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "56d5ae99-c0f2-4f19-8f26-c9f8d127d505",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "57635a06-dc8c-4e61-b9b4-5aa48ee70b92",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "57f96ef9-d32d-4529-aed3-375b1f5a3936",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "58667b85-78f3-4231-95b5-03c164d793c9",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "5882ab5f-7dc6-45a9-ba6d-728bba0f0408",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "5a40815b-7414-480c-86a3-dcf5fbbcbf33",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "5aacbb88-2731-47e9-82f3-5f119525e207",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "5b6bcbe8-4d84-439c-98b1-f8d0dafb8588",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "5bdd5e6c-9033-4cc3-ae8a-25c8288c0766",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "5c3ab3a8-5a36-4352-8fd2-a45348cd376a",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "5da38b8a-2e89-4a3f-8e0b-38641b3582e6",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "5dc80169-f1d0-4e29-b199-a04c4e446b4e",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "5e06a9bc-b1a0-42c5-97e3-9af8b74700bb",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "5eb6433f-e20a-436a-9494-e8dfe6dc78c6",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "5ee185f4-dc2f-4185-806f-f8a7dcff5a6e",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "5f83b016-fc42-4e97-9f0c-06135af3bcf8",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "5fdb2b09-0f15-4f9d-9843-a3cc0f3e39fe",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "602974b2-c4be-4e22-9f6b-cc20bc141ccb",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "60962d10-888e-426c-bd29-c15bf9555e10",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "609c0a6c-c6eb-42e2-83c8-493c9460e06a",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "61585e89-43f2-4e09-84eb-0d9f2de52503",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "6270fdc0-b83f-4be9-9089-f9974cf7aea4",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "62c10422-d1fe-4151-96a8-dc9d54677180",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "63c3a878-dbfb-4f0b-b279-cffc0fe5cfaa",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "63cecba1-957a-4dfa-b678-ccd946d951f2",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "63e6bfcf-1c20-4996-a090-8b7f097b7bc5",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "63ef266d-dcdd-485c-a772-db03a410cb9b",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "64325a90-f35d-4b6d-8ee4-5269db196af7",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "6481e78e-b84f-4cb1-94b2-8490d02cdb9e",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "64be5c2c-1f34-469b-9941-2fec47619521",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "67151d2d-60b0-44c1-8fdb-efba0cb3a5d3",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "672ba9dc-2b65-42bd-a05b-68abebd3086b",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "689bf25f-195e-491b-b01d-ac7379314609",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "68dcc1d7-9762-47ec-b976-09a38aeb2f93",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "6989e0b0-4276-4244-b60f-165cd9d7d5e9",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "69ad2b29-acb8-4fb8-a53e-5e405eaba436",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "6a9787ff-c6ca-4e6c-ba5e-cb7261183c45",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "6abf5692-a10e-4d74-b335-97c9b5fce6b9",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "6b08b13d-185e-4dd8-b066-6f6ee578f621",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "6b3b8cdb-f4e9-485c-a312-ab1a728802a6",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "6cca0060-0bfe-4beb-bf91-765e2b0b01b3",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "6cfd60e2-cd0d-43bd-93e7-9e1eec2cdc62",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "6e4ec2b0-d3f9-48cf-be41-ebb2791c8f8d",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "6e72a9c9-aa06-477c-a440-e2948f2c7e99",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "704df7de-b036-4ca6-8c46-0a5cc90efadd",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "70f3d16e-2f57-4fd8-9402-69871f5d5a73",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "716cf32f-d9ee-4fcb-a4b4-6a8e431694e3",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "71a019b6-ebea-453a-92f2-399ac201e7ed",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "72d477ef-f124-4d48-afbb-f510fbac112d",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "74af67a8-15eb-4ab9-a491-572b3e1f8f7f",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "75478e3d-48a1-4360-88fe-3c83ae4c8bb4",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "758dd184-01da-4138-8be5-ff27d153b8b7",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7940031c-8f85-4980-a6b9-c655b4b473be",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7a416058-a791-4fed-acc2-aac5bc200c11",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7a92e67e-c602-4252-b5a3-4648fa5c7693",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7b89ea57-ee3a-407a-bdbb-a51c0aa97eb7",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7c023bdb-e8c4-42b0-8292-6bf7e87c6df4",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7c40a19f-53b2-464d-93e1-66a30b801305",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "7ccb330a-c58f-4931-ac2b-68b348ae0c3c",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7ceb6b54-6f24-45a9-87ca-7b66fc088d7e",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7d47f3e1-145a-4613-b528-09377de6ffd3",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7e28e65f-7c9a-449b-bd80-7d54026b72e3",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7e28e863-9da3-496d-a2b7-c7c3db33f3e1",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "7f327e6c-90df-4810-854a-4b70059d1c79",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "81a84b9d-e78e-42b5-8153-11f6bf507bde",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "830f97ee-d556-46d7-bf8a-3e07debd8fee",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "8313061d-56e0-4947-8c0a-286787f4e93e",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "8884b70c-af4f-4508-9f49-f96706106d41",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "88a28673-82a5-40f0-8ab0-a193ab99f9ba",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "88a9682e-a306-4a13-ad2c-e31d69b1f34f",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "89595878-4df4-4bb6-a21b-cdf9317c7264",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "8a3082f2-dbc0-4112-8c5d-f5d62c5ecd39",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "8a444392-3f36-40e1-bcd4-531d154010d3",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "8ad54965-898c-4fb4-8837-f286780474a7",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "8b8b51fb-a10a-4511-881e-a4b5f20981db",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "8c72f88f-9d58-43d3-a5c3-7d1f64b3edea",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "8cf855a2-f8dc-435a-8f8f-517937149a4a",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "8d456fed-62c6-48c8-aa0c-eee3c0a9a9e9",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "8efcb91a-19e9-4b76-b186-7cc3a3da3074",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "8f42eb9a-8d97-4e3b-9134-4acb81a3027a",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "90715f82-b2d8-4ad3-b3bf-e9529e545ba0",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed could-not-run (PROMPT-146)"
+  },
+  {
+   "id": "90912d13-1bfd-4e84-82b2-004669ac902a",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "92b65c3d-1e3c-4483-8d34-15c2afe0d25a",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "93609799-9b9e-40d8-ac3e-ec4ba8e7c1ef",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "94386b61-7e5d-4770-84bb-8aebe22c03ca",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "950f913c-9dab-4744-b7d2-8291cf49e005",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "95419147-3856-42b3-a6f3-9b9fd9d97512",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "976f9f7a-2aa9-4117-87f2-d3dafe7f0d30",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "9784a622-eef8-4087-9e0e-1d383ed039ed",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "97c4ecf6-b84d-4aa7-8153-98f47fa67905",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "9a8b358a-3209-4fc1-b290-d1c54f170f67",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "9b5d3706-5e1f-489c-91a7-327e3360f7ed",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "9baf1fbe-6d7d-43ca-a1ab-f6da4d45adf2",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "9be92b5d-2d55-4a2a-a1b7-e1035fed42d3",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "9c6a921d-d704-4a19-b7b0-fa85acde6efa",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "9db33ff6-ae8f-47fa-91fc-0187ce2e0f4b",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "a02e104e-7560-489f-9e2e-9492039aadea",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "a08aabd5-8d1d-466b-8214-075988cbfa32",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "a1707386-b201-4f7c-b5b8-096bb46caa43",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "a6bfb4ae-46a1-46d2-b67c-3a3c3b24983b",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "a6f12074-1596-4bd1-aa05-1108f5b1eea4",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "a7d5be5c-2de1-4c71-a2dd-0155221e6049",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "a8375e62-bcab-4281-ac5c-33ffeeae171c",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "a90fe2f4-72c2-4ed0-9aa5-4b2fb64539f1",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "a9f643e3-e25c-4236-afa7-0cc5bded2eea",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "aa49441f-62f3-42d4-9fb5-dbf1c0b4a86e",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed could-not-run (PROMPT-146)"
+  },
+  {
+   "id": "aacbd5a6-d7a4-4408-890d-d71c9f79b817",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "ab7fa1c4-9a52-4af2-aad5-2f3dc3916bb0",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "ada0be9f-1741-4f46-a30d-31cfaf28bb80",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed not settled (PROMPT-146)"
+  },
+  {
+   "id": "adf0a05d-33c9-462e-8f41-00a3abb3edc1",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "af7d984e-3bc9-4740-83a5-3434e221f57d",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed could-not-run (PROMPT-146)"
+  },
+  {
+   "id": "b0959508-2372-4c10-82be-ce9ed42a718c",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "b1aff07f-ed81-4b04-8467-87ba1f9c5e7a",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "b2ba3513-32bd-49c9-bc2a-ec489d9d4c33",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "b441704a-cb2d-4421-aa74-b4a256e737d0",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "b5d2e2ef-a1d6-499b-87d6-5a2d7ef898db",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "b7cc43d8-0700-4a74-85d2-e05b3acf727a",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "bca8f80a-5363-45dd-acbd-c4eb7d7b18c9",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "bee0aa28-2180-4259-95f2-e7a45bd1d4b1",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "c0636efc-16e8-4326-a208-556b3bc9ade5",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "c0ff377d-eb00-4754-a515-cfc522a77ca1",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "c1aed1f2-eff0-4e5c-8210-b6a7d74a24ff",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed could-not-run (PROMPT-146)"
+  },
+  {
+   "id": "c23514f9-42b6-4a19-83d6-97d05c063b76",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "c2413644-9360-4cb9-86d2-38dd65e4c218",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "c2671cbf-928b-4557-99b6-bb378e0fdf64",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "c28bb491-49ad-4e59-9dcf-64a22aa1dde1",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "c500396a-cf41-4886-ac12-ac6db710904a",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "c620af8d-415f-443c-9b3e-f86ab1b305ae",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "cc3ac0a6-3ef0-46e3-a6bc-1c1a0a12f1dd",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed could-not-run (PROMPT-146)"
+  },
+  {
+   "id": "ccd6a1db-3cc0-443e-8feb-133b813cb51f",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "cd2961ea-7416-48ee-9f69-0e1a4241da19",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "ce1dcf6b-7b09-4268-8373-205fe48d721f",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "d00eab33-e941-4d0e-ae94-8c9599f93396",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "d020a00d-1776-4321-accd-22bf0da4fb55",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "d1fd25f1-15ba-4b70-8f60-509b15fffb05",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "d4b5a862-0ec6-4104-8608-97196333543a",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "d50c8fa6-ee4a-4223-9874-14caf4a44af5",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "d609a12a-76ba-442f-9e2c-719ca1377060",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "d64b5d67-7ef4-4e07-a47a-9812fa479cdb",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "d69890c2-4a6f-4ef4-882f-aaaef3836798",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "da581c7f-f3a1-489f-92f7-68ac7752c091",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "db2055e7-668c-4bb2-bea9-6cf999dac083",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "db4ee6ef-69f4-4247-a60d-515ab8cfff02",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "db96a21f-a260-41a6-a80c-b205bcd90522",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "dbcabf37-42fa-470a-8ae4-09db066e6aa5",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "dd437acd-0dc8-4a20-b3d0-4b154c649775",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "dd738ba8-ed7c-4683-b886-13d29b3443bf",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "e0ae16a7-cf73-4761-a9a3-e2f53920e184",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "e0f97526-44b1-48b2-930d-20785f31e531",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "e1d73c53-e831-4aae-a827-01e308d00076",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "e26590cc-f0c6-4599-909d-9d17b76f42b3",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "e33ba89b-73ce-49c5-9b26-96c8359398a9",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "e6ba624a-afe6-48fd-9e3c-ce63c036e612",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "e92a5c1f-bf74-4bae-bd07-76de8f1d7327",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "ee1d40d2-ed05-4789-896c-675440956674",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "ee6d72e4-20cf-4424-9f2a-d085b70d58bd",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "eea86e9a-5637-4cae-8e98-a7ae20499405",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "ef811b3e-f588-45be-a7bd-81a33735eabc",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "f1f2082e-71d7-4c36-8c7e-9f72b84bdfb8",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "f62fc95a-3ed1-4ffb-b0e6-e44409b70492",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "f6459475-8d43-4f15-8b5c-59e074389c5d",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "f73502d4-b017-4582-9494-26716e064395",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "f7756db8-5a8b-4f00-b479-cfd74fc99d77",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "f8d3ae78-5f48-48b3-9543-3fcf82a67c83",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed could-not-run (PROMPT-146)"
+  },
+  {
+   "id": "f9eed399-861f-4c0c-97a1-d9ee99bb042f",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "fa17e79d-71ef-4b0a-96c4-defc2ae38ea6",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "fa87f552-debd-4923-a232-9cd58da7e52d",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "fadc9981-62e3-4db1-b8ca-3d6eccd6f9b0",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "fb1d6967-3bc1-4f43-a9db-e7f5b56b8ae2",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "fc26cab9-63be-434c-840a-a6f5d92a3048",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "fc8567c7-6823-4d77-980d-7c3b13577490",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "fcb25c3c-aa84-4c1f-a8fd-03123811f10b",
+   "language": "en",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "fced17eb-e14c-48ae-b7eb-b9103ac5e603",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  },
+  {
+   "id": "fe2465da-2d20-42b9-8858-27142ce4db1e",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "ff40b3d4-e47b-4c91-96cc-23e17f5caadb",
+   "language": "es-419",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "ff605ef6-0d83-45ab-9ece-2855c43b212d",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed named a second defensible option (PROMPT-146)"
+  },
+  {
+   "id": "ffba7b1a-21c3-4a8d-b279-5460bb9096ee",
+   "language": "pt-BR",
+   "why": "PROMPT-148: Opus-confirmed picked a different option (PROMPT-146)"
+  }
+ ]
+}

@@ -1,0 +1,318 @@
+{
+ "ruled": "PROMPT-148 s2",
+ "certification": "SM-AI-II",
+ "default_floor": 8,
+ "why_this_file_exists": "SM-AI-II had NO floors file, so every exam-scope task defaulted to a floor of 8. PROMPT-148 s2 retired 87 Opus-confirmed groups (261 rows), taking the live secure pool from 352 to 265 per language. The floors here are what the bank holds after that retirement.",
+ "the_rule": "floor = the live, approved, SECURE row count for the task, counted per language and taken at the MINIMUM -- the same number verify-cert's s8 check compares a floor against. Derived from the BANK and not from a saturation census: the Scrum family has zero `task_sources` rows, so `propose-task-floors` correctly refuses. Written by `apply-task-floors.mjs --from-held`.",
+ "_what_this_floor_does_not_mean": "It is NOT a statement that the task cannot hold more. Nothing has been generated for SM-AI-II, so every task could be refilled by authoring or by a grounded path once the family is mapped. The floor records what is served today so a real shortfall is visible against it.",
+ "per_task_overrides": {
+  "1.1": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148."
+  },
+  "1.2": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  },
+  "1.3": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "1.4": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "1.5": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148."
+  },
+  "1.6": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148."
+  },
+  "1.7": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  },
+  "1.8": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "1.9": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "2.1": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  },
+  "2.2": {
+   "floor": 5,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 5,
+   "reason": "Floor set to the held count of 5 (was 8), ruled PROMPT-148."
+  },
+  "2.3": {
+   "floor": 5,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 5,
+   "reason": "Floor set to the held count of 5 (was 8), ruled PROMPT-148."
+  },
+  "2.4": {
+   "floor": 5,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 5,
+   "reason": "Floor set to the held count of 5 (was 8), ruled PROMPT-148."
+  },
+  "2.5": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  },
+  "2.6": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  },
+  "2.7": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "2.8": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  },
+  "2.9": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "3.1": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  },
+  "3.2": {
+   "floor": 5,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 5,
+   "reason": "Floor set to the held count of 5 (was 8), ruled PROMPT-148."
+  },
+  "3.3": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  },
+  "3.4": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148."
+  },
+  "3.5": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148."
+  },
+  "3.6": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "3.7": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "3.8": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148."
+  },
+  "4.1": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  },
+  "4.2": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "4.3": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148."
+  },
+  "4.4": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148."
+  },
+  "4.5": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148."
+  },
+  "4.6": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148."
+  },
+  "4.7": {
+   "floor": 8,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 8,
+   "reason": "Floor set to the held count of 8 (was 8), ruled PROMPT-148."
+  },
+  "4.8": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "4.9": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148."
+  },
+  "5.1": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "5.2": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148."
+  },
+  "5.3": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148."
+  },
+  "5.4": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148."
+  },
+  "5.5": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "5.6": {
+   "floor": 7,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 7,
+   "reason": "Floor set to the held count of 7 (was 8), ruled PROMPT-148."
+  },
+  "5.7": {
+   "floor": 6,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 6,
+   "reason": "Floor set to the held count of 6 (was 8), ruled PROMPT-148."
+  },
+  "5.8": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  },
+  "5.9": {
+   "floor": 4,
+   "ruled_in": "PROMPT-148",
+   "temporary": false,
+   "held_at_ruling": 4,
+   "reason": "Floor set to the held count of 4 (was 8), ruled PROMPT-148."
+  }
+ }
+}
