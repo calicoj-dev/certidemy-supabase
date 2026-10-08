@@ -812,3 +812,8 @@ verify_jwt = false
 # platform_admin or the company's team_admin, enforced in-function.
 [functions.change-voucher-cert]
 verify_jwt = true
+
+# Supabase Auth "Send Email" hook. Auth calls it with a Standard Webhooks signature,
+# not a user JWT; the function verifies SEND_EMAIL_HOOK_SECRET itself.
+[functions.send-auth-email]
+verify_jwt = false

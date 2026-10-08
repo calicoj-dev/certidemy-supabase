@@ -318,6 +318,71 @@ function renderLeadReceived(p: Record<string, unknown>): Rendered {
   };
 }
 
+// ---------------------------------------------------------------- auth.*
+//
+// Supabase Auth's own emails (signup code, password reset), sent by the
+// send-auth-email hook in the person's language. Certidemy is the issuer here.
+
+type AuthKind = "signup" | "recovery" | "other";
+
+const AUTH: Record<AuthKind, Record<Locale, {
+  subject: (code: string) => string; heading: string; lead: string; cta: string; ignore: string;
+}>> = {
+  signup: {
+    en: { subject: (c) => `${c} is your Certidemy code`, heading: "Your Certidemy code",
+      lead: "Enter this code on the Certidemy page to finish creating your account.",
+      cta: "Confirm my email", ignore: "If you didn't sign up for Certidemy, ignore this email." },
+    "es-419": { subject: (c) => `${c} es tu código de Certidemy`, heading: "Tu código de Certidemy",
+      lead: "Ingresa este código en la página de Certidemy para terminar de crear tu cuenta.",
+      cta: "Confirmar mi correo", ignore: "Si no te registraste en Certidemy, ignora este correo." },
+    "pt-BR": { subject: (c) => `${c} é seu código da Certidemy`, heading: "Seu código da Certidemy",
+      lead: "Digite este código na página da Certidemy para concluir a criação da sua conta.",
+      cta: "Confirmar meu e-mail", ignore: "Se você não se cadastrou na Certidemy, ignore este e-mail." },
+  },
+  recovery: {
+    en: { subject: () => "Reset your Certidemy password", heading: "Reset your password",
+      lead: "Someone asked to reset the password for this email. Use the button to choose a new one.",
+      cta: "Choose a new password", ignore: "If it wasn't you, ignore this email. Your password stays the same." },
+    "es-419": { subject: () => "Restablece tu contraseña de Certidemy", heading: "Restablece tu contraseña",
+      lead: "Alguien pidió restablecer la contraseña de este correo. Usa el botón para elegir una nueva.",
+      cta: "Elegir una nueva contraseña", ignore: "Si no fuiste tú, ignora este correo. Tu contraseña no cambia." },
+    "pt-BR": { subject: () => "Redefina sua senha da Certidemy", heading: "Redefina sua senha",
+      lead: "Alguém pediu para redefinir a senha deste e-mail. Use o botão para escolher uma nova.",
+      cta: "Escolher uma nova senha", ignore: "Se não foi você, ignore este e-mail. Sua senha continua a mesma." },
+  },
+  other: {
+    en: { subject: () => "Your Certidemy link", heading: "Continue to Certidemy",
+      lead: "Use the button to continue.", cta: "Continue",
+      ignore: "If you didn't request this, ignore this email." },
+    "es-419": { subject: () => "Tu enlace de Certidemy", heading: "Continúa a Certidemy",
+      lead: "Usa el botón para continuar.", cta: "Continuar",
+      ignore: "Si no lo solicitaste, ignora este correo." },
+    "pt-BR": { subject: () => "Seu link da Certidemy", heading: "Continue para a Certidemy",
+      lead: "Use o botão para continuar.", cta: "Continuar",
+      ignore: "Se você não solicitou isto, ignore este e-mail." },
+  },
+};
+
+const OR_CODE: Record<Locale, string> = {
+  en: "Or enter this code:", "es-419": "O ingresa este código:", "pt-BR": "Ou digite este código:",
+};
+
+function renderAuth(kind: AuthKind, locale: Locale, payload: Record<string, unknown>): Rendered {
+  const t = AUTH[kind][locale];
+  const code = typeof payload.code === "string" ? payload.code : "";
+  const link = typeof payload.link === "string" ? payload.link : "";
+  const codeBlock = code
+    ? `<p style="margin:16px 0;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:32px;letter-spacing:0.3em;font-weight:600;">${esc(code)}</p>`
+    : "";
+  // Signup leads with the code; the rest lead with the button and offer a code if one came.
+  const body = kind === "signup"
+    ? [`<h1 style="margin:0 0 12px;font-size:20px;">${esc(t.heading)}</h1>`, `<p style="margin:0;">${esc(t.lead)}</p>`,
+       codeBlock, link ? button(link, t.cta) : ""].join("")
+    : [`<h1 style="margin:0 0 12px;font-size:20px;">${esc(t.heading)}</h1>`, `<p style="margin:0;">${esc(t.lead)}</p>`,
+       link ? button(link, t.cta) : "", code ? `<p style="margin:0;">${esc(OR_CODE[locale])}</p>${codeBlock}` : ""].join("");
+  return { subject: t.subject(code), html: shell(body, esc(t.ignore)), fromName: "Certidemy" };
+}
+
 export function render(
   templateKey: string,
   locale: Locale,
@@ -330,6 +395,12 @@ export function render(
       // Locale is deliberately ignored: this mail always goes to one internal
       // inbox and is always English. See the note above renderLeadReceived.
       return renderLeadReceived(payload);
+    case "auth.signup":
+      return renderAuth("signup", locale, payload);
+    case "auth.recovery":
+      return renderAuth("recovery", locale, payload);
+    case "auth.other":
+      return renderAuth("other", locale, payload);
     default:
       throw new Error(`unknown template_key: ${templateKey}`);
   }
