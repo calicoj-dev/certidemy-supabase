@@ -8,6 +8,9 @@
 //   list    { achievement_code }
 //   review  { offer_id, decision: "approve" | "keep" }   -- settles a requested name change by minting
 //   cancel  { offer_id }
+//   summary                       -- per-achievement counts for the status board (migration 390)
+//   remind  { offer_id }          -- one reminder now, same personal link; at most once a day
+//   readdress { offer_id, email } -- a bounced or wrong address: a new offer to the new address
 //
 // Nothing here is signed until a person confirms; "review" is the partner confirming for them,
 // with the name the partner chose. The mint is _shared/offer-mint.ts -> _shared/issue.ts.
@@ -51,6 +54,7 @@ interface Body {
   auto_minor_fixes?: boolean;
   offer_id?: string;
   decision?: string;
+  email?: string;
 }
 
 async function activeAchievement(svc: Svc, issuerId: string, code: string | undefined) {
@@ -184,7 +188,7 @@ async function list(svc: Svc, issuerId: string, body: Body) {
   for (let from = 0; ; from += 1000) {
     const { data, error } = await svc
       .from("credential_offers")
-      .select("id, recipient_email, name_sent, name_requested, request_note, name_final, status, decline_reason, created_at, responded_at, expires_at, credentials(credential_code)")
+      .select("id, recipient_email, name_sent, name_requested, request_note, name_final, status, decline_reason, created_at, responded_at, expires_at, opened_at, reminders_sent, last_reminded_at, credentials(credential_code)")
       .eq("issuer_id", issuerId)
       .eq("achievement_id", ach.id)
       .order("created_at", { ascending: false })
@@ -205,12 +209,121 @@ async function list(svc: Svc, issuerId: string, body: Body) {
         decline_reason: r.decline_reason,
         created_at: r.created_at,
         responded_at: r.responded_at,
+        expires_at: r.expires_at,
+        opened_at: r.opened_at,
+        reminders_sent: r.reminders_sent,
+        last_reminded_at: r.last_reminded_at,
         credential_code: cred?.credential_code ?? null,
+        email_status: null as string | null,
+        link: null as string | null,
       });
     }
     if (page.length < 1000) break;
   }
+  // The invitation email's fate, and the personal link for anyone still waiting (to send another way).
+  const rows = out as { id: string; status: string; email_status: string | null; link: string | null }[];
+  for (let i = 0; i < rows.length; i += CHUNK) {
+    const part = rows.slice(i, i + CHUNK);
+    const { data, error } = await svc.from("email_queue")
+      .select("dedupe_key, status, delivery_status, payload")
+      .in("dedupe_key", part.map((r) => `offer-confirm:${r.id}`));
+    if (error) throw new Error(`email lookup: ${error.message}`);
+    const byKey = new Map((data ?? []).map((e: { dedupe_key: string }) => [e.dedupe_key, e]));
+    for (const r of part) {
+      const e = byKey.get(`offer-confirm:${r.id}`) as { status: string; delivery_status: string | null; payload: { confirm_url?: string } | null } | undefined;
+      if (!e) continue;
+      r.email_status = e.delivery_status ?? e.status;
+      if (r.status === "sent") r.link = e.payload?.confirm_url ?? null;
+    }
+  }
   return { ok: true, achievement: { code: ach.code, name: ach.name }, offers: out };
+}
+
+async function summary(svc: Svc, issuerId: string) {
+  const { data, error } = await svc.rpc("credential_offer_summary", { p_issuer_id: issuerId });
+  if (error) throw new Error(`offer summary: ${error.message}`);
+  const out: Record<string, unknown> = {};
+  for (const r of (data ?? []) as Record<string, number | string>[]) {
+    out[String(r.o_achievement_id)] = {
+      waiting: r.o_waiting, opened: r.o_opened, needs_review: r.o_needs_review,
+      confirmed: r.o_confirmed, declined: r.o_declined, expired: r.o_expired,
+    };
+  }
+  return { ok: true, by_achievement: out };
+}
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+async function remind(svc: Svc, actor: string, issuerId: string, body: Body) {
+  const offer = await loadOffer(svc, issuerId, body.offer_id);
+  const { data: row, error: rErr } = await svc.from("credential_offers")
+    .select("status, expires_at, last_reminded_at").eq("id", offer.id).single();
+  if (rErr) throw new Error(`offer reread: ${rErr.message}`);
+  if (row.status !== "sent" || Date.parse(row.expires_at) <= Date.now()) throw new HttpError(409, "not_waiting");
+  if (row.last_reminded_at && Date.now() - Date.parse(row.last_reminded_at) < DAY_MS) {
+    throw new HttpError(409, "reminded_recently");
+  }
+  const { data: queued, error } = await svc.rpc("enqueue_offer_reminder", { p_offer_id: offer.id });
+  if (error) throw new Error(`remind: ${error.message}`);
+  // false: the original email bounced or cannot be found; a reminder would go nowhere.
+  if (queued !== true) throw new HttpError(409, "cannot_remind");
+  const { error: logErr } = await svc.from("admin_actions").insert({
+    actor_user_id: actor, action: "remind_credential_offer", target_type: "credential_offer",
+    target_id: offer.id, reason: null, metadata: { issuer_id: issuerId },
+  });
+  if (logErr) console.warn("admin_actions log failed", logErr);
+  return { ok: true };
+}
+
+async function readdress(svc: Svc, actor: string, issuerId: string, body: Body) {
+  const offer = await loadOffer(svc, issuerId, body.offer_id);
+  const email = String(body.email ?? "").trim().toLowerCase();
+  if (!RECIPIENT_EMAIL_RE.test(email)) throw new HttpError(400, "bad_email");
+  if (offer.status !== "sent") throw new HttpError(409, "not_waiting");
+  // The same address is allowed only to renew an expired link; the old offer goes first.
+  const same = email === String(offer.recipient_email).toLowerCase();
+  if (same && Date.parse(offer.expires_at) > Date.now()) throw new HttpError(400, "same_email");
+  if (!same) {
+    const { holds, offered } = await blockedEmails(svc, offer.achievement_id, [email]);
+    if (holds.has(email)) throw new HttpError(409, "already_holds");
+    if (offered.has(email)) throw new HttpError(409, "already_offered");
+  } else {
+    const { error: xErr } = await svc.from("credential_offers")
+      .update({ status: "cancelled", responded_at: new Date().toISOString() })
+      .eq("id", offer.id).eq("status", "sent");
+    if (xErr) throw new Error(`renew: ${xErr.message}`);
+  }
+
+  // A new offer to the new address (new link, new email), then the old one is withdrawn.
+  // The slot under the yearly limit moves with it, so the allowance is not re-checked.
+  const token = newOfferToken();
+  const locale = offerLocale(offer.locale);
+  const { data: created, error } = await svc.rpc("create_credential_offers", {
+    p_issuer_id: issuerId,
+    p_achievement_id: offer.achievement_id,
+    p_created_by: actor,
+    p_locale: locale,
+    p_awarded_on: offer.awarded_on,
+    p_auto_minor: offer.auto_minor_fixes,
+    p_rows: [{ email, name: offer.name_sent, token_hash: await sha256Hex(token), confirm_url: confirmUrl(locale, token) }],
+  });
+  if (error) {
+    if ((error as { code?: string }).code === "23505") throw new HttpError(409, "already_offered");
+    throw new Error(`readdress create: ${error.message}`);
+  }
+  if (!same) {
+    const { error: cErr } = await svc.from("credential_offers")
+      .update({ status: "cancelled", responded_at: new Date().toISOString() })
+      .eq("id", offer.id).eq("status", "sent");
+    if (cErr) console.error("readdress: old offer not withdrawn", offer.id, cErr);
+  }
+  const { error: logErr } = await svc.from("admin_actions").insert({
+    actor_user_id: actor, action: "readdress_credential_offer", target_type: "credential_offer",
+    target_id: offer.id, reason: null,
+    metadata: { issuer_id: issuerId, from: offer.recipient_email, to: email, new_offer_id: created?.[0]?.o_offer_id ?? null },
+  });
+  if (logErr) console.warn("admin_actions log failed", logErr);
+  return { ok: true };
 }
 
 async function loadOffer(svc: Svc, issuerId: string, offerId: string | undefined): Promise<OfferRow> {
@@ -282,7 +395,10 @@ serve(async (req) => {
       case "review": return jsonResponse(await review(svc, actor, issuerId, body));
       case "cancel": return jsonResponse(await cancel(svc, issuerId, body));
       case "allowance": return jsonResponse({ ok: true, allowance: allowanceJson(await readAllowance(svc, issuerId)) });
-      default: throw new HttpError(400, "action must be create, list, review, cancel or allowance");
+      case "summary": return jsonResponse(await summary(svc, issuerId));
+      case "remind": return jsonResponse(await remind(svc, actor, issuerId, body));
+      case "readdress": return jsonResponse(await readdress(svc, actor, issuerId, body));
+      default: throw new HttpError(400, "action must be create, list, review, cancel, allowance, summary, remind or readdress");
     }
   } catch (err) {
     if (err instanceof HttpError) return jsonResponse({ error: err.message }, err.status);

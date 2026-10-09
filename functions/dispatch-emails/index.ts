@@ -165,7 +165,7 @@ serve(async (req) => {
         error = (err as Error).message;
         // A render failure is our bug or a bad payload. Waiting does not fix
         // either one.
-        terminal = /^(unknown template_key|issuance\.credential:)/.test(error);
+        terminal = /^(unknown template_key|issuance\.credential:|offer\.confirm:)/.test(error);
       }
 
       const { data: status, error: rErr } = await svc.rpc("complete_email_send", {

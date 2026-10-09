@@ -94,7 +94,15 @@ serve(async (req) => {
     let offer = data as OfferRow;
 
     const action = body.action ?? "view";
-    if (action === "view") return jsonResponse(await view(svc, offer));
+    if (action === "view") {
+      // First open only (migration 390): the partner's board shows who has seen their link.
+      // Best effort: a failed stamp must not stop the person from reading their offer.
+      const { error: oErr } = await svc.from("credential_offers")
+        .update({ opened_at: new Date().toISOString() })
+        .eq("id", offer.id).is("opened_at", null);
+      if (oErr) console.error("opened_at stamp failed", oErr);
+      return jsonResponse(await view(svc, offer));
+    }
 
     if (offer.status === "confirmed") return jsonResponse(await view(svc, offer)); // idempotent
     if (isExpired(offer)) throw new HttpError(410, "this link has expired; ask the issuer to send it again");

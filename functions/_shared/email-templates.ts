@@ -211,6 +211,9 @@ interface OfferStrings {
   fixNote: (issuer: string) => string;
   personal: string;
   footer: (issuer: string) => string;
+  /** offer.reminder (migration 390): same email, same link, a different subject and heading. */
+  reminderSubject: (issuer: string, achievement: string) => string;
+  reminderHeading: string;
 }
 
 const OFFER: Record<Locale, OfferStrings> = {
@@ -227,6 +230,8 @@ const OFFER: Record<Locale, OfferStrings> = {
     personal: "This link is personal and expires in 30 days. You do not need an account.",
     footer: (issuer) =>
       `Sent by Certidemy on behalf of ${issuer}. Certidemy hosts and verifies ${issuer}'s credentials; ${issuer} issues them.`,
+    reminderSubject: (issuer, achievement) => `Reminder: ${issuer} is waiting for you to confirm ${achievement}`,
+    reminderHeading: "Your credential is still waiting",
   },
   "es-419": {
     subject: (issuer, achievement) => `${issuer} quiere otorgarte una credencial: ${achievement}`,
@@ -241,6 +246,8 @@ const OFFER: Record<Locale, OfferStrings> = {
     personal: "Este enlace es personal y vence en 30 días. No necesitas crear una cuenta.",
     footer: (issuer) =>
       `Enviado por Certidemy en nombre de ${issuer}. Certidemy aloja y verifica las credenciales de ${issuer}; ${issuer} las emite.`,
+    reminderSubject: (issuer, achievement) => `Recordatorio: ${issuer} espera que confirmes ${achievement}`,
+    reminderHeading: "Tu credencial sigue esperando",
   },
   "pt-BR": {
     subject: (issuer, achievement) => `${issuer} quer emitir uma credencial para você: ${achievement}`,
@@ -255,10 +262,12 @@ const OFFER: Record<Locale, OfferStrings> = {
     personal: "Este link é pessoal e expira em 30 dias. Você não precisa criar uma conta.",
     footer: (issuer) =>
       `Enviado pela Certidemy em nome de ${issuer}. A Certidemy hospeda e verifica as credenciais de ${issuer}; ${issuer} as emite.`,
+    reminderSubject: (issuer, achievement) => `Lembrete: ${issuer} aguarda sua confirmação de ${achievement}`,
+    reminderHeading: "Sua credencial ainda está esperando",
   },
 };
 
-function renderOfferConfirm(locale: Locale, p: Record<string, unknown>): Rendered {
+function renderOfferConfirm(locale: Locale, p: Record<string, unknown>, reminder = false): Rendered {
   const t = OFFER[locale];
   const issuerRaw = headerSafe(p.issuer_name);
   const achievementRaw = headerSafe(p.achievement_name);
@@ -284,7 +293,7 @@ function renderOfferConfirm(locale: Locale, p: Record<string, unknown>): Rendere
 
   const issuer = esc(issuerRaw);
   const body = [
-    '<h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;">', esc(t.heading), "</h1>",
+    '<h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;">', esc(reminder ? t.reminderHeading : t.heading), "</h1>",
     '<p style="margin:0;">', t.intro(issuer, esc(achievementRaw)), "</p>",
     dateHtml,
     '<p style="margin:20px 0 6px;color:#52525b;font-size:13px;">', esc(t.nameLabel), "</p>",
@@ -297,7 +306,7 @@ function renderOfferConfirm(locale: Locale, p: Record<string, unknown>): Rendere
   ].join("");
 
   return {
-    subject: t.subject(issuerRaw, achievementRaw),
+    subject: reminder ? t.reminderSubject(issuerRaw, achievementRaw) : t.subject(issuerRaw, achievementRaw),
     html: shell(body, esc(t.footer(issuerRaw))),
     fromName: safeDisplayName(issuerRaw) + " via Certidemy",
   };
@@ -436,6 +445,8 @@ export function render(
       return renderIssuance(locale, payload);
     case "offer.confirm":
       return renderOfferConfirm(locale, payload);
+    case "offer.reminder":
+      return renderOfferConfirm(locale, payload, true);
     case "lead.received":
       // Locale is deliberately ignored: this mail always goes to one internal
       // inbox and is always English. See the note above renderLeadReceived.

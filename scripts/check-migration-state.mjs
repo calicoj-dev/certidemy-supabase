@@ -999,6 +999,14 @@ const FINGERPRINTS = {
         : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
     };
   },
+  390: async () => {
+    /* 390 adds opened_at/reminders_sent to credential_offers and the reminder functions.
+     * The columns selectable and the summary RPC answering are the fingerprint. */
+    if (!(await hasColumn("credential_offers", "reminders_sent"))) return { ran: false, why: "credential_offers.reminders_sent is not selectable" };
+    const res = await rpc("credential_offer_summary", { p_issuer_id: "00000000-0000-0000-0000-000000000000" });
+    if (!Array.isArray(res)) return { ran: false, why: "credential_offer_summary does not answer" };
+    return { ran: true, why: "reminders_sent selectable and credential_offer_summary answers (schedule: check cron.job 'offer-reminders')" };
+  },
   389: async () => {
     /* 389 adds company_issuing_plans and issuing_allowance(). The resolver answering for a
      * random id with 'issuer_unknown' is the fingerprint; plans readable proves the table. */
