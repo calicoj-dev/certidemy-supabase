@@ -999,6 +999,14 @@ const FINGERPRINTS = {
         : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
     };
   },
+  392: async () => {
+    /* 392 adds claim_my_credentials(). The service key has no auth.uid(), so it answers 0:
+     * answering at all is the fingerprint. */
+    const res = await rpc("claim_my_credentials", {});
+    return res === 0
+      ? { ran: true, why: "claim_my_credentials answers 0 with no caller" }
+      : { ran: false, why: "claim_my_credentials does not answer (got " + JSON.stringify(res) + ")" };
+  },
   391: async () => {
     /* 391 adds issuer_credential_counts(uuid[]), callable by authenticated. With the service
      * key there is no auth.uid(), so it answers an EMPTY array: answering at all is the print. */

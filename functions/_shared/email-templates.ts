@@ -435,6 +435,53 @@ function renderLeadReceived(p: Record<string, unknown>): Rendered {
   };
 }
 
+// ---------------------------------------------------------------- auth.signin_link
+//
+// A one-time sign-in link (request-signin-link, stage 4). From Certidemy itself:
+// signing in is ours, not a partner's. The href must be our own auth/confirm route.
+
+const SIGNIN: Record<Locale, { subject: string; heading: string; intro: string; cta: string; note: string; footer: string }> = {
+  en: {
+    subject: "Your link to sign in to Certidemy",
+    heading: "Sign in to Certidemy",
+    intro: "Use this button to sign in and see your credentials. No password needed.",
+    cta: "Sign in",
+    note: "The link works once and expires soon. If you didn't ask for it, you can ignore this email.",
+    footer: "Certidemy hosts and verifies credentials for the organizations that issue them.",
+  },
+  "es-419": {
+    subject: "Tu enlace para entrar a Certidemy",
+    heading: "Entra a Certidemy",
+    intro: "Usa este botón para entrar y ver tus credenciales. No necesitas contraseña.",
+    cta: "Entrar",
+    note: "El enlace funciona una sola vez y vence pronto. Si no lo pediste, puedes ignorar este correo.",
+    footer: "Certidemy aloja y verifica las credenciales de las organizaciones que las emiten.",
+  },
+  "pt-BR": {
+    subject: "Seu link para entrar na Certidemy",
+    heading: "Entre na Certidemy",
+    intro: "Use este botão para entrar e ver suas credenciais. Não precisa de senha.",
+    cta: "Entrar",
+    note: "O link funciona uma única vez e expira em breve. Se você não pediu, pode ignorar este e-mail.",
+    footer: "A Certidemy hospeda e verifica as credenciais das organizações que as emitem.",
+  },
+};
+
+function renderSigninLink(locale: Locale, p: Record<string, unknown>): Rendered {
+  const t = SIGNIN[locale];
+  const url = String(p.url ?? "");
+  if (!/^https:\/\/certidemy\.com\/(en|es-419|pt-BR)\/auth\/confirm\?/.test(url)) {
+    throw new Error("auth.signin_link: url must be certidemy.com/<locale>/auth/confirm");
+  }
+  const body = [
+    '<h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;">', esc(t.heading), "</h1>",
+    '<p style="margin:0;">', esc(t.intro), "</p>",
+    button(url, t.cta),
+    '<p style="margin:0;color:#71717a;font-size:12px;">', esc(t.note), "</p>",
+  ].join("");
+  return { subject: t.subject, html: shell(body, esc(t.footer)), fromName: "Certidemy" };
+}
+
 export function render(
   templateKey: string,
   locale: Locale,
@@ -447,6 +494,8 @@ export function render(
       return renderOfferConfirm(locale, payload);
     case "offer.reminder":
       return renderOfferConfirm(locale, payload, true);
+    case "auth.signin_link":
+      return renderSigninLink(locale, payload);
     case "lead.received":
       // Locale is deliberately ignored: this mail always goes to one internal
       // inbox and is always English. See the note above renderLeadReceived.
