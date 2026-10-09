@@ -57,6 +57,7 @@ async function view(svc: Svc, offer: OfferRow) {
       status: isExpired(offer) ? "expired" : offer.status,
       name_sent: offer.name_sent,
       name_requested: offer.name_requested,
+      name_final: offer.name_final,
       awarded_on: offer.awarded_on,
       locale: offer.locale,
       email_masked: maskEmail(offer.recipient_email),

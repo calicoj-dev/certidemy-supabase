@@ -18,6 +18,7 @@ export interface OfferRow {
   recipient_email: string;
   name_sent: string;
   name_requested: string | null;
+  name_final: string | null;
   status: string;
   awarded_on: string | null;
   auto_minor_fixes: boolean;
@@ -27,7 +28,7 @@ export interface OfferRow {
 }
 
 export const OFFER_COLUMNS =
-  "id, issuer_id, achievement_id, recipient_email, name_sent, name_requested, status, awarded_on, auto_minor_fixes, locale, expires_at, credential_id";
+  "id, issuer_id, achievement_id, recipient_email, name_sent, name_requested, name_final, status, awarded_on, auto_minor_fixes, locale, expires_at, credential_id";
 
 export async function mintFromOffer(
   svc: Svc,
