@@ -26,6 +26,7 @@ type Svc = any;
 const PACKAGES = { partner_network: 5000 } as const;
 const MAX_CUSTOM_CAP = 1_000_000;
 const FEATURE = "credentials:issue";
+const HISTORY_ACTIONS = ["set_issuing_plan", "clear_issuing_plan", "pause_issuing", "resume_issuing"];
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -47,10 +48,21 @@ async function issuerFor(svc: Svc, companyId: string) {
 
 async function state(svc: Svc, companyId: string) {
   const issuer = await issuerFor(svc, companyId);
-  const [plan, sw] = await Promise.all([
+  const [plan, sw, log] = await Promise.all([
     svc.from("company_issuing_plans").select("package, annual_cap, period_start, notes, updated_at").eq("company_id", companyId).maybeSingle(),
     svc.from("company_feature_disables").select("disabled_at, reason, restored_at").eq("company_id", companyId).eq("feature_key", FEATURE).maybeSingle(),
+    // The switch row keeps only the latest pause; every change is in admin_actions.
+    svc.from("admin_actions").select("action, reason, metadata, created_at, actor_user_id").eq("target_type", "company").eq("target_id", companyId).in("action", HISTORY_ACTIONS).order("created_at", { ascending: false }).limit(20),
   ]);
+  if (log.error) throw new Error(`history: ${log.error.message}`);
+  const rows = (log.data ?? []) as { action: string; reason: string | null; metadata: Record<string, unknown> | null; created_at: string; actor_user_id: string }[];
+  const actorIds = [...new Set(rows.map((r) => r.actor_user_id))];
+  const names = new Map<string, string>();
+  if (actorIds.length) {
+    const { data: people, error: pErr } = await svc.from("profiles").select("id, full_name, email").in("id", actorIds);
+    if (pErr) throw new Error(`history actors: ${pErr.message}`);
+    for (const p of (people ?? []) as { id: string; full_name: string | null; email: string | null }[]) names.set(p.id, p.full_name || p.email || "");
+  }
   if (plan.error) throw new Error(`plan: ${plan.error.message}`);
   if (sw.error) throw new Error(`switch: ${sw.error.message}`);
   return {
@@ -59,12 +71,13 @@ async function state(svc: Svc, companyId: string) {
     allowance: issuer ? allowanceJson(await readAllowance(svc, issuer.id)) : null,
     plan: plan.data ?? null,
     switch: sw.data ?? null,
+    history: rows.map((r) => ({ action: r.action, reason: r.reason, metadata: r.metadata, at: r.created_at, by: names.get(r.actor_user_id) ?? null })),
   };
 }
 
-async function audit(svc: Svc, actor: string, companyId: string, action: string, metadata: Record<string, unknown>) {
+async function audit(svc: Svc, actor: string, companyId: string, action: string, metadata: Record<string, unknown>, reason: string | null = null) {
   const { error } = await svc.from("admin_actions").insert({
-    actor_user_id: actor, action, target_type: "company", target_id: companyId, reason: null, metadata,
+    actor_user_id: actor, action, target_type: "company", target_id: companyId, reason, metadata,
   });
   if (error) console.error(`${action} audit failed`, error);
 }
@@ -121,7 +134,7 @@ serve(async (req) => {
           reason: body.reason?.trim() || null, restored_at: null, restored_by: null,
         }, { onConflict: "company_id,feature_key" });
         if (error) throw new Error(`pause: ${error.message}`);
-        await audit(svc, actor, companyId, "pause_issuing", { reason: body.reason?.trim() || null });
+        await audit(svc, actor, companyId, "pause_issuing", {}, body.reason?.trim() || null);
         break;
       }
 
