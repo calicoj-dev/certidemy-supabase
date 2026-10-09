@@ -195,6 +195,114 @@ function renderIssuance(locale: Locale, p: Record<string, unknown>): Rendered {
   };
 }
 
+// ---------------------------------------------------------------- offer.confirm
+//
+// Sent BEFORE anything is minted: the recipient checks the name the partner
+// typed. Same claims rule as issuance -- the partner is the one who wants to
+// issue; Certidemy only hosts and verifies. Payload from migration 388.
+
+interface OfferStrings {
+  subject: (issuer: string, achievement: string) => string;
+  heading: string;
+  intro: (issuer: string, achievement: string) => string;
+  dateLine: (date: string) => string;
+  nameLabel: string;
+  cta: string;
+  fixNote: (issuer: string) => string;
+  personal: string;
+  footer: (issuer: string) => string;
+}
+
+const OFFER: Record<Locale, OfferStrings> = {
+  en: {
+    subject: (issuer, achievement) => `${issuer} wants to issue you a credential: ${achievement}`,
+    heading: "Check your name before it is issued",
+    intro: (issuer, achievement) =>
+      `${issuer} wants to issue you a verifiable credential for <strong>${achievement}</strong>.`,
+    dateLine: (date) => `Date: ${date}`,
+    nameLabel: "Your name will appear as",
+    cta: "Review and accept",
+    fixNote: (issuer) =>
+      `Something not right? On the same page you can fix your name or tell ${issuer} this is not for you.`,
+    personal: "This link is personal and expires in 30 days. You do not need an account.",
+    footer: (issuer) =>
+      `Sent by Certidemy on behalf of ${issuer}. Certidemy hosts and verifies ${issuer}'s credentials; ${issuer} issues them.`,
+  },
+  "es-419": {
+    subject: (issuer, achievement) => `${issuer} quiere otorgarte una credencial: ${achievement}`,
+    heading: "Revisa tu nombre antes de que se emita",
+    intro: (issuer, achievement) =>
+      `${issuer} quiere otorgarte una credencial verificable de <strong>${achievement}</strong>.`,
+    dateLine: (date) => `Fecha: ${date}`,
+    nameLabel: "Tu nombre aparecerá así",
+    cta: "Revisar y aceptar",
+    fixNote: (issuer) =>
+      `¿Algo no está bien? En la misma página puedes corregir tu nombre o avisarle a ${issuer} que no es para ti.`,
+    personal: "Este enlace es personal y vence en 30 días. No necesitas crear una cuenta.",
+    footer: (issuer) =>
+      `Enviado por Certidemy en nombre de ${issuer}. Certidemy aloja y verifica las credenciales de ${issuer}; ${issuer} las emite.`,
+  },
+  "pt-BR": {
+    subject: (issuer, achievement) => `${issuer} quer emitir uma credencial para você: ${achievement}`,
+    heading: "Confira seu nome antes da emissão",
+    intro: (issuer, achievement) =>
+      `${issuer} quer emitir para você uma credencial verificável de <strong>${achievement}</strong>.`,
+    dateLine: (date) => `Data: ${date}`,
+    nameLabel: "Seu nome vai aparecer assim",
+    cta: "Revisar e aceitar",
+    fixNote: (issuer) =>
+      `Algo errado? Na mesma página você pode corrigir seu nome ou avisar a ${issuer} que não é para você.`,
+    personal: "Este link é pessoal e expira em 30 dias. Você não precisa criar uma conta.",
+    footer: (issuer) =>
+      `Enviado pela Certidemy em nome de ${issuer}. A Certidemy hospeda e verifica as credenciais de ${issuer}; ${issuer} as emite.`,
+  },
+};
+
+function renderOfferConfirm(locale: Locale, p: Record<string, unknown>): Rendered {
+  const t = OFFER[locale];
+  const issuerRaw = headerSafe(p.issuer_name);
+  const achievementRaw = headerSafe(p.achievement_name);
+  const recipientName = String(p.recipient_name ?? "").trim();
+  const confirmUrl = String(p.confirm_url ?? "");
+  const awardedOn = String(p.awarded_on ?? "").trim();
+
+  if (!issuerRaw || !achievementRaw || !recipientName || !confirmUrl) {
+    throw new Error("offer.confirm: issuer_name, achievement_name, recipient_name and confirm_url are required");
+  }
+  // Same rule as verify_url: an href built from payload must point at us and nowhere else.
+  if (!confirmUrl.startsWith("https://certidemy.com/")) {
+    throw new Error("offer.confirm: confirm_url must be an https certidemy.com URL");
+  }
+
+  let dateHtml = "";
+  if (/^\d{4}-\d{2}-\d{2}$/.test(awardedOn)) {
+    const d = new Date(`${awardedOn}T00:00:00Z`).toLocaleDateString(locale, {
+      day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+    });
+    dateHtml = `<p style="margin:6px 0 0;color:#52525b;font-size:14px;">${esc(t.dateLine(d))}</p>`;
+  }
+
+  const issuer = esc(issuerRaw);
+  const body = [
+    '<h1 style="margin:0 0 16px;font-size:22px;line-height:1.3;">', esc(t.heading), "</h1>",
+    '<p style="margin:0;">', t.intro(issuer, esc(achievementRaw)), "</p>",
+    dateHtml,
+    '<p style="margin:20px 0 6px;color:#52525b;font-size:13px;">', esc(t.nameLabel), "</p>",
+    '<div style="padding:14px 16px;background:#f4f4f5;border-radius:10px;font-size:22px;font-weight:700;">',
+    esc(recipientName),
+    "</div>",
+    button(confirmUrl, t.cta),
+    '<p style="margin:0;color:#52525b;font-size:13px;">', esc(t.fixNote(issuerRaw)), "</p>",
+    '<p style="margin:12px 0 0;color:#71717a;font-size:12px;">', esc(t.personal), "</p>",
+  ].join("");
+
+  return {
+    subject: t.subject(issuerRaw, achievementRaw),
+    html: shell(body, esc(t.footer(issuerRaw))),
+    fromName: safeDisplayName(issuerRaw) + " via Certidemy",
+  };
+}
+
 // ---------------------------------------------------------------- lead.received
 //
 // INTERNAL MAIL. This one goes from us to us -- to info@certidemy.com, when a
@@ -326,6 +434,8 @@ export function render(
   switch (templateKey) {
     case "issuance.credential":
       return renderIssuance(locale, payload);
+    case "offer.confirm":
+      return renderOfferConfirm(locale, payload);
     case "lead.received":
       // Locale is deliberately ignored: this mail always goes to one internal
       // inbox and is always English. See the note above renderLeadReceived.

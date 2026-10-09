@@ -812,3 +812,13 @@ verify_jwt = false
 # platform_admin or the company's team_admin, enforced in-function.
 [functions.change-voucher-cert]
 verify_jwt = true
+
+# Confirm-before-signing, partner side (388). Mints on review: requireIssuerAccess
+# in-function is the gate, so verify_jwt stays PINNED true like the other issuers.
+[functions.manage-credential-offers]
+verify_jwt = true
+
+# Confirm-before-signing, recipient side (388). verify_jwt MUST be false: the
+# recipient has no account; the 256-bit emailed token is the credential.
+[functions.credential-offer]
+verify_jwt = false
