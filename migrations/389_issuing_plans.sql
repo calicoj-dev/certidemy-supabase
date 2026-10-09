@@ -23,7 +23,7 @@
 -- ===================================================================== 0. READ ONLY, run first
 -- Partners whose issuing is ALREADY switched off in 331's table. Once the new
 -- functions deploy, these partners stop being able to issue. Expect no rows.
-select c.name, d.disabled_at, d.notes
+select c.name, d.disabled_at, d.reason
   from public.company_feature_disables d
   join public.companies c on c.id = d.company_id
  where d.feature_key = 'credentials:issue'

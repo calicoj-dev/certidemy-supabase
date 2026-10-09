@@ -7,7 +7,7 @@
 //   get        -> { issuer, allowance, plan, switch }
 //   set_plan   { package: "partner_network" | "custom", annual_cap? (custom only), period_start, notes? }
 //   clear_plan -> no limit
-//   pause      { notes? }   -- writes 331's company_feature_disables row for credentials:issue
+//   pause      { reason? } -- writes 331's company_feature_disables row for credentials:issue
 //   resume                  -- sets restored_at; the row is kept, so the history is too
 //
 // Pausing stops new signing everywhere (console, API, batch, offers). Credentials already
@@ -36,6 +36,7 @@ interface Body {
   annual_cap?: number;
   period_start?: string;
   notes?: string;
+  reason?: string;
 }
 
 async function issuerFor(svc: Svc, companyId: string) {
@@ -48,7 +49,7 @@ async function state(svc: Svc, companyId: string) {
   const issuer = await issuerFor(svc, companyId);
   const [plan, sw] = await Promise.all([
     svc.from("company_issuing_plans").select("package, annual_cap, period_start, notes, updated_at").eq("company_id", companyId).maybeSingle(),
-    svc.from("company_feature_disables").select("disabled_at, notes, restored_at").eq("company_id", companyId).eq("feature_key", FEATURE).maybeSingle(),
+    svc.from("company_feature_disables").select("disabled_at, reason, restored_at").eq("company_id", companyId).eq("feature_key", FEATURE).maybeSingle(),
   ]);
   if (plan.error) throw new Error(`plan: ${plan.error.message}`);
   if (sw.error) throw new Error(`switch: ${sw.error.message}`);
@@ -117,10 +118,10 @@ serve(async (req) => {
         // One row per (company, feature) in 331: pausing again after a resume reopens it.
         const { error } = await svc.from("company_feature_disables").upsert({
           company_id: companyId, feature_key: FEATURE, disabled_at: new Date().toISOString(), disabled_by: actor,
-          notes: body.notes?.trim() || null, restored_at: null, restored_by: null,
+          reason: body.reason?.trim() || null, restored_at: null, restored_by: null,
         }, { onConflict: "company_id,feature_key" });
         if (error) throw new Error(`pause: ${error.message}`);
-        await audit(svc, actor, companyId, "pause_issuing", { notes: body.notes?.trim() || null });
+        await audit(svc, actor, companyId, "pause_issuing", { reason: body.reason?.trim() || null });
         break;
       }
 
