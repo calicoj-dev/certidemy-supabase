@@ -176,6 +176,10 @@ serve(async (req) => {
           throw new HttpError(404, err.message);
         case "achievement_not_active":
           throw new HttpError(409, err.message);
+        case "issuing_disabled":
+          throw new HttpError(403, err.message);
+        case "credential_limit_reached":
+          throw new HttpError(409, err.message);
         case "bad_issued_at":
         case "bad_expires_at":
           throw new HttpError(400, err.message);

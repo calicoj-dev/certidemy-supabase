@@ -25,6 +25,14 @@ import {
   sha256Hex,
 } from "../_shared/offer.ts";
 import { mintFromOffer, OFFER_COLUMNS, type OfferRow } from "../_shared/offer-mint.ts";
+import { allowanceJson, readAllowance } from "../_shared/allowance.ts";
+
+/** The send would pass the yearly limit (migration 389). Carries the numbers the console shows. */
+class LimitError extends Error {
+  constructor(readonly remaining: number, readonly annualCap: number) {
+    super("credential_limit");
+  }
+}
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -120,6 +128,13 @@ async function create(svc: Svc, actor: string, issuerId: string, body: Body) {
   }
 
   if (toSend.length > 0) {
+    // Each offer holds a slot from the moment it is sent, so the whole list must fit.
+    // Soft under a concurrent send from the same partner; issue.ts still refuses past the limit.
+    const allowance = await readAllowance(svc, issuerId);
+    if (!allowance.enabled) throw new HttpError(403, "issuing_paused");
+    if (allowance.remaining !== null && toSend.length > allowance.remaining) {
+      throw new LimitError(allowance.remaining, allowance.annualCap ?? 0);
+    }
     // One statement: every offer row and every email, or none (migration 388 block 6).
     const { error } = await svc.rpc("create_credential_offers", {
       p_issuer_id: issuerId,
@@ -266,10 +281,14 @@ serve(async (req) => {
       case "list": return jsonResponse(await list(svc, issuerId, body));
       case "review": return jsonResponse(await review(svc, actor, issuerId, body));
       case "cancel": return jsonResponse(await cancel(svc, issuerId, body));
-      default: throw new HttpError(400, "action must be create, list, review or cancel");
+      case "allowance": return jsonResponse({ ok: true, allowance: allowanceJson(await readAllowance(svc, issuerId)) });
+      default: throw new HttpError(400, "action must be create, list, review, cancel or allowance");
     }
   } catch (err) {
     if (err instanceof HttpError) return jsonResponse({ error: err.message }, err.status);
+    if (err instanceof LimitError) {
+      return jsonResponse({ error: "credential_limit", remaining: err.remaining, annual_cap: err.annualCap }, 409);
+    }
     console.error(err);
     return jsonResponse({ error: (err as Error).message }, 500);
   }

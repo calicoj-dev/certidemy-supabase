@@ -68,6 +68,7 @@
  */
 
 import { getServiceClient } from "./supabase.ts";
+import { readAllowance } from "./allowance.ts";
 
 // deno-lint-ignore no-explicit-any
 type Svc = any;
@@ -177,7 +178,9 @@ export type IssueFailure =
   | "bad_issued_at"
   | "bad_expires_at"
   | "insert_failed"
-  | "code_collision";
+  | "code_collision"
+  | "issuing_disabled"
+  | "credential_limit_reached";
 
 export class IssueError extends Error {
   readonly kind: IssueFailure;
@@ -238,6 +241,11 @@ export interface IssueInput {
    * the same award to the same person.
    */
   idempotencyKey?: string | null;
+  /**
+   * An open offer already holds this mint's slot under the yearly limit
+   * (migration 389), so the limit must not refuse it. mintFromOffer only.
+   */
+  holdsReservedSlot?: boolean;
 }
 
 export interface IssuedCredential {
@@ -332,6 +340,33 @@ export async function issueCredential(
       `achievement "${input.achievementCode}" is ${ach.status}, not active`,
       { achievementStatus: ach.status },
     );
+  }
+
+  /* --------------------------------------------------------- allowance -- */
+  // Migration 389. Switched off refuses every mint, offers included. The yearly
+  // limit spares specimens, a slot an open offer holds, and a retry of a keyed mint.
+  const allowance = await readAllowance(client, issuer.id);
+  if (!allowance.enabled) {
+    throw new IssueError("issuing_disabled", "issuing is switched off for this issuer");
+  }
+  if (!isSpecimen && !input.holdsReservedSlot && allowance.remaining !== null && allowance.remaining < 1) {
+    let isRetry = false;
+    if (idempotencyKey) {
+      const { data: prior, error: pErr } = await client
+        .from("credentials")
+        .select("id")
+        .eq("issuer_id", issuer.id)
+        .eq("idempotency_key", idempotencyKey)
+        .maybeSingle();
+      if (pErr) throw new Error(`limit retry check: ${pErr.message}`);
+      isRetry = !!prior;
+    }
+    if (!isRetry) {
+      throw new IssueError(
+        "credential_limit_reached",
+        `the limit of ${allowance.annualCap} credentials for this contract year is reached`,
+      );
+    }
   }
 
   /* -------------------------------------------------------------- dates -- */

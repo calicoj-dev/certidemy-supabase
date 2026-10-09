@@ -53,11 +53,16 @@ export async function mintFromOffer(
       // The class date, at midday UTC so no timezone moves it to the day before.
       issuedAt: offer.awarded_on ? `${offer.awarded_on}T12:00:00Z` : null,
       idempotencyKey: `offer:${offer.id}`,
+      holdsReservedSlot: true,
     });
   } catch (err) {
     if (!(err instanceof IssueError)) throw err;
     if (err.kind === "achievement_not_active") {
       throw new HttpError(409, "this course is no longer active, so nothing can be issued from it");
+    }
+    if (err.kind === "issuing_disabled") {
+      // The recipient page keys on this exact string.
+      throw new HttpError(403, "issuing_paused");
     }
     if (err.kind === "achievement_not_found" || err.kind === "issuer_not_found") {
       throw new HttpError(404, err.message);

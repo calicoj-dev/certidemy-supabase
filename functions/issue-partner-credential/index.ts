@@ -270,6 +270,12 @@ serve(async (req) => {
         case "achievement_not_active":
           await logRequest(409, null, idem, "achievement not active");
           return jsonResponse({ error: err.message }, 409);
+        case "issuing_disabled":
+          await logRequest(403, null, idem, "issuing disabled");
+          return jsonResponse({ error: err.message }, 403);
+        case "credential_limit_reached":
+          await logRequest(409, null, idem, "credential limit reached");
+          return jsonResponse({ error: err.message }, 409);
         case "bad_issued_at":
           await logRequest(400, null, idem, "issued_at");
           return jsonResponse({ error: err.message }, 400);

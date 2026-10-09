@@ -818,6 +818,9 @@ verify_jwt = true
 [functions.manage-credential-offers]
 verify_jwt = true
 
+[functions.manage-issuing-plan]
+verify_jwt = true
+
 # Confirm-before-signing, recipient side (388). verify_jwt MUST be false: the
 # recipient has no account; the 256-bit emailed token is the credential.
 [functions.credential-offer]

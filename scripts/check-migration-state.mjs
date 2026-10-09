@@ -999,6 +999,23 @@ const FINGERPRINTS = {
         : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
     };
   },
+  389: async () => {
+    /* 389 adds company_issuing_plans and issuing_allowance(). The resolver answering for a
+     * random id with 'issuer_unknown' is the fingerprint; plans readable proves the table. */
+    const res = await rpc("issuing_allowance", { p_issuer_id: "00000000-0000-0000-0000-000000000000" });
+    const row = Array.isArray(res) ? res[0] : undefined;
+    if (!row) return { ran: false, why: "issuing_allowance does not answer" };
+    if (row.o_status !== "issuer_unknown") return { ran: false, why: "issuing_allowance answered " + row.o_status + " for no issuer" };
+    const plans = await rest("company_issuing_plans?select=company_id&limit=1");
+    if (!Array.isArray(plans)) return { ran: false, why: "company_issuing_plans is not selectable" };
+    return { ran: true, why: "issuing_allowance answers and company_issuing_plans is selectable" };
+  },
+  388: async () => {
+    /* 388 adds credential_offers and its two RPCs. The table answering is the fingerprint. */
+    const rows = await rest("credential_offers?select=id&limit=1");
+    if (!Array.isArray(rows)) return { ran: false, why: "credential_offers is not selectable" };
+    return { ran: true, why: "credential_offers answers" };
+  },
   387: async () => {
     /* 387 creates v_company_pool_usage and makes every seat batch a cert-agnostic pool.
      * The view answering is the fingerprint; a batch still carrying a cert contradicts it. */
