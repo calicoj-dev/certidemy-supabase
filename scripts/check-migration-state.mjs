@@ -999,6 +999,14 @@ const FINGERPRINTS = {
         : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
     };
   },
+  391: async () => {
+    /* 391 adds issuer_credential_counts(uuid[]), callable by authenticated. With the service
+     * key there is no auth.uid(), so it answers an EMPTY array: answering at all is the print. */
+    const res = await rpc("issuer_credential_counts", { p_issuer_ids: [] });
+    return Array.isArray(res)
+      ? { ran: true, why: "issuer_credential_counts answers" }
+      : { ran: false, why: "issuer_credential_counts does not answer" };
+  },
   390: async () => {
     /* 390 adds opened_at/reminders_sent to credential_offers and the reminder functions.
      * The columns selectable and the summary RPC answering are the fingerprint. */
