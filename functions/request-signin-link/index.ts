@@ -76,6 +76,12 @@ serve(async (req) => {
     if ((count ?? 0) >= PER_WINDOW) return jsonResponse({ ok: true });
 
     // A new account takes the name the credential was issued under.
+    if (!who.name && holds) {
+      const { data: named, error: nErr } = await svc.from("credentials").select("holder_name")
+        .eq("holder_email", who.email).not("holder_name", "is", null).limit(1);
+      if (nErr) throw new Error(`holder name: ${nErr.message}`);
+      who.name = named?.[0]?.holder_name ?? null;
+    }
     const { data: link, error: lErr } = await svc.auth.admin.generateLink({
       type: "magiclink",
       email: who.email,
