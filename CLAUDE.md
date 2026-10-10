@@ -23,7 +23,10 @@ platform issuing Open Badges 3.0 credentials.
 
 ## 2. Standing rules `[H:working style]`
 
-1. **Juan pushes. Never push.**
+1. **Never push to `main`; Juan merges.** Push your `claude/*` branch and **open a PR into `main`** (draft
+   until ready). A new migration gets its number from the `Migration traffic` check: open the draft PR as
+   soon as the file exists, so the number is reserved against every other open PR. The check posts the
+   SQL blocks to run, in order; Juan runs them in the editor, then merges.
 2. **You run every build** (§3).
 3. **Never print a key.**
 4. Don't make the MCP worker worse.
