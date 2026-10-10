@@ -999,6 +999,13 @@ const FINGERPRINTS = {
         : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
     };
   },
+  393: async () => {
+    /* 393 adds the studio tables. A column selectable is the print; calling studio_claim_job would
+     * claim a real job, so the probe never calls it. */
+    return (await hasColumn("studio_videos", "claude_output_tokens"))
+      ? { ran: true, why: "studio_videos.claude_output_tokens is selectable" }
+      : { ran: false, why: "studio_videos is not selectable" };
+  },
   392: async () => {
     /* 392 adds claim_my_credentials(). The service key has no auth.uid(), so it answers 0:
      * answering at all is the fingerprint. */

@@ -828,3 +828,7 @@ verify_jwt = false
 # recipient has no account; the 256-bit emailed token is the credential.
 [functions.credential-offer]
 verify_jwt = false
+
+[functions.studio]
+verify_jwt = true
+# Partner video studio. requireIssuerAccess in-function on every action; issuer named in the body.
