@@ -999,6 +999,16 @@ const FINGERPRINTS = {
         : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
     };
   },
+  396: async () => {
+    /* 396 makes ZZ-TEST-I-A6BJ-EA5R a specimen. The print is that code counted among specimens,
+     * with the same code counted at all as the control. */
+    const any = await countWhere("credentials?select=id&credential_code=eq.ZZ-TEST-I-A6BJ-EA5R");
+    const spec = await countWhere("credentials?select=id&credential_code=eq.ZZ-TEST-I-A6BJ-EA5R&is_specimen=eq.true");
+    if (!any) return { ran: false, why: "ZZ-TEST-I-A6BJ-EA5R not found; the probe cannot answer" };
+    return spec === 1
+      ? { ran: true, why: "ZZ-TEST-I-A6BJ-EA5R is a specimen" }
+      : { ran: false, why: "ZZ-TEST-I-A6BJ-EA5R is still a real credential" };
+  },
   395: async () => {
     /* 395 bumps material_updated_at on every real credential to 2026-10-11 or later. The
      * print is ZERO real credentials older than that, with the total counted as a control. */
