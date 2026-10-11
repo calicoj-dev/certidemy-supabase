@@ -162,9 +162,10 @@ Identifiers inside signed documents live on `credentials.certidemy.com`, nested 
 - No frozen copy of an achievement exists; an edit reaches every credential already issued.
 - Renderer change → `DOC_VERSION` → `material_updated_at` → anchor rebuild. Four move together.
 - Byte-hash `SM-AI-I-ZZMV-JPC8` before and after any `open-badge` deploy:
-  `049d14a91faee989ec3827ab6fb5a2adfd286e3c29a30c2c20e62ebf50c35575` once RDFC is `proof[0]`
-  (confirmed live on both hosts 2026-10-11, matching the prediction). Before:
-  `3912d181…5d60` (post-395, JCS first), `366981ac…a796` (pre-395).
+  **397 changes it once, deliberately** (credentialSubject.id, new `created`); re-record it here
+  after. Before: `049d14a9…5575` (RDFC first), `3912d181…5d60` (post-395), `366981ac…a796` (pre-395).
+- **Every credential carries `credentialSubject.id`**: `subjectIdFor()`, an opaque urn:uuid per
+  credential. It names no person; the salted email `identifier[]` stays holder-only.
 - **`eddsa-rdfc-2022` is `proof[0]`.** The 1EdTech validator checks `proof[0]` with its RDFC
   verifier; JCS first failed it. Our panel selects JCS by name.
 - **A status list's `encodedList` is multibase: `u` + base64url.** Bare failed 1EdTech. The status

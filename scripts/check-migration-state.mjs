@@ -999,6 +999,17 @@ const FINGERPRINTS = {
         : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
     };
   },
+  397: async () => {
+    /* 397 releases every real credential from anchor 8035e45c (written before it, 2026-10-11).
+     * The print is ZERO still linked to it, with that anchor row counted as the control. */
+    const A = "8035e45c-b84f-4295-8cfc-1338296bb7a8";
+    const exists = await countWhere(`credential_anchors?select=id&id=eq.${A}`);
+    if (!exists) return { ran: false, why: `anchor ${A} not found; the probe cannot answer` };
+    const linked = await countWhere(`credentials?select=id&is_specimen=eq.false&anchor_id=eq.${A}`);
+    return linked === 0
+      ? { ran: true, why: `no real credential still links to pre-397 anchor ${A.slice(0, 8)}` }
+      : { ran: false, why: `${linked} real credential(s) still link to pre-397 anchor ${A.slice(0, 8)}` };
+  },
   396: async () => {
     /* 396 makes ZZ-TEST-I-A6BJ-EA5R a specimen. The print is that code counted among specimens,
      * with the same code counted at all as the control. */
