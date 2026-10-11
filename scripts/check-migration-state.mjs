@@ -999,6 +999,12 @@ const FINGERPRINTS = {
         : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
     };
   },
+  394: async () => {
+    /* 394 adds the studio calendar. A column selectable is the print. */
+    return (await hasColumn("studio_videos", "quota_month"))
+      ? { ran: true, why: "studio_videos.quota_month is selectable" }
+      : { ran: false, why: "studio_videos.quota_month is not selectable" };
+  },
   393: async () => {
     /* 393 adds the studio tables. A column selectable is the print; calling studio_claim_job would
      * claim a real job, so the probe never calls it. */
