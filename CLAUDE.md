@@ -162,7 +162,8 @@ Identifiers inside signed documents live on `credentials.certidemy.com`, nested 
 - No frozen copy of an achievement exists; an edit reaches every credential already issued.
 - Renderer change → `DOC_VERSION` → `material_updated_at` → anchor rebuild. Four move together.
 - Byte-hash `SM-AI-I-ZZMV-JPC8` before and after any `open-badge` deploy:
-  `366981ac5a547b6c7aa943f66eecd3c8f75ccf5078bdc30b594f4784a109a796`.
+  `366981ac5a547b6c7aa943f66eecd3c8f75ccf5078bdc30b594f4784a109a796` (pre-395). **395 changes it
+  once, deliberately** (verificationMethod `#key-1` → `#<publicKeyMultibase>`); re-record it here after.
 - Grep BOTH repos for readers before changing a credential document's shape.
 
 ## 8. Email `[H:Email]`

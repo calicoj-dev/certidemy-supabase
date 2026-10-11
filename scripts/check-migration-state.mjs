@@ -999,6 +999,16 @@ const FINGERPRINTS = {
         : "rows carry 'grounded' but NONE is approved+secure+exam-scope+live, so none reaches a form",
     };
   },
+  395: async () => {
+    /* 395 bumps material_updated_at on every real credential to 2026-10-11 or later. The
+     * print is ZERO real credentials older than that, with the total counted as a control. */
+    const total = await countWhere("credentials?select=id&is_specimen=eq.false");
+    const older = await countWhere("credentials?select=id&is_specimen=eq.false&material_updated_at=lt.2026-10-11");
+    if (!total) return { ran: false, why: "no real credentials counted; the probe cannot answer" };
+    return older === 0
+      ? { ran: true, why: `all ${total} real credentials have material_updated_at >= 2026-10-11` }
+      : { ran: false, why: `${older} of ${total} real credentials predate 2026-10-11` };
+  },
   394: async () => {
     /* 394 adds the studio calendar. A column selectable is the print. */
     return (await hasColumn("studio_videos", "quota_month"))
