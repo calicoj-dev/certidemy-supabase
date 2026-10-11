@@ -81,7 +81,7 @@ const DRY = process.argv.includes("--dry");
  * silently stopped matching. Prior anchors keep their old doc_version and stay
  * honest about what the document looked like then.
  */
-const DOC_VERSION = "ob3-vm-multibase-2026-10"; // 395: verificationMethod names the key by its multibase
+const DOC_VERSION = "ob3-rdfc-first-2026-10"; // 395 multibase key id + eddsa-rdfc-2022 at proof[0]
 
 const SUPABASE_URL = "https://pctynukndxnmnxiqpgck.supabase.co";
 const PUBLIC_BASE = "https://credentials.certidemy.com";

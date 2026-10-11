@@ -162,8 +162,11 @@ Identifiers inside signed documents live on `credentials.certidemy.com`, nested 
 - No frozen copy of an achievement exists; an edit reaches every credential already issued.
 - Renderer change → `DOC_VERSION` → `material_updated_at` → anchor rebuild. Four move together.
 - Byte-hash `SM-AI-I-ZZMV-JPC8` before and after any `open-badge` deploy:
-  `366981ac5a547b6c7aa943f66eecd3c8f75ccf5078bdc30b594f4784a109a796` (pre-395). **395 changes it
-  once, deliberately** (verificationMethod `#key-1` → `#<publicKeyMultibase>`); re-record it here after.
+  `049d14a91faee989ec3827ab6fb5a2adfd286e3c29a30c2c20e62ebf50c35575` once RDFC is `proof[0]`
+  (predicted 2026-10-11 by reordering the live document; confirm after deploy). Before:
+  `3912d181…5d60` (post-395, JCS first), `366981ac…a796` (pre-395).
+- **`eddsa-rdfc-2022` is `proof[0]`.** The 1EdTech validator checks `proof[0]` with its RDFC
+  verifier; JCS first failed it. Our panel selects JCS by name.
 - Grep BOTH repos for readers before changing a credential document's shape.
 
 ## 8. Email `[H:Email]`

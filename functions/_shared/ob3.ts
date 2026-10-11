@@ -266,10 +266,9 @@ export async function signDocument<T extends Record<string, unknown>>(
    * requires eddsa-rdfc-2022 or ecdsa-sd-2023 -- neither of which is what this
    * platform originally signed with.
    *
-   * JCS IS FIRST, deliberately. Some consumers read proof[0] instead of
-   * searching for a cryptosuite they support, and JCS is what this platform's
-   * own verifier has always checked. It also means that if the RDFC path is ever
-   * wrong, the credential is still verifiable.
+   * RDFC IS FIRST: the 1EdTech validator verified proof[0] (JCS) with its RDFC
+   * verifier and failed (report 2026-10-11). Our own panel selects JCS by name,
+   * so order costs it nothing.
    */
   const [jcsProof, rdfcProof] = await Promise.all([
     signOne("eddsa-jcs-2022", canonicalize),
@@ -278,7 +277,7 @@ export async function signDocument<T extends Record<string, unknown>>(
 
   return {
     ...document,
-    proof: [jcsProof, rdfcProof],
+    proof: [rdfcProof, jcsProof],
   };
 }
 
