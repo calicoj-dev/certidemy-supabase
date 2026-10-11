@@ -163,10 +163,12 @@ Identifiers inside signed documents live on `credentials.certidemy.com`, nested 
 - Renderer change → `DOC_VERSION` → `material_updated_at` → anchor rebuild. Four move together.
 - Byte-hash `SM-AI-I-ZZMV-JPC8` before and after any `open-badge` deploy:
   `049d14a91faee989ec3827ab6fb5a2adfd286e3c29a30c2c20e62ebf50c35575` once RDFC is `proof[0]`
-  (predicted 2026-10-11 by reordering the live document; confirm after deploy). Before:
+  (confirmed live on both hosts 2026-10-11, matching the prediction). Before:
   `3912d181…5d60` (post-395, JCS first), `366981ac…a796` (pre-395).
 - **`eddsa-rdfc-2022` is `proof[0]`.** The 1EdTech validator checks `proof[0]` with its RDFC
   verifier; JCS first failed it. Our panel selects JCS by name.
+- **A status list's `encodedList` is multibase: `u` + base64url.** Bare failed 1EdTech. The status
+  list is signed per request and not anchored, so this changes no credential document.
 - Grep BOTH repos for readers before changing a credential document's shape.
 
 ## 8. Email `[H:Email]`

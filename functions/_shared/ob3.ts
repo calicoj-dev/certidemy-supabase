@@ -864,7 +864,9 @@ export async function buildStatusBitstring(
   const gzipped = new Response(
     new Blob([bytes]).stream().pipeThrough(new CompressionStream("gzip")),
   );
-  return base64url(new Uint8Array(await gzipped.arrayBuffer()));
+  // Multibase 'u' = base64url, required by Bitstring Status List v1.0; the
+  // 1EdTech validator throws on a bare list. Readers strip it (web panel).
+  return "u" + base64url(new Uint8Array(await gzipped.arrayBuffer()));
 }
 
 export function buildStatusListCredential(
