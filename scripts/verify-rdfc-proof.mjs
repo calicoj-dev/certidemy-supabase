@@ -37,7 +37,7 @@
  * And across the set:
  *
  *   4. both cryptosuites are present -- eddsa-jcs-2022 AND eddsa-rdfc-2022
- *   5. JCS is first (some consumers read proof[0] blindly)
+ *   5. RDFC is first (the 1EdTech validator checks proof[0] with RDFC)
  *
  * ============================== THE TAMPER TEST =============================
  *
@@ -241,8 +241,9 @@ for (const want of ["eddsa-jcs-2022", "eddsa-rdfc-2022"]) {
   if (!has) failures++;
 }
 if (proofs.length > 1) {
-  const jcsFirst = suites[0] === "eddsa-jcs-2022";
-  console.log(`  ${jcsFirst ? "PASS" : "WARN"}  eddsa-jcs-2022 is proof[0]${jcsFirst ? "" : " -- consumers reading proof[0] blindly get RDFC"}`);
+  const rdfcFirst = suites[0] === "eddsa-rdfc-2022";
+  console.log(`  ${rdfcFirst ? "PASS" : "FAIL"}  eddsa-rdfc-2022 is proof[0]${rdfcFirst ? "" : " -- the 1EdTech validator checks proof[0] as RDFC"}`);
+  if (!rdfcFirst) failures++;
 }
 
 /* ------------------------------------------------------------ tamper test - */
