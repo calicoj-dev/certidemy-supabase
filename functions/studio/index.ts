@@ -431,7 +431,7 @@ serve(async (req) => {
         svc.from("studio_quota").select("monthly_limit").eq("issuer_id", issuerId).maybeSingle(),
         svc.from("studio_videos").select("quota_month").eq("issuer_id", issuerId).gte("quota_month", month)
           .in("status", ["approved", "rendering", "done"]),
-        svc.from("studio_videos").select("id, status, language, prompt, script, options, revisions, error, render_path, poster_path, carousel, stage, progress, scheduled_for, series_id, quota_month, created_at, approved_at, rendered_at")
+        svc.from("studio_videos").select("id, status, language, prompt, script, options, revisions, error, render_path, poster_path, carousel, feed_path, stage, progress, scheduled_for, series_id, quota_month, created_at, approved_at, rendered_at")
           .eq("issuer_id", issuerId).order("created_at", { ascending: false }).limit(300),
         activeCourses(),
       ]);
@@ -442,7 +442,7 @@ serve(async (req) => {
         c && typeof c === "object" && typeof (c as { pdf?: unknown }).pdf === "string" && Array.isArray((c as { slides?: unknown }).slides)
           ? c as { pdf: string; slides: string[] } : null;
       const paths = [kit.logo_path, ...(videos ?? []).flatMap((v) => v.status === "done"
-        ? [v.render_path, v.poster_path, made(v.carousel)?.pdf ?? null, ...(made(v.carousel)?.slides ?? [])] : [])]
+        ? [v.render_path, v.poster_path, v.feed_path, made(v.carousel)?.pdf ?? null, ...(made(v.carousel)?.slides ?? [])] : [])]
         .filter((p): p is string => typeof p === "string" && p.length > 0);
       const signed = new Map<string, string>();
       if (paths.length) {
@@ -458,9 +458,10 @@ serve(async (req) => {
         voices: VOICES, default_voices: DEFAULT_VOICE, quota: { limit, used: usage[month.slice(0, 7)] ?? 0, usage },
         fixed: Object.fromEntries(LANGS.map((l) => [l, Object.fromEntries(Object.entries(FIXED[l]).map(([k, v]) => [k, v.replaceAll("{issuer}", issuer.name)]))])),
         courses: courses.map((c) => ({ id: c.id, name: c.name })),
-        videos: (videos ?? []).map(({ render_path, poster_path, options, carousel, ...v }) => ({
+        videos: (videos ?? []).map(({ render_path, poster_path, options, carousel, feed_path, ...v }) => ({
           ...v, options: v.status === "draft" ? options : null,
           video_url: v.status === "done" ? url(render_path) : null, poster_url: v.status === "done" ? url(poster_path) : null,
+          feed_url: v.status === "done" ? url(feed_path) : null, // 400: the 4:5 cut, null before it or when it failed
           carousel: v.status !== "done" ? null
             : made(carousel) ? { state: "ready", pdf_url: url(made(carousel)!.pdf), slide_urls: made(carousel)!.slides.map(url) }
             : { state: carousel ? "failed" : "pending" },
@@ -676,7 +677,7 @@ serve(async (req) => {
 
     if (action === "approve" || action === "retry") {
       if (action === "retry") {
-        const { data } = await svc.from("studio_videos").update({ status: "draft", approved_at: null, quota_month: null, error: null, stage: null, progress: null, render_attempts: 0, carousel: null })
+        const { data } = await svc.from("studio_videos").update({ status: "draft", approved_at: null, quota_month: null, error: null, stage: null, progress: null, render_attempts: 0, carousel: null, feed_path: null })
           .eq("id", videoId).eq("status", "failed").select("id");
         if (!data?.length) throw new HttpError(409, "only a failed video can be retried");
       } else if (video.status !== "draft") {
