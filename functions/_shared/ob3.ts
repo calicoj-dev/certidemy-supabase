@@ -373,6 +373,18 @@ export function credentialUrl(issuer: IssuerRow, credentialCode: string): string
   return `${issuer.base_url}/credentials/${credentialCode}`;
 }
 
+/**
+ * credentialSubject.id: an opaque, per-credential urn:uuid (RFC 9562 v8) hashed from the
+ * credential URL. OB 3.0 needs id or identifier; this names no person and links no two credentials.
+ */
+export async function subjectIdFor(issuer: IssuerRow, credentialCode: string): Promise<string> {
+  const b = (await sha256(`certidemy-subject:${credentialUrl(issuer, credentialCode)}`)).slice(0, 16);
+  b[6] = (b[6]! & 0x0f) | 0x80;
+  b[8] = (b[8]! & 0x3f) | 0x80;
+  const h = Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+  return `urn:uuid:${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
 export function buildIssuerProfile(issuer: IssuerRow): Record<string, unknown> {
   const doc: Record<string, unknown> = {
     "@context": PROFILE_CONTEXT,
@@ -719,6 +731,8 @@ export interface CredentialInput {
    * which is why this is a build-time input rather than a response filter.
    */
   subject: { identifierHash: string; salt: string } | null;
+  /** From subjectIdFor(). Present on every copy, holder and public alike. */
+  subjectId: string;
   issuedAt: string;
   expiresAt: string | null;
   statusListIndex: number;
@@ -763,6 +777,7 @@ export function buildCredential(c: CredentialInput): Record<string, unknown> {
     },
     validFrom: c.issuedAt,
     credentialSubject: {
+      id: c.subjectId,
       type: ["AchievementSubject"],
       // When the person EARNED it. Never changes, even if the document is
       // re-signed after a spelling correction. validFrom above is the same
