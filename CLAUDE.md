@@ -162,8 +162,8 @@ Identifiers inside signed documents live on `credentials.certidemy.com`, nested 
 - No frozen copy of an achievement exists; an edit reaches every credential already issued.
 - Renderer change → `DOC_VERSION` → `material_updated_at` → anchor rebuild. Four move together.
 - Byte-hash `SM-AI-I-ZZMV-JPC8` before and after any `open-badge` deploy:
-  **397 changes it once, deliberately** (credentialSubject.id, new `created`); re-record it here
-  after. Before: `049d14a9…5575` (RDFC first), `3912d181…5d60` (post-395), `366981ac…a796` (pre-395).
+  `af33c8b1eaed04f6c97ba525a923c037c51d9cb77778ca60327f18b3a04473c6` (post-397, 2026-10-11, both
+  hosts; vc.1ed.tech VALID 14/14). Before: `049d14a9…5575`, `3912d181…5d60`, `366981ac…a796`.
 - **Every credential carries `credentialSubject.id`**: `subjectIdFor()`, an opaque urn:uuid per
   credential. It names no person; the salted email `identifier[]` stays holder-only.
 - **`eddsa-rdfc-2022` is `proof[0]`.** The 1EdTech validator checks `proof[0]` with its RDFC
