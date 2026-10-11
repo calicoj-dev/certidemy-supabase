@@ -1,0 +1,83 @@
+# Migration traffic cop. On every PR into main: the next free migration number across
+# main AND every open PR, a red check if this PR reuses a taken number, and the PR's new
+# migrations as numbered SQL blocks to paste into the SQL editor (editor-first, CLAUDE.md s4).
+name: Migration traffic
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: migration-traffic-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  migrations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const { execSync } = require("child_process");
+            const num = (p) => { const m = /^migrations\/(\d+)_[^/]+\.sql$/.exec(p); return m ? Number(m[1]) : null; };
+            const pr = context.payload.pull_request;
+            const repo = context.repo;
+
+            const onMain = execSync("git ls-tree --name-only origin/main migrations/").toString().split("\n").map(num).filter((n) => n !== null);
+            const added = async (n) => (await github.paginate(github.rest.pulls.listFiles, { ...repo, pull_number: n }))
+              .filter((f) => f.status === "added" && num(f.filename) !== null).map((f) => ({ n: num(f.filename), path: f.filename }));
+
+            const mine = await added(pr.number);
+            const others = [];
+            for (const o of await github.paginate(github.rest.pulls.list, { ...repo, state: "open", base: "main" })) {
+              if (o.number === pr.number) continue;
+              for (const f of await added(o.number)) others.push({ ...f, pr: o.number, title: o.title });
+            }
+
+            const problems = [];
+            const seen = new Set();
+            for (const m of mine) {
+              if (onMain.includes(m.n)) problems.push(`\`${m.path}\` uses **${m.n}**, which is already on main.`);
+              const clash = others.find((o) => o.n === m.n);
+              if (clash) problems.push(`\`${m.path}\` uses **${m.n}**, which #${clash.pr} (\`${clash.path}\`) also uses.`);
+              if (seen.has(m.n)) problems.push(`Two files in this PR use **${m.n}**.`);
+              seen.add(m.n);
+            }
+            const highest = Math.max(0, ...onMain, ...others.map((o) => o.n), ...mine.map((m) => m.n));
+
+            let body = `<!-- migration-traffic -->\n## Migration traffic\n\n`;
+            body += `**Highest on main:** ${Math.max(0, ...onMain)} · **Next free number:** ${highest + 1}\n\n`;
+            if (others.length) {
+              body += `**Reserved by other open PRs:**\n\n| # | file | PR |\n|---|---|---|\n`;
+              for (const o of others.sort((a, b) => a.n - b.n)) body += `| ${o.n} | \`${o.path}\` | #${o.pr} ${o.title} |\n`;
+              body += `\n`;
+            }
+            if (problems.length) body += `### ❌ Number clash, rename before merging\n\n${problems.map((p) => `- ${p}`).join("\n")}\n\nRename to **${highest + 1}** or higher.\n\n`;
+            if (mine.length) {
+              const list = mine.sort((a, b) => a.n - b.n);
+              body += `### SQL to run, in the Supabase SQL editor, one block at a time\n\n`;
+              list.forEach((m, i) => {
+                let sql = fs.readFileSync(m.path, "utf8");
+                if (sql.length > 18000) sql = sql.slice(0, 18000) + "\n-- … truncated here; open the file in the PR for the rest";
+                body += `**${i + 1} of ${list.length}** · \`${m.path}\`\n\n\`\`\`sql\n${sql}\n\`\`\`\n\n`;
+              });
+            } else {
+              body += `This PR adds no migrations.\n`;
+            }
+
+            const comments = await github.paginate(github.rest.issues.listComments, { ...repo, issue_number: pr.number });
+            const prev = comments.find((c) => c.body && c.body.startsWith("<!-- migration-traffic -->"));
+            if (prev) await github.rest.issues.updateComment({ ...repo, comment_id: prev.id, body });
+            else await github.rest.issues.createComment({ ...repo, issue_number: pr.number, body });
+
+            if (problems.length) core.setFailed(problems.join(" "));
