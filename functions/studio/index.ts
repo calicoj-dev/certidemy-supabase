@@ -431,7 +431,7 @@ serve(async (req) => {
         svc.from("studio_quota").select("monthly_limit").eq("issuer_id", issuerId).maybeSingle(),
         svc.from("studio_videos").select("quota_month").eq("issuer_id", issuerId).gte("quota_month", month)
           .in("status", ["approved", "rendering", "done"]),
-        svc.from("studio_videos").select("id, status, language, prompt, script, options, revisions, error, render_path, poster_path, stage, scheduled_for, series_id, quota_month, created_at, approved_at, rendered_at")
+        svc.from("studio_videos").select("id, status, language, prompt, script, options, revisions, error, render_path, poster_path, stage, progress, scheduled_for, series_id, quota_month, created_at, approved_at, rendered_at")
           .eq("issuer_id", issuerId).order("created_at", { ascending: false }).limit(300),
         activeCourses(),
       ]);
@@ -668,7 +668,7 @@ serve(async (req) => {
 
     if (action === "approve" || action === "retry") {
       if (action === "retry") {
-        const { data } = await svc.from("studio_videos").update({ status: "draft", approved_at: null, quota_month: null, error: null, stage: null })
+        const { data } = await svc.from("studio_videos").update({ status: "draft", approved_at: null, quota_month: null, error: null, stage: null, progress: null, render_attempts: 0 })
           .eq("id", videoId).eq("status", "failed").select("id");
         if (!data?.length) throw new HttpError(409, "only a failed video can be retried");
       } else if (video.status !== "draft") {
