@@ -300,14 +300,20 @@ function attrs(tag: string): Record<string, string> {
 
 const toHex = (r: number, g: number, b: number) => "#" + [r, g, b].map((x) => Math.max(0, Math.min(255, x)).toString(16).padStart(2, "0")).join("");
 
+// Palettes every WordPress / Elementor page ships whatever the brand is; counting them drowns the real one.
+const STOCK = new Set(["#abb8c3", "#f78da7", "#cf2e2e", "#ff6900", "#fcb900", "#7bdcb5", "#00d084", "#8ed1fc", "#0693e3", "#9b51e0", "#6ec1e4", "#54595f", "#7a7a7a", "#61ce70"]);
+const stripStock = (css: string) =>
+  css.replace(/--wp--preset--[^;}]*/g, " ").replace(/\.has-[\w-]+-(?:background-)?color\s*\{[^}]*\}/g, " ");
+
 // Brand colors by weighted frequency: theme-color and brand-named CSS variables count most.
 function colorCandidates(html: string, css: string[], themeColor: string | undefined) {
   const count = new Map<string, number>();
   const add = (hex: string, w: number) => {
     const h = hex.toLowerCase();
-    count.set(h, (count.get(h) ?? 0) + w);
+    if (!STOCK.has(h)) count.set(h, (count.get(h) ?? 0) + w);
   };
-  const scan = (text: string, w: number) => {
+  const scan = (raw: string, w: number) => {
+    const text = stripStock(raw);
     for (const m of text.matchAll(/#([0-9a-f]{6}|[0-9a-f]{3})\b/gi)) {
       const x = m[1] ?? "";
       add(x.length === 3 ? "#" + [...x].map((c) => c + c).join("") : "#" + x, w);
