@@ -183,6 +183,16 @@ export interface SigningIssuer {
   base_url: string;
   slug: string;
   key_id: string;
+  public_key_multibase?: string | null;
+}
+
+/**
+ * The verificationMethod a proof names: [issuer]#[publicKeyMultibase] (394). The 1EdTech
+ * validator reads the key from that fragment; for #key-1 it fetches the Profile and crashes on
+ * the absent top-level `controller`. key_id remains only for an issuer with no recorded key.
+ */
+export function verificationMethodId(issuer: SigningIssuer): string {
+  return `${issuer.base_url}/issuers/${issuer.slug}#${issuer.public_key_multibase || issuer.key_id}`;
 }
 
 /**
@@ -204,10 +214,9 @@ export async function signDocument<T extends Record<string, unknown>>(
   issuer: SigningIssuer,
   created: string,
 ): Promise<T & { proof: Record<string, unknown>[] }> {
-  // MUST match buildIssuerProfile's verificationMethod id exactly, or a
+  // MUST be one of buildIssuerProfile's verificationMethod ids, or a
   // verifier resolves the issuer and finds no key by that identifier.
-  const verificationMethod =
-    `${issuer.base_url}/issuers/${issuer.slug}#${issuer.key_id}`;
+  const verificationMethod = verificationMethodId(issuer);
 
   const key = await importSigningKey(privateKeyPem);
 
@@ -377,14 +386,17 @@ export function buildIssuerProfile(issuer: IssuerRow): Record<string, unknown> {
   };
 
   if (issuer.public_key_multibase) {
-    doc.verificationMethod = [
-      {
-        id: `${issuerUrl(issuer)}#${issuer.key_id}`,
-        type: "Multikey",
-        controller: issuerUrl(issuer),
-        publicKeyMultibase: issuer.public_key_multibase,
-      },
-    ];
+    // The current id first; the #key_id alias of the SAME key stays listed so copies
+    // signed before 394 (wallets, downloads, LinkedIn) still resolve their key.
+    const key = (id: string) => ({
+      id,
+      type: "Multikey",
+      controller: issuerUrl(issuer),
+      publicKeyMultibase: issuer.public_key_multibase,
+    });
+    const current = verificationMethodId(issuer);
+    const legacy = `${issuerUrl(issuer)}#${issuer.key_id}`;
+    doc.verificationMethod = current === legacy ? [key(current)] : [key(current), key(legacy)];
   }
 
   return doc;
