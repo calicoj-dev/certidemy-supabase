@@ -1030,6 +1030,18 @@ const FINGERPRINTS = {
       ? { ran: true, why: `all ${total} real credentials have material_updated_at >= 2026-10-11` }
       : { ran: false, why: `${older} of ${total} real credentials predate 2026-10-11` };
   },
+  402: async () => {
+    /* 402 adds studio_videos.funding (and the studio_credits ledger). A column selectable is the print. */
+    return (await hasColumn("studio_videos", "funding"))
+      ? { ran: true, why: "studio_videos.funding is selectable" }
+      : { ran: false, why: "studio_videos.funding is not selectable" };
+  },
+  401: async () => {
+    /* 401 adds studio_videos.voice_id. A column selectable is the print. */
+    return (await hasColumn("studio_videos", "voice_id"))
+      ? { ran: true, why: "studio_videos.voice_id is selectable" }
+      : { ran: false, why: "studio_videos.voice_id is not selectable" };
+  },
   400: async () => {
     /* 400 adds studio_videos.feed_path. A column selectable is the print. */
     return (await hasColumn("studio_videos", "feed_path"))
