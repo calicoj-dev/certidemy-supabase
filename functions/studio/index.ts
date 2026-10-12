@@ -171,6 +171,9 @@ When asked for options, make each one a genuinely different angle (different hoo
 
 Write everything in the requested language with correct spelling and accents.`;
 
+// 405: a mini-lesson leaves out the sample credential. Added to the briefing, so both prompts stay byte-identical.
+const TAKEAWAY_NOTE = `FOR THIS VIDEO, SCENE 3 IS NOT A CREDENTIAL. There is no credential card and no credential in this video: do not mention one. Use credential.headline for the key takeaway in a few words, and credential.course for one plain sentence that states it (up to ${LIMIT.course} characters). Voice line 3 says that takeaway. The closing invites the viewer to follow the partner for more.`;
+
 const BRAND_SYSTEM = `You set up a brand kit for a training provider's short videos, from facts read off their website.
 
 Return:
@@ -479,7 +482,7 @@ serve(async (req) => {
         // a month counts its included videos only; videos paid with a credit (402) never fill it
         svc.from("studio_videos").select("quota_month, funding").eq("issuer_id", issuerId).gte("quota_month", month)
           .in("status", ["approved", "rendering", "done"]),
-        svc.from("studio_videos").select("id, status, language, prompt, script, options, revisions, error, render_path, poster_path, carousel, feed_path, voice_id, source, page_url, stage, progress, scheduled_for, series_id, quota_month, created_at, approved_at, rendered_at")
+        svc.from("studio_videos").select("id, status, language, prompt, script, options, revisions, error, render_path, poster_path, carousel, feed_path, voice_id, source, page_url, show_card, stage, progress, scheduled_for, series_id, quota_month, created_at, approved_at, rendered_at")
           .eq("issuer_id", issuerId).order("created_at", { ascending: false }).limit(300),
         activeCourses(),
         svc.rpc("studio_credit_balance", { p_issuer: issuerId }),
@@ -698,8 +701,11 @@ serve(async (req) => {
       return { cert, src: { kind: "lesson", certification: cert.code, lesson_id: lesson.id, title: lesson.title, course: courseOf(cert) } };
     };
     // The sample credential always names the certification as pinned in the source, whatever was written or edited.
-    const pin = (script: Script, src: Source | null): Script =>
-      src ? { ...script, credential: { ...script.credential, course: src.course } } : script;
+    const pin = (script: Script, src: Source | null, card = true): Script =>
+      src && card ? { ...script, credential: { ...script.credential, course: src.course } } : script;
+    // 405: whether scene 3 shows the sample credential; a request that does not say keeps it.
+    const cardOf = (v: unknown) => v !== false;
+    const withCard = (ctxMsg: string, card: boolean) => (card ? ctxMsg : `${ctxMsg}\n\n${TAKEAWAY_NOTE}`);
 
     if (action === "catalog") {
       const all = await certCatalog(langOf(body.language));
@@ -722,7 +728,7 @@ serve(async (req) => {
       if (body.achievement_id && !course) throw new HttpError(400, "course not found for this issuer");
 
       if (body.video_id) {
-        const { data: prior } = await svc.from("studio_videos").select("id, status, script, revisions, source, page_url, claude_input_tokens, claude_output_tokens")
+        const { data: prior } = await svc.from("studio_videos").select("id, status, script, revisions, source, page_url, show_card, claude_input_tokens, claude_output_tokens")
           .eq("id", body.video_id).eq("issuer_id", issuerId).maybeSingle();
         if (!prior) throw new HttpError(404, "video not found");
         if (prior.status !== "draft") throw new HttpError(409, "only a draft can be rewritten");
@@ -731,18 +737,19 @@ serve(async (req) => {
         const src = prior.source as Source | null;
         const prompt = src ? String(body.prompt ?? "").trim().slice(0, 2000) : promptOf(body.prompt);
         const system = src ? CERT_SYSTEM : SYSTEM;
-        const ctxMsg = src
+        const card = prior.show_card !== false;
+        const ctxMsg = withCard(src
           ? await certBriefing(language, src, certOf(await certCatalog(language), src.certification), prompt === src.title ? "" : prompt, courses)
-          : await briefing(language, prompt, course, courses, prior.page_url ?? null);
+          : await briefing(language, prompt, course, courses, prior.page_url ?? null), card);
         const r = await claude<unknown>(system, `${ctxMsg}\n\nCurrent draft:\n${JSON.stringify(prior.script)}\nRewrite it following this request: ${instruction || "improve it"}`, SCRIPT_SCHEMA);
         const f = await fit(r.out, ctxMsg, system);
         const u = addUsage(r, f);
         const { error } = await svc.from("studio_videos").update({
-          script: pin(f.script, src), options: null, revisions: prior.revisions + 1,
+          script: pin(f.script, src, card), options: null, revisions: prior.revisions + 1,
           claude_input_tokens: prior.claude_input_tokens + u.inTok, claude_output_tokens: prior.claude_output_tokens + u.outTok,
         }).eq("id", prior.id).eq("status", "draft");
         if (error) throw new HttpError(500, "could not save the draft");
-        return jsonResponse({ id: prior.id, script: pin(f.script, src) });
+        return jsonResponse({ id: prior.id, script: pin(f.script, src, card) });
       }
 
       const scheduled = validDate(body.scheduled_for, "scheduled_for");
@@ -753,7 +760,8 @@ serve(async (req) => {
       const note = src ? String(body.prompt ?? "").trim().slice(0, 2000) : "";
       const prompt = src ? note || src.title : promptOf(body.prompt);
       const system = src ? CERT_SYSTEM : SYSTEM;
-      const ctxMsg = picked ? await certBriefing(language, picked.src, picked.cert, note, courses) : await briefing(language, prompt, course, courses, pageUrl);
+      const card = cardOf(body.show_card);
+      const ctxMsg = withCard(picked ? await certBriefing(language, picked.src, picked.cert, note, courses) : await briefing(language, prompt, course, courses, pageUrl), card);
       const r = await claude<{ options?: unknown[] }>(system, `${ctxMsg}\n\nWrite three options for this video.`, OPTIONS_SCHEMA);
       const raw = (Array.isArray(r.out.options) ? r.out.options : []).slice(0, 3) as Record<string, unknown>[];
       const settled = await Promise.allSettled(raw.map((o) => fit(o, ctxMsg, system)));
@@ -762,13 +770,13 @@ serve(async (req) => {
       settled.forEach((s, i) => {
         if (s.status !== "fulfilled") return;
         usage = addUsage(usage, s.value);
-        options.push({ angle: String(raw[i]?.angle ?? "").trim().slice(0, 40), script: pin(s.value.script, src) });
+        options.push({ angle: String(raw[i]?.angle ?? "").trim().slice(0, 40), script: pin(s.value.script, src, card) });
       });
       const first = options[0];
       if (!first) throw new HttpError(502, "the writer could not produce a usable draft, try again");
       const { data: row, error } = await svc.from("studio_videos").insert({
         issuer_id: issuerId, created_by: actor, language, prompt, achievement_id: course?.id ?? null,
-        script: first.script, options, scheduled_for: scheduled, voice_id: voice, source: src, page_url: pageUrl,
+        script: first.script, options, scheduled_for: scheduled, voice_id: voice, source: src, page_url: pageUrl, show_card: card,
         claude_input_tokens: usage.inTok, claude_output_tokens: usage.outTok,
       }).select("id").single();
       if (error) { console.error("studio insert", error); throw new HttpError(500, "could not save the draft"); }
@@ -782,6 +790,7 @@ serve(async (req) => {
       const seriesCert = body.source ? certOf(await certCatalog(language), (body.source as { certification?: unknown }).certification) : null;
       const prompt = seriesCert ? String(body.prompt ?? "").trim().slice(0, 2000) : promptOf(body.prompt);
       const pageUrl = seriesCert ? null : pageOf(body.page_url);
+      const card = cardOf(body.show_card);
       if (pageUrl) await pageText(pageUrl); // an unreadable page fails before any writer is paid
       const dates = Array.isArray(body.dates) ? body.dates.map((d: unknown) => validDate(d, "date")) : [];
       if (dates.length < 1 || dates.length > MAX_PLAN || dates.some((d: string | null) => !d)) throw new HttpError(400, `choose one to ${MAX_PLAN} dates`);
@@ -803,22 +812,22 @@ serve(async (req) => {
         if (seriesCert) {
           const lesson = seriesCert.lessons[(firstLesson + i) % seriesCert.lessons.length]!;
           const src: Source = { kind: "lesson", certification: seriesCert.code, lesson_id: lesson.id, title: lesson.title, course: courseOf(seriesCert) };
-          const ctxMsg = await certBriefing(language, src, seriesCert, prompt, courses);
+          const ctxMsg = withCard(await certBriefing(language, src, seriesCert, prompt, courses), card);
           const r = await claude<unknown>(CERT_SYSTEM, `${ctxMsg}\n\nThis is video ${i + 1} of ${sorted.length} in a series that walks through the certification, one lesson per video.`, SCRIPT_SCHEMA);
           const f = await fit(r.out, ctxMsg, CERT_SYSTEM);
           const u = addUsage(r, f);
           return {
-            issuer_id: issuerId, created_by: actor, language, prompt: prompt || lesson.title, achievement_id: course?.id ?? null, script: pin(f.script, src),
-            voice_id: voice, source: src, scheduled_for: date, series_id: seriesId, claude_input_tokens: u.inTok, claude_output_tokens: u.outTok,
+            issuer_id: issuerId, created_by: actor, language, prompt: prompt || lesson.title, achievement_id: course?.id ?? null, script: pin(f.script, src, card),
+            voice_id: voice, source: src, show_card: card, scheduled_for: date, series_id: seriesId, claude_input_tokens: u.inTok, claude_output_tokens: u.outTok,
           };
         }
-        const ctxMsg = await briefing(language, prompt, course ?? undefined, courses, pageUrl);
+        const ctxMsg = withCard(await briefing(language, prompt, course ?? undefined, courses, pageUrl), card);
         const angle = ANGLES[i % ANGLES.length];
         const r = await claude<unknown>(SYSTEM, `${ctxMsg}\n\nThis is video ${i + 1} of ${sorted.length} in a series published on different days. Take this angle so it does not repeat the others: ${angle}.`, SCRIPT_SCHEMA);
         const f = await fit(r.out, ctxMsg);
         const u = addUsage(r, f);
         return {
-          issuer_id: issuerId, created_by: actor, language, prompt, achievement_id: course?.id ?? null, script: f.script, voice_id: voice, source: null, page_url: pageUrl,
+          issuer_id: issuerId, created_by: actor, language, prompt, achievement_id: course?.id ?? null, script: f.script, voice_id: voice, source: null, page_url: pageUrl, show_card: card,
           scheduled_for: date, series_id: seriesId, claude_input_tokens: u.inTok, claude_output_tokens: u.outTok,
         };
       }));
@@ -832,7 +841,7 @@ serve(async (req) => {
     // The rest act on one of this issuer's videos.
     const videoId = String(body.video_id ?? "");
     if (!UUID_RE.test(videoId)) throw new HttpError(400, "valid video_id required");
-    const { data: video } = await svc.from("studio_videos").select("id, status, language, script, options, voice_id, source")
+    const { data: video } = await svc.from("studio_videos").select("id, status, language, script, options, voice_id, source, show_card")
       .eq("id", videoId).eq("issuer_id", issuerId).maybeSingle();
     if (!video) throw new HttpError(404, "video not found");
 
@@ -856,7 +865,7 @@ serve(async (req) => {
 
     if (action === "edit") {
       if (video.status !== "draft") throw new HttpError(409, "only a draft can be edited");
-      const script = pin(checkScript(body.script), video.source as Source | null);
+      const script = pin(checkScript(body.script), video.source as Source | null, video.show_card !== false);
       const { error } = await svc.from("studio_videos").update({ script }).eq("id", videoId).eq("status", "draft");
       if (error) throw new HttpError(500, "could not save");
       return jsonResponse({ ok: true, script });
@@ -902,8 +911,10 @@ serve(async (req) => {
       let host: string | null = null;
       try { host = kit.website ? new URL(kit.website).hostname.replace(/^www\./, "") : null; } catch { host = null; }
       const script: Script = {
-        ...pin(checkScript(video.script), src),
+        ...pin(checkScript(video.script), src, video.show_card !== false),
         render: {
+          // 405: "takeaway" replaces the credential card in scene 3; kicker heads the carousel's cover slide
+          scene3: video.show_card === false ? "takeaway" : "card", kicker: video.show_card === false ? (src?.course ?? "") : null,
           issuer_name: issuer.name, theme: kit.theme, color_main: kit.color_main, color_accent: kit.color_accent,
           logo_path: kit.logo_path, voice_id: chosen.id, voice_speed: (chosen as { speed?: number }).speed ?? 0.92, url: host, fixed,
         },
