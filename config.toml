@@ -821,6 +821,10 @@ verify_jwt = true
 [functions.manage-issuing-plan]
 verify_jwt = true
 
+# Studio video allowance and credits (402): packs, corrections, refunds. platform_admin only, checked in-function.
+[functions.manage-studio-plan]
+verify_jwt = true
+
 [functions.request-signin-link]
 verify_jwt = false
 

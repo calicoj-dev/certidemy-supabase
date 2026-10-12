@@ -427,16 +427,18 @@ serve(async (req) => {
 
     if (action === "context") {
       const month = todayUtc().slice(0, 8) + "01";
-      const [{ data: quota }, { data: counted }, { data: videos }, courses] = await Promise.all([
+      const [{ data: quota }, { data: counted }, { data: videos }, courses, { data: credits }] = await Promise.all([
         svc.from("studio_quota").select("monthly_limit").eq("issuer_id", issuerId).maybeSingle(),
-        svc.from("studio_videos").select("quota_month").eq("issuer_id", issuerId).gte("quota_month", month)
+        // a month counts its included videos only; videos paid with a credit (402) never fill it
+        svc.from("studio_videos").select("quota_month, funding").eq("issuer_id", issuerId).gte("quota_month", month)
           .in("status", ["approved", "rendering", "done"]),
-        svc.from("studio_videos").select("id, status, language, prompt, script, options, revisions, error, render_path, poster_path, carousel, feed_path, stage, progress, scheduled_for, series_id, quota_month, created_at, approved_at, rendered_at")
+        svc.from("studio_videos").select("id, status, language, prompt, script, options, revisions, error, render_path, poster_path, carousel, feed_path, voice_id, stage, progress, scheduled_for, series_id, quota_month, created_at, approved_at, rendered_at")
           .eq("issuer_id", issuerId).order("created_at", { ascending: false }).limit(300),
         activeCourses(),
+        svc.rpc("studio_credit_balance", { p_issuer: issuerId }),
       ]);
       const usage: Record<string, number> = {};
-      for (const r of counted ?? []) usage[String(r.quota_month).slice(0, 7)] = (usage[String(r.quota_month).slice(0, 7)] ?? 0) + 1;
+      for (const r of (counted ?? []).filter((x) => x.funding !== "credit")) usage[String(r.quota_month).slice(0, 7)] = (usage[String(r.quota_month).slice(0, 7)] ?? 0) + 1;
       // carousel (399): null until the worker makes it, {pdf, slides} when made, {error} when it could not be
       const made = (c: unknown): { pdf: string; slides: string[] } | null =>
         c && typeof c === "object" && typeof (c as { pdf?: unknown }).pdf === "string" && Array.isArray((c as { slides?: unknown }).slides)
@@ -455,7 +457,7 @@ serve(async (req) => {
         today: todayUtc(),
         issuer: { id: issuer.id, name: issuer.name, slug: issuer.slug },
         kit: { ...kit, logo_url: url(kit.logo_path) },
-        voices: VOICES, default_voices: DEFAULT_VOICE, quota: { limit, used: usage[month.slice(0, 7)] ?? 0, usage },
+        voices: VOICES, default_voices: DEFAULT_VOICE, quota: { limit, used: usage[month.slice(0, 7)] ?? 0, usage, credits: Math.max(0, Number(credits ?? 0)) },
         fixed: Object.fromEntries(LANGS.map((l) => [l, Object.fromEntries(Object.entries(FIXED[l]).map(([k, v]) => [k, v.replaceAll("{issuer}", issuer.name)]))])),
         courses: courses.map((c) => ({ id: c.id, name: c.name })),
         videos: (videos ?? []).map(({ render_path, poster_path, options, carousel, feed_path, ...v }) => ({
@@ -546,8 +548,17 @@ serve(async (req) => {
       return p;
     };
 
+    // 401: the voice is chosen per video, among the voices of its language; none chosen falls back at approval
+    const voiceFor = (id: unknown, lang: Lang): string | null => {
+      if (id === undefined || id === null || id === "") return null;
+      const v = VOICES.find((x) => x.id === id && x.lang === lang);
+      if (!v) throw new HttpError(400, "that voice does not speak the video's language");
+      return v.id;
+    };
+
     if (action === "draft") {
       const language = langOf(body.language);
+      const voice = voiceFor(body.voice_id, language); // checked before the writer runs, not after it is paid for
       const prompt = promptOf(body.prompt);
       const courses = await activeCourses();
       const course = body.achievement_id ? courses.find((c) => c.id === body.achievement_id) : undefined;
@@ -588,7 +599,7 @@ serve(async (req) => {
       if (!first) throw new HttpError(502, "the writer could not produce a usable draft, try again");
       const { data: row, error } = await svc.from("studio_videos").insert({
         issuer_id: issuerId, created_by: actor, language, prompt, achievement_id: course?.id ?? null,
-        script: first.script, options, scheduled_for: scheduled,
+        script: first.script, options, scheduled_for: scheduled, voice_id: voice,
         claude_input_tokens: usage.inTok, claude_output_tokens: usage.outTok,
       }).select("id").single();
       if (error) { console.error("studio insert", error); throw new HttpError(500, "could not save the draft"); }
@@ -597,6 +608,7 @@ serve(async (req) => {
 
     if (action === "plan") {
       const language = langOf(body.language);
+      const voice = voiceFor(body.voice_id, language);
       const prompt = promptOf(body.prompt);
       const dates = Array.isArray(body.dates) ? body.dates.map((d: unknown) => validDate(d, "date")) : [];
       if (dates.length < 1 || dates.length > MAX_PLAN || dates.some((d: string | null) => !d)) throw new HttpError(400, `choose one to ${MAX_PLAN} dates`);
@@ -615,7 +627,7 @@ serve(async (req) => {
         const f = await fit(r.out, ctxMsg);
         const u = addUsage(r, f);
         return {
-          issuer_id: issuerId, created_by: actor, language, prompt, achievement_id: course?.id ?? null, script: f.script,
+          issuer_id: issuerId, created_by: actor, language, prompt, achievement_id: course?.id ?? null, script: f.script, voice_id: voice,
           scheduled_for: date, series_id: seriesId, claude_input_tokens: u.inTok, claude_output_tokens: u.outTok,
         };
       }));
@@ -629,7 +641,7 @@ serve(async (req) => {
     // The rest act on one of this issuer's videos.
     const videoId = String(body.video_id ?? "");
     if (!UUID_RE.test(videoId)) throw new HttpError(400, "valid video_id required");
-    const { data: video } = await svc.from("studio_videos").select("id, status, language, script, options")
+    const { data: video } = await svc.from("studio_videos").select("id, status, language, script, options, voice_id")
       .eq("id", videoId).eq("issuer_id", issuerId).maybeSingle();
     if (!video) throw new HttpError(404, "video not found");
 
@@ -641,6 +653,14 @@ serve(async (req) => {
       const { error } = await svc.from("studio_videos").update({ script }).eq("id", videoId).eq("status", "draft");
       if (error) throw new HttpError(500, "could not save");
       return jsonResponse({ ok: true, script });
+    }
+
+    if (action === "voice") {
+      if (video.status !== "draft") throw new HttpError(409, "only a draft can change voice");
+      const voice_id = voiceFor(body.voice_id, video.language as Lang);
+      const { error } = await svc.from("studio_videos").update({ voice_id }).eq("id", videoId).eq("status", "draft");
+      if (error) throw new HttpError(500, "could not save");
+      return jsonResponse({ ok: true, voice_id });
     }
 
     if (action === "edit") {
@@ -662,7 +682,7 @@ serve(async (req) => {
     }
 
     if (action === "unapprove") {
-      const { data, error } = await svc.from("studio_videos").update({ status: "draft", approved_at: null, quota_month: null })
+      const { data, error } = await svc.from("studio_videos").update({ status: "draft", approved_at: null, quota_month: null, funding: null })
         .eq("id", videoId).eq("status", "approved").select("id");
       if (error) throw new HttpError(500, "could not cancel");
       if (!data?.length) throw new HttpError(409, "only a video that is waiting can be cancelled");
@@ -677,14 +697,15 @@ serve(async (req) => {
 
     if (action === "approve" || action === "retry") {
       if (action === "retry") {
-        const { data } = await svc.from("studio_videos").update({ status: "draft", approved_at: null, quota_month: null, error: null, stage: null, progress: null, render_attempts: 0, carousel: null, feed_path: null })
+        const { data } = await svc.from("studio_videos").update({ status: "draft", approved_at: null, quota_month: null, funding: null, error: null, stage: null, progress: null, render_attempts: 0, carousel: null, feed_path: null })
           .eq("id", videoId).eq("status", "failed").select("id");
         if (!data?.length) throw new HttpError(409, "only a failed video can be retried");
       } else if (video.status !== "draft") {
         throw new HttpError(409, "this video is already approved");
       }
       const lang = video.language as Lang;
-      const chosen = VOICES.find((v) => v.id === kit.voice_id && v.lang === lang) ?? VOICES.find((v) => v.id === DEFAULT_VOICE[lang])!;
+      const chosen = VOICES.find((v) => v.id === video.voice_id && v.lang === lang)
+        ?? VOICES.find((v) => v.id === kit.voice_id && v.lang === lang) ?? VOICES.find((v) => v.id === DEFAULT_VOICE[lang])!;
       const fixed = Object.fromEntries(Object.entries(FIXED[lang]).map(([k, v]) => [k, v.replaceAll("{issuer}", issuer.name)]));
       let host: string | null = null;
       try { host = kit.website ? new URL(kit.website).hostname.replace(/^www\./, "") : null; } catch { host = null; }
@@ -699,7 +720,7 @@ serve(async (req) => {
       if (snapErr) throw new HttpError(500, "could not prepare the video");
       const { data: verdict, error } = await svc.rpc("studio_approve", { p_video: videoId });
       if (error) { console.error("studio approve", error); throw new HttpError(500, "could not approve"); }
-      if (verdict === "quota") throw new HttpError(429, "that month's videos are used up");
+      if (verdict === "quota") throw new HttpError(429, "that month's videos are used up and there are no extra videos left");
       if (verdict !== "approved") throw new HttpError(409, `not approved (${verdict})`);
       return jsonResponse({ ok: true });
     }
