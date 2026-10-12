@@ -1030,6 +1030,12 @@ const FINGERPRINTS = {
       ? { ran: true, why: `all ${total} real credentials have material_updated_at >= 2026-10-11` }
       : { ran: false, why: `${older} of ${total} real credentials predate 2026-10-11` };
   },
+  405: async () => {
+    /* 405 adds studio_videos.show_card. A column selectable is the print. */
+    return (await hasColumn("studio_videos", "show_card"))
+      ? { ran: true, why: "studio_videos.show_card is selectable" }
+      : { ran: false, why: "studio_videos.show_card is not selectable" };
+  },
   404: async () => {
     /* 404 adds studio_videos.page_url. A column selectable is the print. */
     return (await hasColumn("studio_videos", "page_url"))
