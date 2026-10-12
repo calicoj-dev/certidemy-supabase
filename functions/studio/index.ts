@@ -580,17 +580,12 @@ serve(async (req) => {
       if (!text.trim()) throw new HttpError(422, "could not read that page; check the link and try again");
       return text;
     };
-    // A page must be on the partner's own website (or a subdomain of it): the writer states its facts as theirs.
+    // Any public https page the partner chooses; what it says is the partner's to post. Private hosts are refused.
     const pageOf = (raw: unknown): string | null => {
       const v = String(raw ?? "").trim();
       if (!v) return null;
       const u = v.length <= 2000 ? publicUrl(v) : null;
       if (!u) throw new HttpError(400, "the page must be a public https:// address");
-      let site: string | null = null;
-      try { site = kit.website ? new URL(kit.website).hostname.toLowerCase().replace(/^www\./, "") : null; } catch { site = null; }
-      if (!site) throw new HttpError(400, "add your website on the Brand page first; the page must be on it");
-      const h = u.hostname.toLowerCase().replace(/^www\./, "");
-      if (h !== site && !h.endsWith("." + site)) throw new HttpError(400, `the page must be on your website (${site})`);
       return u.toString();
     };
     const briefing = async (language: Lang, prompt: string, course: { name: string; description: string | null } | undefined, courses: { name: string }[], pageUrl: string | null = null) => {

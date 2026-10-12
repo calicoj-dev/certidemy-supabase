@@ -1,8 +1,8 @@
 -- 404: a Studio video can be written from one page of the partner's own website (a course page, an event
--- page), not only from the home page. The function checks the page is on the brand kit's website before
--- anything is fetched; this column records it so a rewrite reads the same page.
+-- page, any public page the partner chooses), not only from the home page. This column records it so a
+-- rewrite reads the same page.
 --
--- Writers: functions/studio draft and plan (from the request, checked against studio_brand_kits.website).
+-- Writers: functions/studio draft and plan (from the request; public https only, as for the website).
 -- Readers: functions/studio (rewrite, context). Nullable: most videos have none.
 
 alter table public.studio_videos add column page_url text
