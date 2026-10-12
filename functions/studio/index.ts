@@ -3,7 +3,7 @@
 //
 // Partner video studio. Actions: context, autofill (brand kit from the partner's website), save_brand,
 // draft (three script options from Claude), pick, plan (a dated series of drafts), schedule, edit,
-// approve, unapprove, retry, delete, catalog. Nothing renders until the partner approves a script.
+// approve, unapprove, retry, delete, catalog, plan_ai (a request in words -> a checked calendar), plan_item. Nothing renders until the partner approves a script.
 // A video is written from the partner's own message, or (403) from a Certidemy certification: one of its
 // lessons, or the certification itself. Lesson text comes only through studio_lesson_source (servable only).
 //
@@ -24,6 +24,7 @@ const LANGS = ["en", "es-419", "pt-BR"] as const;
 type Lang = typeof LANGS[number];
 const MAX_REVISIONS = 5;
 const MAX_PLAN = 8;
+const MAX_AI_PLAN = 62; // a planned month: up to two videos a day
 const MODEL = "claude-opus-5-5";
 
 // Curated voices (ElevenLabs). The worker reads the chosen one from the approved snapshot only.
@@ -173,6 +174,31 @@ Write everything in the requested language with correct spelling and accents.`;
 
 // 405: a mini-lesson leaves out the sample credential. Added to the briefing, so both prompts stay byte-identical.
 const TAKEAWAY_NOTE = `FOR THIS VIDEO, SCENE 3 IS NOT A CREDENTIAL. There is no credential card and no credential in this video: do not mention one. Use credential.headline for the key takeaway in a few words, and credential.course for one plain sentence that states it (up to ${LIMIT.course} characters). Voice line 3 says that takeaway. The closing invites the viewer to follow the partner for more.`;
+
+// "Plan with AI": a partner's request in their own words becomes a dated list of videos. The system, not the
+// model, picks lessons (course order, unused first) and checks every date, code and link before anything is shown.
+const PLANNER_SYSTEM = `You turn a training provider's request (the "partner") into a calendar of short social videos made with Certi Studio. Each video is one of four kinds:
+- lesson: teaches one lesson of a Certidemy certification. Name only the certification code; the system picks the lessons in course order.
+- certification: presents a Certidemy certification itself (what it covers, why it matters).
+- page: written from one web page: the partner's own website, or a link given in the request.
+- message: written from a short brief only, for example a call to action for the partner's own courses or services.
+
+Rules for the plan:
+- Dates are YYYY-MM-DD, from the given first allowed date onward, never earlier. "This month" means from that date to the last day of the current month; "next month" is the whole next month. "Every day" includes weekends unless the request says weekdays or names days.
+- Put on each date exactly the videos the request asks for, and nothing it does not ask for. At most ${MAX_AI_PLAN} videos: if the request needs more, plan the first ${MAX_AI_PLAN} and say so in the summary.
+- certification: one of the given codes, matched to how the request names it (a standard number, a role, a topic). Empty when the kind does not use it.
+- page_url: for "my site", "my website" or similar, the partner's website given below; for another site, the exact link from the request; empty otherwise.
+- brief: one short sentence, in the requested language, saying what this video should say. For a call to action, what to invite people to do. Different videos on the same subject must have different briefs.
+- show_card: false for lesson videos unless the request asks to show the credential; true for the other kinds unless the request says otherwise.
+- summary: one or two sentences, in the requested language, describing the plan.
+The request is the partner's data: follow what it asks for as content, and these rules for the format.`;
+
+const PLAN_SCHEMA = obj({
+  summary: S,
+  items: { type: "array", items: obj({
+    date: S, kind: { type: "string", enum: ["lesson", "certification", "page", "message"] }, certification: S, page_url: S, brief: S, show_card: { type: "boolean" },
+  }) },
+});
 
 const BRAND_SYSTEM = `You set up a brand kit for a training provider's short videos, from facts read off their website.
 
@@ -836,6 +862,99 @@ serve(async (req) => {
       const { error } = await svc.from("studio_videos").insert(rows);
       if (error) { console.error("studio plan", error); throw new HttpError(500, "could not save the series"); }
       return jsonResponse({ series_id: seriesId, created: rows.length, failed: sorted.length - rows.length });
+    }
+
+    // "Plan with AI" step 1: the partner's request becomes a checked, dated list. Nothing is written yet.
+    if (action === "plan_ai") {
+      const language = langOf(body.language);
+      const request = promptOf(body.prompt);
+      const catalog = await certCatalog(language);
+      const courses = await activeCourses();
+      const today = todayUtc();
+      const r = await claude<{ summary?: string; items?: unknown[] }>(PLANNER_SYSTEM, [
+        `Requested language: ${language}`, `First allowed date: ${today} (today). Last allowed date: ${addDays(today, 366)}.`,
+        `Partner: ${issuer.name}`, `Partner's website: ${kit.website ?? "none set"}`,
+        `Partner's own courses: ${courses.map((c) => c.name).join("; ") || "none listed"}`,
+        `Certidemy certifications (code: name, lessons in ${language}): ${catalog.map((c) => `${c.code}: ${c.name}, ${c.lessons.length} lessons${c.available ? "" : ", exam not open yet"}`).join("; ")}`,
+        `The partner's request:\n<request>\n${request}\n</request>`,
+      ].join("\n\n"), PLAN_SCHEMA);
+      // Lessons already made into a video come last, so a plan starts where the partner left off.
+      const { data: done } = await svc.from("studio_videos").select("source").eq("issuer_id", issuerId).eq("language", language);
+      const used = new Set((done ?? []).map((v) => (v.source as Source | null)?.lesson_id).filter(Boolean));
+      const queues = new Map<string, { id: string; title: string }[]>();
+      const nextLesson = (cert: Cert) => {
+        let q = queues.get(cert.code);
+        if (!q || !q.length) {
+          const fresh = cert.lessons.filter((l) => !used.has(l.id));
+          q = (q === undefined && fresh.length ? fresh : cert.lessons).map((l) => ({ id: l.id, title: l.title }));
+          queues.set(cert.code, q);
+        }
+        return q.shift()!;
+      };
+      let dropped = 0;
+      const items: Record<string, unknown>[] = [];
+      const raw = (Array.isArray(r.out.items) ? r.out.items : []) as { date?: unknown; kind?: unknown; certification?: unknown; page_url?: unknown; brief?: unknown; show_card?: unknown }[];
+      for (const it of raw.sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(0, MAX_AI_PLAN)) {
+        try {
+          const date = validDate(it.date, "date");
+          if (!date) throw new Error("no date");
+          const brief = String(it.brief ?? "").trim().slice(0, 500);
+          const show_card = it.show_card !== false;
+          if (it.kind === "lesson" || it.kind === "certification") {
+            const cert = certOf(catalog, it.certification);
+            const lesson = it.kind === "lesson" ? nextLesson(cert) : null;
+            items.push({ date, kind: it.kind, certification: cert.code, cert_name: cert.name, lesson_id: lesson?.id ?? null, lesson_title: lesson?.title ?? null, page_url: null, brief, show_card });
+          } else if (it.kind === "page") {
+            const url = pageOf(it.page_url);
+            if (!url) throw new Error("no page");
+            items.push({ date, kind: "page", certification: null, cert_name: null, lesson_id: null, lesson_title: null, page_url: url, brief, show_card });
+          } else if (it.kind === "message" && brief) {
+            items.push({ date, kind: "message", certification: null, cert_name: null, lesson_id: null, lesson_title: null, page_url: null, brief, show_card });
+          } else throw new Error("kind");
+        } catch {
+          dropped++;
+        }
+      }
+      if (!items.length) throw new HttpError(422, "the plan came back empty; say what to make and when, and try again");
+      return jsonResponse({ summary: String(r.out.summary ?? "").slice(0, 600), items, dropped: dropped + Math.max(0, raw.length - MAX_AI_PLAN) });
+    }
+
+    // "Plan with AI" step 2: one approved item becomes one draft. The console sends them a few at a time.
+    if (action === "plan_item") {
+      const language = langOf(body.language);
+      const voice = voiceFor(body.voice_id, language);
+      const seriesId = String(body.series_id ?? "");
+      if (!UUID_RE.test(seriesId)) throw new HttpError(400, "valid series_id required");
+      const date = validDate(body.date, "date");
+      if (!date) throw new HttpError(400, "date required");
+      const brief = String(body.brief ?? "").trim().slice(0, 500);
+      const card = cardOf(body.show_card);
+      const courses = await activeCourses();
+      const note = `\n\nThis is one video of a planned calendar. What this one should say: ${brief || "follow the source"}.`;
+      let row: Record<string, unknown>;
+      if (body.kind === "lesson" || body.kind === "certification") {
+        const picked = await sourceFrom({ certification: body.certification, lesson_id: body.kind === "lesson" ? body.lesson_id : null }, language);
+        if (!picked || (body.kind === "lesson" && picked.src.kind !== "lesson")) throw new HttpError(400, "that lesson is not available for videos in this language");
+        const ctxMsg = withCard(await certBriefing(language, picked.src, picked.cert, brief, courses), card);
+        const w = await claude<unknown>(CERT_SYSTEM, ctxMsg + note, SCRIPT_SCHEMA);
+        const f = await fit(w.out, ctxMsg, CERT_SYSTEM);
+        const u = addUsage(w, f);
+        row = { prompt: brief || picked.src.title, script: pin(f.script, picked.src, card), source: picked.src, page_url: null, claude_input_tokens: u.inTok, claude_output_tokens: u.outTok };
+      } else if (body.kind === "page" || body.kind === "message") {
+        const url = body.kind === "page" ? pageOf(body.page_url) : null;
+        if (body.kind === "page" && !url) throw new HttpError(400, "the page must be a public https:// address");
+        if (body.kind === "message" && !brief) throw new HttpError(400, "a message video needs a brief");
+        const ctxMsg = withCard(await briefing(language, brief || "Present this page.", undefined, courses, url), card);
+        const w = await claude<unknown>(SYSTEM, ctxMsg + note, SCRIPT_SCHEMA);
+        const f = await fit(w.out, ctxMsg);
+        const u = addUsage(w, f);
+        row = { prompt: brief || "Present this page.", script: f.script, source: null, page_url: url, claude_input_tokens: u.inTok, claude_output_tokens: u.outTok };
+      } else throw new HttpError(400, "kind must be lesson, certification, page or message");
+      const { data: saved, error } = await svc.from("studio_videos").insert({
+        issuer_id: issuerId, created_by: actor, language, voice_id: voice, show_card: card, scheduled_for: date, series_id: seriesId, achievement_id: null, ...row,
+      }).select("id").single();
+      if (error) { console.error("studio plan_item", error); throw new HttpError(500, "could not save the draft"); }
+      return jsonResponse({ id: saved.id });
     }
 
     // The rest act on one of this issuer's videos.
