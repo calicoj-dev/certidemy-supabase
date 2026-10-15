@@ -470,6 +470,8 @@ function cleanProfile(p: unknown): Profile | null {
 // ---------------------------------------------------------------------------------------------------
 
 const B64_PNG = /^data:image\/png;base64,/;
+// Actions that write a video or spend the partner's allowance; a paused Studio (406) refuses all of them.
+const CREATES = new Set(["autofill", "draft", "plan", "plan_ai", "plan_item", "approve", "retry"]);
 const todayUtc = () => new Date().toISOString().slice(0, 10);
 const addDays = (d: string, n: number) => new Date(Date.parse(d + "T00:00:00Z") + n * 86400000).toISOString().slice(0, 10);
 
@@ -498,6 +500,10 @@ serve(async (req) => {
     const { data: kitRow } = await svc.from("studio_brand_kits").select("*").eq("issuer_id", issuerId).maybeSingle();
     const kit = kitRow ?? { theme: "dark", color_main: "#0b1f4b", color_accent: "#2f7bff", logo_path: null, voice_id: null, website: issuer.site_url ?? null, profile: null };
     const action = String(body.action ?? "");
+    // 406: while Certidemy has paused this partner's Studio, nothing new is written or approved.
+    const { data: pause, error: pauseErr } = await svc.from("studio_pauses").select("paused_at, reason").eq("issuer_id", issuerId).maybeSingle();
+    if (pauseErr) throw new Error(`pause lookup: ${pauseErr.message}`);
+    if (pause && CREATES.has(action)) throw new HttpError(423, "Studio is paused for your organization. Contact Certidemy to turn it back on.");
     const activeCourses = async () =>
       (await svc.from("achievements").select("id, name, description").eq("issuer_id", issuerId).eq("status", "active").order("name")).data ?? [];
 
@@ -533,6 +539,7 @@ serve(async (req) => {
         today: todayUtc(),
         issuer: { id: issuer.id, name: issuer.name, slug: issuer.slug },
         kit: { ...kit, logo_url: url(kit.logo_path) },
+        paused: pause ? { at: pause.paused_at, reason: pause.reason } : null,
         voices: VOICES, default_voices: DEFAULT_VOICE, quota: { limit, used: usage[month.slice(0, 7)] ?? 0, usage, credits: Math.max(0, Number(credits ?? 0)) },
         fixed: Object.fromEntries(LANGS.map((l) => [l, Object.fromEntries(Object.entries(FIXED[l]).map(([k, v]) => [k, v.replaceAll("{issuer}", issuer.name)]))])),
         fixed_cert: FIXED_CERT,
@@ -1043,6 +1050,7 @@ serve(async (req) => {
       const { data: verdict, error } = await svc.rpc("studio_approve", { p_video: videoId });
       if (error) { console.error("studio approve", error); throw new HttpError(500, "could not approve"); }
       if (verdict === "quota") throw new HttpError(429, "that month's videos are used up and there are no extra videos left");
+      if (verdict === "paused") throw new HttpError(423, "Studio is paused for your organization. Contact Certidemy to turn it back on.");
       if (verdict !== "approved") throw new HttpError(409, `not approved (${verdict})`);
       return jsonResponse({ ok: true });
     }
