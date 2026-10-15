@@ -1030,6 +1030,12 @@ const FINGERPRINTS = {
       ? { ran: true, why: `all ${total} real credentials have material_updated_at >= 2026-10-11` }
       : { ran: false, why: `${older} of ${total} real credentials predate 2026-10-11` };
   },
+  406: async () => {
+    /* 406 adds studio_pauses (and the pause check in studio_approve / studio_claim_job). The table selectable is the print. */
+    return (await hasColumn("studio_pauses", "issuer_id"))
+      ? { ran: true, why: "studio_pauses is selectable" }
+      : { ran: false, why: "studio_pauses is not selectable" };
+  },
   405: async () => {
     /* 405 adds studio_videos.show_card. A column selectable is the print. */
     return (await hasColumn("studio_videos", "show_card"))

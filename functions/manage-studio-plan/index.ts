@@ -8,6 +8,8 @@
 //   set_monthly  { monthly_limit }           included videos a month (0-1000); null restores the default of 20
 //   add_credits  { amount, kind, note? }     kind "package" (a sale, amount > 0) or "adjustment" (+/- a correction)
 //   refund       { video_id, note? }         +1 credit for a finished video, once per video; the video stays
+//   pause        { note? }                   406: nothing new is written, approved or rendered until resume
+//   resume       {}                          the queue runs again; finished videos were never affected
 //
 // Credits are rows in studio_credits, never an edited counter: a sale, a correction and a refund are each one row,
 // and the balance is computed (studio_credit_balance). Every change is also in admin_actions.
@@ -23,7 +25,7 @@ type Svc = any;
 const DEFAULT_MONTHLY = 20;
 const MAX_MONTHLY = 1000;
 const MAX_ADD = 10000;
-const HISTORY_ACTIONS = ["set_studio_monthly", "add_studio_credits", "refund_studio_video"];
+const HISTORY_ACTIONS = ["set_studio_monthly", "add_studio_credits", "refund_studio_video", "pause_studio", "resume_studio"];
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 interface Body {
@@ -46,7 +48,7 @@ async function state(svc: Svc, companyId: string) {
   const issuer = await issuerFor(svc, companyId);
   if (!issuer) return { ok: true, issuer: null };
   const month = new Date().toISOString().slice(0, 8) + "01";
-  const [quota, used, balance, ledger, done, log] = await Promise.all([
+  const [quota, used, balance, ledger, done, log, pause] = await Promise.all([
     svc.from("studio_quota").select("monthly_limit").eq("issuer_id", issuer.id).maybeSingle(),
     svc.from("studio_videos").select("id", { count: "exact", head: true }).eq("issuer_id", issuer.id).eq("quota_month", month)
       .eq("funding", "monthly").in("status", ["approved", "rendering", "done"]),
@@ -57,8 +59,9 @@ async function state(svc: Svc, companyId: string) {
       .order("rendered_at", { ascending: false }).limit(30),
     svc.from("admin_actions").select("action, metadata, created_at, actor_user_id").eq("target_type", "company").eq("target_id", companyId)
       .in("action", HISTORY_ACTIONS).order("created_at", { ascending: false }).limit(20),
+    svc.from("studio_pauses").select("paused_at, reason").eq("issuer_id", issuer.id).maybeSingle(),
   ]);
-  for (const [name, r] of Object.entries({ quota, used, balance, ledger, done, log })) {
+  for (const [name, r] of Object.entries({ quota, used, balance, ledger, done, log, pause })) {
     if ((r as { error?: { message: string } }).error) throw new Error(`${name}: ${(r as { error: { message: string } }).error.message}`);
   }
   const rows = (ledger.data ?? []) as { id: string; amount: number; kind: string; note: string | null; video_id: string | null; created_by: string | null; created_at: string }[];
@@ -82,6 +85,7 @@ async function state(svc: Svc, companyId: string) {
   return {
     ok: true,
     issuer,
+    paused: pause.data ? { at: pause.data.paused_at, reason: pause.data.reason } : null,
     monthly_limit: quota.data?.monthly_limit ?? null,
     default_monthly: DEFAULT_MONTHLY,
     used_this_month: used.count ?? 0,
@@ -166,8 +170,25 @@ serve(async (req) => {
           break;
         }
 
+        case "pause": {
+          const note = noteOf(body.note);
+          const { error } = await svc.from("studio_pauses").insert({ issuer_id: issuer.id, reason: note, paused_by: actor });
+          if (error?.code === "23505") throw new HttpError(409, "Studio is already paused");
+          if (error) throw new Error(`pause: ${error.message}`);
+          await audit(svc, actor, companyId, "pause_studio", { issuer_id: issuer.id, note });
+          break;
+        }
+
+        case "resume": {
+          const { data, error } = await svc.from("studio_pauses").delete().eq("issuer_id", issuer.id).select("issuer_id");
+          if (error) throw new Error(`resume: ${error.message}`);
+          if (!data?.length) throw new HttpError(409, "Studio is not paused");
+          await audit(svc, actor, companyId, "resume_studio", { issuer_id: issuer.id });
+          break;
+        }
+
         default:
-          throw new HttpError(400, "action must be get, set_monthly, add_credits or refund");
+          throw new HttpError(400, "action must be get, set_monthly, add_credits, refund, pause or resume");
       }
     }
     // Every action answers with the state as it now is, read back rather than assumed.
