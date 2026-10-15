@@ -70,46 +70,34 @@ interface VoucherRow {
   company_id: string | null;
 }
 
-/**
- * Resolve the effective attempt allowance for a voucher. NULL = unlimited.
- *
- * Order: per-voucher override → batch terms → legacy allocation terms → 1.
- */
+type Terms = { attempts_per_seat: number | null } | null | undefined;
+
+/** The allowance order, pure: per-voucher override → batch terms → legacy allocation
+ *  terms → 1 (never unlimited by accident). NULL = unlimited. A missing row is null/undefined.
+ *  manage-vouchers lists a company with this; resolveAllowance below reads the rows for one. */
+export function allowanceFrom(override: number | null | undefined, batch: Terms, alloc: Terms): number | null {
+  if (override !== null && override !== undefined) return override;
+  if (batch) return batch.attempts_per_seat ?? null;
+  if (alloc) return alloc.attempts_per_seat ?? null;
+  return 1;
+}
+
+/** Resolve the effective attempt allowance for a voucher. NULL = unlimited. */
 async function resolveAllowance(
   svc: SupabaseClient,
   v: VoucherRow,
 ): Promise<number | null> {
-  // 1. Per-voucher override wins (B2C vouchers carry this).
   if (v.attempts_allowed !== null && v.attempts_allowed !== undefined) {
     return v.attempts_allowed;
   }
-
-  // 2. Batch terms (the normal partner path post-refactor).
-  if (v.batch_id) {
-    const { data: batch } = await svc
-      .from("seat_batches")
-      .select("attempts_per_seat")
-      .eq("id", v.batch_id)
-      .maybeSingle();
-    if (batch) {
-      // attempts_per_seat NULL = unlimited.
-      return batch.attempts_per_seat ?? null;
-    }
-  }
-
-  // 3. Legacy fallback: allocation terms (voucher not yet relinked to a batch).
-  if (v.company_certification_id) {
-    const { data: alloc } = await svc
-      .from("company_certifications")
-      .select("attempts_per_seat")
-      .eq("id", v.company_certification_id)
-      .maybeSingle();
-    if (alloc) return alloc.attempts_per_seat ?? null;
-  }
-
-  // 4. No allocation, no override, no batch → single attempt (never unlimited
-  //    by accident).
-  return 1;
+  const batch = v.batch_id
+    ? (await svc.from("seat_batches").select("attempts_per_seat").eq("id", v.batch_id).maybeSingle()).data
+    : null;
+  // Legacy allocation terms are read only when there is no batch row, as before.
+  const alloc = !batch && v.company_certification_id
+    ? (await svc.from("company_certifications").select("attempts_per_seat").eq("id", v.company_certification_id).maybeSingle()).data
+    : null;
+  return allowanceFrom(v.attempts_allowed, batch, alloc);
 }
 
 /**

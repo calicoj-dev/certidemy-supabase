@@ -825,6 +825,10 @@ verify_jwt = true
 [functions.manage-studio-plan]
 verify_jwt = true
 
+# A partner's exam vouchers: pools, revoke / reactivate, per-voucher attempts and expiry. platform_admin only, in-function.
+[functions.manage-vouchers]
+verify_jwt = true
+
 [functions.request-signin-link]
 verify_jwt = false
 
