@@ -28,6 +28,7 @@ import {
   loadSittableCert,
   makeVoucherCode,
 } from "../_shared/vouchers.ts";
+import { platformRole } from "../_shared/authorize.ts";
 
 interface Body {
   batch_id?: string;
@@ -80,6 +81,7 @@ serve(async (req) => {
     let resolvedBatchId: string | null = null;
     let attemptsAllowed: number | null = null;
     let orderRef: string | null = null;
+    let byPlatformAdmin = false;
 
     if (batchId) {
       if (!UUID_RE.test(batchId))
@@ -97,7 +99,8 @@ serve(async (req) => {
       if (bErr) throw new HttpError(500, "failed to load batch");
       if (!batch) throw new HttpError(404, "batch not found");
 
-      // 2. Authorize: caller must be a team_admin of THIS batch's company.
+      // 2. Authorize: a team_admin of THIS batch's company, or a platform_admin (who
+      //    may assign on a partner's behalf from the company page; audit-logged below).
       const { data: membership } = await svc
         .from("team_members")
         .select("role")
@@ -106,7 +109,10 @@ serve(async (req) => {
         .eq("role", "team_admin")
         .maybeSingle();
       if (!membership) {
-        throw new HttpError(403, "not an admin of this organization");
+        if ((await platformRole(svc, caller)) !== "platform_admin") {
+          throw new HttpError(403, "not an admin of this organization");
+        }
+        byPlatformAdmin = true;
       }
 
       // 3. Batch must not be expired. This gates ASSIGNMENT only - a seat
@@ -249,6 +255,14 @@ serve(async (req) => {
     if (insErr || !inserted) {
       console.error("voucher insert failed", insErr);
       throw new HttpError(500, "failed to create voucher");
+    }
+
+    if (byPlatformAdmin) {
+      const { error: aErr } = await svc.from("admin_actions").insert({
+        actor_user_id: caller, action: "assign_voucher", target_type: "company", target_id: companyId,
+        reason: null, metadata: { voucher_id: inserted.id, voucher_code: inserted.voucher_code, batch_id: resolvedBatchId, assigned_email: email, certification: sittable.code },
+      });
+      if (aErr) console.error("assign_voucher audit failed", aErr);
     }
 
     return jsonResponse({
