@@ -6,7 +6,9 @@
 // Body: { action, company_id, ... }
 //   get          -> the state below
 //   set_monthly  { monthly_limit }           included videos a month (0-1000); null restores the default of 20
-//   add_credits  { amount, kind, note? }     kind "package" (a sale, amount > 0) or "adjustment" (+/- a correction)
+//   add_credits  { amount, kind, note?, product? }  kind "package" (a sale, amount > 0) or "adjustment" (+/- a correction);
+//                                           product "video" (default), "article" or "podcast" (407)
+//   set_piece_limit { piece, monthly_limit } 407: articles or podcasts included a month; null restores the default (20 / 0)
 //   refund       { video_id, note? }         +1 credit for a finished video, once per video; the video stays
 //   pause        { note? }                   406: nothing new is written, approved or rendered until resume
 //   resume       {}                          the queue runs again; finished videos were never affected
@@ -25,7 +27,9 @@ type Svc = any;
 const DEFAULT_MONTHLY = 20;
 const MAX_MONTHLY = 1000;
 const MAX_ADD = 10000;
-const HISTORY_ACTIONS = ["set_studio_monthly", "add_studio_credits", "refund_studio_video", "pause_studio", "resume_studio"];
+const HISTORY_ACTIONS = ["set_studio_monthly", "add_studio_credits", "refund_studio_video", "pause_studio", "resume_studio", "set_studio_piece_limit"];
+const PIECE_DEFAULT = { article: 20, podcast: 0 } as const;
+const PRODUCTS = ["video", "article", "podcast"] as const;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 interface Body {
@@ -36,6 +40,8 @@ interface Body {
   kind?: string;
   note?: string;
   video_id?: string;
+  product?: string;
+  piece?: string;
 }
 
 async function issuerFor(svc: Svc, companyId: string) {
@@ -48,23 +54,27 @@ async function state(svc: Svc, companyId: string) {
   const issuer = await issuerFor(svc, companyId);
   if (!issuer) return { ok: true, issuer: null };
   const month = new Date().toISOString().slice(0, 8) + "01";
-  const [quota, used, balance, ledger, done, log, pause] = await Promise.all([
+  const [quota, used, balance, ledger, done, log, pause, pq, pused, aBal, pBal] = await Promise.all([
     svc.from("studio_quota").select("monthly_limit").eq("issuer_id", issuer.id).maybeSingle(),
     svc.from("studio_videos").select("id", { count: "exact", head: true }).eq("issuer_id", issuer.id).eq("quota_month", month)
       .eq("funding", "monthly").in("status", ["approved", "rendering", "done"]),
     svc.rpc("studio_credit_balance", { p_issuer: issuer.id }),
-    svc.from("studio_credits").select("id, amount, kind, note, video_id, created_by, created_at").eq("issuer_id", issuer.id)
+    svc.from("studio_credits").select("id, amount, kind, note, video_id, product, created_by, created_at").eq("issuer_id", issuer.id)
       .order("created_at", { ascending: false }).limit(30),
     svc.from("studio_videos").select("id, language, script, rendered_at, funding").eq("issuer_id", issuer.id).eq("status", "done")
       .order("rendered_at", { ascending: false }).limit(30),
     svc.from("admin_actions").select("action, metadata, created_at, actor_user_id").eq("target_type", "company").eq("target_id", companyId)
       .in("action", HISTORY_ACTIONS).order("created_at", { ascending: false }).limit(20),
     svc.from("studio_pauses").select("paused_at, reason").eq("issuer_id", issuer.id).maybeSingle(),
+    svc.from("studio_piece_quota").select("kind, monthly_limit").eq("issuer_id", issuer.id),
+    svc.from("studio_pieces").select("kind").eq("issuer_id", issuer.id).eq("quota_month", month).eq("funding", "monthly").in("status", ["approved", "rendering", "done"]),
+    svc.rpc("studio_piece_balance", { p_issuer: issuer.id, p_kind: "article" }),
+    svc.rpc("studio_piece_balance", { p_issuer: issuer.id, p_kind: "podcast" }),
   ]);
-  for (const [name, r] of Object.entries({ quota, used, balance, ledger, done, log, pause })) {
+  for (const [name, r] of Object.entries({ quota, used, balance, ledger, done, log, pause, pq, pused, aBal, pBal })) {
     if ((r as { error?: { message: string } }).error) throw new Error(`${name}: ${(r as { error: { message: string } }).error.message}`);
   }
-  const rows = (ledger.data ?? []) as { id: string; amount: number; kind: string; note: string | null; video_id: string | null; created_by: string | null; created_at: string }[];
+  const rows = (ledger.data ?? []) as { id: string; amount: number; kind: string; note: string | null; video_id: string | null; product: string; created_by: string | null; created_at: string }[];
   const actorIds = [...new Set([...rows.map((r) => r.created_by), ...(log.data ?? []).map((r: { actor_user_id: string }) => r.actor_user_id)].filter(Boolean))];
   const names = new Map<string, string>();
   if (actorIds.length) {
@@ -90,7 +100,13 @@ async function state(svc: Svc, companyId: string) {
     default_monthly: DEFAULT_MONTHLY,
     used_this_month: used.count ?? 0,
     credits: Number(balance.data ?? 0),
-    ledger: rows.map((r) => ({ id: r.id, amount: r.amount, kind: r.kind, note: r.note, video_id: r.video_id, at: r.created_at, by: r.created_by ? names.get(r.created_by) ?? null : null })),
+    // 407: articles and podcasts, each with its month and its own extra credits
+    pieces: Object.fromEntries((["article", "podcast"] as const).map((k) => {
+      const set = ((pq.data ?? []) as { kind: string; monthly_limit: number }[]).find((q) => q.kind === k)?.monthly_limit ?? null;
+      return [k, { monthly_limit: set, default_monthly: PIECE_DEFAULT[k], used_this_month: ((pused.data ?? []) as { kind: string }[]).filter((u) => u.kind === k).length,
+        credits: Number((k === "article" ? aBal : pBal).data ?? 0) }];
+    })),
+    ledger: rows.map((r) => ({ id: r.id, amount: r.amount, kind: r.kind, product: r.product ?? "video", note: r.note, video_id: r.video_id, at: r.created_at, by: r.created_by ? names.get(r.created_by) ?? null : null })),
     videos: doneRows.map((v) => ({ id: v.id, language: v.language, title: title(v), rendered_at: v.rendered_at, refunded: refunded.has(v.id) })),
     history: (log.data ?? []).map((r: { action: string; metadata: Record<string, unknown> | null; created_at: string; actor_user_id: string }) =>
       ({ action: r.action, metadata: r.metadata, at: r.created_at, by: names.get(r.actor_user_id) ?? null })),
@@ -147,11 +163,29 @@ serve(async (req) => {
           if (!kind) throw new HttpError(400, "kind must be package or adjustment");
           const amount = Number(body.amount);
           if (!Number.isInteger(amount) || amount === 0 || Math.abs(amount) > MAX_ADD) throw new HttpError(400, `amount must be a whole number from 1 to ${MAX_ADD} (negative only as an adjustment)`);
-          if (kind === "package" && amount < 0) throw new HttpError(400, "a package adds videos; use an adjustment to take some away");
+          if (kind === "package" && amount < 0) throw new HttpError(400, "a package adds; use an adjustment to take some away");
+          const product = body.product ?? "video";
+          if (!(PRODUCTS as readonly string[]).includes(product)) throw new HttpError(400, "product must be video, article or podcast");
           const note = noteOf(body.note);
-          const { error } = await svc.from("studio_credits").insert({ issuer_id: issuer.id, amount, kind, note, created_by: actor });
+          const { error } = await svc.from("studio_credits").insert({ issuer_id: issuer.id, amount, kind, note, product, created_by: actor });
           if (error) throw new Error(`add credits: ${error.message}`);
-          await audit(svc, actor, companyId, "add_studio_credits", { issuer_id: issuer.id, amount, kind, note });
+          await audit(svc, actor, companyId, "add_studio_credits", { issuer_id: issuer.id, amount, kind, note, product });
+          break;
+        }
+
+        case "set_piece_limit": {
+          const piece = body.piece === "article" || body.piece === "podcast" ? body.piece : null;
+          if (!piece) throw new HttpError(400, "piece must be article or podcast");
+          if (body.monthly_limit === null) {
+            const { error } = await svc.from("studio_piece_quota").delete().eq("issuer_id", issuer.id).eq("kind", piece);
+            if (error) throw new Error(`reset piece limit: ${error.message}`);
+          } else {
+            const n = Number(body.monthly_limit);
+            if (!Number.isInteger(n) || n < 0 || n > MAX_MONTHLY) throw new HttpError(400, `monthly_limit must be a whole number from 0 to ${MAX_MONTHLY}`);
+            const { error } = await svc.from("studio_piece_quota").upsert({ issuer_id: issuer.id, kind: piece, monthly_limit: n }, { onConflict: "issuer_id,kind" });
+            if (error) throw new Error(`set piece limit: ${error.message}`);
+          }
+          await audit(svc, actor, companyId, "set_studio_piece_limit", { issuer_id: issuer.id, piece, monthly_limit: body.monthly_limit ?? null });
           break;
         }
 
@@ -188,7 +222,7 @@ serve(async (req) => {
         }
 
         default:
-          throw new HttpError(400, "action must be get, set_monthly, add_credits, refund, pause or resume");
+          throw new HttpError(400, "action must be get, set_monthly, set_piece_limit, add_credits, refund, pause or resume");
       }
     }
     // Every action answers with the state as it now is, read back rather than assumed.
