@@ -38,7 +38,7 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 const MAX_LINKS = 3;
 const ARTICLE_REWRITES = 3;
 const PODCAST_REWRITES = 5;
-const DEFAULT_LIMIT = { article: 20, podcast: 0 } as const;
+const DEFAULT_LIMIT = { article: 20, podcast: 20 } as const; // the partner package; studio_piece_default_limit() (408)
 const TAGS = ["warmly", "curious", "laughs", "chuckles", "thoughtful", "emphatic", "pause", "excited", "surprised"];
 const LIMIT = { title: 110, slug: 80, meta: 170, keyword: 40, keywords: 8, markdown: 20000, q: 200, a: 900, faq: 6, desc: 600, turn: 700, turnsMin: 6, turnsMax: 90, podcastChars: 7000 };
 // Spoken after the last line by Persona 1, appended by the worker. Not editable: the listener is told the voices are AI.

@@ -1030,6 +1030,13 @@ const FINGERPRINTS = {
       ? { ran: true, why: `all ${total} real credentials have material_updated_at >= 2026-10-11` }
       : { ran: false, why: `${older} of ${total} real credentials predate 2026-10-11` };
   },
+  408: async () => {
+    /* 408 makes the partner package 20 podcasts as well as 20 articles: studio_piece_default_limit() answering 20 is the print. */
+    const n = await rpc("studio_piece_default_limit", {});
+    return n === 20
+      ? { ran: true, why: "studio_piece_default_limit() answers 20" }
+      : { ran: false, why: n === undefined ? "studio_piece_default_limit() does not answer" : `studio_piece_default_limit() answered ${n}` };
+  },
   407: async () => {
     /* 407 adds studio_pieces (articles and podcasts) and studio_piece_quota. The table selectable is the print. */
     return (await hasColumn("studio_pieces", "personas"))
