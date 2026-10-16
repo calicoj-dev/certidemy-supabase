@@ -8,7 +8,9 @@
 //   set_monthly  { monthly_limit }           included videos a month (0-1000); null restores the default of 20
 //   add_credits  { amount, kind, note?, product? }  kind "package" (a sale, amount > 0) or "adjustment" (+/- a correction);
 //                                           product "video" (default), "article" or "podcast" (407)
-//   set_piece_limit { piece, monthly_limit } 407: articles or podcasts included a month; null restores the default (20 / 0)
+//   set_piece_limit { piece, monthly_limit } 407: articles or podcasts included a month; null restores the default (20)
+//   set_plan     { plan }                   "package" (20 videos, articles, podcasts a month: no rows, the defaults) or
+//                                           "trial" (2 of each). The state reports plan "custom" for anything else
 //   refund       { video_id, note? }         +1 credit for a finished video, once per video; the video stays
 //   pause        { note? }                   406: nothing new is written, approved or rendered until resume
 //   resume       {}                          the queue runs again; finished videos were never affected
@@ -27,8 +29,9 @@ type Svc = any;
 const DEFAULT_MONTHLY = 20;
 const MAX_MONTHLY = 1000;
 const MAX_ADD = 10000;
-const HISTORY_ACTIONS = ["set_studio_monthly", "add_studio_credits", "refund_studio_video", "pause_studio", "resume_studio", "set_studio_piece_limit"];
-const PIECE_DEFAULT = { article: 20, podcast: 0 } as const;
+const HISTORY_ACTIONS = ["set_studio_monthly", "add_studio_credits", "refund_studio_video", "pause_studio", "resume_studio", "set_studio_piece_limit", "set_studio_plan"];
+const PIECE_DEFAULT = { article: 20, podcast: 20 } as const; // studio_piece_default_limit() (408)
+const TRIAL = 2;
 const PRODUCTS = ["video", "article", "podcast"] as const;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -42,6 +45,7 @@ interface Body {
   video_id?: string;
   product?: string;
   piece?: string;
+  plan?: string;
 }
 
 async function issuerFor(svc: Svc, companyId: string) {
@@ -92,9 +96,13 @@ async function state(svc: Svc, companyId: string) {
   }
   const title = (v: { script: { cover?: { line1?: string; line2?: string } } | null }) =>
     [v.script?.cover?.line1, v.script?.cover?.line2].filter(Boolean).join(" ").slice(0, 120);
+  const pieceLimits = (["article", "podcast"] as const).map((k) =>
+    ((pq.data ?? []) as { kind: string; monthly_limit: number }[]).find((q) => q.kind === k)?.monthly_limit ?? PIECE_DEFAULT[k]);
+  const all = [quota.data?.monthly_limit ?? DEFAULT_MONTHLY, ...pieceLimits];
   return {
     ok: true,
     issuer,
+    plan: all.every((n) => n === DEFAULT_MONTHLY) ? "package" : all.every((n) => n === TRIAL) ? "trial" : "custom",
     paused: pause.data ? { at: pause.data.paused_at, reason: pause.data.reason } : null,
     monthly_limit: quota.data?.monthly_limit ?? null,
     default_monthly: DEFAULT_MONTHLY,
@@ -189,6 +197,21 @@ serve(async (req) => {
           break;
         }
 
+        case "set_plan": {
+          const plan = body.plan === "package" || body.plan === "trial" ? body.plan : null;
+          if (!plan) throw new HttpError(400, "plan must be package or trial");
+          // the package is the defaults, so it holds no rows; a trial writes 2 for each product
+          const results = plan === "package"
+            ? await Promise.all([svc.from("studio_quota").delete().eq("issuer_id", issuer.id), svc.from("studio_piece_quota").delete().eq("issuer_id", issuer.id)])
+            : await Promise.all([
+              svc.from("studio_quota").upsert({ issuer_id: issuer.id, monthly_limit: TRIAL }, { onConflict: "issuer_id" }),
+              svc.from("studio_piece_quota").upsert(["article", "podcast"].map((kind) => ({ issuer_id: issuer.id, kind, monthly_limit: TRIAL })), { onConflict: "issuer_id,kind" }),
+            ]);
+          for (const { error } of results) if (error) throw new Error(`set plan: ${error.message}`);
+          await audit(svc, actor, companyId, "set_studio_plan", { issuer_id: issuer.id, plan });
+          break;
+        }
+
         case "refund": {
           const videoId = body.video_id?.trim() ?? "";
           if (!UUID_RE.test(videoId)) throw new HttpError(400, "valid video_id required");
@@ -222,7 +245,7 @@ serve(async (req) => {
         }
 
         default:
-          throw new HttpError(400, "action must be get, set_monthly, set_piece_limit, add_credits, refund, pause or resume");
+          throw new HttpError(400, "action must be get, set_plan, set_monthly, set_piece_limit, add_credits, refund, pause or resume");
       }
     }
     // Every action answers with the state as it now is, read back rather than assumed.
