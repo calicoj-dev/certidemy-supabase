@@ -122,7 +122,7 @@ ${CLAIMS}`;
 // ------------------------------------------------------------------------------------------------- checks
 
 const clip = (v: unknown, max: number) => String(v ?? "").trim().slice(0, max);
-const slugify = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, LIMIT.slug);
+const slugify = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, LIMIT.slug);
 const KNOWN_TAG = new RegExp(`\\[(?!(?:${TAGS.join("|")})\\])[^\\]]*\\]`, "gi");
 const cleanTurn = (t: string) => t.replace(KNOWN_TAG, "").replace(/\s{2,}/g, " ").trim(); // unknown [cues] would be read aloud
 
@@ -194,7 +194,7 @@ export function checkPodcast(raw: unknown, language: Lang): Podcast {
 
 /** Longest run of consecutive words the text shares with the lesson: the reproduction check for licensed lesson text. */
 export function sharedRun(text: string, source: string): number {
-  const words = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").match(/[a-z0-9]+/g) ?? [];
+  const words = (s: string) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").match(/[a-z0-9]+/g) ?? [];
   const a = words(text), b = words(source);
   if (!a.length || !b.length) return 0;
   const grams = new Set<string>();
