@@ -121,6 +121,34 @@ export const FORMATS: Format[] = [
     "Walk through what happens when someone starts with the partner. Describe only steps the sources describe; if they describe few, keep it short."),
 ];
 
+/** 409: one example title per format, shown on its card so the partner sees the shape before choosing. */
+const EXAMPLE: Record<string, T> = {
+  mistakes: { en: "5 common mistakes when using AI at work", "es-419": "5 errores comunes al usar IA en el trabajo", "pt-BR": "5 erros comuns ao usar IA no trabalho" },
+  myths: { en: "Myth or fact: “AI will replace your job”", "es-419": "Mito o realidad: «la IA va a reemplazar tu puesto»", "pt-BR": "Mito ou verdade: “a IA vai substituir o seu cargo”" },
+  signs: { en: "4 signs your team needs AI training", "es-419": "4 señales de que tu equipo necesita formarse en IA", "pt-BR": "4 sinais de que sua equipe precisa de formação em IA" },
+  nobody_tells: { en: "What nobody tells you before using AI with clients", "es-419": "Lo que nadie te cuenta antes de usar IA con clientes", "pt-BR": "O que ninguém te conta antes de usar IA com clientes" },
+  cost_of_waiting: { en: "What having no AI rules is costing your team", "es-419": "Lo que le cuesta a tu equipo no tener reglas para la IA", "pt-BR": "O que custa para sua equipe não ter regras para a IA" },
+  opinion: { en: "Unpopular opinion: banning AI does not protect your data", "es-419": "Opinión impopular: prohibir la IA no protege tus datos", "pt-BR": "Opinião impopular: proibir a IA não protege seus dados" },
+  steps: { en: "How to start using AI in your area, step by step", "es-419": "Cómo empezar a usar IA en tu área, paso a paso", "pt-BR": "Como começar a usar IA na sua área, passo a passo" },
+  beginners: { en: "Beginner's guide: what generative AI is", "es-419": "Guía para principiantes: qué es la IA generativa", "pt-BR": "Guia para iniciantes: o que é IA generativa" },
+  quick_tip: { en: "One tip: always ask for the source of every fact", "es-419": "Un consejo: pide siempre la fuente de cada dato", "pt-BR": "Uma dica: peça sempre a fonte de cada dado" },
+  compare: { en: "Short prompt or detailed prompt? When to use each", "es-419": "¿Prompt corto o detallado? Cuándo usar cada uno", "pt-BR": "Prompt curto ou detalhado? Quando usar cada um" },
+  glossary: { en: "8 AI terms explained simply", "es-419": "8 términos de IA explicados fácil", "pt-BR": "8 termos de IA explicados de forma simples" },
+  checklist: { en: "Checklist: is your team using AI safely?", "es-419": "Checklist: ¿tu equipo usa la IA de forma segura?", "pt-BR": "Checklist: sua equipe usa a IA com segurança?" },
+  levels: { en: "The 3 levels of AI use: where is your team?", "es-419": "Los 3 niveles de uso de IA: ¿en cuál está tu equipo?", "pt-BR": "Os 3 níveis de uso de IA: em qual está sua equipe?" },
+  questions: { en: "The 5 questions we get asked most about AI", "es-419": "Las 5 preguntas que más nos hacen sobre IA", "pt-BR": "As 5 perguntas que mais nos fazem sobre IA" },
+  client_case: { en: "How a clinic brought its reports into one dashboard", "es-419": "Cómo una clínica ordenó sus reportes en un solo tablero", "pt-BR": "Como uma clínica organizou seus relatórios num único painel" },
+  before_after: { en: "Before: reports by hand. After: a dashboard that updates itself", "es-419": "Antes: reportes a mano. Después: un tablero que se actualiza solo", "pt-BR": "Antes: relatórios à mão. Depois: um painel que se atualiza sozinho" },
+  my_mistake: { en: "The mistake I made launching my first course", "es-419": "El error que cometí al lanzar mi primer curso", "pt-BR": "O erro que cometi ao lançar meu primeiro curso" },
+  wish_knew: { en: "What I wish I had known when I started teaching AI", "es-419": "Lo que me hubiera gustado saber al empezar a enseñar IA", "pt-BR": "O que eu queria ter sabido ao começar a ensinar IA" },
+  behind_scenes: { en: "How we prepare every session of our bootcamp", "es-419": "Así preparamos cada sesión de nuestro bootcamp", "pt-BR": "Assim preparamos cada sessão do nosso bootcamp" },
+  decision: { en: "The decision that changed how we teach", "es-419": "La decisión que cambió cómo damos nuestros cursos", "pt-BR": "A decisão que mudou como damos nossos cursos" },
+  before_choosing: { en: "5 questions to ask before choosing an AI course", "es-419": "5 preguntas antes de elegir un curso de IA", "pt-BR": "5 perguntas antes de escolher um curso de IA" },
+  who_for: { en: "This course is for you if… (and not if…)", "es-419": "Este curso es para ti si… (y no lo es si…)", "pt-BR": "Este curso é para você se… (e não é se…)" },
+  doubt: { en: "“I have no time to train”: answering that doubt", "es-419": "«No tengo tiempo para formarme»: respondemos esa duda", "pt-BR": "“Não tenho tempo para me formar”: respondemos essa dúvida" },
+  what_happens: { en: "What happens in your first week with us", "es-419": "Qué pasa en tu primera semana con nosotros", "pt-BR": "O que acontece na sua primeira semana com a gente" },
+};
+
 /** What each product makes of a format: added after the format's own brief. */
 const SHAPE: Record<Product, string> = {
   video: "Fit it into the video's four scenes: the hook opens it, the points carry its two or three items, scene 3 states the key point, the close invites.",
@@ -155,4 +183,4 @@ export function formatBrief(fm: Format | null, story: string | null, product: Pr
 }
 
 /** For the console: everything but the writer's brief. */
-export const formatsForConsole = () => FORMATS.map(({ brief: _b, ...rest }) => rest);
+export const formatsForConsole = () => FORMATS.map(({ brief: _b, ...rest }) => ({ ...rest, example: EXAMPLE[rest.id] ?? null }));
