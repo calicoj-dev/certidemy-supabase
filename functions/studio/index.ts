@@ -18,6 +18,7 @@ import { authenticate, getServiceClient, HttpError } from "../_shared/supabase.t
 import { requireIssuerAccess } from "../_shared/authorize.ts";
 import { parseLesson } from "../_shared/lesson-blocks.ts";
 import { PIECE_ACTIONS, PIECE_CREATES, handlePiece, piecesContext } from "./pieces.ts";
+import { formatBrief, formatOf, formatsForConsole, storyOf } from "./formats.ts";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const HEX_RE = /^#[0-9a-fA-F]{6}$/;
@@ -548,6 +549,7 @@ serve(async (req) => {
         voices: VOICES, default_voices: DEFAULT_VOICE, quota: { limit, used: usage[month.slice(0, 7)] ?? 0, usage, credits: Math.max(0, Number(credits ?? 0)) },
         fixed: Object.fromEntries(LANGS.map((l) => [l, Object.fromEntries(Object.entries(FIXED[l]).map(([k, v]) => [k, v.replaceAll("{issuer}", issuer.name)]))])),
         fixed_cert: FIXED_CERT,
+        formats: formatsForConsole(), // 409
         courses: courses.map((c) => ({ id: c.id, name: c.name })),
         videos: (videos ?? []).map(({ render_path, poster_path, options, carousel, feed_path, ...v }) => ({
           ...v, options: v.status === "draft" ? options : null,
@@ -765,7 +767,8 @@ serve(async (req) => {
 
     if (PIECE_ACTIONS.has(action)) {
       return await handlePiece(action, {
-        svc, actor, issuer: { id: issuer.id, name: issuer.name }, kit: { website: kit.website ?? null, profile: kit.profile ?? null },
+        svc, actor, issuer: { id: issuer.id, name: issuer.name },
+        kit: { website: kit.website ?? null, profile: kit.profile ?? null, theme: kit.theme, color_main: kit.color_main, color_accent: kit.color_accent, logo_path: kit.logo_path ?? null },
         body, voices: VOICES, claude, langOf, promptOf, pageOf, pageText, courses: activeCourses,
         siteText: () => (sitePromise ??= kit.website ? fetchSiteText(kit.website) : Promise.resolve("")),
         certSource: async (raw, language) => {
@@ -793,7 +796,7 @@ serve(async (req) => {
       if (body.achievement_id && !course) throw new HttpError(400, "course not found for this issuer");
 
       if (body.video_id) {
-        const { data: prior } = await svc.from("studio_videos").select("id, status, script, revisions, source, page_url, show_card, claude_input_tokens, claude_output_tokens")
+        const { data: prior } = await svc.from("studio_videos").select("id, status, script, revisions, source, page_url, show_card, format, story, claude_input_tokens, claude_output_tokens")
           .eq("id", body.video_id).eq("issuer_id", issuerId).maybeSingle();
         if (!prior) throw new HttpError(404, "video not found");
         if (prior.status !== "draft") throw new HttpError(409, "only a draft can be rewritten");
@@ -803,9 +806,10 @@ serve(async (req) => {
         const prompt = src ? String(body.prompt ?? "").trim().slice(0, 2000) : promptOf(body.prompt);
         const system = src ? CERT_SYSTEM : SYSTEM;
         const card = prior.show_card !== false;
+        const brief = formatBrief(prior.format ? formatOf(prior.format, "video") : null, prior.story ?? null, "video");
         const ctxMsg = withCard(src
           ? await certBriefing(language, src, certOf(await certCatalog(language), src.certification), prompt === src.title ? "" : prompt, courses)
-          : await briefing(language, prompt, course, courses, prior.page_url ?? null), card);
+          : await briefing(language, prompt, course, courses, prior.page_url ?? null), card) + (brief ? `\n\n${brief}` : "");
         const r = await claude<unknown>(system, `${ctxMsg}\n\nCurrent draft:\n${JSON.stringify(prior.script)}\nRewrite it following this request: ${instruction || "improve it"}`, SCRIPT_SCHEMA);
         const f = await fit(r.out, ctxMsg, system);
         const u = addUsage(r, f);
@@ -818,16 +822,20 @@ serve(async (req) => {
       }
 
       const scheduled = validDate(body.scheduled_for, "scheduled_for");
+      const fm = formatOf(body.format, "video"); // 409: a format, and what really happened when it needs that
+      const story = storyOf(body.story, fm);
       const picked = await sourceFrom(body.source, language); // before the writer runs
       const pageUrl = picked ? null : pageOf(body.page_url);
       const src = picked?.src ?? null;
       // A certification video needs no message; the note is optional and the lesson (or certification) names it.
       const note = src ? String(body.prompt ?? "").trim().slice(0, 2000) : "";
-      const prompt = src ? note || src.title : promptOf(body.prompt);
+      const prompt = src ? note || src.title : fm && !String(body.prompt ?? "").trim() ? fm.label[language] : promptOf(body.prompt);
       const system = src ? CERT_SYSTEM : SYSTEM;
       const card = cardOf(body.show_card);
-      const ctxMsg = withCard(picked ? await certBriefing(language, picked.src, picked.cert, note, courses) : await briefing(language, prompt, course, courses, pageUrl), card);
-      const r = await claude<{ options?: unknown[] }>(system, `${ctxMsg}\n\nWrite three options for this video.`, OPTIONS_SCHEMA);
+      const brief = formatBrief(fm, story, "video");
+      const ctxMsg = withCard(picked ? await certBriefing(language, picked.src, picked.cert, note, courses) : await briefing(language, prompt, course, courses, pageUrl), card)
+        + (brief ? `\n\n${brief}` : "");
+      const r = await claude<{ options?: unknown[] }>(system, `${ctxMsg}\n\nWrite three options for this video.${fm ? " All three use the format above; vary the hook and the examples." : ""}`, OPTIONS_SCHEMA);
       const raw = (Array.isArray(r.out.options) ? r.out.options : []).slice(0, 3) as Record<string, unknown>[];
       const settled = await Promise.allSettled(raw.map((o) => fit(o, ctxMsg, system)));
       let usage: Usage = { inTok: r.inTok, outTok: r.outTok };
@@ -842,6 +850,7 @@ serve(async (req) => {
       const { data: row, error } = await svc.from("studio_videos").insert({
         issuer_id: issuerId, created_by: actor, language, prompt, achievement_id: course?.id ?? null,
         script: first.script, options, scheduled_for: scheduled, voice_id: voice, source: src, page_url: pageUrl, show_card: card,
+        ...(fm ? { format: fm.id } : {}), ...(story ? { story } : {}), // only when set: a plain draft writes what it always did
         claude_input_tokens: usage.inTok, claude_output_tokens: usage.outTok,
       }).select("id").single();
       if (error) { console.error("studio insert", error); throw new HttpError(500, "could not save the draft"); }

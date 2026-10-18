@@ -1,10 +1,11 @@
-// Studio articles and podcasts (migration 407), the "pieces" half of functions/studio. index.ts authorizes the
-// caller for the issuer, applies the pause (406) and hands every piece_* / article_* / podcast_* action here.
-// An article counts when written (studio_piece_reserve, deleted again if the writer fails); a podcast when its
-// audio is ordered. The worker renders podcasts. The AI-voice disclosure is fixed here, never written or edited.
+// Studio articles, podcasts (407) and carousels (409), the "pieces" half of functions/studio. index.ts authorizes
+// the caller for the issuer, applies the pause (406) and hands every piece_* / article_* / podcast_* / carousel_*
+// action here. An article counts when written; a podcast when its audio is ordered; a carousel when its slides
+// are ordered (studio_piece_reserve). The worker renders podcasts and carousels. The AI-voice line is fixed here.
 
 import { HttpError } from "../_shared/supabase.ts";
 import { jsonResponse } from "../_shared/cors.ts";
+import { formatBrief, formatOf, storyOf, type Product } from "./formats.ts";
 
 // deno-lint-ignore no-explicit-any
 type Svc = any;
@@ -16,7 +17,7 @@ export interface PieceCtx {
   svc: Svc;
   actor: string;
   issuer: { id: string; name: string };
-  kit: { website: string | null; profile: unknown };
+  kit: { website: string | null; profile: unknown; theme: string; color_main: string; color_accent: string; logo_path: string | null };
   body: Record<string, unknown>;
   voices: readonly Voice[];
   claude: <T>(system: string, user: string, schema: unknown) => Promise<{ out: T } & Usage>;
@@ -30,16 +31,23 @@ export interface PieceCtx {
   certSource: (raw: unknown, language: Lang) => Promise<{ label: string; facts: string; lesson: string | null } | null>;
 }
 
-export const PIECE_ACTIONS = new Set(["article_write", "article_rewrite", "podcast_write", "podcast_rewrite", "podcast_voices", "podcast_approve", "piece_save", "piece_archive"]);
-/** Actions that call a writer or order audio; a paused Studio refuses them (406). */
-export const PIECE_CREATES = new Set(["article_write", "article_rewrite", "podcast_write", "podcast_rewrite", "podcast_voices", "podcast_approve"]);
+export const PIECE_ACTIONS = new Set(["article_write", "article_rewrite", "podcast_write", "podcast_rewrite", "podcast_voices", "podcast_approve",
+  "carousel_write", "carousel_rewrite", "carousel_approve", "piece_save", "piece_archive"]);
+/** Actions that call a writer or order audio or slides; a paused Studio refuses them (406). */
+export const PIECE_CREATES = new Set(["article_write", "article_rewrite", "podcast_write", "podcast_rewrite", "podcast_voices", "podcast_approve",
+  "carousel_write", "carousel_rewrite", "carousel_approve"]);
+type Kind = "article" | "podcast" | "carousel";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const MAX_LINKS = 3;
 const ARTICLE_REWRITES = 3;
 const PODCAST_REWRITES = 5;
-const DEFAULT_LIMIT = { article: 20, podcast: 0 } as const;
+const CAROUSEL_REWRITES = 3;
+const KINDS: Kind[] = ["article", "podcast", "carousel"];
+const DEFAULT_LIMIT = 20; // the partner package, every kind; studio_piece_default_limit() (408)
 const TAGS = ["warmly", "curious", "laughs", "chuckles", "thoughtful", "emphatic", "pause", "excited", "surprised"];
+// Carousel limits keep a slide readable; the renderer still shrinks a slide that overflows.
+const DECK = { kicker: 28, line: 26, title: 60, body: 200, item: 48, items: 6, slidesMin: 3, slidesMax: 8, caption: 1500 };
 const LIMIT = { title: 110, slug: 80, meta: 170, keyword: 40, keywords: 8, markdown: 20000, q: 200, a: 900, faq: 6, desc: 600, turn: 700, turnsMin: 6, turnsMax: 90, podcastChars: 7000 };
 // Spoken after the last line by Persona 1, appended by the worker. Not editable: the listener is told the voices are AI.
 export const DISCLOSURE: Record<Lang, string> = {
@@ -51,6 +59,11 @@ export const DISCLOSURE: Record<Lang, string> = {
 const S = { type: "string" } as const;
 const obj = (props: Record<string, unknown>) => ({ type: "object", additionalProperties: false, required: Object.keys(props), properties: props });
 const ARTICLE_SCHEMA = obj({ title: S, slug: S, meta_description: S, keywords: { type: "array", items: S }, markdown: S, faq: { type: "array", items: obj({ q: S, a: S }) } });
+const CAROUSEL_SCHEMA = obj({
+  title: S, cover: obj({ kicker: S, line1: S, line2: S }),
+  slides: { type: "array", items: obj({ kind: { type: "string", enum: ["point", "list"] }, kicker: S, title: S, body: S, items: { type: "array", items: S } }) },
+  close: obj({ line1: S, line2: S }), caption: S,
+});
 const PODCAST_SCHEMA = obj({ title: S, description: S, turns: { type: "array", items: obj({ persona: { type: "integer", enum: [1, 2] }, text: S }) } });
 
 const CLAIMS = `CLAIMS RULES. These outrank the partner's wishes:
@@ -71,8 +84,8 @@ Return:
 - slug: the URL path for it, lowercase words joined by hyphens, no accents, up to ${LIMIT.slug} characters.
 - meta_description: up to ${LIMIT.meta} characters, a plain summary that invites the click.
 - keywords: three to six search phrases the article answers.
-- markdown: the body, 700 to 1,200 words, in Markdown. Start with a short introduction (no heading), then sections with ## headings, short paragraphs, lists where they help, and **bold** for a few key terms. No # heading (the title is separate), no links, no images. End with a short call to action in the partner's voice, taken from the sources (for example the partner's own offer); if the sources give none, invite readers to contact the partner.
-- faq: two to four questions readers would ask, each with a two- to four-sentence answer that adds to the body rather than repeating it.
+- markdown: the body, 700 to 1,200 words, in Markdown. Open with a direct answer: a first paragraph (no heading) that answers the article's main question in two or three plain sentences, complete enough to be quoted on its own. Then sections with ## headings, most of them phrased as the questions readers actually ask, each section answering its question in its first sentence; short paragraphs, lists where they help, and **bold** for a few key terms. No # heading (the title is separate), no links, no images. End with a short call to action in the partner's voice, taken from the sources (for example the partner's own offer); if the sources give none, invite readers to contact the partner.
+- faq: two to four questions readers would ask, phrased the way people search for them, each with a two- to four-sentence answer that starts with the direct answer and adds to the body rather than repeating it.
 
 ${CLAIMS}`;
 
@@ -93,6 +106,19 @@ How it should sound:
 
 ${CLAIMS}`;
 
+const CAROUSEL_SYSTEM = `You write a carousel post (a set of 4:5 slides people swipe on Instagram or LinkedIn) for a training provider (the "partner"), posted in its own voice, from the sources given. Slides are for skimming: one idea per slide, short words, no filler.
+
+Return:
+- title: a working title for the partner's list, up to ${LIMIT.title} characters.
+- cover: the first slide. kicker: a small label above, up to ${DECK.kicker} characters (the topic or the format). line1 and line2: the promise of the carousel in two short lines, up to ${DECK.line} characters each.
+- slides: ${DECK.slidesMin} to ${DECK.slidesMax} slides after the cover. Each is either
+  kind "point": kicker (a short label such as "Mistake 1", "Myth", "Step 2", or a term; up to ${DECK.kicker} characters, may be empty), title (up to ${DECK.title} characters) and body (one or two sentences, up to ${DECK.body} characters); items empty; or
+  kind "list": title (up to ${DECK.title} characters) and items (2 to ${DECK.items} short lines, up to ${DECK.item} characters each), for a checklist or a list of signs; kicker may be empty; body empty.
+- close: the last slide, two short lines up to ${DECK.line} characters each: an invitation in the partner's voice taken from the sources.
+- caption: the text to publish with the post, 400 to 1,200 characters: an opening line that makes people swipe, a few short lines with the value, a call to action from the sources, then three to six relevant hashtags. Slides have no emojis; the caption may use a few.
+
+${CLAIMS}`;
+
 // ------------------------------------------------------------------------------------------------- checks
 
 const clip = (v: unknown, max: number) => String(v ?? "").trim().slice(0, max);
@@ -102,6 +128,39 @@ const cleanTurn = (t: string) => t.replace(KNOWN_TAG, "").replace(/\s{2,}/g, " "
 
 export interface Article { title: string; slug: string; meta_description: string; keywords: string[]; markdown: string; faq: { q: string; a: string }[] }
 export interface Podcast { title: string; description: string; turns: { persona: 1 | 2; text: string }[]; disclosure: string }
+export interface Slide { kind: "point" | "list"; kicker: string; title: string; body: string; items: string[] }
+export interface Carousel { title: string; cover: { kicker: string; line1: string; line2: string }; slides: Slide[]; close: { line1: string; line2: string }; caption: string }
+
+/** Cut at a word boundary: a slide line cut mid-word reads as a mistake. */
+const clipWords = (v: unknown, max: number) => {
+  const t = String(v ?? "").replace(/\s+/g, " ").trim();
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max + 1);
+  const at = cut.lastIndexOf(" ");
+  return (at > max * 0.6 ? cut.slice(0, at) : t.slice(0, max)).replace(/[\s,;:.-]+$/, "");
+};
+
+export function checkCarousel(raw: unknown): Carousel {
+  const c = (raw ?? {}) as Record<string, unknown>;
+  const o = (v: unknown) => (v && typeof v === "object" ? v : {}) as Record<string, unknown>;
+  const cover = o(c.cover), close = o(c.close);
+  const slides: Slide[] = (Array.isArray(c.slides) ? c.slides : []).map((x) => {
+    const r = o(x);
+    const items = (Array.isArray(r.items) ? r.items : []).map((i) => clipWords(i, DECK.item)).filter(Boolean).slice(0, DECK.items);
+    const kind: Slide["kind"] = r.kind === "list" && items.length >= 2 ? "list" : "point";
+    return { kind, kicker: clipWords(r.kicker, DECK.kicker), title: clipWords(r.title, DECK.title), body: kind === "point" ? clipWords(r.body, DECK.body) : "", items: kind === "list" ? items : [] };
+  }).filter((x) => x.title).slice(0, DECK.slidesMax);
+  const out: Carousel = {
+    title: clip(c.title, LIMIT.title),
+    cover: { kicker: clipWords(cover.kicker, DECK.kicker), line1: clipWords(cover.line1, DECK.line), line2: clipWords(cover.line2, DECK.line) },
+    slides,
+    close: { line1: clipWords(close.line1, DECK.line), line2: clipWords(close.line2, DECK.line) },
+    caption: String(c.caption ?? "").replace(/\r\n/g, "\n").trim().slice(0, DECK.caption),
+  };
+  if (!out.cover.line1 || !out.close.line1) throw new HttpError(400, "a carousel needs a cover and a closing slide");
+  if (slides.length < DECK.slidesMin) throw new HttpError(400, `a carousel has ${DECK.slidesMin} to ${DECK.slidesMax} slides after the cover`);
+  return { ...out, title: out.title || `${out.cover.line1} ${out.cover.line2}`.trim().slice(0, LIMIT.title) };
+}
 
 export function checkArticle(raw: unknown): Article {
   const a = (raw ?? {}) as Record<string, unknown>;
@@ -152,19 +211,20 @@ const REPRO_WORDS = 10; // 10 words in a row shared with the lesson is a copied 
 export async function handlePiece(action: string, c: PieceCtx): Promise<Response> {
   const { svc, body, issuer } = c;
 
-  const load = async (kind?: "article" | "podcast") => {
+  const load = async (kind?: Kind) => {
     const id = String(body.piece_id ?? "");
     if (!UUID_RE.test(id)) throw new HttpError(400, "valid piece_id required");
     const { data, error } = await svc.from("studio_pieces").select("*").eq("id", id).eq("issuer_id", issuer.id).is("archived_at", null).maybeSingle();
     if (error) throw new Error(`piece lookup: ${error.message}`);
     if (!data || (kind && data.kind !== kind)) throw new HttpError(404, "not found");
-    return data as Record<string, unknown> & { id: string; kind: string; status: string; language: Lang; prompt: string; sources: Src[]; content: Record<string, unknown>; personas: Personas | null; revisions: number; article_id: string | null };
+    return data as Record<string, unknown> & { id: string; kind: string; status: string; language: Lang; prompt: string; sources: Src[]; content: Record<string, unknown>; personas: Personas | null; revisions: number; article_id: string | null; format: string | null; story: string | null };
   };
-  const reserve = async (id: string, kind: "article" | "podcast") => {
+  const reserve = async (id: string, kind: Kind) => {
     const { data: verdict, error } = await svc.rpc("studio_piece_reserve", { p_piece: id });
     if (error) throw new Error(`reserve: ${error.message}`);
     if (verdict === "approved") return;
-    if (verdict === "quota") throw new HttpError(429, kind === "article" ? "this month's articles are used up and there are no extra articles left" : "there are no podcast episodes left; ask Certidemy for more");
+    if (verdict === "quota") throw new HttpError(429, kind === "article" ? "this month's articles are used up and there are no extra articles left"
+      : kind === "carousel" ? "this month's carousels are used up and there are no extra carousels left" : "there are no podcast episodes left; ask Certidemy for more");
     if (verdict === "paused") throw new HttpError(423, "Studio is paused for your organization. Contact Certidemy to turn it back on.");
     throw new HttpError(409, `not counted (${verdict})`);
   };
@@ -246,16 +306,28 @@ export async function handlePiece(action: string, c: PieceCtx): Promise<Response
     return `Hosts: Persona 1 is ${g(p["1"].gender)}; Persona 2 is ${g(p["2"].gender)}.`;
   };
   const now = () => new Date().toISOString();
+  // 409: the chosen format and the partner's real story, checked before anything is written or paid for
+  const shapeOf = (product: Product) => {
+    const fm = formatOf(body.format, product);
+    const story = storyOf(body.story, fm);
+    const raw = String(body.prompt ?? "").trim();
+    const prompt = fm && !raw ? fm.label[c.langOf(body.language)] : c.promptOf(raw);
+    return { fm, story, prompt, brief: formatBrief(fm, story, product), cols: { ...(fm ? { format: fm.id } : {}), ...(story ? { story } : {}) } };
+  };
+  const briefAgain = (p: { format: string | null; story: string | null }, product: Product) =>
+    formatBrief(p.format ? formatOf(p.format, product) : null, p.story ?? null, product);
+  const withBrief = (b: string) => (b ? `\n\n${b}` : "");
+  const carouselText = (x: Carousel) => [x.cover.line1, x.cover.line2, ...x.slides.flatMap((s) => [s.title, s.body, ...s.items]), x.caption].join("\n");
 
   if (action === "article_write") {
     const language = c.langOf(body.language);
-    const prompt = c.promptOf(body.prompt);
+    const { prompt, brief, cols } = shapeOf("article");
     const { briefing, sources, lesson } = await gather(language, linksOf(body.links), body.source ?? null, null);
-    const { data: row, error } = await svc.from("studio_pieces").insert({ issuer_id: issuer.id, kind: "article", language, prompt, sources, created_by: c.actor }).select("id").single();
+    const { data: row, error } = await svc.from("studio_pieces").insert({ issuer_id: issuer.id, kind: "article", language, prompt, sources, created_by: c.actor, ...cols }).select("id").single();
     if (error) throw new Error(`article insert: ${error.message}`);
     try {
       await reserve(row.id, "article");
-      const article = await write(ARTICLE_SYSTEM, `${briefing}\n\nWhat the partner wants the article to be about:\n<request>\n${prompt}\n</request>`, ARTICLE_SCHEMA, checkArticle, articleText, lesson);
+      const article = await write(ARTICLE_SYSTEM, `${briefing}${withBrief(brief)}\n\nWhat the partner wants the article to be about:\n<request>\n${prompt}\n</request>`, ARTICLE_SCHEMA, checkArticle, articleText, lesson);
       const { error: uErr } = await svc.from("studio_pieces").update({ content: article, status: "done", rendered_at: now(), updated_at: now() }).eq("id", row.id);
       if (uErr) throw new Error(`article save: ${uErr.message}`);
       return jsonResponse({ ok: true, id: row.id });
@@ -273,7 +345,7 @@ export async function handlePiece(action: string, c: PieceCtx): Promise<Response
     if (!instruction) throw new HttpError(400, "say what to change");
     const { briefing, lesson } = await sourcesAgain(p);
     const current = checkArticle(p.content);
-    const article = await write(ARTICLE_SYSTEM, `${briefing}\n\nThe current article (JSON):\n${JSON.stringify(current)}\n\nRewrite it as the partner asks, keeping everything else:\n<request>\n${instruction}\n</request>`, ARTICLE_SCHEMA, checkArticle, articleText, lesson);
+    const article = await write(ARTICLE_SYSTEM, `${briefing}${withBrief(briefAgain(p, "article"))}\n\nThe current article (JSON):\n${JSON.stringify(current)}\n\nRewrite it as the partner asks, keeping everything else:\n<request>\n${instruction}\n</request>`, ARTICLE_SCHEMA, checkArticle, articleText, lesson);
     const { error } = await svc.from("studio_pieces").update({ content: article, revisions: p.revisions + 1, updated_at: now() }).eq("id", p.id);
     if (error) throw new Error(`article rewrite: ${error.message}`);
     return jsonResponse({ ok: true });
@@ -281,13 +353,13 @@ export async function handlePiece(action: string, c: PieceCtx): Promise<Response
 
   if (action === "podcast_write") {
     const language = c.langOf(body.language);
-    const prompt = c.promptOf(body.prompt);
+    const { prompt, brief, cols } = shapeOf("podcast");
     const personas = personasOf(body.personas, language);
     const articleId = body.article_id ? String(body.article_id) : null;
     if (articleId && !UUID_RE.test(articleId)) throw new HttpError(400, "valid article_id required");
     const { briefing, sources, lesson } = await gather(language, linksOf(body.links), body.source ?? null, articleId);
-    const podcast = await write(PODCAST_SYSTEM, `${briefing}\n\n${genderNote(personas)}\n\nWhat the partner wants the episode to be about:\n<request>\n${prompt}\n</request>`, PODCAST_SCHEMA, (r) => checkPodcast(r, language), podcastText, lesson);
-    const { data: row, error } = await svc.from("studio_pieces").insert({ issuer_id: issuer.id, kind: "podcast", language, prompt, sources, article_id: articleId, content: podcast, personas, created_by: c.actor }).select("id").single();
+    const podcast = await write(PODCAST_SYSTEM, `${briefing}${withBrief(brief)}\n\n${genderNote(personas)}\n\nWhat the partner wants the episode to be about:\n<request>\n${prompt}\n</request>`, PODCAST_SCHEMA, (r) => checkPodcast(r, language), podcastText, lesson);
+    const { data: row, error } = await svc.from("studio_pieces").insert({ issuer_id: issuer.id, kind: "podcast", language, prompt, sources, article_id: articleId, content: podcast, personas, created_by: c.actor, ...cols }).select("id").single();
     if (error) throw new Error(`podcast insert: ${error.message}`);
     return jsonResponse({ ok: true, id: row.id });
   }
@@ -313,7 +385,7 @@ export async function handlePiece(action: string, c: PieceCtx): Promise<Response
     }
     const { briefing, lesson } = await sourcesAgain(p);
     const { disclosure: _d, ...script } = current;
-    const podcast = await write(PODCAST_SYSTEM, `${briefing}\n\n${genderNote(personas)}\n\nThe current script (JSON):\n${JSON.stringify(script)}\n\nRewrite it as asked, keeping everything else:\n<request>\n${instruction}\n</request>`, PODCAST_SCHEMA, (r) => checkPodcast(r, p.language), podcastText, lesson);
+    const podcast = await write(PODCAST_SYSTEM, `${briefing}${withBrief(briefAgain(p, "podcast"))}\n\n${genderNote(personas)}\n\nThe current script (JSON):\n${JSON.stringify(script)}\n\nRewrite it as asked, keeping everything else:\n<request>\n${instruction}\n</request>`, PODCAST_SCHEMA, (r) => checkPodcast(r, p.language), podcastText, lesson);
     const { error } = await svc.from("studio_pieces").update({ content: podcast, personas, revisions: p.revisions + (action === "podcast_rewrite" ? 1 : 0), updated_at: now() }).eq("id", p.id);
     if (error) throw new Error(`podcast rewrite: ${error.message}`);
     return jsonResponse({ ok: true, rewritten: true });
@@ -326,12 +398,54 @@ export async function handlePiece(action: string, c: PieceCtx): Promise<Response
     return jsonResponse({ ok: true });
   }
 
+  if (action === "carousel_write") {
+    const language = c.langOf(body.language);
+    const { prompt, brief, cols } = shapeOf("carousel");
+    const { briefing, sources, lesson } = await gather(language, linksOf(body.links), body.source ?? null, null);
+    const deck = await write(CAROUSEL_SYSTEM, `${briefing}${withBrief(brief)}\n\nWhat the partner wants the carousel to be about:\n<request>\n${prompt}\n</request>`, CAROUSEL_SCHEMA, checkCarousel, carouselText, lesson);
+    const { data: row, error } = await svc.from("studio_pieces").insert({ issuer_id: issuer.id, kind: "carousel", language, prompt, sources, content: deck, created_by: c.actor, ...cols }).select("id").single();
+    if (error) throw new Error(`carousel insert: ${error.message}`);
+    return jsonResponse({ ok: true, id: row.id });
+  }
+
+  if (action === "carousel_rewrite") {
+    const p = await load("carousel");
+    if (p.status !== "draft" && p.status !== "failed") throw new HttpError(409, "only a carousel that is not being made can change");
+    if (p.revisions >= CAROUSEL_REWRITES) throw new HttpError(429, `a carousel can be rewritten ${CAROUSEL_REWRITES} times`);
+    const instruction = clip(body.instruction, 1000);
+    if (!instruction) throw new HttpError(400, "say what to change");
+    const { briefing, lesson } = await sourcesAgain(p);
+    const current = checkCarousel(p.content); // without the brand snapshot: the writer gets the words only
+    const deck = await write(CAROUSEL_SYSTEM, `${briefing}${withBrief(briefAgain(p, "carousel"))}\n\nThe current carousel (JSON):\n${JSON.stringify(current)}\n\nRewrite it as the partner asks, keeping everything else:\n<request>\n${instruction}\n</request>`, CAROUSEL_SCHEMA, checkCarousel, carouselText, lesson);
+    const { error } = await svc.from("studio_pieces").update({ content: deck, revisions: p.revisions + 1, updated_at: now() }).eq("id", p.id);
+    if (error) throw new Error(`carousel rewrite: ${error.message}`);
+    return jsonResponse({ ok: true });
+  }
+
+  if (action === "carousel_approve") {
+    const p = await load("carousel");
+    if (p.status !== "draft" && p.status !== "failed") throw new HttpError(409, "these slides are already ordered");
+    let host: string | null = null;
+    try { host = c.kit.website ? new URL(c.kit.website).hostname.replace(/^www\./, "") : null; } catch { host = null; }
+    // the brand as it is now travels with the slides, so a later brand change cannot alter an ordered carousel
+    const render = { issuer_name: issuer.name, theme: c.kit.theme, color_main: c.kit.color_main, color_accent: c.kit.color_accent, logo_path: c.kit.logo_path, url: host };
+    const { error } = await svc.from("studio_pieces").update({ content: { ...checkCarousel(p.content), render }, deck: null, error: null, updated_at: now() }).eq("id", p.id).in("status", ["draft", "failed"]);
+    if (error) throw new Error(`carousel snapshot: ${error.message}`);
+    await reserve(p.id, "carousel");
+    return jsonResponse({ ok: true });
+  }
+
   if (action === "piece_save") {
     const p = await load();
-    let content: Article | Podcast;
+    let content: Article | Podcast | Carousel;
     if (p.kind === "article") {
       if (p.status !== "done") throw new HttpError(409, "this article is not finished yet");
       content = checkArticle(body.content);
+    } else if (p.kind === "carousel") {
+      const next = checkCarousel(body.content);
+      if (p.status === "done") content = { ...checkCarousel(p.content), render: p.content.render, caption: next.caption } as Carousel; // the slides are made; the caption stays editable
+      else if (p.status === "draft" || p.status === "failed") content = next;
+      else throw new HttpError(409, "these slides are being made");
     } else {
       if (p.status !== "draft" && p.status !== "failed") throw new HttpError(409, "only a script that is not being made can change");
       content = checkPodcast(body.content, p.language);
@@ -343,7 +457,7 @@ export async function handlePiece(action: string, c: PieceCtx): Promise<Response
 
   if (action === "piece_archive") {
     const p = await load();
-    if (p.status === "approved" || p.status === "rendering") throw new HttpError(409, "this episode is being made");
+    if (p.status === "approved" || p.status === "rendering") throw new HttpError(409, p.kind === "carousel" ? "these slides are being made" : "this episode is being made");
     // a counted piece stays counted; a script that never counted is simply removed
     const counted = p.kind === "article" || p.status === "done";
     const { error } = counted
@@ -356,34 +470,41 @@ export async function handlePiece(action: string, c: PieceCtx): Promise<Response
   throw new HttpError(400, "unknown action");
 }
 
-/** For the context action: the issuer's pieces (newest first, signed audio links) and each kind's month. */
+/** For the context action: the issuer's pieces (newest first, signed audio and slide links) and each kind's month. */
 export async function piecesContext(svc: Svc, issuerId: string) {
   const month = new Date().toISOString().slice(0, 8) + "01";
-  const [pieces, quota, used, aBal, pBal] = await Promise.all([
-    svc.from("studio_pieces").select("id, kind, status, language, prompt, sources, article_id, content, personas, revisions, error, stage, audio_path, duration_s, created_at, approved_at, rendered_at")
+  const [pieces, quota, used, aBal, pBal, cBal] = await Promise.all([
+    svc.from("studio_pieces").select("id, kind, status, language, prompt, sources, article_id, content, personas, revisions, error, stage, audio_path, deck, format, story, duration_s, created_at, approved_at, rendered_at")
       .eq("issuer_id", issuerId).is("archived_at", null).order("created_at", { ascending: false }).limit(60),
     svc.from("studio_piece_quota").select("kind, monthly_limit").eq("issuer_id", issuerId),
     svc.from("studio_pieces").select("kind").eq("issuer_id", issuerId).eq("quota_month", month).eq("funding", "monthly").in("status", ["approved", "rendering", "done"]),
     svc.rpc("studio_piece_balance", { p_issuer: issuerId, p_kind: "article" }),
     svc.rpc("studio_piece_balance", { p_issuer: issuerId, p_kind: "podcast" }),
+    svc.rpc("studio_piece_balance", { p_issuer: issuerId, p_kind: "carousel" }),
   ]);
-  for (const [n, r] of Object.entries({ pieces, quota, used, aBal, pBal })) {
+  for (const [n, r] of Object.entries({ pieces, quota, used, aBal, pBal, cBal })) {
     if ((r as { error?: { message: string } | null }).error) throw new Error(`pieces ${n}: ${(r as { error: { message: string } }).error.message}`);
   }
-  const rows = (pieces.data ?? []) as { id: string; kind: string; status: string; audio_path: string | null }[];
-  const paths = rows.filter((r) => r.status === "done" && r.audio_path).map((r) => r.audio_path as string);
+  const rows = (pieces.data ?? []) as { id: string; kind: string; status: string; audio_path: string | null; deck: { pdf?: unknown; slides?: unknown } | null }[];
+  const deckOf = (r: { status: string; deck: { pdf?: unknown; slides?: unknown } | null }) =>
+    r.status === "done" && typeof r.deck?.pdf === "string" && Array.isArray(r.deck.slides) ? { pdf: r.deck.pdf, slides: r.deck.slides.filter((x): x is string => typeof x === "string") } : null;
+  const paths = [...rows.filter((r) => r.status === "done" && r.audio_path).map((r) => r.audio_path as string),
+    ...rows.flatMap((r) => { const d = deckOf(r); return d ? [d.pdf, ...d.slides] : []; })];
   const signed = new Map<string, string>();
   if (paths.length) {
     const { data } = await svc.storage.from("studio").createSignedUrls(paths, 3600);
     for (const s of data ?? []) if (s.path && s.signedUrl) signed.set(s.path, s.signedUrl);
   }
-  const limitOf = (k: "article" | "podcast") => ((quota.data ?? []) as { kind: string; monthly_limit: number }[]).find((q) => q.kind === k)?.monthly_limit ?? DEFAULT_LIMIT[k];
+  const limitOf = (k: Kind) => ((quota.data ?? []) as { kind: string; monthly_limit: number }[]).find((q) => q.kind === k)?.monthly_limit ?? DEFAULT_LIMIT;
   const usedOf = (k: string) => ((used.data ?? []) as { kind: string }[]).filter((u) => u.kind === k).length;
   return {
-    pieces: rows.map(({ audio_path, ...r }) => ({ ...r, audio_url: audio_path ? signed.get(audio_path) ?? null : null })),
-    piece_quota: {
-      article: { limit: limitOf("article"), used: usedOf("article"), credits: Math.max(0, Number(aBal.data ?? 0)) },
-      podcast: { limit: limitOf("podcast"), used: usedOf("podcast"), credits: Math.max(0, Number(pBal.data ?? 0)) },
-    },
+    pieces: rows.map(({ audio_path, deck, ...r }) => {
+      const d = deckOf({ ...r, deck });
+      return { ...r, audio_url: audio_path ? signed.get(audio_path) ?? null : null,
+        deck: d ? { pdf_url: signed.get(d.pdf) ?? null, slide_urls: d.slides.map((x) => signed.get(x) ?? null) } : null };
+    }),
+    piece_quota: Object.fromEntries(KINDS.map((k) => [k, {
+      limit: limitOf(k), used: usedOf(k), credits: Math.max(0, Number((k === "article" ? aBal : k === "podcast" ? pBal : cBal).data ?? 0)),
+    }])) as Record<Kind, { limit: number; used: number; credits: number }>,
   };
 }
