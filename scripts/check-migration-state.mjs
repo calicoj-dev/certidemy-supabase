@@ -1030,6 +1030,12 @@ const FINGERPRINTS = {
       ? { ran: true, why: `all ${total} real credentials have material_updated_at >= 2026-10-11` }
       : { ran: false, why: `${older} of ${total} real credentials predate 2026-10-11` };
   },
+  409: async () => {
+    /* 409 adds carousels (studio_pieces.deck), formats and the real story. The column selectable is the print. */
+    return (await hasColumn("studio_pieces", "deck"))
+      ? { ran: true, why: "studio_pieces.deck is selectable" }
+      : { ran: false, why: "studio_pieces.deck is not selectable" };
+  },
   408: async () => {
     /* 408 makes the partner package 20 podcasts as well as 20 articles: studio_piece_default_limit() answering 20 is the print. */
     const n = await rpc("studio_piece_default_limit", {});
